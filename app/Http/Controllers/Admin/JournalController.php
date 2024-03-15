@@ -13,11 +13,13 @@ class JournalController extends Controller
 {
     private JournalInterface $journal;
     private JournalService $service;
+    
     public function __construct(JournalInterface $journal , JournalService $service)
     {
         $this->journal = $journal;
         $this->service = $service;
     }
+
     /**
      * Display a listing of the resource.
      */

@@ -2,27 +2,27 @@
 
 namespace App\Enum;
 
-enum StudentStatusEnum :string
+enum PicketingStatusEnum: string
 {
-    case ACCEPTED = 'accepted';
-    case DECLINED = 'declined';
     case PENDING = 'pending';
+    case ACCEPTED = 'accepted';
+    case REJECTED = 'rejected';
 
     public function label(): string
     {
         return match ($this) {
-            self::ACCEPTED => 'Diterima',
-            self::DECLINED => 'Ditolak',
             self::PENDING => 'Menunggu',
+            self::ACCEPTED => 'Diterima',
+            self::REJECTED => 'Ditolak',
         };
     }
 
     public function color(): string
     {
         return match ($this) {
-            self::ACCEPTED => 'success',
-            self::DECLINED => 'danger',
             self::PENDING => 'warning',
+            self::ACCEPTED => 'success',
+            self::REJECTED => 'danger',
         };
     }
 }

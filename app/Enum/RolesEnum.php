@@ -10,7 +10,7 @@ enum RolesEnum: string
     case OFFLINE = 'siswa-offline';
     case SCHOOL = 'sekolah';
 
-    public function badgeClass(): string
+    public function color(): string
     {
         return match ($this) {
             self::ADMIN => 'primary',
