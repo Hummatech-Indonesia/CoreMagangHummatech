@@ -487,7 +487,7 @@
             </div>
         </div>
     </div>
-
+    @yield('script')
 
     <!-- JAVASCRIPT -->
     <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
