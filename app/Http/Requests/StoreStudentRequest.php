@@ -22,7 +22,27 @@ class StoreStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            'identify_number' => 'required',
+            'birth_place' => 'required',
+            'birth_date' => 'required|date',
+            'class' => 'required',
+            'school' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'gender' => 'required',
+            'avatar' => 'required',
+            'cv' => 'required',
+            'self_statement' => 'required',
+            'parents_statement' => 'required',
+            'start_date' => 'required|date',
+            'finish_date' => 'required|date',
+            'major' => 'required',
+            'rfid' => 'nullable',
+            'internship_type' => 'required',
+            'division_id' => 'nullable',
+            'email' => 'required|email',
+            'password' => 'required',
         ];
     }
 }

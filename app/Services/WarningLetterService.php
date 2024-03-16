@@ -6,7 +6,7 @@ use App\Enum\TypeEnum;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\StoreJournalRequest;
 use App\Http\Requests\StoreLogoRequest;
-use App\Traits\UploadTrait;
+use App\Services\Traits\UploadTrait;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\StoreStructureRequest;

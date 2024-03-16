@@ -290,7 +290,7 @@
                                 <ul class="nav nav-sm flex-column">
 
                                     <li class="nav-item">
-                                        <a href="apps-chat.html" class="nav-link" data-key="t-chat"> Pendaftaran </a>
+                                        <a href="/approval" class="nav-link" data-key="t-chat"> Pendaftaran </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="apps-api-key.html" class="nav-link" data-key="t-api-key">Izin & Sakit</a>
