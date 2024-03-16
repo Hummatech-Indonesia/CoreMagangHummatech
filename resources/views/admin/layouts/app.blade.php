@@ -240,6 +240,9 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+
         <!-- ========== App Menu ========== -->
         <div class="app-menu navbar-menu">
             <!-- LOGO -->
@@ -275,7 +278,7 @@
                     <ul class="navbar-nav" id="navbar-nav">
                         <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="widgets.html">
+                            <a class="nav-link menu-link" href="/dashboard">
                                 <i class="mdi mdi-speedometer"></i> <span data-key="t-dashboards">Dashboards</span>
                             </a>
                         </li> <!-- end Dashboard Menu -->
@@ -307,7 +310,7 @@
                                 <ul class="nav nav-sm flex-column">
 
                                     <li class="nav-item">
-                                        <a href="charts-chartjs.html" class="nav-link" data-key="t-chartjs"> Jurnal  </a>
+                                        <a href="/journal" class="nav-link" data-key="t-chartjs"> Jurnal  </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="charts-echarts.html" class="nav-link" data-key="t-echarts"> Absensi </a>
