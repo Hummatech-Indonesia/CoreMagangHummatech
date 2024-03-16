@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\PicketController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/administrator/journal', function () {
+Route::get('journal', function () {
     return view('admin.page.journal');
 });
 
