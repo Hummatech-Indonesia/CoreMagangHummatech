@@ -3,21 +3,25 @@
 namespace App\Providers;
 
 use App\Contracts\Interfaces\AbsenteePermitInterface;
+use App\Contracts\Interfaces\ApprovalInterface;
 use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\CodeOfConductInterface;
 use App\Contracts\Interfaces\DivisionInterface;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\LetterheadsInterface;
+use App\Contracts\Interfaces\PaymentInterface;
 use App\Contracts\Interfaces\PicketingReportInterface;
 use App\Contracts\Interfaces\PicketInterface;
 use App\Contracts\Interfaces\ReportStudenttInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Repositories\AbsenteePermitRepository;
+use App\Contracts\Repositories\ApprovalRepository;
 use App\Contracts\Repositories\CourseRepository;
 use App\Contracts\Repositories\CodeOfConductRepository;
 use App\Contracts\Repositories\DivisionRepository;
 use App\Contracts\Repositories\JournalRepository;
 use App\Contracts\Repositories\LetterheadsRepository;
+use App\Contracts\Repositories\PaymentRepository;
 use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\PicketRepository;
 use App\Contracts\Repositories\ReportStudentRepository;
@@ -37,6 +41,8 @@ class AppServiceProvider extends ServiceProvider
         CourseInterface::class => CourseRepository::class,
         AbsenteePermitInterface::class => AbsenteePermitRepository::class,
         PicketingReportInterface::class => PicketingReportRepository::class,
+        ApprovalInterface::class => ApprovalRepository::class,
+        PaymentInterface::class => PaymentRepository::class,
     ];
 
     /**

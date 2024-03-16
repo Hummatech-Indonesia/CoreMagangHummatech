@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contracts\Interfaces\DivisionInterface;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -23,6 +24,8 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    private DivisionInterface $division;
+
     /**
      * Where to redirect users after registration.
      *
@@ -35,8 +38,9 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(DivisionInterface $division)
     {
+        $this->division = $division;
         $this->middleware('guest');
     }
 

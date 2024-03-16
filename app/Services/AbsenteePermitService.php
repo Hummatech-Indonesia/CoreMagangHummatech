@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Enum\TypeEnum;
 use App\Http\Requests\StoreCodeOfConductRequest;
-use App\Traits\UploadTrait;
+use App\Services\Traits\UploadTrait;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateCodeOfConductRequest;
 use App\Http\Requests\UpdateSaleRequest;

@@ -11,4 +11,8 @@ enum TypeEnum : string
     case VIDEOS_COURSE = 'videos_course';
     case LETTERHEAD = 'letterhead';
     case WARNING_LETTER = 'warning_letter';
+    case CV = 'cv';
+    case SELFSTATEMENT = 'self_statement';
+    case PARENTSSTATEMENT = 'parents_statement';
+    case AVATAR = 'avatar';
 }

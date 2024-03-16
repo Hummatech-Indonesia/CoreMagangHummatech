@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\StudentInterface;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Services\StudentService;
 
 class StudentController extends Controller
 {
+    private StudentInterface $student;
+    private StudentService $servicestudent;
+
+    public function __construct(StudentService $servicestudent, StudentInterface $student)
+    {
+        $this->student = $student;
+        $this->servicestudent = $servicestudent;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -29,7 +39,10 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
-        
+        $data = $this->servicestudent->store($request);
+        $this->student->store($data);
+
+        return redirect()->route('login');
     }
 
     /**

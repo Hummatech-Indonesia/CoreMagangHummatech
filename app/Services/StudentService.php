@@ -2,29 +2,11 @@
 
 namespace App\Services;
 
-use App\Enums\TypeEnum;
-use App\Http\Requests\StoreLogoRequest;
-use App\Traits\UploadTrait;
-use App\Http\Requests\StoreSaleRequest;
-use App\Http\Requests\StoreServiceRequest;
-use App\Http\Requests\StoreStructureRequest;
+use App\Enum\TypeEnum;
+use App\Services\Traits\UploadTrait;
 use App\Http\Requests\StoreStudentRequest;
-use App\Http\Requests\StoreTeamRequest;
-use App\Http\Requests\UpdateLogoRequest;
-use App\Http\Requests\UpdateProductRequest;
-use App\Http\Requests\UpdateSaleRequest;
-use App\Http\Requests\UpdateServiceRequest;
-use App\Http\Requests\UpdateStructureRequest;
 use App\Http\Requests\UpdateStudentRequest;
-use App\Http\Requests\UpdateTeamRequest;
-use App\Models\Logo;
-use App\Models\Product;
-use App\Models\Sale;
-use App\Models\Service;
-use App\Models\Structure;
 use App\Models\Student;
-use App\Models\Team;
-use Illuminate\Support\Facades\Log;
 
 class StudentService
 {
@@ -48,7 +30,7 @@ class StudentService
     /**
      * Handle store data event to models.
      *
-     * @param StoreSaleRequest $request
+     * @param StoreStudentRequest $request
      *
      * @return array|bool
      */
@@ -56,8 +38,13 @@ class StudentService
     {
         $data = $request->validated();
 
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $data['image'] = $request->file('image')->store($request->type, 'public');
+        // dd($data);
+
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid() || $request->hasFile('cv') && $request->file('cv')->isValid() || $request->hasFile('self_statement') && $request->file('self_statement')->isValid() || $request->hasFile('parent_statement') && $request->file('parent_statement')->isValid()) {
+            $data['avatar'] = $request->file('avatar')->store(TypeEnum::AVATAR->value, 'public');
+            $data['cv'] = $request->file('cv')->store(TypeEnum::CV->value, 'public');
+            $data['self_statement'] = $request->file('self_statement')->store(TypeEnum::SELFSTATEMENT->value, 'public');
+            $data['parents_statement'] = $request->file('parents_statement')->store(TypeEnum::PARENTSSTATEMENT->value, 'public');
             return $data;
         }
         return false;

@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\JournalInterface;
-use App\Http\Controllers\Controller;
 use App\Models\Journal;
 use App\Http\Requests\StoreJournalRequest;
 use App\Http\Requests\UpdateJournalRequest;
@@ -13,7 +12,7 @@ class JournalController extends Controller
 {
     private JournalInterface $journal;
     private JournalService $service;
-    
+
     public function __construct(JournalInterface $journal , JournalService $service)
     {
         $this->journal = $journal;
