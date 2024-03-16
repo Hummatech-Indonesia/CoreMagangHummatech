@@ -10,3 +10,4 @@ Route::get('rfid', function () {
     return view('admin.page.user.rfid');
 });
 
+

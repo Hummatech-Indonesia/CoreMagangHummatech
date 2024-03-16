@@ -115,6 +115,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                            
                             <!-- Pagination -->
                             <div class="d-flex justify-content-between px-3">
                                 <p>Showing 1 to 10 of 14 entries</p>
