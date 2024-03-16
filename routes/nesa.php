@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('journal', function () {
+Route::get('/administrator/journal', function () {
     return view('admin.page.journal');
 });
+
+Route::get('rfid', function () {
+    return view('admin.page.user.rfid');
+});
+

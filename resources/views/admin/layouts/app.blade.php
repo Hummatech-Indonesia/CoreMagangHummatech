@@ -278,7 +278,7 @@
                     <ul class="navbar-nav" id="navbar-nav">
                         <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="/dashboard">
+                            <a class="nav-link menu-link" href="/administrator">
                                 <i class="mdi mdi-speedometer"></i> <span data-key="t-dashboards">Dashboards</span>
                             </a>
                         </li> <!-- end Dashboard Menu -->
@@ -372,7 +372,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="widgets.html">
+                            <a class="nav-link menu-link" href="#">
                                 <i class="ri-pencil-ruler-2-line"></i> <span data-key="t-widgets">Piket</span>
                             </a>
                         </li>
@@ -396,7 +396,7 @@
                                         <a href="forms-pickers.html" class="nav-link" data-key="t-pickers"> Penanggung Jawab </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="forms-masks.html" class="nav-link" data-key="t-input-masks">RFID</a>
+                                        <a href="/rfid" class="nav-link" data-key="t-input-masks">RFID</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="forms-advanced.html" class="nav-link" data-key="t-advanced">Siswa Ditolak</a>
