@@ -44,11 +44,11 @@
         <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
           <div class="d-flex">
             <div class="unlimited-access-title">
-              <h6 class="fw-semibold fs-4 mb-6 text-dark w-85">Unlimited Access</h6>
+              <h6 class="fw-semibold fs-4 mb-6 text-dark ">Buka Kunci</h6>
               <button class="btn btn-primary fs-2 fw-semibold lh-sm">Langganan</button>
             </div>
-            <div class="unlimited-access-img">
-              <img src="assets-user/dist/images/backgrounds/rocket.png" alt="" class="img-fluid">
+            <div class="unlimited-access-img ">
+              <img src="{{ asset('assets-user/dist/images/backgrounds/rocket.png') }}" alt="" class="img-fluid">
             </div>
           </div>
         </div>
