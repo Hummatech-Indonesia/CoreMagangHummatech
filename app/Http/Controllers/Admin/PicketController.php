@@ -12,7 +12,7 @@ class PicketController extends Controller
 {
     private PicketInterface $picket;
 
-    public function __construct(Picket $picket)
+    public function __construct(PicketInterface $picket)
     {
         $this->picket = $picket;
     }
@@ -22,7 +22,7 @@ class PicketController extends Controller
     public function index()
     {
         $pickets = $this->picket->get();
-        return view('' , compact('pickets'));
+        return view('admin.page.picket.schedule' , compact('pickets'));
     }
 
     /**
