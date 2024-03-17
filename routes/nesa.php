@@ -17,4 +17,6 @@ Route::get('reject', function (){
 
 
 Route::get('picket' , [PicketController::class , 'index']);
-
+Route::get('report', function (){
+    return view('admin.page.picket.report');
+});
