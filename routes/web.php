@@ -22,10 +22,20 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/register/post', [StudentController::class, 'store']);
 
 # ================================================ Administrator Route Group ==================================================
+
+//dashboard
 Route::get('administrator', [AdminController::class, 'index']);
+
+//approval routes
 Route::prefix('approval')->controller(ApprovalController::class)->group(function () {
-    Route::get('/', 'index')->name('approval.index');
+    Route::get('/', 'index');
+    Route::get('show/{student}', 'show')->name('aproval');
+    Route::put('accept', 'accept');
+    Route::put('decline', 'decline');
 });
+
+
+
 # ================================================ Offline Student Route Group ================================================
 Route::get('siswa-offline', [StudentOflineController::class, 'index'])->name('siswa.offline');
 # ================================================ Online Student Route Group =================================================

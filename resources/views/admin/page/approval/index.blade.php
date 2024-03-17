@@ -27,7 +27,7 @@
                     <table id="myTable" class="table table-bordered dt-responsive nowrap table-striped align-middle">
                         <thead>
                             <tr>
-                                <th>No</th>   
+                                <th>No</th>
                                 <th>Nama</th>
                                 <th>Jurusan</th>
                                 <th>Kelas</th>
@@ -37,9 +37,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                            </tr>
+                            @foreach ($students as $student)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $student->name }}</td>
+                                    <td>{{ $student->major }}</td>
+                                    <td>{{ $student->class }}</td>
+                                    <td>{{ \carbon\Carbon::parse( $student->start_date)->isoFormat('dddd,D MMMM-Y') }} Sampai {{ \carbon\Carbon::parse( $student->start_date)->isoFormat('dddd,D MMMM-Y') }}</td>
+                                    <td>{{ $student->school }}</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a href="/approval/show/{{$student->id}}">Detail</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -50,15 +62,14 @@
     @include('admin.components.delete-modal-component')
 @endsection
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
     <script>
-
         let table = new DataTable('#myTable');
 
         $('.btn-edit').click(function() {
