@@ -11,3 +11,7 @@ Route::delete('division/{division}', [DivisionController::class, 'destroy'])->na
 Route::get('announcement', function() {
     return view('admin.page.announcement.index');
 });
+
+Route::get('absent', function() {
+    return view('admin.page.absent.index');
+});

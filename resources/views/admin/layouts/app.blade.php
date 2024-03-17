@@ -313,7 +313,7 @@
                                         <a href="/journal" class="nav-link" data-key="t-chartjs"> Jurnal  </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="charts-echarts.html" class="nav-link" data-key="t-echarts"> Absensi </a>
+                                        <a href="{{ url('absent') }}" class="nav-link" data-key="t-echarts"> Absensi </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="charts-echarts.html" class="nav-link" data-key="t-echarts"> Report </a>
@@ -344,7 +344,7 @@
 
                         <li class="nav-item">
                             <li class="nav-item">
-                                <a class="nav-link menu-link" href="/announcement">
+                                <a class="nav-link menu-link" href="{{ url('announcement') }}">
                                     <i class=" ri-radar-line"></i>  <span data-key="t-dashboards">Pengumuman</span>
                                 </a>
                             </li>
@@ -352,7 +352,7 @@
 
                         <li class="nav-item">
                             <li class="nav-item">
-                                <a class="nav-link menu-link" href="/division">
+                                <a class="nav-link menu-link" href="{{ url('division') }}">
                                     <i class=" ri-apps-line"></i>  <span data-key="t-dashboards">Divisi</span>
                                 </a>
                             </li>
