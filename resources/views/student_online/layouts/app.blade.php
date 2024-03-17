@@ -4,7 +4,7 @@
 <!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/main/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jul 2023 01:54:29 GMT -->
 <head>
     <!--  Title -->
-    <title>Mordenize</title>
+    <title>{{ env('APP_NAME') }}</title>
     <!--  Required Meta Tag -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -35,14 +35,14 @@
     <!--  Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-theme="blue_theme"  data-layout="vertical" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
       <!-- Sidebar Start -->
-        @include('student_offline.layouts.sidebar')
+        @include('student_online.layouts.sidebar')
       <!--  Sidebar End -->
       <!--  Main wrapper -->
       <div class="body-wrapper">
         <!--  Header Start -->
-        @include('student_offline.layouts.header')
+        @include('student_online.layouts.header')
         <!--  Header End -->
-        <div class="container-fluid">
+        <div class="px-4" style="padding-top: calc(70px + 15px);">
           <!--  Owl carousel -->
           @yield('content')
         </div>
