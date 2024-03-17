@@ -3,8 +3,8 @@
     <div class="card">
         <div class="card-body">
             <div class="row g-2">
-                <div class="col-sm-4">
-                    <h3 class="mx-5">Divisi</h3>
+                <div class="col-sm-4 align-items-center d-flex">
+                    <h5 class="mx-5 align-items-center">Approval Pendaftaran</h5>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
                     <div class="search-box mx-3">
@@ -12,8 +12,8 @@
                         <i class="ri-search-line search-icon"></i>
                     </div>
                     <div class="list-grid-nav hstack gap-1">
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
-                            Tambah Data
+                        <button class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#myModal">
+                            Edit Limit
                         </button>
                     </div>
                 </div>
@@ -23,66 +23,242 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-body">
-                    <table id="myTable" class="table table-bordered dt-responsive nowrap table-striped align-middle">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Jurusan</th>
-                                <th>Kelas</th>
-                                <th>Masa Magang</th>
-                                <th>Sekolah</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($students as $student)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $student->name }}</td>
-                                    <td>{{ $student->major }}</td>
-                                    <td>{{ $student->class }}</td>
-                                    <td>{{ \carbon\Carbon::parse( $student->start_date)->isoFormat('dddd,D MMMM-Y') }} Sampai {{ \carbon\Carbon::parse( $student->start_date)->isoFormat('dddd,D MMMM-Y') }}</td>
-                                    <td>{{ $student->school }}</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="/approval/show/{{$student->id}}">Detail</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="card-header align-items-center d-flex justify-content-between mx-3">
+                    <div class="d-flex gap-2">
+                        <p class="m-0">Show</p>
+                        <select name="" id="">
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <p class="m-0">entries</p>
+                    </div>
+                    <div>
+                        <span class="btn bg-secondary-subtle text-secondary">Limit saat ini 70</span>
+                    </div>
+                </div><!-- end card header -->
+
+                <div class="card-body mx-3">
+                    <div class="live-preview ">
+                        <div class="table-responsive table-card">
+                            <table class="table align-middle table-nowrap table-striped-columns mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col" style="width: 46px;">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                    id="cardtableCheck">
+                                                <label class="form-check-label" for="cardtableCheck"></label>
+                                            </div>
+                                        </th>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Nama</th>
+                                        <th scope="col">Jurusan</th>
+                                        <th scope="col">Kelas</th>
+                                        <th scope="col">Masa Magang</th>
+                                        <th scope="col">Sekolah</th>
+                                        <th scope="col" style="width: 150px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($students as $student)
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        id="cardtableCheck01">
+                                                    <label class="form-check-label" for="cardtableCheck01"></label>
+                                                </div>
+                                            </td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $student->name }}</td>
+                                            <td>{{ $student->major }}</td>
+                                            <td>{{ $student->class }}</td>
+                                            <td style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
+                                                {{ \carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}
+                                            </td>
+                                            <td>{{ $student->school }}</td>
+                                            <td>
+                                                <button type="button" data-id="{{ $student->id }}"
+                                                    data-name="{{ $student->name }}" data-phone="{{ $student->phone }}"
+                                                    data-address="{{ $student->address }}"
+                                                    data-birthdate="{{ $student->birth_date }}"
+                                                    data-birthplace="{{ $student->birth_place }}"
+                                                    data-startdate="{{ $student->start_date }}"
+                                                    data-finishdate="{{ $student->finish_date }}"
+                                                    data-school="{{ $student->school }}"
+                                                    data-avatar="{{ $student->avatar }}" data-cv="{{ $student->cv }}"
+                                                    data-selfstatement="{{ $student->self_statement }}"
+                                                    data-parentsstatement="{{ $student->parents_statement }}"
+                                                    class="btn bg-secondary-subtle text-secondary btn-detail">
+                                                    <i class="ri-eye-fill"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div><!-- end card-body -->
+            </div>
+        </div>
+    </div>
+
+    <!-- offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title" id="offcanvasRightLabel">Detail Pendaftar</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body p-0 overflow-hidden">
+            <div data-simplebar="init" style="height: calc(100vh - 112px);" class="simplebar-scrollable-y">
+                <div class="simplebar-wrapper" style="margin: 0px;">
+                    <div class="simplebar-height-auto-observer-wrapper">
+                        <div class="simplebar-height-auto-observer"></div>
+                    </div>
+                    <div class="simplebar-mask mt-4 overflow-y-scroll">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <img src="" class="avatar-xl rounded-circle show-image" alt="">
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center mt-4">
+                            <h4 class="show-name"></h4>
+                        </div>
+                        <div class="row mx-2">
+                            <div class="col-6 d-flex align-items-center gap-1">
+                                <i class="ri-map-pin-user-line fs-3 text-primary"></i>
+                                <p class="m-0 show-address"></p>
+                            </div>
+                            <div class="col-6 d-flex align-items-center gap-1">
+                                <i class=" ri-smartphone-line fs-3 text-primary"></i>
+                                <p class="m-0 show-phone"></p>
+                            </div>
+                            <div class="col-6 d-flex align-items-center gap-1">
+                                <i class="ri-gift-2-line fs-3 text-primary"></i>
+                                <p class="m-0 show-birthday"></p>
+                            </div>
+                            <div class="col-6 d-flex align-items-center gap-1">
+                                <i class="ri-calendar-line fs-3 text-primary"></i>
+                                <p class="m-0 show-start"></p>
+                            </div>
+                            <div class="col-6 d-flex align-items-center gap-1">
+                                <i class="ri-building-line fs-3 text-primary"></i>
+                                <p class="m-0 show-school"></p>
+                            </div>
+                            <div class="col-6 d-flex align-items-center gap-1">
+                                <i class="ri-calendar-line fs-3 text-primary"></i>
+                                <p class="m-0 show-finish"></p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center gap-2 mt-3">
+                            <form action="" method="POST" class="form-accepted">
+                                @csrf
+                                @method('put')
+                                <button class="btn btn-success" type="submit">Terima</button>
+                            </form>
+                            <form action="" class="form-declined" method="POST">
+                                @csrf
+                                @method('put')
+                                <button class="btn btn-warning" type="submit">Tolak</button>
+                            </form>
+                            <button class="btn btn-danger btn-delete">Hapus</button>
+                        </div>
+                        <div class="mt-3 mx-4">
+                            <h4>CV</h4>
+                            <img class="rounded show-cv" alt="200x200" width="330" src="">
+                            <div class="mt-2 d-flex justify-content-end">
+                                <a class="btn btn-primary download-cv" download="">Download</a>
+                            </div>
+                        </div>
+                        <div class="mt-3 mx-4">
+                            <h4>Pernyataan Orang tua</h4>
+                            <img class="rounded show-parent-statement" alt="200x200" width="330" src="">
+                            <div class="mt-2 d-flex justify-content-end ">
+                                <a class="btn btn-primary">Download</a>
+                            </div>
+                        </div>
+                        <div class="mt-3 mx-4">
+                            <h4>Pernyataan Diri</h4>
+                            <img class="rounded show-self-statement" alt="200x200" width="330" src="">
+                            <div class="mt-2 d-flex justify-content-end ">
+                                <a class="btn btn-primary">Download</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    {{-- modal edit division end --}}
+
+
+    <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+        style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Edit Limit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+                </div>
+                <div class="modal-body">
+                    <label for="">Limit</label>
+                    <input type="number" class="form-control" name="limit" id="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary ">Save Changes</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
     @include('admin.components.delete-modal-component')
 @endsection
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
-    <script>
-        let table = new DataTable('#myTable');
 
-        $('.btn-edit').click(function() {
-            var id = $(this).data('id');
-            var name = $(this).data('name');
-            $('#form-update').attr('action', '/division/' + id);
-            $('#name-edit').val(name);
-            $('#modal-edit').modal('show');
+    <script>
+        $('.btn-detail').click(function() {
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+            let avatar = $(this).data('avatar');
+            let address = $(this).data('address');
+            let phone = $(this).data('phone');
+            let birth_date = $(this).data('birthdate');
+            let birth_place = $(this).data('birthplace');
+            let start_date = $(this).data('startdate');
+            let finish_date = $(this).data('finishdate');
+            let school = $(this).data('school');
+            let cv = $(this).data('cv');
+            let self_statement = $(this).data('selfstatement');
+            let parents_statement = $(this).data('parentsstatement');
+
+            $('.show-name').text(name);
+            $('.show-image').attr('src', '{{ asset('storage') }}/' + avatar);
+            $('.show-address').text(address);
+            $('.show-phone').text(phone);
+            $('.show-birthday').text(birth_place + ',' + birth_date)
+            $('.show-start').text(start_date);
+            $('.show-school').text(school);
+            $('.show-finish').text(finish_date);
+            $('.show-cv').attr('src', '{{ asset('storage') }}/' + cv);
+            $('.show-parent-statement').attr('src', '{{ asset('storage') }}/' + parents_statement);
+            $('.show-self-statement').attr('src', '{{ asset('storage') }}/' + self_statement);
+            $('.btn-delete').attr('data-id', id);
+
+            $('.form-accepted').attr('action', 'approval/accept/' + id);
+            $('.form-declined').attr('action', 'approval/decline/' + id);
+
+
+            $('#offcanvasRight').offcanvas('show');
         });
 
         $('.btn-delete').click(function() {
             var id = $(this).data('id');
-            $('#form-delete').attr('action', '/division/' + id);
+            $('#form-delete').attr('action', '/approval/delete/' + id);
             $('#modal-delete').modal('show');
         });
     </script>
