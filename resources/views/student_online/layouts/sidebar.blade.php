@@ -24,14 +24,53 @@
           <!-- Dashboard -->
           <!-- =================== -->
           <li class="sidebar-item">
-            <a class="sidebar-link" href="index-2.html" aria-expanded="false">
+            <a class="sidebar-link" href="/siswa-online" aria-expanded="false">
               <span>
                 <i class="ti ti-aperture"></i>
               </span>
-              <span class="hide-menu">Modern</span>
+              <span class="hide-menu">Dashboard</span>
             </a>
           </li>
-
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="/class/division" aria-expanded="false">
+              <span>
+                <i class="ti ti-aperture"></i>
+              </span>
+              <span class="hide-menu">Kelas Divisi</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="#" aria-expanded="false">
+              <span>
+                <i class="ti ti-aperture"></i>
+              </span>
+              <span class="hide-menu">Materi</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="#" aria-expanded="false">
+              <span>
+                <i class="ti ti-aperture"></i>
+              </span>
+              <span class="hide-menu">Tugas</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="#" aria-expanded="false">
+              <span>
+                <i class="ti ti-aperture"></i>
+              </span>
+              <span class="hide-menu">Jadwal Mentor</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a class="sidebar-link" href="#" aria-expanded="false">
+              <span>
+                <i class="ti ti-aperture"></i>
+              </span>
+              <span class="hide-menu">Sertifikat</span>
+            </a>
+          </li>
         </ul>
         <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
           <div class="d-flex">
