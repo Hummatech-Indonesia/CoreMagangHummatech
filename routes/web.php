@@ -29,9 +29,9 @@ Route::get('administrator', [AdminController::class, 'index']);
 //approval routes
 Route::prefix('approval')->controller(ApprovalController::class)->group(function () {
     Route::get('/', 'index');
-    Route::get('show/{student}', 'show')->name('aproval');
-    Route::put('accept', 'accept');
-    Route::put('decline', 'decline');
+    Route::put('/accept/{student}', 'accept');
+    Route::put('/decline/{student}', 'decline');
+    Route::delete('/delete/{student}', 'delete');
 });
 
 

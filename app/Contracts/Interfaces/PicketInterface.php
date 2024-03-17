@@ -6,7 +6,7 @@ use App\Contracts\Interfaces\Eloquent\GetInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
-interface PicketsInterface extends GetInterface , StoreInterface ,UpdateInterface ,DeleteInterface
+interface PicketInterface extends GetInterface , StoreInterface ,UpdateInterface ,DeleteInterface
 {
 
 }

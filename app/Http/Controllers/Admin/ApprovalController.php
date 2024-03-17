@@ -24,20 +24,24 @@ class ApprovalController extends Controller
         return view('admin.page.approval.index' , compact('students'));
     }
 
-    public function show(Student $student)
-    {
-        $students = $this->approval->where();
 
-        return view('admin.page.approval.detail' , compact('students'));
+    public function accept(Student $student)
+    {
+        $data = ['status' => 'accepted'];
+        $this->student->update($student->id, $data);
+
+        return back()->with('success', 'Berhasil Menerima Siswa Baru');
     }
 
-    public function accept(Student $student,AcceptedAprovalRequest $request)
+    public function decline(Student $student)
     {
-        $this->student->update($student->id, $request->validate());
+        $data = ['status' => 'declined'];
+        $this->student->update($student->id, $data);
+        return back()->with('success', 'Berhasil Menolak Siswa Baru');
     }
 
-    public function decline(Student $student,DeclinedAprovalRequest $request)
+    public function delete(Student $student)
     {
-        $this->student->update($student->id, $request->validated());
+        $this->delete($student->id);
     }
 }
