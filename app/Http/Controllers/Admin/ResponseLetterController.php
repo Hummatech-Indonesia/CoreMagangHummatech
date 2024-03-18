@@ -1,19 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\ResponseLetter;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreResponseLetterRequest;
 use App\Http\Requests\UpdateResponseLetterRequest;
+use App\Contracts\Interfaces\ResponseLetterInterface;
 
 class ResponseLetterController extends Controller
 {
+    private ResponseLetterInterface $responseLetter;
+
+    public function __construct(ResponseLetterInterface $responseLetter)
+    {
+        $this->responseLetter = $responseLetter;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $responsesletters = $this->responseLetter->get();
+
+        return view('admin.page.responseletters.index', compact('responsesletters'));
     }
 
     /**

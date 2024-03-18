@@ -27,4 +27,9 @@ class Student extends Model implements HasAttendances
     {
         return $this->hasMany(WarningLetter::class);
     }
+
+    public function responseLetters(): HasMany
+    {
+        return $this->hasMany(ResponseLetter::class);
+    }
 }
