@@ -2,42 +2,52 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
+use App\Models\Logo;
+use App\Models\Sale;
+use App\Models\Team;
 use App\Enum\TypeEnum;
-use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\StoreJournalRequest;
-use App\Http\Requests\StoreLogoRequest;
-use App\Services\Traits\UploadTrait;
-use App\Http\Requests\StoreSaleRequest;
-use App\Http\Requests\StoreServiceRequest;
-use App\Http\Requests\StoreStructureRequest;
-use App\Http\Requests\StoreStudentRequest;
-use App\Http\Requests\StoreTeamRequest;
-use App\Http\Requests\StoreWarning_LetterRequest;
-use App\Http\Requests\UpdateCourseRequest;
-use App\Http\Requests\UpdateJournalRequest;
-use App\Http\Requests\UpdateLogoRequest;
-use App\Http\Requests\UpdateProductRequest;
-use App\Http\Requests\UpdateSaleRequest;
-use App\Http\Requests\UpdateServiceRequest;
-use App\Http\Requests\UpdateStructureRequest;
-use App\Http\Requests\UpdateStudentRequest;
-use App\Http\Requests\UpdateTeamRequest;
-use App\Http\Requests\UpdateWarning_LetterRequest;
 use App\Models\Course;
 use App\Models\Journal;
-use App\Models\Logo;
 use App\Models\Product;
-use App\Models\Sale;
 use App\Models\Service;
-use App\Models\Structure;
 use App\Models\Student;
-use App\Models\Team;
+use App\Models\Structure;
 use App\Models\WarningLetter;
 use Illuminate\Support\Facades\Log;
+use App\Services\Traits\UploadTrait;
+use App\Http\Requests\StoreLogoRequest;
+use App\Http\Requests\StoreSaleRequest;
+use App\Http\Requests\StoreTeamRequest;
+use App\Http\Requests\UpdateLogoRequest;
+use App\Http\Requests\UpdateSaleRequest;
+use App\Http\Requests\UpdateTeamRequest;
+use App\Http\Requests\StoreCourseRequest;
+use App\Http\Requests\StoreJournalRequest;
+use App\Http\Requests\StoreServiceRequest;
+use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateCourseRequest;
+use App\Http\Requests\UpdateJournalRequest;
+use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\UpdateServiceRequest;
+use App\Http\Requests\UpdateStudentRequest;
+use App\Http\Requests\StoreStructureRequest;
+use App\Http\Requests\UpdateStructureRequest;
+use App\Contracts\Interfaces\StudentInterface;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use App\Http\Requests\StoreWarning_LetterRequest;
+use App\Http\Requests\UpdateWarning_LetterRequest;
 
 class WarningLetterService
 {
     use UploadTrait;
+
+    private StudentInterface $students;
+
+    public function __construct(StudentInterface $students)
+    {
+        $this->students = $students;
+    }
 
     /**
      * Handle custom upload validation.
@@ -61,15 +71,35 @@ class WarningLetterService
      *
      * @return array|bool
      */
-    public function store(StoreWarning_LetterRequest $request): array|bool
+    public function store(StoreWarning_LetterRequest $request, WarningLetter $warningLetter,): array|bool
     {
         $data = $request->validated();
+        $student = $this->students->where('id', $data['student_id'])->first();
+        // dd($student);
+        $dataForPdf = [
+            'name' => $student->name,
+            'reference_number' => $request->reference_number,
+            'status' => $request->status,
+            'school' => $student->school,
+            'reason' => $request->reason,
+            'date' => Carbon::parse($request->input('date'))->locale('id')->isoFormat('D MMMM Y'),
+        ];
 
-        if ($request->hasFile('file') && $request->file('file')->isValid()) {
-            $data['file'] = $request->file('file')->store(TypeEnum::WARNING_LETTER->value, 'public');
-            return $data;
-        }
-        return false;
+        $pdf = FacadePdf::loadView('desain_pdf.percobaan', ['data' => $dataForPdf]);
+        $generatedPdfName = 'pdf_' . time() . '.pdf';
+        $pdf->save(storage_path('app/public/'.TypeEnum::WARNING_LETTER->value . '/' . $generatedPdfName));
+        $nomor_surat = $request->reference_number . "/SP/PKL/I/" . Carbon::now()->format('Y');
+
+        $data = [
+            'student_id' => $request->student_id,
+            'status' => $request->status,
+            'reference_number' => $nomor_surat,
+            'file' => $generatedPdfName,
+            'reason' => $request->reason,
+            'date' => $request->date,
+        ];
+
+        return $data;
     }
 
     /**
@@ -87,7 +117,7 @@ class WarningLetterService
         if ($request->hasFile('file') && $request->file('file')->isValid()) {
             $this->remove($warningLetter->file);
             $data['file'] = $request->file('file')->store(TypeEnum::WARNING_LETTER->value, 'public');
-        }else {
+        } else {
             $data['file'] = $warningLetter->file;
         }
 

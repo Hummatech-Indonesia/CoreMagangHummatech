@@ -62,4 +62,14 @@ class StudentRepository extends BaseRepository implements StudentInterface
     {
         return $this->model->query()->findOrFail($id)->delete($id);
     }
+
+    public function where(): mixed
+    {
+        return $this->model->query()
+        ->where('status', 'accepted')
+        ->where('acepted', '1')
+        ->get();
+    }
+
+
 }

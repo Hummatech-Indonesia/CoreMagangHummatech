@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ApprovalController;
+use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
@@ -31,6 +32,11 @@ Route::prefix('approval')->controller(ApprovalController::class)->group(function
     Route::put('/accept/{student}', 'accept');
     Route::put('/decline/{student}', 'decline');
     Route::delete('/delete/{student}', 'delete');
+});
+
+Route::prefix('warning-letter')->controller(WarningLetterController::class)->group(function () {
+   Route::get('/', 'index');
+   Route::post('/store', 'store');
 });
 
 

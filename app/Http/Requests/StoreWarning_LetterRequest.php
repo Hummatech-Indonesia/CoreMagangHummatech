@@ -22,10 +22,11 @@ class StoreWarning_LetterRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'student_id' => 'required',
             'status' => 'required',
             'date' => 'required',
             'reference_number' => 'required',
-            'file' => 'required'
+            'reason' => 'required',
         ];
     }
 }
