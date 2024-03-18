@@ -82,7 +82,6 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
         $error = curl_error($curl);
 
         curl_close($curl);
-        dd($response);
         return $response ?: $error;
     }
 }
