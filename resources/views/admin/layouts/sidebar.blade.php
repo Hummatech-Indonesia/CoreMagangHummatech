@@ -37,8 +37,8 @@
                         <i class="mdi mdi-speedometer"></i> <span data-key="t-dashboards">Dashboards</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
-                <li class="nav-item {{ request()->is('/administrator/voucher-code') ? 'active' : '' }}">
-                    <a class="nav-link menu-link" href="{{ url('/administrator/voucher-code') }}">
+                <li class="nav-item {{ request()->is('/administrator/voucher') ? 'active' : '' }}">
+                    <a class="nav-link menu-link" href="{{ url('/administrator/voucher') }}">
                         <i class=" las la-gift"></i> <span data-key="t-dashboards">Kode vocer</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
@@ -95,7 +95,7 @@
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
-                                <a href="/registration" class="nav-link" data-key="t-chat"> Pendaftaran </a>
+                                <a href="{{ url('/administrator/response-letter') }}" class="nav-link" data-key="t-chat"> Pendaftaran </a>
                             </li>
                             <li class="nav-item">
                                 <a href="apps-api-key.html" class="nav-link" data-key="t-api-key">Izin &
@@ -105,7 +105,7 @@
                                 <a href="apps-api-key.html" class="nav-link" data-key="t-api-key">TopUp</a>
                             </li>
                             <li class="nav-item">
-                                <a href="/warning-letter" class="nav-link" data-key="t-api-key">SP</a>
+                                <a href="{{ url('administrator/warning-letter') }}" class="nav-link" data-key="t-api-key">SP</a>
                             </li>
                         </ul>
                     </div>
@@ -113,7 +113,7 @@
 
                 <li class="nav-item">
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ url('announcement') }}">
+                    <a class="nav-link menu-link" href="{{ url('administrator/announcement') }}">
                         <i class=" ri-radar-line"></i> <span data-key="t-dashboards">Pengumuman</span>
                     </a>
                 </li>
@@ -121,7 +121,7 @@
 
                 <li class="nav-item">
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ url('division') }}">
+                    <a class="nav-link menu-link" href="{{ url('administrator/division') }}">
                         <i class=" ri-apps-line"></i> <span data-key="t-dashboards">Divisi</span>
                     </a>
                 </li>

@@ -7,9 +7,17 @@
                     <h5 class="mx-5 align-items-center">Kode Voucher</h5>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
-                    <div class="search-box mx-3">
-                        <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa...">
-                        <i class="ri-search-line search-icon"></i>
+                    <div class="search-box mx-2">
+                        <select name="" id="" class="form-select">
+                            <option value="">Terbaru</option>
+                            <option value="">Terlama</option>
+                        </select>
+                    </div>
+                    <div class="search-box mx-2">
+                        <select name="" id="" class="form-select">
+                            <option value="">Tersedia</option>
+                            <option value="">Kadaluarsa</option>
+                        </select>
                     </div>
                     <div class="list-grid-nav hstack gap-1">
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
