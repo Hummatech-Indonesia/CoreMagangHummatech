@@ -28,6 +28,7 @@ use App\Contracts\Repositories\ApprovalRepository;
 use App\Contracts\Repositories\DivisionRepository;
 use App\Contracts\Interfaces\CodeOfConductInterface;
 use App\Contracts\Interfaces\AbsenteePermitInterface;
+use App\Contracts\Interfaces\AdminJournalInterface;
 use App\Contracts\Interfaces\ReportStudenttInterface;
 use App\Contracts\Interfaces\ResponseLetterInterface;
 use App\Contracts\Repositories\LetterheadsRepository;
@@ -35,6 +36,7 @@ use App\Contracts\Interfaces\PicketingReportInterface;
 use App\Contracts\Repositories\CodeOfConductRepository;
 use App\Contracts\Repositories\ReportStudentRepository;
 use App\Contracts\Repositories\AbsenteePermitRepository;
+use App\Contracts\Repositories\AdminJournalRepository;
 use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Repositories\PicketingReportRepository;
 
@@ -58,6 +60,7 @@ class AppServiceProvider extends ServiceProvider
         MaxLateInterface::class => MaxLateRepository::class,
         AttendanceInterface::class => AttendanceRepository::class,
         AttendanceDetailInterface::class => AttendanceDetailRepository::class,
+        AdminJournalInterface::class => AdminJournalRepository::class
     ];
 
     /**
