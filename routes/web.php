@@ -47,9 +47,10 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
         Route::get('/', 'index')->name('.registration');
     });
 
-    // Voucher
     Route::prefix('voucher-code')->controller(VoucherController::class)->group(function () {
         Route::get('/', 'index');
+        Route::post('/store', 'store')->name('voucher-code.store');
+        Route::delete('/delete/{voucher}', 'destroy')->name('voucher-code.delete');
      });
 
 })->middleware(['roles:administrator', 'auth']);
