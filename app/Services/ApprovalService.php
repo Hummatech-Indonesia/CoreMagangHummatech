@@ -12,15 +12,18 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\AcceptedAprovalRequest;
 use App\Http\Requests\DeclinedAprovalRequest;
 use App\Contracts\Interfaces\ResponseLetterInterface;
+use App\Contracts\Interfaces\UserInterface;
 use App\Mail\DeclineApproval;
 
 class ApprovalService
 {
     private ResponseLetterInterface $responseLetter;
+    private UserInterface $user;
 
-    public function __construct(ResponseLetterInterface $responseLetter)
+    public function __construct(ResponseLetterInterface $responseLetter, UserInterface $user)
     {
         $this->responseLetter = $responseLetter;
+        $this->user = $user;
     }
 
     public function accept(AcceptedAprovalRequest $request, Student $student)
@@ -65,6 +68,16 @@ class ApprovalService
                 ->subject('Komfirmasi Pendaftran')
                 ->attachData($pdf->output(), "Konfirmasi.pdf");
         });
+
+        $dataUser = [
+            'name' => $student->name,
+            'email' => $student->email,
+            'password' => $student->password,
+            'student_id' => $student->id
+        ];
+
+        $this->user->store($dataUser);
+
         //Data For Update Status Students
         $data = ['status' => StudentStatusEnum::ACCEPTED->value];
 

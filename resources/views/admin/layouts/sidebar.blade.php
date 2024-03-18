@@ -38,6 +38,11 @@
                     </a>
                 </li> <!-- end Dashboard Menu -->
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="/voucher-code">
+                        <i class=" las la-gift"></i> <span data-key="t-dashboards">Kode vocer</span>
+                    </a>
+                </li> <!-- end Dashboard Menu -->
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarApps1" data-bs-toggle="collapse"
                         role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class=" ri-bookmark-2-fill"></i> <span data-key="t-apps">Approval</span>

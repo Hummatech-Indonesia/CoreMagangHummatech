@@ -2,48 +2,52 @@
 
 namespace App\Providers;
 
-use App\Contracts\Interfaces\AbsenteePermitInterface;
-use App\Contracts\Interfaces\AdminJournalInterface;
-use App\Contracts\Interfaces\ApprovalInterface;
-use App\Contracts\Interfaces\CourseInterface;
-use App\Contracts\Interfaces\CodeOfConductInterface;
-use App\Contracts\Interfaces\DivisionInterface;
-use App\Contracts\Interfaces\JournalInterface;
-use App\Contracts\Interfaces\LetterheadsInterface;
-use App\Contracts\Interfaces\PaymentInterface;
-use App\Contracts\Interfaces\PicketingReportInterface;
-use App\Contracts\Interfaces\PicketInterface;
-use App\Contracts\Interfaces\ReportStudenttInterface;
-use App\Contracts\Interfaces\StudentInterface;
-use App\Contracts\Repositories\AbsenteePermitRepository;
-use App\Contracts\Repositories\ApprovalRepository;
-use App\Contracts\Repositories\CourseRepository;
-use App\Contracts\Repositories\CodeOfConductRepository;
-use App\Contracts\Repositories\DivisionRepository;
-use App\Contracts\Repositories\JournalRepository;
-use App\Contracts\Repositories\LetterheadsRepository;
-use App\Contracts\Repositories\PaymentRepository;
-use App\Contracts\Repositories\PicketingReportRepository;
-use App\Contracts\Repositories\PicketRepository;
-use App\Contracts\Repositories\ReportStudentRepository;
-use App\Contracts\Repositories\StudentRepository;
 use Illuminate\Support\Facades\URL;
-use App\Contracts\Interfaces\AttendanceDetailInterface;
-use App\Contracts\Interfaces\AttendanceInterface;
-use App\Contracts\Interfaces\AttendanceRuleInterface;
-use App\Contracts\Interfaces\MaxLateInterface;
-use App\Contracts\Repositories\AttendanceDetailRepository;
-use App\Contracts\Repositories\AttendanceRepository;
-use App\Contracts\Repositories\AttendanceRuleRepository;
-use App\Contracts\Repositories\MaxLateRepository;
 use Illuminate\Support\ServiceProvider;
-use App\Contracts\Interfaces\WarningLetterInterface;
-use App\Contracts\Interfaces\ResponseLetterInterface;
+use App\Contracts\Interfaces\CourseInterface;
+use App\Contracts\Interfaces\PicketInterface;
+use App\Contracts\Interfaces\JournalInterface;
+use App\Contracts\Interfaces\MaxLateInterface;
+use App\Contracts\Interfaces\PaymentInterface;
 use App\Contracts\Interfaces\ProductInterface;
-use App\Contracts\Repositories\WarningLetterRepository;
-use App\Contracts\Repositories\AdminJournalRepository;
-use App\Contracts\Repositories\ResponseLetterRepository;
+use App\Contracts\Interfaces\StudentInterface;
+use App\Contracts\Interfaces\VoucherInterface;
+use App\Contracts\Interfaces\ApprovalInterface;
+use App\Contracts\Interfaces\DivisionInterface;
+use App\Contracts\Repositories\CourseRepository;
+use App\Contracts\Repositories\PicketRepository;
+use App\Contracts\Interfaces\AttendanceInterface;
+use App\Contracts\Repositories\JournalRepository;
+use App\Contracts\Repositories\MaxLateRepository;
+use App\Contracts\Repositories\PaymentRepository;
 use App\Contracts\Repositories\ProductRepository;
+use App\Contracts\Repositories\StudentRepository;
+use App\Contracts\Repositories\VoucherRepository;
+use App\Contracts\Interfaces\LetterheadsInterface;
+use App\Contracts\Repositories\ApprovalRepository;
+use App\Contracts\Repositories\DivisionRepository;
+use App\Contracts\Interfaces\AdminJournalInterface;
+use App\Contracts\Interfaces\CodeOfConductInterface;
+use App\Contracts\Interfaces\WarningLetterInterface;
+use App\Contracts\Repositories\AttendanceRepository;
+use App\Contracts\Interfaces\AbsenteePermitInterface;
+use App\Contracts\Interfaces\AttendanceRuleInterface;
+use App\Contracts\Interfaces\ReportStudenttInterface;
+use App\Contracts\Interfaces\ResponseLetterInterface;
+use App\Contracts\Repositories\LetterheadsRepository;
+use App\Contracts\Interfaces\PicketingReportInterface;
+use App\Contracts\Repositories\AdminJournalRepository;
+use App\Contracts\Interfaces\AttendanceDetailInterface;
+use App\Contracts\Interfaces\UserInterface;
+use App\Contracts\Repositories\CodeOfConductRepository;
+use App\Contracts\Repositories\ReportStudentRepository;
+use App\Contracts\Repositories\WarningLetterRepository;
+use App\Contracts\Repositories\AbsenteePermitRepository;
+use App\Contracts\Repositories\AttendanceRuleRepository;
+use App\Contracts\Repositories\ResponseLetterRepository;
+use App\Contracts\Repositories\PicketingReportRepository;
+use App\Contracts\Repositories\AttendanceDetailRepository;
+use App\Contracts\Repositories\UserRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -68,6 +72,8 @@ class AppServiceProvider extends ServiceProvider
         AdminJournalInterface::class => AdminJournalRepository::class,
         ProductInterface::class => ProductRepository::class,
         WarningLetterInterface::class => WarningLetterRepository::class,
+        VoucherInterface::class => VoucherRepository::class,
+        UserInterface::class => UserRepository::class
     ];
 
     /**

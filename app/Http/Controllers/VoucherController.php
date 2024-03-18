@@ -20,7 +20,7 @@ class VoucherController extends Controller
     public function index()
     {
         $vouchers = $this->voucher->get();
-        return view('' , compact('vouchers'));
+        return view('admin.page.voucher.index' , compact('vouchers'));
     }
 
     /**

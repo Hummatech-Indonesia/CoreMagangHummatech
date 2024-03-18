@@ -1,14 +1,15 @@
 <?php
 namespace App\Contracts\Repositories;
 
+use App\Models\Product;
+use App\Models\Voucher;
 use App\Contracts\Interfaces\ProductInterface;
 use App\Contracts\Interfaces\VoucherInterface;
-use App\Models\Product;
 
 class VoucherRepository extends BaseRepository implements VoucherInterface
 {
-    private VoucherInterface  $voucher;
-    public function __construct(VoucherInterface $voucher)
+    private Voucher  $voucher;
+    public function __construct(Voucher $voucher)
     {
         $this->model = $voucher;
     }
