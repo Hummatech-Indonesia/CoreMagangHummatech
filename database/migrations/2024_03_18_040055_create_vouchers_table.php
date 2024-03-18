@@ -1,7 +1,5 @@
 <?php
 
-use App\Enum\DayEnum;
-use App\Enum\TimeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pickets', function (Blueprint $table) {
+        Schema::create('vouchers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->enum('tim' , [TimeEnum::MORNING->value , TimeEnum::AFTERNOON->value]);
+            $table->string('code_voucher');
+            $table->string('presentase');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pickets');
+        Schema::dropIfExists('vouchers');
     }
 };
