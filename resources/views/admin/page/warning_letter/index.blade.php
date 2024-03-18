@@ -1,4 +1,7 @@
 @extends('admin.layouts.app')
+@section('style')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endsection
 @section('content')
     <div class="card">
         <div class="card-body">
@@ -63,19 +66,21 @@
                                             <td>SP {{ $warningLetter->status }}</td>
                                             <td>
                                                 <a class="btn btn-light edit-item-btn"><i class="  ri-eye-line"></i></a>
-                                                <a class="btn btn-soft-warning edit-item-btn"><i class=" ri-printer-line"></i></a>
-                                                <a class="btn btn-soft-danger edit-item-btn"><i class="  bx bx-trash"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                                <a class="btn btn-soft-warning edit-item-btn"><i
+                                                        class=" ri-printer-line"></i></a>
+                                                <a class="btn btn-soft-danger edit-item-btn"><i
+                                                        class="  bx bx-trash"></i></a>
                         </div>
+                        </td>
+                        </tr>
+                        @endforeach
+                        </tbody>
+                        </table>
                     </div>
-                </div><!-- end card-body -->
-            </div>
+                </div>
+            </div><!-- end card-body -->
         </div>
+    </div>
     </div>
 
     <!-- Edit LImit -->
@@ -139,4 +144,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $('.select2').select2({
+            dropdownParent: $('#myModal')
+        });
+    </script>
 @endsection
