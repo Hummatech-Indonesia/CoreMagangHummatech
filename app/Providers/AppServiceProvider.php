@@ -2,6 +2,14 @@
 
 namespace App\Providers;
 
+use App\Contracts\Interfaces\AttendanceDetailInterface;
+use App\Contracts\Interfaces\AttendanceInterface;
+use App\Contracts\Interfaces\AttendanceRuleInterface;
+use App\Contracts\Interfaces\MaxLateInterface;
+use App\Contracts\Repositories\AttendanceDetailRepository;
+use App\Contracts\Repositories\AttendanceRepository;
+use App\Contracts\Repositories\AttendanceRuleRepository;
+use App\Contracts\Repositories\MaxLateRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\PicketInterface;
@@ -45,7 +53,11 @@ class AppServiceProvider extends ServiceProvider
         PicketingReportInterface::class => PicketingReportRepository::class,
         ApprovalInterface::class => ApprovalRepository::class,
         PaymentInterface::class => PaymentRepository::class,
-        ResponseLetterInterface::class => ResponseLetterRepository::class
+        ResponseLetterInterface::class => ResponseLetterRepository::class,
+        AttendanceRuleInterface::class => AttendanceRuleRepository::class,
+        MaxLateInterface::class => MaxLateRepository::class,
+        AttendanceInterface::class => AttendanceRepository::class,
+        AttendanceDetailInterface::class => AttendanceDetailRepository::class,
     ];
 
     /**
