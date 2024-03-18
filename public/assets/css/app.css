@@ -16246,3 +16246,12 @@ span.flatpickr-weekday {
   bottom: -18px;
   left: -35px;
 }
+
+.row-col{
+  display: flex;
+}
+@media (max-width: 975px) {
+  .row-col {
+    display: block;
+  }
+}
