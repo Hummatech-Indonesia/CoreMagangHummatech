@@ -261,7 +261,7 @@
                 </div>
                 <div class="modal-footer">
                     <div class="d-flex justify-content-end">
-                        <button class="purchase-btn btn btn-hover-effect btn-primary f-w-500" type="button" data-bs-dismiss="modal">Tutup</button>
+                        <button class="purchase-btn btn btn-hover-effect btn-light-danger text-danger f-w-500" type="button" data-bs-dismiss="modal">Tutup</button>
                     </div>
                 </div>
             </div>
