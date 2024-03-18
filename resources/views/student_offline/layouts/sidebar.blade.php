@@ -45,7 +45,7 @@
           <div class="d-flex">
             <div class="unlimited-access-title">
               <h6 class="fw-semibold fs-4 mb-6 text-dark ">Buka Kunci</h6>
-              <button class="btn btn-primary fs-2 fw-semibold lh-sm">Langganan</button>
+              <a href="/student-offline/langganan" class="btn btn-primary fs-2 fw-semibold lh-sm">Langganan</a>
             </div>
             <div class="unlimited-access-img ">
               <img src="{{ asset('assets-user/dist/images/backgrounds/rocket.png') }}" alt="" class="img-fluid">

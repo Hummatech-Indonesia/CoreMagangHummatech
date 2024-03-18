@@ -21,6 +21,7 @@ class ApprovalController extends Controller
         $this->student = $student;
         $this->service = $service;
     }
+    
     public function index()
     {
         $students = $this->approval->where();
@@ -28,11 +29,10 @@ class ApprovalController extends Controller
     }
 
 
-    public function accept( AcceptedAprovalRequest $request,Student $student)
+    public function accept(AcceptedAprovalRequest $request,Student $student)
     {
         $data = $this->service->accept($request, $student);
         $this->student->update($student->id, $data);
-
         return back()->with('success', 'Berhasil Menerima Siswa Baru');
     }
 

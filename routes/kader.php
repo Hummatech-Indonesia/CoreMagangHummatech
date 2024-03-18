@@ -14,3 +14,11 @@ Route::post('create/jurnal', [JournalController::class , 'store']);
 // Admin
 Route::get('permision', function () {return view('admin.page.approval.permision');});
 // end admin
+
+
+// student offline
+Route::get('student-offline/langganan', function () {return view('student_offline.langganan.index');});
+// end
+// student online
+Route::get('student-online/langganan', function () {return view('student_online.langganan.index');});
+// end

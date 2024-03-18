@@ -37,6 +37,7 @@ use App\Contracts\Interfaces\StudentInterface;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use App\Http\Requests\StoreWarning_LetterRequest;
 use App\Http\Requests\UpdateWarning_LetterRequest;
+use Illuminate\Support\Facades\Storage;
 
 class WarningLetterService
 {
@@ -87,7 +88,8 @@ class WarningLetterService
 
         $pdf = FacadePdf::loadView('desain_pdf.percobaan', ['data' => $dataForPdf]);
         $generatedPdfName = 'pdf_' . time() . '.pdf';
-        $pdf->save(storage_path('app/public/'.TypeEnum::WARNING_LETTER->value . '/' . $generatedPdfName));
+        $pdfPath = 'public/' . TypeEnum::WARNING_LETTER->value . '/' . $generatedPdfName;
+        Storage::put($pdfPath, $pdf->output());
         $nomor_surat = $request->reference_number . "/SP/PKL/I/" . Carbon::now()->format('Y');
 
         $data = [
