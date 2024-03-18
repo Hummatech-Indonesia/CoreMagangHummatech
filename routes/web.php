@@ -61,7 +61,7 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function(
 
 # ================================================ Online Student Route Group =================================================
 Route::prefix('siswa-online')->name(RolesEnum::ONLINE->value)->group(function() {
-    Route::get('siswa-online', [StudentOnlineController::class, 'index'])->name('.home');
+    Route::get('/', [StudentOnlineController::class, 'index'])->name('.home');
     Route::get('division', function () {
         return view('student_online.division.index');
     })->name('.class.division');
