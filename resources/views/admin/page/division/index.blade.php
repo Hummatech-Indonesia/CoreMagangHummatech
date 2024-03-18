@@ -5,7 +5,7 @@
     <div class="card-body">
         <div class="row g-2">
             <div class="col-sm-4">
-                <h3 class="mx-5">Divisi</h3>
+                <h3 class="mx-5 mb-0 mt-1">Divisi</h3>
             </div>
             <div class="col-sm-auto ms-auto d-flex">
                 <div class="search-box mx-3">
@@ -62,7 +62,9 @@
             </div>
         </div>
     @empty
-        
+        <p class="fs-5 text-dark text-center">
+            Data Masih Kosong
+        </p>
     @endforelse
 </div>
 
@@ -134,15 +136,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $('.btn-edit').click(function () {
-            var id = $(this).data('id'); 
-            var name = $(this).data('name'); 
+            var id = $(this).data('id');
+            var name = $(this).data('name');
             $('#form-update').attr('action', '/division/' + id);
             $('#name-edit').val(name);
             $('#modal-edit').modal('show');
         });
 
         $('.btn-delete').click(function () {
-            var id = $(this).data('id'); 
+            var id = $(this).data('id');
             $('#form-delete').attr('action', '/division/' + id);
             $('#modal-delete').modal('show');
         });
