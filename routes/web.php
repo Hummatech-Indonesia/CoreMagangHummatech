@@ -37,7 +37,7 @@ Route::prefix('approval')->controller(ApprovalController::class)->group(function
 
 # ================================================ Offline Student Route Group ================================================
 Route::get('siswa-offline', [StudentOflineController::class, 'index'])->name('siswa.offline');
-Route::get('siswa-offline/jurnal',[JournalController::class ,'index']);
+Route::get('student/journal',[JournalController::class ,'index']);
 # ================================================ Online Student Route Group =================================================
 Route::get('siswa-online', [StudentOnlineController::class, 'index'])->name('siswa.online');
 Route::get('class/division', function () {return view('student_online.division.index');});

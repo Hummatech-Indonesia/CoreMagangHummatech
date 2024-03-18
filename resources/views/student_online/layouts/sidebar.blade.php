@@ -32,6 +32,14 @@
             </a>
           </li>
           <li class="sidebar-item">
+            <a class="sidebar-link" href="/student/journal" aria-expanded="false">
+              <span>
+                <i class="ti ti-aperture"></i>
+              </span>
+              <span class="hide-menu">Jurnal</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
             <a class="sidebar-link" href="/class/division" aria-expanded="false">
               <span>
                 <i class="ti ti-aperture"></i>

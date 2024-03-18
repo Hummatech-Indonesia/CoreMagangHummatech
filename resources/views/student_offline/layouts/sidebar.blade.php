@@ -32,7 +32,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="/siswa-offline/jurnal" aria-expanded="false">
+            <a class="sidebar-link" href="/student/journal" aria-expanded="false">
               <span>
                 <i class="ti ti-aperture"></i>
               </span>

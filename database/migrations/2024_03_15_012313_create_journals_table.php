@@ -1,5 +1,6 @@
 <?php
 
+use App\StatusJournalEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->longText('description');
             $table->string('image');
+            $table->string('status' , [StatusJournalEnum::FILLIN->value , StatusJournalEnum::NOTFILLING->value]);
             $table->timestamps();
         });
     }

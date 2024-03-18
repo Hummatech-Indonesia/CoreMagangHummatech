@@ -25,7 +25,7 @@ class JournalController extends Controller
     public function index()
     {
         $journals = $this->journal->get();
-        return view('student_offline.journal.index' , compact('journals'));
+        return view('student_online_&_offline.journal.index' , compact('journals'));
     }
 
     /**
