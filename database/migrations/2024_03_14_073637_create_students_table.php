@@ -34,6 +34,8 @@ return new class extends Migration
             $table->foreignId('division_id')->nullable()->constrained()->cascadeOnUpdate()->restrictOnDelete();
             $table->string('parents_statement');
             $table->string('self_statement');
+            $table->string('school_address');
+            $table->string('school_phone');
             $table->enum('gender' , [GenderEnum::MALE->value , GenderEnum::FEMALE->value]);
             $table->string('start_date');
             $table->string('finish_date');

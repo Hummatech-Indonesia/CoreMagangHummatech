@@ -69,20 +69,21 @@
                                     <div class="row g-3">
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsUsername">Nama</label>
-                                            <input type="text" name="name" id="multiStepsUsername" value="{{ old('name') }}"
-                                                class="form-control" placeholder="Nama" />
+                                            <input type="text" name="name" id="multiStepsUsername"
+                                                value="{{ old('name') }}" class="form-control" placeholder="Nama" />
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsEmail">NISN/NIM</label>
-                                            <input type="number" name="identify_number" id="multiStepsEmail" value="{{ old('identify_number') }}"
-                                                class="form-control" placeholder="Nisn/Nim" aria-label="john.doe" />
+                                            <input type="number" name="identify_number" id="multiStepsEmail"
+                                                value="{{ old('identify_number') }}" class="form-control"
+                                                placeholder="Nisn/Nim" aria-label="john.doe" />
                                         </div>
                                         <div class="col-sm-6 form-password-toggle">
                                             <label class="form-label" for="multiStepsPass">Tempat Lahir</label>
                                             <div class="input-group input-group-merge">
                                                 <input type="text" id="multiStepsPass" name="birth_place"
-                                                    class="form-control" placeholder="Tempat Lahir" value="{{ old('birth_place') }}"
-                                                    aria-describedby="multiStepsPass2" />
+                                                    class="form-control" placeholder="Tempat Lahir"
+                                                    value="{{ old('birth_place') }}" aria-describedby="multiStepsPass2" />
                                                 <span class="input-group-text cursor-pointer" id="multiStepsPass2"><i
                                                         class="ti ti-eye-off"></i></span>
                                             </div>
@@ -90,27 +91,20 @@
                                         <div class="col-sm-6 form-password-toggle">
                                             <label class="form-label" for="multiStepsConfirmPass">Tanggal Lahir</label>
                                             <div class="input-group input-group-merge">
-                                                <input type="date" id="multiStepsConfirmPass" name="birth_date" value="{{ old('birth_date') }}"
-                                                    class="form-control" placeholder=""
+                                                <input type="date" id="multiStepsConfirmPass" name="birth_date"
+                                                    value="{{ old('birth_date') }}" class="form-control" placeholder=""
                                                     aria-describedby="multiStepsConfirmPass2" />
                                                 <span class="input-group-text cursor-pointer" id="multiStepsConfirmPass2"><i
                                                         class="ti ti-eye-off"></i></span>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label" for="multiStepsURL">Kelas</label>
-                                            <select name="class" class="form-select" id="">
-                                                <option selected disabled>Pilih Kelas</option>
-                                                <option value="10" {{ old('class') == '10' ? 'selected' : '' }}>10</option>
-                                                <option value="11" {{ old('class') == '11' ? 'selected' : '' }}>11</option>
-                                                <option value="12" {{ old('class') == '12' ? 'selected' : '' }}>12</option>
-                                                <option value="13" {{ old('class') == '13' ? 'selected' : '' }}>13</option>
-                                                <option value="scholar" {{ old('class') == 'scholar' ? 'selected' : '' }}>Mahasiswa</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label" for="multiStepsURL">Sekolah</label>
-                                            <input type="text" name="school" class="form-control" value="{{ old('school') }}" id="">
+                                        <div class="col-sm-12">
+                                            <label class="form-label" for="multiStepsLastName">Jenis Kelamin</label>
+                                            <br>
+                                            <input type="radio" id="multiStepsLastName" value="male" name="gender"
+                                                class="" placeholder="Doe" /> Laki-laki &nbsp;
+                                            <input type="radio" id="multiStepsLastName" value="female" name="gender"
+                                                class="" placeholder="Doe" /> Perempuan
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsFirstName">Alamat</label>
@@ -118,16 +112,39 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsLastName">No Hp</label>
-                                            <input type="number" id="multiStepsLastName" name="phone" value="{{ old('phone') }}"
-                                                class="form-control" placeholder="Doe" />
+                                            <input type="number" id="multiStepsLastName" name="phone"
+                                                value="{{ old('phone') }}" class="form-control" placeholder="Doe" />
                                         </div>
-                                        <div class="col-sm-12">
-                                            <label class="form-label" for="multiStepsLastName">Jenis Kelamin</label>
-                                            <br>
-                                            <input type="radio" id="multiStepsLastName" value="male" name="gender"
-                                                class="" placeholder="Doe"/> Laki-laki &nbsp;
-                                            <input type="radio" id="multiStepsLastName" value="female" name="gender"
-                                                class="" placeholder="Doe"/> Perempuan
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="multiStepsURL">Kelas</label>
+                                            <select name="class" class="form-select" id="">
+                                                <option selected disabled>Pilih Kelas</option>
+                                                <option value="10" {{ old('class') == '10' ? 'selected' : '' }}>10
+                                                </option>
+                                                <option value="11" {{ old('class') == '11' ? 'selected' : '' }}>11
+                                                </option>
+                                                <option value="12" {{ old('class') == '12' ? 'selected' : '' }}>12
+                                                </option>
+                                                <option value="13" {{ old('class') == '13' ? 'selected' : '' }}>13
+                                                </option>
+                                                <option value="scholar" {{ old('class') == 'scholar' ? 'selected' : '' }}>
+                                                    Mahasiswa</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="multiStepsURL">Sekolah</label>
+                                            <input type="text" name="school" class="form-control"
+                                                value="{{ old('school') }}" id="">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="form-label" for="multiStepsFirstName">Alamat Sekolah</label>
+                                            <textarea id="multiStepsFirstName" name="school_address" class="form-control" {{ old('address') }}
+                                                placeholder="John"></textarea>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="form-label" for="multiStepsLastName">No Telp Sekolah</label>
+                                            <input type="number" id="multiStepsLastName" name="school_phone"
+                                                value="{{ old('phone') }}" class="form-control" placeholder="Doe" />
                                         </div>
                                         <div class="col-12 d-flex justify-content-between mt-4">
                                             <button class="btn btn-label-secondary btn-prev" type="button" disabled> <i
@@ -173,31 +190,40 @@
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsMobile">Mulai Magang</label>
                                             <div class="input-group">
-                                                <input type="date" id="multiStepsMobile" name="start_date" value="{{ old('start_date') }}"
+                                                <input type="date" id="multiStepsMobile" name="start_date"
+                                                    value="{{ old('start_date') }}"
                                                     class="form-control multi-steps-mobile" placeholder="202 555 0111" />
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsPincode">Selesai Magang</label>
-                                            <input type="date" id="multiStepsPincode" name="finish_date" value="{{ old('finish_date') }}"
-                                                class="form-control multi-steps-pincode" placeholder="Postal Code"
-                                                maxlength="6" />
+                                            <input type="date" id="multiStepsPincode" name="finish_date"
+                                                value="{{ old('finish_date') }}" class="form-control multi-steps-pincode"
+                                                placeholder="Postal Code" maxlength="6" />
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsAddress">Pilih Jurusan</label>
                                             <select name="major" class="form-select" id="multiStepsAddress">
                                                 <option disabled selected>Pilih Jurusan</option>
-                                                <option value="rpl" {{ old('major')  == 'rpl' ? 'selected' : '' }}>Rekayasa Perangkat Lunak</option>
-                                                <option value="multimedia" {{ old('major')  == 'multimedia' ? 'selected' : '' }}>Multimedia</option>
-                                                <option value="ti" {{ old('major') == 'ti' ? 'selected' : '' }}>Teknik Informatika</option>
+                                                <option value="rpl" {{ old('major') == 'rpl' ? 'selected' : '' }}>
+                                                    Rekayasa Perangkat Lunak</option>
+                                                <option value="multimedia"
+                                                    {{ old('major') == 'multimedia' ? 'selected' : '' }}>Multimedia
+                                                </option>
+                                                <option value="ti" {{ old('major') == 'ti' ? 'selected' : '' }}>Teknik
+                                                    Informatika</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsAddress">Tipe Magang</label>
                                             <select name="internship_type" class="form-select" id="multiStepsAddress">
                                                 <option disabled selected>Pilih Jenis Magang</option>
-                                                <option value="online" {{ old('internship_type') == 'online' ? 'selected' : '' }}>online</option>
-                                                <option value="offline" {{ old('internship_type') == 'offline' ? 'selected' : '' }}>offline</option>
+                                                <option value="online"
+                                                    {{ old('internship_type') == 'online' ? 'selected' : '' }}>online
+                                                </option>
+                                                <option value="offline"
+                                                    {{ old('internship_type') == 'offline' ? 'selected' : '' }}>offline
+                                                </option>
                                             </select>
                                         </div>
                                         <div class="col-md-12">
@@ -205,7 +231,9 @@
                                             <select name="division_id" class="form-select" id="multiStepsAddress">
                                                 <option disabled selected>Pilih Divisi</option>
                                                 @foreach ($divisions as $division)
-                                                    <option value="{{ $division->id }}" {{ old('division_id') == $division->id ? 'selected' : '' }}>{{ $division->name }}</option>
+                                                    <option value="{{ $division->id }}"
+                                                        {{ old('division_id') == $division->id ? 'selected' : '' }}>
+                                                        {{ $division->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -227,8 +255,9 @@
                                     <div class="row g-3">
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsFirstName">Email</label>
-                                            <input type="email" id="multiStepsFirstName" name="email" value="{{ old('email') }}"
-                                                class="form-control" placeholder="email@gmail.com" />
+                                            <input type="email" id="multiStepsFirstName" name="email"
+                                                value="{{ old('email') }}" class="form-control"
+                                                placeholder="email@gmail.com" />
                                         </div>
 
                                         <div class="col-md-6">

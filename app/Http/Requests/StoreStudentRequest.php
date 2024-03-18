@@ -28,6 +28,8 @@ class StoreStudentRequest extends FormRequest
             'birth_date' => 'required|date',
             'class' => 'required',
             'school' => 'required',
+            'school_address' => 'required',
+            'school_phone' => 'required',
             'address' => 'required',
             'phone' => 'required',
             'gender' => 'required',

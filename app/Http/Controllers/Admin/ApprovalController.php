@@ -8,15 +8,18 @@ use App\Http\Requests\AcceptedAprovalRequest;
 use App\Http\Requests\DeclinedAprovalRequest;
 use App\Contracts\Interfaces\ApprovalInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Services\ApprovalService;
 
 class ApprovalController extends Controller
 {
     private ApprovalInterface $approval;
     private StudentInterface $student;
-    public function __construct(ApprovalInterface $approval, StudentInterface $student)
+    private ApprovalService $service;
+    public function __construct(ApprovalInterface $approval, StudentInterface $student, ApprovalService $service)
     {
         $this->approval = $approval;
         $this->student = $student;
+        $this->service = $service;
     }
     public function index()
     {
@@ -25,17 +28,17 @@ class ApprovalController extends Controller
     }
 
 
-    public function accept(Student $student)
+    public function accept( AcceptedAprovalRequest $request,Student $student)
     {
-        $data = ['status' => 'accepted'];
+        $data = $this->service->accept($request, $student);
         $this->student->update($student->id, $data);
 
         return back()->with('success', 'Berhasil Menerima Siswa Baru');
     }
 
-    public function decline(Student $student)
+    public function decline(DeclinedAprovalRequest $request,Student $student)
     {
-        $data = ['status' => 'declined'];
+        $data = $this->service->decline($request, $student);
         $this->student->update($student->id, $data);
         return back()->with('success', 'Berhasil Menolak Siswa Baru');
     }
