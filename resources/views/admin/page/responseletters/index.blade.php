@@ -53,8 +53,21 @@
                                             </td>
                                             <td>{{ $responsesletter->letter_number }}</td>
                                             <td>
-                                                <a href="" class="btn btn-soft-primary edit-item-btn"><i class="ri-eye-fill align-bottom me-1"></i></a>
-                                                <a href="" class="btn btn-soft-warning edit-item-btn"><i class="ri-printer-line align-bottom me-1"></i></a>
+                                                <a href="show/student/{{ $responsesletter->id }}"
+                                                    class="btn btn-soft-primary edit-item-btn"><i
+                                                        class="ri-eye-fill align-bottom me-1"></i></a>
+                                                <a href="{{ asset('storage/response_letter/' .$responsesletter->letter_file) }}"
+                                                    class="btn btn-soft-warning edit-item-btn"
+                                                    onclick="printPDF('{{ asset('storage/response_letter/' .$responsesletter->letter_file) }}'); return false;"><i
+                                                        class="ri-printer-line align-bottom me-1"></i></a>
+
+                                                <script>
+                                                    function printPDF(pdfUrl) {
+                                                        var printWindow = window.open(pdfUrl, '_blank');
+                                                        printWindow.addEventListener('load', function() {
+                                                        });
+                                                    }
+                                                </script>
                                             </td>
                                     @endforeach
                                 </tbody>

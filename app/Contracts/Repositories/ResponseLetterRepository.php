@@ -21,4 +21,10 @@ class ResponseLetterRepository extends BaseRepository implements ResponseLetterI
     {
         return $this->model->query()->create($data);
     }
+
+    public function show(mixed $id): mixed
+    {
+        return $this->model->query()->findOrFail($id)->where('student_id' , $id)->first();
+    }
+
 }

@@ -47,7 +47,8 @@ class ResponseLetterController extends Controller
      */
     public function show(ResponseLetter $responseLetter)
     {
-        //
+        $responsesletters = $this->responseLetter->show($responseLetter->id);
+        return view('admin.page.responseletters.show' , compact('responsesletters'));
     }
 
     /**
