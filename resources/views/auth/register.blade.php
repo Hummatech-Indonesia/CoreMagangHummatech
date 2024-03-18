@@ -70,7 +70,7 @@
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsUsername">Nama</label>
                                             <input type="text" name="name" id="multiStepsUsername"
-                                                value="{{ old('name') }}" class="form-control" placeholder="Nama" />
+                                                value="{{ old('name') }}" class="form-control" placeholder="Nama" onkeyup="capitalizeInput(this)"/>
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsEmail">NISN/NIM</label>
@@ -80,23 +80,17 @@
                                         </div>
                                         <div class="col-sm-6 form-password-toggle">
                                             <label class="form-label" for="multiStepsPass">Tempat Lahir</label>
-                                            <div class="input-group input-group-merge">
-                                                <input type="text" id="multiStepsPass" name="birth_place"
-                                                    class="form-control" placeholder="Tempat Lahir"
-                                                    value="{{ old('birth_place') }}" aria-describedby="multiStepsPass2" />
-                                                <span class="input-group-text cursor-pointer" id="multiStepsPass2"><i
-                                                        class="ti ti-eye-off"></i></span>
-                                            </div>
+                                            <input type="text" id="multiStepsPass" name="birth_place"
+                                                class="form-control" placeholder="Tempat Lahir"
+                                                value="{{ old('birth_place') }}" />
+
                                         </div>
                                         <div class="col-sm-6 form-password-toggle">
                                             <label class="form-label" for="multiStepsConfirmPass">Tanggal Lahir</label>
-                                            <div class="input-group input-group-merge">
-                                                <input type="date" id="multiStepsConfirmPass" name="birth_date"
-                                                    value="{{ old('birth_date') }}" class="form-control" placeholder=""
-                                                    aria-describedby="multiStepsConfirmPass2" />
-                                                <span class="input-group-text cursor-pointer" id="multiStepsConfirmPass2"><i
-                                                        class="ti ti-eye-off"></i></span>
-                                            </div>
+                                            <input type="date" id="multiStepsConfirmPass" name="birth_date"
+                                                value="{{ old('birth_date') }}" class="form-control" placeholder=""
+                                                aria-describedby="multiStepsConfirmPass2" />
+
                                         </div>
                                         <div class="col-sm-12">
                                             <label class="form-label" for="multiStepsLastName">Jenis Kelamin</label>
@@ -134,7 +128,8 @@
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsURL">Sekolah</label>
                                             <input type="text" name="school" class="form-control"
-                                                value="{{ old('school') }}" id="">
+                                                value="{{ old('school') }}" id="school-input"
+                                                onkeyup="capitalizeInput(this)">
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsFirstName">Alamat Sekolah</label>
@@ -262,13 +257,23 @@
 
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsAddress">Password</label>
-                                            <input type="password" id="multiStepsFirstName" name="password"
-                                                class="form-control" placeholder="password" />
+                                            <div class="input-group input-group-merge">
+                                                <input type="text" id="multiStepsPass" name="password"
+                                                    class="form-control" placeholder="Tempat Lahir"
+                                                    aria-describedby="multiStepsPass2" />
+                                                <span class="input-group-text cursor-pointer" id="multiStepsPass2"><i
+                                                        class="ti ti-eye-off"></i></span>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsAddress">konfirmasi password</label>
-                                            <input type="password" id="multiStepsFirstName" name=""
-                                                class="form-control" placeholder="password" />
+                                            <div class="input-group input-group-merge">
+                                                <input type="password" id="multiStepsFirstName" name="birth_date"
+                                                    class="form-control" placeholder="password"
+                                                    aria-describedby="multiStepsConfirmPass2" />
+                                                <span class="input-group-text cursor-pointer"
+                                                    id="multiStepsConfirmPass2"><i class="ti ti-eye-off"></i></span>
+                                            </div>
                                         </div>
                                         <div class="col-12 d-flex justify-content-between mt-4">
                                             <button class="btn btn-label-secondary btn-prev" type="button"> <i
@@ -295,6 +300,11 @@
     </script>
 @endsection
 @section('script')
+    <script>
+        function capitalizeInput(input) {
+            input.value = input.value.toUpperCase();
+        }
+    </script>
     <script>
         window.templateCustomizer = new TemplateCustomizer({
             cssPath: '',
