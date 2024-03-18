@@ -2,8 +2,9 @@
 
 namespace App\Contracts\Interfaces;
 
-use App\Contracts\Interfaces\Eloquent\PaymentInterface as EloquentPaymentInterface;
-use App\Contracts\Interfaces\Eloquent\TransactionInterface;
+use App\Contracts\Interfaces\Transaction\TransactionInterface;
+use App\Contracts\Interfaces\Transaction\CallbackInterface;
+use App\Contracts\Interfaces\Transaction\PaymentChannelInterface;
 
-interface PaymentInterface extends EloquentPaymentInterface , TransactionInterface
+interface PaymentInterface extends PaymentChannelInterface, TransactionInterface, CallbackInterface
 {}

@@ -13,7 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'roles' => RoleUserMiddleware::class
+            'roles' => RoleUserMiddleware::class,
+        ])->use([
+            // Add Autoload Middleware HereZ
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
