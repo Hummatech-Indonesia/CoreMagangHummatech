@@ -15,7 +15,7 @@ use App\Http\Controllers\StudentOnline\StudentOnlineController;
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 # ================================================ Authentication Routes Group ================================================
 Auth::routes();
