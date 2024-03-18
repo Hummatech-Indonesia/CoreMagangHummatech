@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->longText('description');
             $table->string('image');
-            $table->string('status' , [StatusJournalEnum::FILLIN->value , StatusJournalEnum::NOTFILLING->value]);
+            $table->enum('status' , [StatusJournalEnum::FILLIN->value , StatusJournalEnum::NOTFILLING->value]);
             $table->timestamps();
         });
     }
