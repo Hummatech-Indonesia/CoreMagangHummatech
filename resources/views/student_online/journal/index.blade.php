@@ -54,7 +54,16 @@
                             </p>
                         @enderror
                         <label for="" class="mt-2 mb-2">Deskripsi</label>
-                        <textarea name="description" id="" class="form-control"></textarea>
+                        <div id="editor" style="height: 300px">
+                            <p>Hello World!</p>
+                            <p>Some initial <strong>bold</strong> text</p>
+                            <p>
+                              <br />
+                            </p>
+                        </div>  
+                        <label for="deskripsi">Deskripsi <span style="font-size: .6875rem" class="text-danger">*Wajib diisi</span></label>
+                        <div id="editor" style="height: 12.5rem"></div>
+                        <textarea name="description" class="d-none description-hidden" id="description" cols="30" rows="10">{!! old('description') !!}</textarea>
                         @error('description')
                             <p class="text-danger">
                                 {{ $message }}
@@ -269,6 +278,9 @@
     </div>
 @endsection
 @section('script')
+    <script src="{{ asset('assets-user/dist/libs/quill/dist/quill.min.js') }}"></script>
+    <script src="{{ asset('assets-user/dist/libs/prismjs/prism.js') }}"></script>
+    <script src="{{ asset('assets-user/dist/js/custom.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
@@ -338,6 +350,12 @@
             var id = $(this).data('id'); 
             $('#form-delete').attr('action', '/division/' + id);
             $('#modal-delete').modal('show');
+        });
+    </script>
+
+    <script>
+        var quill = new Quill("#editor", {
+        theme: "snow",
         });
     </script>
 @endsection
