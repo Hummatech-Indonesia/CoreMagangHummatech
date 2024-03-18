@@ -40,7 +40,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="/class/division" aria-expanded="false">
+            <a class="sidebar-link" href="/siswa-online/division" aria-expanded="false">
               <span>
                 <i class="ti ti-aperture"></i>
               </span>
