@@ -94,9 +94,9 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
             ]);
         }
 
-        // $invoiceId = $data->merchant_ref;
-        // $tripayReference = $data->reference;
-        // $status = strtoupper((string) $data->status);
+        $invoiceId = $data->merchant_ref;
+        $tripayReference = $data->reference;
+        $status = strtolower((string) $data->status);
 
         if ($data->is_closed_payment === 1) {
             // $invoice = Invoice::where('id', $invoiceId)

@@ -46,7 +46,7 @@
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
-                                <a href="/approval" class="nav-link" data-key="t-chat"> Pendaftaran </a>
+                                <a href="{{ url('/administrator/approval') }}" class="nav-link" data-key="t-chat"> Pendaftaran </a>
                             </li>
                             <li class="nav-item {{ request()->is('/permision') ? 'active' : '' }}">
                                 <a href="/permision" class="nav-link" data-key="t-api-key">Izin & Sakit</a>

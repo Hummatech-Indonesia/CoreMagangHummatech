@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Payment;
 
 use App\Contracts\Interfaces\PaymentInterface;
+use App\Contracts\Interfaces\ProductInterface;
 use App\Helpers\TransactionHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,10 +11,12 @@ use Illuminate\Http\Request;
 class TripayController extends Controller
 {
     private PaymentInterface $payment;
+    private ProductInterface $product;
 
-    public function __construct(PaymentInterface $payment)
+    public function __construct(PaymentInterface $payment, ProductInterface $productData)
     {
         $this->payment = $payment;
+        $this->product = $productData;
     }
 
     public function index()
@@ -35,16 +38,9 @@ class TripayController extends Controller
                 'product_url' => 'https://tokokamu.com/product/nama-produk-1',
                 'image_url'   => 'https://tokokamu.com/product/nama-produk-1.jpg',
             ],
-            [
-                'name'        => 'Nama Produk 2',
-                'price'       => 100000,
-                'quantity'    => 1,
-                'product_url' => 'https://tokokamu.com/product/nama-produk-1',
-                'image_url'   => 'https://tokokamu.com/product/nama-produk-1.jpg',
-            ],
         ]);
 
-        return response()->json($response);
+        return redirect($response['data']['checkout_url']);
     }
 
     public function callback(Request $request)
