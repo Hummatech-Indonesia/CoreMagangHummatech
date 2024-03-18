@@ -84,7 +84,7 @@
           <div class="d-flex">
             <div class="unlimited-access-title">
               <h6 class="fw-semibold fs-4 mb-6 text-dark w-85">Unlimited Access</h6>
-              <button class="btn btn-primary fs-2 fw-semibold lh-sm">Langganan</button>
+              <a href="/student-online/langganan" class="btn btn-primary fs-2 fw-semibold lh-sm">Langganan</a>
             </div>
             <div class="unlimited-access-img">
               <img src="assets-user/dist/images/backgrounds/rocket.png" alt="" class="img-fluid">
