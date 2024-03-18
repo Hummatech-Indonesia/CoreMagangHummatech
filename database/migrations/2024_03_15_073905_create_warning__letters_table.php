@@ -14,10 +14,11 @@ return new class extends Migration
     {
         Schema::create('warning_letters', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('status' , [WarningLetterEnum::WARNING_LETTER_ONE->value , WarningLetterEnum::WARNING_LETTER_TWO->value ,WarningLetterEnum::WARNING_LETTER_THREE->value]);
             $table->date('date');
             $table->string('reference_number');
+            $table->longText('reason');
             $table->string('file');
             $table->timestamps();
         });

@@ -4,19 +4,19 @@
         <!-- Dark Logo-->
         <a href="index.html" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="assets/images/logo-pkl.png" alt="" height="22">
+                <img src="{{ asset('assets/images/logo-pkl.png') }}" alt="" height="22">
             </span>
             <span class="logo-lg">
-                <img src="assets/images/logo-pkl.png" alt="" height="71px">
+                <img src="{{ asset('assets/images/logo-pkl.png') }}" alt="" height="71px">
             </span>
         </a>
         <!-- Light Logo-->
         <a href="index.html" class="logo logo-light">
             <span class="logo-sm">
-                <img src="assets/images/logo-pkl.png" alt="" height="22">
+                <img src="{{ asset('assets/images/logo-pkl.png') }}" alt="" height="22">
             </span>
             <span class="logo-lg">
-                <img src="assets/images/logo-pkl.png" alt="" height="71px">
+                <img src="{{ asset('assets/images/logo-pkl.png') }}" alt="" height="71px">
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
@@ -90,7 +90,7 @@
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
-                                <a href="apps-chat.html" class="nav-link" data-key="t-chat"> Pendaftaran </a>
+                                <a href="/registration" class="nav-link" data-key="t-chat"> Pendaftaran </a>
                             </li>
                             <li class="nav-item">
                                 <a href="apps-api-key.html" class="nav-link" data-key="t-api-key">Izin &
@@ -98,6 +98,9 @@
                             </li>
                             <li class="nav-item">
                                 <a href="apps-api-key.html" class="nav-link" data-key="t-api-key">TopUp</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/warning-letter" class="nav-link" data-key="t-api-key">SP</a>
                             </li>
                         </ul>
                     </div>

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Enum\TypeEnum;
 use App\Models\Student;
 use App\Enum\StudentStatusEnum;
+use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\AcceptedAprovalRequest;
@@ -46,8 +47,8 @@ class ApprovalService
         $html = $view->render();
         $pdf = Pdf::loadHTML($html);
         $generatedPdfName = 'pdf_Terima_' . time() . '.pdf';
-        $pdf->save(storage_path('app/public/'.TypeEnum::RESPONSELETTER->value . '/' . $generatedPdfName));
-
+        $pdfPath = 'public/' . TypeEnum::RESPONSELETTER->value . '/' . $generatedPdfName;
+        Storage::put($pdfPath, $pdf->output());
         //Data For store
         $dataForResponseLetter = [
             'student_id' => $student->id,

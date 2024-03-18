@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Contracts\Interfaces\WarningLetterInterface;
-use App\Http\Controllers\Controller;
+use App\Models\Student;
+use App\Models\WarningLetter;
 use App\Models\Warning_Letter;
+use App\Http\Controllers\Controller;
+use App\Services\WarningLetterService;
+use App\Contracts\Interfaces\StudentInterface;
 use App\Http\Requests\StoreWarning_LetterRequest;
 use App\Http\Requests\UpdateWarning_LetterRequest;
-use App\Models\WarningLetter;
-use App\Services\WarningLetterService;
+use App\Contracts\Interfaces\WarningLetterInterface;
 
 class WarningLetterController extends Controller
 {
     private WarningLetterInterface $warningLetters;
     private WarningLetterService $service;
-    public function __construct(WarningLetterInterface $warningLetters , WarningLetterService $service)
+    private StudentInterface $students;
+    public function __construct(WarningLetterInterface $warningLetters , WarningLetterService $service, StudentInterface $students)
     {
         $this->warningLetters = $warningLetters;
         $this->service = $service;
+        $this->students = $students;
+
     }
     /**
      * Display a listing of the resource.
@@ -25,7 +30,8 @@ class WarningLetterController extends Controller
     public function index()
     {
         $warningLetters = $this->warningLetters->get();
-        return view('' , compact('warningLetters'));
+        $students = $this->students->where();
+        return view('admin.page.warning_letter.index' , compact('warningLetters', 'students'));
     }
 
     /**
@@ -39,9 +45,9 @@ class WarningLetterController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreWarning_LetterRequest $request)
+    public function store(StoreWarning_LetterRequest $request, WarningLetter $warningLetter, Student $student)
     {
-        $data = $this->service->store($request);
+        $data = $this->service->store($request, $warningLetter, $student);
         $this->warningLetters->store($data);
         return back()->with('success' , 'Berhasil Menambahkan data');
     }

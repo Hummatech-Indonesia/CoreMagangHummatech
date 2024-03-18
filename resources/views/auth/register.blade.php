@@ -133,7 +133,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsFirstName">Alamat Sekolah</label>
-                                            <textarea id="multiStepsFirstName" name="school_address" class="form-control" {{ old('address') }}
+                                            <textarea id="multiStepsFirstName" name="school_address" class="form-control" {{ old('school_address') }}
                                                 placeholder="John"></textarea>
                                         </div>
                                         <div class="col-sm-6">
@@ -258,8 +258,8 @@
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsAddress">Password</label>
                                             <div class="input-group input-group-merge">
-                                                <input type="text" id="multiStepsPass" name="password"
-                                                    class="form-control" placeholder="Tempat Lahir"
+                                                <input type="password" id="multiStepsPass" name="password"
+                                                    class="form-control" placeholder="password"
                                                     aria-describedby="multiStepsPass2" />
                                                 <span class="input-group-text cursor-pointer" id="multiStepsPass2"><i
                                                         class="ti ti-eye-off"></i></span>
@@ -268,7 +268,7 @@
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsAddress">konfirmasi password</label>
                                             <div class="input-group input-group-merge">
-                                                <input type="password" id="multiStepsFirstName" name="birth_date"
+                                                <input type="password" id="multiStepsFirstName" name="password_confirmation"
                                                     class="form-control" placeholder="password"
                                                     aria-describedby="multiStepsConfirmPass2" />
                                                 <span class="input-group-text cursor-pointer"
