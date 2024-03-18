@@ -16,4 +16,5 @@ enum TypeEnum : string
     case PARENTSSTATEMENT = 'parents_statement';
     case AVATAR = 'avatar';
     case RESPONSELETTER = 'response_letter';
+    case PRODUCT = 'product';
 }
