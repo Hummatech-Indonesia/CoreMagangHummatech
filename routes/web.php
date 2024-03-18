@@ -29,28 +29,23 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
     Route::get('/', [AdminController::class, 'index'])->name('.home');
 
     // Approval
-    Route::prefix('approval')->controller(ApprovalController::class)->group(function () {
-        Route::get('/', 'index')->name('.approval.index');
-        Route::put('/accept/{student}', 'accept')->name('.approval.accept');
-        Route::put('/decline/{student}', 'decline')->name('.approval.decline');
-        Route::delete('/delete/{student}', 'delete')->name('.approval.delete');
-    });
+    Route::get('/approval', [ApprovalController::class, 'index'])->name('.approval.index');
+    Route::put('/approval/accept/{student}', [ApprovalController::class, 'accept'])->name('.approval.accept');
+    Route::put('/approval/decline/{student}', [ApprovalController::class, 'decline'])->name('.approval.decline');
+    Route::delete('/approval/delete{student}', [ApprovalController::class, 'destroy'])->name('.approval.delete');
 
     // Warning letter
-    Route::prefix('warning-letter')->controller(WarningLetterController::class)->group(function () {
-        Route::get('/', 'index')->name('.warning-letter.index');
-        Route::post('/store', 'store')->name('.warning-letter.store');
-    });
+    Route::get('/warning-letter', [WarningLetterController::class, 'index'])->name('.warning-letter.index');
+    Route::post('/warning-letter/store', [WarningLetterController::class, 'store'])->name('.warning-letter.store');
 
     // Response letter
-    Route::prefix('registration')->controller(ResponseLetterController::class)->group(function () {
-        Route::get('/', 'index')->name('.registration');
-    });
+    Route::get('/response-letter', [ResponseLetterController::class, 'index'])->name('.response-letter.index');
 
     // Voucher
-    Route::prefix('voucher-code')->controller(VoucherController::class)->group(function () {
-        Route::get('/', 'index');
-     });
+    Route::get('/voucher', [VoucherController::class, 'index'])->name('.voucher.index');
+    Route::post('/voucher/store', [VoucherController::class, 'store'])->name('.voucher.store');
+    Route::delete('/voucher/delete/{voucher}', [VoucherController::class, 'destroy'])->name('.voucher.delete');
+
 
 })->middleware(['roles:administrator', 'auth']);
 
