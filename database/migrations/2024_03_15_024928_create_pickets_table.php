@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\DayEnum;
+use App\Enum\DayEnum;
 use App\Enum\TimeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
