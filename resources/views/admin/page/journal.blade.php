@@ -91,38 +91,37 @@
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
-                                        <tr>
-                                            <td class="number">1</td>
-                                            <td class="name">VLZ1400087402</td>
-                                            <td class="date">Post launch reminder/ post list</td>
-                                            <td class="status">
-                                                <span class="badge bg-success-subtle text-success text-uppercase">Mengisi</span>
-                                            </td>
-                                            <td class="description">Lorem ipsum dolor sit amet consectetur. Interdum turpis pellentesque et facilisis at id .....</td>
-                                            <td>
-                                                <div class="view">
-                                                    <button class="btn btn-soft-primary  edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">
-                                                        <i class=" ri-eye-line"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="number">2</td>
-                                            <td class="name">VLZ1400087402</td>
-                                            <td class="date">Post launch reminder/ post list</td>
-                                            <td class="status">
-                                                <span class="badge bg-success-subtle text-success text-uppercase">Mengisi</span>
-                                            </td>
-                                            <td class="description">Lorem ipsum dolor sit amet consectetur. Interdum turpis pellentesque et facilisis at id .....</td>
-                                            <td>
-                                                <div class="view">
-                                                    <button class="btn btn-soft-primary  edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">
-                                                        <i class=" ri-eye-line"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @forelse ($adminJournal as $index => $journal)
+                                            @if ($journal->status === 'NOTFILLING')
+                                                <tr>
+                                                    <td class="number">{{ $index + 1 }}</td>
+                                                    <td class="name">{{ $journal->user->name }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($journal->tanggal)->locale('id')->isoFormat('dddd, D MMMM Y') }}</td>
+                                                    <td class="status">
+                                                        <?php
+                                                        if ($journal->status === 'fillin') {
+                                                            echo '<span class="badge bg-success-subtle text-success text-uppercase">MENGISI</span>';
+                                                        } else {
+                                                            echo '<span class="badge bg-danger-subtle text-danger text-uppercase">TIDAK MENGISI</span>';
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td class="description">
+                                                        {!! Str::limit($journal->description, 50) !!}
+                                                    </td>
+                                                    <td>
+                                                        <div class="view">
+                                                            <button class="btn btn-soft-primary edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal_{{ $journal->id }}">
+                                                                <i class="ri-eye-line"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @empty
+                                            <!-- Tindakan yang diperlukan jika tidak ada data yang sesuai -->
+                                        @endforelse
+
                                     </tbody>
                                 </table>
                             </div>
@@ -194,38 +193,36 @@
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
-                                        <tr>
-                                            <td class="number">1</td>
-                                            <td class="name">VLZ1400087402</td>
-                                            <td class="date">Post launch reminder/ post list</td>
-                                            <td class="status">
-                                                <span class="badge bg-danger-subtle text-danger text-uppercase">Tidak Mengisi</span>
-                                            </td>
-                                            <td class="description">Lorem ipsum dolor sit amet consectetur. Interdum turpis pellentesque et facilisis at id .....</td>
-                                            <td>
-                                                <div class="view">
-                                                    <button class="btn btn-soft-primary  edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">
-                                                        <i class=" ri-eye-line"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="number">2</td>
-                                            <td class="name">VLZ1400087402</td>
-                                            <td class="date">Post launch reminder/ post list</td>
-                                            <td class="status">
-                                                <span class="badge bg-danger-subtle text-danger text-uppercase">Tidak Mengisi</span>
-                                            </td>
-                                            <td class="description">Lorem ipsum dolor sit amet consectetur. Interdum turpis pellentesque et facilisis at id .....</td>
-                                            <td>
-                                                <div class="view">
-                                                    <button class="btn btn-soft-primary  edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">
-                                                        <i class=" ri-eye-line"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+
+                                        @forelse ($adminJournal as $index => $journal)
+                                        @if ($journal->status === 'fillin')
+                                            <tr>
+                                                <td class="number">{{ $index + 1 }}</td>
+                                                <td class="name">{{ $journal->user->name }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($journal->tanggal)->locale('id')->isoFormat('dddd, D MMMM Y') }}</td>
+                                                <td class="status">
+                                                    <?php
+                                                    if ($journal->status === 'fillin') {
+                                                        echo '<span class="badge bg-success-subtle text-success text-uppercase">MENGISI</span>';
+                                                    } else {
+                                                        echo '<span class="badge bg-danger-subtle text-danger text-uppercase">TIDAK MENGISI</span>';
+                                                    }
+                                                    ?>                                                </td>
+                                                <td class="description">
+                                                    {!! Str::limit($journal->description, 50) !!}
+                                                </td>
+                                                <td>
+                                                    <div class="view">
+                                                        <button class="btn btn-soft-primary edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal_{{ $journal->id }}">
+                                                            <i class="ri-eye-line"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @empty
+                                        <!-- Tindakan yang diperlukan jika tidak ada data yang sesuai -->
+                                    @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -295,38 +292,36 @@
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
+                                        @forelse ($adminJournal as $index=>$journal)
+
                                         <tr>
-                                            <td class="number">1</td>
-                                            <td class="name">VLZ1400087402</td>
-                                            <td class="date">Post launch reminder/ post list</td>
+                                            <td class="number">{{ $index + 1 }}</td>
+                                            <td class="name">{{ $journal->user->name }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($journal->tanggal)->locale('id')->isoFormat('dddd, D MMMM Y') }}</td>
                                             <td class="status">
-                                                <span class="badge bg-success-subtle text-success text-uppercase">Mengisi</span>
+                                                <?php
+                                                if ($journal->status === 'fillin') {
+                                                    echo '<span class="badge bg-success-subtle text-success text-uppercase">MENGISI</span>';
+                                                } else {
+                                                    echo '<span class="badge bg-danger-subtle text-danger text-uppercase">TIDAK MENGISI</span>';
+                                                }
+                                                ?>
                                             </td>
-                                            <td class="description">Lorem ipsum dolor sit amet consectetur. Interdum turpis pellentesque et facilisis at id .....</td>
+                                            <td class="description">
+                                                {!! Str::limit($journal->description, 50) !!}
+                                            </td>
                                             <td>
                                                 <div class="view">
-                                                    <button class="btn btn-soft-primary  edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">
+                                                    <button class="btn btn-soft-primary  edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal_{{ $journal->id }}">
                                                         <i class=" ri-eye-line"></i>
                                                     </button>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td class="number">2</td>
-                                            <td class="name">VLZ1400087402</td>
-                                            <td class="date">Post launch reminder/ post list</td>
-                                            <td class="status">
-                                                <span class="badge bg-danger-subtle text-danger text-uppercase">Tidak Mengisi</span>
-                                            </td>
-                                            <td class="description">Lorem ipsum dolor sit amet consectetur. Interdum turpis pellentesque et facilisis at id .....</td>
-                                            <td>
-                                                <div class="view">
-                                                    <button class="btn btn-soft-primary  edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">
-                                                        <i class=" ri-eye-line"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+
+                                        @empty
+
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -355,8 +350,9 @@
     </div>
 </div>
 
+@forelse ($adminJournal as $journal)
 
-<div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
+<div class="modal fade" id="showModal_{{ $journal->id }}" tabindex="-1" aria-labelledby="showModalLabel_{{ $journal->id }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -366,30 +362,26 @@
             <div class="modal-body">
                 <div>
                     <h6>Nama :</h6>
-                    <p id="modalName">Shobibun Niam</p>
-                </div>
-                <div>
-                    <h6>Sekolah :</h6>
-                    <p id="modalName">SMKN 1 TAMBAKBOYO</p>
+                    <p id="modalName">{{ $journal->user->name }}</p>
                 </div>
                 <div>
                     <h6>Tanggal :</h6>
-                    <p id="modalName">2024-03-14</p>
+                    <td>{{ \Carbon\Carbon::parse($journal->tanggal)->locale('id')->isoFormat('dddd, D MMMM Y') }}</td>
                 </div>
                 <div>
-                    <h6>Jam :</h6>
-                    <p id="modalName">2024-03-14</p>
+                    <h6 class="pt-3">Jam :</h6>
+                    <p>{{ \Carbon\Carbon::parse($journal->created_at)->format('H:i') }}</p>
                 </div>
                 <div>
                     <h6>Kegiatan :</h6>
                     <p id="modalName">
-                        Lorem ipsum dolor sit amet consectetur. Viverra ornare ullamcorper mattis amet pretium. Morbi ac ipsum tellus dignissim sapien. Diam at enim semper pharetra ac libero a neque sit. Sit tristique fermentum ullamcorper leo mattis quis. Nisl eget viverra id imperdiet pharetra. Elit in pulvinar adipiscing diam adipiscing. Senectus cum in amet a congue. Amet etiam vitae fringilla adipiscing sit et lorem. Urna mi sed ac commodo. Ornare nulla sit sit porta. Varius commodo tortor odio aliquam consectetur.
+                        {{$journal->description}}
                     </p>
                 </div>
                 <div>
                     <h6>Bukti :</h6>
                     <p id="modalName">
-                        <img src="assets/images/galaxy/img-1.png" alt="My Image" style="width: 100%; height: auto;">
+                        <img src="{{ asset('storage/' . $journal->image) }}" alt="My Image" style="width: 60%; height: auto;">
                     </p>
                 </div>
 
@@ -400,6 +392,10 @@
         </div>
     </div>
 </div>
+
+@empty
+
+@endforelse
 
 
 @endsection
