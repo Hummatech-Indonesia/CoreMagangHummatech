@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\ApprovalController;
-use App\Http\Controllers\JournalController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\StudentOfline\StudentOflineController;
-use App\Http\Controllers\StudentOnline\StudentOnlineController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JournalController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ApprovalController;
+use App\Http\Controllers\Admin\WarningLetterController;
+use App\Http\Controllers\Admin\ResponseLetterController;
+use App\Http\Controllers\StudentOfline\StudentOflineController;
+use App\Http\Controllers\StudentOnline\StudentOnlineController;
 
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', function () {
@@ -34,7 +36,17 @@ Route::prefix('administrator')->group(function () {
         Route::put('/decline/{student}', 'decline');
         Route::delete('/delete/{student}', 'delete');
     });
+    //warning letter
+    Route::prefix('warning-letter')->controller(WarningLetterController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::post('/store', 'store');
+    });
 })->middleware(['roles:administrator', 'auth']);
+
+//response letter
+Route::prefix('registration')->controller(ResponseLetterController::class)->group(function () {
+    Route::get('/', 'index');
+});
 
 # ================================================ Offline Student Route Group ================================================
 Route::get('siswa-offline', [StudentOflineController::class, 'index'])->name('siswa.offline');

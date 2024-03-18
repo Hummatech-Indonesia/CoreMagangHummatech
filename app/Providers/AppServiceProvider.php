@@ -37,8 +37,10 @@ use App\Contracts\Repositories\AttendanceRepository;
 use App\Contracts\Repositories\AttendanceRuleRepository;
 use App\Contracts\Repositories\MaxLateRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Contracts\Interfaces\WarningLetterInterface;
 use App\Contracts\Interfaces\ResponseLetterInterface;
 use App\Contracts\Interfaces\ProductInterface;
+use App\Contracts\Repositories\WarningLetterRepository;
 use App\Contracts\Repositories\AdminJournalRepository;
 use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Repositories\ProductRepository;
@@ -64,7 +66,8 @@ class AppServiceProvider extends ServiceProvider
         AttendanceInterface::class => AttendanceRepository::class,
         AttendanceDetailInterface::class => AttendanceDetailRepository::class,
         AdminJournalInterface::class => AdminJournalRepository::class,
-        ProductInterface::class => ProductRepository::class
+        ProductInterface::class => ProductRepository::class,
+        WarningLetterInterface::class => WarningLetterRepository::class,
     ];
 
     /**
@@ -82,7 +85,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if(env('FORCE_HTTPS',false)) {
+        if(env('FORCE_HTTPS', false)) {
             URL::forceScheme('https');
         }
     }

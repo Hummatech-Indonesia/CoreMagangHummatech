@@ -22,4 +22,14 @@ class Student extends Model implements HasAttendances
     {
         return $this->hasMany(Attendance::class);
     }
+
+    public function warningLetters(): HasMany
+    {
+        return $this->hasMany(WarningLetter::class);
+    }
+
+    public function responseLetters(): HasMany
+    {
+        return $this->hasMany(ResponseLetter::class);
+    }
 }

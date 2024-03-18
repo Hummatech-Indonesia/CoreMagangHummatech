@@ -120,7 +120,8 @@
                     </div>
                     <div class="simplebar-mask mt-4 overflow-y-scroll">
                         <div class="d-flex justify-content-center align-items-center">
-                            <img src="" class="avatar-xl rounded-circle show-image" alt="">
+                            <img src="" class="avatar-xl rounded-circle show-image" alt=""
+                                style="object-fit: cover">
                         </div>
                         <div class="d-flex justify-content-center align-items-center mt-4">
                             <h4 class="show-name"></h4>
@@ -162,23 +163,29 @@
                         </div>
                         <div class="mt-3 mx-4">
                             <h4>CV</h4>
-                            <img class="rounded show-cv" alt="200x200" width="330" src="">
+                            <img class="rounded show-cv" alt="200x200" width="330" src="gambar.jpg"
+                                style="object-fit: cover; cursor: pointer;" onclick="zoomImage(this)">
                             <div class="mt-2 d-flex justify-content-end">
-                                <a class="btn btn-primary download-cv" download="" href="">Download</a>
+                                <a class="btn btn-primary download-cv" download="cv.jpg" href="gambar.jpg">Download</a>
                             </div>
+
                         </div>
                         <div class="mt-3 mx-4">
                             <h4>Pernyataan Orang tua</h4>
-                            <img class="rounded show-parent-statement" alt="200x200" width="330" src="">
+                            <img class="rounded show-parent-statement" alt="200x200" width="330" src=""
+                                style="object-fit: cover;cursor: pointer;" onclick="zoomImage(this)">
                             <div class="mt-2 d-flex justify-content-end ">
-                                <a class="btn btn-primary download-parent-statement"  href="" download="">Download</a>
+                                <a class="btn btn-primary download-parent-statement" href=""
+                                    download="">Download</a>
                             </div>
                         </div>
                         <div class="mt-3 mx-4">
                             <h4>Pernyataan Diri</h4>
-                            <img class="rounded show-self-statement" alt="200x200" width="330" src="">
-                            <div class="mt-2 d-flex justify-content-end ">
-                                <a class="btn btn-primary download-self-statement" href="" download="">Download</a>
+                            <img class="rounded show-self-statement" alt="200x200" width="330" src=""
+                                style="object-fit: cover;cursor: pointer;" onclick="zoomImage(this)">
+                            <div class="mt-2 d-flex justify-content-end " >
+                                <a class="btn btn-primary download-self-statement" href=""
+                                    download="">Download</a>
                             </div>
                         </div>
                     </div>
@@ -303,5 +310,39 @@
             $('#form-accepted').attr('action', 'approval/accept/' + id);
             $('.bs-example-modal-center').modal('show');
         });
+    </script>
+
+<script>
+    function zoomImage(img) {
+        // Membuat elemen overlay
+        var overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = 0;
+        overlay.style.left = 0;
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        overlay.style.zIndex = 9999;
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+
+        // Membuat elemen gambar yang diperbesar
+        var zoomedImg = document.createElement('img');
+        zoomedImg.src = img.src;
+        zoomedImg.style.maxWidth = '90%';
+        zoomedImg.style.maxHeight = '90%';
+
+        // Menambahkan gambar ke dalam overlay
+        overlay.appendChild(zoomedImg);
+
+        // Menambahkan overlay ke dalam body
+        document.body.appendChild(overlay);
+
+        // Menghapus overlay saat diklik
+        overlay.onclick = function() {
+            document.body.removeChild(overlay);
+        };
+    }
     </script>
 @endsection
