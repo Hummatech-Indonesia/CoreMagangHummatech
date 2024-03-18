@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DivisionController;
+use App\Http\Controllers\JournalController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('division', [DivisionController::class, 'index'])->name('division.index');
@@ -15,3 +16,5 @@ Route::get('announcement', function() {
 Route::get('absent', function() {
     return view('admin.page.absent.index');
 });
+
+Route::put('journal/{journal}', [JournalController::class, 'update']);
