@@ -135,12 +135,11 @@
                                 <td>
                                     <div class="d-flex gap-2">
                                         @if ($journal->created_at->isToday())
-                                        <button class="bg-transparent border-0 btn-edit" 
+                                        <button type="button" class="bg-transparent border-0 btn-edit" 
                                             data-id="{{ $journal->id }}"
                                             data-title="{{ $journal->title }}"
-                                            data-image="{{ $journal->image }}"
-                                            data-description="{{ $journal->description }}"
-                                        >
+                                            data-image="{{ asset('storage/'.$journal->image) }}"
+                                            data-description="{{ $journal->description }}">
                                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -150,7 +149,14 @@
                                             </svg>
                                         </button>
                                         @endif
-                                        <div class="">
+                                        <button type="button" class="bg-transparent border-0 btn-detail"
+                                            data-id="{{ $journal->id }}"
+                                            data-name="{{ $journal->user->name }}"
+                                            data-date="{{ $journal->created_at }}"
+                                            data-school="{{ $journal->user->school }}"
+                                            {{-- data-school="{{ $journal->user->student->school }}" --}}
+                                            data-description="{{ $journal->description }}"
+                                            data-image="{{ asset('storage/'. $journal->image) }}">
                                             <svg width="29" height="32" viewBox="0 0 29 32" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                                 <g clip-path="url(#clip0_429_487)">
@@ -165,7 +171,7 @@
                                                     </clipPath>
                                                 </defs>
                                             </svg>
-                                        </div>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -242,6 +248,25 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade modal-bookmark" id="detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content px-2">
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title me-2" id="exampleModalLabel">Detail Jurnal</h5>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-6 text-start" id="detail-content">
+                </div>
+                <div class="modal-footer">
+                    <div class="d-flex justify-content-end">
+                        <button class="purchase-btn btn btn-hover-effect btn-primary f-w-500" type="button" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
@@ -255,7 +280,7 @@
             $('#form-update').attr('action', '/journal/' + id);
             $('#title-edit').val(title);
             $('#description-edit').val(description);
-            $('#image-edit').attr('src', 'storage/' + image);
+            $('#image-edit').attr('src', image);
             $('#modal-edit').modal('show');
         });
 
@@ -276,6 +301,38 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+        $('.btn-detail').click(function() {
+            var detail = $('#detail-content');
+            detail.empty();
+            var id = $(this).data('id');
+            var name = $(this).data('name'); 
+            var date = $(this).data('date'); 
+            var school = $(this).data('school'); 
+            var description = $(this).data('description'); 
+            var image = $(this).data('image');
+            detail.append('<div class="mb-2">');
+            detail.append('<h6 class="f-w-600">Nama</h6>');
+            detail.append('<p class="text-muted">' + name + '</p>')
+            detail.append('</div>');
+            detail.append('<div class="mb-2">');
+            detail.append('<h6 class="f-w-600">Tanggal</h6>');
+            detail.append('<p class="text-muted">' + date + '</p>')
+            detail.append('</div>');
+            detail.append('<div class="mb-2">');
+            detail.append('<h6 class="f-w-600">Sekolah</h6>');
+            detail.append('<p class="text-muted">' + school + '</p>')
+            detail.append('</div>');
+            detail.append('<div class="mb-2">');
+            detail.append('<h6 class="f-w-600">Kegiatan</h6>');
+            detail.append('<p>' + description + '</p>')
+            detail.append('</div>');
+            detail.append('<div class="mb-2">');
+            detail.append('<h6 class="f-w-600">Bukti</h6>');
+            detail.append('<img src="' + image + '" width="100%"></img>')
+            detail.append('</div>');
+            $('#detail').modal('show');
+        });
 
         $('.btn-delete').click(function () {
             var id = $(this).data('id'); 
