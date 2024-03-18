@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\DivisionInterface;
 use App\Contracts\Interfaces\ProductInterface;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
@@ -12,18 +13,21 @@ class ProductController extends Controller
 {
     private ProductInterface $product;
     private ProductService $service;
-    public function __construct(ProductInterface $product ,ProductService $service)
+    private DivisionInterface $division;
+    public function __construct(ProductInterface $product ,ProductService $service, DivisionInterface $division)
     {
         $this->product = $product;
         $this->service = $service;
+        $this->division = $division;
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $products = $this->product->get();
-        return view('' , compact('products'));
+        $product = $this->product->get();
+        $divisions = $this->division->get();
+        return view('admin.page.product.index', compact('product','divisions'));
     }
 
     /**
