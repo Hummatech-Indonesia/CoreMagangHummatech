@@ -60,7 +60,8 @@ class AppServiceProvider extends ServiceProvider
         MaxLateInterface::class => MaxLateRepository::class,
         AttendanceInterface::class => AttendanceRepository::class,
         AttendanceDetailInterface::class => AttendanceDetailRepository::class,
-        AdminJournalInterface::class => AdminJournalRepository::class
+        AdminJournalInterface::class => AdminJournalRepository::class,
+
     ];
 
     /**

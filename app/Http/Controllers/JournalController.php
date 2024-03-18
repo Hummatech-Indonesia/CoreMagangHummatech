@@ -51,7 +51,9 @@ class JournalController extends Controller
      */
     public function show(Journal $journal)
     {
-        //
+        // $journals = $this->journal->get();
+        // return view('admin.page.journal', compact('journals'));
+
     }
 
     /**

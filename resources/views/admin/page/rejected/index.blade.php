@@ -4,8 +4,7 @@
 <div class="row">
     <div class="row g-2 align-items-center">
         <div class="col-sm-4">
-            <h4 class="mx-3 mb-4">DAFTAR SISWA DITOLAK</h4>
-
+            <p class="mx-3 mb-4" style="font-size: 16px;">DAFTAR SISWA DITOLAK</p>
         </div>
     </div>
 </div>
@@ -137,5 +136,50 @@
     </div>
 </div>
 
+<!-- Detail Modal -->
+<div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen" style="max-width: 25%; margin-left: auto; margin-right: 0;">
+        <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="showModalLabel">Detail Siswa</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="card-body text-center">
+                <div class="position-relative d-inline-block">
+                    <img src="" class="avatar-lg rounded-circle img-thumbnail shadow" alt="">
+                    <span class="contact-active position-absolute rounded-circle bg-success">
+                        <span class="visually-hidden"></span>
+                    </span>
+                </div>
+                <h5 class="mt-4 mb-4">Tonya Noble</h5>
+                <div style="display: flex; justify-content: space-between;">
+                    <p>Nesta Technologies</p>
+                    <p>Nesta Technologies</p>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <p>Nesta Technologies</p>
+                    <p>Nesta Technologies</p>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <p>
+                        <i class="ri-building-line mx-2"></i>
+                        SMK Negeri 8 Malang
+                    </p>
+                    <p>
+                        Nesta Technologies
+                        <i class="ri-building-line mx-2"></i>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-primary">Simpan perubahan</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 @endsection
