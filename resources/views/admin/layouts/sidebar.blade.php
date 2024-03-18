@@ -37,8 +37,8 @@
                         <i class="mdi mdi-speedometer"></i> <span data-key="t-dashboards">Dashboards</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="/voucher-code">
+                <li class="nav-item {{ request()->is('/administrator/voucher-code') ? 'active' : '' }}">
+                    <a class="nav-link menu-link" href="{{ url('/administrator/voucher-code') }}">
                         <i class=" las la-gift"></i> <span data-key="t-dashboards">Kode vocer</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
