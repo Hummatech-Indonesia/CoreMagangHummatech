@@ -33,12 +33,14 @@ use App\Contracts\Interfaces\ReportStudenttInterface;
 use App\Contracts\Interfaces\ResponseLetterInterface;
 use App\Contracts\Repositories\LetterheadsRepository;
 use App\Contracts\Interfaces\PicketingReportInterface;
+use App\Contracts\Interfaces\ProductInterface;
 use App\Contracts\Repositories\CodeOfConductRepository;
 use App\Contracts\Repositories\ReportStudentRepository;
 use App\Contracts\Repositories\AbsenteePermitRepository;
 use App\Contracts\Repositories\AdminJournalRepository;
 use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Repositories\PicketingReportRepository;
+use App\Contracts\Repositories\ProductRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -61,7 +63,7 @@ class AppServiceProvider extends ServiceProvider
         AttendanceInterface::class => AttendanceRepository::class,
         AttendanceDetailInterface::class => AttendanceDetailRepository::class,
         AdminJournalInterface::class => AdminJournalRepository::class,
-
+        ProductInterface::class => ProductRepository::class
     ];
 
     /**
