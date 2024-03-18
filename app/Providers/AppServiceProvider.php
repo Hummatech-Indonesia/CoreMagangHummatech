@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Contracts\Interfaces\AbsenteePermitInterface;
+use App\Contracts\Interfaces\AdminJournalInterface;
 use App\Contracts\Interfaces\ApprovalInterface;
 use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\CodeOfConductInterface;
@@ -27,7 +28,20 @@ use App\Contracts\Repositories\PicketRepository;
 use App\Contracts\Repositories\ReportStudentRepository;
 use App\Contracts\Repositories\StudentRepository;
 use Illuminate\Support\Facades\URL;
+use App\Contracts\Interfaces\AttendanceDetailInterface;
+use App\Contracts\Interfaces\AttendanceInterface;
+use App\Contracts\Interfaces\AttendanceRuleInterface;
+use App\Contracts\Interfaces\MaxLateInterface;
+use App\Contracts\Repositories\AttendanceDetailRepository;
+use App\Contracts\Repositories\AttendanceRepository;
+use App\Contracts\Repositories\AttendanceRuleRepository;
+use App\Contracts\Repositories\MaxLateRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Contracts\Interfaces\ResponseLetterInterface;
+use App\Contracts\Interfaces\ProductInterface;
+use App\Contracts\Repositories\AdminJournalRepository;
+use App\Contracts\Repositories\ResponseLetterRepository;
+use App\Contracts\Repositories\ProductRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -44,6 +58,13 @@ class AppServiceProvider extends ServiceProvider
         PicketingReportInterface::class => PicketingReportRepository::class,
         ApprovalInterface::class => ApprovalRepository::class,
         PaymentInterface::class => PaymentRepository::class,
+        ResponseLetterInterface::class => ResponseLetterRepository::class,
+        AttendanceRuleInterface::class => AttendanceRuleRepository::class,
+        MaxLateInterface::class => MaxLateRepository::class,
+        AttendanceInterface::class => AttendanceRepository::class,
+        AttendanceDetailInterface::class => AttendanceDetailRepository::class,
+        AdminJournalInterface::class => AdminJournalRepository::class,
+        ProductInterface::class => ProductRepository::class
     ];
 
     /**

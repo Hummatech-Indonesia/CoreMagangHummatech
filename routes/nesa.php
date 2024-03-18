@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\PicketController;
+use App\Http\Controllers\Admin\AdminJournalController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('journal', function () {
-    return view('admin.page.journal');
-});
+
+Route::get('journal', [AdminJournalController::class, 'index']);
+
 
 Route::get('rfid', function () {
     return view('admin.page.user.rfid');
