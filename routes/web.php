@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
 use App\Http\Controllers\StudentOnline\StudentOnlineController;
+use App\Http\Controllers\VoucherController;
 
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', function () {
@@ -45,6 +46,12 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
     Route::prefix('registration')->controller(ResponseLetterController::class)->group(function () {
         Route::get('/', 'index')->name('.registration');
     });
+
+    // Voucher
+    Route::prefix('voucher-code')->controller(VoucherController::class)->group(function () {
+        Route::get('/', 'index');
+     });
+
 })->middleware(['roles:administrator', 'auth']);
 
 # ================================================ Offline Student Route Group ================================================
