@@ -12,7 +12,7 @@
                         <i class="ri-search-line search-icon"></i>
                     </div>
                     <div class="list-grid-nav hstack gap-1">
-                        <button class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#myModal">
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">
                             Edit Limit
                         </button>
                     </div>
@@ -151,12 +151,8 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center gap-2 mt-3">
-                            <form action="" method="POST" class="form-accepted">
-                                @csrf
-                                @method('put')
-                                <button class="btn btn-success" type="submit">Terima</button>
-                            </form>
-                            <form action="" class="form-declined" method="POST">
+                            <button class="btn btn-success btn-accept" type="button">Terima</button>
+                            <form action="" id="form-declined" method="POST">
                                 @csrf
                                 @method('put')
                                 <button class="btn btn-warning" type="submit">Tolak</button>
@@ -167,21 +163,21 @@
                             <h4>CV</h4>
                             <img class="rounded show-cv" alt="200x200" width="330" src="">
                             <div class="mt-2 d-flex justify-content-end">
-                                <a class="btn btn-primary download-cv" download="">Download</a>
+                                <a class="btn btn-primary download-cv" download="" href="">Download</a>
                             </div>
                         </div>
                         <div class="mt-3 mx-4">
                             <h4>Pernyataan Orang tua</h4>
                             <img class="rounded show-parent-statement" alt="200x200" width="330" src="">
                             <div class="mt-2 d-flex justify-content-end ">
-                                <a class="btn btn-primary">Download</a>
+                                <a class="btn btn-primary download-parent-statement"  href="" download="">Download</a>
                             </div>
                         </div>
                         <div class="mt-3 mx-4">
                             <h4>Pernyataan Diri</h4>
                             <img class="rounded show-self-statement" alt="200x200" width="330" src="">
                             <div class="mt-2 d-flex justify-content-end ">
-                                <a class="btn btn-primary">Download</a>
+                                <a class="btn btn-primary download-self-statement" href="" download="">Download</a>
                             </div>
                         </div>
                     </div>
@@ -190,7 +186,7 @@
         </div>
     </div>
 
-
+    <!-- Edit LImit -->
     <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
         style="display: none;">
         <div class="modal-dialog">
@@ -208,9 +204,36 @@
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                 </div>
 
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Letter Number -->
+    <div class="modal fade bs-example-modal-center" tabindex="-1" aria-labelledby="mySmallModalLabel"
+        style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body p-2 text-center">
+                    <div class="mt-3 mx-3">
+                        <h4>Nomor surat</h4>
+                        <form action="" id="form-accepted" method="POST">
+                            @csrf
+                            @method('put')
+                            <label for="">Masukan Nomer Surat</label>
+                            <input type="text" class="form-control" name="letter_number" id="">
+                            <div class="mt-4 mb-3 d-flex justify-content-center gap-2">
+                                <button class="btn btn-success">Ya,terima</button>
+                                <button class="btn btn-light">Batal</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 
     @include('admin.components.delete-modal-component')
@@ -244,22 +267,40 @@
             $('.show-start').text(start_date);
             $('.show-school').text(school);
             $('.show-finish').text(finish_date);
+
+            // console.log(cv);
             $('.show-cv').attr('src', '{{ asset('storage') }}/' + cv);
+            $('.download-cv').attr('href', '{{ asset('storage') }}/' + cv);
+            $('.download-cv').attr('download', '{{ asset('storage') }}/' + cv);
+
+            // console.log(parents_statement);
             $('.show-parent-statement').attr('src', '{{ asset('storage') }}/' + parents_statement);
+            $('.download-parent-statement').attr('href', '{{ asset('storage') }}/' + parents_statement);
+            $('.download-parent-statement').attr('download', '{{ asset('storage') }}/' + parents_statement);
+
+            // console.log(self_statement);
             $('.show-self-statement').attr('src', '{{ asset('storage') }}/' + self_statement);
+            $('.download-self-statement').attr('href', '{{ asset('storage') }}/' + self_statement);
+            $('.download-self-statement').attr('download', '{{ asset('storage') }}/' + self_statement);
+
+
             $('.btn-delete').attr('data-id', id);
+            $('.btn-accept').attr('data-id', id);
 
-            $('.form-accepted').attr('action', 'approval/accept/' + id);
-            $('.form-declined').attr('action', 'approval/decline/' + id);
-
-
+            $('#form-declined').attr('action', 'approval/decline/' + id);
             $('#offcanvasRight').offcanvas('show');
         });
 
         $('.btn-delete').click(function() {
-            var id = $(this).data('id');
+            let id = $(this).data('id');
             $('#form-delete').attr('action', '/approval/delete/' + id);
             $('#modal-delete').modal('show');
+        });
+
+        $('.btn-accept').click(function() {
+            let id = $(this).data('id');
+            $('#form-accepted').attr('action', 'approval/accept/' + id);
+            $('.bs-example-modal-center').modal('show');
         });
     </script>
 @endsection

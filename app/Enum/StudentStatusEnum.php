@@ -11,9 +11,9 @@ enum StudentStatusEnum :string
     public function label(): string
     {
         return match ($this) {
-            self::ACCEPTED => 'Diterima',
-            self::DECLINED => 'Ditolak',
-            self::PENDING => 'Menunggu',
+            self::ACCEPTED => 'accepted',
+            self::DECLINED => 'declined',
+            self::PENDING => 'pending',
         };
     }
 
