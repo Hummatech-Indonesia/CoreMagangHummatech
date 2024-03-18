@@ -61,7 +61,7 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarCharts1" data-bs-toggle="collapse"
                         role="button" aria-expanded="false" aria-controls="sidebarCharts">
-                        <i class=" ri-article-line"></i> <span data-key="t-charts">Pendataan Admin</span>
+                        <i class="ri-article-line"></i> <span data-key="t-charts">Pendataan Admin</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarCharts1">
                         <ul class="nav nav-sm flex-column">
