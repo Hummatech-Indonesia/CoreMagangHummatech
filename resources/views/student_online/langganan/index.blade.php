@@ -7,7 +7,7 @@
                     <h4 class="fw-semibold mb-8">Langganan Untuk Membuka Kunci</h4>
                     <nav aria-label="breadcrumb mt-2">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a class="text-muted " href="/siswa-offline">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a class="text-muted " href="/login">Dashboard</a></li>
                             <li class="breadcrumb-item" aria-current="page">Jurnal</li>
                         </ol>
                     </nav>
