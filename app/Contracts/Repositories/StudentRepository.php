@@ -11,6 +11,41 @@ class StudentRepository extends BaseRepository implements StudentInterface
         $this->model = $student;
     }
 
+    /**
+     * listAttendance
+     *
+     * @return mixed
+     */
+    public function listAttendance(): mixed
+    {
+        $date = now();
+        return $this->model->query()
+            ->whereNotNull('rfid')
+            ->withCount(['attendances' => function ($query) {
+                $query->whereDate('created_at', now());
+            }])
+            ->with(['attendances' => function ($query) use ($date) {
+                $query->whereDate('created_at', $date);
+            }])
+            ->whereNull('status')
+            ->orderByDesc('attendances_count')
+            ->get();
+    }
+
+
+     /**
+     * getByRfid
+     *
+     * @param  mixed $cardId
+     * @return void
+     */
+    public function getByRfid(mixed $cardId)
+    {
+        return $this->model->query()
+            ->where('rfid', $cardId)
+            ->firstOrFail();
+    }
+
     public function get(): mixed
     {
         return $this->model->query()->get();

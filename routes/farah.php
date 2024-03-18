@@ -18,3 +18,4 @@ Route::get('absent', function() {
 });
 
 Route::put('journal/{journal}', [JournalController::class, 'update']);
+Route::get('siswa-online/jurnal', [JournalController::class, 'studentOnline']);

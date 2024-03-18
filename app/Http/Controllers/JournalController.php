@@ -25,7 +25,7 @@ class JournalController extends Controller
     public function index()
     {
         $journals = $this->journal->get();
-        return view('student_online_&_offline.journal.index' , compact('journals'));
+        return view('student_offline.journal.index' , compact('journals'));
     }
 
     /**
@@ -80,5 +80,10 @@ class JournalController extends Controller
         $this->service->delete($journal);
         $this->journal->delete($journal->id);
         return back()->with('success' , 'Berhasi Menghapus Data');
+    }
+
+    public function studentOnline() {
+        $journals = $this->journal->get();
+        return view('student_online.journal.index' , compact('journals'));
     }
 }
