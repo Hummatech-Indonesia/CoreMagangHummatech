@@ -62,6 +62,9 @@
             </div>
         </div>
     @empty
+    <div class="d-flex justify-content-center mb-2 mt-5">
+        <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+    </div>
         <p class="fs-5 text-dark text-center">
             Data Masih Kosong
         </p>
