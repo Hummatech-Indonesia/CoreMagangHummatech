@@ -7,7 +7,7 @@ use App\Models\Product;
 class ProductRepository extends BaseRepository implements ProductInterface
 {
     private ProductInterface  $product;
-    public function __construct(ProductInterface $product)
+    public function __construct(Product $product)
     {
         $this->model = $product;
     }
