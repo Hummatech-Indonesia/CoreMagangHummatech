@@ -1,4 +1,11 @@
 @extends('admin.layouts.app')
+@section('style')
+<style>
+    body.dark-mode .text-light-dark {
+    color: #ffffff;
+}
+</style>
+@endsection
 @section('content')
 
 <div class="card">
@@ -49,13 +56,12 @@
                     </div>
                     <div class="form-group mb-3 mt-3 col-md-12">
                         <label for="division_id">Kategori Produk</label>
-                        <select name="division_id" class=".js-example-basic-single form-select" id="#usaha">
-                            <option value="" disabled selected>Pilih Divisi</option>
-                            @forelse ($divisions as $division)
-                                <option value="{{ $division->id }}">{{ $division->name }}</option>
-                            @empty
-                                <option value="" disabled selected>Kategori Masih Kosong</option>
-                            @endforelse
+                        <select class="tambah" aria-label=".form-select example" name="collab_category_id">
+                            @foreach ($divisions as $division)
+                                <option value="{{ $division->id }}"
+                                    {{ $division->collab_division_id == $division->id ? 'selected' : '' }}>
+                                    {{ $division->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-1">
@@ -64,7 +70,7 @@
                     </div>
                     <div class="mb-1">
                         <label for="" class="mt-2 mb-2">Deskripsi</label>
-                        <textarea name="description" id="" class="form-control"></textarea>
+                        <textarea name="description" id="" class="form-control" placeholder="Masukkan Deskripsi "></textarea>
                     </div>
                     <div class="mb-1">
                         <label for="" class="mt-2 mb-2">Gambar</label>
@@ -92,21 +98,23 @@
             <div class="d-flex justify-content-center">
                 <img src="{{ asset('storage/' . $product->image) }}" alt="My Image" style="width: 85%; height: auto; margin-bottom: 20px;" class="mt-4 rounded-3">
             </div>
-            <div class="card-body rounded-3 mb-3" style="background: #F3F6F9; width: 95%; margin: 0 auto;">
+            <div class="card-body rounded-3 mb-3 bg-light" style="width: 95%; margin: 0 auto;">
                 <div class="d-flex justify-content-between">
-                    <h5 class="card-title mb-2">{{$product->name}}</h5>
-                    <h4 class="card-title mb-2">IDR {{ number_format($product->price, 0, ',', '.') }} <small class="mt-3">/bulan</small></h4>
+                    <h5 class="card-title mb-2 text-dark text-light-dark">{{$product->name}}</h5>
+                    <h4 class="card-title mb-2 text-dark text-light-dark">IDR {{ number_format($product->price, 0, ',', '.') }} <small class="mt-3 text-muted">/bulan</small></h4>
                 </div>
                 <p class="mt-3 text-muted">{{$product->description}}</p>
                 <div class="justify-content-end d-flex">
-                    <button class="btn btn-warning mx-2 btn-edit" data-id="{{ $division->id }}" data-name="{{ $division->name }}">
+                    <button type="button" class="btn btn-warning mx-2 btn-edit" data-id="{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ $product->price }}"
+                        data-description="{{ $product->description }}" data-image="{{ $product->image }}" data-division_id="{{ $product->division_id }}">
                         Edit
                     </button>
-                    <button class="btn btn-danger btn-delete" data-id="{{ $division->id }}">
+                    <button type="button" class="btn btn-danger btn-delete" data-id="{{ $product->id }}">
                         Hapus
                     </button>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -119,46 +127,46 @@
 
 
 <!--Edit Modal -->
-<div class="modal fade" id="add" tabindex="-1" aria-labelledby="varyingcontentModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="varyingcontentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="varyingcontentModalLabel">Tambah Daftar Paket</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data" id="form-update">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
                     <div class="mb-1">
                         <label for="name" class="col-form-label">Nama Paket</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan Nama Paket">
+                        <input type="text" class="form-control" id="name-edit" name="name" placeholder="Masukkan Nama Paket">
                     </div>
                     <div class="form-group mb-3 mt-3 col-md-12">
                         <label for="division_id">Kategori Produk</label>
-                        <select name="division_id" class=".js-example-basic-single form-select" id="#usaha">
-                            <option value="" disabled selected>Pilih Divisi</option>
-                            @forelse ($divisions as $division)
+                        <select name="division_id" class="js-example-basic-single form-select" id="division_id-edit">
+                            @forelse ($divisions as  $division)
                                 <option value="{{ $division->id }}">{{ $division->name }}</option>
                             @empty
-                                <option value="" disabled selected>Kategori Masih Kosong</option>
+                                <option value="null" disabled="disabled" selected="selected">Jabatan Masih Kosong
+                                </option>
                             @endforelse
                         </select>
                     </div>
                     <div class="mb-1">
                         <label for="price" class="col-form-label">Harga</label>
-                        <input type="text" class="form-control" id="price" name="price" placeholder="Masukkan Harga Paket">
+                        <input type="text" class="form-control" id="price-edit" name="price" placeholder="Masukkan Harga Paket">
                     </div>
                     <div class="mb-1">
                         <label for="" class="mt-2 mb-2">Deskripsi</label>
-                        <textarea name="description" id="" class="form-control"></textarea>
+                        <textarea name="description" id="description-edit" class="form-control"></textarea>
                     </div>
                     <div class="mb-1">
                         <label for="" class="mt-2 mb-2">Gambar</label>
+                        <input type="file" name="image" class="form-control" onchange="preview(event)"><br>
                         <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
-                            <img class="img-thumbnail image-preview" itemprop="thumbnail">
+                            <img class="img-thumbnail preview" itemprop="thumbnail" src="{{ Storage::url($product->image) }}">
                         </figure>
-                        <input type="file" name="image" class="form-control" onchange="preview(event)">
                     </div>
 
                 </div>
@@ -175,17 +183,38 @@
 @endsection
 
 @section('script')
-<script>
+<!-- CSS -->
+<!-- JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+{{-- <script>
     $(document).ready(function() {
         $('.js-example-basic-single').select2();
     });
+</script> --}}
+
+<script>
+    $(document).ready(function() {
+        $(".tambah").select2({
+            dropdownParent: $("#add")
+        });
+    });
+    $(document).ready(function() {
+        $(".js-example-basic-single").select2({
+            dropdownParent: $("#modal-edit")
+        });
+    });
 </script>
+
 <script>
     function preview(event) {
-        const reader = new FileReader();
-        reader.onload = function() {
-            const preview = document.querySelector('.image-preview');
-            preview.src = reader.result;
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.querySelector('.preview');
+            output.src = reader.result;
         }
         reader.readAsDataURL(event.target.files[0]);
     }
@@ -194,8 +223,23 @@
     $('.btn-edit').click(function () {
         var id = $(this).data('id');
         var name = $(this).data('name');
-        $('#form-update').attr('action', '/product/' + id);
+        var price = $(this).data('price');
+        var description = $(this).data('description');
+        var image = $(this).data('image');
+        var division_id = $(this).data('division_id');
+
+
+
+
+        $('#form-update').attr('action', 'product/' + id);
         $('#name-edit').val(name);
+        $('#price-edit').val(price);
+        $('#description-edit').val(description);
+        $('#image-edit').val(image);
+        $('#division_id-edit').val(division_id);
+
+
+
         $('#modal-edit').modal('show');
     });
 

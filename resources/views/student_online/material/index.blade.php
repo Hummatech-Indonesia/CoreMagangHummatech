@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-3 col-md-4 col-sm-12">
           <div class="card">
             <img class="card-img-top img-responsive w-100" src="{{ asset('assets/images/materi-1.png') }}" style="object-fit: cover;" alt="Card image cap" />
             <div class="d-flex justify-content-between px-3" style="margin-top: -27px">

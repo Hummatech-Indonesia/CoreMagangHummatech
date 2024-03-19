@@ -1,14 +1,16 @@
 <?php
 namespace App\Contracts\Repositories;
 
+use App\Contracts\Interfaces\PicketingReportInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Models\PicketingReport;
 use App\Models\Student;
 
-class PicketingReportRepository extends BaseRepository implements StudentInterface
+class PicketingReportRepository extends BaseRepository implements PicketingReportInterface
 {
-    public function __construct(Student $student)
+    public function __construct(PicketingReport $picketingReport)
     {
-        $this->model = $student;
+        $this->model = $picketingReport;
     }
 
     public function get(): mixed
