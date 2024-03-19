@@ -24,9 +24,10 @@ Auth::routes();
 Route::post('/register/post', [StudentController::class, 'store']);
 
 # ================================================ Administrator Route Group ==================================================
-Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function () {
+Route::name(RolesEnum::ADMIN->value)->group(function () {
+
     // Dashboard Home
-    Route::get('/', [AdminController::class, 'index'])->name('.home');
+    Route::get('/administrator', [AdminController::class, 'index'])->name('.home');
 
     // Approval
     Route::get('/approval', [ApprovalController::class, 'index'])->name('.approval.index');

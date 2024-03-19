@@ -93,8 +93,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Buat</button>
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Buat</button>
                 </div>
             </form>
         </div>
@@ -125,8 +125,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>

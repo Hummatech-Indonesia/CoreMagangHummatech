@@ -33,12 +33,17 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="/administrator">
+                    <a class="nav-link menu-link" href="{{ url('/administrator') }}">
                         <i class="mdi mdi-speedometer"></i> <span data-key="t-dashboards">Dashboards</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
-                <li class="nav-item {{ request()->is('/administrator/voucher') ? 'active' : '' }}">
-                    <a class="nav-link menu-link" href="{{ url('/administrator/voucher') }}">
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ url('/product') }}">
+                        <i class=" ri-price-tag-2-line"></i> <span data-key="t-dashboards">Daftar Paket</span>
+                    </a>
+                </li>
+                <li class="nav-item {{ request()->is('/voucher') ? 'active' : '' }}">
+                    <a class="nav-link menu-link" href="{{ url('/voucher') }}">
                         <i class=" las la-gift"></i> <span data-key="t-dashboards">Kode vocer</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
@@ -51,10 +56,10 @@
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
-                                <a href="{{ url('/administrator/approval') }}" class="nav-link" data-key="t-chat"> Pendaftaran </a>
+                                <a href="{{ url('/approval') }}" class="nav-link" data-key="t-chat"> Pendaftaran </a>
                             </li>
                             <li class="nav-item {{ request()->is('/permision') ? 'active' : '' }}">
-                                <a href="/permision" class="nav-link" data-key="t-api-key">Izin & Sakit</a>
+                                <a href="{{ url('/permision') }}" class="nav-link" data-key="t-api-key">Izin & Sakit</a>
                             </li>
                             <li class="nav-item">
                                 <a href="" class="nav-link" data-key="t-api-key">TopUp</a>
@@ -72,14 +77,14 @@
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
-                                <a href="/journal" class="nav-link" data-key="t-chartjs"> Jurnal </a>
+                                <a href="{{ url('/jurnal') }}" class="nav-link" data-key="t-chartjs"> Jurnal </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('absent') }}" class="nav-link" data-key="t-echarts"> Absensi
+                                <a href="{{ url('/absent') }}" class="nav-link" data-key="t-echarts"> Absensi
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="charts-echarts.html" class="nav-link" data-key="t-echarts"> Report
+                                <a href="" class="nav-link" data-key="t-echarts"> Report
                                 </a>
                             </li>
                         </ul>
@@ -95,17 +100,17 @@
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
-                                <a href="{{ url('/administrator/response-letter') }}" class="nav-link" data-key="t-chat"> Pendaftaran </a>
+                                <a href="{{ url('/response-letter') }}" class="nav-link" data-key="t-chat"> Pendaftaran </a>
                             </li>
                             <li class="nav-item">
-                                <a href="apps-api-key.html" class="nav-link" data-key="t-api-key">Izin &
+                                <a href="" class="nav-link" data-key="t-api-key">Izin &
                                     Sakit</a>
                             </li>
                             <li class="nav-item">
-                                <a href="apps-api-key.html" class="nav-link" data-key="t-api-key">TopUp</a>
+                                <a href="" class="nav-link" data-key="t-api-key">TopUp</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('administrator/warning-letter') }}" class="nav-link" data-key="t-api-key">SP</a>
+                                <a href="{{ url('/warning-letter') }}" class="nav-link" data-key="t-api-key">SP</a>
                             </li>
                         </ul>
                     </div>
@@ -113,7 +118,7 @@
 
                 <li class="nav-item">
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ url('administrator/announcement') }}">
+                    <a class="nav-link menu-link" href="{{ url('/announcement') }}">
                         <i class=" ri-radar-line"></i> <span data-key="t-dashboards">Pengumuman</span>
                     </a>
                 </li>
@@ -121,27 +126,27 @@
 
                 <li class="nav-item">
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ url('administrator/division') }}">
+                    <a class="nav-link menu-link" href="{{ url('/division') }}">
                         <i class=" ri-apps-line"></i> <span data-key="t-dashboards">Divisi</span>
                     </a>
                 </li>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="widgets.html">
+                    <a class="nav-link menu-link" href="">
                         <i class="ri-rocket-line"></i> <span data-key="t-dashboards">Tim</span>
                     </a>
                 </li>
 
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="widgets.html">
+                    <a class="nav-link menu-link" href="">
                         <i class="ri-slideshow-line"></i> <span data-key="t-dashboards">Presentasi</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
+                    <a class="nav-link menu-link" href="">
                         <i class="ri-pencil-ruler-2-line"></i> <span data-key="t-widgets">Piket</span>
                     </a>
                 </li>
@@ -155,30 +160,30 @@
                     <div class="collapse menu-dropdown" id="sidebarForms">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="forms-elements.html" class="nav-link"
+                                <a href="" class="nav-link"
                                     data-key="t-basic-elements">Siswa</a>
                             </li>
                             <li class="nav-item">
-                                <a href="forms-select.html" class="nav-link"
+                                <a href="" class="nav-link"
                                     data-key="t-form-select">Mentor</a>
                             </li>
                             <li class="nav-item">
-                                <a href="forms-checkboxs-radios.html" class="nav-link"
+                                <a href="" class="nav-link"
                                     data-key="t-checkboxs-radios">Alumni</a>
                             </li>
                             <li class="nav-item">
-                                <a href="forms-pickers.html" class="nav-link" data-key="t-pickers">
+                                <a href="" class="nav-link" data-key="t-pickers">
                                     Penanggung Jawab </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/rfid" class="nav-link" data-key="t-input-masks">RFID</a>
+                                <a href="{{ url('/rfid') }}" class="nav-link" data-key="t-input-masks">RFID</a>
                             </li>
                             <li class="nav-item">
-                                <a href="forms-advanced.html" class="nav-link" data-key="t-advanced">Siswa
+                                <a href="" class="nav-link" data-key="t-advanced">Siswa
                                     Ditolak</a>
                             </li>
                             <li class="nav-item">
-                                <a href="forms-range-sliders.html" class="nav-link"
+                                <a href="" class="nav-link"
                                     data-key="t-range-slider"> Banned Siswa </a>
                             </li>
 
@@ -187,7 +192,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="widgets.html">
+                    <a class="nav-link menu-link" href="">
                         <i class=" ri-wallet-3-line"></i> <span data-key="t-widgets">Transaksi</span>
                     </a>
                 </li>
@@ -201,11 +206,11 @@
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
-                                <a href="charts-chartjs.html" class="nav-link" data-key="t-chartjs">
+                                <a href="" class="nav-link" data-key="t-chartjs">
                                     Pengaturan </a>
                             </li>
                             <li class="nav-item">
-                                <a href="charts-echarts.html" class="nav-link" data-key="t-echarts"> Lainnya
+                                <a href="" class="nav-link" data-key="t-echarts"> Lainnya
                                 </a>
                             </li>
                         </ul>
