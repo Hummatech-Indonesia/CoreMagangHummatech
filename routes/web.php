@@ -78,6 +78,7 @@ Route::middleware('auth')->group(function() {
     # Subscription Route
     Route::controller(SubscriptionController::class)->prefix('subscription')->name('subscription.')->group(function() {
         Route::get('/', 'index')->name('index');
+        Route::post('/checkout', 'checkout')->name('checkout');
     })->middleware('roles:siswa-offline,siswa-online');
 
     # Redirect based on roles

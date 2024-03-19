@@ -16,9 +16,19 @@ class SubscriptionController extends Controller
         $this->productInterface = $productInterface;
     }
 
+    /**
+     * Displaying the product listing
+     *
+     * @package pkl-hummatech
+     * @author cakadi190
+     */
     public function index()
     {
-        // dd(auth()->user()->student);
-        return view('student_online.langganan.index');
+        $division = auth()->user()->student->division_id;
+        $products = $this->productInterface->getProductsBasedOnDivision($division);
+        return view('student_online.langganan.index', compact('products'));
     }
+
+    public function checkout()
+    {}
 }

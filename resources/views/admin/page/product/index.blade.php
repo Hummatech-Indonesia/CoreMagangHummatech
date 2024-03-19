@@ -76,7 +76,7 @@
                     <div class="mb-1">
                         <label for="" class="mt-2 mb-2">Gambar</label>
                         <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
-                            <img class="img-thumbnail image-preview" itemprop="thumbnail">
+                            <img class="img-thumbnail image-preview" itemprop="thumbnail" />
                         </figure>
                         <input type="file" name="image" class="form-control" onchange="preview(event)">
                     </div>
