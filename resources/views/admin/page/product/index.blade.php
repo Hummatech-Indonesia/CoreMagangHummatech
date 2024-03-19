@@ -53,8 +53,6 @@
 </div>
 @endif
 
-
-
 <div class="row">
     @forelse ($product as $product)
 
@@ -193,7 +191,7 @@
                         <label for="" class="mt-2 mb-2">Gambar</label>
                         <input type="file" name="image" class="form-control" onchange="preview(event)"><br>
                         <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
-                            <img class="img-thumbnail preview" itemprop="thumbnail" id="img-thumnail">
+                            <img class="img-thumbnail preview" itemprop="thumbnail" src="" />
                         </figure>
                     </div>
 

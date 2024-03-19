@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('file');
-            $table->text('videos');
+            $table->string('image');
+            $table->longText('description');
+            $table->foreignId('mentors_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('division_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });

@@ -48,6 +48,7 @@ use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\AttendanceDetailRepository;
 use App\Contracts\Repositories\UserRepository;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -88,11 +89,18 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
+     *
+     * @see Blade Directive: https://adinata-id.medium.com/membuat-directive-custom-untuk-format-mata-uang-pada-laravel-blade-f56eaf6abf8a
      */
     public function boot(): void
     {
-        if(env('FORCE_HTTPS', false)) {
+        if (env('FORCE_HTTPS', false)) {
             URL::forceScheme('https');
         }
+
+        # Adding custom directive
+        Blade::directive('fcurrency', function ($expression) {
+            return "<?php echo number_format($expression,0,',','.'); ?>";
+        });
     }
 }

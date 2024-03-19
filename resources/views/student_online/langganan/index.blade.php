@@ -1,4 +1,5 @@
 @extends('student_online.layouts.app')
+
 @section('content')
     <div class="card bg-light-info shadow-none position-relative overflow-hidden">
         <div class="card-body px-4 py-3">
@@ -27,48 +28,34 @@
         </div>
     </div>
     <div class="row d-flex justify-content-center">
+        @forelse ($products as $product)
         <div class="col-sm-6 col-lg-4 ">
             <div class="card">
                 <div class="card-body pt-6">
-                    <div class="text-end">
-                        <span
-                            class="badge fw-bolder py-1 bg-light-warning text-warning text-uppercase fs-2 rounded-3">POPULAR</span>
-                    </div>
-                    <span class="fw-bolder text-uppercase fs-2 d-block mb-7">bronze</span>
+                    <span class="fw-bolder text-uppercase fs-2 d-block mt-3 mb-7">{{ $product->name }}</span>
                     <div class="my-4">
-                        <img src="{{ asset('assets-user/dist/images/backgrounds/bronze.png') }}" alt=""
-                            class="img-fluid" width="80" height="80">
+                        <img alt="{{ $product->name }}" src="{{ asset("storage/{$product->image}") }}"
+                            class="img-fluid" class="w-100" />
                     </div>
                     <div class="d-flex mb-3">
-                        <h5 class="fw-bolder fs-6 mb-0">$</h5>
-                        <h2 class="fw-bolder fs-12 ms-2 mb-0">4.99</h2>
-                        <span class="ms-2 fs-4 d-flex align-items-center">/mo</span>
+                        <h5 class="fw-bolder fs-6 mb-0">IDR</h5>
+                        <h2 class="fw-bolder fs-12 ms-2 mb-0">@fcurrency($product->price)</h2>
+                        <span class="ms-2 fs-4 d-flex align-items-center">/bulan</span>
                     </div>
-                    <ul class="list-unstyled mb-7">
-                        <li class="d-flex align-items-center gap-2 py-2">
-                            <i class="ti ti-check text-primary fs-4"></i>
-                            <span class="text-dark">5 Members</span>
-                        </li>
-                        <li class="d-flex align-items-center gap-2 py-2">
-                            <i class="ti ti-check text-primary fs-4"></i>
-                            <span class="text-dark">Single Devise</span>
-                        </li>
-                        <li class="d-flex align-items-center gap-2 py-2">
-                            <i class="ti ti-check text-primary fs-4"></i>
-                            <span class="text-dark">80GB Storage</span>
-                        </li>
-                        <li class="d-flex align-items-center gap-2 py-2">
-                            <i class="ti ti-x text-muted fs-4"></i>
-                            <span class="text-muted">Monthly Backups</span>
-                        </li>
-                        <li class="d-flex align-items-center gap-2 py-2">
-                            <i class="ti ti-x text-muted fs-4"></i>
-                            <span class="text-muted">Permissions & workflows</span>
-                        </li>
-                    </ul>
-                    <button class="btn btn-primary fw-bolder rounded-2 py-6 w-100 text-capitalize">choose bronze</button>
+
+                    <div class="mb-4">{!! $product->description !!}</div>
+
+                    <form action="{{ route('subscription.checkout') }}">
+                        @csrf
+
+                        <input type="hidden" name="id" value="{{ $product->id }}" />
+
+                        <button type="submit" class="btn btn-primary fw-bolder rounded-2 py-6 w-100 text-capitalize">Pilih Ini</button>
+                    </form>
                 </div>
             </div>
         </div>
+        @empty
+        @endforelse
     </div>
 @endsection

@@ -21,14 +21,24 @@ Route::put('journal/{journal}', [JournalController::class, 'update']);
 Route::get('siswa-online/jurnal', [JournalController::class, 'studentOnline']);
 
 Route::get('siswa-online/materi', function() {
-    return view('student_online.material.index');
+    return view('student_online.course.index');
 });
 Route::get('siswa-online/materi/detail', function() {
-    return view('student_online.material.detail');
+    return view('student_online.course.detail');
 });
 Route::get('siswa-online/materi/detail/detail-jawaban', function() {
-    return view('student_online.material.answer-detail');
+    return view('student_online.course.answer-detail');
 });
 Route::get('siswa-online/materi/detail/pelajari', function() {
-    return view('student_online.material.learn-more');
+    return view('student_online.course.learn-more');
+});
+
+Route::get('siswa-online/tugas', function() {
+    return view('student_online.task.index');
+});
+Route::get('siswa-online/tugas/detail', function() {
+    return view('student_online.task.detail');
+});
+Route::get('siswa-online/tugas/detail/detail-jawaban', function() {
+    return view('student_online.task.answer-detail');
 });

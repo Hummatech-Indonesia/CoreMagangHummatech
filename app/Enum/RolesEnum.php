@@ -5,7 +5,7 @@ namespace App\Enum;
 enum RolesEnum: string
 {
     case ADMIN = 'administrator';
-    case MENTOR = 'pembimbing';
+    case MENTOR = 'mentor';
     case ONLINE = 'siswa-online';
     case OFFLINE = 'siswa-offline';
     case SCHOOL = 'sekolah';
