@@ -23,7 +23,8 @@ class StorePicketRequest extends FormRequest
     {
         return [
           'tim' => 'required',
-          'day' => 'required'
+          'day_picket' => 'required',
+          'student_id' => 'required',
         ];
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Picket;
 use App\Http\Requests\StorePicketRequest;
 use App\Http\Requests\UpdatePicketRequest;
+use App\Enums\DayEnum;
 
 class PicketController extends Controller
 {
@@ -27,6 +28,7 @@ class PicketController extends Controller
      */
     public function index()
     {
+        // $days = DayEnum::toSelectArray();
         $reports = $this->report->get();
         $students = $this->student->get();
         $pickets = $this->picket->get();

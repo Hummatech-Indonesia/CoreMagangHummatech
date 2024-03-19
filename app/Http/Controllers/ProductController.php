@@ -27,6 +27,7 @@ class ProductController extends Controller
     {
         $product = $this->product->get();
         $divisions = $this->division->get();
+
         return view('admin.page.product.index', compact('product','divisions'));
     }
 
