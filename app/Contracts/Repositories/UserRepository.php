@@ -22,5 +22,5 @@ class UserRepository extends BaseRepository implements UserInterface
     {
         return $this->model->query()->create($data);
     }
-
+    
 }

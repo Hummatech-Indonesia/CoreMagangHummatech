@@ -2,18 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\SubCourseInterface;
 use App\Models\SubCourse;
 use App\Http\Requests\StoreSubCourseRequest;
 use App\Http\Requests\UpdateSubCourseRequest;
+use App\Services\SubCourseService;
 
 class SubCourseController extends Controller
 {
+
+    private SubCourseInterface $subCourse;
+    private SubCourseService $service;
+
+    public function __construct(SubCourseInterface $subCourse ,SubCourseService $service)
+    {
+        $this->subCourse = $subCourse;
+        $this->service = $service;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $subCourses = $this->subCourse->get();
+        return view('' , compact('subCourses'));
     }
 
     /**
@@ -29,7 +41,9 @@ class SubCourseController extends Controller
      */
     public function store(StoreSubCourseRequest $request)
     {
-        //
+        $data = $this->service->store($request);
+        $this->subCourse->store($data);
+        return back()->with('success' , 'Berhasil Menambahkan data');
     }
 
     /**
@@ -53,7 +67,9 @@ class SubCourseController extends Controller
      */
     public function update(UpdateSubCourseRequest $request, SubCourse $subCourse)
     {
-        //
+        $data = $this->service->update($subCourse, $request);
+        $this->subCourse->update($subCourse->id, $data);
+        return back()->with('success' , 'Berhasi Memperbarui Data');
     }
 
     /**
@@ -61,6 +77,8 @@ class SubCourseController extends Controller
      */
     public function destroy(SubCourse $subCourse)
     {
-        //
+        $this->service->delete($subCourse);
+        $this->subCourse->delete($subCourse->id);
+        return back()->with('success' , 'Berhasi Menghapus Data');
     }
 }

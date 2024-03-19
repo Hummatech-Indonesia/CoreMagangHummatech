@@ -11,6 +11,7 @@ use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\StoreStructureRequest;
 use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\StoreSubCourseRequest;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Http\Requests\UpdateJournalRequest;
@@ -20,6 +21,7 @@ use App\Http\Requests\UpdateSaleRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Http\Requests\UpdateStructureRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Http\Requests\UpdateSubCourseRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use App\Models\Course;
 use App\Models\Journal;
@@ -29,6 +31,7 @@ use App\Models\Sale;
 use App\Models\Service;
 use App\Models\Structure;
 use App\Models\Student;
+use App\Models\SubCourse;
 use App\Models\Team;
 use Illuminate\Support\Facades\Log;
 
@@ -58,7 +61,7 @@ class SubCourseService
      *
      * @return array|bool
      */
-    public function store(StoreCourseRequest $request): array|bool
+    public function store(StoreSubCourseRequest $request): array|bool
     {
         $data = $request->validated();
 
@@ -79,22 +82,26 @@ class SubCourseService
      *
      * @return array|bool
      */
-    public function update(Course $course, UpdateCourseRequest $request): array|bool
+    public function update(SubCourse $subCourse, UpdateSubCourseRequest $request): array|bool
     {
         $data = $request->validated();
 
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $this->remove($course->image);
-            $data['image'] = $request->file('image')->store(TypeEnum::COURSES->value, 'public');
+        if ($request->hasFile('image_course') && $request->file('image_course')->isValid() || $request->hasFile('video_course') && $request->file('video_course')->isValid() || $request->hasFile('file_course') && $request->file('file_course')->isValid()) {
+            $data['image_course'] = $request->file('image_course')->store(TypeEnum::IMAGE_COURSE->value, 'public');
+            $data['video_course'] = $request->file('video_course')->store(TypeEnum::VIDEO_COURSE->value, 'public');
+            $data['file_course'] = $request->file('file_course')->store(TypeEnum::FILE_COURSE->value, 'public');
         }else {
-            $data['image'] = $course->image;
+            $data['image_course'] = $subCourse->image;
+            $data['video_course'] = $subCourse->image;
+            $data['file_course'] = $subCourse->image;
         }
-
         return $data;
     }
 
-    public function delete(Course $course)
+    public function delete(SubCourse $subCourse)
     {
-        $this->remove($course->image);
+        $this->remove($subCourse->image_course);
+        $this->remove($subCourse->video_course);
+        $this->remove($subCourse->file_course);
     }
 }
