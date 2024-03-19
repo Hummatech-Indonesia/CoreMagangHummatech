@@ -4,16 +4,17 @@ namespace App\Services;
 
 use Carbon\Carbon;
 use App\Enum\TypeEnum;
+use App\Enum\RolesEnum;
 use App\Models\Student;
+use App\Mail\DeclineApproval;
 use App\Enum\StudentStatusEnum;
-use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use App\Contracts\Interfaces\UserInterface;
 use App\Http\Requests\AcceptedAprovalRequest;
 use App\Http\Requests\DeclinedAprovalRequest;
 use App\Contracts\Interfaces\ResponseLetterInterface;
-use App\Contracts\Interfaces\UserInterface;
-use App\Mail\DeclineApproval;
 
 class ApprovalService
 {
@@ -30,8 +31,8 @@ class ApprovalService
     {
         $data = $request->validated();
 
-        $start_date_formated = \carbon\Carbon::createFromDate( $student->start_date)->locale('id')->isoFormat('D MMMM Y');
-        $finish_date_formated = \carbon\Carbon::createFromDate( $student->finish_date)->locale('id')->isoFormat('D MMMM Y');
+        $start_date_formated = \carbon\Carbon::createFromDate($student->start_date)->locale('id')->isoFormat('D MMMM Y');
+        $finish_date_formated = \carbon\Carbon::createFromDate($student->finish_date)->locale('id')->isoFormat('D MMMM Y');
 
         //Get Data For Response Letter && mail
         $data = [
@@ -73,11 +74,15 @@ class ApprovalService
             'name' => $student->name,
             'email' => $student->email,
             'password' => $student->password,
-            'student_id' => $student->id
+            'student_id' => $student->id,
         ];
 
-        $this->user->store($dataUser);
-
+        $user = $this->user->store($dataUser);
+        if($request->internship_type == 'offline'){
+            $user->assignRole(RolesEnum::OFFLINE->value);
+        } elseif($request->internship_type == 'online'){
+            $user->assignRole(RolesEnum::ONLINE->value);
+        }
         //Data For Update Status Students
         $data = ['status' => StudentStatusEnum::ACCEPTED->value];
 

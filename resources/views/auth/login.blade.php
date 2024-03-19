@@ -10,7 +10,7 @@
                         style="object-fit: cover" data-app-dark-img="illustrations/auth-login-illustration-dark.html">
                 </div>
             </div>
-            <div class="d-flex col-12 col-lg-5 align-items-center p-sm-5 p-2">
+            <div class="d-flex col-12 col-lg-5 align-items-center p-sm-5 p-4">
                 <div class="w-px-400 mx-auto">
                     <h3 class="mb-1 text-center">Selamat datang! 👋</h3>
                     <p class="text-center">Masuk dan mulai berpetualang.</p>
@@ -43,8 +43,10 @@
                         <button type="submit" class="btn btn-primary d-grid w-100">
                             Masuk
                         </button>
-                        <a href="/register" class="text-black mt-2">Belum Punya akun? <span
-                                class="text-primary">Daftar</span></a>
+                        <div class="text-center mt-3">
+                            <a href="/register" class="text-black mt-2">Belum Punya akun? <span
+                                    class="text-primary">Daftar</span></a>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -52,9 +54,10 @@
     </div>
 
     @if (session('pending'))
-        <div id="myModal" class="modal fade show" tabindex="-1" aria-labelledby="myModalLabel" style="display: block;"
-            aria-modal="true" role="dialog">
-            <div class="modal-dialog modal-dialog-centered">
+
+        <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-modal="true"
+            role="dialog">
+            <div class="modal-dialog">
                 <div class="modal-content text-center">
                     <div class="modal-header">
                     </div>
@@ -71,9 +74,19 @@
                     <div class="modal-footer d-flex justify-content-center">
                         <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
                     </div>
-
                 </div>
             </div>
         </div>
     @endif
+@endsection
+
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            $(document).ready(function() {
+                $("#myModal").modal('show');
+            });
+        </script>
 @endsection

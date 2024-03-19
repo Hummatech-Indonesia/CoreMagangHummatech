@@ -74,6 +74,9 @@ class StudentService
 
     public function delete(Student $student)
     {
-        $this->remove($student->image);
+        $this->remove($student->avatar);
+        $this->remove($student->cv);
+        $this->remove($student->self_statement);
+        $this->remove($student->parents_statement);
     }
 }

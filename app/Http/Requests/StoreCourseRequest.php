@@ -23,8 +23,8 @@ class StoreCourseRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'file' => 'required',
-            'videos' => 'required'
+            'image' => 'required',
+            'description' => 'required'
         ];
     }
 }

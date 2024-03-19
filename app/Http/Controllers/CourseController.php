@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\CourseInterface;
+use App\Contracts\Interfaces\SubCourseInterface;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
@@ -11,11 +12,13 @@ use App\Services\CourseService;
 class CourseController extends Controller
 {
     private CourseInterface $course;
+    private SubCourseInterface $subCourse;
     private CourseService $service;
-    public function __construct(CourseInterface $course , CourseService $service)
+    public function __construct(CourseInterface $course , CourseService $service , SubCourseInterface $subCourse)
     {
         $this->course = $course;
         $this->service = $service;
+        $this->subCourse = $subCourse;
     }
     /**
      * Display a listing of the resource.
@@ -23,7 +26,7 @@ class CourseController extends Controller
     public function index()
     {
         $courses = $this->course->get();
-        return view('' , compact('courses'));
+        return view('mentor.challenge.index' , compact('courses'));
     }
 
     /**
@@ -49,7 +52,10 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
+        $countSub = $this->subCourse->count();
+        $subCourses = $this->subCourse->where($course->id);
+        $course = $this->course->show($course->id);
+        return view('mentor.challenge.show' , compact('course' , 'subCourses' , 'countSub'));
     }
 
     /**

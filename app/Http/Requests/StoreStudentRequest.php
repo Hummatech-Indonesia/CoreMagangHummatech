@@ -25,7 +25,7 @@ class StoreStudentRequest extends FormRequest
             'name' => 'required',
             'identify_number' => 'required',
             'birth_place' => 'required',
-            'birth_date' => 'required|date',
+            'birth_date' => 'required|date|before:'.today()->subYear()->format('Y-m-d'),
             'gender' => 'required',
             'address' => 'required',
             'phone' => 'required',
@@ -37,8 +37,8 @@ class StoreStudentRequest extends FormRequest
             'cv' => 'required',
             'self_statement' => 'required',
             'parents_statement' => 'required',
-            'start_date' => 'required|date',
-            'finish_date' => 'required|date',
+            'start_date' => 'required|date|after_or_equal:today',
+            'finish_date' => 'required|date|after_or_equal:start_date',
             'major' => 'required',
             'rfid' => 'nullable',
             'internship_type' => 'required',
@@ -68,14 +68,18 @@ class StoreStudentRequest extends FormRequest
             'self_statement.required' => 'Kartu identitas wajib diisi.',
             'parents_statement.required' => 'Kartu keluarga wajib diisi.',
             'start_date.required' => 'Tgl. mulai wajib diisi.',
+            'start_date.after_or_equal' => 'Tgl. mulai harus sama atau setelah tanggal sekarang.',
             'finish_date.required' => 'Tgl. selesai wajib diisi.',
+            'finish_date.after_or_equal' => 'Tgl. selesai harus sama atau setelah tgl. mulai.',
             'major.required' => 'Jurusan wajib diisi.',
             'internship_type.required' => 'Jenis magang wajib diisi.',
             'email.required' => 'Email wajib diisi.',
             'password.required' => 'Password wajib diisi.',
             'division_id.required_if' => 'Divisi wajib diisi.',
             'confirm_password.same' => 'Konfirmasi password tidak sama.',
-            'confirm_password.required' => 'Konfirmasi password wajib diisi.'
+            'confirm_password.required' => 'Konfirmasi password wajib diisi.',
+
+
         ];
     }
 }

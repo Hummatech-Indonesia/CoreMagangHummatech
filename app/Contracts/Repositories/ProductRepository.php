@@ -49,4 +49,5 @@ class ProductRepository extends BaseRepository implements ProductInterface
         ->findOrFail($id)
         ->update($data);
     }
+    
 }
