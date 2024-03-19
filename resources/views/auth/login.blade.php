@@ -10,7 +10,7 @@
                         style="object-fit: cover" data-app-dark-img="illustrations/auth-login-illustration-dark.html">
                 </div>
             </div>
-            <div class="d-flex col-12 col-lg-5 align-items-center p-sm-5 p-4">
+            <div class="d-flex col-12 col-lg-5 align-items-center p-sm-5 p-2">
                 <div class="w-px-400 mx-auto">
                     <h3 class="mb-1 text-center">Selamat datang! 👋</h3>
                     <p class="text-center">Masuk dan mulai berpetualang.</p>
