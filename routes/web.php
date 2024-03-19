@@ -73,6 +73,13 @@ Route::prefix('siswa-online')->name(RolesEnum::ONLINE->value)->group(function() 
 # ================================================ School/Instance Route Group ================================================
 
 # ==================================================== Another Route Group ====================================================
+
+#===================================================== Mentor =================================================================
+Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function() {
+    Route::get('/', function () { return view('mentor.index');});
+});
+
+#================================================= End Mentor ====================================================================
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->get('/home', function () {

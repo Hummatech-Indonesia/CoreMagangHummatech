@@ -31,5 +31,9 @@ class UserSeeder extends Seeder
             'name' => 'Test User Siswa Online',
             'email' => 'siswa_online@example.com',
         ])->assignRole(RolesEnum::ONLINE);
+        User::factory()->create([
+            'name' => 'Test Mentor',
+            'email' => 'mentor@example.com',
+        ])->assignRole(RolesEnum::MENTOR);
     }
 }
