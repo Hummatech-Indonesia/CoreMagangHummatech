@@ -26,6 +26,9 @@ Route::get('siswa-online/materi', function() {
 Route::get('siswa-online/materi/detail', function() {
     return view('student_online.material.detail');
 });
+Route::get('siswa-online/materi/detail/detail-jawaban', function() {
+    return view('student_online.material.answer-detail');
+});
 Route::get('siswa-online/materi/detail/pelajari', function() {
     return view('student_online.material.learn-more');
 });
