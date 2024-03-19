@@ -39,10 +39,14 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
-        $data = $this->servicestudent->store($request);
-        $this->student->store($data);
+        try {
+            $data = $this->servicestudent->store($request);
+            $this->student->store($data);
+            return redirect()->route('login')->with(['pending' => 'Registrasi Berhasil Silahkan Tunggu Konfirmasi Dari Admin ']);
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
 
-        return redirect()->route('login');
     }
 
     /**

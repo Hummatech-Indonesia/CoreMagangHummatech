@@ -68,28 +68,40 @@
                                     </div>
                                     <div class="row g-3">
                                         <div class="col-sm-6">
-                                            <label class="form-label" for="multiStepsUsername">Nama</label>
+                                            <label class="form-label" for="multiStepsUsername">Nama Lengkap</label>
                                             <input type="text" name="name" id="multiStepsUsername"
-                                                value="{{ old('name') }}" class="form-control" placeholder="Nama" onkeyup="capitalizeInput(this)"/>
+                                                value="{{ old('name') }}" class="form-control" placeholder="Nama Lengkap"
+                                                onkeyup="capitalizeInput(this)" />
+                                            @error('name')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsEmail">NISN/NIM</label>
                                             <input type="number" name="identify_number" id="multiStepsEmail"
                                                 value="{{ old('identify_number') }}" class="form-control"
-                                                placeholder="Nisn/Nim" aria-label="john.doe" />
+                                                placeholder="Nisn/Nim" />
+                                            @error('identify_number')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-sm-6 form-password-toggle">
                                             <label class="form-label" for="multiStepsPass">Tempat Lahir</label>
                                             <input type="text" id="multiStepsPass" name="birth_place"
                                                 class="form-control" placeholder="Tempat Lahir"
                                                 value="{{ old('birth_place') }}" />
-
+                                            @error('birth_place')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-sm-6 form-password-toggle">
                                             <label class="form-label" for="multiStepsConfirmPass">Tanggal Lahir</label>
                                             <input type="date" id="multiStepsConfirmPass" name="birth_date"
-                                                value="{{ old('birth_date') }}" class="form-control" placeholder=""
+                                                value="{{ old('birth_date') }}" class="form-control"
                                                 aria-describedby="multiStepsConfirmPass2" />
+                                            @error('birth_date')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
 
                                         </div>
                                         <div class="col-sm-12">
@@ -99,15 +111,25 @@
                                                 class="" placeholder="Doe" /> Laki-laki &nbsp;
                                             <input type="radio" id="multiStepsLastName" value="female" name="gender"
                                                 class="" placeholder="Doe" /> Perempuan
+                                            @error('gender')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsFirstName">Alamat</label>
-                                            <textarea id="multiStepsFirstName" name="address" class="form-control" {{ old('address') }} placeholder="John"></textarea>
+                                            <textarea id="multiStepsFirstName" name="address" class="form-control"  placeholder="Alamat">{{ old('address') }}</textarea>
+                                            @error('address')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsLastName">No Hp</label>
                                             <input type="number" id="multiStepsLastName" name="phone"
-                                                value="{{ old('phone') }}" class="form-control" placeholder="Doe" />
+                                                value="{{ old('phone') }}" class="form-control"
+                                                placeholder="No Telp" />
+                                            @error('phone')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsURL">Kelas</label>
@@ -124,22 +146,35 @@
                                                 <option value="scholar" {{ old('class') == 'scholar' ? 'selected' : '' }}>
                                                     Mahasiswa</option>
                                             </select>
+                                            @error('class')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="form-label" for="multiStepsURL">Sekolah</label>
+                                            <label class="form-label" for="multiStepsURL">Sekolah / Universitas</label>
                                             <input type="text" name="school" class="form-control"
-                                                value="{{ old('school') }}" id="school-input"
-                                                onkeyup="capitalizeInput(this)">
+                                                placeholder="Sekolah / Universitas" value="{{ old('school') }}"
+                                                id="school-input" onkeyup="capitalizeInput(this)">
+                                            @error('school')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsFirstName">Alamat Sekolah</label>
-                                            <textarea id="multiStepsFirstName" name="school_address" class="form-control" {{ old('school_address') }}
-                                                placeholder="John"></textarea>
+                                            <textarea id="multiStepsFirstName" name="school_address" class="form-control"
+                                                placeholder="Alamat Sekolah">{{ old('school_address') }}</textarea>
+                                            @error('school_address')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsLastName">No Telp Sekolah</label>
                                             <input type="number" id="multiStepsLastName" name="school_phone"
-                                                value="{{ old('phone') }}" class="form-control" placeholder="Doe" />
+                                                value="{{ old('phone') }}" class="form-control"
+                                                placeholder="No Telp Sekolah" />
+                                            @error('school_phone')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-12 d-flex justify-content-between mt-4">
                                             <button class="btn btn-label-secondary btn-prev" type="button" disabled> <i
@@ -150,6 +185,8 @@
                                                     class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Next</span>
                                                 <i class="ti ti-arrow-right ti-xs"></i></button>
                                         </div>
+                                        <a href="/login" class="text-black mt-2">Sudah punya akun? <span
+                                                class="text-primary">Masuk</span></a>
                                     </div>
                                 </div>
                                 <!-- Personal Info -->
@@ -160,26 +197,42 @@
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsFirstName">Foto Siswa</label>
                                             <input type="file" id="multiStepsFirstName" name="avatar"
-                                                class="form-control" placeholder="John" />
+                                                class="form-control" />
+                                            @error('avatar')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsLastName">CV</label>
                                             <input type="file" id="multiStepsLastName" name="cv"
-                                                class="form-control" placeholder="Doe" />
+                                                class="form-control" />
+                                            <p class="text-danger">*CV Harus Berformat .jpg, .jpeg, atau .png</p>
+                                            @error('cv')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsMobile">Surat Pernyataan Diri</label>
                                             <div class="input-group">
                                                 <input type="file" id="multiStepsMobile" name="self_statement"
                                                     class="form-control multi-steps-mobile" placeholder="202 555 0111" />
+                                                <p class="text-danger">*Surat Pernyataan Diri Harus Berformat .jpg, .jpeg,
+                                                    atau .png</p>
+                                                @error('self_statement')
+                                                    <p class="text-danger m-0">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsPincode">Surat Pernyataan Orang
                                                 Tua</label>
                                             <input type="file" id="multiStepsPincode" name="parents_statement"
-                                                class="form-control multi-steps-pincode" placeholder="Postal Code"
-                                                maxlength="6" />
+                                                class="form-control multi-steps-pincode" />
+                                            <p class="text-danger">*Surat Pernyataan Diri Harus Berformat .jpg, .jpeg, atau
+                                                .png</p>
+                                            @error('parents_statement')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
                                         </div>
 
                                         <div class="col-sm-6">
@@ -188,13 +241,19 @@
                                                 <input type="date" id="multiStepsMobile" name="start_date"
                                                     value="{{ old('start_date') }}"
                                                     class="form-control multi-steps-mobile" placeholder="202 555 0111" />
+                                                @error('start_date')
+                                                    <p class="text-danger m-0">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsPincode">Selesai Magang</label>
                                             <input type="date" id="multiStepsPincode" name="finish_date"
-                                                value="{{ old('finish_date') }}" class="form-control multi-steps-pincode"
-                                                placeholder="Postal Code" maxlength="6" />
+                                                value="{{ old('finish_date') }}"
+                                                class="form-control multi-steps-pincode" />
+                                            @error('finish_date')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsAddress">Pilih Jurusan</label>
@@ -208,21 +267,28 @@
                                                 <option value="ti" {{ old('major') == 'ti' ? 'selected' : '' }}>Teknik
                                                     Informatika</option>
                                             </select>
+                                            @error('major')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsAddress">Tipe Magang</label>
-                                            <select name="internship_type" class="form-select" id="multiStepsAddress">
+                                            <select name="internship_type" class="form-select" id="internshipType"
+                                                onchange="toggleDivision()">
                                                 <option disabled selected>Pilih Jenis Magang</option>
                                                 <option value="online"
-                                                    {{ old('internship_type') == 'online' ? 'selected' : '' }}>online
-                                                </option>
+                                                    {{ old('internship_type') == 'online' ? 'selected' : '' }}>
+                                                    online</option>
                                                 <option value="offline"
-                                                    {{ old('internship_type') == 'offline' ? 'selected' : '' }}>offline
-                                                </option>
+                                                    {{ old('internship_type') == 'offline' ? 'selected' : '' }}>
+                                                    offline</option>
                                             </select>
+                                            @error('internship_type')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
                                         </div>
-                                        <div class="col-md-12">
-                                            <label class="form-label" for="multiStepsAddress">Jenis Magang</label>
+                                        <div class="col-md-12 " hidden id="divisionContainer">
+                                            <label class="form-label" for="multiStepsAddress">Divisi</label>
                                             <select name="division_id" class="form-select" id="multiStepsAddress">
                                                 <option disabled selected>Pilih Divisi</option>
                                                 @foreach ($divisions as $division)
@@ -231,6 +297,9 @@
                                                         {{ $division->name }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('division_id')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-12 d-flex justify-content-between mt-4">
                                             <button class="btn btn-label-secondary btn-prev" type="button"> <i
@@ -241,6 +310,8 @@
                                                     class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Next</span>
                                                 <i class="ti ti-arrow-right ti-xs"></i></button>
                                         </div>
+                                        <a href="/login" class="text-black mt-2">Sudah punya akun? <span
+                                                class="text-primary">Masuk</span></a>
                                     </div>
                                 </div>
                                 <!-- Billing Links -->
@@ -253,6 +324,9 @@
                                             <input type="email" id="multiStepsFirstName" name="email"
                                                 value="{{ old('email') }}" class="form-control"
                                                 placeholder="email@gmail.com" />
+                                            @error('email')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
                                         </div>
 
                                         <div class="col-md-6">
@@ -264,42 +338,97 @@
                                                 <span class="input-group-text cursor-pointer" id="multiStepsPass2"><i
                                                         class="ti ti-eye-off"></i></span>
                                             </div>
+                                            @error('password')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsAddress">konfirmasi password</label>
                                             <div class="input-group input-group-merge">
-                                                <input type="password" id="multiStepsFirstName" name="password_confirmation"
-                                                    class="form-control" placeholder="password"
-                                                    aria-describedby="multiStepsConfirmPass2" />
+                                                <input type="password" name="confirm_password" id="multiStepsFirstName" class="form-control"
+                                                    placeholder="password" aria-describedby="multiStepsConfirmPass2" />
                                                 <span class="input-group-text cursor-pointer"
                                                     id="multiStepsConfirmPass2"><i class="ti ti-eye-off"></i></span>
                                             </div>
+                                            @error('confirm_password')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                         <div class="col-12 d-flex justify-content-between mt-4">
                                             <button class="btn btn-label-secondary btn-prev" type="button"> <i
                                                     class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
                                                 <span class="align-middle d-sm-inline-block d-none">Previous</span>
                                             </button>
-                                            <button class="btn btn-primary btn-next" type="submit"> <span
+                                            <button class="btn btn-primary btn-next btn-submit" type="button"> <span
                                                     class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Simpan</span></button>
                                         </div>
                                     </div>
+                                    <a href="/login" class="text-black mt-2">Sudah punya akun? <span
+                                            class="text-primary">Masuk</span></a>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- / Multi Steps Registration -->
         </div>
     </div>
 
+    <div id="modalForm" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+        style="display: none;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body text-center">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24"
+                            class="bg-secondary rounded-circle icon" fill="none" stroke="white" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-question-mark">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M8 8a3.5 3 0 0 1 3.5 -3h1a3.5 3 0 0 1 3.5 3a3 3 0 0 1 -2 3a3 4 0 0 0 -2 4" />
+                            <path d="M12 19l0 .01" />
+                        </svg>
+                    </div>
+                    <h4 class="mt-3">Apakah anda yakin ingin melanjutkan?</h4>
+                </div>
+                <div class="modal-footer d-flex justify-content-center m-0">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success btn-save">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $('.btn-submit').on('click', function() {
+            $('#modalForm').modal('show');
+        });
+        $('.btn-save').on('click', function() {
+            $('#multiStepsForm').submit();
+        });
+    </script>
+    <script>
+        function toggleDivision() {
+            const internshipType = document.getElementById('internshipType');
+            const divisionContainer = document.getElementById('divisionContainer');
+            if (internshipType.value === 'online') {
+                divisionContainer.hidden = false;
+            } else {
+                divisionContainer.hidden = true;
+            }
+        }
+    </script>
     <script>
         // Check selected custom option
         window.Helpers.initCustomOptionCheck();
     </script>
-@endsection
-@section('script')
     <script>
         function capitalizeInput(input) {
             input.value = input.value.toUpperCase();

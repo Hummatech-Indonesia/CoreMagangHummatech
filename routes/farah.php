@@ -32,3 +32,13 @@ Route::get('siswa-online/materi/detail/detail-jawaban', function() {
 Route::get('siswa-online/materi/detail/pelajari', function() {
     return view('student_online.material.learn-more');
 });
+
+Route::get('siswa-online/tugas', function() {
+    return view('student_online.task.index');
+});
+Route::get('siswa-online/tugas/detail', function() {
+    return view('student_online.task.detail');
+});
+Route::get('siswa-online/tugas/detail/detail-jawaban', function() {
+    return view('student_online.task.answer-detail');
+});
