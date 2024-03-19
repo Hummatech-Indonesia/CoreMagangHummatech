@@ -36,7 +36,7 @@
                         <span>
                             <i class="ti ti-check"></i>
                         </span>
-                        <span class="hide-menu">Jurnal</span>
+                        <span class="hide-menu">Jurnal <i class="fas fa-lock opacity-50 ms-2"></i></span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -44,7 +44,7 @@
                         <span>
                             <i class="ti ti-box"></i>
                         </span>
-                        <span class="hide-menu">Kelas Divisi</span>
+                        <span class="hide-menu">Kelas Divisi <i class="fas fa-lock opacity-50 ms-2"></i></span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -52,7 +52,7 @@
                         <span>
                             <i class="ti ti-book"></i>
                         </span>
-                        <span class="hide-menu">Materi</span>
+                        <span class="hide-menu">Materi <i class="fas fa-lock opacity-50 ms-2"></i></span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -60,7 +60,7 @@
                         <span>
                             <i class="ti ti-pencil"></i>
                         </span>
-                        <span class="hide-menu">Tugas</span>
+                        <span class="hide-menu">Tugas <i class="fas fa-lock opacity-50 ms-2"></i></span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -68,7 +68,7 @@
                         <span>
                             <i class="ti ti-clock"></i>
                         </span>
-                        <span class="hide-menu">Jadwal Mentor</span>
+                        <span class="hide-menu">Jadwal Mentor <i class="fas fa-lock opacity-50 ms-2"></i></span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -76,7 +76,7 @@
                         <span>
                             <i class="ti ti-medal"></i>
                         </span>
-                        <span class="hide-menu">Sertifikat</span>
+                        <span class="hide-menu">Sertifikat <i class="fas fa-lock opacity-50 ms-2"></i></span>
                     </a>
                 </li>
             </ul>

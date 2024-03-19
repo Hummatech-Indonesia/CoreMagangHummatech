@@ -19,6 +19,11 @@ class VoucherSubmitController extends Controller
         return back()->with('success', 'Kode kupon berhasil diaplikasikan.');
     }
 
+    public function reset()
+    {
+        session()->forget('voucher');
+    }
+
     /**
      * Revokal the voucher code
      *

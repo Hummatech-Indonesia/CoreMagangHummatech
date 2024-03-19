@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Payment;
 use App\Contracts\Interfaces\PaymentInterface;
 use App\Contracts\Interfaces\ProductInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TripayCheckoutRequest;
 use Illuminate\Http\Request;
 
 class TripayController extends Controller
@@ -18,24 +19,18 @@ class TripayController extends Controller
         $this->product = $productData;
     }
 
-    public function index()
+    public function store(TripayCheckoutRequest $request)
     {
-        $channels = $this->payment->getPaymentChannel();
-        return view('admin.tripay.index', compact('channels'));
-    }
-
-    public function store(Request $request)
-    {
-        $method = $request->method;
-        $totalAmount = 150000;
+        $productDetail = $this->product->getId($request->product_id);
+        $method = $request->payment_code;
+        $totalAmount = (int) $request->amount;
 
         $response = $this->payment->transaction($method, $totalAmount, [
             [
-                'name'        => 'Langganan Layanan PKL Hummatech Divisi Website Development',
-                'price'       => 150000,
+                'name'        => $productDetail->name,
+                'price'       => (int) $request->amount,
                 'quantity'    => 1,
-                'product_url' => 'https://tokokamu.com/product/nama-produk-1',
-                'image_url'   => 'https://tokokamu.com/product/nama-produk-1.jpg',
+                'product_url' => route('subscription.index'),
             ],
         ]);
 
@@ -44,7 +39,9 @@ class TripayController extends Controller
             return redirect()->back()->with('error', $response['message']);
         }
 
-        return redirect($response['data']['checkout_url']);
+        dd($response);
+
+        // return redirect($response['data']['checkout_url']);
     }
 
     public function callback(Request $request)

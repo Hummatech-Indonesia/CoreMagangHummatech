@@ -45,14 +45,15 @@ class SubscriptionController extends Controller
     {
         $id = $request->id;
         $this->checkout->add($id);
-        return redirect()->route('subscription.checkout');
+        return redirect()->route('subscription.checkout')->with('success', 'Produk udah di tambahkan ke dalam keranjang');
     }
 
     public function subscribeDeleteCartProcess(CartProductDeleteRequest $request)
     {
         $id = $request->id;
         $this->checkout->remove($id);
-        return redirect()->back();
+        (new VoucherSubmitController)->reset();
+        return redirect()->back()->with('success', 'Produk di hapus dari keranjang.');
     }
 
     /**

@@ -46,6 +46,35 @@
                     class="fas fa-arrow-left"></i> <span>Kembali</span></a>
         </div>
 
+
+        <!-- Delete -->
+        <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Konfirmasi!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Apakah anda yakin ingin menghapus langganan ini? Apabila anda menghapusnya, anda bisa
+                            menambahkannya lagi dari halaman daftar produk <a
+                                href="{{ route('subscription.index') }}">disini</a>.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <form action="{{ route('subscription.delete') }}" id="form-delete" method="post">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $productDetail->id }}" />
+                        </form>
+
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" onclick="$('#form-delete').submit()" class="btn btn-danger">Hapus
+                            Aja</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-7">
                 <div class="card">
@@ -53,14 +82,9 @@
                     <div class="card-body border-bottom">
                         <div class="d-flex justify-content-between">
                             <h3>{{ $productDetail->name }}</h3>
-                            <form action="{{ route('subscription.delete') }}" id="form-delete" method="post">
-                                @csrf
-                                <input type="hidden" name="id" value="{{ $productDetail->id }}" />
-                            </form>
 
-                            <a href="javascript:void(0);"
-                                onclick="event.preventDefault(); document.getElementById('form-delete').submit();"
-                                class="text-danger"><i class="fas fa-trash"></i></a>
+                            <a href="javascript:void()" class="text-danger" data-bs-toggle="modal"
+                                data-bs-target="#modalDelete"><i class="fas fa-trash"></i></a>
                         </div>
                         <p>{!! $productDetail->description !!}</p>
                     </div>
@@ -74,40 +98,42 @@
                 <div class="card">
                     <h4 class="card-header mb-0 py-4 bg-primary text-white">Pembayaran</h4>
                     @if ($voucherDetail)
-                    <form method="POST" action="{{ route('voucher.revoke') }}" class="card-body">
-                        @csrf
+                        <form method="POST" action="{{ route('voucher.revoke') }}" class="card-body">
+                            @csrf
 
-                        <div class="pb-4 border-bottom">
-                            <label for="code">Kode Kupon</label>
-                            <div class="form-group row mt-1">
-                                <div class="col-md-9">
-                                    <input type="text" id="code"
-                                        disabled
-                                        class="form-control @error('code') is-invalid @enderror"
-                                        value="{{ old('code', $voucherDetail->code_voucher) }}" name="code" placeholder="Mis: VOC123456" />
-                                    <input type="hidden"
-                                        value="{{ old('code', $voucherDetail->code_voucher) }}" name="code" placeholder="Mis: VOC123456" />
-                                    <small class="text-muted">*Kode Kupon telah berhasil diterapkan dan dikalkulasikan ke jumlah pembayaran</small>
+                            <div class="pb-4 border-bottom">
+                                <label for="code">Kode Kupon</label>
+                                <div class="form-group row mt-1">
+                                    <div class="col-md-9">
+                                        <input type="text" id="code" disabled
+                                            class="form-control @error('code') is-invalid @enderror"
+                                            value="{{ old('code', $voucherDetail->code_voucher) }}" name="code"
+                                            placeholder="Mis: VOC123456" />
+                                        <input type="hidden" value="{{ old('code', $voucherDetail->code_voucher) }}"
+                                            name="code" placeholder="Mis: VOC123456" />
+                                        <small class="text-muted d-flex pt-2">*Kode Kupon telah berhasil diterapkan dan
+                                            dikalkulasikan
+                                            ke jumlah pembayaran.</small>
 
-                                    <div class="d-lg-none my-2">
+                                        <div class="d-lg-none my-2">
+                                            @error('code')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="d-grid">
+                                            <button class="btn btn-danger">Hapus</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mt-2 d-none d-md-none d-lg-inline">
                                         @error('code')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="d-grid">
-                                        <button class="btn btn-danger">Hapus</button>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 mt-2 d-none d-md-none d-lg-inline">
-                                    @error('code')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
                     @else
                         <form method="POST" action="{{ route('voucher.apply') }}" class="card-body">
                             @csrf
@@ -140,10 +166,14 @@
                             </div>
                         </form>
                     @endif
-                    <form method="POST" target="" class="card-body pt-0">
+                    <form method="POST" action="{{ url('transaction/tripay') }}" class="card-body pt-0">
+                        @csrf
+
                         <input type="hidden" name="product_id" value="{{ $productDetail->id }}" id="product_id" />
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}" id="user_id" />
-                        <input type="hidden" name="amount" value="{{ \App\Helpers\TransactionHelper::discountSubtotal($productDetail->price, $voucherDetail ? $voucherDetail->presentase : 0) }}" id="subtotal" />
+                        <input type="hidden" name="amount"
+                            value="{{ \App\Helpers\TransactionHelper::discountSubtotal($productDetail->price, $voucherDetail ? $voucherDetail->presentase : 0) }}"
+                            id="subtotal" />
                         <input type="hidden" name="payment_code" id="payment-code" />
                         <input type="hidden" name="payment_name" id="payment-name" />
 
@@ -151,11 +181,14 @@
                             <span>Metode Pembayaran:</span>
                             <a href="javascript:openModal('choose-payment')" id="payment-show"
                                 class="fw-bolder text-primary">Pilih Metode Pembayaran</a>
+
+                            @error('payment_code')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="p-3 border fw-bolder rounded d-flex justify-content-between mb-1">
                             <span>Total:</span>
-                            <span id="subtotal-show"
-                                class="fw-bolder text-primary">@currency(\App\Helpers\TransactionHelper::discountSubtotal($productDetail->price, $voucherDetail ? $voucherDetail->presentase : 0))</span>
+                            <span id="subtotal-show" class="fw-bolder text-primary">@currency(\App\Helpers\TransactionHelper::discountSubtotal($productDetail->price, $voucherDetail ? $voucherDetail->presentase : 0))</span>
                         </div>
 
                         <div class="text-muted mb-3">*Semua sudah termasuk PPN.</div>
@@ -172,11 +205,13 @@
             </div>
         </div>
     @else
+        <div class="alert alert-danger">Keranjangmu masih kosong. Yuk belanja lagi <a
+                href="{{ route('subscription.index') }}">disini</a>.</div>
     @endif
 @endsection
 
 @section('script')
-    <!-- Modal -->
+    <!-- Modal Payment Gateway -->
     <div class="modal fade" id="choose-payment" tabindex="-1" role="dialog" aria-labelledby="choose-paymentLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -200,7 +235,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
                     <button type="button" data-bs-toggle="choose-payment" class="btn btn-primary">Pilih
                         Pembayarannya</button>
                 </div>

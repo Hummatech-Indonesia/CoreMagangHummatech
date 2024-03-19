@@ -54,7 +54,6 @@ use App\Contracts\Repositories\AttendanceRuleRepository;
 use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\AttendanceDetailRepository;
-use App\Helpers\TransactionHelper;
 use App\Contracts\Repositories\SubCourseRepository;
 
 class AppServiceProvider extends ServiceProvider
