@@ -4,13 +4,14 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\JournalInterface;
+use App\Models\Course;
 use App\Models\Journal;
 
 class CourseRepository extends BaseRepository implements CourseInterface
 {
-    public function __construct(Journal $journal)
+    public function __construct(Course $course)
     {
-        $this->model = $journal;
+        $this->model = $course;
     }
 
     public function get(): mixed

@@ -17,4 +17,5 @@ enum TypeEnum : string
     case AVATAR = 'avatar';
     case RESPONSELETTER = 'response_letter';
     case PRODUCT = 'product';
+    case COURSES = 'courses';
 }

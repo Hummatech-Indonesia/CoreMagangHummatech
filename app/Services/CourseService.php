@@ -62,11 +62,8 @@ class CourseService
     {
         $data = $request->validated();
 
-        if ($request->hasFile('file') && $request->file('file')->isValid()) {
-            $data['file'] = $request->file('file')->store(TypeEnum::FILE_COURSE->value, 'public');
-            return $data;
-        } elseif ($request->hasFile('videos') && $request->file('videos')->isValid()) {
-            $data['videos'] = $request->file('videos')->store(TypeEnum::VIDEOS_COURSE->value, 'public');
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $data['image'] = $request->file('image')->store(TypeEnum::COURSES->value, 'public');
             return $data;
         }
         return false;
@@ -84,16 +81,11 @@ class CourseService
     {
         $data = $request->validated();
 
-        if ($request->hasFile('file') && $request->file('file')->isValid()) {
-            $this->remove($course->file);
-            $data['file'] = $request->file('file')->store(TypeEnum::FILE_COURSE->value, 'public');
-        }elseif($request->hasFile('videos') && $request->file('videos')->isValid())
-        {
-            $this->remove($course->videos);
-            $data['videos'] = $request->file('videos')->store(TypeEnum::VIDEOS_COURSE->value, 'public');
-        } else {
-            $data['file'] = $course->file;
-            $data['videos'] = $course->videos;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $this->remove($course->image);
+            $data['image'] = $request->file('image')->store(TypeEnum::COURSES->value, 'public');
+        }else {
+            $data['image'] = $course->image;
         }
 
         return $data;
@@ -101,7 +93,6 @@ class CourseService
 
     public function delete(Course $course)
     {
-        $this->remove($course->file);
-        $this->remove($course->videos);
+        $this->remove($course->image);
     }
 }
