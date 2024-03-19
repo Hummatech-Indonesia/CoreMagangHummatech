@@ -54,7 +54,9 @@
                             </div>
                         </div>
                         <div class="mt-3">
-                            <p class="m-0">{{ \Carbon\Carbon::parse($voucher->start_date)->locale('id')->isoFormat('D MMMM Y') }} - {{ \Carbon\Carbon::parse($voucher->end_date)->locale('id')->isoFormat('D MMMM Y') }}</p>
+                            <p class="m-0">
+                                {{ \Carbon\Carbon::parse($voucher->start_date)->locale('id')->isoFormat('D MMMM Y') }} -
+                                {{ \Carbon\Carbon::parse($voucher->end_date)->locale('id')->isoFormat('D MMMM Y') }}</p>
                         </div>
                     </div>
                 </div>
@@ -74,11 +76,17 @@
                     <div class="modal-body">
                         <div class="col-12 mb-2">
                             <label for="">Kode Kupon</label>
-                            <input type="text" name="code_voucher" placeholder="Masukan Kode Voucher" class="form-control" id="">
+                            <input type="text" name="code_voucher" placeholder="Masukan Kode Voucher"
+                            onkeyup="capitalizeInput(this)"
+                                class="form-control" id="">
                         </div>
-                        <div class="col-12 mb-2">
+                        <div class="col-12 mb-2 ">
                             <label for="">Presentase Voucher</label>
-                            <input type="text" name="presentase" placeholder="Masukan Presentase" class="form-control" id="">
+                            <div class="input-group">
+                                <input type="number" name="presentase" placeholder="Masukan Presentase" class="form-control"
+                                    id="">
+                                    <span class="input-group-text">%</span>
+                            </div>
                         </div>
                         <div class="col-12 mb-2">
                             <label for="">Mulai Voucher</label>
@@ -90,8 +98,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary ">Save Changes</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary ">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -107,10 +115,16 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
-        $('.btn-delete').click(function () {
+        $('.btn-delete').click(function() {
             var id = $(this).data('id');
             $('#form-delete').attr('action', '/administrator/voucher-code/delete/' + id);
             $('#modal-delete').modal('show');
         });
+    </script>
+
+    <script>
+        function capitalizeInput(input) {
+            input.value = input.value.toUpperCase();
+        }
     </script>
 @endsection

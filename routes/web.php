@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminMentorController;
 use App\Http\Controllers\Admin\ApprovalController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
+use App\Http\Controllers\MentorController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
 use App\Http\Controllers\StudentOnline\StudentOnlineController;
 use App\Http\Controllers\SubscriptionController;
@@ -47,6 +49,14 @@ Route::name(RolesEnum::ADMIN->value)->group(function () {
     Route::get('/voucher', [VoucherController::class, 'index'])->name('.voucher.index');
     Route::post('/voucher/store', [VoucherController::class, 'store'])->name('.voucher.store');
     Route::delete('/voucher/delete/{voucher}', [VoucherController::class, 'destroy'])->name('.voucher.delete');
+
+    // Mentor
+    Route::get('/menu-mentor', [AdminMentorController::class, 'index'])->name('.mentor.index');
+    Route::post('/menu-mentor/store', [AdminMentorController::class, 'store'])->name('.mentor.store');
+    Route::put('/menu-mentor/update/{mentor}', [AdminMentorController::class, 'update'])->name('.mentor.update');
+    Route::delete('/menu-mentor/delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('.mentor.delete');
+
+
 })->middleware(['roles:administrator', 'auth']);
 
 # ================================================ Offline Student Route Group ================================================
