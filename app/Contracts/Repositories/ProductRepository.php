@@ -7,9 +7,17 @@ use App\Models\Product;
 class ProductRepository extends BaseRepository implements ProductInterface
 {
     private ProductInterface  $product;
+
     public function __construct(Product $product)
     {
         $this->model = $product;
+    }
+
+    public function getProductsBasedOnDivision(int $division): mixed
+    {
+        return $this->model->query()
+            ->where('division_id', $division)
+            ->get();
     }
 
     public function get(): mixed

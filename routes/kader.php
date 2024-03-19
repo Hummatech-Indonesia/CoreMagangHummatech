@@ -12,7 +12,7 @@ Route::any('transaction/callback', [TripayController::class , 'callback'])->with
 Route::post('create/jurnal', [JournalController::class , 'store']);
 
 // Admin
-Route::get('permision', function () {return view('admin.page.approval.permision');});
+Route::get('permission', function () {return view('admin.page.approval.permision');});
 // end admin
 
 
@@ -20,5 +20,5 @@ Route::get('permision', function () {return view('admin.page.approval.permision'
 Route::get('student-offline/langganan', function () {return view('student_offline.langganan.index');});
 // end
 // student online
-Route::get('student-online/langganan', function () {return view('student_online.langganan.index');});
+// Route::get('student-online/langganan', function () {return view('student_online.langganan.index');});
 // end
