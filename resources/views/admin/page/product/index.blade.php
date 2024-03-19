@@ -143,7 +143,7 @@
                         <input type="text" class="form-control" id="name-edit" name="name" placeholder="Masukkan Nama Paket">
                     </div>
                     <div class="form-group mb-3 mt-3 col-md-12">
-                        <label for="division_id">Kategori Produk</label>
+                        <label for="division_id">Divisi</label>
                         <select name="division_id" class="js-example-basic-single form-select" id="division_id-edit">
                             @forelse ($divisions as  $division)
                                 <option value="{{ $division->id }}">{{ $division->name }}</option>
@@ -165,7 +165,7 @@
                         <label for="" class="mt-2 mb-2">Gambar</label>
                         <input type="file" name="image" class="form-control" onchange="preview(event)"><br>
                         <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
-                            <img class="img-thumbnail preview" itemprop="thumbnail" src="{{ Storage::url($product->image) }}">
+                            <img class="img-thumbnail preview" itemprop="thumbnail" src="" />
                         </figure>
                     </div>
 
