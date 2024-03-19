@@ -9,6 +9,5 @@ interface PaymentChannelInterface
      *
      * @return mixed
      */
-
     public function getPaymentChannel(): mixed;
 }

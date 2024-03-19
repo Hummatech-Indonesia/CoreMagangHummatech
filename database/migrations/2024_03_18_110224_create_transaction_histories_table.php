@@ -15,11 +15,13 @@ return new class extends Migration
         Schema::create('transaction_histories', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->timestamps();
-            $table->string('transaction_id')->default('text');
-            $table->string('reference')->default('text');
+            $table->string('transaction_id');
+            $table->string('reference');
+            $table->string('payment_code');
+            $table->string('payment_name');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->integer('amount')->unsigned()->nullable()->default(0);
+            $table->unsignedBigInteger('amount')->nullable()->default(0);
             $table->dateTime('issued_at')->useCurrent();
             $table->dateTime('expired_at')->useCurrent();
             $table->text('checkout_url');

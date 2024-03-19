@@ -16,4 +16,21 @@ class TransactionHelper
     {
         return ($amount * self::$taxRatio) + $amount;
     }
+
+    /**
+     * Method to calculate the discount
+     *
+     * @param int $amount the amount for which discount will be calculated
+     * @param int $discount the discount will be count int percentage
+     *
+     * @return float|int the amount after discount
+     */
+    public static function discountSubtotal(int $amount, float $discount): mixed
+    {
+        if ($discount === 0) {
+            return $amount;
+        }
+
+        return $amount - ($amount * ($discount / 100));
+    }
 }

@@ -48,6 +48,7 @@ use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\AttendanceDetailRepository;
 use App\Contracts\Repositories\UserRepository;
+use App\Helpers\TransactionHelper;
 use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
@@ -101,6 +102,9 @@ class AppServiceProvider extends ServiceProvider
         # Adding custom directive
         Blade::directive('fcurrency', function ($expression) {
             return "<?php echo number_format($expression,0,',','.'); ?>";
+        });
+        Blade::directive('currency', function ($expression) {
+            return "Rp<?php echo number_format($expression,0,',','.'); ?>";
         });
     }
 }

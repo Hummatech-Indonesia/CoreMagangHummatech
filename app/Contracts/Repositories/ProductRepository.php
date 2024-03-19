@@ -13,6 +13,12 @@ class ProductRepository extends BaseRepository implements ProductInterface
         $this->model = $product;
     }
 
+    public function getId(int $id): mixed
+    {
+        return $this->model->query()
+        ->findOrFail($id);
+    }
+
     public function getProductsBasedOnDivision(int $division): mixed
     {
         return $this->model->query()

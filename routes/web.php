@@ -13,6 +13,7 @@ use App\Http\Controllers\StudentOfline\StudentOflineController;
 use App\Http\Controllers\StudentOnline\StudentOnlineController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\VoucherController;
+use App\Http\Controllers\VoucherSubmitController;
 
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', function () {
@@ -78,8 +79,16 @@ Route::middleware('auth')->group(function() {
     # Subscription Route
     Route::controller(SubscriptionController::class)->prefix('subscription')->name('subscription.')->group(function() {
         Route::get('/', 'index')->name('index');
-        Route::post('/checkout', 'checkout')->name('checkout');
+        Route::post('/process', 'subscribeAddCartProcess')->name('process');
+        Route::post('/remove', 'subscribeDeleteCartProcess')->name('delete');
+        Route::get('/checkout', 'checkout')->name('checkout');
     })->middleware('roles:siswa-offline,siswa-online');
+
+    # Voucher Subscription Apply
+    Route::controller(VoucherSubmitController::class)->prefix('voucher')->name('voucher.')->group(function() {
+        Route::post('apply', 'apply')->name('apply');
+        Route::post('revoke', 'revoke')->name('revoke');
+    });
 
     # Redirect based on roles
     Route::get('/home', function () {
