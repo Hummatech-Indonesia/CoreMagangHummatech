@@ -38,6 +38,7 @@ use App\Contracts\Repositories\LetterheadsRepository;
 use App\Contracts\Interfaces\PicketingReportInterface;
 use App\Contracts\Repositories\AdminJournalRepository;
 use App\Contracts\Interfaces\AttendanceDetailInterface;
+use App\Contracts\Interfaces\SubCourseInterface;
 use App\Contracts\Interfaces\UserInterface;
 use App\Contracts\Repositories\CodeOfConductRepository;
 use App\Contracts\Repositories\ReportStudentRepository;
@@ -47,6 +48,7 @@ use App\Contracts\Repositories\AttendanceRuleRepository;
 use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\AttendanceDetailRepository;
+use App\Contracts\Repositories\SubCourseRepository;
 use App\Contracts\Repositories\UserRepository;
 use Illuminate\Support\Facades\Blade;
 
@@ -74,7 +76,8 @@ class AppServiceProvider extends ServiceProvider
         ProductInterface::class => ProductRepository::class,
         WarningLetterInterface::class => WarningLetterRepository::class,
         VoucherInterface::class => VoucherRepository::class,
-        UserInterface::class => UserRepository::class
+        UserInterface::class => UserRepository::class,
+        SubCourseInterface::class => SubCourseRepository::class
     ];
 
     /**

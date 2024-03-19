@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enum\RolesEnum;
+use App\Models\Mentor;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -31,9 +32,17 @@ class UserSeeder extends Seeder
             'name' => 'Test User Siswa Online',
             'email' => 'siswa_online@example.com',
         ])->assignRole(RolesEnum::ONLINE);
-        User::factory()->create([
+        $mentor = Mentor::factory()->create([
             'name' => 'Test Mentor',
             'email' => 'mentor@example.com',
-        ])->assignRole(RolesEnum::MENTOR);
+        ]);
+
+        $user = User::factory()->create([
+            'name' => 'Test Mentor',
+            'email' => 'mentor@example.com',
+            'mentors_id' => $mentor->id,
+        ]);
+
+        $user->assignRole(RolesEnum::MENTOR);
     }
 }

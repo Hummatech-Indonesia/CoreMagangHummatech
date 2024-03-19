@@ -51,7 +51,8 @@ class SubCourseController extends Controller
      */
     public function show(SubCourse $subCourse)
     {
-        //
+        $subCourses = $this->subCourse->show($subCourse->id);
+        return view('mentor.challenge.subCourse.index' , compact('subCourses'));
     }
 
     /**

@@ -26,7 +26,8 @@ class StoreSubCourseRequest extends FormRequest
             'description' => 'required',
             'file_course' => 'required',
             'video_course' => 'required',
-            'image_course' => 'required'
+            'image_course' => 'required',
+            'course_id' => 'required'
         ];
     }
 }
