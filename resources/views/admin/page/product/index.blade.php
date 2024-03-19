@@ -1,4 +1,11 @@
 @extends('admin.layouts.app')
+@section('style')
+<style>
+    body.dark-mode .text-light-dark {
+    color: #ffffff;
+}
+</style>
+@endsection
 @section('content')
 
 <div class="card">
@@ -91,10 +98,10 @@
             <div class="d-flex justify-content-center">
                 <img src="{{ asset('storage/' . $product->image) }}" alt="My Image" style="width: 85%; height: auto; margin-bottom: 20px;" class="mt-4 rounded-3">
             </div>
-            <div class="card-body rounded-3 mb-3" style="background: #F3F6F9; width: 95%; margin: 0 auto;">
+            <div class="card-body rounded-3 mb-3 bg-light" style="width: 95%; margin: 0 auto;">
                 <div class="d-flex justify-content-between">
-                    <h5 class="card-title mb-2">{{$product->name}}</h5>
-                    <h4 class="card-title mb-2">IDR {{ number_format($product->price, 0, ',', '.') }} <small class="mt-3 text-muted">/bulan</small></h4>
+                    <h5 class="card-title mb-2 text-dark text-light-dark">{{$product->name}}</h5>
+                    <h4 class="card-title mb-2 text-dark text-light-dark">IDR {{ number_format($product->price, 0, ',', '.') }} <small class="mt-3 text-muted">/bulan</small></h4>
                 </div>
                 <p class="mt-3 text-muted">{{$product->description}}</p>
                 <div class="justify-content-end d-flex">
@@ -107,6 +114,7 @@
                     </button>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -155,10 +163,10 @@
                     </div>
                     <div class="mb-1">
                         <label for="" class="mt-2 mb-2">Gambar</label>
+                        <input type="file" name="image" class="form-control" onchange="preview(event)"><br>
                         <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
                             <img class="img-thumbnail preview" itemprop="thumbnail" src="{{ Storage::url($product->image) }}">
                         </figure>
-                        <input type="file" name="image" class="form-control" onchange="preview(event)">
                     </div>
 
                 </div>

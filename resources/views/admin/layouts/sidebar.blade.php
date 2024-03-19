@@ -37,6 +37,11 @@
                         <i class="mdi mdi-speedometer"></i> <span data-key="t-dashboards">Dashboards</span>
                     </a>
                 </li> <!-- end Dashboard Menu -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ url('/product') }}">
+                        <i class=" ri-price-tag-2-line"></i> <span data-key="t-dashboards">Daftar Paket</span>
+                    </a>
+                </li>
                 <li class="nav-item {{ request()->is('/voucher') ? 'active' : '' }}">
                     <a class="nav-link menu-link" href="{{ url('/voucher') }}">
                         <i class=" las la-gift"></i> <span data-key="t-dashboards">Kode vocer</span>
