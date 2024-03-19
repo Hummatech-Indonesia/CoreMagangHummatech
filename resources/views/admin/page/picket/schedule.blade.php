@@ -31,7 +31,7 @@
             </div>
             <div class="col-sm-auto ms-auto d-flex justify-content-between ">
                 <div class="list-grid-nav hstack gap-1">
-                    <button class="btn btn-success mx-3" data-bs-toggle="modal" data-bs-target="#add">
+                    <button class="btn btn-success mx-3" type="button" data-bs-toggle="modal" data-bs-target="#add">
                         Tambah Data
                     </button>
                 </div>
@@ -39,6 +39,16 @@
         </div>
     </div>
 </div>
+
+@if($errors->all())
+<div class="alert alert-danger">
+    <h3>Ada Kesalahan</h3>
+
+    @foreach ($errors->all() as $error)
+    <li>{{ $error }}</li>
+    @endforeach
+</div>
+@endif
 
 <!-- Add Modal -->
 <div class="modal fade" id="add" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -49,40 +59,33 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
+                <form action="{{ route('picket.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label">Waktu</label>
-                        <div class="mb-3 d-flex align-items-center">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="tim" id="morning" value="MORNING">
-                                <label class="form-check-label" for="morning">
-                                    Pagi
-                                </label>
+                        <div>
+                            @foreach (\App\Enum\TimeEnum::cases() as $time)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tim" id="{{ $time->value }}" value="{{ $time->value }}">
+                                <label class="form-check-label" for="{{ $time->value }}">{{ $time->label() }}</label>
                             </div>
-                            <div class="form-check ms-3">
-                                <input class="form-check-input" type="radio" name="tim" id="afternoon" value="AFTERNOON">
-                                <label class="form-check-label" for="afternoon">
-                                    Sore
-                                </label>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Hari</label>
-                        <select class="form-select" id="day">
-                            <option value="Senin">Senin</option>
-                            <option value="Selasa">Selasa</option>
-                            <option value="Rabu">Rabu</option>
-                            <option value="Kamis">Kamis</option>
-                            <option value="Jumat">Jumat</option>
-
+                        <select class="form-select" name="day_picket" id="" required>
+                            @foreach (\App\Enum\DayEnum::cases() as $day)
+                                <option value="{{ $day->value }}">{{ $day->label() }}</option>
+                            @endforeach
                         </select>
+
                     </div>
+
                     <div class="form-group mb-3 mt-3 col-md-12">
                         <label for="division_id">Anggota</label>
-                        <select class="tambah" aria-label=".form-select example" name="student_id">
+                        <select class="tambah" aria-label="form-select example" name="student_id">
                             @foreach ($students as $division)
                                 <option value="{{ $division->id }}"
                                     {{ $division->student_id == $division->id ? 'selected' : '' }}>
@@ -90,15 +93,15 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-soft-dark" data-bs-dismiss="modal">Tutup</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Simpan</button>
-                <button type="button" class="btn btn-soft-dark" data-bs-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>
-</div> <!-- end modal -->
+</div>
 
 
 <div class="tab-content">
@@ -110,7 +113,6 @@
                     <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
                         <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Senin</p>
                     </div>
-
                     <div class="card-body text-center" style="padding: 0px;">
                         <div class="d-flex mb-4 align-items-center justify-content-center">
                             <div class="flex-grow-1 ms-2 pt-3 pb-3" >
@@ -188,26 +190,7 @@
                 </button>
             </div>
         </div>
-
-        <div class="row pt-5">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row g-2">
-                        <div class="col-sm-4">
-                            <h4 class=" pt-2">Catatan</h4>
-                        </div>
-                        <div class="col-sm-auto ms-auto d-flex">
-                            <div class="list-grid-nav hstack gap-1">
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#notes">
-                                    Tambah Data
-                                  </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        
         <div class="row">
             <div class="card bg-white" style="height: 300px;">
                 <div class="card-body">
@@ -272,7 +255,6 @@
         </div>
     </div>
 </div>
-
 
 
 <!-- Edit Modal -->
