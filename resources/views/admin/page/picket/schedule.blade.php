@@ -27,13 +27,11 @@
                             </button>
                         </li>
                     </ul>
-
-
                 </div>
             </div>
             <div class="col-sm-auto ms-auto d-flex justify-content-between ">
                 <div class="list-grid-nav hstack gap-1">
-                    <button class="btn btn-success mx-3" data-bs-toggle="modal" data-bs-target="#addModal">
+                    <button class="btn btn-success mx-3" data-bs-toggle="modal" data-bs-target="#add">
                         Tambah Data
                     </button>
                 </div>
@@ -43,7 +41,7 @@
 </div>
 
 <!-- Add Modal -->
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+<div class="modal fade" id="add" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -51,18 +49,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label class="form-label">Waktu</label>
                         <div class="mb-3 d-flex align-items-center">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="time" id="morning" value="MORNING">
+                                <input class="form-check-input" type="radio" name="tim" id="morning" value="MORNING">
                                 <label class="form-check-label" for="morning">
                                     Pagi
                                 </label>
                             </div>
                             <div class="form-check ms-3">
-                                <input class="form-check-input" type="radio" name="time" id="afternoon" value="AFTERNOON">
+                                <input class="form-check-input" type="radio" name="tim" id="afternoon" value="AFTERNOON">
                                 <label class="form-check-label" for="afternoon">
                                     Sore
                                 </label>
@@ -73,19 +72,22 @@
                     <div class="mb-3">
                         <label class="form-label">Hari</label>
                         <select class="form-select" id="day">
-                            <option value="MONDAY">Senin</option>
-                            <option value="TUESDAY">Selasa</option>
-                            <option value="WEDNESDAY">Rabu</option>
-                            <option value="THURSDAY">Kamis</option>
-                            <option value="FRIDAY">Jumat</option>
+                            <option value="Senin">Senin</option>
+                            <option value="Selasa">Selasa</option>
+                            <option value="Rabu">Rabu</option>
+                            <option value="Kamis">Kamis</option>
+                            <option value="Jumat">Jumat</option>
+
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Anggota</label>
-                        <select class="form-select" id="time">
-                            <option value="">Pilih Siswa</option>
-                            <option value="MORNING">Pagi</option>
-                            <option value="AFTERNOON">Sore</option>
+                    <div class="form-group mb-3 mt-3 col-md-12">
+                        <label for="division_id">Anggota</label>
+                        <select class="tambah" aria-label=".form-select example" name="student_id">
+                            @foreach ($students as $division)
+                                <option value="{{ $division->id }}"
+                                    {{ $division->student_id == $division->id ? 'selected' : '' }}>
+                                    {{ $division->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </form>
@@ -103,102 +105,6 @@
     <!-- Pagi -->
     <div id="steparrow-gen-info" class="tab-pane fade show active">
         <div class="row row-cols-xxl-6 row-cols-lg-5 row-cols-1 justify-content-center">
-            <div class="col mx-3">
-                <div class="card mx-auto" style="max-width: 300px;">
-                    <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
-                        <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Senin</p>
-                    </div>
-
-                    <div class="card-body text-center" style="padding: 0px;">
-                        <div class="d-flex mb-4 align-items-center justify-content-center">
-                            <div class="flex-grow-1 ms-2 pt-3 pb-3" >
-                                <h5 class="mb-3">Jhon Doe</h5>
-                                <h5 class="mb-3">Alexander Arnold</h5>
-                                <h5 class="mb-3">Monkey D Luffy</h5>
-                                <h5 class="mb-3">Namikaze</h5>
-                                <h5 class="mb-3">Hashirama</h5>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
-                    <i class="ri-ball-pen-line mx-2"></i>
-                    Edit Siswa
-                </button>
-            </div>
-            <div class="col mx-3">
-                <div class="card mx-auto" style="max-width: 300px;">
-                    <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
-                        <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Senin</p>
-                    </div>
-
-                    <div class="card-body text-center" style="padding: 0px;">
-                        <div class="d-flex mb-4 align-items-center justify-content-center">
-                            <div class="flex-grow-1 ms-2 pt-3 pb-3" >
-                                <h5 class="mb-3">Jhon Doe</h5>
-                                <h5 class="mb-3">Alexander Arnold</h5>
-                                <h5 class="mb-3">Monkey D Luffy</h5>
-                                <h5 class="mb-3">Namikaze</h5>
-                                <h5 class="mb-3">Hashirama</h5>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
-                    <i class="ri-ball-pen-line mx-2"></i>
-                    Edit Siswa
-                </button>
-            </div>
-            <div class="col mx-3">
-                <div class="card mx-auto" style="max-width: 300px;">
-                    <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
-                        <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Senin</p>
-                    </div>
-
-                    <div class="card-body text-center" style="padding: 0px;">
-                        <div class="d-flex mb-4 align-items-center justify-content-center">
-                            <div class="flex-grow-1 ms-2 pt-3 pb-3" >
-                                <h5 class="mb-3">Jhon Doe</h5>
-                                <h5 class="mb-3">Alexander Arnold</h5>
-                                <h5 class="mb-3">Monkey D Luffy</h5>
-                                <h5 class="mb-3">Namikaze</h5>
-                                <h5 class="mb-3">Hashirama</h5>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
-                    <i class="ri-ball-pen-line mx-2"></i>
-                    Edit Siswa
-                </button>
-            </div>
-            <div class="col mx-3">
-                <div class="card mx-auto" style="max-width: 300px;">
-                    <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
-                        <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Senin</p>
-                    </div>
-
-                    <div class="card-body text-center" style="padding: 0px;">
-                        <div class="d-flex mb-4 align-items-center justify-content-center">
-                            <div class="flex-grow-1 ms-2 pt-3 pb-3" >
-                                <h5 class="mb-3">Jhon Doe</h5>
-                                <h5 class="mb-3">Alexander Arnold</h5>
-                                <h5 class="mb-3">Monkey D Luffy</h5>
-                                <h5 class="mb-3">Namikaze</h5>
-                                <h5 class="mb-3">Hashirama</h5>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
-                    <i class="ri-ball-pen-line mx-2"></i>
-                    Edit Siswa
-                </button>
-            </div>
             <div class="col mx-3">
                 <div class="card mx-auto" style="max-width: 300px;">
                     <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
@@ -257,102 +163,6 @@
      <!-- Sore -->
     <div id="steparrow-description-info" class="tab-pane fade">
         <div class="row row-cols-xxl-6 row-cols-lg-5 row-cols-1 justify-content-center">
-            <div class="col mx-3">
-                <div class="card mx-auto" style="max-width: 300px;">
-                    <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
-                        <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Senin</p>
-                    </div>
-
-                    <div class="card-body text-center" style="padding: 0px;">
-                        <div class="d-flex mb-4 align-items-center justify-content-center">
-                            <div class="flex-grow-1 ms-2 pt-3 pb-3" >
-                                <h5 class="mb-3">Jhon Doe</h5>
-                                <h5 class="mb-3">Alexander Arnold</h5>
-                                <h5 class="mb-3">Monkey D Luffy</h5>
-                                <h5 class="mb-3">Namikaze</h5>
-                                <h5 class="mb-3">Hashirama</h5>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
-                    <i class="ri-ball-pen-line mx-2"></i>
-                    Edit Siswa
-                </button>
-            </div>
-            <div class="col mx-3">
-                <div class="card mx-auto" style="max-width: 300px;">
-                    <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
-                        <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Senin</p>
-                    </div>
-
-                    <div class="card-body text-center" style="padding: 0px;">
-                        <div class="d-flex mb-4 align-items-center justify-content-center">
-                            <div class="flex-grow-1 ms-2 pt-3 pb-3" >
-                                <h5 class="mb-3">Jhon Doe</h5>
-                                <h5 class="mb-3">Alexander Arnold</h5>
-                                <h5 class="mb-3">Monkey D Luffy</h5>
-                                <h5 class="mb-3">Namikaze</h5>
-                                <h5 class="mb-3">Hashirama</h5>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
-                    <i class="ri-ball-pen-line mx-2"></i>
-                    Edit Siswa
-                </button>
-            </div>
-            <div class="col mx-3">
-                <div class="card mx-auto" style="max-width: 300px;">
-                    <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
-                        <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Senin</p>
-                    </div>
-
-                    <div class="card-body text-center" style="padding: 0px;">
-                        <div class="d-flex mb-4 align-items-center justify-content-center">
-                            <div class="flex-grow-1 ms-2 pt-3 pb-3" >
-                                <h5 class="mb-3">Jhon Doe</h5>
-                                <h5 class="mb-3">Alexander Arnold</h5>
-                                <h5 class="mb-3">Monkey D Luffy</h5>
-                                <h5 class="mb-3">Namikaze</h5>
-                                <h5 class="mb-3">Hashirama</h5>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
-                    <i class="ri-ball-pen-line mx-2"></i>
-                    Edit Siswa
-                </button>
-            </div>
-            <div class="col mx-3">
-                <div class="card mx-auto" style="max-width: 300px;">
-                    <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
-                        <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Senin</p>
-                    </div>
-
-                    <div class="card-body text-center" style="padding: 0px;">
-                        <div class="d-flex mb-4 align-items-center justify-content-center">
-                            <div class="flex-grow-1 ms-2 pt-3 pb-3" >
-                                <h5 class="mb-3">Jhon Doe</h5>
-                                <h5 class="mb-3">Alexander Arnold</h5>
-                                <h5 class="mb-3">Monkey D Luffy</h5>
-                                <h5 class="mb-3">Namikaze</h5>
-                                <h5 class="mb-3">Hashirama</h5>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
-                    <i class="ri-ball-pen-line mx-2"></i>
-                    Edit Siswa
-                </button>
-            </div>
             <div class="col mx-3">
                 <div class="card mx-auto" style="max-width: 300px;">
                     <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
@@ -583,4 +393,24 @@
     </div>
   </div>
 
+@endsection
+
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $(".tambah").select2({
+            dropdownParent: $("#add")
+        });
+    });
+    $(document).ready(function() {
+        $(".js-example-basic-single").select2({
+            dropdownParent: $("#modal-edit")
+        });
+    });
+</script>
 @endsection
