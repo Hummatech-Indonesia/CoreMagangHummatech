@@ -56,7 +56,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+            <a class="sidebar-link" href="/siswa-online/tugas" aria-expanded="false">
               <span>
                 <i class="ti ti-aperture"></i>
               </span>
