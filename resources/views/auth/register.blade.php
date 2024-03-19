@@ -51,7 +51,7 @@
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-circle"><i class="ti ti-file-text ti-sm"></i></span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">3</span>
+                                        <span class="bs-stepper-title">Tahap 3</span>
                                     </span>
                                 </button>
                             </div>
@@ -185,7 +185,7 @@
                                                     class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Next</span>
                                                 <i class="ti ti-arrow-right ti-xs"></i></button>
                                         </div>
-                                        <a href="/login" class="text-black mt-2">Sudah punya akun? <span
+                                        <a href="/login" class="text-black mt-4 text-center ">Sudah punya akun? <span
                                                 class="text-primary">Masuk</span></a>
                                     </div>
                                 </div>
@@ -216,12 +216,12 @@
                                             <div class="input-group">
                                                 <input type="file" id="multiStepsMobile" name="self_statement"
                                                     class="form-control multi-steps-mobile" placeholder="202 555 0111" />
+                                                </div>
                                                 <p class="text-danger">*Surat Pernyataan Diri Harus Berformat .jpg, .jpeg,
                                                     atau .png</p>
                                                 @error('self_statement')
                                                     <p class="text-danger m-0">{{ $message }}</p>
                                                 @enderror
-                                            </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsPincode">Surat Pernyataan Orang
@@ -230,10 +230,10 @@
                                                 class="form-control multi-steps-pincode" />
                                             <p class="text-danger">*Surat Pernyataan Diri Harus Berformat .jpg, .jpeg, atau
                                                 .png</p>
-                                            @error('parents_statement')
-                                                <p class="text-danger m-0">{{ $message }}</p>
-                                            @enderror
-                                        </div>
+                                                @error('parents_statement')
+                                                    <p class="text-danger m-0">{{ $message }}</p>
+                                                @enderror
+                                            </div>
 
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsMobile">Mulai Magang</label>
@@ -310,8 +310,8 @@
                                                     class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Next</span>
                                                 <i class="ti ti-arrow-right ti-xs"></i></button>
                                         </div>
-                                        <a href="/login" class="text-black mt-2">Sudah punya akun? <span
-                                                class="text-primary">Masuk</span></a>
+                                        <a href="/login" class="text-black mt-4 text-center ">Sudah punya akun? <span
+                                            class="text-primary">Masuk</span></a>
                                     </div>
                                 </div>
                                 <!-- Billing Links -->
@@ -362,9 +362,9 @@
                                             <button class="btn btn-primary btn-next btn-submit" type="button"> <span
                                                     class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Simpan</span></button>
                                         </div>
-                                    </div>
-                                    <a href="/login" class="text-black mt-2">Sudah punya akun? <span
+                                        <a href="/login" class="text-black mt-4 text-center ">Sudah punya akun? <span
                                             class="text-primary">Masuk</span></a>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -376,7 +376,7 @@
 
     <div id="modalForm" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
         style="display: none;">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
                 </div>

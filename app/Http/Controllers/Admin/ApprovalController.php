@@ -9,19 +9,22 @@ use App\Http\Requests\DeclinedAprovalRequest;
 use App\Contracts\Interfaces\ApprovalInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Services\ApprovalService;
+use App\Services\StudentService;
 
 class ApprovalController extends Controller
 {
     private ApprovalInterface $approval;
     private StudentInterface $student;
+    private StudentService $servicestudent;
     private ApprovalService $service;
-    public function __construct(ApprovalInterface $approval, StudentInterface $student, ApprovalService $service)
+    public function __construct(ApprovalInterface $approval, StudentInterface $student, ApprovalService $service, StudentService $servicestudent)
     {
         $this->approval = $approval;
         $this->student = $student;
         $this->service = $service;
+        $this->servicestudent = $servicestudent;
     }
-    
+
     public function index()
     {
         $students = $this->approval->where();
@@ -43,8 +46,10 @@ class ApprovalController extends Controller
         return back()->with('success', 'Berhasil Menolak Siswa Baru');
     }
 
-    public function delete(Student $student)
+    public function destroy(Student $student)
     {
-        $this->delete($student->id);
+        $this->servicestudent->delete($student);
+        $this->student->delete($student->id);
+        return back()->with('success', 'Berhasil Menghapus Siswa Baru');
     }
 }

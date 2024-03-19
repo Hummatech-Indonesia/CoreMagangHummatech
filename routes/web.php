@@ -34,7 +34,7 @@ Route::name(RolesEnum::ADMIN->value)->group(function () {
     Route::get('/approval', [ApprovalController::class, 'index'])->name('.approval.index');
     Route::put('/approval/accept/{student}', [ApprovalController::class, 'accept'])->name('.approval.accept');
     Route::put('/approval/decline/{student}', [ApprovalController::class, 'decline'])->name('.approval.decline');
-    Route::delete('/approval/delete{student}', [ApprovalController::class, 'destroy'])->name('.approval.delete');
+    Route::delete('/approval/delete/{student}', [ApprovalController::class, 'destroy'])->name('.approval.delete');
 
     // Warning letter
     Route::get('/warning-letter', [WarningLetterController::class, 'index'])->name('.warning-letter.index');
