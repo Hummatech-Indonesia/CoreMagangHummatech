@@ -40,7 +40,7 @@
 @endif
 
 <!--Add Modal -->
-    <div class="modal fade" id="add" tabindex="-1" aria-labelledby="varyingcontentModalLabel" aria-hidden="true">
+<div class="modal fade" id="add" tabindex="-1" aria-labelledby="varyingcontentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -56,12 +56,13 @@
                     </div>
                     <div class="form-group mb-3 mt-3 col-md-12">
                         <label for="division_id">Kategori Produk</label>
-                        <select class="tambah" aria-label=".form-select example" name="collab_category_id">
-                            @foreach ($divisions as $division)
-                                <option value="{{ $division->id }}"
-                                    {{ $division->collab_division_id == $division->id ? 'selected' : '' }}>
-                                    {{ $division->name }}</option>
-                            @endforeach
+                        <select name="division_id" class=".js-example-basic-single form-select" id="#usaha">
+                            <option value="" disabled selected>Pilih Divisi</option>
+                            @forelse ($divisions as $division)
+                                <option value="{{ $division->id }}">{{ $division->name }}</option>
+                            @empty
+                                <option value="" disabled selected>Kategori Masih Kosong</option>
+                            @endforelse
                         </select>
                     </div>
                     <div class="mb-1">
@@ -70,7 +71,7 @@
                     </div>
                     <div class="mb-1">
                         <label for="" class="mt-2 mb-2">Deskripsi</label>
-                        <textarea name="description" id="" class="form-control" placeholder="Masukkan Deskripsi "></textarea>
+                        <textarea name="description" id="" class="form-control"></textarea>
                     </div>
                     <div class="mb-1">
                         <label for="" class="mt-2 mb-2">Gambar</label>
@@ -196,7 +197,7 @@
     });
 </script> --}}
 
-<script>
+{{-- <script>
     $(document).ready(function() {
         $(".tambah").select2({
             dropdownParent: $("#add")
@@ -207,7 +208,7 @@
             dropdownParent: $("#modal-edit")
         });
     });
-</script>
+</script> --}}
 
 <script>
     function preview(event) {

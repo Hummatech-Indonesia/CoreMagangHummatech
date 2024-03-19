@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Contracts\Interfaces\PicketingReportInterface;
 use App\Contracts\Interfaces\PicketInterface;
+use App\Contracts\Interfaces\StudentInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Picket;
 use App\Http\Requests\StorePicketRequest;
@@ -11,9 +13,13 @@ use App\Http\Requests\UpdatePicketRequest;
 class PicketController extends Controller
 {
     private PicketInterface $picket;
+    private StudentInterface $student;
+    private PicketingReportInterface $report;
 
-    public function __construct(PicketInterface $picket)
+    public function __construct(PicketInterface $picket, StudentInterface $student, PicketingReportInterface $report)
     {
+        $this->report = $report;
+        $this->student = $student;
         $this->picket = $picket;
     }
     /**
@@ -21,8 +27,10 @@ class PicketController extends Controller
      */
     public function index()
     {
+        $reports = $this->report->get();
+        $students = $this->student->get();
         $pickets = $this->picket->get();
-        return view('admin.page.picket.schedule' , compact('pickets'));
+        return view('admin.page.picket.schedule' , compact('pickets','students','reports'));
     }
 
     /**

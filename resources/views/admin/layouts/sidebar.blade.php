@@ -42,6 +42,7 @@
                         <i class=" ri-price-tag-2-line"></i> <span data-key="t-dashboards">Daftar Paket</span>
                     </a>
                 </li>
+
                 <li class="nav-item {{ request()->is('/voucher') ? 'active' : '' }}">
                     <a class="nav-link menu-link" href="{{ url('/voucher') }}">
                         <i class=" las la-gift"></i> <span data-key="t-dashboards">Kode vocer</span>
@@ -146,11 +147,24 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="">
-                        <i class="ri-pencil-ruler-2-line"></i> <span data-key="t-widgets">Piket</span>
+                    <a class="nav-link menu-link" href="#sidebarCharts2" data-bs-toggle="collapse"
+                        role="button" aria-expanded="false" aria-controls="sidebarCharts">
+                        <i class=" ri-pencil-ruler-2-line"></i> <span data-key="t-charts">Piket</span>
                     </a>
-                </li>
+                    <div class="collapse menu-dropdown" id="sidebarCharts2">
+                        <ul class="nav nav-sm flex-column">
 
+                            <li class="nav-item">
+                                <a href="/picket" class="nav-link" data-key="t-chartjs">
+                                    Jadwal Piket </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link" data-key="t-echarts"> Laporan Piket
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarForms" data-bs-toggle="collapse"
