@@ -18,7 +18,7 @@ class SubscriptionController extends Controller
 
     public function index()
     {
-        dd(auth()->user()->student);
+        // dd(auth()->user()->student);
         return view('student_online.langganan.index');
     }
 }

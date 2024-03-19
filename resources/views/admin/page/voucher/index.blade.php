@@ -1,4 +1,5 @@
 @extends('admin.layouts.app')
+
 @section('content')
     <div class="card">
         <div class="card-body">
@@ -65,14 +66,14 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Tambah Kode Vocer</h5>
+                    <h5 class="modal-title" id="myModalLabel">Tambah Kode Kupon</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                 </div>
                 <form action="/administrator/voucher-code/store" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="col-12 mb-2">
-                            <label for="">Kode Vocer</label>
+                            <label for="">Kode Kupon</label>
                             <input type="text" name="code_voucher" placeholder="Masukan Kode Voucher" class="form-control" id="">
                         </div>
                         <div class="col-12 mb-2">
@@ -97,9 +98,9 @@
         </div>
     </div>
 
-
     @include('admin.components.delete-modal-component')
 @endsection
+
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
