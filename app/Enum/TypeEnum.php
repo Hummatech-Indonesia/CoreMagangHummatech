@@ -18,4 +18,6 @@ enum TypeEnum : string
     case RESPONSELETTER = 'response_letter';
     case PRODUCT = 'product';
     case COURSES = 'courses';
+    case IMAGE_COURSE = 'image_course';
+    case VIDEO_COURSE = 'video_course';
 }
