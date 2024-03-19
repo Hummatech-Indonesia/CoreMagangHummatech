@@ -24,9 +24,10 @@ Auth::routes();
 Route::post('/register/post', [StudentController::class, 'store']);
 
 # ================================================ Administrator Route Group ==================================================
-Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function () {
+Route::name(RolesEnum::ADMIN->value)->group(function () {
+
     // Dashboard Home
-    Route::get('/', [AdminController::class, 'index'])->name('.home');
+    Route::get('/administrator', [AdminController::class, 'index'])->name('.home');
 
     // Approval
     Route::get('/approval', [ApprovalController::class, 'index'])->name('.approval.index');
@@ -61,7 +62,7 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function(
 
 # ================================================ Online Student Route Group =================================================
 Route::prefix('siswa-online')->name(RolesEnum::ONLINE->value)->group(function() {
-    Route::get('siswa-online', [StudentOnlineController::class, 'index'])->name('.home');
+    Route::get('/', [StudentOnlineController::class, 'index'])->name('.home');
     Route::get('division', function () {
         return view('student_online.division.index');
     })->name('.class.division');
