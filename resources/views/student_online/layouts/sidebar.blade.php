@@ -24,7 +24,7 @@
           <!-- Dashboard -->
           <!-- =================== -->
           <li class="sidebar-item">
-            <a class="sidebar-link" href="/siswa-online" aria-expanded="false">
+            <a class="sidebar-link {{ request()->is('/siswa-online') ? 'active' : '' }}" href="/siswa-online" aria-expanded="false">
               <span>
                 <i class="ti ti-aperture"></i>
               </span>
@@ -32,7 +32,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="/siswa-online/jurnal" aria-expanded="false">
+            <a class="sidebar-link {{ request()->is('/siswa-online/jurnal') ? 'active' : '' }}" href="/siswa-online/jurnal" aria-expanded="false">
               <span>
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-week"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M8 14v4" /><path d="M12 14v4" /><path d="M16 14v4" /></svg>
               </span>
@@ -40,7 +40,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+            <a class="sidebar-link {{ request()->is('/siswa-online/absensi') ? 'active' : '' }}" href="javascript:void(0)" aria-expanded="false">
               <span>
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-presentation-analytics"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 12v-4" /><path d="M15 12v-2" /><path d="M12 12v-1" /><path d="M3 4h18" /><path d="M4 4v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-10" /><path d="M12 16v4" /><path d="M9 20h6" /></svg>
               </span>
@@ -48,7 +48,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="/siswa-online/materi" aria-expanded="false">
+            <a class="sidebar-link {{ request()->is('/siswa-online/materi') ? 'active' : '' }}" href="/siswa-online/materi" aria-expanded="false">
               <span>
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-backpack"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 18v-6a6 6 0 0 1 6 -6h2a6 6 0 0 1 6 6v6a3 3 0 0 1 -3 3h-8a3 3 0 0 1 -3 -3z" /><path d="M10 6v-1a2 2 0 1 1 4 0v1" /><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" /><path d="M11 10h2" /></svg>
               </span>
@@ -56,7 +56,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="/siswa-online/tugas" aria-expanded="false">
+            <a class="sidebar-link {{ request()->is('/siswa-online/tugas') ? 'active' : '' }}" href="/siswa-online/tugas" aria-expanded="false">
               <span>
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard-copy"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h3m9 -9v-5a2 2 0 0 0 -2 -2h-2" /><path d="M13 17v-1a1 1 0 0 1 1 -1h1m3 0h1a1 1 0 0 1 1 1v1m0 3v1a1 1 0 0 1 -1 1h-1m-3 0h-1a1 1 0 0 1 -1 -1v-1" /><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" /></svg>
               </span>
@@ -64,7 +64,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+            <a class="sidebar-link {{ request()->is('/siswa-online/jadwal-zoom') ? 'active' : '' }}" href="javascript:void(0)" aria-expanded="false">
               <span>
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-sort-ascending-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 9l3 -3l3 3" /><path d="M5 5m0 .5a.5 .5 0 0 1 .5 -.5h4a.5 .5 0 0 1 .5 .5v4a.5 .5 0 0 1 -.5 .5h-4a.5 .5 0 0 1 -.5 -.5z" /><path d="M5 14m0 .5a.5 .5 0 0 1 .5 -.5h4a.5 .5 0 0 1 .5 .5v4a.5 .5 0 0 1 -.5 .5h-4a.5 .5 0 0 1 -.5 -.5z" /><path d="M17 6v12" /></svg>
               </span>
@@ -72,7 +72,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+            <a class="sidebar-link {{ request()->is('/siswa-online/presentasi') ? 'active' : '' }}" href="javascript:void(0)" aria-expanded="false">
               <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-presentation"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 4l18 0"/><path d="M4 4v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-10"/><path d="M12 16l0 4"/><path d="M9 20l6 0"/><path d="M8 12l3 -3l2 2l3 -3"/></svg>
               </span>
@@ -80,7 +80,7 @@
             </a>
           </li>
           <li class="sidebar-item">
-            <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+            <a class="sidebar-link {{ request()->is('/siswa-online/history-transaksi') ? 'active' : '' }}" href="javascript:void(0)" aria-expanded="false">
               <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-credit-card-pay"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 19h-6a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v4.5"/><path d="M3 10h18"/><path d="M16 19h6"/><path d="M19 16l3 3l-3 3"/><path d="M7.005 15h.005"/><path d="M11 15h2"/></svg>
               </span>
