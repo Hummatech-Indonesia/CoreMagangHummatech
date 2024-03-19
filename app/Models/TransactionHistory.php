@@ -15,7 +15,7 @@ class TransactionHistory extends Model
      *
      * @param array $fillable
      */
-    protected array $fillable = [
+    protected $fillable = [
         'id',
         'transaction_id',
         'user_id',
