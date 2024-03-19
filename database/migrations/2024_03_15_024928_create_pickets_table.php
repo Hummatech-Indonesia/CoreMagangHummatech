@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('pickets', function (Blueprint $table) {
             $table->id();
+            $table->enum('day_picket' , [DayEnum::SUNDAY->value , DayEnum::MONDAY->value,DayEnum::TUESDAY->value ,DayEnum::WEDNESDAY->value ,DayEnum::THURSDAY->value,DayEnum::FRIDAY->value ,DayEnum::SATURDAY->value]);
             $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('tim' , [TimeEnum::MORNING->value , TimeEnum::AFTERNOON->value]);
             $table->timestamps();
