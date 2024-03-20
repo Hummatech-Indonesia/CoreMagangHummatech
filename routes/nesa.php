@@ -64,3 +64,9 @@ Route::get('/siswa-offline/course/detail/learn-more', function (){
 Route::get('/siswa-offline/course/detail/answer-detail', function (){
     return view('student_offline.course.answer-detail');
 });
+Route::get('siswa-offline/transaction/topUp', function (){
+    return view('student_offline.transaction.topUp_history');
+});
+Route::get('siswa-offline/transaction/history', function (){
+    return view('student_offline.transaction.transaction_history');
+});
