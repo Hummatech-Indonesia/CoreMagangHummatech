@@ -20,6 +20,8 @@ Route::get('reject', function (){
 
 Route::get('picket' , [PicketController::class , 'index']);
 Route::post('picket/store',[PicketController::class,'store'])->name('picket.store');
+Route::post('picket/{picket}',[PicketController::class,'update'])->name('picket.update');
+
 
 
 Route::get('report', function (){

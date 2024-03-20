@@ -50,64 +50,34 @@
 </div>
 @endif
 
-<!-- Add Modal -->
-<div class="modal fade" id="add" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Tambah Data</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('picket.store') }}" method="POST">
-                    @csrf
-                    <div class="mb-3">
-                        <label class="form-label">Waktu</label>
-                        <div>
-                            @foreach (\App\Enum\TimeEnum::cases() as $time)
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="tim" id="{{ $time->value }}" value="{{ $time->value }}">
-                                <label class="form-check-label" for="{{ $time->value }}">{{ $time->label() }}</label>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Hari</label>
-                        <select class="form-select" name="day_picket" id="" required>
-                            @foreach (\App\Enum\DayEnum::cases() as $day)
-                                <option value="{{ $day->value }}">{{ $day->label() }}</option>
-                            @endforeach
-                        </select>
-
-                    </div>
-
-                    <div class="form-group mb-3 mt-3 col-md-12">
-                        <label for="division_id">Anggota</label>
-                        <select class="tambah" aria-label="form-select example" name="student_id">
-                            @foreach ($students as $division)
-                                <option value="{{ $division->id }}"
-                                    {{ $division->student_id == $division->id ? 'selected' : '' }}>
-                                    {{ $division->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                        <button type="button" class="btn btn-soft-dark" data-bs-dismiss="modal">Tutup</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <div class="tab-content">
     <!-- Pagi -->
     <div id="steparrow-gen-info" class="tab-pane fade show active">
+
+        @php
+        use App\Enum\DayEnum;
+        use App\Enum\TimeEnum;
+        use App\Services\PicketService;
+        $picketService = app(PicketService::class);
+        $siswaIdsSeninPagi = $picketService->getSiswaIdByTimDanDayPicket(TimeEnum::MORNING->value, DayEnum::MONDAY->value);
+        $siswaIdsSelasaPagi = $picketService->getSiswaIdByTimDanDayPicket(TimeEnum::MORNING->value, DayEnum::TUESDAY->value);
+        $siswaIdsRabuPagi = $picketService->getSiswaIdByTimDanDayPicket(TimeEnum::MORNING->value, DayEnum::WEDNESDAY->value);
+        $siswaIdsKamisPagi = $picketService->getSiswaIdByTimDanDayPicket(TimeEnum::MORNING->value, DayEnum::THURSDAY->value);
+        $siswaIdsJumatPagi = $picketService->getSiswaIdByTimDanDayPicket(TimeEnum::MORNING->value, DayEnum::FRIDAY->value);
+
+        $siswaIdsSeninAfternoon = $picketService->getSiswaIdByTimDanDayPicket(TimeEnum::AFTERNOON->value, DayEnum::MONDAY->value);
+        $siswaIdsSelasaAfternoon = $picketService->getSiswaIdByTimDanDayPicket(TimeEnum::AFTERNOON->value, DayEnum::TUESDAY->value);
+        $siswaIdsRabuAfternoon = $picketService->getSiswaIdByTimDanDayPicket(TimeEnum::AFTERNOON->value, DayEnum::WEDNESDAY->value);
+        $siswaIdsKamisAfternoon = $picketService->getSiswaIdByTimDanDayPicket(TimeEnum::AFTERNOON->value, DayEnum::THURSDAY->value);
+        $siswaIdsJumatAfternoon = $picketService->getSiswaIdByTimDanDayPicket(TimeEnum::AFTERNOON->value, DayEnum::FRIDAY->value);
+
+        @endphp
+
         <div class="row row-cols-xxl-6 row-cols-lg-5 row-cols-1 justify-content-center">
+            <!-- Senin -->
             <div class="col mx-3">
                 <div class="card mx-auto" style="max-width: 300px;">
                     <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
@@ -115,13 +85,125 @@
                     </div>
                     <div class="card-body text-center" style="padding: 0px;">
                         <div class="d-flex mb-4 align-items-center justify-content-center">
-                            <div class="flex-grow-1 ms-2 pt-3 pb-3" >
-                                <h5 class="mb-3">Jhon Doe</h5>
-                                <h5 class="mb-3">Alexander Arnold</h5>
-                                <h5 class="mb-3">Monkey D Luffy</h5>
-                                <h5 class="mb-3">Namikaze</h5>
-                                <h5 class="mb-3">Hashirama</h5>
+                            <div class="flex-grow-1 ms-2 pt-3 pb-3">
+                                @forelse ($siswaIdsSeninPagi as $siswaId)
+                                @php
+                                    $siswa = \App\Models\Student::find($siswaId);
+                                @endphp
+                                <h5 class="mb-3">{{ $siswa->name }}</h5>
 
+                                @empty
+                                <p>Belum Ada data</p>
+                                @endforelse
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
+                    <i class="ri-ball-pen-line mx-2"></i>
+                    Edit Siswa
+                </button>
+            </div>
+            <!-- Selasa -->
+            <div class="col mx-3">
+                <div class="card mx-auto" style="max-width: 300px;">
+                    <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
+                        <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Selasa</p>
+                    </div>
+                    <div class="card-body text-center" style="padding: 0px;">
+                        <div class="d-flex mb-4 align-items-center justify-content-center">
+                            <div class="flex-grow-1 ms-2 pt-3 pb-3" >
+                                @forelse ($siswaIdsSelasaPagi as $siswaId)
+                                @php
+                                    $siswa = \App\Models\Student::find($siswaId);
+                                @endphp
+                                <h5 class="mb-3">{{ $siswa->name }}</h5>
+
+                                @empty
+                                <p>Belum Ada data</p>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
+                    <i class="ri-ball-pen-line mx-2"></i>
+                    Edit Siswa
+                </button>
+            </div>
+            <!-- Rabu -->
+            <div class="col mx-3">
+                <div class="card mx-auto" style="max-width: 300px;">
+                    <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
+                        <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Rabu</p>
+                    </div>
+                    <div class="card-body text-center" style="padding: 0px;">
+                        <div class="d-flex mb-4 align-items-center justify-content-center">
+                            <div class="flex-grow-1 ms-2 pt-3 pb-3" >
+                                @forelse ($siswaIdsRabuPagi as $siswaId)
+                                @php
+                                    $siswa = \App\Models\Student::find($siswaId);
+                                @endphp
+                                <h5 class="mb-3">{{ $siswa->name }}</h5>
+
+                                @empty
+                                <p>Belum Ada data</p>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
+                    <i class="ri-ball-pen-line mx-2"></i>
+                    Edit Siswa
+                </button>
+            </div>
+            <!-- Kamis -->
+            <div class="col mx-3">
+                <div class="card mx-auto" style="max-width: 300px;">
+                    <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
+                        <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Kamis</p>
+                    </div>
+                    <div class="card-body text-center" style="padding: 0px;">
+                        <div class="d-flex mb-4 align-items-center justify-content-center">
+                            <div class="flex-grow-1 ms-2 pt-3 pb-3" >
+                                @forelse ($siswaIdsKamisPagi as $siswaId)
+                                @php
+                                    $siswa = \App\Models\Student::find($siswaId);
+                                @endphp
+                                <h5 class="mb-3">{{ $siswa->name }}</h5>
+
+                                @empty
+                                <p>Belum Ada data</p>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
+                    <i class="ri-ball-pen-line mx-2"></i>
+                    Edit Siswa
+                </button>
+            </div>
+            <!-- Jumat -->
+            <div class="col mx-3">
+                <div class="card mx-auto" style="max-width: 300px;">
+                    <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
+                        <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Jum'at</p>
+                    </div>
+                    <div class="card-body text-center" style="padding: 0px;">
+                        <div class="d-flex mb-4 align-items-center justify-content-center">
+                            <div class="flex-grow-1 ms-2 pt-3 pb-3" >
+                                @forelse ($siswaIdsJumatPagi as $siswaId)
+                                @php
+                                    $siswa = \App\Models\Student::find($siswaId);
+                                @endphp
+                                <h5 class="mb-3">{{ $siswa->name }}</h5>
+
+                                @empty
+                                <p>Belum Ada data</p>
+                                @endforelse
                             </div>
                         </div>
                     </div>
@@ -170,16 +252,18 @@
                     <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
                         <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Senin</p>
                     </div>
-
                     <div class="card-body text-center" style="padding: 0px;">
                         <div class="d-flex mb-4 align-items-center justify-content-center">
-                            <div class="flex-grow-1 ms-2 pt-3 pb-3" >
-                                <h5 class="mb-3">Jhon Doe</h5>
-                                <h5 class="mb-3">Alexander Arnold</h5>
-                                <h5 class="mb-3">Monkey D Luffy</h5>
-                                <h5 class="mb-3">Namikaze</h5>
-                                <h5 class="mb-3">Hashirama</h5>
+                            <div class="flex-grow-1 ms-2 pt-3 pb-3">
+                                @forelse ($siswaIdsSeninAfternoon as $siswaId)
+                                @php
+                                    $siswa = \App\Models\Student::find($siswaId);
+                                @endphp
+                                <h5 class="mb-3">{{ $siswa->name }}</h5>
 
+                                @empty
+                                <p>Belum Ada data</p>
+                                @endforelse
                             </div>
                         </div>
                     </div>
@@ -189,73 +273,265 @@
                     Edit Siswa
                 </button>
             </div>
+            <!-- Selasa -->
+            <div class="col mx-3">
+                <div class="card mx-auto" style="max-width: 300px;">
+                    <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
+                        <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Selasa</p>
+                    </div>
+                    <div class="card-body text-center" style="padding: 0px;">
+                        <div class="d-flex mb-4 align-items-center justify-content-center">
+                            <div class="flex-grow-1 ms-2 pt-3 pb-3">
+                                @forelse ($siswaIdsSelasaAfternoon as $siswaId)
+                                @php
+                                    $siswa = \App\Models\Student::find($siswaId);
+                                @endphp
+                                <h5 class="mb-3">{{ $siswa->name }}</h5>
+
+                                @empty
+                                <p>Belum Ada data</p>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
+                    <i class="ri-ball-pen-line mx-2"></i>
+                    Edit Siswa
+                </button>
+            </div>
+            <!-- Rabu -->
+            <div class="col mx-3">
+                <div class="card mx-auto" style="max-width: 300px;">
+                    <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
+                        <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Rabu</p>
+                    </div>
+                    <div class="card-body text-center" style="padding: 0px;">
+                        <div class="d-flex mb-4 align-items-center justify-content-center">
+                            <div class="flex-grow-1 ms-2 pt-3 pb-3">
+                                @forelse ($siswaIdsRabuAfternoon as $siswaId)
+                                @php
+                                    $siswa = \App\Models\Student::find($siswaId);
+                                @endphp
+                                <h5 class="mb-3">{{ $siswa->name }}</h5>
+
+                                @empty
+                                <p>Belum Ada data</p>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
+                    <i class="ri-ball-pen-line mx-2"></i>
+                    Edit Siswa
+                </button>
+            </div>
+            <!-- Kamis -->
+            <div class="col mx-3">
+                <div class="card mx-auto" style="max-width: 300px;">
+                    <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
+                        <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Kamis</p>
+                    </div>
+                    <div class="card-body text-center" style="padding: 0px;">
+                        <div class="d-flex mb-4 align-items-center justify-content-center">
+                            <div class="flex-grow-1 ms-2 pt-3 pb-3">
+                                @forelse ($siswaIdsKamisAfternoon as $siswaId)
+                                @php
+                                    $siswa = \App\Models\Student::find($siswaId);
+                                @endphp
+                                <h5 class="mb-3">{{ $siswa->name }}</h5>
+
+                                @empty
+                                <p>Belum Ada data</p>
+                                @endforelse
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
+                        <i class="ri-ball-pen-line mx-2"></i>
+                        Edit Siswa
+                    </button>
+                </div>
+                <!-- Jumat -->
+                <div class="col mx-3">
+                    <div class="card mx-auto" style="max-width: 300px;">
+                        <div class="card-header text-center rounded" style="background-color: #695EEF; color: white; padding: 0px;">
+                            <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Jum'at</p>
+                        </div>
+                        <div class="card-body text-center" style="padding: 0px;">
+                            <div class="d-flex mb-4 align-items-center justify-content-center">
+                                <div class="flex-grow-1 ms-2 pt-3 pb-3">
+                                    @forelse ($siswaIdsJumatAfternoon as $siswaId)
+                                @php
+                                    $siswa = \App\Models\Student::find($siswaId);
+                                @endphp
+                                <h5 class="mb-3">{{ $siswa->name }}</h5>
+
+                                @empty
+                                <p>Belum Ada data</p>
+                                @endforelse
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center" style="font-size: 18px;">
+                        <i class="ri-ball-pen-line mx-2"></i>
+                        Edit Siswa
+                    </button>
+                </div>
+            </div>
+            <div class="row pt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-sm-4">
+                                <h4 class=" pt-2">Catatan</h4>
+                            </div>
+                            <div class="col-sm-auto ms-auto d-flex">
+                                <div class="list-grid-nav hstack gap-1">
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#notes">
+                                        Tambah Data
+                                      </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="card bg-white" style="height: 300px;">
+                    <div class="card-body">
+                        <!-- Konten card Anda di sini -->
+                    </div>
+                </div>
+            </div>
+
         </div>
-        
+    </div>
+
+
+    <div id="pills-experience" class="tab-pane fade">
         <div class="row">
-            <div class="card bg-white" style="height: 300px;">
-                <div class="card-body">
-                    <!-- Konten card Anda di sini -->
+            {{-- @forelse ($reports as $report)
+
+            <div class="col-xxl-6 d-flex">
+                <div class="card flex-fill">
+                    <div class="row g-0 align-items-stretch">
+                        <div class="col-md-4">
+                            <img src="assets/images/small/img-12.jpg" alt="My Image" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Inspektur : {{$report->student->name}}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text mb-2">
+                                    {{$report->description}}
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-muted"> Jumat-Sore</small>
+                                </p>
+                                <div class="">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal" style="background-color: #695EEF;">Lihat Detail</button>
+                                    <button type="submit" class="btn btn-success">Terima</button>
+                                    <button type="submit" class="btn btn-danger" style="background-color: #DC3545;">Tolak</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @empty
+
+            @endforelse --}}
+
+            <div class="col-xxl-6 d-flex">
+                <div class="card flex-fill">
+                    <div class="row g-0 align-items-stretch">
+                        <div class="col-md-4">
+                            <img src="assets/images/small/img-12.jpg" alt="My Image" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Inspektur : Niel</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text mb-2">For that very reason, I went on a quest and spoke to many different professional graphic designers and asked them what graphic design tips they live.</p>
+                                <p class="card-text">
+                                    <small class="text-muted"> Jumat-Sore</small>
+                                </p>
+                                <div class="">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal" style="background-color: #695EEF;">Lihat Detail</button>
+                                    <button type="button" class="btn btn-success">Terima</button>
+                                    <button type="button" class="btn btn-danger" style="background-color: #DC3545;">Tolak</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="pills-experience" class="tab-pane fade">
-        <div class="row">
-            <div class="col-xxl-6 d-flex">
-                <div class="card flex-fill">
-                    <div class="row g-0 align-items-stretch">
-                        <div class="col-md-4">
-                            <img src="assets/images/small/img-12.jpg" alt="My Image" style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Inspektur : Niel</h5>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text mb-2">For that very reason, I went on a quest and spoke to many different professional graphic designers and asked them what graphic design tips they live.</p>
-                                <p class="card-text">
-                                    <small class="text-muted"> Jumat-Sore</small>
-                                </p>
-                                <div class="">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal" style="background-color: #695EEF;">Lihat Detail</button>
-                                    <button type="button" class="btn btn-success">Terima</button>
-                                    <button type="button" class="btn btn-danger" style="background-color: #DC3545;">Tolak</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+</div>
+
+
+<!-- Add Modal -->
+<div class="modal fade" id="add" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Tambah Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="col-xxl-6 d-flex">
-                <div class="card flex-fill">
-                    <div class="row g-0 align-items-stretch">
-                        <div class="col-md-4">
-                            <img src="assets/images/small/img-12.jpg" alt="My Image" style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Inspektur : Niel</h5>
+            <div class="modal-body">
+                <form action="{{ route('picket.store') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label class="form-label">Waktu</label>
+                        <div>
+                            @foreach (\App\Enum\TimeEnum::cases() as $time)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tim" id="{{ $time->value }}" value="{{ $time->value }}">
+                                <label class="form-check-label" for="{{ $time->value }}">{{ $time->label() }}</label>
                             </div>
-                            <div class="card-body">
-                                <p class="card-text mb-2">For that very reason, I went on a quest and spoke to many different professional graphic designers and asked them what graphic design tips they live.</p>
-                                <p class="card-text">
-                                    <small class="text-muted"> Jumat-Sore</small>
-                                </p>
-                                <div class="">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal" style="background-color: #695EEF;">Lihat Detail</button>
-                                    <button type="button" class="btn btn-success">Terima</button>
-                                    <button type="button" class="btn btn-danger" style="background-color: #DC3545;">Tolak</button>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
-                </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Hari</label>
+                        <select class="form-select" name="day_picket" id="">
+                            @foreach (\App\Enum\DayEnum::cases() as $day)
+                                @if ($day->value !== 'sunday' && $day->value !== 'saturday')
+                                    <option value="{{ $day->value }}">{{ $day->label() }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+
+
+                    <div class="form-group mb-3 mt-3 col-md-12">
+                        <label for="division_id">Anggota</label>
+                        <select class="tambah" aria-label="form-select example" name="student_id" id="studentSelect">
+                            @foreach ($students as $division)
+                                <option value="{{ $division->id }}">{{ $division->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-soft-dark" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-
 
 <!-- Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -269,40 +545,38 @@
                 <form>
                     <div class="mb-3">
                         <label class="form-label">Waktu</label>
-                        <div class="mb-3 d-flex align-items-center">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="time" id="morning" value="MORNING">
-                                <label class="form-check-label" for="morning">
-                                    Pagi
-                                </label>
+                        <div>
+                            @foreach (\App\Enum\TimeEnum::cases() as $time)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tim" id="{{ $time->value }}" value="{{ $time->value }}">
+                                <label class="form-check-label" for="{{ $time->value }}">{{ $time->label() }}</label>
                             </div>
-                            <div class="form-check ms-3">
-                                <input class="form-check-input" type="radio" name="time" id="afternoon" value="AFTERNOON">
-                                <label class="form-check-label" for="afternoon">
-                                    Sore
-                                </label>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Hari</label>
-                        <select class="form-select" id="day">
-                            <option value="MONDAY">Senin</option>
-                            <option value="TUESDAY">Selasa</option>
-                            <option value="WEDNESDAY">Rabu</option>
-                            <option value="THURSDAY">Kamis</option>
-                            <option value="FRIDAY">Jumat</option>
+                        <select class="form-select" name="day_picket" id="">
+                            @foreach (\App\Enum\DayEnum::cases() as $day)
+                                @if ($day->value !== 'sunday' && $day->value !== 'saturday')
+                                    <option value="{{ $day->value }}">{{ $day->label() }}</option>
+                                @endif
+                            @endforeach
                         </select>
                     </div>
+
                     <div class="mb-3">
-                        <label class="form-label">Anggota</label>
-                        <select class="form-select" id="time">
-                            <option value="">Pilih Siswa</option>
-                            <option value="MORNING">Pagi</option>
-                            <option value="AFTERNOON">Sore</option>
+                        <label for="student_id">Anggota</label>
+                        <select class="form-select" name="student_id" id="">
+                            @foreach ($students as $division)
+                                <option value="{{ $division->id }}" {{ $division->student_id == $division->id ? 'disabled' : '' }}>
+                                    {{ $division->name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -391,8 +665,19 @@
     });
     $(document).ready(function() {
         $(".js-example-basic-single").select2({
-            dropdownParent: $("#modal-edit")
+            dropdownParent: $("#editModal")
         });
     });
 </script>
+<script>
+    var studentSelect = document.getElementById('studentSelect');
+
+    studentSelect.addEventListener('change', function() {
+        var selectedOption = this.options[this.selectedIndex];
+
+        // Remove the selected option
+        this.removeChild(selectedOption);
+    });
+</script>
+
 @endsection

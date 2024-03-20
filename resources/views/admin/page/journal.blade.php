@@ -11,13 +11,13 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="steparrow-gen-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-gen-info" type="button" role="tab"
                             aria-controls="steparrow-gen-info" aria-controls="steparrow-gen-info" aria-selected="true" data-position="0">
-                            Mengisi
+                            Tidak Mengisi
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="steparrow-description-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-description-info" type="button" role="tab"
                             aria-controls="steparrow-description-info" aria-selected="false" data-position="1" tabindex="-1">
-                                Tidak Mengisi
+                                Mengisi
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
