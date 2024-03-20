@@ -33,17 +33,17 @@ class JournalRepository extends BaseRepository implements JournalInterface
         return redirect()->back()->with('error', 'Hari ini adalah hari libur.');
     }
 
-    $currentTime = now();
-    $startTime = $currentTime->copy()->setHour(16)->setMinute(0)->setSecond(0);
-    $endTime = $currentTime->copy()->setHour(23)->setMinute(59)->setSecond(59);
+    // $currentTime = now();
+    // $startTime = $currentTime->copy()->setHour(16)->setMinute(0)->setSecond(0);
+    // $endTime = $currentTime->copy()->setHour(23)->setMinute(59)->setSecond(59);
 
-    if (!$currentTime->isBetween($startTime, $endTime) && $currentTime->format('H:i') < '16:00') {
-        return redirect()->back()->with('error', 'Pembuatan jurnal hanya diizinkan mulai pukul 16:00.');
-    }
+    // if (!$currentTime->isBetween($startTime, $endTime) && $currentTime->format('H:i') < '16:00') {
+    //     return redirect()->back()->with('error', 'Pembuatan jurnal hanya diizinkan mulai pukul 16:00.');
+    // }
 
-    if (!$currentTime->isBetween($startTime, $endTime) && $currentTime->format('H:i') > '23:59') {
-        return redirect()->back()->with('error', 'Pembuatan jurnal hanya diizinkan hingga pukul 23:59.');
-    }
+    // if (!$currentTime->isBetween($startTime, $endTime) && $currentTime->format('H:i') > '23:59') {
+    //     return redirect()->back()->with('error', 'Pembuatan jurnal hanya diizinkan hingga pukul 23:59.');
+    // }
 
     $data['user_id'] = auth()->user()->id;
     $data['status'] = 'fillin';
