@@ -77,10 +77,10 @@
                                                             <ul class="dropdown-menu dropdown-menu-end">
                                                                 <li>
                                                                     <button type="button" class="dropdown-item btn-show"
-                                                                        data-id="1" data-create="15-03-2024"
-                                                                        data-start="15-03-2024" data-end="18-03-2024"
-                                                                        data-description="Lorem ipsum dolor sit amet consectetur. Interdum.."
-                                                                        data-status="Penting">
+                                                                        data-id="{{ $mentor->id }}"
+                                                                        data-name="{{ $mentor->name }}"
+                                                                        data-email="{{ $mentor->email }}"
+                                                                        data-division="{{ $mentor->division->name }}">
                                                                         <i
                                                                             class="ri-eye-fill align-bottom me-2 text-muted"></i>
                                                                         Lihat Detail
@@ -100,7 +100,7 @@
                                                                 </li>
                                                                 <li>
                                                                     <button type="button" class="dropdown-item btn-delete"
-                                                                        data-id="1">
+                                                                        data-id="{{ $mentor->id }}">
                                                                         <i
                                                                             class="ri-delete-bin-fill align-bottom me-2 text-danger"></i>
                                                                         Hapus
@@ -239,6 +239,37 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modal-show" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mx-4" id="showModalLabel">Detail Mentor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="">Nama</label>
+                        <h6 class="mentor-name"></h6>
+                    </div>
+                    <div class="mb-3">
+                        <label for="">Email</label>
+                        <h6 class="mentor-email"></h6>
+                    </div>
+                    <div class="mb-3">
+                        <label for="">Divisi</label>
+                        <h6 class="mentor-division"></h6>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @include('admin.components.delete-modal-component')
 @endsection
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -267,6 +298,27 @@
 
             $('#form-update').attr('action', '/menu-mentor/update/' + id);
         });
+
+        $('.btn-delete').click(function() {
+            var id = $(this).data('id');
+
+            $('#form-delete').attr('action', '/menu-mentor/delete/' + id);
+            $('#modal-delete').modal('show');
+        });
+
+        $('.btn-show').click(function() {
+            var id = $(this).data('id');
+            var name = $(this).data('name');
+            var email = $(this).data('email');
+            var division = $(this).data('division');
+
+            $('.mentor-name').text(name);
+            $('.mentor-email').text(email);
+            $('.mentor-division').text(division);
+
+            $('#modal-show').modal('show');
+
+        })
     </script>
 
     <script>
@@ -279,5 +331,4 @@
             }
         }
     </script>
-
 @endsection

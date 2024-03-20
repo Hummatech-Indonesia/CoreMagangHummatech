@@ -51,4 +51,10 @@ class AdminMentorController extends Controller
         $mentor = $this->mentor->update($mentor->id, $validatedData);
         return back()->with('succes', 'Mentor Berhasil Diubah');
     }
+
+    public function destroy(Mentor $mentor)
+    {
+       $this->mentor->delete($mentor->id);
+       return back()->with('succes', 'Mentor Berhasil Dihapus');
+    }
 }
