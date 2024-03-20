@@ -8,14 +8,20 @@ enum TransactionStatusEnum: string
     case PAID = 'paid';
     case CANCELLED = 'cancelled';
     case EXPIRED = 'expired';
+    case FAILED = 'failed';
+    case REFUND = 'refund';
+    case UNPAID = 'unpaid';
 
     public function label(): string
     {
         return match ($this) {
-            TransactionStatusEnum::PENDING => 'Pending',
-            TransactionStatusEnum::PAID => 'Paid',
-            TransactionStatusEnum::CANCELLED => 'Cancelled',
-            TransactionStatusEnum::EXPIRED => 'Expired',
+            TransactionStatusEnum::PENDING => 'Menunggu Pembayaran',
+            TransactionStatusEnum::PAID => 'Lunas',
+            TransactionStatusEnum::CANCELLED => 'Batal',
+            TransactionStatusEnum::EXPIRED => 'Kadaluarsa',
+            TransactionStatusEnum::FAILED => 'Gagal',
+            TransactionStatusEnum::REFUND => 'Dikembalikan',
+            TransactionStatusEnum::UNPAID => 'Belum lunas',
         };
     }
 
@@ -26,6 +32,9 @@ enum TransactionStatusEnum: string
             TransactionStatusEnum::PAID => 'success',
             TransactionStatusEnum::CANCELLED => 'danger',
             TransactionStatusEnum::EXPIRED => 'secondary',
+            TransactionStatusEnum::FAILED => 'danger',
+            TransactionStatusEnum::REFUND => 'info',
+            TransactionStatusEnum::UNPAID => 'warning',
         };
     }
 }

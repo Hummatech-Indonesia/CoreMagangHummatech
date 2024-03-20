@@ -29,4 +29,18 @@ class TripayCheckoutRequest extends FormRequest
             'user_id' => 'required|exists:users,id'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'amount.integer' => 'Jumlah harus berupa bilangan bulat',
+            'amount.required' => 'Jumlah diperlukan',
+            'payment_code.required' => 'Kode pembayaran diperlukan',
+            'payment_name.required' => 'Nama pembayaran diperlukan',
+            'product_id.required' => 'ID produk diperlukan',
+            'product_id.exists' => 'ID produk tidak ada',
+            'user_id.required' => 'ID pengguna diperlukan',
+            'user_id.exists' => 'ID pengguna tidak ada',
+        ];
+    }
 }

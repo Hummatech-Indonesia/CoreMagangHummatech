@@ -79,6 +79,22 @@
                         <span class="hide-menu">Sertifikat <i class="fas fa-lock opacity-50 ms-2"></i></span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('transaction-history.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-list"></i>
+                        </span>
+                        <span class="hide-menu">Pesanan Saya</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('transaction-history.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-wallet"></i>
+                        </span>
+                        <span class="hide-menu">Riwayat Transaksi</span>
+                    </a>
+                </li>
             </ul>
             <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
                 <div class="d-flex">
