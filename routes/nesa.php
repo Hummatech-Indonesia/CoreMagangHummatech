@@ -34,6 +34,7 @@ Route::put('product/{product}', [ProductController::class, 'update'])->name('pro
 Route::delete('product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
 
 
+// mentor
 Route::get('student/absensi', function (){
     return view('mentor.absensi.index');
 });
@@ -44,4 +45,10 @@ Route::get('student/journal', function (){
 
 Route::get('student', function (){
     return view('mentor.student.index');
+});
+
+
+// siswa offline
+Route::get('siswa-offline/absensi', function (){
+    return view('student_offline.absensi.index');
 });
