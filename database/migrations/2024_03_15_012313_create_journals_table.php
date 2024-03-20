@@ -1,6 +1,6 @@
 <?php
 
-use App\StatusJournalEnum;
+use App\enum\StatusJournalEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
