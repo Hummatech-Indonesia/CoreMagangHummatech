@@ -73,12 +73,15 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->get();
     }
 
-    public function whereNotIn(mixed $id): mixed
+    public function listStudent(): mixed
     {
         return $this->model->query()
-            ->whereNotIn('id', $id)
-            ->where('status', 'accepted')
-            ->where('acepted', '1')
+            ->whereNot('status', 'pending')
             ->get();
+    }
+
+    public function show(mixed $id): mixed
+    {
+        return $this->model->query()->findOrFail($id);
     }
 }

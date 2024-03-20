@@ -46,7 +46,6 @@ class StudentController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
-
     }
 
     /**
@@ -56,7 +55,6 @@ class StudentController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      */
