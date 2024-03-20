@@ -37,3 +37,7 @@ Route::delete('product/{product}', [ProductController::class, 'destroy'])->name(
 Route::get('student/absensi', function (){
     return view('mentor.absensi.index');
 });
+
+Route::get('student/journal', function (){
+    return view('mentor.journal.index');
+});
