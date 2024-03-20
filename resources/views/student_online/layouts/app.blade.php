@@ -43,6 +43,53 @@
         <!-- Sidebar Start -->
         @include('student_online.layouts.sidebar')
         <!--  Sidebar End -->
+            <!-- SignIn modal content -->
+    <div id="login-modal" class="modal fade" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="text-center mt-2 mb-4">
+                        <a href="#" class="text-success">
+                            <span><img
+                                    src="{{ asset('mobilelogo.png') }}"
+                                    class="me-3" width="100" alt="" />
+                            </span>
+                        </a>
+                    </div>
+
+                    <form action="#" class="ps-3 pr-3">
+                        <div class="mb-3">
+                            <label for="emailaddress1">Email address</label>
+                            <input class="form-control" type="email" id="emailaddress1" required=""
+                                placeholder="john@deo.com" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password1">Password</label>
+                            <input class="form-control" type="password" required="" id="password1"
+                                placeholder="Enter your password" />
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="customCheck2" />
+                                <label class="form-check-label" for="customCheck2">Remember me</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 text-center">
+                            <button class="btn btn-rounded btn-light-info text-info font-medium" type="submit">
+                                Sign In
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
         <!--  Main wrapper -->
         <div class="body-wrapper">
             <!--  Header Start -->
