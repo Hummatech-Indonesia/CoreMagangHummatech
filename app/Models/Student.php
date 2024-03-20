@@ -32,4 +32,9 @@ class Student extends Model implements HasAttendances
     {
         return $this->hasMany(ResponseLetter::class);
     }
+
+    public function division()
+    {
+        return $this->belongsTo(Division::class);
+    }
 }
