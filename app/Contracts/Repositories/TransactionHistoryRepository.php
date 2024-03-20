@@ -11,6 +11,11 @@ class TransactionHistoryRepository extends BaseRepository implements Transaction
         $this->model = $transactionHistory;
     }
 
+    public function getId(string $id): mixed
+    {
+        return $this->model->where('reference', $id);
+    }
+
     public function get(): mixed
     {
         return $this->model->query()->get();

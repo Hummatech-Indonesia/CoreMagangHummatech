@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Trait\HasUuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TransactionHistory extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuidTrait;
 
     /**
      * Mass assignable
@@ -20,10 +21,17 @@ class TransactionHistory extends Model
         'transaction_id',
         'user_id',
         'product_id',
+        'checkout_url',
+        'reference',
         'amount',
         'issued_at',
         'expired_at',
         'status',
+    ];
+
+    protected $casts = [
+        'issued_at' => 'datetime',
+        'expired_at' => 'datetime',
     ];
 
     /**

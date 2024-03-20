@@ -11,11 +11,13 @@ use App\Http\Controllers\Admin\ApprovalController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
 use App\Http\Controllers\MentorController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
 use App\Http\Controllers\StudentOnline\StudentOnlineController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\VoucherSubmitController;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', function () {
@@ -56,12 +58,10 @@ Route::name(RolesEnum::ADMIN->value)->group(function () {
     Route::post('/menu-mentor/store', [AdminMentorController::class, 'store'])->name('.mentor.store');
     Route::put('/menu-mentor/update/{mentor}', [AdminMentorController::class, 'update'])->name('.mentor.update');
     Route::delete('/menu-mentor/delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('.mentor.delete');
-
-
 })->middleware(['roles:administrator', 'auth']);
 
 # ================================================ Offline Student Route Group ================================================
-Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function() {
+Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function () {
     Route::get('/', [StudentOflineController::class, 'index'])->name('.home');
     Route::get('division', function () {
         return view('student_offline.division.index');
@@ -71,7 +71,7 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function(
 })->middleware("roles:siswa-offline");
 
 # ================================================ Online Student Route Group =================================================
-Route::prefix('siswa-online')->middleware('roles:siswa-online', 'auth')->name(RolesEnum::ONLINE->value)->group(function() {
+Route::prefix('siswa-online')->middleware('roles:siswa-online', 'auth')->name(RolesEnum::ONLINE->value)->group(function () {
     Route::get('/', [StudentOnlineController::class, 'index'])->name('.home');
     Route::get('division', function () {
         return view('student_online.division.index');
@@ -85,16 +85,18 @@ Route::prefix('siswa-online')->middleware('roles:siswa-online', 'auth')->name(Ro
 # ==================================================== Another Route Group ====================================================
 
 #===================================================== Mentor =================================================================
-Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function() {
-    Route::get('/', function () { return view('mentor.index');});
+Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function () {
+    Route::get('/', function () {
+        return view('mentor.index');
+    });
 });
 
 #================================================= End Mentor ====================================================================
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
     # Subscription Route
-    Route::controller(SubscriptionController::class)->prefix('subscription')->name('subscription.')->group(function() {
+    Route::controller(SubscriptionController::class)->prefix('subscription')->name('subscription.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/process', 'subscribeAddCartProcess')->name('process');
         Route::post('/remove', 'subscribeDeleteCartProcess')->name('delete');
@@ -102,7 +104,7 @@ Route::middleware('auth')->group(function() {
     })->middleware('roles:siswa-offline,siswa-online');
 
     # Voucher Subscription Apply
-    Route::controller(VoucherSubmitController::class)->prefix('voucher')->name('voucher.')->group(function() {
+    Route::controller(VoucherSubmitController::class)->prefix('voucher')->name('voucher.')->group(function () {
         Route::post('apply', 'apply')->name('apply');
         Route::post('revoke', 'revoke')->name('revoke');
     });
@@ -113,6 +115,14 @@ Route::middleware('auth')->group(function() {
         return redirect($roles[0]);
     })->name('authenticated');
 });
+
+# Transaction and Payment Routing
+Route::controller(TransactionController::class)->prefix('transaction')->name('transaction-history.')->group(function() {
+    Route::get('/', 'index')->name('index')->middleware('auth');
+    Route::post('/tripay', 'store')->name('request-to-tripay')->middleware('auth');
+    Route::any('/callback', 'callback')->name('callback')->withoutMiddleware(VerifyCsrfToken::class);
+    Route::get('/detail/{reference:reference}', 'detail')->name('detail')->middleware('auth');
+})->middleware('roles:siswa-offline,siswa-online');
 
 require_once __DIR__ . '/kader.php';
 require_once __DIR__ . '/farah.php';
