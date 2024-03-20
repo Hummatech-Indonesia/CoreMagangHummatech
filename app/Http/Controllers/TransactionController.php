@@ -24,6 +24,12 @@ class TransactionController extends Controller
         $this->transactionHistory = $transactionHistory;
     }
 
+    public function index()
+    {
+        $transactions = auth()->user()->transactions;
+        return view('student_online_&_offline.transaction.index', compact('transactions'));
+    }
+
     public function store(TripayCheckoutRequest $request)
     {
         $productDetail = $this->product->getId($request->product_id);

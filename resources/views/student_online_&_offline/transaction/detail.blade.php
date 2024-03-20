@@ -36,7 +36,10 @@
             $status = strtoupper($reference->status);
         @endphp
         <h3 class="mb-0">Status Pembayaran: <strong class="text-{{ App\Enum\TransactionStatusEnum::{$status}->color() }}">{{ App\Enum\TransactionStatusEnum::{$status}->label() }}</strong></h3>
-        <a href="" class="btn btn-primary">Periksa</a>
+        <a href="{{ route('transaction-history.detail', $reference->reference) }}" class="btn btn-primary d-flex align-items-center gap-2">
+            <i class="fas fa-sync"></i>
+            <span>Periksa</span>
+        </a>
     </div>
     <div class="card-body">
         <div class="row">
