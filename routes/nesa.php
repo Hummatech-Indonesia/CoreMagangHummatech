@@ -52,3 +52,9 @@ Route::get('student', function (){
 Route::get('siswa-offline/absensi', function (){
     return view('student_offline.absensi.index');
 });
+Route::get('/siswa-offline/course', function (){
+    return view('student_offline.course.index');
+});
+Route::get('/siswa-offline/course/detail', function (){
+    return view('student_offline.course.detail');
+});
