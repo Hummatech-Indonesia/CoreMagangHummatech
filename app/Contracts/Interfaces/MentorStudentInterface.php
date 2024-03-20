@@ -8,4 +8,6 @@ use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface MentorStudentInterface extends GetInterface, StoreInterface, UpdateInterface, DeleteInterface
-{}
+{
+    public function pluck($column);
+}

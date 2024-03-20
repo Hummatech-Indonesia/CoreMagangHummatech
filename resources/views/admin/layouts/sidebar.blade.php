@@ -49,8 +49,8 @@
                     </a>
                 </li> <!-- end Dashboard Menu -->
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarApps1" data-bs-toggle="collapse"
-                        role="button" aria-expanded="false" aria-controls="sidebarApps">
+                    <a class="nav-link menu-link" href="#sidebarApps1" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarApps">
                         <i class=" ri-bookmark-2-fill"></i> <span data-key="t-apps">Approval</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarApps1">
@@ -60,7 +60,8 @@
                                 <a href="{{ url('/approval') }}" class="nav-link" data-key="t-chat"> Pendaftaran </a>
                             </li>
                             <li class="nav-item {{ request()->is('/permision') ? 'active' : '' }}">
-                                <a href="{{ url('/permision') }}" class="nav-link" data-key="t-api-key">Izin & Sakit</a>
+                                <a href="{{ url('/permision') }}" class="nav-link" data-key="t-api-key">Izin &
+                                    Sakit</a>
                             </li>
                             <li class="nav-item">
                                 <a href="" class="nav-link" data-key="t-api-key">TopUp</a>
@@ -70,8 +71,42 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarCharts1" data-bs-toggle="collapse"
-                        role="button" aria-expanded="false" aria-controls="sidebarCharts">
+                    <a class="nav-link menu-link" href="#sidebarForms" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarForms">
+                        <i class=" ri-account-circle-line"></i> <span data-key="t-forms">User</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarForms">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="" class="nav-link" data-key="t-basic-elements">Siswa</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/menu-mentor" class="nav-link" data-key="t-form-select">Mentor</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link" data-key="t-checkboxs-radios">Alumni</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link" data-key="t-pickers">
+                                    Penanggung Jawab </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/rfid') }}" class="nav-link" data-key="t-input-masks">RFID</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link" data-key="t-advanced">Siswa
+                                    Ditolak</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link" data-key="t-range-slider"> Banned Siswa </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarCharts1" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarCharts">
                         <i class="ri-article-line"></i> <span data-key="t-charts">Pendataan Admin</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarCharts1">
@@ -93,15 +128,16 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse"
-                        role="button" aria-expanded="false" aria-controls="sidebarApps">
+                    <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-file-list-3-line"></i> <span data-key="t-surat">Surat</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarApps">
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
-                                <a href="{{ url('/response-letter') }}" class="nav-link" data-key="t-chat"> Pendaftaran </a>
+                                <a href="{{ url('/response-letter') }}" class="nav-link" data-key="t-chat">
+                                    Pendaftaran </a>
                             </li>
                             <li class="nav-item">
                                 <a href="" class="nav-link" data-key="t-api-key">Izin &
@@ -147,8 +183,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarCharts2" data-bs-toggle="collapse"
-                        role="button" aria-expanded="false" aria-controls="sidebarCharts">
+                    <a class="nav-link menu-link" href="#sidebarCharts2" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarCharts">
                         <i class=" ri-pencil-ruler-2-line"></i> <span data-key="t-charts">Piket</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarCharts2">
@@ -167,53 +203,14 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarForms" data-bs-toggle="collapse"
-                        role="button" aria-expanded="false" aria-controls="sidebarForms">
-                        <i class=" ri-account-circle-line"></i> <span data-key="t-forms">User</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarForms">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="" class="nav-link"
-                                    data-key="t-basic-elements">Siswa</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/menu-mentor" class="nav-link"
-                                    data-key="t-form-select">Mentor</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link"
-                                    data-key="t-checkboxs-radios">Alumni</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-pickers">
-                                    Penanggung Jawab </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('/rfid') }}" class="nav-link" data-key="t-input-masks">RFID</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-advanced">Siswa
-                                    Ditolak</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link"
-                                    data-key="t-range-slider"> Banned Siswa </a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item">
                     <a class="nav-link menu-link" href="">
                         <i class=" ri-wallet-3-line"></i> <span data-key="t-widgets">Transaksi</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarCharts" data-bs-toggle="collapse"
-                        role="button" aria-expanded="false" aria-controls="sidebarCharts">
+                    <a class="nav-link menu-link" href="#sidebarCharts" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarCharts">
                         <i class=" ri-pie-chart-line"></i> <span data-key="t-charts">Histori</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarCharts">
