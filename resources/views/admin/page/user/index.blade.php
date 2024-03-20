@@ -50,13 +50,13 @@
                     <div class="card-body d-flex justify-content-between">
                         <div class="d-flex gap-3 align-items-center">
                             <div class="">
-                                <img src="{{ asset('storage/' . $student->avatar) }}" class="avatar-lg rounded"
+                                <img src="{{ asset('storage/' . $student->avatar) }}" class="avatar-xl rounded"
                                     alt="">
                             </div>
                             <div class="">
                                 <h5 class="m-0">{{ $student->name }}</h5>
                                 <p class="m-1 text-muted">{{ $student->school }}</p>
-                                <div class="mt-3 d-flex  justify-content-start gap-1">
+                                <div class="mt-1 d-flex  justify-content-start gap-1">
                                     <div class="w-50 m-0">
                                         <p class="m-0 text-muted">Status</p>
                                         <span class="badge {{ $student->acepted == '0' ? 'bg-danger' : 'bg-success' }} "
