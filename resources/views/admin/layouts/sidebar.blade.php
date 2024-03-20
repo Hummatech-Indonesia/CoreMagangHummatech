@@ -64,7 +64,7 @@
                                     Sakit</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-api-key">TopUp</a>
+                                <a href="{{ url('/top-up') }}" class="nav-link" data-key="t-api-key">TopUp</a>
                             </li>
                         </ul>
                     </div>
