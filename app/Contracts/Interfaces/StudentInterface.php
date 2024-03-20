@@ -23,4 +23,8 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
      * @return mixed
      */
     public function listAttendance(): mixed;
+
+
+
+    public function whereNotIn(mixed $id):mixed;
 }

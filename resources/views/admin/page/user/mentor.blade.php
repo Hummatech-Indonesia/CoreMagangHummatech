@@ -64,7 +64,13 @@
                                             @foreach ($mentors as $mentor)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $mentor->name }}</td>
+                                                    <td class="d-flex align-items-center gap-3">
+                                                        <div>
+                                                            <img src="{{ asset('storage/' . $mentor->image) }}"
+                                                                class="avatar-sm  rounded-circle" alt="">
+                                                        </div>
+                                                        {{ $mentor->name }}
+                                                    </td>
                                                     <td>{{ $mentor->email }}</td>
                                                     <td>{{ $mentor->division->name }}</td>
                                                     <td>
@@ -92,7 +98,8 @@
                                                                         data-id="{{ $mentor->id }}"
                                                                         data-name="{{ $mentor->name }}"
                                                                         data-email="{{ $mentor->email }}"
-                                                                        data-division="{{ $mentor->division_id }}">
+                                                                        data-division="{{ $mentor->division_id }}"
+                                                                        data-student="{{ $mentor->mentorstudent->pluck('student_id') }}">
                                                                         <i
                                                                             class="ri-pencil-fill align-bottom me-2 text-warning"></i>
                                                                         Edit
@@ -142,7 +149,7 @@
         </div>
     </div>
     <div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="varyingcontentModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="varyingcontentModalLabel">Edit Mentor</h5>
@@ -158,6 +165,10 @@
                                 class="form-control">
                         </div>
                         <div class="mb-3">
+                            <label for="">Foto</label>
+                            <input type="file" name="image" id="" class="form-control">
+                        </div>
+                        <div class="mb-3">
                             <label for="">Email</label>
                             <input type="text" name="email" id="mentor-email" placeholder="Masukkan Email"
                                 class="form-control">
@@ -168,6 +179,17 @@
                                 <option disabled selected>Pilih Divisi</option>
                                 @foreach ($divisions as $division)
                                     <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3" id="mentor-student">
+                            <label for="">Siswa</label>
+                            <select name="student_id[]" id="" class="form-select js-example-basic-multiple "
+                                multiple>
+                                @foreach ($students as $student)
+                                    <option value="{{ $student->id }}">{{ $student->name }}-{{ $student->school }} :
+                                        {{ $student->internship_type }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -189,13 +211,18 @@
                     <h5 class="modal-title" id="showModalLabel">Tambah Mentor</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/menu-mentor/store" method="POST">
+                <form action="/menu-mentor/store" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="">Nama</label>
-                            <input type="text" name="name" id="" placeholder="Masukkan Nama"
+                            <input type="text" name="name" id=""
+                                onkeyup="this.value = this.value.toUpperCase();" placeholder="Masukkan Nama"
                                 class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Foto</label>
+                            <input type="file" name="image" id="" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label for="">Email</label>
@@ -211,20 +238,13 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="">Jenis mentor</label>
-                            <select id="seleted" class="form-select" onchange="showHideStudent(this)">
-                                <option selected disabled>Pilih Jenis Mentor</option>
-                                <option value="online">Online</option>
-                                <option value="offline">offline</option>
-                            </select>
-                        </div>
-                        <div class="mb-3" id="studentDiv" style="display: none;">
+                        <div class="mb-3" id="">
                             <label for="">Siswa</label>
-                            <select name="student_id[]" id="" class="form-select js-example-basic-multiple"
-                                multiple>
+                            <select name="student_id[]" id=""
+                                class="form-select js-example-basic-multiple " multiple>
                                 @foreach ($students as $student)
-                                    <option value="{{ $student->id }}">{{ $student->name }}-{{ $student->school }}
+                                    <option value="{{ $student->id }}">{{ $student->name }}-{{ $student->school }} :
+                                        {{ $student->internship_type }}
                                     </option>
                                 @endforeach
                             </select>
@@ -283,17 +303,21 @@
         $('.js-example-basic-multiple').select2({
             dropdownParent: $('#addModal')
         });
+        $('.js-example-basic-multiple').select2({
+            dropdownParent: $('#modal-edit')
+        });
 
         $('.btn-edit').click(function() {
             var id = $(this).data('id');
             var name = $(this).data('name');
             var email = $(this).data('email');
             var division = $(this).data('division');
-
+            var students = $(this).data('student');
             $('#mentor-id').val(id);
             $('#mentor-name').val(name);
             $('#mentor-email').val(email);
             $('#mentor-division').val(division).find('option[value="' + division + '"]').prop('selected', true);
+            $('#mentor-student').val(students).trigger('change');
             $('#modal-edit').modal('show');
 
             $('#form-update').attr('action', '/menu-mentor/update/' + id);
@@ -319,16 +343,5 @@
             $('#modal-show').modal('show');
 
         })
-    </script>
-
-    <script>
-        function showHideStudent(select) {
-            var studentDiv = document.getElementById("studentDiv");
-            if (select.value == 'online') {
-                studentDiv.style.display = 'block';
-            } else {
-                studentDiv.style.display = 'none';
-            }
-        }
     </script>
 @endsection

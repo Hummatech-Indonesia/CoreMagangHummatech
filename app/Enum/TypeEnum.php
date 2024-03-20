@@ -20,4 +20,5 @@ enum TypeEnum : string
     case COURSES = 'courses';
     case IMAGE_COURSE = 'image_course';
     case VIDEO_COURSE = 'video_course';
+    case MENTOR = 'mentor';
 }

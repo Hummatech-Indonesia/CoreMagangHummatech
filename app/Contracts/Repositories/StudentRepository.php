@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\StudentInterface;
+use App\Enum\InternshipTypeEnum;
 use App\Models\Student;
 
 class StudentRepository extends BaseRepository implements StudentInterface
@@ -33,7 +35,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     }
 
 
-     /**
+    /**
      * getByRfid
      *
      * @param  mixed $cardId
@@ -66,10 +68,17 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function where(): mixed
     {
         return $this->model->query()
-        ->where('status', 'accepted')
-        ->where('acepted', '1')
-        ->get();
+            ->where('status', 'accepted')
+            ->where('acepted', '1')
+            ->get();
     }
 
-
+    public function whereNotIn(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->whereNotIn('id', $id)
+            ->where('status', 'accepted')
+            ->where('acepted', '1')
+            ->get();
+    }
 }
