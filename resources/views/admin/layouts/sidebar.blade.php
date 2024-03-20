@@ -59,8 +59,8 @@
                             <li class="nav-item">
                                 <a href="{{ url('/approval') }}" class="nav-link" data-key="t-chat"> Pendaftaran </a>
                             </li>
-                            <li class="nav-item {{ request()->is('/permision') ? 'active' : '' }}">
-                                <a href="{{ url('/permision') }}" class="nav-link" data-key="t-api-key">Izin &
+                            <li class="nav-item {{ request()->is('/permission') ? 'active' : '' }}">
+                                <a href="{{ url('/permission') }}" class="nav-link" data-key="t-api-key">Izin &
                                     Sakit</a>
                             </li>
                             <li class="nav-item">
