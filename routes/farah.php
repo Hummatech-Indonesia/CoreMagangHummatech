@@ -46,3 +46,6 @@ Route::get('siswa-online/tugas/detail/detail-jawaban', function() {
 Route::get('top-up', function() {
     return view('admin.page.approval.top-up');
 });
+Route::get('alumni', function() {
+    return view('admin.page.user.alumni');
+});
