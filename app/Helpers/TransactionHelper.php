@@ -18,6 +18,19 @@ class TransactionHelper
     }
 
     /**
+     * Count and show the calculation of discount
+     *
+     * @param int $amount the amount for which discount will be calculated
+     * @param int $discount the discount will be count int percentage
+     *
+     * @return float|int the amount after discount
+     */
+    public static function discount(int $amount, float $discount): mixed
+    {
+        return $amount * ($discount / 100);
+    }
+
+    /**
      * Method to calculate the discount
      *
      * @param int $amount the amount for which discount will be calculated

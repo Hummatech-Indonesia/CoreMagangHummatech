@@ -177,18 +177,34 @@
                         <input type="hidden" name="payment_code" id="payment-code" />
                         <input type="hidden" name="payment_name" id="payment-name" />
 
-                        <div class="pb-3 d-flex justify-content-between mb-3">
-                            <span>Metode Pembayaran:</span>
-                            <a href="javascript:openModal('choose-payment')" id="payment-show"
-                                class="fw-bolder text-primary">Pilih Metode Pembayaran</a>
+                        <div class="pb-3 d-flex gap-2 flex-column mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>Metode Pembayaran:</span>
+                                <a href="javascript:openModal('choose-payment')" id="payment-show"
+                                    class="fw-bolder text-primary">Pilih Metode Pembayaran</a>
+                            </div>
 
                             @error('payment_code')
-                                <span class="text-danger">{{ $message }}</span>
+                                <div class="text-danger text-end w-100">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="p-3 border fw-bolder rounded d-flex justify-content-between mb-1">
-                            <span>Total:</span>
-                            <span id="subtotal-show" class="fw-bolder text-primary">@currency(\App\Helpers\TransactionHelper::discountSubtotal($productDetail->price, $voucherDetail ? $voucherDetail->presentase : 0))</span>
+                        <div class="p-3 border rounded mb-1">
+                            <div class="fw-bolder mb-3 pb-3 border-bottom d-flex justify-content-between">
+                                <span>Subtotal:</span>
+                                <span id="subtotal-show" class="fw-bolder text-muted">
+                                    <s>@currency($productDetail->price)</s>
+                                </span>
+                            </div>
+                            @if($voucherDetail)
+                            <div class="fw-bolder mb-3 pb-3 border-bottom d-flex justify-content-between">
+                                <span>Potongan Voucher:</span>
+                                <span id="subtotal-show" class="fw-bolder text-primary">@currency(\App\Helpers\TransactionHelper::discount($productDetail->price, $voucherDetail ? $voucherDetail->presentase : 0))</span>
+                            </div>
+                            @endif
+                            <div class="fw-bolder d-flex justify-content-between">
+                                <span>Total:</span>
+                                <span id="subtotal-show" class="fw-bolder text-primary">@currency(\App\Helpers\TransactionHelper::discountSubtotal($productDetail->price, $voucherDetail ? $voucherDetail->presentase : 0))</span>
+                            </div>
                         </div>
 
                         <div class="text-muted mb-3">*Semua sudah termasuk PPN.</div>
