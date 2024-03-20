@@ -222,13 +222,6 @@
         $('.js-example-basic-single').select2();
     });
 </script>
-{{--
-<script>
-    // Inisialisasi Select2
-    $(document).ready(function() {
-        $('#division-edit').select2();
-    });
-</script> --}}
 
 <script>
 
@@ -280,10 +273,5 @@
         $('#modal-delete').modal('show');
     });
 </script>
-{{-- <script>
-    // Inisialisasi Select2
-    $(document).ready(function() {
-        $('#division_id-edit').select2();
-    });
-</script> --}}
+
 @endsection

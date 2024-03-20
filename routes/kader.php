@@ -10,6 +10,7 @@ Route::post('create/jurnal', [JournalController::class , 'store']);
 // Admin
 Route::get('permission', function () {return view('admin.page.approval.permision');});
 // end admin
+Route::get('timetable', function () {return view('mentor.zoomschedule');});
 // mentor
 Route::get('challenge', [CourseController::class ,'index']);
 Route::post('create/materi', [CourseController::class ,'store']);
