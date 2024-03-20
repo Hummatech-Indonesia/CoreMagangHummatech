@@ -56,4 +56,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Mentor::class , 'mentors_id');
     }
+    public function transaction()
+    {
+        return $this->hasMany(TransactionHistory::class , 'user_id');
+    }
 }

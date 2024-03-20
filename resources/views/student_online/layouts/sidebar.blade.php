@@ -31,6 +31,7 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
+                @if (!auth()->user()->feature)
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/siswa-online/jurnal" aria-expanded="false">
                         <span>
@@ -79,8 +80,58 @@
                         <span class="hide-menu">Sertifikat <i class="fas fa-lock opacity-50 ms-2"></i></span>
                     </a>
                 </li>
+                @else
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('transaction-history.index') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="/siswa-online/jurnal" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-check"></i>
+                        </span>
+                        <span class="hide-menu">Jurnal</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/siswa-online/division" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-box"></i>
+                        </span>
+                        <span class="hide-menu">Kelas Divisi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/siswa-online/materi" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-book"></i>
+                        </span>
+                        <span class="hide-menu">Materi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="#" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-pencil"></i>
+                        </span>
+                        <span class="hide-menu">Tugas</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="#" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-clock"></i>
+                        </span>
+                        <span class="hide-menu">Jadwal Mentor</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="#" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-medal"></i>
+                        </span>
+                        <span class="hide-menu">Sertifikat</span>
+                    </a>
+                </li>
+                @endif
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="#" aria-expanded="false">
                         <span>
                             <i class="ti ti-list"></i>
                         </span>
@@ -96,6 +147,7 @@
                     </a>
                 </li>
             </ul>
+            @if(!auth()->user()->feature)
             <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
                 <div class="d-flex">
                     <div class="unlimited-access-title">
@@ -107,6 +159,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </nav>
         <div class="fixed-profile p-3 bg-light-secondary rounded sidebar-ad mt-3">
             <div class="hstack gap-3">
