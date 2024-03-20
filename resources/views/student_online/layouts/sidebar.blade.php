@@ -43,7 +43,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal" href="javascript:void(0)" aria-expanded="false">
                             <span>
                                 <i class="ti ti-box"></i>
                             </span>
@@ -51,7 +51,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal" href="javascript:void(0)" aria-expanded="false">
                             <span>
                                 <i class="ti ti-book"></i>
                             </span>
@@ -59,7 +59,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal" href="javascript:void(0)" aria-expanded="false">
                             <span>
                                 <i class="ti ti-pencil"></i>
                             </span>
@@ -67,7 +67,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal" href="javascript:void(0)" aria-expanded="false">
                             <span>
                                 <i class="ti ti-clock"></i>
                             </span>
@@ -75,7 +75,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal" href="javascript:void(0)" aria-expanded="false">
                             <span>
                                 <i class="ti ti-medal"></i>
                             </span>
