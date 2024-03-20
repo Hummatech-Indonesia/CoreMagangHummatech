@@ -38,8 +38,10 @@
                 <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z" />
               </svg>
         </button>
-        <button class="btn btn-primary">Buat Izin</button>
-    </div>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#izinModal">
+            Buat Izin
+        </button>
+     </div>
 </div>
 
 
@@ -177,5 +179,54 @@
         </li>
     </ul>
 </nav>
+
+<!-- Izin Modal -->
+<div class="modal fade" id="izinModal" tabindex="-1" aria-labelledby="izinModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="izinModalLabel">Tambah Izin</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+                <label for="izinStartDate" class="form-label">Dari Tanggal</label>
+                <input type="date" class="form-control" id="izinStartDate">
+            </div>
+            <div class="mb-3">
+                <label for="izinEndDate" class="form-label">Sampai Tanggal</label>
+                <input type="date" class="form-control" id="izinEndDate">
+            </div>
+            <div class="mb-3">
+                <label for="keteranganTextarea" class="form-label">Deskripsi</label>
+                <textarea class="form-control" id="keteranganTextarea" rows="3" placeholder="Masukkan deskripsi"></textarea>
+            </div>
+            <div class="mb-3">
+                <div>
+                    <label for="statusIzin" class="form-label">Status Izin</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="statusIzin" id="izinDiterima" value="Diterima">
+                    <label class="form-check-label" for="izinDiterima">
+                        Izin
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="statusIzin" id="izinDitolak" value="Ditolak">
+                    <label class="form-check-label" for="izinDitolak">
+                        Sakit
+                    </label>
+                </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-primary">Simpan</button>
+        </div>
+      </div>
+    </div>
+</div>
+
 
 @endsection
