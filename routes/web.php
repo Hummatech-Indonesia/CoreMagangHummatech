@@ -6,13 +6,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminMentorController;
 use App\Http\Controllers\Admin\ApprovalController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
+use App\Http\Controllers\MentorController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
 use App\Http\Controllers\StudentOnline\StudentOnlineController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\VoucherController;
+use App\Http\Controllers\VoucherSubmitController;
 
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', function () {
@@ -47,6 +50,14 @@ Route::name(RolesEnum::ADMIN->value)->group(function () {
     Route::get('/voucher', [VoucherController::class, 'index'])->name('.voucher.index');
     Route::post('/voucher/store', [VoucherController::class, 'store'])->name('.voucher.store');
     Route::delete('/voucher/delete/{voucher}', [VoucherController::class, 'destroy'])->name('.voucher.delete');
+
+    // Mentor
+    Route::get('/menu-mentor', [AdminMentorController::class, 'index'])->name('.mentor.index');
+    Route::post('/menu-mentor/store', [AdminMentorController::class, 'store'])->name('.mentor.store');
+    Route::put('/menu-mentor/update/{mentor}', [AdminMentorController::class, 'update'])->name('.mentor.update');
+    Route::delete('/menu-mentor/delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('.mentor.delete');
+
+
 })->middleware(['roles:administrator', 'auth']);
 
 # ================================================ Offline Student Route Group ================================================
@@ -85,8 +96,16 @@ Route::middleware('auth')->group(function() {
     # Subscription Route
     Route::controller(SubscriptionController::class)->prefix('subscription')->name('subscription.')->group(function() {
         Route::get('/', 'index')->name('index');
-        Route::post('/checkout', 'checkout')->name('checkout');
+        Route::post('/process', 'subscribeAddCartProcess')->name('process');
+        Route::post('/remove', 'subscribeDeleteCartProcess')->name('delete');
+        Route::get('/checkout', 'checkout')->name('checkout');
     })->middleware('roles:siswa-offline,siswa-online');
+
+    # Voucher Subscription Apply
+    Route::controller(VoucherSubmitController::class)->prefix('voucher')->name('voucher.')->group(function() {
+        Route::post('apply', 'apply')->name('apply');
+        Route::post('revoke', 'revoke')->name('revoke');
+    });
 
     # Redirect based on roles
     Route::get('/home', function () {

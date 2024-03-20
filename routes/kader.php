@@ -8,9 +8,9 @@ use App\Http\Controllers\SubCourseController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 
-Route::get('test/tripay', [TripayController::class , 'index']);
 Route::post('transaction/tripay', [TripayController::class , 'store']);
 Route::any('transaction/callback', [TripayController::class , 'callback'])->withoutMiddleware(VerifyCsrfToken::class);
+
 Route::post('create/jurnal', [JournalController::class , 'store']);
 
 // Admin
@@ -23,6 +23,7 @@ Route::post('create/sub-materi/{course}', [SubCourseController::class ,'store'])
 Route::get('detail/pelajari/{subCourse}', [SubCourseController::class ,'show']);
 Route::get('show/materi/{course}', [CourseController::class ,'show']);
 // End mentor
+
 // student offline
 Route::get('student-offline/langganan', function () {return view('student_offline.langganan.index');});
 // end

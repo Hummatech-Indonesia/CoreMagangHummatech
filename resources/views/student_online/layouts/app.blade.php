@@ -427,7 +427,6 @@
 
     <!--  Customizer -->
     <!--  Import Js Files -->
-    @yield('script')
     <script src="{{ asset('assets-user/dist/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets-user/dist/libs/simplebar/dist/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets-user/dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
@@ -441,6 +440,8 @@
     <script src="{{ asset('assets-user/dist/libs/owl.carousel/dist/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets-user/dist/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets-user/dist/js/dashboard.js') }}"></script>
+
+    @yield('script')
 </body>
 
 <!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/main/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jul 2023 01:55:21 GMT -->

@@ -22,6 +22,7 @@
             </div>
         </div>
     </div>
+
     <div class="row justify-content-center">
         <div class="col-lg-12 text-center">
             <h2 class="fw-bolder mb-3 fs-8 lh-base">Langganan untuk membuka semua fitur</h2>
@@ -45,12 +46,12 @@
 
                     <div class="mb-4">{!! $product->description !!}</div>
 
-                    <form action="{{ route('subscription.checkout') }}">
+                    <form action="{{ route('subscription.process') }}" method="POST">
                         @csrf
 
                         <input type="hidden" name="id" value="{{ $product->id }}" />
 
-                        <button type="submit" class="btn btn-primary fw-bolder rounded-2 py-6 w-100 text-capitalize">Pilih Ini</button>
+                        <button type="submit" class="btn btn-primary fw-bolder rounded-2 py-6 w-100 text-capitalize">Saya Pilih Ini</button>
                     </form>
                 </div>
             </div>

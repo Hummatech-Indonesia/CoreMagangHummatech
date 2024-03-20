@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateMentorRequest extends FormRequest
+class TripayCheckoutRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,11 @@ class UpdateMentorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'email' => 'required',
-            'division_id' => 'required'
+            'amount' => 'integer|required',
+            'payment_code' => 'required',
+            'payment_name' => 'required',
+            'product_id' => 'required|exists:products,id',
+            'user_id' => 'required|exists:users,id'
         ];
     }
 }

@@ -13,6 +13,18 @@ class ProductRepository extends BaseRepository implements ProductInterface
         $this->model = $product;
     }
 
+    /**
+     * Get the target of Product
+     *
+     * @param int $id The target of Product ID
+     * @return mixed
+     */
+    public function getId(int $id): mixed
+    {
+        return $this->model->query()
+        ->find($id);
+    }
+
     public function getProductsBasedOnDivision(int $division): mixed
     {
         return $this->model->query()
@@ -43,5 +55,5 @@ class ProductRepository extends BaseRepository implements ProductInterface
         ->findOrFail($id)
         ->update($data);
     }
-    
+
 }

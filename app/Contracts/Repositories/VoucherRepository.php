@@ -9,9 +9,17 @@ use App\Contracts\Interfaces\VoucherInterface;
 class VoucherRepository extends BaseRepository implements VoucherInterface
 {
     private Voucher  $voucher;
+
     public function __construct(Voucher $voucher)
     {
         $this->model = $voucher;
+    }
+
+    public function getVoucherByCode(string $code): mixed
+    {
+        return $this->model->query()
+            ->where('code_voucher', $code)
+            ->first();
     }
 
     public function get(): mixed

@@ -78,7 +78,7 @@
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
-                                <a href="{{ url('/jurnal') }}" class="nav-link" data-key="t-chartjs"> Jurnal </a>
+                                <a href="{{ url('/journal') }}" class="nav-link" data-key="t-chartjs"> Jurnal </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ url('/absent') }}" class="nav-link" data-key="t-echarts"> Absensi
@@ -178,7 +178,7 @@
                                     data-key="t-basic-elements">Siswa</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link"
+                                <a href="/menu-mentor" class="nav-link"
                                     data-key="t-form-select">Mentor</a>
                             </li>
                             <li class="nav-item">
