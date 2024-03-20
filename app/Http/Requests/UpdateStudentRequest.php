@@ -11,7 +11,7 @@ class UpdateStudentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif',
+            'division_id' => 'nullable|exists:divisions,id',
         ];
     }
 }

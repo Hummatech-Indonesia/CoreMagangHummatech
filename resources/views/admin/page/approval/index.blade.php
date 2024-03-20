@@ -183,7 +183,7 @@
                             <h4>Pernyataan Diri</h4>
                             <img class="rounded show-self-statement" alt="200x200" width="330" src=""
                                 style="object-fit: cover;cursor: pointer;" onclick="zoomImage(this)">
-                            <div class="mt-2 d-flex justify-content-end " >
+                            <div class="mt-2 d-flex justify-content-end ">
                                 <a class="btn btn-primary download-self-statement" href=""
                                     download="">Download</a>
                             </div>
@@ -312,37 +312,37 @@
         });
     </script>
 
-<script>
-    function zoomImage(img) {
-        // Membuat elemen overlay
-        var overlay = document.createElement('div');
-        overlay.style.position = 'fixed';
-        overlay.style.top = 0;
-        overlay.style.left = 0;
-        overlay.style.width = '100%';
-        overlay.style.height = '100%';
-        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-        overlay.style.zIndex = 9999;
-        overlay.style.display = 'flex';
-        overlay.style.alignItems = 'center';
-        overlay.style.justifyContent = 'center';
+    <script>
+        function zoomImage(img) {
+            // Membuat elemen overlay
+            var overlay = document.createElement('div');
+            overlay.style.position = 'fixed';
+            overlay.style.top = 0;
+            overlay.style.left = 0;
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+            overlay.style.zIndex = 9999;
+            overlay.style.display = 'flex';
+            overlay.style.alignItems = 'center';
+            overlay.style.justifyContent = 'center';
 
-        // Membuat elemen gambar yang diperbesar
-        var zoomedImg = document.createElement('img');
-        zoomedImg.src = img.src;
-        zoomedImg.style.maxWidth = '90%';
-        zoomedImg.style.maxHeight = '90%';
+            // Membuat elemen gambar yang diperbesar
+            var zoomedImg = document.createElement('img');
+            zoomedImg.src = img.src;
+            zoomedImg.style.maxWidth = '90%';
+            zoomedImg.style.maxHeight = '90%';
 
-        // Menambahkan gambar ke dalam overlay
-        overlay.appendChild(zoomedImg);
+            // Menambahkan gambar ke dalam overlay
+            overlay.appendChild(zoomedImg);
 
-        // Menambahkan overlay ke dalam body
-        document.body.appendChild(overlay);
+            // Menambahkan overlay ke dalam body
+            document.body.appendChild(overlay);
 
-        // Menghapus overlay saat diklik
-        overlay.onclick = function() {
-            document.body.removeChild(overlay);
-        };
-    }
+            // Menghapus overlay saat diklik
+            overlay.onclick = function() {
+                document.body.removeChild(overlay);
+            };
+        }
     </script>
 @endsection

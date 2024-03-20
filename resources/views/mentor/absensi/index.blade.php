@@ -23,23 +23,31 @@
 </div>
 
 
-    <div class="row mb-3">
-        <div class="col-md-4 col-xl-3">
-            <form class="position-relative">
-                <input type="text" class="form-control product-search ps-5" id="input-search" placeholder="Search Contacts...">
-                <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
-            </form>
-        </div>
-        <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
-            <div class="action-btn show-btn" style="display: none">
-                <a href="javascript:void(0)" class="delete-multiple btn-light-danger btn me-2 text-danger d-flex align-items-center font-medium">
-                    <i class="ti ti-trash text-danger me-1 fs-5"></i>
-                    Delete All Row
+<div class="row mb-3">
+    <div class="col-md-4 col-xl-2">
+        <form class="position-relative">
+            <input type="text" class="form-control product-search ps-5" id="input-search" placeholder="Search Contacts...">
+            <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
+        </form>
+    </div>
+    <div class="col-md-4 col-xl-1">
+        <select class="form-select">
+            <option selected>Semua</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </div>
+    <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
+        <div class="action-btn show-btn" style="display: none">
+            <a href="javascript:void(0)" class="delete-multiple btn-light-danger btn me-2 text-danger d-flex align-items-center font-medium">
+                <i class="ti ti-trash text-danger me-1 fs-5"></i>
+                Delete All Row
 
-                </a>
-            </div>
+            </a>
         </div>
     </div>
+</div>
 
 
 <div class="row">

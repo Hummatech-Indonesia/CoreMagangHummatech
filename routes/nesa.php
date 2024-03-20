@@ -41,3 +41,7 @@ Route::get('student/absensi', function (){
 Route::get('student/journal', function (){
     return view('mentor.journal.index');
 });
+
+Route::get('student', function (){
+    return view('mentor.student.index');
+});

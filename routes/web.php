@@ -7,6 +7,7 @@ use App\Http\Controllers\JournalController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminMentorController;
+use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\ApprovalController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
@@ -58,6 +59,15 @@ Route::name(RolesEnum::ADMIN->value)->group(function () {
     Route::post('/menu-mentor/store', [AdminMentorController::class, 'store'])->name('.mentor.store');
     Route::put('/menu-mentor/update/{mentor}', [AdminMentorController::class, 'update'])->name('.mentor.update');
     Route::delete('/menu-mentor/delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('.mentor.delete');
+
+    //Siswa
+    Route::get('/menu-siswa', [AdminStudentController::class, 'index'])->name('.student.index');
+    Route::put('/menu-siswa/reset-password/{student}', [AdminStudentController::class, 'reset'])->name('.student.update');
+    Route::put('/menu-siswa/update/{student}', [AdminStudentController::class, 'update']);
+    Route::get('/menu-siswa/face/{student}', [AdminStudentController::class, 'face'])->name('.student.show');
+    Route::delete('/menu-siswa/delete/{student}', [AdminStudentController::class, 'destroy'])->name('.student.delete');
+
+
 })->middleware(['roles:administrator', 'auth']);
 
 # ================================================ Offline Student Route Group ================================================
