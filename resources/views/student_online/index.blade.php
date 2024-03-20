@@ -15,7 +15,7 @@
                             </div>
                             <div class="d-flex align-items-center">
                                 <div class="border-end pe-4 border-muted border-opacity-10">
-                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">Divisi Website</h3>
+                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">Divisi {Website}</h3>
                                 </div>
                             </div>
                         </div>
