@@ -78,7 +78,7 @@
                     <div class="collapse menu-dropdown" id="sidebarForms">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-basic-elements">Siswa</a>
+                                <a href="/menu-siswa" class="nav-link" data-key="t-basic-elements">Siswa</a>
                             </li>
                             <li class="nav-item">
                                 <a href="/menu-mentor" class="nav-link" data-key="t-form-select">Mentor</a>
