@@ -47,6 +47,14 @@
                         <span class="hide-menu">Absensi</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ url('/siswa-offline/course') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-aperture"></i>
+                        </span>
+                        <span class="hide-menu">Materi</span>
+                    </a>
+                </li>
 
             </ul>
             <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
