@@ -34,3 +34,6 @@ Route::put('product/{product}', [ProductController::class, 'update'])->name('pro
 Route::delete('product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
 
 
+Route::get('student/absensi', function (){
+    return view('mentor.absensi.index');
+});
