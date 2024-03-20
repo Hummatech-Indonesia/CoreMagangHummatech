@@ -65,8 +65,8 @@
                                     <div class="w-50">
                                         <p class="m-0 text-muted">Divisi</p>
                                         <span
-                                            class="badge {{ $student->division == !null ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }} "
-                                            style="font-size: 12px">{{ $student->division == !null ? $student->division->name : 'N/A' }}</span>
+                                            class="badge {{ $student->division_id == !null ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }} "
+                                            style="font-size: 12px">{{ $student->division_id == !null ? $student->division->name : 'N/A' }}</span>
                                     </div>
                                 </div>
                                 <div class="mt-3 d-flex justify-content-start gap-1">
