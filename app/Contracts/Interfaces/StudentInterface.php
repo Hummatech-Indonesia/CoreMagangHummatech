@@ -25,5 +25,14 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
      */
     public function listAttendance(): mixed;
 
+    /**
+     * listStudent
+     * @return mixed
+     */
     public function listStudent(): mixed;
+
+    /**
+     * Sp
+     */
+    public function sp(mixed $id): mixed;
 }

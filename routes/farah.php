@@ -42,3 +42,10 @@ Route::get('siswa-online/tugas/detail', function() {
 Route::get('siswa-online/tugas/detail/detail-jawaban', function() {
     return view('student_online.task.answer-detail');
 });
+
+Route::get('top-up', function() {
+    return view('admin.page.approval.top-up');
+});
+Route::get('alumni', function() {
+    return view('admin.page.user.alumni');
+});

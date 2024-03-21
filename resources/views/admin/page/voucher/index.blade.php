@@ -30,38 +30,30 @@
         </div>
     </div>
     <div class="row">
-        @foreach ($vouchers as $voucher)
+        @forelse ($vouchers as $voucher)
             <div class="col-3">
-                <div
-                    class="border-end-0 border-top-0 border-bottom-0 border-5 border-secondary bg-light mx-auto mb-1 card mb-4">
-                    <div class="card-body">
+                <div class="card">
+                    <div class="card-header border border-5 border-secondary border-bottom-0 border-top-0 border-end-0 p-2">
                         <div class="d-flex justify-content-between">
-                            <div>
-                                <h5>Diskon {{ $voucher->presentase }}%</h5>
-                                <p>{{ $voucher->code_voucher }}</p>
-                            </div>
-                            <div>
-                                <button class="btn btn-soft-secondary btn-sm" data-bs-toggle="dropdown"><i
-                                        class=" ri-more-line"></i></button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li class="dropdown-item">
-                                        <button data-id="{{ $voucher->id }}" class="text-black fs-5 btn-delete"
-                                            style="border: none; background: transparent">
-                                            <i class="bx bxs-trash text-danger"></i> Hapus
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
+                            <h5>Diskon {{ $voucher->presentase }}%</h5>
+                            <button type="button" class="btn bx bx-trash text-danger fs-3 btn-delete"
+                                data-id="{{ $voucher->id }}" style="border: 0; box-shadow: none; padding: 0"></button>
                         </div>
-                        <div class="mt-3">
-                            <p class="m-0">
-                                {{ \Carbon\Carbon::parse($voucher->start_date)->locale('id')->isoFormat('D MMMM Y') }} -
-                                {{ \Carbon\Carbon::parse($voucher->end_date)->locale('id')->isoFormat('D MMMM Y') }}</p>
-                        </div>
+                        <p style="font-size: 11px" class="m-0">
+                            {{ \Carbon\Carbon::parse($voucher->start_date)->locale('id')->isoFormat('dddd, D MMMM Y') }} -
+                            {{ \Carbon\Carbon::parse($voucher->end_date)->locale('id')->isoFormat('dddd, D MMMM Y') }}</p>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="text-secondary fw-semibold">{{ $voucher->code_voucher }}</h4>
                     </div>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <div class="d-flex justify-content-center mb-2 mt-5">
+                <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+            </div>
+            <h4 class="text-dark text-center">Tidak ada data</h4>
+        @endforelse
     </div>
     <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
         style="display: none;">
@@ -77,24 +69,46 @@
                         <div class="col-12 mb-2">
                             <label for="">Kode Kupon</label>
                             <input type="text" name="code_voucher" placeholder="Masukan Kode Voucher"
-                            onkeyup="capitalizeInput(this)"
-                                class="form-control" id="">
+                                onkeyup="capitalizeInput(this)" value="{{ old('code_voucher') }}" class="form-control"
+                                id="">
+                            @error('code_voucher')
+                                <p class="text-danger">
+                                    {{ $message }}
+                                </p>
+                            @enderror
                         </div>
                         <div class="col-12 mb-2 ">
                             <label for="">Presentase Voucher</label>
                             <div class="input-group">
-                                <input type="number" name="presentase" placeholder="Masukan Presentase" class="form-control"
-                                    id="">
-                                    <span class="input-group-text">%</span>
+                                <input type="number" name="presentase" placeholder="Masukan Presentase"
+                                    value="{{ old('presentase') }}" class="form-control" id="">
+                                <span class="input-group-text">%</span>
                             </div>
+                            @error('presentase')
+                                <p class="text-danger">
+                                    {{ $message }}
+                                </p>
+                            @enderror
                         </div>
                         <div class="col-12 mb-2">
                             <label for="">Mulai Voucher</label>
-                            <input type="date" name="start_date" class="form-control" id="">
+                            <input type="date" name="start_date" value="{{ old('start_date') }}" class="form-control"
+                                id="">
+                            @error('start_date')
+                                <p class="text-danger">
+                                    {{ $message }}
+                                </p>
+                            @enderror
                         </div>
                         <div class="col-12 mb-2">
                             <label for="">Berakhirnya Voucher</label>
-                            <input type="date" name="end_date" class="form-control" id="">
+                            <input type="date" name="end_date" value="{{ old('end_date') }}" class="form-control"
+                                id="">
+                            @error('end_date')
+                                <p class="text-danger">
+                                    {{ $message }}
+                                </p>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -117,7 +131,7 @@
     <script>
         $('.btn-delete').click(function() {
             var id = $(this).data('id');
-            $('#form-delete').attr('action', '/administrator/voucher-code/delete/' + id);
+            $('#form-delete').attr('action', '/voucher/delete/' + id);
             $('#modal-delete').modal('show');
         });
     </script>
