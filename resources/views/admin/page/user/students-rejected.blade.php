@@ -31,6 +31,7 @@
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Nama</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Jurusan</th>
                                 <th scope="col">Kelas</th>
                                 <th scope="col">Masa Magang</th>
@@ -42,6 +43,7 @@
                             <tr>
                                 <td>01</td>
                                 <td>FARAH AMALIA</td>
+                                <td>farah@gmail.com</td>
                                 <td>Rekayasa Perangkat Lunak</td>
                                 <td>11</td>
                                 <td>19 Maret 2024 - 19 Desember 2024</td>

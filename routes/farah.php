@@ -58,3 +58,6 @@ Route::get('person-in-charge/detail', function() {
 Route::get('students-rejected', function() {
     return view('admin.page.user.students-rejected');
 });
+Route::get('students-banned', function() {
+    return view('admin.page.user.students-banned');
+});

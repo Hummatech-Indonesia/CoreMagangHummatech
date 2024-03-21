@@ -98,7 +98,7 @@
                                     Ditolak</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-range-slider"> Banned Siswa </a>
+                                <a href="{{ url('/students-banned') }}" class="nav-link" data-key="t-range-slider"> Banned Siswa </a>
                             </li>
 
                         </ul>
