@@ -172,6 +172,7 @@
                                     </a>
                                 </div>
                                 <div class="d-grid py-4 px-7 pt-8">
+                                    @if(!auth()->user()->feature)
                                     <div
                                         class="upgrade-plan bg-light-primary position-relative overflow-hidden rounded-4 p-4 mb-9">
                                         <div class="row">
@@ -181,15 +182,15 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="m-n4">
-                                                    <img src="assets-user/dist/images/backgrounds/unlimited-bg.png"
-                                                        alt="" class="w-100">
+                                                    <img src="{{ asset('assets-user/dist/images/backgrounds/unlimited-bg.png') }}"
+                                                        alt="Unlimited Access" class="w-100" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                     <a class="btn btn-outline-primary" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
                                         {{ __('Logout') }}
                                     </a>
