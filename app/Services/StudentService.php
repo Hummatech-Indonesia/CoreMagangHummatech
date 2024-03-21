@@ -58,15 +58,14 @@ class StudentService
      *
      * @return array|bool
      */
-    public function update(Student $student, UpdateStudentRequest $request): array|bool
+    public function update(Student $student, UpdateStudentRequest $request)
     {
         $data = $request->validated();
-
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $this->remove($student->image);
-            $data['image'] = $request->file('image')->store($request->type, 'public');
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            $this->remove($student->avatar);
+            $data['avatar'] = $request->file('avatar')->store(TypeEnum::AVATAR->value, 'public');
         } else {
-            $data['image'] = $student->image;
+            $data['avatar'] = $student->avatar;
         }
 
         return $data;

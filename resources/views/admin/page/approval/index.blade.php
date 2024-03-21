@@ -62,41 +62,52 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($students as $student)
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="cardtableCheck01">
-                                                    <label class="form-check-label" for="cardtableCheck01"></label>
-                                                </div>
-                                            </td>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $student->name }}</td>
-                                            <td>{{ $student->major }}</td>
-                                            <td>{{ $student->class }}</td>
-                                            <td style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
-                                                {{ \carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}
-                                            </td>
-                                            <td>{{ $student->school }}</td>
-                                            <td>
-                                                <button type="button" data-id="{{ $student->id }}"
-                                                    data-name="{{ $student->name }}" data-phone="{{ $student->phone }}"
-                                                    data-address="{{ $student->address }}"
-                                                    data-birthdate="{{ $student->birth_date }}"
-                                                    data-birthplace="{{ $student->birth_place }}"
-                                                    data-startdate="{{ $student->start_date }}"
-                                                    data-finishdate="{{ $student->finish_date }}"
-                                                    data-school="{{ $student->school }}"
-                                                    data-avatar="{{ $student->avatar }}" data-cv="{{ $student->cv }}"
-                                                    data-selfstatement="{{ $student->self_statement }}"
-                                                    data-parentsstatement="{{ $student->parents_statement }}"
-                                                    class="btn bg-secondary-subtle text-secondary btn-detail">
-                                                    <i class="ri-eye-fill"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    @forelse ($students as $student)
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                    id="cardtableCheck01">
+                                                <label class="form-check-label" for="cardtableCheck01"></label>
+                                            </div>
+                                        </td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $student->name }}</td>
+                                        <td>{{ $student->major }}</td>
+                                        <td>{{ $student->class }}</td>
+                                        <td style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
+                                            {{ \carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}
+                                        </td>
+                                        <td>{{ $student->school }}</td>
+                                        <td>
+                                            <button type="button" data-id="{{ $student->id }}"
+                                                data-name="{{ $student->name }}" data-phone="{{ $student->phone }}"
+                                                data-address="{{ $student->address }}"
+                                                data-birthdate="{{ $student->birth_date }}"
+                                                data-birthplace="{{ $student->birth_place }}"
+                                                data-startdate="{{ $student->start_date }}"
+                                                data-finishdate="{{ $student->finish_date }}"
+                                                data-school="{{ $student->school }}"
+                                                data-avatar="{{ $student->avatar }}" data-cv="{{ $student->cv }}"
+                                                data-selfstatement="{{ $student->self_statement }}"
+                                                data-parentsstatement="{{ $student->parents_statement }}"
+                                                class="btn bg-secondary-subtle text-secondary btn-detail">
+                                                <i class="ri-eye-fill"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    @empty
+                                    <tr>
+                                        <td colspan="8">
+                                            <div class="d-flex justify-content-center mt-3">
+                                                <img src="{{ asset('no data.png') }}" width="200px" alt="">
+                                            </div>
+                                            <h4 class="text-center mt-2 mb-4">
+                                                Data Masih kosong
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -183,7 +194,7 @@
                             <h4>Pernyataan Diri</h4>
                             <img class="rounded show-self-statement" alt="200x200" width="330" src=""
                                 style="object-fit: cover;cursor: pointer;" onclick="zoomImage(this)">
-                            <div class="mt-2 d-flex justify-content-end " >
+                            <div class="mt-2 d-flex justify-content-end ">
                                 <a class="btn btn-primary download-self-statement" href=""
                                     download="">Download</a>
                             </div>
@@ -312,37 +323,37 @@
         });
     </script>
 
-<script>
-    function zoomImage(img) {
-        // Membuat elemen overlay
-        var overlay = document.createElement('div');
-        overlay.style.position = 'fixed';
-        overlay.style.top = 0;
-        overlay.style.left = 0;
-        overlay.style.width = '100%';
-        overlay.style.height = '100%';
-        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-        overlay.style.zIndex = 9999;
-        overlay.style.display = 'flex';
-        overlay.style.alignItems = 'center';
-        overlay.style.justifyContent = 'center';
+    <script>
+        function zoomImage(img) {
+            // Membuat elemen overlay
+            var overlay = document.createElement('div');
+            overlay.style.position = 'fixed';
+            overlay.style.top = 0;
+            overlay.style.left = 0;
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+            overlay.style.zIndex = 9999;
+            overlay.style.display = 'flex';
+            overlay.style.alignItems = 'center';
+            overlay.style.justifyContent = 'center';
 
-        // Membuat elemen gambar yang diperbesar
-        var zoomedImg = document.createElement('img');
-        zoomedImg.src = img.src;
-        zoomedImg.style.maxWidth = '90%';
-        zoomedImg.style.maxHeight = '90%';
+            // Membuat elemen gambar yang diperbesar
+            var zoomedImg = document.createElement('img');
+            zoomedImg.src = img.src;
+            zoomedImg.style.maxWidth = '90%';
+            zoomedImg.style.maxHeight = '90%';
 
-        // Menambahkan gambar ke dalam overlay
-        overlay.appendChild(zoomedImg);
+            // Menambahkan gambar ke dalam overlay
+            overlay.appendChild(zoomedImg);
 
-        // Menambahkan overlay ke dalam body
-        document.body.appendChild(overlay);
+            // Menambahkan overlay ke dalam body
+            document.body.appendChild(overlay);
 
-        // Menghapus overlay saat diklik
-        overlay.onclick = function() {
-            document.body.removeChild(overlay);
-        };
-    }
+            // Menghapus overlay saat diklik
+            overlay.onclick = function() {
+                document.body.removeChild(overlay);
+            };
+        }
     </script>
 @endsection

@@ -3,11 +3,12 @@ namespace App\Contracts\Interfaces;
 
 use App\Contracts\Interfaces\Eloquent\DeleteInterface;
 use App\Contracts\Interfaces\Eloquent\GetInterface;
+use App\Contracts\Interfaces\Eloquent\ShowInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 use App\Contracts\Interfaces\Eloquent\WhereInterface;
 
-interface StudentInterface extends GetInterface , StoreInterface , DeleteInterface , UpdateInterface, WhereInterface
+interface StudentInterface extends GetInterface , StoreInterface , DeleteInterface , UpdateInterface, WhereInterface, ShowInterface
 {
     /**
      * getByRfid
@@ -24,7 +25,5 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
      */
     public function listAttendance(): mixed;
 
-
-
-    public function whereNotIn(mixed $id):mixed;
+    public function listStudent(): mixed;
 }

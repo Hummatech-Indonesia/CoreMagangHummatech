@@ -78,9 +78,9 @@ class ApprovalService
         ];
 
         $user = $this->user->store($dataUser);
-        if($request->internship_type == 'offline'){
+        if($student->internship_type == 'offline'){
             $user->assignRole(RolesEnum::OFFLINE->value);
-        } elseif($request->internship_type == 'online'){
+        } elseif($student->internship_type == 'online'){
             $user->assignRole(RolesEnum::ONLINE->value);
         }
         //Data For Update Status Students

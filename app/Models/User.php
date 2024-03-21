@@ -52,6 +52,7 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Student::class , 'student_id');
     }
+    
     public function mentor()
     {
         return $this->belongsTo(Mentor::class , 'mentors_id');

@@ -59,12 +59,12 @@
                             <li class="nav-item">
                                 <a href="{{ url('/approval') }}" class="nav-link" data-key="t-chat"> Pendaftaran </a>
                             </li>
-                            <li class="nav-item {{ request()->is('/permision') ? 'active' : '' }}">
-                                <a href="{{ url('/permision') }}" class="nav-link" data-key="t-api-key">Izin &
+                            <li class="nav-item {{ request()->is('/permission') ? 'active' : '' }}">
+                                <a href="{{ url('/permission') }}" class="nav-link" data-key="t-api-key">Izin &
                                     Sakit</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-api-key">TopUp</a>
+                                <a href="{{ url('/top-up') }}" class="nav-link" data-key="t-api-key">TopUp</a>
                             </li>
                         </ul>
                     </div>
@@ -78,13 +78,13 @@
                     <div class="collapse menu-dropdown" id="sidebarForms">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-basic-elements">Siswa</a>
+                                <a href="/menu-siswa" class="nav-link" data-key="t-basic-elements">Siswa</a>
                             </li>
                             <li class="nav-item">
                                 <a href="/menu-mentor" class="nav-link" data-key="t-form-select">Mentor</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-checkboxs-radios">Alumni</a>
+                                <a href="{{ url('/alumni') }}" class="nav-link" data-key="t-checkboxs-radios">Alumni</a>
                             </li>
                             <li class="nav-item">
                                 <a href="" class="nav-link" data-key="t-pickers">
