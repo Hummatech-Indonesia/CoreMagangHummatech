@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Contracts\Interfaces\LimitInterface;
 use Carbon\Carbon;
 use App\Enum\TypeEnum;
 use App\Enum\RolesEnum;
@@ -15,21 +16,37 @@ use App\Contracts\Interfaces\UserInterface;
 use App\Http\Requests\AcceptedAprovalRequest;
 use App\Http\Requests\DeclinedAprovalRequest;
 use App\Contracts\Interfaces\ResponseLetterInterface;
+use App\Contracts\Interfaces\StudentInterface;
+use App\Enum\InternshipTypeEnum;
+use App\Models\Limits;
 
 class ApprovalService
 {
     private ResponseLetterInterface $responseLetter;
     private UserInterface $user;
+    private StudentInterface $student;
+    private LimitInterface $limits;
 
-    public function __construct(ResponseLetterInterface $responseLetter, UserInterface $user)
+    public function __construct(ResponseLetterInterface $responseLetter, UserInterface $user, LimitInterface $limits, StudentInterface $student)
     {
         $this->responseLetter = $responseLetter;
         $this->user = $user;
+        $this->limits = $limits;
+        $this->student = $student;
     }
 
     public function accept(AcceptedAprovalRequest $request, Student $student)
     {
         $data = $request->validated();
+        if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
+            $studentcount = $this->student->listStudentOffline();
+            if (!empty($this->limits->first())) {
+                $limit =  $this->limits->first()->limits;
+                if ($studentcount >= $limit) {
+                    return $data = ['status' => StudentStatusEnum::PENDING->value];
+                }
+            }
+        }
 
         $start_date_formated = \carbon\Carbon::createFromDate($student->start_date)->locale('id')->isoFormat('D MMMM Y');
         $finish_date_formated = \carbon\Carbon::createFromDate($student->finish_date)->locale('id')->isoFormat('D MMMM Y');
@@ -78,9 +95,9 @@ class ApprovalService
         ];
 
         $user = $this->user->store($dataUser);
-        if($student->internship_type == 'offline'){
+        if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
             $user->assignRole(RolesEnum::OFFLINE->value);
-        } elseif($student->internship_type == 'online'){
+        } elseif ($student->internship_type == InternshipTypeEnum::ONLINE->value) {
             $user->assignRole(RolesEnum::ONLINE->value);
         }
         //Data For Update Status Students

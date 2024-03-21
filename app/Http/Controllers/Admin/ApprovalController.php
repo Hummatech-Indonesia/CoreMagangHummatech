@@ -30,16 +30,18 @@ class ApprovalController extends Controller
 
     public function index()
     {
-        $students = $this->approval->where();
+        $studentOffline = $this->approval->ListStudentOffline();
+        $studentOnline = $this->approval->ListStudentOnline();
         $limits = $this->limit->first();
-        return view('admin.page.approval.index', compact('students', 'limits'));
+        return view('admin.page.approval.index', compact('limits', 'studentOffline', 'studentOnline'));
     }
 
 
     public function accept(AcceptedAprovalRequest $request, Student $student)
     {
+
         $data = $this->service->accept($request, $student);
-        $this->student->update($student->id, $data);
+        $this->approval->update($student->id, $data);
         return back()->with('success', 'Berhasil Menerima Siswa Baru');
     }
 

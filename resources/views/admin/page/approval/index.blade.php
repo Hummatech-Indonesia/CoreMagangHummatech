@@ -3,9 +3,29 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <div class="row g-2">
-                <div class="col-sm-4 align-items-center d-flex">
-                    <h5 class="mx-5 align-items-center">Approval Pendaftaran</h5>
+            <div class="row g-2 align-items-center">
+                <div class="col-sm-4">
+                    <h3 class="mx-3">Approval</h3>
+                    <div class="step-arrow-nav mb-4 pt-3 mx-3">
+                        <ul class="nav nav-pills custom-nav nav-justified"role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="steparrow-gen-info-tab" data-bs-toggle="pill"
+                                    data-bs-target="#steparrow-gen-info" type="button" role="tab"
+                                    aria-controls="steparrow-gen-info" aria-controls="steparrow-gen-info"
+                                    aria-selected="true" data-position="0">
+                                    Siswa Offline
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="steparrow-description-info-tab" data-bs-toggle="pill"
+                                    data-bs-target="#steparrow-description-info" type="button" role="tab"
+                                    aria-controls="steparrow-description-info" aria-selected="false" data-position="1"
+                                    tabindex="-1">
+                                    Siswa Online
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
                     <div class="search-box mx-3">
@@ -21,101 +41,215 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header align-items-center d-flex justify-content-between mx-3">
-                    <div class="d-flex gap-2">
-                        <p class="m-0">Show</p>
-                        <select name="" id="">
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                        <p class="m-0">entries</p>
-                    </div>
-                    <div>
-                        <span class="btn bg-secondary-subtle text-secondary">Limit saat ini : {{ $limits->limits }}</span>
-                    </div>
-                </div><!-- end card header -->
+    <div class="tab-content">
+        <div id="steparrow-gen-info" class="tab-pane fade show active">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex justify-content-between mx-3">
+                            <div class="d-flex gap-2">
+                                <p class="m-0">Show</p>
+                                <select name="" id="">
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <p class="m-0">entries</p>
+                            </div>
+                            <div>
+                                <span class="btn bg-secondary-subtle text-secondary">Limit saat ini :
+                                    {{ $limits->limits }}</span>
+                            </div>
+                        </div><!-- end card header -->
 
-                <div class="card-body mx-3">
-                    <div class="live-preview ">
-                        <div class="table-responsive table-card">
-                            <table class="table align-middle table-nowrap table-striped-columns mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th scope="col" style="width: 46px;">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="cardtableCheck">
-                                                <label class="form-check-label" for="cardtableCheck"></label>
-                                            </div>
-                                        </th>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Nama</th>
-                                        <th scope="col">Jurusan</th>
-                                        <th scope="col">Kelas</th>
-                                        <th scope="col">Masa Magang</th>
-                                        <th scope="col">Sekolah</th>
-                                        <th scope="col" style="width: 150px;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($students as $student)
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="cardtableCheck01">
-                                                    <label class="form-check-label" for="cardtableCheck01"></label>
-                                                </div>
-                                            </td>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $student->name }}</td>
-                                            <td>{{ $student->major }}</td>
-                                            <td>{{ $student->class }}</td>
-                                            <td style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
-                                                {{ \carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}
-                                            </td>
-                                            <td>{{ $student->school }}</td>
-                                            <td>
-                                                <button type="button" data-id="{{ $student->id }}"
-                                                    data-name="{{ $student->name }}" data-phone="{{ $student->phone }}"
-                                                    data-address="{{ $student->address }}"
-                                                    data-birthdate="{{ $student->birth_date }}"
-                                                    data-birthplace="{{ $student->birth_place }}"
-                                                    data-startdate="{{ $student->start_date }}"
-                                                    data-finishdate="{{ $student->finish_date }}"
-                                                    data-school="{{ $student->school }}"
-                                                    data-avatar="{{ $student->avatar }}" data-cv="{{ $student->cv }}"
-                                                    data-selfstatement="{{ $student->self_statement }}"
-                                                    data-parentsstatement="{{ $student->parents_statement }}"
-                                                    class="btn bg-secondary-subtle text-secondary btn-detail">
-                                                    <i class="ri-eye-fill"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="8">
-                                                <div class="d-flex justify-content-center mt-3">
-                                                    <img src="{{ asset('no data.png') }}" width="200px" alt="">
-                                                </div>
-                                                <h4 class="text-center mt-2 mb-4">
-                                                    Data Masih kosong
-                                                </h4>
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
+                        <div class="card-body mx-3">
+                            <div class="live-preview ">
+                                <div class="table-responsive table-card">
+                                    <table class="table align-middle table-nowrap table-striped-columns mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th scope="col" style="width: 46px;">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value=""
+                                                            id="cardtableCheck">
+                                                        <label class="form-check-label" for="cardtableCheck"></label>
+                                                    </div>
+                                                </th>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Nama</th>
+                                                <th scope="col">Jurusan</th>
+                                                <th scope="col">Kelas</th>
+                                                <th scope="col">Masa Magang</th>
+                                                <th scope="col">Sekolah</th>
+                                                <th scope="col" style="width: 150px;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($studentOffline as $student)
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value=""
+                                                                id="cardtableCheck01">
+                                                            <label class="form-check-label" for="cardtableCheck01"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $student->name }}</td>
+                                                    <td>{{ $student->major }}</td>
+                                                    <td>{{ $student->class }}</td>
+                                                    <td
+                                                        style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
+                                                        {{ \carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}
+                                                    </td>
+                                                    <td>{{ $student->school }}</td>
+                                                    <td>
+                                                        <button type="button" data-id="{{ $student->id }}"
+                                                            data-name="{{ $student->name }}"
+                                                            data-phone="{{ $student->phone }}"
+                                                            data-address="{{ $student->address }}"
+                                                            data-birthdate="{{ $student->birth_date }}"
+                                                            data-birthplace="{{ $student->birth_place }}"
+                                                            data-startdate="{{ $student->start_date }}"
+                                                            data-finishdate="{{ $student->finish_date }}"
+                                                            data-school="{{ $student->school }}"
+                                                            data-avatar="{{ $student->avatar }}"
+                                                            data-cv="{{ $student->cv }}"
+                                                            data-selfstatement="{{ $student->self_statement }}"
+                                                            data-parentsstatement="{{ $student->parents_statement }}"
+                                                            class="btn bg-secondary-subtle text-secondary btn-detail">
+                                                            <i class="ri-eye-fill"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="8">
+                                                        <div class="d-flex justify-content-center mt-3">
+                                                            <img src="{{ asset('no data.png') }}" width="200px"
+                                                                alt="">
+                                                        </div>
+                                                        <h4 class="text-center mt-2 mb-4">
+                                                            Data Masih kosong
+                                                        </h4>
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div><!-- end card-body -->
                     </div>
-                </div><!-- end card-body -->
+                </div>
+            </div>
+        </div>
+        <div id="steparrow-description-info" class="tab-pane fade">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex justify-content-between mx-3">
+                            <div class="d-flex gap-2">
+                                <p class="m-0">Show</p>
+                                <select name="" id="">
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                <p class="m-0">entries</p>
+                            </div>
+                            <div>
+                                <span class="btn bg-secondary-subtle text-secondary">Limit saat ini :
+                                    Tidak ada limit</span>
+                            </div>
+                        </div><!-- end card header -->
+
+                        <div class="card-body mx-3">
+                            <div class="live-preview ">
+                                <div class="table-responsive table-card">
+                                    <table class="table align-middle table-nowrap table-striped-columns mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th scope="col" style="width: 46px;">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value=""
+                                                            id="cardtableCheck">
+                                                        <label class="form-check-label" for="cardtableCheck"></label>
+                                                    </div>
+                                                </th>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Nama</th>
+                                                <th scope="col">Jurusan</th>
+                                                <th scope="col">Kelas</th>
+                                                <th scope="col">Masa Magang</th>
+                                                <th scope="col">Sekolah</th>
+                                                <th scope="col" style="width: 150px;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($studentOnline as $student)
+                                                <tr>
+                                                    <td>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                value="" id="cardtableCheck01">
+                                                            <label class="form-check-label"
+                                                                for="cardtableCheck01"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $student->name }}</td>
+                                                    <td>{{ $student->major }}</td>
+                                                    <td>{{ $student->class }}</td>
+                                                    <td
+                                                        style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
+                                                        {{ \carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}
+                                                    </td>
+                                                    <td>{{ $student->school }}</td>
+                                                    <td>
+                                                        <button type="button" data-id="{{ $student->id }}"
+                                                            data-name="{{ $student->name }}"
+                                                            data-phone="{{ $student->phone }}"
+                                                            data-address="{{ $student->address }}"
+                                                            data-birthdate="{{ $student->birth_date }}"
+                                                            data-birthplace="{{ $student->birth_place }}"
+                                                            data-startdate="{{ $student->start_date }}"
+                                                            data-finishdate="{{ $student->finish_date }}"
+                                                            data-school="{{ $student->school }}"
+                                                            data-avatar="{{ $student->avatar }}"
+                                                            data-cv="{{ $student->cv }}"
+                                                            data-email="{{ $student->email }}"
+                                                            data-selfstatement="{{ $student->self_statement }}"
+                                                            data-parentsstatement="{{ $student->parents_statement }}"
+                                                            class="btn bg-secondary-subtle text-secondary btn-detail">
+                                                            <i class="ri-eye-fill"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="8">
+                                                        <div class="d-flex justify-content-center mt-3">
+                                                            <img src="{{ asset('no data.png') }}" width="200px"
+                                                                alt="">
+                                                        </div>
+                                                        <h4 class="text-center mt-2 mb-4">
+                                                            Data Masih kosong
+                                                        </h4>
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div><!-- end card-body -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
 
     <!-- offcanvas -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -165,11 +299,7 @@
                         </div>
                         <div class="d-flex justify-content-center gap-2 mt-3">
                             <button class="btn btn-success btn-accept" type="button">Terima</button>
-                            <form action="" id="form-declined" method="POST">
-                                @csrf
-                                @method('put')
-                                <button class="btn btn-warning" type="submit">Tolak</button>
-                            </form>
+                            <button class="btn btn-warning btn-reject" type="button">Tolak</button>
                             <button class="btn btn-danger btn-delete">Hapus</button>
                         </div>
                         <div class="mt-3 mx-4">
@@ -212,7 +342,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="myModalLabel">Edit Limit</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
                 </div>
                 @if ($limits)
                     <form action="limit/update/{{ $limits->id }}" method="POST">
@@ -257,7 +388,7 @@
                             @csrf
                             @method('put')
                             <label for="">Masukan Nomer Surat</label>
-                            <input type="text" class="form-control" name="letter_number" id="">
+                            <input type="number" class="form-control" name="letter_number" id="">
                             <div class="mt-4 mb-3 d-flex justify-content-center gap-2">
                                 <button class="btn btn-success">Ya,terima</button>
                                 <button class="btn btn-light">Batal</button>
@@ -268,6 +399,35 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modalReject" tabindex="-1" aria-labelledby="modal-deleteLabel1">
+        <div class="modal-dialog modal-sm" role="document">
+            <form id="form-reject" method="POST">
+                @method('PUT')
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header d-flex align-items-center">
+                        <h5 class="modal-title" id="modal-deleteLabel1">
+                            Hapus data
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-dark fs-7 mb-0">Apakah anda yakin ingin menolak data?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger text-white font-medium waves-effect"
+                            data-bs-dismiss="modal">
+                            Tutup
+                        </button>
+                        <button style="background-color: #1B3061" type="submit" class="btn text-white btn-create">
+                            Tolak
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     @include('admin.components.delete-modal-component')
 @endsection
@@ -291,8 +451,10 @@
             let cv = $(this).data('cv');
             let self_statement = $(this).data('selfstatement');
             let parents_statement = $(this).data('parentsstatement');
+            let email = $(this).data('email');
 
             $('.show-name').text(name);
+            $('.show-email').text(email);
             $('.show-image').attr('src', '{{ asset('storage') }}/' + avatar);
             $('.show-address').text(address);
             $('.show-phone').text(phone);
@@ -319,6 +481,7 @@
 
             $('.btn-delete').attr('data-id', id);
             $('.btn-accept').attr('data-id', id);
+            $('.btn-reject').attr('data-id', id);
 
             $('#form-declined').attr('action', 'approval/decline/' + id);
             $('#offcanvasRight').offcanvas('show');
@@ -334,6 +497,12 @@
             let id = $(this).data('id');
             $('#form-accepted').attr('action', 'approval/accept/' + id);
             $('.bs-example-modal-center').modal('show');
+        });
+
+        $('.btn-reject').click(function() {
+            let id = $(this).data('id');
+            $('#form-reject').attr('action', 'approval/decline/' + id);
+            $('#modalReject').modal('show');
         });
     </script>
 
