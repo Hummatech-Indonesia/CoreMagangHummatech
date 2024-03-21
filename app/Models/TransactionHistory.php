@@ -32,6 +32,7 @@ class TransactionHistory extends Model
     protected $casts = [
         'issued_at' => 'datetime',
         'expired_at' => 'datetime',
+        'paid_at' => 'datetime',
     ];
 
     /**

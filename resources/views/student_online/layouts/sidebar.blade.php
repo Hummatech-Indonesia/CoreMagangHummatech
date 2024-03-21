@@ -8,11 +8,11 @@
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="/siswa-offline" class="text-nowrap logo-img">
-                <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="250" alt="" />
-                <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="250" alt="" />
+                <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="180" alt="" />
+                <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="180" alt="" style="display: none;"/>
             </a>
             <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-                <i class="ti ti-x fs-8 text-muted"></i>
+                <i class="ti ti-x fs-8 text-muted text-primary"></i>
             </div>
         </div>
         <!-- Sidebar navigation-->

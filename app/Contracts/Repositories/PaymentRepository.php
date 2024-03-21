@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Enum\TransactionStatusEnum;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class PaymentRepository extends BaseRepository implements PaymentInterface
@@ -128,9 +129,10 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
         $status = strtolower((string) $data->status);
 
         if ($data->is_closed_payment === 1) {
-            $invoice = $this->transaction->getId($tripayReference)->first();
+            $invoiceInstance = $this->transaction->getId($tripayReference);
+            $invoice = $invoiceInstance->first();
 
-            if (!$invoice) {
+            if ($invoiceInstance->count() === 0) {
                 return response()->json([
                     'success' => false,
                     'message' => 'No invoice found or already paid: ' . $invoiceId,
@@ -138,9 +140,9 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
                 ], 404);
             }
 
-            $invoice->update([
+            $invoiceInstance->update([
                 'status' => $status,
-                'paid_at' => $status === TransactionStatusEnum::PAID->value ? now() : null,
+                'paid_at' => $status == TransactionStatusEnum::PAID->value ? now() : null,
             ]);
 
             if ($status === TransactionStatusEnum::PAID->value) {

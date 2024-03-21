@@ -32,11 +32,11 @@
 
 <div class="card">
     <div class="card-header pt-4 bg-white d-flex justify-content-between">
-        @php
+        {{-- @php
             $status = strtoupper($reference->status);
             $refs = App\Enum\TransactionStatusEnum::{$status};
         @endphp
-        <h3 class="mb-0">Status Pembayaran: <strong class="text-{{ $refs->color() }}">{{ $refs->label() }}</strong></h3>
+        <h3 class="mb-0">Status Pembayaran: <strong class="text-{{ $refs->color() }}">{{ $refs->label() }}</strong></h3> --}}
 
         <div class="d-flex gap-2 align-items-center">
             <a href="{{ route('transaction-history.index') }}" class="btn btn-light d-flex align-items-center gap-2"><i class="fas fa-arrow-left"></i><span>Kembali</span></a>
@@ -63,16 +63,14 @@
                 </div>
                 @endif
 
-                {{-- @dd($latestTransaction) --}}
-
                 <div class="p-4 border rounded mt-3">
                     <div class="d-flex justify-content-between pb-3 mb-3 border-bottom">
                         <p class="mb-0">ID Tagihan</p>
-                        <p class="mb-0"><span class="fw-bolder">#{{ $reference->transaction_id }}</span></p>
+                        <p class="mb-0 d-flex gap-2 align-items-center"><span class="fw-bolder" id="billingCode">#{{ $reference->transaction_id }}</span> <a href="javascript:copyContent('billingCode')"><i class="fas fa-copy"></i></a></p>
                     </div>
                     <div class="d-flex justify-content-between pb-3 mb-3 border-bottom">
                         <p class="mb-0">Kode Transaksi</p>
-                        <p class="mb-0"><span class="fw-bolder">{{ $reference->reference }}</span></p>
+                        <p class="mb-0 d-flex gap-2 align-items-center"><span class="fw-bolder" id="transactionCode">{{ $reference->reference }}</span> <a href="javascript:copyContent('transactionCode')"><i class="fas fa-copy"></i></a></p>
                     </div>
                     <div class="d-flex justify-content-between pb-3 mb-3 border-bottom">
                         <p class="mb-0">Metode Pembayaran</p>
@@ -93,6 +91,10 @@
                     <div class="d-flex justify-content-between pb-3 mb-3 border-bottom">
                         <p class="mb-0">Total Pembayaran</p>
                         <p class="mb-0"><span class="fw-bolder">@currency($reference->amount + (int) $paymentDetail['data']['total_fee'])</span></p>
+                    </div>
+                    <div class="d-flex justify-content-between pb-3 mb-3 border-bottom">
+                        <p class="mb-0">Dibayar Pada</p>
+                        <p class="mb-0"><span class="fw-bolder">{{ $reference->paid_at?->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') ?? '-' }}</span></p>
                     </div>
                     <div class="d-flex justify-content-between">
                         <p class="mb-0">Kadaluarsa Pada</p>
@@ -115,7 +117,7 @@
                     </div>
 
                     <div>
-                        <button onclick="copyContent()" class="btn btn-primary d-flex gap-2 align-items-center"><i class="fas fa-copy"></i><span>Salin Kode</span></button>
+                        <button onclick="copyContent('paymentCode')" class="btn btn-primary d-flex gap-2 align-items-center"><i class="fas fa-copy"></i><span>Salin Kode</span></button>
                     </div>
                 </div>
                 @elseif(isset($paymentDetail['data']['qr_url']) && \Carbon\Carbon::now()->diffInHours($reference->expired_at) >= 0 && $reference->status !== App\Enum\TransactionStatusEnum::PAID->value)
@@ -157,8 +159,8 @@
 <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.all.min.js') }}"></script>
 
 <script>
-    let text = document.getElementById('paymentCode').innerHTML;
-    const copyContent = async () => {
+    const copyContent = async (target) => {
+        let text = document.getElementById(target).innerHTML;
         try {
             await navigator.clipboard.writeText(text);
             Swal.fire({

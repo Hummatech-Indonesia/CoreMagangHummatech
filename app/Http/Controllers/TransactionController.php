@@ -64,6 +64,7 @@ class TransactionController extends Controller
             return redirect()->route('transaction-history.detail', $transactionHistory->transaction_id)
                 ->with('success', 'Metode pembayaran, berhasil diminta.');
         } catch (\Exception $e) {
+            dd($e->getMessage());
             return back()->with('error', $e->getMessage());
         }
     }
