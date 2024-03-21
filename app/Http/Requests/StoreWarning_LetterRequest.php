@@ -22,11 +22,25 @@ class StoreWarning_LetterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'student_id' => 'required',
-            'status' => 'required',
+            'student_id' => 'required|integer|exists:students,id',
+            'status' => 'required|string',
             'date' => 'required',
-            'reference_number' => 'required',
-            'reason' => 'required',
+            'reference_number' => 'required|string|max:255',
+            'reason' => 'required|string',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'student_id.required' => 'Siswa harus dipilih.',
+            'status.required' => 'Status harus dipilih.',
+            'date.required' => 'Tgl. harus diisi.',
+            'reference_number.required' => 'No. Surat harus diisi.',
+            'reason.required' => 'Alasan harus diisi.',
+            'student_id.exists' => 'Siswa tidak ditemukan.',
+            'reference_number.max' => 'No. Surat terlalu panjang.',
+            'reason.max' => 'Alasan terlalu panjang.',
         ];
     }
 }
