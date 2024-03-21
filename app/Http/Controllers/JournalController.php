@@ -41,14 +41,9 @@ class JournalController extends Controller
      */
     public function store(StoreJournalRequest $request)
     {
-        $currentTime = \Carbon\Carbon::now();
-        if ($currentTime->hour < 4 || ($currentTime->hour >= 12)) {
-            return back()->with('error', 'Anda tidak bisa mengirim jurnal sekarang');
-        } else {
-            $data = $this->service->store($request);
-            $this->journal->store($data);
-            return back()->with('success' , 'Berhasil Menambahkan data');
-        }
+        $data = $this->service->store($request);
+        $this->journal->store($data);
+        return back()->with('success' , 'Berhasil Menambahkan data');
     }
 
     /**
