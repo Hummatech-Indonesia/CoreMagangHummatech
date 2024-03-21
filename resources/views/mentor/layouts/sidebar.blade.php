@@ -34,7 +34,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/timetable" aria-expanded="false">
                         <span>
-                            <i class="ti ti-aperture"></i>
+                            <i class="ti ti-calendar-event"></i>
                         </span>
                         <span class="hide-menu">Jadwal</span>
                     </a>
@@ -42,7 +42,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/challenge" aria-expanded="false">
                         <span>
-                            <i class="ti ti-aperture"></i>
+                            <i class="ti ti-activity"></i>
                         </span>
                         <span class="hide-menu">Tantangan</span>
                     </a>
@@ -50,7 +50,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/student/absensi" aria-expanded="false">
                         <span>
-                            <i class="ti ti-aperture"></i>
+                            <i class="ti ti-presentation-analytics"></i>
                         </span>
                         <span class="hide-menu">Absensi Siswa</span>
                     </a>
@@ -58,7 +58,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/student/journal" aria-expanded="false">
                         <span>
-                            <i class="ti ti-aperture"></i>
+                            <i class="ti ti-list-details"></i>
                         </span>
                         <span class="hide-menu">Jurnal Siswa</span>
                     </a>
@@ -66,7 +66,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/student" aria-expanded="false">
                         <span>
-                            <i class="ti ti-aperture"></i>
+                            <i class="ti ti-user-circle"></i>
                         </span>
                         <span class="hide-menu">Siswa</span>
                     </a>
