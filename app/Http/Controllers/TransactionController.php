@@ -26,7 +26,7 @@ class TransactionController extends Controller
 
     public function index()
     {
-        $transactions = auth()->user()->transactions;
+        $transactions = auth()->user()->transaction;
         return view('student_online_&_offline.transaction.index', compact('transactions'));
     }
 

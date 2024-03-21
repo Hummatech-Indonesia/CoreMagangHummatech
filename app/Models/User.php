@@ -58,6 +58,6 @@ class User extends Authenticatable
     }
     public function transaction()
     {
-        return $this->hasMany(TransactionHistory::class , 'user_id');
+        return $this->hasMany(TransactionHistory::class);
     }
 }
