@@ -4,7 +4,7 @@
         <div class="card-body">
             <div class="row g-2 align-items-center">
                 <div class="col-sm-4">
-                    <h3 class="mx-3">Data Alumni</h3>
+                    <h4 class="mx-3">Data Alumni</h4>
                 </div>
             </div>
         </div>

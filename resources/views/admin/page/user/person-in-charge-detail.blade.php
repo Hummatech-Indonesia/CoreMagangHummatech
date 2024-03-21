@@ -4,7 +4,7 @@
         <div class="card-body">
             <div class=" align-items-center">
                 <div class="col-lg-4 col-sm-4">
-                    <h3 class="ms-2 mt-1">Data Penanggung Jawab</h3>
+                    <h4 class="ms-2 mt-1">Data Penanggung Jawab</h4>
                 </div>
             </div>
         </div>

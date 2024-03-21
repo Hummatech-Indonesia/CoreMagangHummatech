@@ -4,7 +4,7 @@
         <div class="card-body">
             <div class="row g-2 align-items-center">
                 <div class="col-lg-4 col-sm-4">
-                    <h3 class="mx-3">Data Penanggung Jawab</h3>
+                    <h4 class="mx-3">Data Penanggung Jawab</h4>
                 </div>
                 <div class="col-lg-8 d-flex gap-2 justify-content-end">
                     <div class="list-grid-nav hstack gap-1 mx-1 w-25">

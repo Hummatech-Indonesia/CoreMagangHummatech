@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="col-sm-4 mt-2 mb-5">
-    <h3 class="mx-3">Approval Top Up</h3>
+    <h4 class="mx-3">Approval Top Up</h4>
 </div>
 <div class="row">
     <div class="col-lg-12">

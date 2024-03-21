@@ -94,7 +94,7 @@
                                 <a href="{{ url('/rfid') }}" class="nav-link" data-key="t-input-masks">RFID</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-advanced">Siswa
+                                <a href="{{ url('/students-rejected') }}" class="nav-link" data-key="t-advanced">Siswa
                                     Ditolak</a>
                             </li>
                             <li class="nav-item">

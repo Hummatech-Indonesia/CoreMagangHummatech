@@ -55,3 +55,6 @@ Route::get('person-in-charge', function() {
 Route::get('person-in-charge/detail', function() {
     return view('admin.page.user.person-in-charge-detail');
 });
+Route::get('students-rejected', function() {
+    return view('admin.page.user.students-rejected');
+});
