@@ -46,7 +46,7 @@
         <h5>
             {{ $WarningLetter->student->name }}
         </h5>
-        <a href="/response-letter" class="btn btn-secondary">Kembali</a>
+        <a href="/warning-letter" class="btn btn-secondary">Kembali</a>
     </div>
 </div>
 <div class=" d-flex justify-content-center mt-5 mb-5">
