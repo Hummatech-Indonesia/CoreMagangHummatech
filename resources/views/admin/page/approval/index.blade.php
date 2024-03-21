@@ -106,17 +106,21 @@
                                                     <td>
                                                         <button type="button" data-id="{{ $student->id }}"
                                                             data-name="{{ $student->name }}"
+                                                            data-majors="{{ $student->major }}"
+                                                            data-class="{{ $student->class }}"
                                                             data-phone="{{ $student->phone }}"
                                                             data-address="{{ $student->address }}"
-                                                            data-birthdate="{{ $student->birth_date }}"
+                                                            data-birthdate="{{ \carbon\Carbon::parse($student->birth_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                             data-birthplace="{{ $student->birth_place }}"
-                                                            data-startdate="{{ $student->start_date }}"
-                                                            data-finishdate="{{ $student->finish_date }}"
+                                                            data-startdate="{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                                            data-finishdate="{{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                             data-school="{{ $student->school }}"
                                                             data-avatar="{{ $student->avatar }}"
                                                             data-cv="{{ $student->cv }}"
+                                                            data-email="{{ $student->email }}"
                                                             data-selfstatement="{{ $student->self_statement }}"
                                                             data-parentsstatement="{{ $student->parents_statement }}"
+                                                            data-identify_number="{{ $student->identify_number }}"
                                                             class="btn bg-secondary-subtle text-secondary btn-detail">
                                                             <i class="ri-eye-fill"></i>
                                                         </button>
@@ -209,18 +213,21 @@
                                                     <td>
                                                         <button type="button" data-id="{{ $student->id }}"
                                                             data-name="{{ $student->name }}"
+                                                            data-majors="{{ $student->major }}"
+                                                            data-class="{{ $student->class }}"
                                                             data-phone="{{ $student->phone }}"
                                                             data-address="{{ $student->address }}"
-                                                            data-birthdate="{{ $student->birth_date }}"
+                                                            data-birthdate="{{ \carbon\Carbon::parse($student->birth_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                             data-birthplace="{{ $student->birth_place }}"
-                                                            data-startdate="{{ $student->start_date }}"
-                                                            data-finishdate="{{ $student->finish_date }}"
+                                                            data-startdate="{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                                            data-finishdate="{{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                             data-school="{{ $student->school }}"
                                                             data-avatar="{{ $student->avatar }}"
                                                             data-cv="{{ $student->cv }}"
                                                             data-email="{{ $student->email }}"
                                                             data-selfstatement="{{ $student->self_statement }}"
                                                             data-parentsstatement="{{ $student->parents_statement }}"
+                                                            data-identify_number="{{ $student->identify_number }}"
                                                             class="btn bg-secondary-subtle text-secondary btn-detail">
                                                             <i class="ri-eye-fill"></i>
                                                         </button>
@@ -273,24 +280,32 @@
                         </div>
                         <div class="row mx-2">
                             <div class="col-6 d-flex align-items-center gap-1">
-                                <i class="ri-map-pin-user-line fs-3 text-primary"></i>
-                                <p class="m-0 show-address"></p>
+                                <i class="bx bx-id-card fs-3 text-primary"></i>
+                                <p class="m-0 show-identify_number"></p>
+                            </div>
+                            <div class="col-6 d-flex  align-items-center gap-1">
+                                <i class="ri-mail-line fs-3 text-primary"></i>
+                                <p class="m-0 show-email" style="word-break: break-all"></p>
                             </div>
                             <div class="col-6 d-flex align-items-center gap-1">
                                 <i class=" ri-smartphone-line fs-3 text-primary"></i>
                                 <p class="m-0 show-phone"></p>
                             </div>
                             <div class="col-6 d-flex align-items-center gap-1">
+                                <i class="ri-map-pin-user-line fs-3 text-primary"></i>
+                                <p class="m-0 show-address"></p>
+                            </div>
+                            <div class="col-6 d-flex align-items-center gap-1">
                                 <i class="ri-gift-2-line fs-3 text-primary"></i>
                                 <p class="m-0 show-birthday"></p>
                             </div>
                             <div class="col-6 d-flex align-items-center gap-1">
-                                <i class="ri-calendar-line fs-3 text-primary"></i>
-                                <p class="m-0 show-start"></p>
-                            </div>
-                            <div class="col-6 d-flex align-items-center gap-1">
                                 <i class="ri-building-line fs-3 text-primary"></i>
                                 <p class="m-0 show-school"></p>
+                            </div>
+                            <div class="col-6 d-flex align-items-center gap-1">
+                                <i class="ri-calendar-line fs-3 text-primary"></i>
+                                <p class="m-0 show-start"></p>
                             </div>
                             <div class="col-6 d-flex align-items-center gap-1">
                                 <i class="ri-calendar-line fs-3 text-primary"></i>
@@ -407,7 +422,7 @@
                 <div class="modal-content">
                     <div class="modal-header d-flex align-items-center">
                         <h5 class="modal-title" id="modal-deleteLabel1">
-                            Hapus data
+                            Tolak Siswa
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -436,6 +451,7 @@
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+
     <script>
         $('.btn-detail').click(function() {
             let id = $(this).data('id');
@@ -452,8 +468,10 @@
             let self_statement = $(this).data('selfstatement');
             let parents_statement = $(this).data('parentsstatement');
             let email = $(this).data('email');
+            let identify_number = $(this).data('identify_number');
 
             $('.show-name').text(name);
+            $('.show-identify_number').text(identify_number);
             $('.show-email').text(email);
             $('.show-image').attr('src', '{{ asset('storage') }}/' + avatar);
             $('.show-address').text(address);
