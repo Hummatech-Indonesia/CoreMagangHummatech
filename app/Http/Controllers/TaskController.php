@@ -2,18 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\TaskInterface;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 
 class TaskController extends Controller
 {
+    private TaskInterface $task;
+    public function __construct(TaskInterface $task)
+    {
+        $this->task = $task;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $tasks = $this->task->get();
+        return view('' , compact('tasks'));
     }
 
     /**
@@ -29,7 +36,8 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-        //
+        $this->task->store($request->validated());
+        return back()->with('success' , 'Data Berhasil Ditambahkan');
     }
 
     /**
@@ -53,7 +61,8 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        //
+        $this->task->update($task->id , $request->validated());
+        return back()->with('success' , 'Data Berhasil Diperbarui');
     }
 
     /**
@@ -61,6 +70,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $this->task->delete($task->id);
+        return back()->with('success' , 'Data Berhasil Dihapus');
     }
 }

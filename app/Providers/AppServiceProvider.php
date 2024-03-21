@@ -46,6 +46,7 @@ use App\Contracts\Repositories\AdminJournalRepository;
 use App\Contracts\Interfaces\AttendanceDetailInterface;
 use App\Contracts\Interfaces\LimitInterface;
 use App\Contracts\Interfaces\SubCourseInterface;
+use App\Contracts\Interfaces\TaskInterface;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Contracts\Repositories\CodeOfConductRepository;
 use App\Contracts\Repositories\MentorStudentRepository;
@@ -58,6 +59,7 @@ use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\AttendanceDetailRepository;
 use App\Contracts\Repositories\LimitRepository;
 use App\Contracts\Repositories\SubCourseRepository;
+use App\Contracts\Repositories\TaskRepository;
 use App\Contracts\Repositories\TransactionHistoryRepository;
 
 class AppServiceProvider extends ServiceProvider
@@ -89,7 +91,8 @@ class AppServiceProvider extends ServiceProvider
         MentorInterface::class => MentorRepository::class,
         MentorStudentInterface::class => MentorStudentRepository::class,
         TransactionHistoryInterface::class => TransactionHistoryRepository::class,
-        LimitInterface::class => LimitRepository::class
+        LimitInterface::class => LimitRepository::class,
+        TaskInterface::class => TaskRepository::class
     ];
 
     /**
