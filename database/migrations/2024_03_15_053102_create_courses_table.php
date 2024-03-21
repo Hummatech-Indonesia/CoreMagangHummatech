@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\StatusCourseEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,9 +15,11 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('price');
+            $table->enum('status' , [StatusCourseEnum::PAID->value , StatusCourseEnum::FREE->value]);
             $table->string('image');
             $table->longText('description');
-            $table->foreignId('mentors_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('division_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
