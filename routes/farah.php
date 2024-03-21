@@ -52,3 +52,6 @@ Route::get('alumni', function() {
 Route::get('person-in-charge', function() {
     return view('admin.page.user.person-in-charge');
 });
+Route::get('person-in-charge/detail', function() {
+    return view('admin.page.user.person-in-charge-detail');
+});
