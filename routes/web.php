@@ -31,44 +31,44 @@ Auth::routes();
 Route::post('/register/post', [StudentController::class, 'store']);
 
 # ================================================ Administrator Route Group ==================================================
-Route::name(RolesEnum::ADMIN->value)->group(function () {
-
+Route::middleware(['roles:administrator', 'auth'])->group(function () {
     // Dashboard Home
-    Route::get('/administrator', [AdminController::class, 'index'])->name('.home');
+    Route::get('administrator', [AdminController::class, 'index'])->name('.home');
 
     // Approval
-    Route::get('/approval', [ApprovalController::class, 'index'])->name('.approval.index');
-    Route::put('/approval/accept/{student}', [ApprovalController::class, 'accept'])->name('.approval.accept');
-    Route::put('/approval/decline/{student}', [ApprovalController::class, 'decline'])->name('.approval.decline');
-    Route::delete('/approval/delete/{student}', [ApprovalController::class, 'destroy'])->name('.approval.delete');
+    Route::get('approval', [ApprovalController::class, 'index'])->name('.approval.index');
+    Route::put('approval/accept/{student}', [ApprovalController::class, 'accept'])->name('approval.accept');
+    Route::put('approval/decline/{student}', [ApprovalController::class, 'decline'])->name('approval.decline');
+    Route::delete('approval/delete/{student}', [ApprovalController::class, 'destroy'])->name('approval.delete');
 
     // Warning letter
-    Route::get('/warning-letter', [WarningLetterController::class, 'index'])->name('.warning-letter.index');
-    Route::post('/warning-letter/store', [WarningLetterController::class, 'store'])->name('.warning-letter.store');
+    Route::get('warning-letter', [WarningLetterController::class, 'index'])->name('warning-letter.index');
+    Route::post('warning-letter/store', [WarningLetterController::class, 'store'])->name('warning-letter.store');
 
     // Response letter
-    Route::get('/response-letter', [ResponseLetterController::class, 'index'])->name('.response-letter.index');
+    Route::get('response-letter', [ResponseLetterController::class, 'index'])->name('response-letter.index');
+    Route::get('show/student/{responseLetter}', [ResponseLetterController::class, 'show'])->name('response-letter.show');
 
     // Voucher
-    Route::get('/voucher', [VoucherController::class, 'index'])->name('.voucher.index');
-    Route::post('/voucher/store', [VoucherController::class, 'store'])->name('.voucher.store');
-    Route::delete('/voucher/delete/{voucher}', [VoucherController::class, 'destroy'])->name('.voucher.delete');
+    Route::get('voucher', [VoucherController::class, 'index'])->name('voucher.index');
+    Route::post('voucher/store', [VoucherController::class, 'store'])->name('voucher.store');
+    Route::delete('voucher/delete/{voucher}', [VoucherController::class, 'destroy'])->name('voucher.delete');
 
     // Mentor
-    Route::get('/menu-mentor', [AdminMentorController::class, 'index'])->name('.mentor.index');
-    Route::post('/menu-mentor/store', [AdminMentorController::class, 'store'])->name('.mentor.store');
-    Route::put('/menu-mentor/update/{mentor}', [AdminMentorController::class, 'update'])->name('.mentor.update');
-    Route::delete('/menu-mentor/delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('.mentor.delete');
+    Route::get('menu-mentor', [AdminMentorController::class, 'index'])->name('mentor.index');
+    Route::post('menu-mentor/store', [AdminMentorController::class, 'store'])->name('mentor.store');
+    Route::put('menu-mentor/update/{mentor}', [AdminMentorController::class, 'update'])->name('mentor.update');
+    Route::delete('menu-mentor/delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('mentor.delete');
 
-    //Siswa
-    Route::get('/menu-siswa', [AdminStudentController::class, 'index'])->name('.student.index');
-    Route::put('/menu-siswa/reset-password/{student}', [AdminStudentController::class, 'reset'])->name('.student.update');
-    Route::put('/menu-siswa/update/{student}', [AdminStudentController::class, 'update']);
-    Route::get('/menu-siswa/face/{student}', [AdminStudentController::class, 'face'])->name('.student.show');
-    Route::delete('/menu-siswa/delete/{student}', [AdminStudentController::class, 'destroy'])->name('.student.delete');
+    //student
+    Route::get('menu-siswa', [AdminStudentController::class, 'index'])->name('student.index');
+    Route::put('menu-siswa/reset-password/{student}', [AdminStudentController::class, 'reset'])->name('student.update');
+    Route::put('menu-siswa/update/{student}', [AdminStudentController::class, 'update']);
+    Route::get('menu-siswa/face/{student}', [AdminStudentController::class, 'face'])->name('student.show');
+    Route::delete('menu-siswa/delete/{student}', [AdminStudentController::class, 'destroy'])->name('student.delete');
 
 
-})->middleware(['roles:administrator', 'auth']);
+});
 
 # ================================================ Offline Student Route Group ================================================
 Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function () {

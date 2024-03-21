@@ -64,7 +64,7 @@
                                     Sakit</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-api-key">TopUp</a>
+                                <a href="{{ url('/top-up') }}" class="nav-link" data-key="t-api-key">TopUp</a>
                             </li>
                         </ul>
                     </div>
@@ -84,7 +84,7 @@
                                 <a href="/menu-mentor" class="nav-link" data-key="t-form-select">Mentor</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-checkboxs-radios">Alumni</a>
+                                <a href="{{ url('/alumni') }}" class="nav-link" data-key="t-checkboxs-radios">Alumni</a>
                             </li>
                             <li class="nav-item">
                                 <a href="" class="nav-link" data-key="t-pickers">

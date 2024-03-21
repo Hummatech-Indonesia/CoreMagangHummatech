@@ -22,6 +22,146 @@
     </div>
 </div>
 
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="card mb-4 bg-light-primary">
+                <a href="#" class="stretched-link"></a>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <div class="bg-primary text-light rounded d-flex align-items-center justify-content-center p-2">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-balloon">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 1a7 7 0 0 1 7 7c0 5.457 -3.028 10 -7 10c-3.9 0 -6.89 -4.379 -6.997 -9.703l-.003 -.297l.004 -.24a7 7 0 0 1 6.996 -6.76zm0 4a1 1 0 0 0 0 2l.117 .007a1 1 0 0 1 .883 .993l.007 .117a1 1 0 0 0 1.993 -.117a3 3 0 0 0 -3 -3z" />
+                                    <path d="M12 16a1 1 0 0 1 .993 .883l.007 .117v1a3 3 0 0 1 -2.824 2.995l-.176 .005h-3a1 1 0 0 0 -.993 .883l-.007 .117a1 1 0 0 1 -2 0a3 3 0 0 1 2.824 -2.995l.176 -.005h3a1 1 0 0 0 .993 -.883l.007 -.117v-1a1 1 0 0 1 1 -1z" />
+                                </svg>
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-9">
+                            <div>
+                                <h6 class="card-subtitle mb-0">Total Absensi</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="d-flex justify-content-between">
+                            <h3>56 Kali</h3>
+                            <span class="ml-auto">Absensi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="card mb-4 bg-light-success">
+                <a href="#" class="stretched-link"></a>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <div class="bg-primary text-light rounded d-flex align-items-center justify-content-center p-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-user">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
+                                    <path d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" />
+                                </svg>
+                            </div>
+
+                        </div>
+
+                        <div class="col-9">
+                            <div>
+                                <h6 class="card-subtitle mb-0">Total Hadir</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="d-flex justify-content-between">
+                            <h3>56 Kali</h3>
+                            <span class="ml-auto">Absensi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="card mb-4 bg-light-warning">
+                <a href="#" class="stretched-link"></a>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <div class="bg-warning text-light rounded d-flex align-items-center justify-content-center p-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-mail">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
+                                    <path d="M3 7l9 6l9 -6" />
+                                  </svg>
+                            </div>
+                        </div>
+
+                        <div class="col-9">
+                            <div>
+                                <h6 class="card-subtitle mb-0">Total Izin  & Sakit</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="d-flex justify-content-between">
+                            <h3>56 Kali</h3>
+                            <span class="ml-auto">Absensi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="card mb-4 bg-light-danger">
+                <a href="#" class="stretched-link"></a>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <div class="bg-danger text-light rounded d-flex align-items-center justify-content-center p-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-drone">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 10h4v4h-4z" />
+                                    <path d="M10 10l-3.5 -3.5" />
+                                    <path d="M9.96 6a3.5 3.5 0 1 0 -3.96 3.96" />
+                                    <path d="M14 10l3.5 -3.5" />
+                                    <path d="M18 9.96a3.5 3.5 0 1 0 -3.96 -3.96" />
+                                    <path d="M14 14l3.5 3.5" />
+                                    <path d="M14.04 18a3.5 3.5 0 1 0 3.96 -3.96" />
+                                    <path d="M10 14l-3.5 3.5" />
+                                    <path d="M6 14.04a3.5 3.5 0 1 0 3.96 3.96" />
+                                  </svg>
+                            </div>
+                        </div>
+
+                        <div class="col-9">
+                            <div>
+                                <h6 class="card-subtitle mb-0">Total Alpha</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="d-flex justify-content-between">
+                            <h3>56 Kali</h3>
+                            <span class="ml-auto">Absensi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 
 <div class="row mb-3">
     <div class="col text-end">
@@ -38,8 +178,10 @@
                 <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z" />
               </svg>
         </button>
-        <button class="btn btn-primary">Buat Izin</button>
-    </div>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#izinModal">
+            Buat Izin
+        </button>
+     </div>
 </div>
 
 
@@ -177,5 +319,54 @@
         </li>
     </ul>
 </nav>
+
+<!-- Izin Modal -->
+<div class="modal fade" id="izinModal" tabindex="-1" aria-labelledby="izinModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="izinModalLabel">Tambah Izin</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+                <label for="izinStartDate" class="form-label">Dari Tanggal</label>
+                <input type="date" class="form-control" id="izinStartDate">
+            </div>
+            <div class="mb-3">
+                <label for="izinEndDate" class="form-label">Sampai Tanggal</label>
+                <input type="date" class="form-control" id="izinEndDate">
+            </div>
+            <div class="mb-3">
+                <label for="keteranganTextarea" class="form-label">Deskripsi</label>
+                <textarea class="form-control" id="keteranganTextarea" rows="3" placeholder="Masukkan deskripsi"></textarea>
+            </div>
+            <div class="mb-3">
+                <div>
+                    <label for="statusIzin" class="form-label">Status Izin</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="statusIzin" id="izinDiterima" value="Diterima">
+                    <label class="form-check-label" for="izinDiterima">
+                        Izin
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="statusIzin" id="izinDitolak" value="Ditolak">
+                    <label class="form-check-label" for="izinDitolak">
+                        Sakit
+                    </label>
+                </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-primary">Simpan</button>
+        </div>
+      </div>
+    </div>
+</div>
+
 
 @endsection
