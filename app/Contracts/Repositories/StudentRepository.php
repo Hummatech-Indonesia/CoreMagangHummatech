@@ -76,7 +76,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function listStudent(): mixed
     {
         return $this->model->query()
-            ->whereNot('status', 'pending')
+            ->whereNotIn('status', ['pending', 'banned'])
             ->get();
     }
 

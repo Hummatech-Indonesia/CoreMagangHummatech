@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('identify_number');
             $table->string('phone');
             $table->boolean('acepted')->default('0');
-            $table->enum('status' ,[StudentStatusEnum::ACCEPTED->value, StudentStatusEnum::DECLINED->value,StudentStatusEnum::PENDING->value])->default(StudentStatusEnum::PENDING->value);
+            $table->enum('status' ,[StudentStatusEnum::ACCEPTED->value, StudentStatusEnum::DECLINED->value,StudentStatusEnum::PENDING->value, StudentStatusEnum::BANNED->value])->default(StudentStatusEnum::PENDING->value);
             $table->string('rfid')->nullable();
             $table->foreignId('division_id')->nullable()->constrained()->cascadeOnUpdate()->restrictOnDelete();
             $table->string('parents_statement');

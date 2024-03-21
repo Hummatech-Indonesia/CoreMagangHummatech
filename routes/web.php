@@ -69,6 +69,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('menu-siswa/update/{student}', [AdminStudentController::class, 'update']);
     Route::get('menu-siswa/face/{student}', [AdminStudentController::class, 'face'])->name('student.show');
     Route::delete('menu-siswa/delete/{student}', [AdminStudentController::class, 'destroy'])->name('student.delete');
+    Route::put('menu-siswa/banned/{student}', [AdminStudentController::class, 'banned'])->name('student.banned');
 
     //Limit
     Route::post('limit', [LimitsController::class, 'store'])->name('limit.store');

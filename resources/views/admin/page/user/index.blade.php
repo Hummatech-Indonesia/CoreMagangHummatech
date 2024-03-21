@@ -47,64 +47,56 @@
         @foreach ($students as $student)
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card">
-                    <div class="card-body d-flex justify-content-between">
-                        <div class="d-flex gap-3 align-items-center">
-                            <div class="">
-                                <img src="{{ asset('storage/' . $student->avatar) }}" class="avatar-xl rounded"
-                                    alt="">
+                    <div class="card-body d-flex  gap-1">
+                        <div class="position-relative">
+                            <div
+                                class="position-absolute top-0 start-0 translate-middle rounded-circle {{ $student->rfid == null ? 'bg-danger' : 'bg-success' }} rounded p-2">
                             </div>
-                            <div class="">
-                                <h5 class="m-0">{{ $student->name }}</h5>
-                                <p class="m-1 text-muted">{{ $student->school }}</p>
-                                <div class="mt-1 d-flex  justify-content-start gap-1">
-                                    <div class="w-50 m-0">
-                                        <p class="m-0 text-muted">Status</p>
-                                        <span class="badge {{ $student->acepted == '0' ? 'bg-danger' : 'bg-success' }} "
-                                            style="font-size: 12px">{{ $student->acepted == '0' ? 'Tidak Aktif' : 'Aktif' }}</span>
-                                    </div>
-                                    <div class="w-50">
-                                        <p class="m-0 text-muted">Divisi</p>
-                                        <span
-                                            class="badge {{ $student->division_id == !null ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }} "
-                                            style="font-size: 12px">{{ $student->division_id == !null ? $student->division->name : 'N/A' }}</span>
-                                    </div>
-                                </div>
-                                <div class="mt-3 d-flex justify-content-start gap-1">
-                                    <button class="btn btn-sm btn-soft-secondary w-50 btn-detail"
-                                        data-name="{{ $student->name }}" data-phone="{{ $student->phone }}"
-                                        data-address="{{ $student->address }}" data-birthdate="{{ $student->birth_date }}"
-                                        data-birthplace="{{ $student->birth_place }}"
-                                        data-startdate="{{ $student->start_date }}"
-                                        data-finishdate="{{ $student->finish_date }}" data-school="{{ $student->school }}"
-                                        data-avatar="{{ $student->avatar }}" data-cv="{{ $student->cv }}"
-                                        data-selfstatement="{{ $student->self_statement }}"
-                                        data-parentsstatement="{{ $student->parents_statement }}">Detail</button>
-                                    @if ($student->division_id == null)
-                                        <button class="btn btn-sm btn-soft-primary w-100 btn-join"
-                                            data-id="{{ $student->id }}">Tambah Divisi</button>
-                                    @else
-                                        <button class="btn btn-sm btn-soft-danger w-50">Banned</button>
-                                    @endif
-                                </div>
+                            @if (file_exists(public_path('storage/' . $student->avatar)))
+                                <img class="avatar-lg rounded" style="object-fit: cover"
+                                    src="{{ asset('storage/' . $student->avatar) }}">
+                            @else
+                                <img class="avatar-lg rounded" style="object-fit: cover" src="{{ asset('user.webp') }}">
+                            @endif
+                        </div>
+                        <div class="ms-2">
+                            <h5 class="mt-1 m-0 fw-semibold">{{ $student->name }}</h5>
+                            <p class="mt-1 m-0 text-muted">{{ $student->school }}</p>
+                            <p class="text-primary m-0">{{ $student->rfid == null ? '-' : $student->rfid }}</p>
+                            <div class="d-flex m-0 gap-2">
+                                <span
+                                    class="badge px-4 py-1 text-uppercase {{ $student->acepted == 1 ? 'bg-success' : 'bg-danger' }} mt-1">{{ $student->acepted == '0' ? 'Tidak aktif' : 'Aktif' }}</span>
+                                <span
+                                    class="badge px-4 py-1 text-uppercase {{ $student->internship_type == 'online' ? 'bg-primary' : 'bg-danger' }} mt-1">{{ $student->internship_type == 'online' ? 'online' : 'offline' }}</span>
                             </div>
                         </div>
-                        <div>
+                        <div class="d-flex justify-content-end w-100">
                             <div class="dropdown card-header-dropdown">
                                 <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                    <span class="text-muted fs-16"><i class="mdi mdi-dots-vertical align-middle"></i></span>
+                                    <span class="text-muted fs-16"><i class="mdi mdi-dots-vertical align-center"></i></span>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end" style="">
+                                <div class="dropdown-menu dropdown-menu-end" >
                                     <a class="dropdown-item" href="/menu-siswa/face/{{ $student->id }}">Wajah</a>
-                                    <form action="/menu-siswa/reset-password/{{ $student->id }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <button class="dropdown-item" type="submit">Reset Password</button>
-                                    </form>
+                                    <button class="dropdown-item btn-reset" type="button"
+                                        data-id="{{ $student->id }}">Reset Password</button>
+                                    <button class="dropdown-item btn-ban" data-id="{{ $student->id }}">Banned</button>
                                     <button class="dropdown-item btn-change" data-id="{{ $student->id }}">Ganti
                                         Profile</button>
-                                    <a class="dropdown-item btn-delete" id="{{ $student->id }}"
-                                        data-id="{{ $student->id }}">Hapus</a>
+                                    <button class="dropdown-item btn-detail" data-name="{{ $student->name }}"
+                                        data-majors="{{ $student->major }}" data-class="{{ $student->class }}"
+                                        data-phone="{{ $student->phone }}" data-address="{{ $student->address }}"
+                                        data-birthdate="{{ \carbon\Carbon::parse($student->birth_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                        data-birthplace="{{ $student->birth_place }}"
+                                        data-startdate="{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                        data-finishdate="{{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                        data-school="{{ $student->school }}" data-avatar="{{ $student->avatar }}"
+                                        data-cv="{{ $student->cv }}" data-email="{{ $student->email }}"
+                                        data-selfstatement="{{ $student->self_statement }}"
+                                        data-parentsstatement="{{ $student->parents_statement }}"
+                                        data-identify_number="{{ $student->identify_number }}">Detail</button>
+                                    <button class="dropdown-item btn-delete text-danger" id="{{ $student->id }}"
+                                        data-id="{{ $student->id }}">Hapus</button>
                                 </div>
                             </div>
                         </div>
@@ -161,24 +153,32 @@
                         </div>
                         <div class="row mx-2">
                             <div class="col-6 d-flex align-items-center gap-1">
-                                <i class="ri-map-pin-user-line fs-3 text-primary"></i>
-                                <p class="m-0 show-address"></p>
+                                <i class="bx bx-id-card fs-3 text-primary"></i>
+                                <p class="m-0 show-identify_number"></p>
+                            </div>
+                            <div class="col-6 d-flex  align-items-center gap-1">
+                                <i class="ri-mail-line fs-3 text-primary"></i>
+                                <p class="m-0 show-email" style="word-break: break-all"></p>
                             </div>
                             <div class="col-6 d-flex align-items-center gap-1">
                                 <i class=" ri-smartphone-line fs-3 text-primary"></i>
                                 <p class="m-0 show-phone"></p>
                             </div>
                             <div class="col-6 d-flex align-items-center gap-1">
+                                <i class="ri-map-pin-user-line fs-3 text-primary"></i>
+                                <p class="m-0 show-address"></p>
+                            </div>
+                            <div class="col-6 d-flex align-items-center gap-1">
                                 <i class="ri-gift-2-line fs-3 text-primary"></i>
                                 <p class="m-0 show-birthday"></p>
                             </div>
                             <div class="col-6 d-flex align-items-center gap-1">
-                                <i class="ri-calendar-line fs-3 text-primary"></i>
-                                <p class="m-0 show-start"></p>
-                            </div>
-                            <div class="col-6 d-flex align-items-center gap-1">
                                 <i class="ri-building-line fs-3 text-primary"></i>
                                 <p class="m-0 show-school"></p>
+                            </div>
+                            <div class="col-6 d-flex align-items-center gap-1">
+                                <i class="ri-calendar-line fs-3 text-primary"></i>
+                                <p class="m-0 show-start"></p>
                             </div>
                             <div class="col-6 d-flex align-items-center gap-1">
                                 <i class="ri-calendar-line fs-3 text-primary"></i>
@@ -283,6 +283,38 @@
             </div><!-- /.modal-dialog -->
         </div>
     </div>
+
+    <div class="modal fade" id="modal-ban" tabindex="-1" aria-labelledby="modal-resetLabel1">
+        <div class="modal-dialog " role="document">
+            <form id="form-ban" method="POST">
+                @method('PUT')
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header d-flex align-items-center">
+                        <h5 class="modal-title" id="modal-resetLabel1">
+                            Konfirmasi Banned Siswa
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-dark fs-7 mb-0">Apakah anda yakin ingin memban siswa?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light  font-medium waves-effect"
+                            data-bs-dismiss="modal">
+                            Tidak
+                        </button>
+                        <button type="submit" class="btn text-white btn-success">
+                            Yakin
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    @include('admin.components.reset-modal-component')
 @endsection
 
 @section('script')
@@ -311,8 +343,12 @@
             let cv = $(this).data('cv');
             let self_statement = $(this).data('selfstatement');
             let parents_statement = $(this).data('parentsstatement');
+            let email = $(this).data('email');
+            let identify_number = $(this).data('identify_number');
 
             $('.show-name').text(name);
+            $('.show-identify_number').text(identify_number);
+            $('.show-email').text(email);
             $('.show-image').attr('src', '{{ asset('storage') }}/' + avatar);
             $('.show-address').text(address);
             $('.show-phone').text(phone);
@@ -336,6 +372,12 @@
             $('.download-self-statement').attr('href', '{{ asset('storage') }}/' + self_statement);
             $('.download-self-statement').attr('download', '{{ asset('storage') }}/' + self_statement);
 
+
+            $('.btn-delete').attr('data-id', id);
+            $('.btn-accept').attr('data-id', id);
+            $('.btn-reject').attr('data-id', id);
+
+            $('#form-declined').attr('action', 'approval/decline/' + id);
             $('#offcanvasRight').offcanvas('show');
         });
 
@@ -357,6 +399,18 @@
 
             $('#modal-join').modal('show');
         });
+
+        $('.btn-reset').click(function() {
+            let id = $(this).data('id');
+            $('#form-reset').attr('action', '/menu-siswa/reset-password/' + id);
+            $('#modal-reset').modal('show');
+        });
+
+        $('.btn-ban').click(function() {
+            let id = $(this).data('id');
+            $('#form-ban').attr('action', '/menu-siswa/banned/' + id);
+            $('#modal-ban').modal('show');
+        })
     </script>
 
     <script>

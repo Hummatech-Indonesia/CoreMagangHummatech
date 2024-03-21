@@ -7,6 +7,7 @@ enum StudentStatusEnum :string
     case ACCEPTED = 'accepted';
     case DECLINED = 'declined';
     case PENDING = 'pending';
+    case BANNED = 'banned';
 
     public function label(): string
     {
@@ -14,6 +15,7 @@ enum StudentStatusEnum :string
             self::ACCEPTED => 'accepted',
             self::DECLINED => 'declined',
             self::PENDING => 'pending',
+            self::BANNED => 'banned',
         };
     }
 
@@ -23,6 +25,7 @@ enum StudentStatusEnum :string
             self::ACCEPTED => 'success',
             self::DECLINED => 'danger',
             self::PENDING => 'warning',
+            self::BANNED => 'danger',
         };
     }
 }
