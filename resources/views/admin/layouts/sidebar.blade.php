@@ -138,7 +138,7 @@
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="javascript:void(0)" class="nav-link" data-key="t-chat">
-                                    Penempatan Divisi </a>
+                                    Penetapan Mentor </a>
                             </li>
                             <li class="nav-item">
                                 <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Tim</a>
@@ -148,6 +148,12 @@
                             </li>
                         </ul>
                     </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ url('/administrator/course') }}">
+                        <i class="ri-book-open-line"></i> <span data-key="t-dashboards">Materi</span>
+                    </a>
                 </li>
 
                 <li class="nav-item">
@@ -200,19 +206,15 @@
                 </li>
 
                 <li class="nav-item">
-                <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ url('/announcement') }}">
                         <i class=" ri-radar-line"></i> <span data-key="t-dashboards">Pengumuman</span>
                     </a>
                 </li>
-                </li>
 
-                <li class="nav-item">
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ url('/division') }}">
                         <i class=" ri-apps-line"></i> <span data-key="t-dashboards">Divisi</span>
                     </a>
-                </li>
                 </li>
 
                 <li class="nav-item">
