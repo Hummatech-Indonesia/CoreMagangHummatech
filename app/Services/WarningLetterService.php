@@ -16,9 +16,11 @@ use App\Models\Structure;
 use App\Models\WarningLetter;
 use Illuminate\Support\Facades\Log;
 use App\Services\Traits\UploadTrait;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StoreLogoRequest;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\StoreTeamRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateLogoRequest;
 use App\Http\Requests\UpdateSaleRequest;
 use App\Http\Requests\UpdateTeamRequest;
@@ -32,12 +34,11 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Requests\StoreStructureRequest;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use App\Http\Requests\UpdateStructureRequest;
 use App\Contracts\Interfaces\StudentInterface;
-use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use App\Http\Requests\StoreWarning_LetterRequest;
 use App\Http\Requests\UpdateWarning_LetterRequest;
-use Illuminate\Support\Facades\Storage;
 
 class WarningLetterService
 {
@@ -75,8 +76,7 @@ class WarningLetterService
     public function store(StoreWarning_LetterRequest $request, WarningLetter $warningLetter,): array|bool
     {
         $data = $request->validated();
-        $student = $this->students->where('id', $data['student_id'])->first();
-        // dd($student);
+        $student = $this->students->sp($data['student_id']);
         $dataForPdf = [
             'name' => $student->name,
             'reference_number' => $request->reference_number,
@@ -100,6 +100,22 @@ class WarningLetterService
             'reason' => $request->reason,
             'date' => $request->date,
         ];
+
+        $datas = [
+            'nama' => $student->name,
+            'sp' => $request->status,
+            'alasan' => $request->reason,
+            'pdf' => $generatedPdfName,
+        ];
+        // dd(base64_encode($datas['pdf']));
+        $item['email'] = $student->email;
+        $item['title'] = 'Pemberian Surat Sp';
+
+        Mail::send(['html' => 'mail.SuratSp'], ['data' => $datas], function ($message) use ($item, $pdf) {
+            $message->to($item["email"])
+                ->subject($item["title"])
+                ->attachData($pdf->output(), "Surat_Sp.pdf");
+        });
 
         return $data;
     }

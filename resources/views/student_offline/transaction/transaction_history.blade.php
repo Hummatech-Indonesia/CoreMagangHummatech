@@ -71,7 +71,39 @@
                         </td>
 
                     </tr>
+                    <tr class="search-items">
+                        <td class="d-flex">
+                            <div class="ms-3">
+                                <div class="user-meta-info">
+                                    <h6 class="user-name mb-0" data-name="Emma Adams">Buku</h6>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="usr-email-addr">Rp.2.000.000</span>
+                        </td>
+                        <td>
+                            <span class="usr-email-addr">12</span>
+                        </td>
+                        <td>
+                            <span class="usr-email-addr">12 Maret 2024</span>
+                        </td>
+                        <td>
+                            <span class="usr-email-addr">Rp.2.000.000</span>
+                        </td>
+                        <td>
+                            <div class="action-btn">
+                                <a href="javascript:void(0)" class="text-info edit" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </td>
 
+                    </tr>
                 </tbody>
             </table>
         </div>

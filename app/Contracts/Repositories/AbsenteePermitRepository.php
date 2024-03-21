@@ -1,14 +1,16 @@
 <?php
 namespace App\Contracts\Repositories;
 
+use App\Contracts\Interfaces\AbsenteePermitInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Models\AbsenteePermit;
 use App\Models\Student;
 
-class AbsenteePermitRepository extends BaseRepository implements StudentInterface
+class AbsenteePermitRepository extends BaseRepository implements AbsenteePermitInterface
 {
-    public function __construct(Student $student)
+    public function __construct(AbsenteePermit $absenteePermit)
     {
-        $this->model = $student;
+        $this->model = $absenteePermit;
     }
 
     public function get(): mixed

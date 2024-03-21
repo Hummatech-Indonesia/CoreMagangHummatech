@@ -100,8 +100,20 @@
                             aria-expanded="false">
                             <div class="d-flex align-items-center">
                                 <div class="user-profile-img">
-                                    <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
-                                        class="rounded-circle" width="35" height="35" alt="" />
+                                    @if (auth()->user()->student && !empty(auth()->user()->student->avatar))
+                                    @php
+                                        $avatarPath = 'storage/' . auth()->user()->student->avatar;
+                                        $avatarExists = file_exists(public_path($avatarPath));
+                                    @endphp
+
+                                    @if ($avatarExists)
+                                        <img src="{{ asset($avatarPath) }}" class="rounded-circle" width="35" height="35" alt="" />
+                                    @else
+                                    <img src="{{ asset('user.webp') }}" class="rounded-circle" width="35" height="35" alt="" />
+                                    @endif
+                                @else
+                                <img src="{{ asset('user.webp') }}" class="rounded-circle" width="35" height="35" alt="" />
+                                @endif
                                 </div>
                             </div>
                         </a>
@@ -109,16 +121,29 @@
                             aria-labelledby="drop1">
                             <div class="profile-dropdown position-relative" data-simplebar>
                                 <div class="py-3 px-7 pb-0">
-                                    <h5 class="mb-0 fs-5 fw-semibold">{{ auth()->user()->student->name }}</h5>
+                                    <h5 class="mb-0 fs-5 fw-semibold">User Profile</h5>
                                 </div>
                                 <div class="d-flex align-items-center py-9 mx-7 border-bottom">
-                                    <img src="{{ asset('storage/' . auth()->user()->student->avatar) }}" class="rounded-circle"
-                                        width="80" height="80" alt="{{ auth()->user()->student->name }}" />
+                                    @if (auth()->user()->student && !empty(auth()->user()->student->avatar))
+                                    @php
+                                        $avatarPath = 'storage/' . auth()->user()->student->avatar;
+                                        $avatarExists = file_exists(public_path($avatarPath));
+                                    @endphp
+
+                                    @if ($avatarExists)
+                                    <img src="{{ asset($avatarPath) }}" class="rounded-circle"
+                                        width="80" height="80" alt="" />
+                                    @else
+                                    <img src="{{ asset('user.webp') }}" class="rounded-circle" width="80" height="80" alt="" />
+                                    @endif
+                                @else
+                                <img src="{{ asset('user.webp') }}" class="rounded-circle" width="80" height="80" alt="" />
+                                @endif
                                     <div class="ms-3">
-                                        <h5 class="mb-1 fs-3">{{ auth()->user()->student->name }}</h5>
-                                        <span class="mb-1 d-block text-dark">{{ auth()->user()->student->division->name }}</span>
+                                        <h5 class="mb-1 fs-3">Mathew Anderson</h5>
+                                        <span class="mb-1 d-block text-dark">Designer</span>
                                         <p class="mb-0 d-flex text-dark align-items-center gap-2">
-                                            <i class="ti ti-mail fs-4"></i> {{ auth()->user()->student->email }}
+                                            <i class="ti ti-mail fs-4"></i> info@modernize.com
                                         </p>
                                     </div>
                                 </div>
@@ -147,7 +172,6 @@
                                     </a>
                                 </div>
                                 <div class="d-grid py-4 px-7 pt-8">
-                                    @if(!auth()->user()->feature)
                                     <div
                                         class="upgrade-plan bg-light-primary position-relative overflow-hidden rounded-4 p-4 mb-9">
                                         <div class="row">
@@ -163,11 +187,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @endif
-
-                                    <a class="btn btn-outline-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <a class="btn btn-outline-primary" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
                                         <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
-                                        {{ __('Keluar') }}
+                                        {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"

@@ -49,3 +49,15 @@ Route::get('top-up', function() {
 Route::get('alumni', function() {
     return view('admin.page.user.alumni');
 });
+Route::get('person-in-charge', function() {
+    return view('admin.page.user.person-in-charge');
+});
+Route::get('person-in-charge/detail', function() {
+    return view('admin.page.user.person-in-charge-detail');
+});
+Route::get('students-rejected', function() {
+    return view('admin.page.user.students-rejected');
+});
+Route::get('students-banned', function() {
+    return view('admin.page.user.students-banned');
+});
