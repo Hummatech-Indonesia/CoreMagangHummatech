@@ -25,7 +25,6 @@
                                 <p class="m-1 text-muted">SMKN 1 TAMBAKBOYO</p>
                                 <div class="mt-1 d-flex  justify-content-start gap-1">
                                     <div class="w-50 m-0">
-                                        <p class="m-0 text-muted">Status</p>
                                         <span class="badge px-4 bg-info" style="font-size: 12px">Lulus</span>
                                     </div>
                                 </div>

@@ -49,3 +49,6 @@ Route::get('top-up', function() {
 Route::get('alumni', function() {
     return view('admin.page.user.alumni');
 });
+Route::get('person-in-charge', function() {
+    return view('admin.page.user.person-in-charge');
+});

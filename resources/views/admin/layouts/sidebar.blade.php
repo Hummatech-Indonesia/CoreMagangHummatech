@@ -87,7 +87,7 @@
                                 <a href="{{ url('/alumni') }}" class="nav-link" data-key="t-checkboxs-radios">Alumni</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-pickers">
+                                <a href="{{ url('/person-in-charge') }}" class="nav-link" data-key="t-pickers">
                                     Penanggung Jawab </a>
                             </li>
                             <li class="nav-item">
