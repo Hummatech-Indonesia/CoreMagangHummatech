@@ -1,16 +1,16 @@
 <?php
 namespace App\Contracts\Repositories;
 
-use App\Contracts\Interfaces\AbsenteePermitInterface;
 use App\Contracts\Interfaces\StudentInterface;
-use App\Models\AbsenteePermit;
+use App\Contracts\Interfaces\TaskInterface;
 use App\Models\Student;
+use App\Models\Task;
 
-class AbsenteePermitRepository extends BaseRepository implements AbsenteePermitInterface
+class TaskRepository extends BaseRepository implements TaskInterface
 {
-    public function __construct(AbsenteePermit $absenteePermit)
+    public function __construct(Task $task)
     {
-        $this->model = $absenteePermit;
+        $this->model = $task;
     }
 
     public function get(): mixed
