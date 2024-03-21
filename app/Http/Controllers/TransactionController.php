@@ -9,6 +9,7 @@ use App\Enum\TransactionStatusEnum;
 use App\Http\Requests\TripayCheckoutRequest;
 use App\Models\TransactionHistory;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -26,7 +27,7 @@ class TransactionController extends Controller
 
     public function index()
     {
-        $transactions = auth()->user()->transaction;
+        $transactions = auth()->user()->transaction()->latest()->paginate();
         return view('student_online_&_offline.transaction.index', compact('transactions'));
     }
 
@@ -46,6 +47,8 @@ class TransactionController extends Controller
                 ],
             ]);
 
+            $dueDate = Carbon::createFromTimestamp($response['data']['expired_time'])->setTimezone('Asia/Jakarta');
+
             $transactionHistory = $this->transactionHistory->store([
                 'transaction_id' => $response['data']['merchant_ref'],
                 'reference' => $response['data']['reference'],
@@ -54,14 +57,14 @@ class TransactionController extends Controller
                 'amount' => $totalAmount,
                 'checkout_url' => $response['data']['checkout_url'],
                 'issued_at' => now(),
-                'expired_at' => Carbon::createFromTimestamp($response['data']['expired_time'])->format('Y-m-d H:i:s'),
+                'expired_at' => $dueDate->format('Y-m-d H:i:s'),
                 'status' => TransactionStatusEnum::PENDING->value,
             ]);
 
-            return redirect()->route('transaction-history.detail', $transactionHistory->reference)
+            return redirect()->route('transaction-history.detail', $transactionHistory->transaction_id)
                 ->with('success', 'Metode pembayaran, berhasil diminta.');
         } catch (\Exception $e) {
-            return back()->with('error', $e);
+            return back()->with('error', $e->getMessage());
         }
     }
 

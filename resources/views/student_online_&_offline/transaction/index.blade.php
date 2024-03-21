@@ -26,10 +26,44 @@
     </div>
 </div>
 
-<div class="card">
-    <div class="card-header bg-white pt-4">
-        <h4 class="mb-0">Riwayat Transaksi</h4>
+<div class="card table-responsive">
+    <table class="table table-striped" aria-labelledby="title">
+        <thead>
+            <tr>
+                <th scope="col">ID Transaksi</th>
+                <th scope="col">Tanggal Terbit</th>
+                <th scope="col">Tenggat Waktu</th>
+                <th scope="col">Nominal</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse ($transactions as $transaction)
+            <tr>
+                <th>
+                    <a href="{{ route('transaction-history.detail', $transaction->transaction_id) }}">#{{ $transaction->transaction_id }}</a>
+                </th>
+                <td>{{ $transaction->issued_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}</td>
+                <td>{{ $transaction->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}</td>
+                <td>@currency($transaction->amount)</td>
+                <td>
+                    @php
+                        $status = strtoupper($transaction->status);
+                        $refs = App\Enum\TransactionStatusEnum::{$status};
+                    @endphp
+                    <span class="badge bg-{{ $refs->color() }}">{{ $refs->label() }}</span>
+                </td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="5" class="text-center">Tidak ada data</td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+    <div class="card-body d-flex gap-2 pt-3 justify-content-between">
+        <div class="m-0">Menampilkan {{ $transactions->firstItem() }} ke {{ $transactions->lastItem() }} dari {{ $transactions->total() }} daftar</div>
+        {!! $transactions->links() !!}
     </div>
-    <div class="card-body"></div>
 </div>
 @endsection

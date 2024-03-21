@@ -50,7 +50,8 @@
                     <div class="modal-body">
                         <div class="text-center mt-2 mb-4">
                             <a href="#" class="text-success">
-                                <span><img src="{{ asset('mobilelogo.png') }}" class="me-3" width="100"
+                                <span>
+                                    <img src="{{ asset('mobilelogo.png') }}" class="me-3" width="100"
                                         alt="" />
                                 </span>
                             </a>

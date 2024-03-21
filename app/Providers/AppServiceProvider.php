@@ -112,10 +112,10 @@ class AppServiceProvider extends ServiceProvider
 
         # Adding custom directive
         Blade::directive('fcurrency', function ($expression) {
-            return "<?php echo number_format($expression,0,',','.'); ?>";
+            return "<?php echo number_format($expression,2,',','.'); ?>";
         });
         Blade::directive('currency', function ($expression) {
-            return "Rp<?php echo number_format($expression,0,',','.'); ?>";
+            return "Rp<?php echo number_format($expression,2,',','.'); ?>";
         });
     }
 }
