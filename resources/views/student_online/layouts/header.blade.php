@@ -140,10 +140,10 @@
                                 <img src="{{ asset('user.webp') }}" class="rounded-circle" width="80" height="80" alt="" />
                                 @endif
                                     <div class="ms-3">
-                                        <h5 class="mb-1 fs-3">Mathew Anderson</h5>
-                                        <span class="mb-1 d-block text-dark">Designer</span>
+                                        <h5 class="mb-1 fs-3">{{ auth()->user()->student->name }}</h5>
+                                        <span class="mb-1 d-block text-dark">{{ auth()->user()->student->division->name }}</span>
                                         <p class="mb-0 d-flex text-dark align-items-center gap-2">
-                                            <i class="ti ti-mail fs-4"></i> info@modernize.com
+                                            <i class="ti ti-mail fs-4"></i> {{ auth()->user()->student->email }}
                                         </p>
                                     </div>
                                 </div>
