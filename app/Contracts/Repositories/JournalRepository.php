@@ -4,6 +4,7 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\JournalInterface;
 use App\Models\Journal;
+use Carbon\Carbon;
 
 class JournalRepository extends BaseRepository implements JournalInterface
 {
@@ -18,37 +19,31 @@ class JournalRepository extends BaseRepository implements JournalInterface
     }
 
     public function store(array $data): mixed
-{
-    $existingData = $this->model->query()
-        ->where('user_id', auth()->user()->id)
-        ->where('created_at', '>=', now()->startOfDay())
-        ->where('created_at', '<=', now()->endOfDay())
-        ->first();
+    {
+        $currentDate = Carbon::now()->locale('id_ID')->setTimezone('Asia/Jakarta')->isoFormat('HH:mm:ss');
+        if ($currentDate < '16:00:00' && $currentDate > '00:00:00') {
+            return redirect()->back()->with('error', 'Anda hanya dapat mengisi jurnal di jam 16.00 - 00.00');
+        } else {
+            $existingData = $this->model->query()
+                ->where('user_id', auth()->user()->id)
+                ->where('created_at', '>=', now()->startOfDay())
+                ->where('created_at', '<=', now()->endOfDay())
+                ->first();
 
-    if ($existingData) {
-        return redirect()->back()->with('error', 'Anda Telah Mengisi Jurnal Hari ini.');
+            if ($existingData) {
+                return redirect()->back()->with('error', 'Anda Telah Mengisi Jurnal Hari ini.');
+            }
+
+            if (now()->isWeekend()) {
+                return redirect()->back()->with('error', 'Hari ini adalah hari libur.');
+            }
+
+            $data['user_id'] = auth()->user()->id;
+            $data['status'] = 'fillin';
+            return $this->model->query()->create($data);
+        }
+        dd($currentDate);
     }
-
-    if (now()->isWeekend()) {
-        return redirect()->back()->with('error', 'Hari ini adalah hari libur.');
-    }
-
-    // $currentTime = now();
-    // $startTime = $currentTime->copy()->setHour(16)->setMinute(0)->setSecond(0);
-    // $endTime = $currentTime->copy()->setHour(23)->setMinute(59)->setSecond(59);
-
-    // if (!$currentTime->isBetween($startTime, $endTime) && $currentTime->format('H:i') < '16:00') {
-    //     return redirect()->back()->with('error', 'Pembuatan jurnal hanya diizinkan mulai pukul 16:00.');
-    // }
-
-    // if (!$currentTime->isBetween($startTime, $endTime) && $currentTime->format('H:i') > '23:59') {
-    //     return redirect()->back()->with('error', 'Pembuatan jurnal hanya diizinkan hingga pukul 23:59.');
-    // }
-
-    $data['user_id'] = auth()->user()->id;
-    $data['status'] = 'fillin';
-    return $this->model->query()->create($data);
-}
     public function update(mixed $id, array $data): mixed
     {
         $data['user_id'] = auth()->user()->id;
