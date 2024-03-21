@@ -87,18 +87,18 @@
                                 <a href="{{ url('/alumni') }}" class="nav-link" data-key="t-checkboxs-radios">Alumni</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-pickers">
+                                <a href="{{ url('/person-in-charge') }}" class="nav-link" data-key="t-pickers">
                                     Penanggung Jawab </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ url('/rfid') }}" class="nav-link" data-key="t-input-masks">RFID</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-advanced">Siswa
+                                <a href="{{ url('/students-rejected') }}" class="nav-link" data-key="t-advanced">Siswa
                                     Ditolak</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-range-slider"> Banned Siswa </a>
+                                <a href="{{ url('/students-banned') }}" class="nav-link" data-key="t-range-slider"> Banned Siswa </a>
                             </li>
 
                         </ul>

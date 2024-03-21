@@ -1,8 +1,8 @@
 @extends('admin.layouts.app')
 @section('content')
 
-<div class="col-sm-4 mt-2 mb-5">
-    <h4 class="mx-3">Approval Top Up</h4>
+<div class="col-sm-4 mt-2 mb-4">
+    <h4 class="mx-3">Data Siswa Dibanned</h4>
 </div>
 <div class="row">
     <div class="col-lg-12">
@@ -29,44 +29,27 @@
                     <table class="align-middle table table-nowrap table-bordered table-striped" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="sort" data-sort="number">
-                                    NO
-                                </th>
-                                <th>
-                                    Nama
-                                </th>
-                                <th>
-                                    Email
-                                </th>
-                                <th>
-                                    RFID
-                                </th>
-                                <th>
-                                    Sekolah
-                                </th>
-                                <th>
-                                    Saldo
-                                </th>
-                                <th>
-                                    Tanggal
-                                </th>
-                                <th class="text-center">
-                                    Aksi
-                                </th>
+                                <th scope="col">No</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Jurusan</th>
+                                <th scope="col">Kelas</th>
+                                <th scope="col">Masa Magang</th>
+                                <th scope="col">Sekolah</th>
+                                <th scope="col" class="text-center" style="width: 150px;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
+                                <td>01</td>
                                 <td>FARAH AMALIA</td>
-                                <td>farahamalia328@gmail.com</td>
-                                <td>536F4AK</td>
+                                <td>farah@gmail.com</td>
+                                <td>Rekayasa Perangkat Lunak</td>
+                                <td>11</td>
+                                <td>19 Maret 2024 - 19 Desember 2024</td>
                                 <td>SMKN 1 KEPANJEN</td>
-                                <td>Rp. 50,000</td>
-                                <td>19 Maret 2024</td>
                                 <td class="text-center">
-                                    <button class="btn btn-danger shadow-none">Tolak</button>
-                                    <button class="btn btn-success shadow-none">Terima</button>
+                                    <button class="btn btn-info shadow-none">Buka Banned</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -92,4 +75,5 @@
         </div>
     </div>
 </div>
+
 @endsection
