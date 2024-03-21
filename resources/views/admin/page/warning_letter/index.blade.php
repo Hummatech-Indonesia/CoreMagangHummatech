@@ -54,7 +54,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($warningLetters as $warningLetter)
+                                    @forelse ($warningLetters as $warningLetter)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $warningLetter->student->name }}</td>
@@ -65,22 +65,34 @@
                                             <td>{{ Str::limit($warningLetter->reason, 50) }}</td>
                                             <td>SP {{ $warningLetter->status }}</td>
                                             <td>
-                                                <a class="btn btn-light edit-item-btn"><i class="  ri-eye-line"></i></a>
+                                                <a class="btn btn-light edit-item-btn"
+                                                    href="/warning-letter/show/{{ $warningLetter->id }}"><i
+                                                        class="  ri-eye-line"></i></a>
                                                 <a class="btn btn-soft-warning edit-item-btn"><i
-                                                        class=" ri-printer-line"></i></a>
-                                                <a class="btn btn-soft-danger edit-item-btn"><i
-                                                        class="  bx bx-trash"></i></a>
+                                                        class=" ri-printer-line" onclick="printPDF('{{ asset('storage/warning_letter/' .$warningLetter->file) }}'); return false;"></i></a>
+                                                <button data-id="{{ $warningLetter->id }}"
+                                                    class="btn btn-delete btn-soft-danger edit-item-btn"><i
+                                                        class="bx bx-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="7">
+                                                <div class="d-flex justify-content-center mb-2 mt-5">
+                                                    <img src="{{ asset('no data.png') }}" alt="" width="300px"
+                                                        srcset="">
+                                                </div>
+                                                <h4 class="text-dark text-center">Tidak ada data</h4>
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
-                        </td>
-                        </tr>
-                        @endforeach
-                        </tbody>
-                        </table>
                     </div>
-                </div>
-            </div><!-- end card-body -->
+                </div><!-- end card-body -->
+            </div>
         </div>
-    </div>
     </div>
 
     <!-- Edit LImit -->
@@ -104,6 +116,11 @@
                                         <option value="{{ $student->id }}">{{ $student->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('student_id')
+                                    <p class="text-danger">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                             </div>
                             <div class="col-12 mt-3">
                                 <label for="" class="mt-2">Status Sp</label><br>
@@ -112,19 +129,39 @@
                                     <input name="status" type="radio" class="" value="2"> SP 2
                                     <input name="status" type="radio" class="" value="3"> SP 3
                                 </div>
+                                @error('status')
+                                    <p class="text-danger">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-12">
                             <label for="" class="mt-2">Tanggal Pembuatan</label>
                             <input name="date" type="date" class="form-control">
+                            @error('date')
+                                <p class="text-danger">
+                                    {{ $message }}
+                                </p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label for="" class="mt-2">Nomor Surat</label>
                             <input name="reference_number" type="number" class="form-control">
+                            @error('reference_number')
+                                <p class="text-danger">
+                                    {{ $message }}
+                                </p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label for="" class="mt-2">Alasan</label>
                             <textarea name="reason" type="text" class="form-control"></textarea>
+                            @error('reason')
+                                <p class="text-danger">
+                                    {{ $message }}
+                                </p>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -146,8 +183,19 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+
+        function printPDF(pdfUrl) {
+            var printWindow = window.open(pdfUrl, '_blank');
+            printWindow.addEventListener('load', function() {});
+        }
         $('.select2').select2({
             dropdownParent: $('#myModal')
+        });
+
+        $('.btn-delete').on('click', function() {
+            var id = $(this).data('id');
+            $('#form-delete').attr('action', '/warning-letter/delete/' + id);
+            $('#modal-delete').modal('show');
         });
     </script>
 @endsection

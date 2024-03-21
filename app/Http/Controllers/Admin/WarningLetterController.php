@@ -57,7 +57,8 @@ class WarningLetterController extends Controller
      */
     public function show(WarningLetter $WarningLetter)
     {
-        //
+        $WarningLetter = $this->warningLetters->show($WarningLetter->id);
+        return view('admin.page.warning_letter.show', compact('WarningLetter'));
     }
 
     /**
@@ -73,9 +74,7 @@ class WarningLetterController extends Controller
      */
     public function update(UpdateWarning_LetterRequest $request, WarningLetter $WarningLetter)
     {
-        $data = $this->service->update($WarningLetter, $request);
-        $this->warningLetters->update($WarningLetter->id, $data);
-        return back()->with('success' , 'Berhasi Memperbarui Data');
+        //
     }
 
     /**

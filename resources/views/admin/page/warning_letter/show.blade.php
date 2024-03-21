@@ -44,9 +44,9 @@
 <div class="">
     <div class="d-flex justify-content-between">
         <h5>
-            {{ $responsesletters->student->name }}
+            {{ $WarningLetter->student->name }}
         </h5>
-        <a href="/response-letter" class="btn btn-secondary">Kembali</a>
+        <a href="/warning-letter" class="btn btn-secondary">Kembali</a>
     </div>
 </div>
 <div class=" d-flex justify-content-center mt-5 mb-5">
@@ -55,7 +55,7 @@
                 <div id="carousel" class="carousel" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <canvas id="pdf-canvas" class="d-block w-100" data-file="{{ asset('storage/response_letter/' . $responsesletters->letter_file) }}"></canvas>
+                            <canvas id="pdf-canvas" class="d-block w-100" data-file="{{ asset('storage/warning_letter/' . $WarningLetter->file) }}"></canvas>
                             <div class="carousel-caption d-none d-md-block">
                                 <span>Page: <span id="page-num"></span> / <span id="page-count"></span></span>
                             </div>
