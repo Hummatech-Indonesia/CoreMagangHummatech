@@ -152,6 +152,51 @@
                         </ul>
                     </div>
                 </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#siswaOffline" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="siswaOffline">
+                        <i class="ri-user-line"></i> <span data-key="t-surat">Siswa Offline</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="siswaOffline">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link" data-key="t-chat">
+                                    Penempatan Divisi </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Tim</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Presentasi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">RFID</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#siswaOnline" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="siswaOnline">
+                        <i class="ri-user-line"></i> <span data-key="t-surat">Siswa Online</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="siswaOnline">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link" data-key="t-chat">
+                                    Penempatan Divisi </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Tim</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Presentasi</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
                 <li class="nav-item">
                 <li class="nav-item">
