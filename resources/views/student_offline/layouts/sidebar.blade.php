@@ -3,15 +3,15 @@
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="/siswa-offline" class="text-nowrap logo-img">
-                <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="250" alt="" />
-                <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="250" alt="" />
+                <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="180" alt="" />
+                <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="180" alt="" style="display: none;"/>
             </a>
             <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-                <i class="ti ti-x fs-8 text-muted"></i>
+                <i class="ti ti-x fs-8 text-muted text-primary"></i>
             </div>
         </div>
         <!-- Sidebar navigation-->
-        <nav class="sidebar-nav scroll-sidebar" data-simplebar>
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="init">
             <ul id="sidebarnav">
                 <!-- ============================= -->
                 <!-- Home -->
@@ -34,7 +34,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('/siswa-offline/journal') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-aperture"></i>
+                            <i class="ti ti-calendar"></i>
                         </span>
                         <span class="hide-menu">Jurnal</span>
                     </a>
@@ -42,7 +42,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('/siswa-offline/absensi') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-aperture"></i>
+                            <i class="ti ti-presentation-analytics"></i>
                         </span>
                         <span class="hide-menu">Absensi</span>
                     </a>
@@ -50,10 +50,38 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('/siswa-offline/course') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-aperture"></i>
+                            <i class="ti ti-backpack"></i>
                         </span>
                         <span class="hide-menu">Materi</span>
                     </a>
+                </li>
+
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow" href="#">
+                        <span class="d-flex">
+                            <i class="ti ti-credit-card"></i>
+                        </span>
+                        <span class="hide-menu">Transaksi</span>
+                    </a>
+                    <ul class="collapse first-level">
+                        <li class="sidebar-item">
+                            <a href="{{ url('siswa-offline/transaction/topUp') }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">History Top Up</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ url('siswa-offline/transaction/history') }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">History Transaksi</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
             </ul>
