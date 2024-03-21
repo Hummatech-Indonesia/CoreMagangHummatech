@@ -44,6 +44,8 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     // Warning letter
     Route::get('warning-letter', [WarningLetterController::class, 'index'])->name('warning-letter.index');
     Route::post('warning-letter/store', [WarningLetterController::class, 'store'])->name('warning-letter.store');
+    Route::get('warning-letter/show/{WarningLetter}', [WarningLetterController::class, 'show'])->name('warning-letter.show');
+    Route::delete('warning-letter/delete/{WarningLetter}', [WarningLetterController::class, 'destroy'])->name('warning-letter.delete');
 
     // Response letter
     Route::get('response-letter', [ResponseLetterController::class, 'index'])->name('response-letter.index');

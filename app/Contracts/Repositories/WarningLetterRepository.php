@@ -24,9 +24,9 @@ class WarningLetterRepository extends BaseRepository implements WarningLetterInt
     {
         return $this->model->query()->create($data);
     }
-    public function update(mixed $id, array $data): mixed
+    public function show(mixed $id): mixed
     {
-        return $this->model->query()->findOrFail($id)->update($data);
+        return $this->model->query()->findOrFail($id);
     }
     public function delete(mixed $id): mixed
     {

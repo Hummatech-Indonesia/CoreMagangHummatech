@@ -251,11 +251,8 @@
         </div>
     </div>
 
-
-
-
-
     @include('admin.components.delete-modal-component')
+
 @endsection
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
