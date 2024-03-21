@@ -47,8 +47,6 @@ class TransactionController extends Controller
                 ],
             ]);
 
-            dd($response);
-
             $dueDate = Carbon::createFromTimestamp($response['data']['expired_time'])->setTimezone('Asia/Jakarta');
 
             $transactionHistory = $this->transactionHistory->store([
