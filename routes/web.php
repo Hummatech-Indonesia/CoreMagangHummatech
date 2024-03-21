@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\ApprovalController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
+use App\Http\Controllers\LimitsController;
 use App\Http\Controllers\MentorController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
@@ -68,6 +69,10 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('menu-siswa/update/{student}', [AdminStudentController::class, 'update']);
     Route::get('menu-siswa/face/{student}', [AdminStudentController::class, 'face'])->name('student.show');
     Route::delete('menu-siswa/delete/{student}', [AdminStudentController::class, 'destroy'])->name('student.delete');
+
+    //Limit
+    Route::post('limit', [LimitsController::class, 'store'])->name('limit.store');
+    Route::put('limit/update/{limits}', [LimitsController::class, 'update'])->name('limit.update');
 
 
 });

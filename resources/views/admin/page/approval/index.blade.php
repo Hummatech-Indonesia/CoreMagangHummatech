@@ -35,7 +35,7 @@
                         <p class="m-0">entries</p>
                     </div>
                     <div>
-                        <span class="btn bg-secondary-subtle text-secondary">Limit saat ini 70</span>
+                        <span class="btn bg-secondary-subtle text-secondary">Limit saat ini : {{ $limits->limits }}</span>
                     </div>
                 </div><!-- end card header -->
 
@@ -63,50 +63,50 @@
                                 </thead>
                                 <tbody>
                                     @forelse ($students as $student)
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="cardtableCheck01">
-                                                <label class="form-check-label" for="cardtableCheck01"></label>
-                                            </div>
-                                        </td>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $student->name }}</td>
-                                        <td>{{ $student->major }}</td>
-                                        <td>{{ $student->class }}</td>
-                                        <td style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
-                                            {{ \carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}
-                                        </td>
-                                        <td>{{ $student->school }}</td>
-                                        <td>
-                                            <button type="button" data-id="{{ $student->id }}"
-                                                data-name="{{ $student->name }}" data-phone="{{ $student->phone }}"
-                                                data-address="{{ $student->address }}"
-                                                data-birthdate="{{ $student->birth_date }}"
-                                                data-birthplace="{{ $student->birth_place }}"
-                                                data-startdate="{{ $student->start_date }}"
-                                                data-finishdate="{{ $student->finish_date }}"
-                                                data-school="{{ $student->school }}"
-                                                data-avatar="{{ $student->avatar }}" data-cv="{{ $student->cv }}"
-                                                data-selfstatement="{{ $student->self_statement }}"
-                                                data-parentsstatement="{{ $student->parents_statement }}"
-                                                class="btn bg-secondary-subtle text-secondary btn-detail">
-                                                <i class="ri-eye-fill"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        id="cardtableCheck01">
+                                                    <label class="form-check-label" for="cardtableCheck01"></label>
+                                                </div>
+                                            </td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $student->name }}</td>
+                                            <td>{{ $student->major }}</td>
+                                            <td>{{ $student->class }}</td>
+                                            <td style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
+                                                {{ \carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}
+                                            </td>
+                                            <td>{{ $student->school }}</td>
+                                            <td>
+                                                <button type="button" data-id="{{ $student->id }}"
+                                                    data-name="{{ $student->name }}" data-phone="{{ $student->phone }}"
+                                                    data-address="{{ $student->address }}"
+                                                    data-birthdate="{{ $student->birth_date }}"
+                                                    data-birthplace="{{ $student->birth_place }}"
+                                                    data-startdate="{{ $student->start_date }}"
+                                                    data-finishdate="{{ $student->finish_date }}"
+                                                    data-school="{{ $student->school }}"
+                                                    data-avatar="{{ $student->avatar }}" data-cv="{{ $student->cv }}"
+                                                    data-selfstatement="{{ $student->self_statement }}"
+                                                    data-parentsstatement="{{ $student->parents_statement }}"
+                                                    class="btn bg-secondary-subtle text-secondary btn-detail">
+                                                    <i class="ri-eye-fill"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
                                     @empty
-                                    <tr>
-                                        <td colspan="8">
-                                            <div class="d-flex justify-content-center mt-3">
-                                                <img src="{{ asset('no data.png') }}" width="200px" alt="">
-                                            </div>
-                                            <h4 class="text-center mt-2 mb-4">
-                                                Data Masih kosong
-                                            </h4>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="8">
+                                                <div class="d-flex justify-content-center mt-3">
+                                                    <img src="{{ asset('no data.png') }}" width="200px" alt="">
+                                                </div>
+                                                <h4 class="text-center mt-2 mb-4">
+                                                    Data Masih kosong
+                                                </h4>
+                                            </td>
+                                        </tr>
                                     @endforelse
                                 </tbody>
                             </table>
@@ -214,15 +214,33 @@
                     <h5 class="modal-title" id="myModalLabel">Edit Limit</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                 </div>
-                <div class="modal-body">
-                    <label for="">Limit</label>
-                    <input type="number" class="form-control" name="limit" id="">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary ">Save Changes</button>
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                </div>
-
+                @if ($limits)
+                    <form action="limit/update/{{ $limits->id }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <label for="">Limit</label>
+                            <input type="number" class="form-control" value="{{ $limits->limits }}" name="limits"
+                                id="">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary ">Save Changes</button>
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                @else
+                    <form action="/limit" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <label for="">Limit</label>
+                            <input type="number" class="form-control" name="limits" id="">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary ">Save Changes</button>
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                @endif
             </div>
         </div>
     </div>
@@ -252,7 +270,6 @@
     </div>
 
     @include('admin.components.delete-modal-component')
-
 @endsection
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
