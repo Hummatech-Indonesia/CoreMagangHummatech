@@ -154,7 +154,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="d-grid">
-                                            <button class="btn btn-primary">Periksa</button>
+                                            <button class="btn btn-primary">Terapkan</button>
                                         </div>
                                     </div>
                                     <div class="col-md-12 mt-2 d-none d-md-none d-lg-inline">
@@ -169,6 +169,9 @@
                     <form method="POST" action="{{ url('transaction/tripay') }}" class="card-body pt-0">
                         @csrf
 
+                        @if($voucherDetail)
+                        <input type="hidden" name="voucher_code" value="{{ $voucherDetail->code_voucher }}" />
+                        @endif
                         <input type="hidden" name="product_id" value="{{ $productDetail->id }}" id="product_id" />
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}" id="user_id" />
                         <input type="hidden" name="amount"
@@ -192,18 +195,23 @@
                             <div class="fw-bolder mb-3 pb-3 border-bottom d-flex justify-content-between">
                                 <span>Subtotal:</span>
                                 <span id="subtotal-show" class="fw-bolder text-muted">
+                                    @if ($voucherDetail)
                                     <s>@currency($productDetail->price)</s>
+                                    @else
+                                    <span>@currency($productDetail->price)</span>
+                                    @endif
                                 </span>
                             </div>
                             @if($voucherDetail)
                             <div class="fw-bolder mb-3 pb-3 border-bottom d-flex justify-content-between">
                                 <span>Potongan Voucher:</span>
-                                <span id="subtotal-show" class="fw-bolder text-primary">@currency(\App\Helpers\TransactionHelper::discount($productDetail->price, $voucherDetail ? $voucherDetail->presentase : 0))</span>
+                                <span id="voucher-show" class="fw-bolder text-primary">&minus;@currency(\App\Helpers\TransactionHelper::discount($productDetail->price, $voucherDetail ? $voucherDetail->presentase : 0))</span>
                             </div>
                             @endif
+                            <div id="additional-fee"></div>
                             <div class="fw-bolder d-flex justify-content-between">
                                 <span>Total:</span>
-                                <span id="subtotal-show" class="fw-bolder text-primary">@currency(\App\Helpers\TransactionHelper::discountSubtotal($productDetail->price, $voucherDetail ? $voucherDetail->presentase : 0))</span>
+                                <span id="total-show" class="fw-bolder text-primary">@currency(\App\Helpers\TransactionHelper::discountSubtotal($productDetail->price, $voucherDetail ? $voucherDetail->presentase : 0))</span>
                             </div>
                         </div>
 
@@ -241,6 +249,7 @@
                         @foreach ($paymentChannel['data'] as $channel)
                             <div class="col-md-4 mb-3">
                                 <a href="javascript:choosePayment('{{ $channel['code'] }}')"
+                                    data-fee="{{ $channel['fee_customer']['flat'] }}"
                                     data-id="payment-{{ $channel['code'] }}" data-name="{{ $channel['name'] }}"
                                     class="card-payment card d-flex align-items-center justify-content-center card-body h-100">
                                     <img src="{{ $channel['icon_url'] }}" alt="{{ $channel['name'] }}" class="w-100"
@@ -264,6 +273,8 @@
             $(`#${target}`).modal('show');
         };
 
+        const intToIdr = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
+
         const choosePayment = (target) => {
             $('.card-payment').each((a, b) => $(b).removeClass('card-active shadow-none'));
             $(`.card-payment[data-id="payment-${target}"]`).addClass('card-active shadow-none');
@@ -278,7 +289,21 @@
             }
 
             const paymentName = activeElement.data('name');
+            const feeAmount = parseInt(activeElement.data('fee') ?? 0);
+            const subtotal = parseInt($('#subtotal').val() ?? 0);
 
+            const countTotal = feeAmount + subtotal;
+
+            // Show the additional fee
+            $('#additional-fee').html(`
+                <div class="fw-bolder pb-3 mb-3 border-bottom d-flex justify-content-between">
+                    <span>Biaya Penanganan:</span>
+                    <span id="subtotal-show" class="fw-bolder text-primary">${intToIdr(feeAmount)}</span>
+                </div>
+            `);
+            $('#total-show').text(intToIdr(countTotal));
+
+            // Replace The Input Values
             $('#payment-code').val(activeElement.data('id').replace('payment-', ''));
             $('#payment-name').val(paymentName);
             $('#payment-show').text(`${paymentName} (Ganti)`);

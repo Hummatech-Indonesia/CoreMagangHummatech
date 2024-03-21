@@ -34,19 +34,38 @@
     <div class="card-header pt-4 bg-white d-flex justify-content-between">
         @php
             $status = strtoupper($reference->status);
+            $refs = App\Enum\TransactionStatusEnum::{$status};
         @endphp
-        <h3 class="mb-0">Status Pembayaran: <strong class="text-{{ App\Enum\TransactionStatusEnum::{$status}->color() }}">{{ App\Enum\TransactionStatusEnum::{$status}->label() }}</strong></h3>
-        <a href="{{ route('transaction-history.detail', $reference->reference) }}" class="btn btn-primary d-flex align-items-center gap-2">
-            <i class="fas fa-sync"></i>
-            <span>Periksa</span>
-        </a>
+        <h3 class="mb-0">Status Pembayaran: <strong class="text-{{ $refs->color() }}">{{ $refs->label() }}</strong></h3>
+
+        <div class="d-flex gap-2 align-items-center">
+            <a href="{{ route('transaction-history.index') }}" class="btn btn-light d-flex align-items-center gap-2"><i class="fas fa-arrow-left"></i><span>Kembali</span></a>
+            <a href="{{ route('transaction-history.detail', $reference->reference) }}" class="btn btn-primary d-flex align-items-center gap-2">
+                <i class="fas fa-sync"></i>
+                <span>Periksa</span>
+            </a>
+        </div>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-7">
                 <h5>Detail Transaksi</h5>
 
-                <div class="p-3 border rounded mt-3">
+                @if(\Carbon\Carbon::now()->diffInHours($reference->expired_at) <= 0 && $reference->status !== App\Enum\TransactionStatusEnum::PAID->value)
+                <div class="alert alert-danger" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Pembayaran tidak dapat dilakukan, karena sudah kadaluarsa.</strong>
+                </div>
+                @elseif(\Carbon\Carbon::now()->diffInHours($reference->expired_at) <= 0 && $reference->status !== App\Enum\TransactionStatusEnum::PAID->value)
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Segera dibayarkan, karena sudah mendekati tenggat Waktu.</strong>
+                </div>
+                @endif
+
+                {{-- @dd($latestTransaction) --}}
+
+                <div class="p-4 border rounded mt-3">
                     <div class="d-flex justify-content-between pb-3 mb-3 border-bottom">
                         <p class="mb-0">ID Tagihan</p>
                         <p class="mb-0"><span class="fw-bolder">#{{ $reference->transaction_id }}</span></p>
@@ -68,20 +87,27 @@
                         <p class="mb-0"><span class="fw-bolder">@currency($reference->product->price > $reference->amount ? $reference->product->price - $reference->amount : 0)</span></p>
                     </div>
                     <div class="d-flex justify-content-between pb-3 mb-3 border-bottom">
+                        <p class="mb-0">Biaya Penanganan</p>
+                        <p class="mb-0"><span class="fw-bolder">@currency((int) $paymentDetail['data']['total_fee'])</span></p>
+                    </div>
+                    <div class="d-flex justify-content-between pb-3 mb-3 border-bottom">
                         <p class="mb-0">Total Pembayaran</p>
-                        <p class="mb-0"><span class="fw-bolder">@currency($reference->amount)</span></p>
+                        <p class="mb-0"><span class="fw-bolder">@currency($reference->amount + (int) $paymentDetail['data']['total_fee'])</span></p>
                     </div>
                     <div class="d-flex justify-content-between">
                         <p class="mb-0">Kadaluarsa Pada</p>
-                        <p class="mb-0 d-flex gap-2 flex-column">
-                            <span class="fw-bolder">{{ $reference->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm') }}</span>
-                            @if(\Carbon\Carbon::now()->diffInHours($reference->expired_at) <= 2)
+                        <p class="mb-0 d-flex gap-2 flex-column align-items-end">
+                            <span class="fw-bolder">{{ $reference->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}</span>
+                            @if(\Carbon\Carbon::now()->diffInHours($reference->expired_at) <= 0 && $reference->status !== App\Enum\TransactionStatusEnum::PAID->value)
+                            <span class="text-danger"><i class="fas fa-exclamation-triangle me-2"></i>Pembayaran tidak dapat dilakukan, karena sudah kadaluarsa.</span>
+                            @elseif(\Carbon\Carbon::now()->diffInHours($reference->expired_at) <= 0 && $reference->status !== App\Enum\TransactionStatusEnum::PAID->value)
                             <span class="text-warning"><i class="fas fa-exclamation-triangle me-2"></i>Segera dibayarkan, karena sudah mendekati tenggat waktu.</span>
                             @endif
                         </p>
                     </div>
                 </div>
 
+                @if($paymentDetail['data']['pay_code'] && \Carbon\Carbon::now()->diffInHours($reference->expired_at) >= 0 && $reference->status !== App\Enum\TransactionStatusEnum::PAID->value)
                 <div class="d-flex mt-4 justify-content-between align-items-center">
                     <div class="d-flex gap-2 flex-column">
                         <span class="fw-bolder">Kode Pembayaran</span>
@@ -92,6 +118,12 @@
                         <button onclick="copyContent()" class="btn btn-primary d-flex gap-2 align-items-center"><i class="fas fa-copy"></i><span>Salin Kode</span></button>
                     </div>
                 </div>
+                @elseif(isset($paymentDetail['data']['qr_url']) && \Carbon\Carbon::now()->diffInHours($reference->expired_at) >= 0 && $reference->status !== App\Enum\TransactionStatusEnum::PAID->value)
+                <div class="d-flex flex-column gap-2 align-items-center justify-content-center mt-4">
+                    <strong>Scan Kode QR</strong>
+                    <img src="{{ $paymentDetail['data']['qr_url'] }}" alt="QR Code" height="200px" width="200px" />
+                </div>
+                @endif
             </div>
             <div class="col-md-5">
                 <h5>Instruksi Pembayaran</h5>

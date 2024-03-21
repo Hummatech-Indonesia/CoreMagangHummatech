@@ -154,10 +154,10 @@
                                 <img src="{{ asset('user.webp') }}" class="rounded-circle" width="80" height="80" alt="" />
                                 @endif
                                     <div class="ms-3">
-                                        <h5 class="mb-1 fs-3">Mathew Anderson</h5>
-                                        <span class="mb-1 d-block text-dark">Designer</span>
+                                        <h5 class="mb-1 fs-3">{{ auth()->user()->student->name }}</h5>
+                                        <span class="mb-1 d-block text-dark">{{ auth()->user()->student->division->name }}</span>
                                         <p class="mb-0 d-flex text-dark align-items-center gap-2">
-                                            <i class="ti ti-mail fs-4"></i> info@modernize.com
+                                            <i class="ti ti-mail fs-4"></i> {{ auth()->user()->student->email }}
                                         </p>
                                     </div>
                                 </div>
@@ -186,6 +186,7 @@
                                     </a>
                                 </div>
                                 <div class="d-grid py-4 px-7 pt-8">
+                                    @if(!auth()->user()->feature)
                                     <div
                                         class="upgrade-plan bg-light-primary position-relative overflow-hidden rounded-4 p-4 mb-9">
                                         <div class="row">
@@ -195,15 +196,15 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="m-n4">
-                                                    <img src="assets-user/dist/images/backgrounds/unlimited-bg.png"
-                                                        alt="" class="w-100">
+                                                    <img src="{{ asset('assets-user/dist/images/backgrounds/unlimited-bg.png') }}"
+                                                        alt="Unlimited Access" class="w-100" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                     <a class="btn btn-outline-primary" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
                                         {{ __('Logout') }}
                                     </a>

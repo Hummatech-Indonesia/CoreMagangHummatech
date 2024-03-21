@@ -15,7 +15,7 @@ enum TransactionStatusEnum: string
     public function label(): string
     {
         return match ($this) {
-            TransactionStatusEnum::PENDING => 'Menunggu Pembayaran',
+            TransactionStatusEnum::PENDING => 'Belum Dibayar',
             TransactionStatusEnum::PAID => 'Lunas',
             TransactionStatusEnum::CANCELLED => 'Batal',
             TransactionStatusEnum::EXPIRED => 'Kadaluarsa',

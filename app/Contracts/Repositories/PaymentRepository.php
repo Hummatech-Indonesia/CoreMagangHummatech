@@ -3,13 +3,10 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\PaymentInterface;
-use App\Contracts\Interfaces\Transaction\TransactionInterface;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Enum\TransactionStatusEnum;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class PaymentRepository extends BaseRepository implements PaymentInterface
@@ -34,7 +31,10 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
         $response = Http::withHeaders([
             'Authorization' => "Bearer {$this->apiKey}",
         ])
-            ->withOptions(["verify" => false])
+            ->withOptions([
+                "verify" => false,
+                "timeout" => 60, // Timeout set to 60 seconds
+            ])
             ->get("https://tripay.co.id/{$this->mode}/transaction/detail", [
                 'reference' => $id
             ]);
@@ -47,7 +47,10 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
         $response = Http::withHeaders([
             'Authorization' => "Bearer {$this->apiKey}",
         ])
-            ->withOptions(["verify" => false])
+            ->withOptions([
+                "verify" => false,
+                "timeout" => 60, // Timeout set to 60 seconds
+            ])
             ->get("https://tripay.co.id/{$this->mode}/merchant/payment-channel");
 
         return $response->json();
@@ -79,7 +82,10 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
         $response = Http::withHeaders([
             'Authorization' => "Bearer {$apiKey}",
         ])
-            ->withOptions(["verify" => false])
+            ->withOptions([
+                "verify" => false,
+                "timeout" => 60, // Timeout set to 60 seconds
+            ])
             ->post("https://tripay.co.id/{$this->mode}/transaction/create", $data);
 
         return $response->json();
@@ -137,7 +143,7 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
                 'paid_at' => $status === TransactionStatusEnum::PAID->value ? now() : null,
             ]);
 
-            if($status === TransactionStatusEnum::PAID->value) {
+            if ($status === TransactionStatusEnum::PAID->value) {
                 User::where('id', $invoice->user_id)->update(['feature' => true]);
             } else {
                 User::where('id', $invoice->user_id)->update(['feature' => false]);

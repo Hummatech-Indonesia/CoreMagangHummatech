@@ -1,5 +1,9 @@
 <aside class="left-sidebar">
-
+    <style>
+        .myElement {
+            background: linear-gradient(to right, rgba(200, 200, 200, 0.5), #ffffff);
+        }
+    </style>
     <!-- Sidebar scroll-->
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
@@ -14,6 +18,38 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar>
             <ul id="sidebarnav">
+                <li class="nav-item mb-0 mt-2">
+                    <a href="/dashboard/task">
+                        <div class="myElement py-2 px-3 rounded">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex  gap-2">
+                                    <div class="">
+                                        <svg width="35" height="35" viewBox="0 0 37 37" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="18.5" cy="18.5" r="18.5" fill="#5D87FF" />
+                                            <path
+                                                d="M10 11H28M11 11V21C11 21.5304 11.2107 22.0391 11.5858 22.4142C11.9609 22.7893 12.4696 23 13 23H25C25.5304 23 26.0391 22.7893 26.4142 22.4142C26.7893 22.0391 27 21.5304 27 21V11M19 23V27M16 27H22M15 19L18 16L20 18L23 15"
+                                                stroke="white" stroke-width="1.7" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+
+                                        </svg>
+                                    </div>
+                                    <div class="mt-2">
+                                        Presentasi
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 12H19M19 12L15 16M19 12L15 8" stroke="#2A3547" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
                 <!-- ============================= -->
                 <!-- Home -->
                 <!-- ============================= -->
@@ -43,15 +79,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal" href="javascript:void(0)" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-box"></i>
-                            </span>
-                            <span class="hide-menu">Kelas Divisi <i class="fas fa-lock opacity-50 ms-2"></i></span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal" href="javascript:void(0)" aria-expanded="false">
+                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
+                            href="javascript:void(0)" aria-expanded="false">
                             <span>
                                 <i class="ti ti-book"></i>
                             </span>
@@ -59,7 +88,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal" href="javascript:void(0)" aria-expanded="false">
+                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
+                            href="javascript:void(0)" aria-expanded="false">
                             <span>
                                 <i class="ti ti-pencil"></i>
                             </span>
@@ -67,7 +97,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal" href="javascript:void(0)" aria-expanded="false">
+                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
+                            href="javascript:void(0)" aria-expanded="false">
                             <span>
                                 <i class="ti ti-clock"></i>
                             </span>
@@ -75,7 +106,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal" href="javascript:void(0)" aria-expanded="false">
+                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
+                            href="javascript:void(0)" aria-expanded="false">
                             <span>
                                 <i class="ti ti-medal"></i>
                             </span>
@@ -89,14 +121,6 @@
                                 <i class="ti ti-check"></i>
                             </span>
                             <span class="hide-menu">Jurnal</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="/siswa-online/division" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-box"></i>
-                            </span>
-                            <span class="hide-menu">Kelas Divisi</span>
                         </a>
                     </li>
                     <li class="sidebar-item">

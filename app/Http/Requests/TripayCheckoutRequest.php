@@ -26,7 +26,8 @@ class TripayCheckoutRequest extends FormRequest
             'payment_code' => 'required',
             'payment_name' => 'required',
             'product_id' => 'required|exists:products,id',
-            'user_id' => 'required|exists:users,id'
+            'user_id' => 'required|exists:users,id',
+            'voucher_code' => 'nullable|exists:vouchers,code_voucher',
         ];
     }
 
