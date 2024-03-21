@@ -47,6 +47,8 @@ class TransactionController extends Controller
                 ],
             ]);
 
+            dd($response);
+
             $dueDate = Carbon::createFromTimestamp($response['data']['expired_time'])->setTimezone('Asia/Jakarta');
 
             $transactionHistory = $this->transactionHistory->store([
@@ -64,6 +66,7 @@ class TransactionController extends Controller
             return redirect()->route('transaction-history.detail', $transactionHistory->transaction_id)
                 ->with('success', 'Metode pembayaran, berhasil diminta.');
         } catch (\Exception $e) {
+            dd($e->getMessage());
             return back()->with('error', $e->getMessage());
         }
     }

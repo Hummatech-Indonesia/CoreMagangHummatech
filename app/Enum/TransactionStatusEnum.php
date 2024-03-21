@@ -31,7 +31,7 @@ enum TransactionStatusEnum: string
             TransactionStatusEnum::PENDING => 'warning',
             TransactionStatusEnum::PAID => 'success',
             TransactionStatusEnum::CANCELLED => 'danger',
-            TransactionStatusEnum::EXPIRED => 'secondary',
+            TransactionStatusEnum::EXPIRED => 'danger',
             TransactionStatusEnum::FAILED => 'danger',
             TransactionStatusEnum::REFUND => 'info',
             TransactionStatusEnum::UNPAID => 'warning',
