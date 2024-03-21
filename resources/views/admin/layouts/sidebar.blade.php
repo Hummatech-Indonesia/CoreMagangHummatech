@@ -113,11 +113,11 @@
                     <div class="collapse menu-dropdown" id="siswaOffline">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ url('division-placement') }}" class="nav-link" data-key="t-chat">
+                                <a href="{{ url('/offline-students/division-placement') }}" class="nav-link" data-key="t-chat">
                                     Penempatan Divisi </a>
                             </li>
                             <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Tim</a>
+                                <a href="{{ url('/offline-students/team') }}" class="nav-link" data-key="t-api-key">Tim</a>
                             </li>
                             <li class="nav-item">
                                 <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Presentasi</a>
