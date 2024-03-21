@@ -7,4 +7,6 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 use App\Contracts\Interfaces\Eloquent\WhereInterface;
 
 interface LimitInterface extends StoreInterface , UpdateInterface
-{}
+{
+    public function first():mixed;
+}

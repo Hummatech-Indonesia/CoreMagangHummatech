@@ -5,11 +5,11 @@ namespace App\Contracts\Repositories;
 use App\Contracts\Interfaces\AttendanceDetailInterface;
 use App\Contracts\Interfaces\LimitInterface;
 use App\Models\AttendanceDetail;
-use Illuminate\Cache\RateLimiting\Limit;
+use App\Models\Limits;
 
 class LimitRepository extends BaseRepository implements LimitInterface
 {
-    public function __construct(Limit $limit)
+    public function __construct(Limits $limit)
     {
         $this->model = $limit;
     }
@@ -22,5 +22,10 @@ class LimitRepository extends BaseRepository implements LimitInterface
     public function update(mixed $id, array $data): mixed
     {
         return $this->model->query()->findOrFail($id)->update($data);
+    }
+
+    public function first(): mixed
+    {
+        return $this->model->query()->first();
     }
 }
