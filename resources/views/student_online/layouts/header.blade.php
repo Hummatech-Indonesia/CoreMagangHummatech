@@ -6,7 +6,21 @@
                     <i class="ti ti-menu-2"></i>
                 </a>
             </li>
+            <li class="nav-item d-none d-lg-block">
+                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="nav-link nav-icon-hover">
+                    <i class="ti ti-search"></i>
+                </a>
+            </li>
         </ul>
+        <div class="d-block d-lg-none">
+            <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="180" alt="" />
+            <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="180" style="display: none;" alt="" />
+        </div>
+        <button class="navbar-toggler p-0 border-0 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="p-2">
+                <i class="ti ti-dots fs-7"></i>
+            </span>
+        </button>
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <div class="d-flex align-items-center justify-content-between">
