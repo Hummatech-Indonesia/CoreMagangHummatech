@@ -32,11 +32,11 @@
 
 <div class="card">
     <div class="card-header pt-4 bg-white d-flex justify-content-between">
-        @php
+        {{-- @php
             $status = strtoupper($reference->status);
             $refs = App\Enum\TransactionStatusEnum::{$status};
         @endphp
-        <h3 class="mb-0">Status Pembayaran: <strong class="text-{{ $refs->color() }}">{{ $refs->label() }}</strong></h3>
+        <h3 class="mb-0">Status Pembayaran: <strong class="text-{{ $refs->color() }}">{{ $refs->label() }}</strong></h3> --}}
 
         <div class="d-flex gap-2 align-items-center">
             <a href="{{ route('transaction-history.index') }}" class="btn btn-light d-flex align-items-center gap-2"><i class="fas fa-arrow-left"></i><span>Kembali</span></a>
