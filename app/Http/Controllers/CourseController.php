@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\CourseInterface;
+use App\Contracts\Interfaces\DivisionInterface;
 use App\Contracts\Interfaces\SubCourseInterface;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
@@ -14,8 +15,10 @@ class CourseController extends Controller
     private CourseInterface $course;
     private SubCourseInterface $subCourse;
     private CourseService $service;
-    public function __construct(CourseInterface $course , CourseService $service , SubCourseInterface $subCourse)
+    private DivisionInterface $division;
+    public function __construct(CourseInterface $course , CourseService $service , SubCourseInterface $subCourse, DivisionInterface $division)
     {
+        $this->division = $division;
         $this->course = $course;
         $this->service = $service;
         $this->subCourse = $subCourse;
@@ -26,7 +29,9 @@ class CourseController extends Controller
     public function index()
     {
         $courses = $this->course->get();
-        return view('mentor.challenge.index' , compact('courses'));
+        $divisions = $this->division->get();
+
+        return view('admin.page.course.index' , compact('courses','divisions'));
     }
 
     /**

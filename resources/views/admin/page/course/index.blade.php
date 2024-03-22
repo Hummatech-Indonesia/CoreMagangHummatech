@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
 
-
 <div class="card">
     <div class="card-body">
         <div class="row g-2 align-items-center">
@@ -64,24 +63,25 @@
 <div class="tab-content">
     <div id="all" class="tab-pane fade show active">
         <div class="row row-cols-xxl-4 row-cols-lg-3 row-cols-md-2">
+            @forelse ($courses as $course)
             <div class="col-xl-3">
                 <div class="card ribbon-box border shadow-none mb-lg-0">
                     <div class="card-body">
-                        <span class="ribbon-three ribbon-three-primary material-shadow"><span>Rp. 20.000</span></span>
-                        <img class="card-img-top img-responsive w-100" src="{{ asset('assets/images/materi-1.png') }}" style="object-fit: cover;" width="20em" height="170em" alt="Card image cap" />
+                        <span class="ribbon-three {{ $course->price == null ? 'ribbon-three-success' : 'ribbon-three-secondary' }}  material-shadow"><span>{{ $course->price == null ? 'Gratis' : 'Rp.'. number_format($course->price, 0, ',', '.') }}</span></span>
+                        <img class="card-img-top img-responsive w-100" src="{{ asset('storage/' . $course->image) }}" style="object-fit: cover;" width="20em" height="170em" alt="Card image cap" />
                         <div class="d-flex justify-content-end px-3 mb-4" style="margin-top: -45px">
-                            <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 15px;">Website</div>
+                            <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 15px;">{{$course->division->name}}</div>
                         </div>
                         <a href="/administrator/course/detail" style="font-size: 18px" class="text-dark">
-                            Tutorial Laravel SPA Menggunakan Blade Template Engine (Splade)
+                            {{$course->title}}
                         </a>
-                        <p class="text-muted my-2">Tutorial Laravel SPA Menggunakan Blade Template Engine Splade...</p>
+                        <p class="text-muted my-2">{{ Str::limit($course->description, 100) }}</p>
                         <div class="d-flex pt-3 gap-2">
-                            <a href="/administrator/course/detail" class="btn btn-primary flex-fill">
+                            <a href="/administrator/course/detail" class="btn btn-secondary flex-fill">
                                 Lihat detail
                             </a>
-                            <button class="py-1 btn btn-soft-warning" data-bs-toggle="modal"
-                            data-bs-target="#edit">
+                            <button class="py-1 btn btn-soft-warning btn-edit" data-bs-toggle="modal"
+                            data-bs-target="#edit" data-id="{{ $course->id}}" data-title="{{ $course->title }}" data-description="{{ $course->description }}">
                                 <i class="ri-pencil-line fs-3"></i>
                             </button>
                             <button class="py-1 btn btn-soft-danger">
@@ -91,56 +91,40 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3">
-                <div class="card ribbon-box border shadow-none mb-lg-0">
-                    <div class="card-body">
-                        <span class="ribbon-three ribbon-three-success material-shadow"><span>Gratis</span></span>
-                        <img class="card-img-top img-responsive w-100" src="{{ asset('assets/images/materi-1.png') }}" style="object-fit: cover;" width="20em" height="170em" alt="Card image cap" />
-                        <div class="d-flex justify-content-end px-3 mb-4" style="margin-top: -45px">
-                            <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 15px;">Website</div>
-                        </div>
-                        <a href="/administrator/course/detail" style="font-size: 18px" class="text-dark">
-                            Tutorial Laravel SPA Menggunakan Blade Template Engine (Splade)
-                        </a>
-                        <p class="text-muted my-2">Tutorial Laravel SPA Menggunakan Blade Template Engine Splade...</p>
-                        <div class="d-flex pt-3 gap-2">
-                            <a href="/administrator/course/detail" class="btn btn-primary flex-fill">
-                                Lihat detail
-                            </a>
-                            <button class="py-1 btn btn-soft-warning" data-bs-toggle="modal"
-                        data-bs-target="#edit">
-                                <i class="ri-pencil-line fs-3"></i>
-                            </button>
-                            <button class="py-1 btn btn-soft-danger">
-                                <i class=" ri-delete-bin-5-line fs-3"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+
+            @empty
+            <div class="d-flex justify-content-center mb-2 mt-5">
+                <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
             </div>
+                <p class="fs-5 text-dark text-center">
+                    Data Masih Kosong
+                </p>
+            @endforelse
         </div>
     </div>
 
     <div id="free" class="tab-pane fade">
         <div class="row row-cols-xxl-4 row-cols-lg-3 row-cols-md-2">
+            @forelse ($courses as $course)
+            @if ($course->status === 'free')
             <div class="col-xl-3">
                 <div class="card ribbon-box border shadow-none mb-lg-0">
                     <div class="card-body">
-                        <span class="ribbon-three ribbon-three-success material-shadow"><span>Gratis</span></span>
-                        <img class="card-img-top img-responsive w-100" src="{{ asset('assets/images/materi-1.png') }}" style="object-fit: cover;" width="20em" height="170em" alt="Card image cap" />
+                        <span class="ribbon-three {{ $course->price == null ? 'ribbon-three-success' : 'ribbon-three-secondary' }}  material-shadow"><span>{{ $course->price == null ? 'Gratis' : 'Rp.'. number_format($course->price, 0, ',', '.') }}</span></span>
+                        <img class="card-img-top img-responsive w-100" src="{{ asset('storage/' . $course->image) }}" style="object-fit: cover;" width="20em" height="170em" alt="Card image cap" />
                         <div class="d-flex justify-content-end px-3 mb-4" style="margin-top: -45px">
-                            <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 15px;">Website</div>
+                            <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 15px;">{{$course->division->name}}</div>
                         </div>
                         <a href="/administrator/course/detail" style="font-size: 18px" class="text-dark">
-                            Tutorial Laravel SPA Menggunakan Blade Template Engine (Splade)
+                            {{$course->title}}
                         </a>
-                        <p class="text-muted my-2">Tutorial Laravel SPA Menggunakan Blade Template Engine Splade...</p>
+                        <p class="text-muted my-2">{{ Str::limit($course->description, 100) }}</p>
                         <div class="d-flex pt-3 gap-2">
-                            <a href="/administrator/course/detail" class="btn btn-primary flex-fill">
+                            <a href="/administrator/course/detail" class="btn btn-secondary flex-fill">
                                 Lihat detail
                             </a>
-                            <button class="py-1 btn btn-soft-warning" data-bs-toggle="modal"
-                        data-bs-target="#edit">
+                            <button class="py-1 btn btn-soft-warning btn-edit" data-bs-toggle="modal"
+                            data-bs-target="#edit" data-id="{{ $course->id}}" data-title="{{ $course->title }}">
                                 <i class="ri-pencil-line fs-3"></i>
                             </button>
                             <button class="py-1 btn btn-soft-danger">
@@ -150,29 +134,42 @@
                     </div>
                 </div>
             </div>
+            @endif
+
+            @empty
+            <div class="d-flex justify-content-center mb-2 mt-5">
+                <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+            </div>
+                <p class="fs-5 text-dark text-center">
+                    Data Masih Kosong
+                </p>
+            @endforelse
         </div>
     </div>
 
     <div id="paid" class="tab-pane fade">
         <div class="row row-cols-xxl-4 row-cols-lg-3 row-cols-md-2">
+            @forelse ($courses as $course)
+            @if ($course->status === 'paid')
             <div class="col-xl-3">
                 <div class="card ribbon-box border shadow-none mb-lg-0">
                     <div class="card-body">
-                        <span class="ribbon-three ribbon-three-primary material-shadow"><span>Rp. 20.000</span></span>
-                        <img class="card-img-top img-responsive w-100" src="{{ asset('assets/images/materi-1.png') }}" style="object-fit: cover;" width="20em" height="170em" alt="Card image cap" />
+                        <span class="ribbon-three {{ $course->price == null ? 'ribbon-three-success' : 'ribbon-three-secondary' }}  material-shadow"><span>{{ $course->price == null ? 'Gratis' : 'Rp.'. number_format($course->price, 0, ',', '.') }}</span></span>
+                        <img class="card-img-top img-responsive w-100" src="{{ asset('storage/' . $course->image) }}" style="object-fit: cover;" width="20em" height="170em" alt="Card image cap" />
                         <div class="d-flex justify-content-end px-3 mb-4" style="margin-top: -45px">
-                            <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 15px;">Website</div>
+                            <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 15px;">{{$course->division->name}}</div>
                         </div>
                         <a href="/administrator/course/detail" style="font-size: 18px" class="text-dark">
-                            Tutorial Laravel SPA Menggunakan Blade Template Engine (Splade)
+                            {{$course->title}}
                         </a>
-                        <p class="text-muted my-2">Tutorial Laravel SPA Menggunakan Blade Template Engine Splade...</p>
+                        <p class="text-muted my-2">{{ Str::limit($course->description, 100) }}</p>
                         <div class="d-flex pt-3 gap-2">
-                            <a href="/administrator/course/detail" class="btn btn-primary flex-fill">
+                            <a href="/administrator/course/detail" class="btn btn-secondary flex-fill">
                                 Lihat detail
                             </a>
-                            <button class="py-1 btn btn-soft-warning" data-bs-toggle="modal"
-                        data-bs-target="#edit">
+                            <button class="py-1 btn btn-soft-warning btn-edit" type="button"
+                            data-id="{{ $course->id}}" data-title="{{ $course->title }}"
+                            >
                                 <i class="ri-pencil-line fs-3"></i>
                             </button>
                             <button class="py-1 btn btn-soft-danger">
@@ -182,10 +179,21 @@
                     </div>
                 </div>
             </div>
+            @endif
+
+            @empty
+            <div class="d-flex justify-content-center mb-2 mt-5">
+                <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+            </div>
+                <p class="fs-5 text-dark text-center">
+                    Data Masih Kosong
+                </p>
+            @endforelse
         </div>
     </div>
 </div>
 
+<!-- Add Modal -->
 <div class="modal fade" id="add" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -194,55 +202,50 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
+                <form action="{{ route('course.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="title">Judul</label>
-                        <input type="text" class="form-control" placeholder="Judul materi">
+                        <input type="text" name="title" class="form-control" placeholder="Judul materi">
                     </div>
                     <div class="mb-3">
                         <label for="description">Deskripsi</label>
-                        <textarea name="description" class="form-control"></textarea>
+                        <textarea name="description" class="form-control" placeholder="Masukkan deskripsi"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="divisi" class="col-form-label">Divisi</label>
-                        <select class="tambah js-example-basic-single form-control @error('divisi') is-invalid @enderror" aria-label=".form-select example" name="student_id">
+                        <select class="tambah js-example-basic-single form-control @error('divisi') is-invalid @enderror" aria-label=".form-select example" name="division_id">
                             <option value="">Pilih divisi</option>
-                            <option value="">WEB</option>
-                            <option value="">MOBILE</option>
-                            <option value="">UI/UX</option>
-                            <option value="">DIGITAL MARKETING</option>
+                            @foreach ($divisions as $division)
+                                <option value="{{ $division->id }}">{{ $division->name }}</option>
+                            @endforeach
                         </select>
+
                     </div>
                     <div class="mb-3">
-                        <label for="">Materi</label>
-                        <div class="d-flex gap-5 type">
-                            <div class="form-check form-radio-primary">
-                                <input class="form-check-input" type="radio" value="free" name="type" id="free" checked>
-                                <label class="form-check-label" for="free">
-                                    Gratis
-                                </label>
+                        <label>Status</label>
+                        <div>
+                            @foreach (\App\Enum\StatusCourseEnum::cases() as $status)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" id="studentSelect" type="radio" name="status" id="{{ $status->value }}" value="{{ $status->value }}">
+                                <label class="form-check-label"  for="{{ $status->value }}">{{ $status->label() }}</label>
                             </div>
-                            <div class="form-check form-radio-primary">
-                                <input class="form-check-input" type="radio" value="paid" name="type" id="paid">
-                                <label class="form-check-label" for="paid">
-                                    Berbayar
-                                </label>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="mb-3 price" id="price" style="display: none;">
-                        <label for="price">Harga</label>
-                        <input type="number" name="price" id="" placeholder="masukan harga" class="form-control">
+                        <label for="priceInput">Harga</label>
+                        <input type="number" name="price" id="price" placeholder="Masukan harga" class="form-control">
                         @error('price')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+
                     <div class="mb-3">
                         <label for="image">Foto materi</label>
                         <input type="file" name="image" id="" class="form-control">
                     </div>
-                    
+
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-soft-dark" data-bs-dismiss="modal">Tutup</button>
@@ -254,7 +257,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+<!-- Edit Modal -->
+<div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -262,46 +266,41 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
+                <form method="POST" id="form-update" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="mb-3">
                         <label for="title">Judul</label>
-                        <input type="text" class="form-control" placeholder="Judul materi">
+                        <input type="text" class="form-control" placeholder="Judul materi" id="title-edit">
                     </div>
                     <div class="mb-3">
                         <label for="description">Deskripsi</label>
-                        <textarea name="description" class="form-control"></textarea>
+                        <textarea name="description" class="form-control" id="description-edit"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="divisi" class="col-form-label">Divisi</label>
-                        <select class="tambah js-example-basic-single form-control @error('divisi') is-invalid @enderror" aria-label=".form-select example" name="student_id">
+                        <select class="tambah js-example-basic-single1 form-control @error('divisi') is-invalid @enderror" aria-label=".form-select example" name="division_id">
                             <option value="">Pilih divisi</option>
-                            <option value="">WEB</option>
-                            <option value="">MOBILE</option>
-                            <option value="">UI/UX</option>
-                            <option value="">DIGITAL MARKETING</option>
+                            @foreach ($divisions as $division)
+                                <option value="{{ $division->id }}">{{ $division->name }}</option>
+                            @endforeach
                         </select>
+
                     </div>
                     <div class="mb-3">
-                        <label for="">Materi</label>
-                        <div class="d-flex gap-5 type">
-                            <div class="form-check form-radio-primary">
-                                <input class="form-check-input" type="radio" value="free" name="type" id="free" checked>
-                                <label class="form-check-label" for="free">
-                                    Gratis
-                                </label>
+                        <label>Status</label>
+                        <div>
+                            @foreach (\App\Enum\StatusCourseEnum::cases() as $status)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" id="studentSelect1" type="radio" name="status" id="{{ $status->value }}" value="{{ $status->value }}">
+                                <label class="form-check-label"  for="{{ $status->value }}">{{ $status->label() }}</label>
                             </div>
-                            <div class="form-check form-radio-primary">
-                                <input class="form-check-input" type="radio" value="paid" name="type" id="paid">
-                                <label class="form-check-label" for="paid">
-                                    Berbayar
-                                </label>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="mb-3 price" id="price" style="display: none;">
-                        <label for="price">Harga</label>
-                        <input type="number" name="price" id="" placeholder="masukan harga" class="form-control">
+                        <label for="priceInput">Harga</label>
+                        <input type="number" name="price" id="price" placeholder="Masukan harga" class="form-control">
                         @error('price')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -310,7 +309,7 @@
                         <label for="image">Foto materi</label>
                         <input type="file" name="image" id="" class="form-control">
                     </div>
-                    
+
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-soft-dark" data-bs-dismiss="modal">Tutup</button>
@@ -336,6 +335,11 @@
             dropdownParent: $("#add")
         });
     });
+    $(document).ready(function() {
+        $(".js-example-basic-single1").select2({
+            dropdownParent: $("#modal-edit")
+        });
+    });
 </script>
 <script>
     var studentSelect = document.getElementById('studentSelect');
@@ -343,13 +347,12 @@
     studentSelect.addEventListener('change', function() {
         var selectedOption = this.options[this.selectedIndex];
 
-        // Remove the selected option
         this.removeChild(selectedOption);
     });
 
     $(document).ready(function(){
-        $('input[type=radio][name=type]').change(function() {
-            if (this.value === 'free') {
+        $('input[type=radio][name=status]').change(function() {
+            if (this.value === 'paid') {
                 $('#price').show();
             } else {
                 $('#price').hide();
@@ -357,5 +360,25 @@
         });
     });
 </script>
+
+    <script>
+        $('.btn-edit').click(function () {
+            var id = $(this).data('id');
+            var title = $(this).data('title');
+            var description = $(this).data('description');
+
+            $('#form-update').attr('action', '/administrator/course/' + id);
+            $('#title-edit').val(title);
+            $('#description-edit').val(description);
+
+            $('#modal-edit').modal('show');
+        });
+
+        $('.btn-delete').click(function () {
+            var id = $(this).data('id');
+            $('#form-delete').attr('action', '/division/' + id);
+            $('#modal-delete').modal('show');
+        });
+    </script>
 
 @endsection

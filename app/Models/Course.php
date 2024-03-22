@@ -9,4 +9,9 @@ class Course extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function division()
+    {
+        return $this->belongsTo(Division::class);
+    }
 }
