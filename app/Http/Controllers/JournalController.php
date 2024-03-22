@@ -13,7 +13,7 @@ class JournalController extends Controller
     private JournalInterface $journal;
     private JournalService $service;
 
-    public function __construct(JournalInterface $journal , JournalService $service)
+    public function __construct(JournalInterface $journal, JournalService $service)
     {
         $this->journal = $journal;
         $this->service = $service;
@@ -25,7 +25,7 @@ class JournalController extends Controller
     public function index()
     {
         $journals = $this->journal->get();
-        return view('student_offline.journal.index' , compact('journals'));
+        return view('student_offline.journal.index', compact('journals'));
     }
 
     /**
@@ -41,13 +41,8 @@ class JournalController extends Controller
      */
     public function store(StoreJournalRequest $request)
     {
-        try {
-            $data = $this->service->store($request);
-            $this->journal->store($data);
-            return back()->with('success' , 'Berhasil Menambahkan data');
-        } catch (\Exception $th) {
-            // return back()->with('error' , $th->getMessage());
-        }
+        $data = $this->service->store($request);
+        $this->journal->store($data);
     }
 
     /**
@@ -75,7 +70,7 @@ class JournalController extends Controller
     {
         $data = $this->service->update($journal, $request);
         $this->journal->update($journal->id, $data);
-        return back()->with('success' , 'Berhasi Memperbarui Data');
+        return back()->with('success', 'Berhasi Memperbarui Data');
     }
 
     /**
@@ -85,11 +80,12 @@ class JournalController extends Controller
     {
         $this->service->delete($journal);
         $this->journal->delete($journal->id);
-        return back()->with('success' , 'Berhasi Menghapus Data');
+        return back()->with('success', 'Berhasi Menghapus Data');
     }
 
-    public function studentOnline() {
+    public function studentOnline()
+    {
         $journals = $this->journal->get();
-        return view('student_online.journal.index' , compact('journals'));
+        return view('student_online.journal.index', compact('journals'));
     }
 }
