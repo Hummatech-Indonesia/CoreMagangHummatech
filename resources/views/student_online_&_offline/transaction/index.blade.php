@@ -49,7 +49,7 @@
                 <td>
                     @php
                         $status = strtoupper($transaction->status);
-                        $refs = App\Enum\TransactionStatusEnum::{$status};
+                        $refs = App\Enum\TransactionStatusEnum::$status;
                     @endphp
                     <span class="badge bg-{{ $refs->color() }}">{{ $refs->label() }}</span>
                 </td>
