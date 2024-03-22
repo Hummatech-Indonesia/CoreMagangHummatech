@@ -50,7 +50,7 @@
         $status = strtoupper($transaction->status);
 
         if (version_compare($php_version, '8.3.0', '>=')) {
-            $refs = App\Enum\TransactionStatusEnum::{$status};
+            $refs = App\Enum\TransactionStatusEnum::$status;
         } else {
             $refs = App\Enum\TransactionStatusEnum::$status;
         }
