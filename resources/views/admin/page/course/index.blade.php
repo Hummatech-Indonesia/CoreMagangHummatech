@@ -72,12 +72,12 @@
                         <div class="d-flex justify-content-end px-3 mb-4" style="margin-top: -45px">
                             <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 15px;">Website</div>
                         </div>
-                        <a href="/siswa-offline/course/detail" style="font-size: 18px" class="text-dark">
+                        <a href="/administrator/course/detail" style="font-size: 18px" class="text-dark">
                             Tutorial Laravel SPA Menggunakan Blade Template Engine (Splade)
                         </a>
                         <p class="text-muted my-2">Tutorial Laravel SPA Menggunakan Blade Template Engine Splade...</p>
                         <div class="d-flex pt-3 gap-2">
-                            <a href="" class="btn btn-primary flex-fill">
+                            <a href="/administrator/course/detail" class="btn btn-primary flex-fill">
                                 Lihat detail
                             </a>
                             <button class="py-1 btn btn-soft-warning" data-bs-toggle="modal"
@@ -99,12 +99,12 @@
                         <div class="d-flex justify-content-end px-3 mb-4" style="margin-top: -45px">
                             <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 15px;">Website</div>
                         </div>
-                        <a href="/siswa-offline/course/detail" style="font-size: 18px" class="text-dark">
+                        <a href="/administrator/course/detail" style="font-size: 18px" class="text-dark">
                             Tutorial Laravel SPA Menggunakan Blade Template Engine (Splade)
                         </a>
                         <p class="text-muted my-2">Tutorial Laravel SPA Menggunakan Blade Template Engine Splade...</p>
                         <div class="d-flex pt-3 gap-2">
-                            <a href="" class="btn btn-primary flex-fill">
+                            <a href="/administrator/course/detail" class="btn btn-primary flex-fill">
                                 Lihat detail
                             </a>
                             <button class="py-1 btn btn-soft-warning" data-bs-toggle="modal"
@@ -131,12 +131,12 @@
                         <div class="d-flex justify-content-end px-3 mb-4" style="margin-top: -45px">
                             <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 15px;">Website</div>
                         </div>
-                        <a href="/siswa-offline/course/detail" style="font-size: 18px" class="text-dark">
+                        <a href="/administrator/course/detail" style="font-size: 18px" class="text-dark">
                             Tutorial Laravel SPA Menggunakan Blade Template Engine (Splade)
                         </a>
                         <p class="text-muted my-2">Tutorial Laravel SPA Menggunakan Blade Template Engine Splade...</p>
                         <div class="d-flex pt-3 gap-2">
-                            <a href="" class="btn btn-primary flex-fill">
+                            <a href="/administrator/course/detail" class="btn btn-primary flex-fill">
                                 Lihat detail
                             </a>
                             <button class="py-1 btn btn-soft-warning" data-bs-toggle="modal"
@@ -163,12 +163,12 @@
                         <div class="d-flex justify-content-end px-3 mb-4" style="margin-top: -45px">
                             <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 15px;">Website</div>
                         </div>
-                        <a href="/siswa-offline/course/detail" style="font-size: 18px" class="text-dark">
+                        <a href="/administrator/course/detail" style="font-size: 18px" class="text-dark">
                             Tutorial Laravel SPA Menggunakan Blade Template Engine (Splade)
                         </a>
                         <p class="text-muted my-2">Tutorial Laravel SPA Menggunakan Blade Template Engine Splade...</p>
                         <div class="d-flex pt-3 gap-2">
-                            <a href="" class="btn btn-primary flex-fill">
+                            <a href="/administrator/course/detail" class="btn btn-primary flex-fill">
                                 Lihat detail
                             </a>
                             <button class="py-1 btn btn-soft-warning" data-bs-toggle="modal"
