@@ -46,48 +46,54 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td class="d-flex align-items-center">
-                                    <img src="{{ asset('assets/images/users/avatar-6.jpg') }}" alt="" class="rounded-circle avatar-sm">
-                                    <div class="mt-3 ms-3">
-                                        <h5 class="m-0 p-0">Tonya kobo</h5>
-                                        <p class="text-primary">SMKN 1 TAMBAKBOYO</p>
-                                    </div>
-                                </td>
-                                <td>15 Maret 2024</td>
-                                <td>15 Maret 2025</td>
-                                <td>
-                                    tonya@gmail.com
-                                </td>
-                                <td class="text-center">
-                                    <div class="dropdown d-inline-block">
-                                        <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ri-more-fill align-middle"></i>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li>
-                                                <button type="button" class="dropdown-item btn-detail" data-id="1"
-                                                data-name="Tonya kobo" data-phone="0054157785"
-                                                data-address="Malang, Jawa Timur" data-birthdate="2005-10-23"
-                                                data-birthplace="Malang"
-                                                data-startdate="2024-07-16"
-                                                data-finishdate="2024-12-16" data-school="SMKN 1 TAMBAKBOYO"
-                                                data-avatar="{{ asset('assets/images/users/avatar-6.jpg') }}" data-cv="{{ asset('assets/images/error400-cover.png') }}"
-                                                data-selfstatement="{{ asset('assets/images/error400-cover.png') }}"
-                                                data-parentsstatement="{{ asset('assets/images/error400-cover.png') }}">
-                                                    <i class="ri-eye-fill align-bottom me-2 text-muted"></i> Lihat Detail
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button type="button" class="dropdown-item edit-item-btn btn-edit" data-bs-toggle="modal" data-bs-target="#add">
-                                                    <i class="ri-apps-2-line align-bottom me-2 text-secondary"></i> Tempatkan Divisi
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
+                            @forelse ($studentOfflines as $key => $studentOffline)
+                                <tr>
+                                    <td>{{ str_pad(++$key, 2, '0', STR_PAD_LEFT) }}</td>
+                                    <td class="d-flex align-items-center">
+                                        <img src="{{ asset('storage/'. $studentOffline->avatar) }}" alt="{{ $studentOffline->name }}" class="rounded-circle avatar-sm">
+                                        <div class="mt-3 ms-3">
+                                            <h5 class="m-0 p-0">{{ $studentOffline->name }}</h5>
+                                            <p class="text-primary">{{ $studentOffline->school }}</p>
+                                        </div>
+                                    </td>
+                                    <td>{{ \carbon\Carbon::parse($studentOffline->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}</td>
+                                    <td>{{ \carbon\Carbon::parse($studentOffline->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}</td>
+                                    <td>
+                                        {{ $studentOffline->email }}
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="dropdown d-inline-block">
+                                            <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="ri-more-fill align-middle"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li>
+                                                    <button type="button" class="dropdown-item btn-detail" data-id="1"
+                                                    data-name="{{ $studentOffline->name }}" data-phone="{{ $studentOffline->phone }}"
+                                                    data-address="{{ $studentOffline->address }}" data-birthdate="{{ $studentOffline->birth_date }}"
+                                                    data-birthplace="{{ $studentOffline->birth_place }}"
+                                                    data-startdate="{{ \carbon\Carbon::parse($studentOffline->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                                    data-finishdate="{{ \carbon\Carbon::parse($studentOffline->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}" 
+                                                    data-school="{{ $studentOffline->school }}"
+                                                    data-avatar="{{ asset('storage/'. $studentOffline->avatar) }}" 
+                                                    data-cv="{{ asset('storage/'. $studentOffline->cv) }}"
+                                                    data-selfstatement="{{ asset('storage/'. $studentOffline->self_statement) }}"
+                                                    data-parentsstatement="{{ asset('storage/'. $studentOffline->parents_statement) }}">
+                                                        <i class="ri-eye-fill align-bottom me-2 text-muted"></i> Lihat Detail
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button type="button" class="dropdown-item edit-item-btn btn-edit" data-id="{{ $studentOffline->id }}">
+                                                        <i class="ri-apps-2-line align-bottom me-2 text-secondary"></i> Tempatkan Divisi
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <p>Tidak ada data</p>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -119,18 +125,20 @@
                 <h5 class="modal-title" id="varyingcontentModalLabel">Tempatkan Divisi</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="POST">
+            <form id="form-update" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-1">
                         <label for="divisi" class="col-form-label">Divisi</label>
-                        <select class="tambah js-example-basic-single form-control @error('divisi') is-invalid @enderror" aria-label=".form-select example" name="student_id">
-                            <option value="">WEB</option>
-                            <option value="">MOBILE</option>
-                            <option value="">UI/UX</option>
-                            <option value="">DIGITAL MARKETING</option>
+                        <select class="tambah js-example-basic-single form-control" aria-label=".form-select example" name="division_id">
+                           @forelse ($divisions as $division)
+                                <option>Pilih divisi</option>
+                                <option value="{{ $division->id }}">{{ $division->name }}</option>
+                            @empty
+                                <option>Belum ada divisi</option>
+                           @endforelse
                         </select>
-                        @error('divisi')
+                        @error('division_id')
                             <p class="text-danger">
                                 {{ $message }}
                             </p>
@@ -139,7 +147,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Buat</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>
@@ -149,7 +157,7 @@
     <!-- offcanvas -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header border-bottom">
-            <h5 class="offcanvas-title" id="offcanvasRightLabel">Detail Alumni</h5>
+            <h5 class="offcanvas-title" id="offcanvasRightLabel">Detail Siswa</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body p-0 overflow-hidden">
@@ -226,13 +234,24 @@
     </div>
 @endsection
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
 
     <script>
         $(document).ready(function() {
+            $(".js-example-basic-single").select2({
+                dropdownParent: $("#add")
+            });
+        });
+
+        $(document).ready(function() {
             $("#message").modal('show');
+        });
+        
+        $('.btn-edit').click(function () {
+            var id = $(this).data('id');
+            $('#form-update').attr('action', '/offline-students/division-placement/' + id);
+            $('#add').modal('show');
         });
     </script>
 
