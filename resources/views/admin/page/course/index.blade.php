@@ -348,14 +348,14 @@
     });
 
     $(document).ready(function(){
-    $('input[type=radio][name=type]').change(function() {
-        if (this.value === 'free') {
-            $('#price').show();
-        } else {
-            $('#price').hide();
-        }
+        $('input[type=radio][name=type]').change(function() {
+            if (this.value === 'free') {
+                $('#price').show();
+            } else {
+                $('#price').hide();
+            }
+        });
     });
-});
 </script>
 
 @endsection

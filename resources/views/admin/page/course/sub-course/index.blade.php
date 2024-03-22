@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 @section('content')
-    <div class="text-end">
-        <a href="/administrator/course/detail" class="btn btn-primary">Kembali</a>
+    <div class="text-end mb-4">
+        <a href="/administrator/course/detail" class="btn text-white" style="background-color: #7E7E7E;">Kembali</a>
     </div>
 
     <div class="row">
@@ -67,6 +67,33 @@
                                       <h6 class="m-0">Lorem ipsum dolor sit amet.</h6>
                                       <p style="font-size: 12px">Lorem ipsum dolor sit amet...</p>
                                   </div>
+                                  <div class="ms-auto">
+                                    <div class="dropdown d-inline-block">
+                                        <button class="bg-transparent border-0 fs-2 dropdown" style="margin-top: -20px" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="ri-more-fill align-middle"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                <a href="/administrator/course/detail/sub-course" type="button" class="dropdown-item btn-show" data-bs-toggle="modal"
+                                                data-bs-target="#detail">
+                                                    Detail Tugas
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="dropdown-item edit-item-btn btn-edit" data-bs-toggle="modal"
+                                                data-bs-target="#edit">
+                                                    Edit Tugas
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="dropdown-item btn-delete text-danger" data-bs-toggle="modal"
+                                                data-bs-target="#modal-delete">
+                                                    Hapus Tugas
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                               </div>
                           </div>
                       </div>
@@ -125,6 +152,119 @@
                       </li>
                     </ul>
                 </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg p-4">
+            <div class="modal-content">
+                <div class="modal-header d-flex align-items-center">
+                    <h4 class="modal-title" id="myLargeModalLabel">
+                        Tambah Tugas
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" name="course_id" value="">
+                        <div class="mb-3">
+                            <label for="">Tugas</label>
+                            <textarea name="description" id="" class="form-control" rows="5" placeholder="Masukkan tugas"></textarea>
+                          </div>
+                        <div class="mb-3">
+                          <label for="">Level</label>
+                          <select class="tambah js-example-basic-single form-control" aria-label=".form-select example" name="student_id">
+                            <option value="">Pilih level materi</option>
+                            <option value="">Mudah</option>
+                            <option value="">Biasa</option>
+                            <option value="">Sulit</option>
+                          </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"
+                            class="btn btn-light shadow-none font-medium waves-effect text-start"
+                            data-bs-dismiss="modal">
+                            Tutup
+                        </button>
+                        <button type="submit"
+                            class="btn btn-primary shadow-none font-medium waves-effect text-start"
+                            data-bs-dismiss="modal">
+                            Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="detail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg p-4">
+            <div class="modal-content">
+                <div class="modal-header d-flex align-items-center">
+                    <h4 class="modal-title" id="myLargeModalLabel">
+                        Detail Tugas
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <h5>Tugas</h5>
+                  <p class="text-muted ">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta non eum harum beatae doloribus deleniti? Magni qui soluta blanditiis animi labore architecto, id dignissimos nam fugit deleniti iure exercitationem suscipit.
+                  </p>
+                </div>
+                <div class="modal-footer text-end">
+                  <button class="btn text-white" style="background-color: #7E7E7E;">Kembali</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg p-4">
+            <div class="modal-content">
+                <div class="modal-header d-flex align-items-center">
+                    <h4 class="modal-title" id="myLargeModalLabel">
+                        Edit Tugas
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" name="course_id" value="">
+                        <div class="mb-3">
+                            <label for="">Tugas</label>
+                            <textarea name="description" id="" class="form-control" rows="5" placeholder="Masukkan tugas"></textarea>
+                          </div>
+                        <div class="mb-3">
+                          <label for="">Level</label>
+                          <select class="tambah js-example-basic-single form-control" aria-label=".form-select example" name="student_id">
+                            <option value="">Pilih level materi</option>
+                            <option value="">Mudah</option>
+                            <option value="">Biasa</option>
+                            <option value="">Sulit</option>
+                          </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"
+                            class="btn btn-light shadow-none font-medium waves-effect text-start"
+                            data-bs-dismiss="modal">
+                            Tutup
+                        </button>
+                        <button type="submit"
+                            class="btn btn-primary shadow-none font-medium waves-effect text-start"
+                            data-bs-dismiss="modal">
+                            Simpan
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -199,6 +339,12 @@
             var id = $(this).data('id');
             $('#form-delete').attr('action', '/division/' + id);
             $('#modal-delete').modal('show');
+        });
+
+        $(document).ready(function() {
+            $(".js-example-basic-single").select2({
+                dropdownParent: $("#add")
+            });
         });
     </script>
 @endsection
