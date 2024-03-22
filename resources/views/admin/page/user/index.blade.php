@@ -4,7 +4,33 @@
         <div class="card-body">
             <div class="row g-2 align-items-center">
                 <div class="col-sm-4">
-                    <h3 class="mx-3">Data Siswa</h3>
+                    <div class="step-arrow-nav mb-4 pt-3 mx-3">
+                        <ul class="nav nav-pills custom-nav nav-justified"role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="steparrow-gen-info-tab" data-bs-toggle="pill"
+                                    data-bs-target="#steparrow-gen-info" type="button" role="tab"
+                                    aria-controls="steparrow-gen-info" aria-controls="steparrow-gen-info"
+                                    aria-selected="true" data-position="0">
+                                    Semua
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="steparrow-description-info-tab" data-bs-toggle="pill"
+                                    data-bs-target="#steparrow-description-info" type="button" role="tab"
+                                    aria-controls="steparrow-description-info" aria-selected="false" data-position="1"
+                                    tabindex="-1">
+                                    Siswa Offline
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-experience-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-experience" type="button" role="tab"
+                                    aria-controls="pills-experience" aria-selected="false" data-position="2" tabindex="-1">
+                                    Siswa Online
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex justify-content-between ">
                     <div class="list-grid-nav hstack gap-1 mx-1">
@@ -43,67 +69,79 @@
         </div>
     </div>
 
-    <div class="row">
-        @foreach ($students as $student)
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card">
-                    <div class="card-body d-flex  gap-1">
-                        <div class="position-relative">
-                            <div
-                                class="position-absolute top-0 start-0 translate-middle rounded-circle {{ $student->rfid == null ? 'bg-danger' : 'bg-success' }} rounded p-2">
-                            </div>
-                            @if (file_exists(public_path('storage/' . $student->avatar)))
-                                <img class="avatar-lg rounded" style="object-fit: cover"
-                                    src="{{ asset('storage/' . $student->avatar) }}">
-                            @else
-                                <img class="avatar-lg rounded" style="object-fit: cover" src="{{ asset('user.webp') }}">
-                            @endif
-                        </div>
-                        <div class="ms-2">
-                            <h5 class="mt-1 m-0 fw-semibold">{{ $student->name }}</h5>
-                            <p class="mt-1 m-0 text-muted">{{ $student->school }}</p>
-                            <p class="text-primary m-0">{{ $student->rfid == null ? '-' : $student->rfid }}</p>
-                            <div class="d-flex m-0 gap-2">
-                                <span
-                                    class="badge px-4 py-1 text-uppercase {{ $student->acepted == 1 ? 'bg-success' : 'bg-danger' }} mt-1">{{ $student->acepted == '0' ? 'Tidak aktif' : 'Aktif' }}</span>
-                                <span
-                                    class="badge px-4 py-1 text-uppercase {{ $student->internship_type == 'online' ? 'bg-primary' : 'bg-danger' }} mt-1">{{ $student->internship_type == 'online' ? 'online' : 'offline' }}</span>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end w-100">
-                            <div class="dropdown card-header-dropdown">
-                                <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <span class="text-muted fs-16"><i class="mdi mdi-dots-vertical align-center"></i></span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end" >
-                                    <a class="dropdown-item" href="/menu-siswa/face/{{ $student->id }}">Wajah</a>
-                                    <button class="dropdown-item btn-reset" type="button"
-                                        data-id="{{ $student->id }}">Reset Password</button>
-                                    <button class="dropdown-item btn-ban" data-id="{{ $student->id }}">Banned</button>
-                                    <button class="dropdown-item btn-change" data-id="{{ $student->id }}">Ganti
-                                        Profile</button>
-                                    <button class="dropdown-item btn-detail" data-name="{{ $student->name }}"
-                                        data-majors="{{ $student->major }}" data-class="{{ $student->class }}"
-                                        data-phone="{{ $student->phone }}" data-address="{{ $student->address }}"
-                                        data-birthdate="{{ \carbon\Carbon::parse($student->birth_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
-                                        data-birthplace="{{ $student->birth_place }}"
-                                        data-startdate="{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
-                                        data-finishdate="{{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
-                                        data-school="{{ $student->school }}" data-avatar="{{ $student->avatar }}"
-                                        data-cv="{{ $student->cv }}" data-email="{{ $student->email }}"
-                                        data-selfstatement="{{ $student->self_statement }}"
-                                        data-parentsstatement="{{ $student->parents_statement }}"
-                                        data-identify_number="{{ $student->identify_number }}">Detail</button>
-                                    <button class="dropdown-item btn-delete text-danger" id="{{ $student->id }}"
-                                        data-id="{{ $student->id }}">Hapus</button>
+    <div class="tab-content">
+        <div id="steparrow-gen-info" class="tab-pane fade show active">
+            <div class="row">
+                @foreach ($students as $student)
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card">
+                            <div class="card-body d-flex  gap-1">
+                                <div class="position-relative">
+                                    <div
+                                        class="position-absolute top-0 start-0 translate-middle rounded-circle {{ $student->rfid == null ? 'bg-danger' : 'bg-success' }} border-5 border-white border rounded p-2">
+                                    </div>
+                                    @if (file_exists(public_path('storage/' . $student->avatar)))
+                                        <img class="avatar-lg rounded" style="object-fit: cover"
+                                            src="{{ asset('storage/' . $student->avatar) }}">
+                                    @else
+                                        <img class="avatar-lg rounded" style="object-fit: cover"
+                                            src="{{ asset('user.webp') }}">
+                                    @endif
+                                </div>
+                                <div class="ms-2">
+                                    <h5 class="mt-1 m-0 fw-semibold">{{ $student->name }}</h5>
+                                    <p class="mt-1 m-0 text-muted">{{ $student->school }}</p>
+                                    <div class="d-flex m-0 gap-2">
+                                        <span
+                                            class="badge px-4 py-1 text-uppercase {{ $student->acepted == 1 ? 'bg-success' : 'bg-danger' }} mt-1">{{ $student->acepted == '0' ? 'Tidak aktif' : 'Aktif' }}</span>
+                                        <span
+                                            class="badge px-4 py-1 text-uppercase {{ $student->internship_type == 'online' ? 'bg-primary' : 'bg-danger' }} mt-1">{{ $student->internship_type == 'online' ? 'online' : 'offline' }}</span>
+                                    </div>
+                                    <p class=" mt-1"><strong class="fs-6">RFID: </strong><span
+                                            class="text-muted">{{ $student->rfid == null ? '-' : $student->rfid }}</span>
+                                    </p>
+                                </div>
+                                <div class="d-flex justify-content-end w-100">
+                                    <div class="dropdown card-header-dropdown">
+                                        <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted fs-16"><i
+                                                    class="mdi mdi-dots-vertical align-center"></i></span>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item"
+                                                href="/menu-siswa/face/{{ $student->id }}">Wajah</a>
+                                            <button class="dropdown-item btn-reset" type="button"
+                                                data-id="{{ $student->id }}">Reset Password</button>
+                                            <button class="dropdown-item btn-ban"
+                                                data-id="{{ $student->id }}">Banned</button>
+                                            <button class="dropdown-item btn-change" data-id="{{ $student->id }}">Ganti
+                                                Profile</button>
+                                            <button class="dropdown-item btn-detail" data-name="{{ $student->name }}"
+                                                data-majors="{{ $student->major }}" data-class="{{ $student->class }}"
+                                                data-phone="{{ $student->phone }}"
+                                                data-address="{{ $student->address }}"
+                                                data-birthdate="{{ \carbon\Carbon::parse($student->birth_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                                data-birthplace="{{ $student->birth_place }}"
+                                                data-startdate="{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                                data-finishdate="{{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                                data-school="{{ $student->school }}"
+                                                data-avatar="{{ $student->avatar }}" data-cv="{{ $student->cv }}"
+                                                data-email="{{ $student->email }}"
+                                                data-selfstatement="{{ $student->self_statement }}"
+                                                data-parentsstatement="{{ $student->parents_statement }}"
+                                                data-identify_number="{{ $student->identify_number }}">Detail</button>
+                                            <button class="dropdown-item btn-delete text-danger" id="{{ $student->id }}"
+                                                data-id="{{ $student->id }}">Hapus</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
             </div>
-        @endforeach
+        </div>
     </div>
 
     @if (session('message'))
@@ -300,8 +338,7 @@
                         <p class="text-dark fs-7 mb-0">Apakah anda yakin ingin memban siswa?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light  font-medium waves-effect"
-                            data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-light  font-medium waves-effect" data-bs-dismiss="modal">
                             Tidak
                         </button>
                         <button type="submit" class="btn text-white btn-success">

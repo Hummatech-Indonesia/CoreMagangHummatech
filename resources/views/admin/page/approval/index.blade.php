@@ -58,7 +58,7 @@
                             </div>
                             <div>
                                 <span class="btn bg-secondary-subtle text-secondary">Limit saat ini :
-                                    {{ $limits->limits }}</span>
+                                    {{ $limits == null ? 0 : $limits->limits }}</span>
                             </div>
                         </div><!-- end card header -->
 

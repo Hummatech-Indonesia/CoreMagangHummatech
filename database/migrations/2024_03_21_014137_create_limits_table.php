@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('limits', function (Blueprint $table) {
             $table->id();
-            $table->string('limits');
+            $table->string('limits')->default(0);
             $table->timestamps();
         });
     }
