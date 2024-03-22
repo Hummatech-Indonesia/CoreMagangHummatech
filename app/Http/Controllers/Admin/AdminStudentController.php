@@ -33,8 +33,10 @@ class AdminStudentController extends Controller
     public function index()
     {
         $students = $this->student->listStudent();
+        $studentOfflines = $this->student->listStudentOffline();
+        $studentOnllines = $this->student->listStudentOnline();
         $divisions = $this->division->get();
-        return view('admin.page.user.index', compact('students', 'divisions'));
+        return view('admin.page.user.index', compact('students', 'studentOfflines', 'studentOnllines', 'divisions'));
     }
     /**
      * Show The Face of the resource.
