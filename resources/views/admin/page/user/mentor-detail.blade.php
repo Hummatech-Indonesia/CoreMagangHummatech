@@ -13,9 +13,9 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-center py-4">
-                        <div class="avatar-lg">
-                            <img src="{{ asset('assets/images/users/avatar-6.jpg') }}" alt=""
-                                class="rounded-circle img-thumbnail">
+                        <div class="">
+                            <img src="{{ asset('storage/' . $mentor->image) }}" alt=""
+                                class="rounded-circle img-thumbnail avatar-lg">
                         </div>
                     </div>
                     <div class="text-center ">
