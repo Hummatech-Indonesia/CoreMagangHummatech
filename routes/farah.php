@@ -70,3 +70,9 @@ Route::get('offline-students/team', function() {
 Route::get('administrator/course', function() {
     return view('admin.page.course.index');
 });
+Route::get('administrator/course/detail', function() {
+    return view('admin.page.course.detail');
+});
+Route::get('administrator/course/detail/sub-course', function() {
+    return view('admin.page.course.sub-course.index');
+});

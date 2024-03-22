@@ -394,8 +394,8 @@
                     <h4 class="mt-3">Apakah anda yakin ingin melanjutkan?</h4>
                 </div>
                 <div class="modal-footer d-flex justify-content-center m-0">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success btn-save">Save Changes</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-success btn-save">Simpan</button>
                 </div>
             </div>
         </div>

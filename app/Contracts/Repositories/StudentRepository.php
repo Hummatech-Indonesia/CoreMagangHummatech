@@ -90,8 +90,19 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query()->where('id', $id)->firstOrFail();
     }
 
-    public function listStudentOffline(): mixed
+    public function countStudentOffline(): mixed
     {
         return $this->model->query()->where('internship_type', InternshipTypeEnum::OFFLINE->value)->where('status', 'accepted')->count();
     }
+
+    public function listStudentOffline(): mixed
+    {
+        return $this->model->query()->where('internship_type', InternshipTypeEnum::OFFLINE->value)->where('status', 'accepted')->get();
+    }
+
+    public function listStudentOnline(): mixed
+    {
+        return $this->model->query()->where('internship_type', InternshipTypeEnum::ONLINE->value)->where('status', 'accepted')->get();
+    }
+
 }

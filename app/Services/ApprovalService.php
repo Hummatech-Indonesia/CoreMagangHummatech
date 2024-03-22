@@ -39,7 +39,7 @@ class ApprovalService
     {
         $data = $request->validated();
         if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
-            $studentcount = $this->student->listStudentOffline();
+            $studentcount = $this->student->countStudentOffline();
             if (!empty($this->limits->first())) {
                 $limit =  $this->limits->first()->limits;
                 if ($studentcount >= $limit) {

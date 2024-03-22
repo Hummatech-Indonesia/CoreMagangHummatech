@@ -26,7 +26,7 @@ class ApprovalRepository extends BaseRepository implements ApprovalInterface
 
     public function update(mixed $id, array $data): mixed
     {
-        $studentcount = $this->student->listStudentOffline();
+        $studentcount = $this->student->countStudentOffline();
         if (!empty($this->limit->first())) {
             $limit =  $this->limit->first()->limits;
             if ($studentcount >= $limit) {
