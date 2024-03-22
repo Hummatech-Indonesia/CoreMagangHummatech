@@ -57,6 +57,7 @@ class AdminMentorController extends Controller
 
     public function destroy(Mentor $mentor)
     {
+        
        $this->mentor->delete($mentor->id);
        return back()->with('succes', 'Mentor Berhasil Dihapus');
     }
