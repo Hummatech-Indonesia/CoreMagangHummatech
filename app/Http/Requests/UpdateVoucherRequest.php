@@ -25,7 +25,9 @@ class UpdateVoucherRequest extends FormRequest
             'code_voucher' => 'required',
             'presentase' => 'required',
             'start_date' => 'required',
-            'end_date' => 'required'
+            'end_date' => 'required',
+            'type' => 'required',
+            'quota' => 'required'
         ];
     }
 }

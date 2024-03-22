@@ -126,8 +126,8 @@
                             <input type="file" name="image_course" class="form-control">
                         </div>
                         <div class="mb-3">
-                            <label for="">Video Sub Materi</label>
-                            <input type="file" name="video_course" class="form-control">
+                            <label for="">Link video Sub Materi</label>
+                            <input type="url" name="video_course" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label for="">File Sub Materi</label>
@@ -178,8 +178,8 @@
                             <input type="file" name="image_course" class="form-control">
                         </div>
                         <div class="mb-3">
-                            <label for="">Video Sub Materi</label>
-                            <input type="file" name="video_course" class="form-control">
+                            <label for="">Link video Sub Materi</label>
+                            <input type="url" name="video_course" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label for="">File Sub Materi</label>

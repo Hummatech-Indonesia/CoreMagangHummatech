@@ -26,6 +26,8 @@ class StoreVoucherRequest extends FormRequest
             'presentase' => 'required|numeric|between:0,100',
             'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after_or_equal:start_date',
+            'type' => 'required',
+            'quota' => 'required'
         ];
     }
 
