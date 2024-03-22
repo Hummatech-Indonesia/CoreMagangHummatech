@@ -70,6 +70,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('menu-siswa/face/{student}', [AdminStudentController::class, 'face'])->name('student.show');
     Route::delete('menu-siswa/delete/{student}', [AdminStudentController::class, 'destroy'])->name('student.delete');
     Route::put('menu-siswa/banned/{student}', [AdminStudentController::class, 'banned'])->name('student.banned');
+    Route::put('menu-siswa/division-change/{student}', [AdminStudentController::class, 'divisionchange'])->name('student.divisionchange');
 
     //Limit
     Route::post('limit', [LimitsController::class, 'store'])->name('limit.store');

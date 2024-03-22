@@ -98,10 +98,8 @@
                                                                         data-id="{{ $mentor->id }}"
                                                                         data-name="{{ $mentor->name }}"
                                                                         data-email="{{ $mentor->email }}"
-                                                                        data-division="{{ $mentor->division_id }}"
-                                                                        data-student="{{ $mentor->mentorstudent->pluck('student_id') }}">
-                                                                        <i
-                                                                            class="ri-pencil-fill align-bottom me-2 text-warning"></i>
+                                                                        data-division="{{ $mentor->division_id }}">
+                                                                        <i class="ri-pencil-fill align-bottom me-2 text-warning"></i>
                                                                         Edit
                                                                     </button>
                                                                 </li>
@@ -182,17 +180,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3" id="mentor-student">
-                            <label for="">Siswa</label>
-                            <select name="student_id[]" id="" class="form-select js-example-basic-multiple "
-                                multiple>
-                                @foreach ($students as $student)
-                                    <option value="{{ $student->id }}">{{ $student->name }}-{{ $student->school }} :
-                                        {{ $student->internship_type }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Simpan</button>
@@ -238,18 +225,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3" id="">
-                            <label for="">Siswa</label>
-                            <select name="student_id[]" id=""
-                                class="form-select js-example-basic-multiple " multiple>
-                                @foreach ($students as $student)
-                                    <option value="{{ $student->id }}">{{ $student->name }}-{{ $student->school }} :
-                                        {{ $student->internship_type }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" type="submit">Simpan</button>
@@ -317,7 +292,6 @@
             $('#mentor-name').val(name);
             $('#mentor-email').val(email);
             $('#mentor-division').val(division).find('option[value="' + division + '"]').prop('selected', true);
-            $('#mentor-student').val(students).trigger('change');
             $('#modal-edit').modal('show');
 
             $('#form-update').attr('action', '/menu-mentor/update/' + id);
@@ -344,5 +318,4 @@
 
         })
     </script>
-    
 @endsection
