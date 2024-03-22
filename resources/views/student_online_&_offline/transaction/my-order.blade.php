@@ -39,8 +39,8 @@
         </div>
         <div class="sort-wrapper">
             <select id="sort" class="form-control">
-                <option @if (request()->get('sort') === 'desc' || !request()->get('sort')) selected @endif value="desc">Terbaru</option>
-                <option @if (request()->get('sort') === 'asc') selected @endif value="asc">Dari Lama</option>
+                <option @if (request()->get('sort') === 'latest' || !request()->get('sort')) selected @endif value="latest">Terbaru</option>
+                <option @if (request()->get('sort') === 'oldest') selected @endif value="oldest">Dari Lama</option>
             </select>
         </div>
     </div>

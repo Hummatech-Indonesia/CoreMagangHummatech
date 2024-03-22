@@ -77,13 +77,15 @@ class TransactionController extends Controller
         $transactions = auth()->user()->transaction()
         ->when($request->has('status'), function ($query) use ($request) {
             return $query->where('status', $request->get('status'));
-        })
-        ->when($request->has('sort'), function ($query) use ($request) {
-            if($request->has('sort') !== 'asc') {
-                return $query->latest();
-            }
-        })
-        ->paginate(12);
+        });
+
+        if(!$request->has('sort') || $request->get('sort') == 'latest') {
+            $transactions = $transactions->latest();
+        } else {
+            $transactions = $transactions->oldest();
+        }
+
+        $transactions = $transactions->paginate(12);
 
         return view('student_online_&_offline.transaction.my-order', compact('transactions'));
     }
