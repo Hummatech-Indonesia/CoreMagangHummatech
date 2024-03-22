@@ -39,7 +39,7 @@
                           </div>
                           <div class="tab-pane p-3" id="profile" role="tabpanel">
                             <div class="ratio ratio-16x9">
-                                <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" title="YouTube video" allowfullscreen></iframe>
+                                <iframe src="https://youtu.be/VDUfeZUEs44?si=3CuGBtPMOlYnBm3t" title="YouTube video" allowfullscreen></iframe>
                             </div>
                           </div>
                         </div>
