@@ -6,9 +6,17 @@
 
 @section('content')
 @php
-    $php_version = phpversion();
     $status = strtoupper($reference->status);
-    $refs = version_compare($php_version, '8.3.0', '>=') ? App\Enum\TransactionStatusEnum::{$status} : App\Enum\TransactionStatusEnum::$status;
+    $refs = match ($status) {
+        'PENDING' => \App\Enum\TransactionStatusEnum::PENDING,
+        'PAID' => \App\Enum\TransactionStatusEnum::PAID,
+        'CANCELLED' => \App\Enum\TransactionStatusEnum::CANCELLED,
+        'EXPIRED' => \App\Enum\TransactionStatusEnum::EXPIRED,
+        'FAILED' => \App\Enum\TransactionStatusEnum::FAILED,
+        'REFUND' => \App\Enum\TransactionStatusEnum::REFUND,
+        'UNPAID' => \App\Enum\TransactionStatusEnum::UNPAID,
+        default => \App\Enum\TransactionStatusEnum::DEFAULT
+    };
 @endphp
 <div class="card bg-light-info shadow-none position-relative overflow-hidden">
     <div class="card-body px-4 py-3">

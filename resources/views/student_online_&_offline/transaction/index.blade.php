@@ -48,14 +48,17 @@
                 <td>@currency($transaction->amount)</td>
                 <td>
                     @php
-                        $php_version = phpversion();
                         $status = strtoupper($transaction->status);
-
-                        if (version_compare($php_version, '8.3.0', '>=')) {
-                            $refs = App\Enum\TransactionStatusEnum::{$status};
-                        } else {
-                            $refs = App\Enum\TransactionStatusEnum::$status;
-                        }
+                        $refs = match ($status) {
+                            'PENDING' => \App\Enum\TransactionStatusEnum::PENDING,
+                            'PAID' => \App\Enum\TransactionStatusEnum::PAID,
+                            'CANCELLED' => \App\Enum\TransactionStatusEnum::CANCELLED,
+                            'EXPIRED' => \App\Enum\TransactionStatusEnum::EXPIRED,
+                            'FAILED' => \App\Enum\TransactionStatusEnum::FAILED,
+                            'REFUND' => \App\Enum\TransactionStatusEnum::REFUND,
+                            'UNPAID' => \App\Enum\TransactionStatusEnum::UNPAID,
+                            default => \App\Enum\TransactionStatusEnum::DEFAULT
+                        };
                     @endphp
                     <span class="badge bg-{{ $refs->color() }}">{{ $refs->label() }}</span>
                 </td>
