@@ -89,16 +89,12 @@
                                                             </button>
                                                             <ul class="dropdown-menu dropdown-menu-end">
                                                                 <li>
-                                                                    <button type="button" class="dropdown-item btn-show"
-                                                                        data-id="{{ $mentor->id }}"
-                                                                        data-name="{{ $mentor->name }}"
-                                                                        data-email="{{ $mentor->email }}"
-                                                                        data-division="{{ $mentor->division->name }}"
-                                                                        data-image="{{ $mentor->image }}">
+                                                                    <a href="/menu-mentor/detail/{{ $mentor->id }}"
+                                                                        class="dropdown-item btn-show">
                                                                         <i
                                                                             class="ri-eye-fill align-bottom me-2 text-muted"></i>
                                                                         Lihat Detail
-                                                                    </button>
+                                                                    </a>
                                                                 </li>
                                                                 <li>
                                                                     <button type="button"
@@ -158,8 +154,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="varyingcontentModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="varyingcontentModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">

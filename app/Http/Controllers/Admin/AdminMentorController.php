@@ -44,6 +44,12 @@ class AdminMentorController extends Controller
         return back()->with('succes', 'Mentor Berhasil Ditambahkan');
     }
 
+    public function show(Mentor $mentor)
+    {
+        $mentor = $this->mentor->show($mentor->id);
+        return view('admin.page.user.mentor-detail', compact('mentor'));
+    }
+
     public function update(UpdateMentorRequest $request, Mentor $mentor)
     {
         $data = $this->mentorservice->update($mentor, $request);

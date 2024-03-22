@@ -41,6 +41,8 @@ class JournalRepository extends BaseRepository implements JournalInterface
             $data['user_id'] = auth()->user()->id;
             $data['status'] = 'fillin';
             return $this->model->query()->create($data);
+
+            return redirect()->back()->with('success', 'Jurnal Berhasil Ditambahkan');
         }
     }
     public function update(mixed $id, array $data): mixed
