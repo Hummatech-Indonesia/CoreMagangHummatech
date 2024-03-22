@@ -24,7 +24,8 @@ class UpdateMentorRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required',
-            'division_id' => 'required'
+            'division_id' => 'required',
+            'image' => 'nullable|image',
         ];
     }
 }

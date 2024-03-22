@@ -59,20 +59,6 @@ class MentorService
     }
 
     /**
-     *
-     */
-    public function storementorstudent(StoreMentorRequest $request, $mentor)
-    {
-        $data = $request->validated();
-        foreach($data['student_id'] as $student) {
-            $this->mentorStudent->store([
-                'mentor_id' => $mentor->id,
-                'student_id' => $student
-            ]);
-        }
-    }
-
-    /**
      * Handle update data event to models.
      *
      * @param Sale $sale
