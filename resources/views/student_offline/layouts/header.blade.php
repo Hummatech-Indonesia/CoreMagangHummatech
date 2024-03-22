@@ -21,59 +21,13 @@
                 <i class="ti ti-dots fs-7"></i>
             </span>
         </button>
-        {{-- <div class="navbar-collapse justify-content-end collapse" id="navbarNav" style>
-            <div class="d-flex align-items-center justify-content-between">
-                <a href="javascript:void(0)" class="nav-link d-flex d-lg-none align-items-center justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar" aria-controls="offcanvasWithBothOptions">
-                    <i class="ti ti-align-justified fs-7"></i>
-                </a>
-                <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-center">
-                    <li class="nav-item dropdown">
-                        <a href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false" class="nav-link nav-icon-hover">
-                            <i class="ti ti-bell-ringing"></i>
-                            <div class="notification bg-primary rounded-circle"></div>
-                        </a>
-                        <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                            <div class="d-flex align-items-center justify-content-between py-3 px-7">
-                                <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5>
-                                <span class="badge bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
-                            </div>
-                            <div class="message-body" data-simplebar="init">
-                                <div class="simplebar-wrapper" style="margin: 0px;">
-                                    <div class="simplebar-height-auto-observer-wrapper">
-                                        <div class="simplebar-height-auto-observer"></div>
-                                    </div>
-                                    <div class="simplebar-mask">
-                                        <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-                                            <div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; overflow: hidden;">
-                                                <div class="simplebar-content" style="padding: 0px;">
-                                                    <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item">
-                                                        <span class="me-3">
-                                                            <img src="../../dist/images/profile/user-1.jpg" alt="user" class="rounded-circle" width="48" height="48" alt="">
-                                                        </span>
-                                                        <div class="w-75 d-inline-block v-middle">
-                                                            <h6 class="mb-1 fw-semibold">Roman Joined the Team!</h6>
-                                                            <span class="d-block">Congratulate him</span>
-                                                        </div>
-                                                    </a>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div> --}}
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <div class="d-flex align-items-center justify-content-between">
                 <a href="javascript:void(0)" class="nav-link d-flex d-lg-none align-items-center justify-content-center"
                     type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"
                     aria-controls="offcanvasWithBothOptions">
-                    <i class="ti ti-align-justified fs-7"></i>
+                    {{-- <i class="ti ti-align-justified fs-7"></i> --}}
                 </a>
                 <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-center">
                     <li class="nav-item dropdown">
