@@ -57,8 +57,8 @@
                                 <p class="m-0">entries</p>
                             </div>
                             <div>
-                                <span class="btn bg-secondary-subtle text-secondary">Limit saat ini :
-                                    {{ $limits == null ? 0 : $limits->limits }}</span>
+                                <span class="btn bg-secondary-subtle text-secondary">Limit saat ini:
+                                    {{ $limits == null ? 0 : $limits->limits }}, Sisa limit:{{ $countLimits }}</span>
                             </div>
                         </div><!-- end card header -->
 
