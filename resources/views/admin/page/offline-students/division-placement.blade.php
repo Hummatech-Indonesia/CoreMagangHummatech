@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="table-responsive">
+                <div id="responsive-table">
                     <table class="align-middle table table-nowrap table-bordered table-striped" style="width:100%">
                         <thead>
                             <tr class="table-light">
@@ -312,5 +312,25 @@
                 document.body.removeChild(overlay);
             };
         }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            function toggleTableResponsive() {
+                var screenWidth = $(window).width();
+                var $table = $('#responsive-table');
+                if (screenWidth <= 880) {
+                $table.addClass('table-responsive');
+                } else {
+                $table.removeClass('table-responsive');
+                }
+            }
+
+            toggleTableResponsive();
+
+            $(window).resize(function() {
+                toggleTableResponsive();
+            });
+        });
     </script>
 @endsection
