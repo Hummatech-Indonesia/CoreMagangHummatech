@@ -48,8 +48,9 @@
                 <td>@currency($transaction->amount)</td>
                 <td>
                     @php
+                        $php_version = phpversion();
                         $status = strtoupper($transaction->status);
-                        $refs = App\Enum\TransactionStatusEnum::$status;
+                        $refs = version_compare($php_version, '8.3.0', '>=') ? App\Enum\TransactionStatusEnum::{$status} : App\Enum\TransactionStatusEnum::$status;
                     @endphp
                     <span class="badge bg-{{ $refs->color() }}">{{ $refs->label() }}</span>
                 </td>
@@ -61,8 +62,8 @@
             @endforelse
         </tbody>
     </table>
-    <div class="card-body d-flex gap-2 pt-3 justify-content-between">
-        <div class="m-0">Menampilkan {{ $transactions->firstItem() }} ke {{ $transactions->lastItem() }} dari {{ $transactions->total() }} daftar</div>
+
+    <div class="px-4">
         {!! $transactions->links() !!}
     </div>
 </div>

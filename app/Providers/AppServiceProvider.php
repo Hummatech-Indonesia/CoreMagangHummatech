@@ -61,6 +61,7 @@ use App\Contracts\Repositories\LimitRepository;
 use App\Contracts\Repositories\SubCourseRepository;
 use App\Contracts\Repositories\TaskRepository;
 use App\Contracts\Repositories\TransactionHistoryRepository;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -123,5 +124,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('currency', function ($expression) {
             return "Rp<?php echo number_format($expression,2,',','.'); ?>";
         });
+
+        # Paginator change to bootstrap
+        Paginator::useBootstrapFive();
     }
 }
