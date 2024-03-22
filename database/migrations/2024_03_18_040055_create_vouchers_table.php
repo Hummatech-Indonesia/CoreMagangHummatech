@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\TypeVoucherEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,9 +18,10 @@ return new class extends Migration
             $table->string('presentase');
             $table->date('start_date');
             $table->date('end_date');
-            $table->boolean('used')->default(false);
+            $table->string('type' , [TypeVoucherEnum::QUOTA->value , TypeVoucherEnum::UNLIMITED->value]);
+            $table->string('quota')->default('0');
             $table->timestamps();
-        });
+        });     
     }
 
     /**
