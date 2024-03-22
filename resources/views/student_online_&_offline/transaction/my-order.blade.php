@@ -48,7 +48,12 @@
     @php
         $php_version = phpversion();
         $status = strtoupper($transaction->status);
-        $refs = version_compare($php_version, '8.3.0', '>=') ? App\Enum\TransactionStatusEnum::{$status} : App\Enum\TransactionStatusEnum::$status;
+
+        if (version_compare($php_version, '8.3.0', '>=')) {
+            $refs = App\Enum\TransactionStatusEnum::{$status};
+        } else {
+            $refs = App\Enum\TransactionStatusEnum::$status;
+        }
     @endphp
     <div class="col-xl-4 col-xxl-3">
         <div class="card">
