@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Student;
 use App\Contracts\Interfaces\UserInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Enum\InternshipTypeEnum;
 
 class UserRepository extends BaseRepository implements UserInterface
 {
@@ -22,5 +23,7 @@ class UserRepository extends BaseRepository implements UserInterface
     {
         return $this->model->query()->create($data);
     }
+
     
+
 }

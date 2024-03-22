@@ -76,7 +76,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function listStudent(): mixed
     {
         return $this->model->query()
-            ->whereNot('status', 'pending')
+            ->whereNotIn('status', ['pending', 'banned'])
             ->get();
     }
 
@@ -88,5 +88,10 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function sp(mixed $id): mixed
     {
         return $this->model->query()->where('id', $id)->firstOrFail();
+    }
+
+    public function listStudentOffline(): mixed
+    {
+        return $this->model->query()->where('internship_type', InternshipTypeEnum::OFFLINE->value)->where('status', 'accepted')->count();
     }
 }

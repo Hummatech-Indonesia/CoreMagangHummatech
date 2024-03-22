@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\StudentService;
 use App\Http\Controllers\Controller;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Enum\StudentStatusEnum;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Student;
 
@@ -67,6 +68,12 @@ class AdminStudentController extends Controller
     {
         $this->servicestudent->delete($student);
         $this->student->delete($student->id);
+        return redirect()->back()->with(['success' => 'Data Berhasil Telah Di Hapus']);
+    }
+
+    public function banned(Student $student)
+    {
+        $this->student->update($student->id, ['status' => StudentStatusEnum::BANNED->value]);
         return redirect()->back()->with(['success' => 'Data Berhasil Telah Di Hapus']);
     }
 }

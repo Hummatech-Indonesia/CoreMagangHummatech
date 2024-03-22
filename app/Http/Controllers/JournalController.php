@@ -41,9 +41,13 @@ class JournalController extends Controller
      */
     public function store(StoreJournalRequest $request)
     {
-        $data = $this->service->store($request);
-        $this->journal->store($data);
-        return back()->with('success' , 'Berhasil Menambahkan data');
+        try {
+            $data = $this->service->store($request);
+            $this->journal->store($data);
+            return back()->with('success' , 'Berhasil Menambahkan data');
+        } catch (\Exception $th) {
+            // return back()->with('error' , $th->getMessage());
+        }
     }
 
     /**

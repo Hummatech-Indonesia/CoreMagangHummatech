@@ -1,6 +1,8 @@
 @extends('admin.layouts.app')
 @section('content')
-<a href="/menu-siswa" class="btn btn-primary mb-3">Kembali</a>
+    <div class="d-flex justify-content-end">
+        <a href="/menu-siswa" class="btn btn-primary mb-3 ">Kembali</a>
+    </div>
     <div class="card">
         <div class="card-body">
             <div class="row g-2 align-items-center">
@@ -12,7 +14,8 @@
                         <button class="btn btn-danger btn-sm w-100">Hapus Data</button>
                     </div>
                     <div class="list-grid-nav hstack gap-1 ">
-                        <button class="btn btn-success btn-sm w-100"  data-bs-toggle="modal" data-bs-target="#myModal">Tambah</button>
+                        <button class="btn btn-success btn-sm w-100" data-bs-toggle="modal"
+                            data-bs-target="#myModal">Tambah</button>
 
                     </div>
                 </div>
@@ -46,14 +49,14 @@
                         <div class="mb-3">
                             <label class="form-label">Foto</label>
                             <input type="file" class="form-control">
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary ">Simpan</button>
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary ">Simpan</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                    </div>
 
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-@endsection
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    @endsection

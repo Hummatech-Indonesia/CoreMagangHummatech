@@ -35,4 +35,9 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
      * Sp
      */
     public function sp(mixed $id): mixed;
+
+    /**
+     * listStudentOffline
+     */
+    public function listStudentOffline(): mixed;
 }

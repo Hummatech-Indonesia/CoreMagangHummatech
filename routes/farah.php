@@ -61,6 +61,12 @@ Route::get('students-rejected', function() {
 Route::get('students-banned', function() {
     return view('admin.page.user.students-banned');
 });
-Route::get('division-placement', function() {
+Route::get('offline-students/division-placement', function() {
     return view('admin.page.offline-students.division-placement');
+});
+Route::get('offline-students/team', function() {
+    return view('admin.page.offline-students.team');
+});
+Route::get('administrator/course', function() {
+    return view('admin.page.course.index');
 });
