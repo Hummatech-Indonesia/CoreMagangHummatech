@@ -17,8 +17,6 @@ return new class extends Migration
             $table->timestamps();
             $table->string('transaction_id');
             $table->string('reference');
-            $table->string('payment_code');
-            $table->string('payment_name');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedBigInteger('amount')->nullable()->default(0);
