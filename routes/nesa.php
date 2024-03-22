@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\PicketController;
 use App\Http\Controllers\Admin\AdminJournalController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -70,3 +71,11 @@ Route::get('siswa-offline/transaction/topUp', function (){
 Route::get('siswa-offline/transaction/history', function (){
     return view('student_offline.transaction.transaction_history');
 });
+
+
+Route::get('administrator/course',[CourseController::class,'index']);
+Route::post('administrator/course/store', [CourseController::class, 'store'])->name('course.store');
+Route::put('administrator/course/{course}', [CourseController::class, 'update'])->name('course.update');
+
+
+

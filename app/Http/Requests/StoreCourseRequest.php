@@ -24,7 +24,10 @@ class StoreCourseRequest extends FormRequest
         return [
             'title' => 'required',
             'image' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'price' => 'nullable',
+            'status' => 'required',
+            'division_id' => 'required',
         ];
     }
 }
