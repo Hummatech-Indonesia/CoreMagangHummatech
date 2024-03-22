@@ -37,4 +37,30 @@ enum TransactionStatusEnum: string
             TransactionStatusEnum::UNPAID => 'warning',
         };
     }
+
+    public function title(): string
+    {
+        return match ($this) {
+            TransactionStatusEnum::PENDING => 'Yuk Segera Bayar Tagihannya...',
+            TransactionStatusEnum::PAID => 'Yeay, Tagihannya Udah Lunas!',
+            TransactionStatusEnum::CANCELLED => 'Yah, Tagihannya Udah Dibatalkan...',
+            TransactionStatusEnum::EXPIRED => 'Yah, Tagihannya Sudah Kadaluarsa...',
+            TransactionStatusEnum::FAILED => 'Yah, Tagihannya Gagal Dibayar...',
+            TransactionStatusEnum::REFUND => 'Yah, Tagihannya Sudah Dikembalikan...',
+            TransactionStatusEnum::UNPAID => 'Yuk Segera Bayar Tagihannya...',
+        };
+    }
+
+    public function subtitle(): string
+    {
+        return match ($this) {
+            TransactionStatusEnum::PENDING => 'Dan nikmati berbagai macam fitur dan kemudahan dalam proses magang kamu.',
+            TransactionStatusEnum::PAID => 'Silahkan nikmati dan jelajahi semua fitur ini dan selamat belajar!',
+            TransactionStatusEnum::CANCELLED => 'Maaf ya, kamu belum bisa menikmati semua fitur disini.',
+            TransactionStatusEnum::EXPIRED => 'Maaf ya, kamu belum bisa menikmati semua fitur disini.',
+            TransactionStatusEnum::FAILED => 'Maaf ya, kamu belum bisa menikmati semua fitur disini.',
+            TransactionStatusEnum::REFUND => 'Maaf ya, kamu belum bisa menikmati semua fitur disini.',
+            TransactionStatusEnum::UNPAID => 'Dan nikmati berbagai macam fitur dan kemudahan dalam proses magang kamu.',
+        };
+    }
 }
