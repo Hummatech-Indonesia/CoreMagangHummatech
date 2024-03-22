@@ -157,7 +157,7 @@
                     </li>
                 @endif
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('my-order') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-list"></i>
                         </span>
@@ -173,6 +173,7 @@
                     </a>
                 </li>
             </ul>
+
             @if (!auth()->user()->feature)
                 <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
                     <div class="d-flex">

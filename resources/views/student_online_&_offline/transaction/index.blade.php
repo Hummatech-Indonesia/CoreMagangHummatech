@@ -57,7 +57,12 @@
             </tr>
             @empty
             <tr>
-                <td colspan="5" class="text-center">Tidak ada data</td>
+                <td colspan="5">
+                    <div class="text-center">
+                        <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" alt="No Data" height="150px" width="auto" />
+                        <h3>Tidak Ada Data</h3>
+                    </div>
+                </td>
             </tr>
             @endforelse
         </tbody>

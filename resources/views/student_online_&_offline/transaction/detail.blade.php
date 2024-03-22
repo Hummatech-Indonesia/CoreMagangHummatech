@@ -28,7 +28,7 @@
             </div>
             <div class="col-3">
                 <div class="text-center mb-n5">
-                    <img src="https://pklhummatech.cakadi190.eu.org/assets-user/dist/images/breadcrumb/ChatBc.png" alt="" class="img-fluid mb-n4">
+                    <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt="" class="img-fluid mb-n4">
                 </div>
             </div>
         </div>

@@ -27,7 +27,10 @@ class TransactionController extends Controller
 
     public function index()
     {
-        $transactions = auth()->user()->transaction()->latest()->paginate(10);
+        $transactions = auth()->user()->transaction()
+        ->when(request()->has('status'), function ($query) {
+            return $query->where('status', request()->get('status'));
+        })->latest()->paginate(10);
         return view('student_online_&_offline.transaction.index', compact('transactions'));
     }
 
@@ -69,10 +72,25 @@ class TransactionController extends Controller
         }
     }
 
+    public function myOrder(Request $request)
+    {
+        $transactions = auth()->user()->transaction()
+        ->when($request->has('status'), function ($query) use ($request) {
+            return $query->where('status', $request->get('status'));
+        })
+        ->when($request->has('sort'), function ($query) use ($request) {
+            if($request->has('sort') !== 'asc') {
+                return $query->latest();
+            }
+        })
+        ->paginate(12);
+
+        return view('student_online_&_offline.transaction.my-order', compact('transactions'));
+    }
+
     public function detail(TransactionHistory $reference)
     {
         $paymentDetail = $this->payment->getPaymentDetail($reference->reference);
-
         return view('student_online_&_offline.transaction.detail', compact('reference', 'paymentDetail'));
     }
 
