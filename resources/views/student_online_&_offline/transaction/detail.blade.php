@@ -165,14 +165,14 @@
                     <h5>Aksi</h5>
 
                     <div class="list-group">
-                        @if($reference->status === App\Enum\TransactionStatusEnum::PAID->value)
+                        @if($reference->status !== App\Enum\TransactionStatusEnum::PAID->value)
                             <a href="{{ route('transaction-history.detail', $reference->reference) }}" class="list-group-item list-group-action d-flex align-items-center gap-2">
                                 <i class="fas fa-sync"></i>
                                 <span>Periksa</span>
                             </a>
                         @endif
 
-                        <a href="" class="list-group-item list-group-action d-flex gap-2 align-items-center">
+                        <a href="/pdf/tagihan/{{ $reference->transaction_id }}" class="list-group-item list-group-action d-flex gap-2 align-items-center">
                             <i class="fas fa-download"></i>
                             Unduh Tagihan
                         </a>

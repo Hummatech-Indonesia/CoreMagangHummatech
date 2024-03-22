@@ -15,6 +15,8 @@ class JournalController extends Controller
 
     public function __construct(JournalInterface $journal , JournalService $service)
     {
+        $this->middleware('subsrcribed:online');
+
         $this->journal = $journal;
         $this->service = $service;
     }

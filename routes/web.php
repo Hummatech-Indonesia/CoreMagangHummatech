@@ -12,13 +12,13 @@ use App\Http\Controllers\Admin\ApprovalController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
 use App\Http\Controllers\LimitsController;
-use App\Http\Controllers\MentorController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
 use App\Http\Controllers\StudentOnline\StudentOnlineController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\VoucherSubmitController;
+use App\Http\Middleware\SubscribeCheckMiddleware;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 
 # ==================================================== Homepage Group Route ===================================================

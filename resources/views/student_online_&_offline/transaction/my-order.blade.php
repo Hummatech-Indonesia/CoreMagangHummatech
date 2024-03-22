@@ -57,7 +57,7 @@
                     'FAILED' => \App\Enum\TransactionStatusEnum::FAILED,
                     'REFUND' => \App\Enum\TransactionStatusEnum::REFUND,
                     'UNPAID' => \App\Enum\TransactionStatusEnum::UNPAID,
-                    default => \App\Enum\TransactionStatusEnum::DEFAULT
+                    default => \App\Enum\TransactionStatusEnum::DEFAULT,
                 };
             @endphp
             <div class="col-xl-4 col-xxl-3">
@@ -73,21 +73,34 @@
                             </div>
                         </div>
 
-                        <div class="row mt-3">
+                        <div class="row justify-content-center mt-4 mb-3">
                             <div class="col-md-6 d-flex gap-1 align-items-center flex-column">
                                 <p class="mb-0 fw-bolder">Status</p>
                                 <p class="mb-0"><span
                                         class="fw-bolder badge bg-{{ $refs->color() }}">{{ $refs->label() }}</span></p>
                             </div>
-                            <div class="col-md-6 d-flex gap-1 align-items-center flex-column">
-                                <p class="mb-0 fw-bolder">Bayar Sebelum</p>
-                                @if (in_array($transaction->status, ['pending', 'unpaid']))
-                                    <span
-                                        class="text-center">{{ $transaction->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}</span>
-                                @else
-                                    <span class="text-center">-</span>
-                                @endif
-                            </div>
+                            @if (in_array($transaction->status, ['pending', 'unpaid', 'paid']))
+                                <div class="col-md-6 d-flex gap-1 align-items-center flex-column">
+                                    @if ($transaction->status !== 'paid')
+                                        <p class="mb-0 fw-bolder">Bayar Sebelum</p>
+                                        <span
+                                            class="text-center">{{ $transaction->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}</span>
+                                    @else
+                                        @php
+                                            $nextMonth = $transaction->paid_at
+                                                ->copy()
+                                                ->addMonths(1)
+                                                ->endOfMonth()
+                                                ->setHour(23)
+                                                ->setMinute(59)
+                                                ->setSecond(59);
+                                        @endphp
+                                        <p class="mb-0 fw-bolder">Berakhir Pada</p>
+                                        <span
+                                            class="text-center">{{ $nextMonth->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}</span>
+                                    @endif
+                                </div>
+                            @endif
                         </div>
 
                         @if (in_array($transaction->status, ['pending', 'unpaid']))
@@ -102,8 +115,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="text-center">
-                            <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" alt="No Data"
-                                height="150px" width="auto" />
+                            <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
+                                alt="No Data" height="150px" width="auto" />
                             <h3>Tidak Ada Data</h3>
                         </div>
                     </div>
