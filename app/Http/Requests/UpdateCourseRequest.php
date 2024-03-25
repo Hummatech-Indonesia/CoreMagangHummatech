@@ -22,9 +22,12 @@ class UpdateCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required',
-            'file' => 'required',
-            'videos' => 'required'
+            'title' => 'nullable',
+            'image' => 'nullable',
+            'description' => 'nullable',
+            'price' => 'nullable',
+            'status' => 'nullable',
+            'division_id' => 'nullable',
         ];
     }
 }

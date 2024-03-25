@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DivisionController;
+use App\Http\Controllers\Admin\DivisionPlacementController;
 use App\Http\Controllers\JournalController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,15 +62,14 @@ Route::get('students-rejected', function() {
 Route::get('students-banned', function() {
     return view('admin.page.user.students-banned');
 });
-Route::get('offline-students/division-placement', function() {
-    return view('admin.page.offline-students.division-placement');
-});
+Route::get('offline-students/division-placement', [DivisionPlacementController::class, 'index']);
+Route::post('offline-students/division-placement/{student}', [DivisionPlacementController::class ,'divisionchange'])->name('division-placement');
 Route::get('offline-students/team', function() {
     return view('admin.page.offline-students.team');
 });
-Route::get('administrator/course', function() {
-    return view('admin.page.course.index');
-});
+// Route::get('administrator/course', function() {
+//     return view('admin.page.course.index');
+// });
 Route::get('administrator/course/detail', function() {
     return view('admin.page.course.detail');
 });

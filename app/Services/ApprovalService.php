@@ -38,16 +38,7 @@ class ApprovalService
     public function accept(AcceptedAprovalRequest $request, Student $student)
     {
         $data = $request->validated();
-        if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
-            $studentcount = $this->student->countStudentOffline();
-            if (!empty($this->limits->first())) {
-                $limit =  $this->limits->first()->limits;
-                if ($studentcount >= $limit) {
-                    return $data = ['status' => StudentStatusEnum::PENDING->value];
-                }
-            }
-        }
-
+        
         $start_date_formated = \carbon\Carbon::createFromDate($student->start_date)->locale('id')->isoFormat('D MMMM Y');
         $finish_date_formated = \carbon\Carbon::createFromDate($student->finish_date)->locale('id')->isoFormat('D MMMM Y');
 

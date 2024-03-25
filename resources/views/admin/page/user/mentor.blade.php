@@ -66,8 +66,15 @@
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td class="d-flex align-items-center gap-3">
                                                         <div>
-                                                            <img src="{{ asset('storage/' . $mentor->image) }}"
-                                                                class="avatar-sm  rounded-circle" alt="">
+                                                            @if (file_exists(public_path('storage/' . $mentor->image)))
+                                                                <img class="avatar-sm rounded-circle"
+                                                                    style="object-fit: cover"
+                                                                    src="{{ asset('storage/' . $mentor->image) }}">
+                                                            @else
+                                                                <img class="avatar-sm rounded rounded-circle"
+                                                                    style="object-fit: cover"
+                                                                    src="{{ asset('user.webp') }}">
+                                                            @endif
                                                         </div>
                                                         {{ $mentor->name }}
                                                     </td>
@@ -82,15 +89,12 @@
                                                             </button>
                                                             <ul class="dropdown-menu dropdown-menu-end">
                                                                 <li>
-                                                                    <button type="button" class="dropdown-item btn-show"
-                                                                        data-id="{{ $mentor->id }}"
-                                                                        data-name="{{ $mentor->name }}"
-                                                                        data-email="{{ $mentor->email }}"
-                                                                        data-division="{{ $mentor->division->name }}">
+                                                                    <a href="/menu-mentor/detail/{{ $mentor->id }}"
+                                                                        class="dropdown-item btn-show">
                                                                         <i
                                                                             class="ri-eye-fill align-bottom me-2 text-muted"></i>
                                                                         Lihat Detail
-                                                                    </button>
+                                                                    </a>
                                                                 </li>
                                                                 <li>
                                                                     <button type="button"
@@ -98,8 +102,12 @@
                                                                         data-id="{{ $mentor->id }}"
                                                                         data-name="{{ $mentor->name }}"
                                                                         data-email="{{ $mentor->email }}"
-                                                                        data-division="{{ $mentor->division_id }}">
-                                                                        <i class="ri-pencil-fill align-bottom me-2 text-warning"></i>
+                                                                        data-division="{{ $mentor->division_id }}"
+                                                                        @if (file_exists(public_path('storage/' . $mentor->image))) data-image="{{ asset('storage/' . $mentor->image) }}"
+                                                                        @else
+                                                                            data-image="{{ asset('user.webp') }}" @endif>
+                                                                        <i
+                                                                            class="ri-pencil-fill align-bottom me-2 text-warning"></i>
                                                                         Edit
                                                                     </button>
                                                                 </li>
@@ -153,7 +161,7 @@
                     <h5 class="modal-title" id="varyingcontentModalLabel">Edit Mentor</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" id="form-update">
+                <form method="POST" id="form-update" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="modal-body">
@@ -161,15 +169,27 @@
                             <label for="">Nama</label>
                             <input type="text" name="name" id="mentor-name" placeholder="Masukkan Nama"
                                 class="form-control">
+                            @error('name')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="">Foto</label>
+                            <br>
+                            <img src="" class="rounded show-image avatar-lg object-fit-cover" id="mentor-image"
+                                alt="">
                             <input type="file" name="image" id="" class="form-control">
+                            @error('image')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="">Email</label>
                             <input type="text" name="email" id="mentor-email" placeholder="Masukkan Email"
                                 class="form-control">
+                            @error('email')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="">Divisi</label>
@@ -179,6 +199,9 @@
                                     <option value="{{ $division->id }}">{{ $division->name }}</option>
                                 @endforeach
                             </select>
+                            @error('division_id')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -287,10 +310,11 @@
             var name = $(this).data('name');
             var email = $(this).data('email');
             var division = $(this).data('division');
-            var students = $(this).data('student');
+            var image = $(this).data('image');
             $('#mentor-id').val(id);
             $('#mentor-name').val(name);
             $('#mentor-email').val(email);
+            $('#mentor-image').attr('src', image);
             $('#mentor-division').val(division).find('option[value="' + division + '"]').prop('selected', true);
             $('#modal-edit').modal('show');
 
@@ -310,7 +334,9 @@
             var email = $(this).data('email');
             var division = $(this).data('division');
 
+
             $('.mentor-name').text(name);
+            $('.mentor-image').attr('src', '/storage/' + image);
             $('.mentor-email').text(email);
             $('.mentor-division').text(division);
 

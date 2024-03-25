@@ -7,13 +7,14 @@ use App\Models\Journal;
 use App\Http\Requests\StoreJournalRequest;
 use App\Http\Requests\UpdateJournalRequest;
 use App\Services\JournalService;
+use Carbon\Carbon;
 
 class JournalController extends Controller
 {
     private JournalInterface $journal;
     private JournalService $service;
 
-    public function __construct(JournalInterface $journal , JournalService $service)
+    public function __construct(JournalInterface $journal, JournalService $service)
     {
         $this->middleware('subsrcribed:online');
 
@@ -27,7 +28,7 @@ class JournalController extends Controller
     public function index()
     {
         $journals = $this->journal->get();
-        return view('student_offline.journal.index' , compact('journals'));
+        return view('student_offline.journal.index', compact('journals'));
     }
 
     /**
@@ -43,12 +44,22 @@ class JournalController extends Controller
      */
     public function store(StoreJournalRequest $request)
     {
-        try {
+        $currentDate = Carbon::now()->locale('id_ID')->setTimezone('Asia/Jakarta')->isoFormat('HH:mm:ss');
+        if ($currentDate < '16:00:00' && $currentDate > '00:00:00') {
+            return redirect()->back()->with('error', 'Anda hanya dapat mengisi jurnal di jam 16.00 - 00.00');
+        } else {
+            $existingData = $this->journal->where();
+
+            if ($existingData) {
+                return redirect()->back()->with('error', 'Anda Telah Mengisi Jurnal Hari ini.');
+            }
+
+            if (now()->isWeekend()) {
+                return redirect()->back()->with('error', 'Hari ini adalah hari libur.');
+            }
             $data = $this->service->store($request);
             $this->journal->store($data);
-            return back()->with('success' , 'Berhasil Menambahkan data');
-        } catch (\Exception $th) {
-            // return back()->with('error' , $th->getMessage());
+            return redirect()->back()->with('success', 'Jurnal Berhasil Ditambahkan');
         }
     }
 
@@ -77,7 +88,7 @@ class JournalController extends Controller
     {
         $data = $this->service->update($journal, $request);
         $this->journal->update($journal->id, $data);
-        return back()->with('success' , 'Berhasi Memperbarui Data');
+        return back()->with('success', 'Berhasi Memperbarui Data');
     }
 
     /**
@@ -87,11 +98,12 @@ class JournalController extends Controller
     {
         $this->service->delete($journal);
         $this->journal->delete($journal->id);
-        return back()->with('success' , 'Berhasi Menghapus Data');
+        return back()->with('success', 'Berhasi Menghapus Data');
     }
 
-    public function studentOnline() {
+    public function studentOnline()
+    {
         $journals = $this->journal->get();
-        return view('student_online.journal.index' , compact('journals'));
+        return view('student_online.journal.index', compact('journals'));
     }
 }

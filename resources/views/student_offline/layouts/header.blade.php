@@ -13,8 +13,8 @@
             </li>
         </ul>
         <div class="d-block d-lg-none">
-            <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="180" alt="" />
-            <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="180" style="display: none;" alt="" />
+            <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="160" alt="" />
+            <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="160" style="display: none;" alt="" />
         </div>
         <button class="navbar-toggler p-0 border-0 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="p-2">

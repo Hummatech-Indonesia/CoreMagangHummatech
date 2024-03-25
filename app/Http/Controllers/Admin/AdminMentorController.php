@@ -40,24 +40,26 @@ class AdminMentorController extends Controller
     public function store(StoreMentorRequest $request)
     {
         $data = $this->mentorservice->store($request);
-        $mentor = $this->mentor->store($data);
-        if($request->student_id){
-            $this->mentorservice->storementorstudent($request, $mentor);
-        }
-
+        $this->mentor->store($data);
         return back()->with('succes', 'Mentor Berhasil Ditambahkan');
+    }
+
+    public function show(Mentor $mentor)
+    {
+        $mentor = $this->mentor->show($mentor->id);
+        return view('admin.page.user.mentor-detail', compact('mentor'));
     }
 
     public function update(UpdateMentorRequest $request, Mentor $mentor)
     {
-        $validatedData = $request->validated();
-        $mentor = $this->mentor->update($mentor->id, $validatedData);
+        $data = $this->mentorservice->update($mentor, $request);
+        $mentor = $this->mentor->update($mentor->id, $data);
         return back()->with('succes', 'Mentor Berhasil Diubah');
     }
 
     public function destroy(Mentor $mentor)
     {
-        
+
        $this->mentor->delete($mentor->id);
        return back()->with('succes', 'Mentor Berhasil Dihapus');
     }

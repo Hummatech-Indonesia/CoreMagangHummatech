@@ -32,6 +32,11 @@ class MentorRepository extends BaseRepository implements MentorInterface
         return $this->model->query()->where('id', $id)->update($data);
     }
 
+    public function show(mixed $id): mixed
+    {
+        return $this->model->query()->find($id);
+    }
+
     public function delete(mixed $id): mixed
     {
         return $this->model->query()->where('id', $id)->delete();

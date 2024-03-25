@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Student;
+use App\Enum\StudentStatusEnum;
+use App\Enum\InternshipTypeEnum;
+use App\Services\StudentService;
+use App\Services\ApprovalService;
 use App\Http\Controllers\Controller;
+use App\Contracts\Interfaces\LimitInterface;
 use App\Http\Requests\AcceptedAprovalRequest;
 use App\Http\Requests\DeclinedAprovalRequest;
-use App\Contracts\Interfaces\ApprovalInterface;
-use App\Contracts\Interfaces\LimitInterface;
 use App\Contracts\Interfaces\StudentInterface;
-use App\Services\ApprovalService;
-use App\Services\StudentService;
+use App\Contracts\Interfaces\ApprovalInterface;
 
 class ApprovalController extends Controller
 {
@@ -33,13 +35,24 @@ class ApprovalController extends Controller
         $studentOffline = $this->approval->ListStudentOffline();
         $studentOnline = $this->approval->ListStudentOnline();
         $limits = $this->limit->first();
-        return view('admin.page.approval.index', compact('limits', 'studentOffline', 'studentOnline'));
+        $studentcount = $this->student->countStudentOffline();
+        $limit =  $this->limit->first()->limits;
+        $countLimits =   $limit - $studentcount;
+        return view('admin.page.approval.index', compact('limits', 'studentOffline', 'studentOnline','countLimits'));
     }
 
 
     public function accept(AcceptedAprovalRequest $request, Student $student)
     {
-
+        if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
+            $studentcount = $this->student->countStudentOffline();
+            if (!empty($this->limit->first())) {
+                $limit =  $this->limit->first()->limits;
+                if ($studentcount >= $limit) {
+                    return back()->with('error', 'Limit Sudah Penuh');
+                }
+            }
+        }
         $data = $this->service->accept($request, $student);
         $this->approval->update($student->id, $data);
         return back()->with('success', 'Berhasil Menerima Siswa Baru');

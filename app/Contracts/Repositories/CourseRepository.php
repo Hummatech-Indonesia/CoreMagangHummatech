@@ -21,7 +21,6 @@ class CourseRepository extends BaseRepository implements CourseInterface
 
     public function store(array $data): mixed
     {
-        $data['mentors_id'] = auth()->user()->mentor->id;
         return $this->model->query()->create($data);
     }
     public function update(mixed $id, array $data): mixed

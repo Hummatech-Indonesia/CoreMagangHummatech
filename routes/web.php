@@ -63,6 +63,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::post('menu-mentor/store', [AdminMentorController::class, 'store'])->name('mentor.store');
     Route::put('menu-mentor/update/{mentor}', [AdminMentorController::class, 'update'])->name('mentor.update');
     Route::delete('menu-mentor/delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('mentor.delete');
+    Route::get('menu-mentor/detail/{mentor}', [AdminMentorController::class, 'show'])->name('mentor.show');
 
     //student
     Route::get('menu-siswa', [AdminStudentController::class, 'index'])->name('student.index');

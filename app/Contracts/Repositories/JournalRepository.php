@@ -20,28 +20,18 @@ class JournalRepository extends BaseRepository implements JournalInterface
 
     public function store(array $data): mixed
     {
-        $currentDate = Carbon::now()->locale('id_ID')->setTimezone('Asia/Jakarta')->isoFormat('HH:mm:ss');
-        if ($currentDate < '16:00:00' && $currentDate > '00:00:00') {
-            return redirect()->back()->with('error', 'Anda hanya dapat mengisi jurnal di jam 16.00 - 00.00');
-        } else {
-            $existingData = $this->model->query()
+                    $data['user_id'] = auth()->user()->id;
+                    $data['status'] = 'fillin';
+                    return $this->model->query()->create($data);
+    }
+
+    public function where(): mixed
+    {
+        return $this->model->query()
                 ->where('user_id', auth()->user()->id)
                 ->where('created_at', '>=', now()->startOfDay())
                 ->where('created_at', '<=', now()->endOfDay())
                 ->first();
-
-            if ($existingData) {
-                return redirect()->back()->with('error', 'Anda Telah Mengisi Jurnal Hari ini.');
-            }
-
-            if (now()->isWeekend()) {
-                return redirect()->back()->with('error', 'Hari ini adalah hari libur.');
-            }
-
-            $data['user_id'] = auth()->user()->id;
-            $data['status'] = 'fillin';
-            return $this->model->query()->create($data);
-        }
     }
     public function update(mixed $id, array $data): mixed
     {
