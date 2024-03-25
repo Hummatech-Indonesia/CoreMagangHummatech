@@ -65,7 +65,7 @@ Route::get('students-banned', function() {
 Route::get('offline-students/division-placement', [DivisionPlacementController::class, 'index']);
 Route::post('offline-students/division-placement/{student}', [DivisionPlacementController::class ,'divisionchange'])->name('division-placement');
 Route::get('offline-students/team', function() {
-    return view('admin.page.offline-students.team');
+    return view('admin.page.offline-students.team.index');
 });
 // Route::get('administrator/course', function() {
 //     return view('admin.page.course.index');
