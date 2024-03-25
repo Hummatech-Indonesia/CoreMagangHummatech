@@ -8,5 +8,5 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface LetterheadsInterface extends GetInterface , StoreInterface ,UpdateInterface ,DeleteInterface
 {
-
+    public function whereauth($authId): mixed;
 }
