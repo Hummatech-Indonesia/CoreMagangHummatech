@@ -3,6 +3,7 @@
 use App\Enum\RolesEnum;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LimitsController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\StudentController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Admin\AdminMentorController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
+use App\Http\Controllers\LetterheadController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
@@ -109,9 +111,14 @@ Route::prefix('siswa-online')->middleware('roles:siswa-online', 'auth')->name(Ro
     //     return view('student_online.division.index');
     // })->name('.class.division');
 
+    # Jurnal
+    Route::get('journal', [JournalController::class, 'index'])->name('.journal.index');
     Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('.journal.download');
 
-    Route::get('journal', [JournalController::class, 'index'])->name('.journal.index');
+    # LetterHead
+    Route::get('letterhead', [LetterheadController::class, 'index'])->name('.letterhead');
+    Route::post('letterhead/store', [LetterheadController::class, 'store'])->name('.letterhead.store');
+
 
     Route::get('/meeting', [ZoomScheduleController::class, 'indexStudent'])->name('zoom-meeting.indexStudent');
 });

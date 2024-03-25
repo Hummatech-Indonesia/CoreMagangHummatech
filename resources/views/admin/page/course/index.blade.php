@@ -266,7 +266,8 @@
 
                         <div class="mb-3">
                             <label for="image">Foto materi</label>
-                            <input type="file" name="image" id="" class="form-control">
+                            <input type="file" name="image" id="imageInput" class="form-control">
+                            <div id="imagePreview" class="mt-2"></div>
                         </div>
 
 
@@ -368,6 +369,27 @@
             $(".js-example-basic-single1").select2({
                 dropdownParent: $("#modal-edit")
             });
+        });
+    </script>
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+
+        imageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'img-thumbnail';
+                    imagePreview.innerHTML = '';
+                    imagePreview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.innerHTML = '';
+            }
         });
     </script>
     <script>
