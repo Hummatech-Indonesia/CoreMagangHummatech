@@ -20,6 +20,11 @@ class SubCourseRepository extends BaseRepository implements SubCourseInterface
     {
         return $this->model->query()->get();
     }
+    public function GetWhere(mixed $id): mixed
+    {
+        return $this->model->query()->where('course_id' , $id)->get();
+    }
+
     public function store(array $data): mixed
     {
         return $this->model->query()->create($data);
