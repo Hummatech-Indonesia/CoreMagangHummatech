@@ -25,7 +25,7 @@
 
 <div class="tab-content text-muted">
     <div class="tab-pane active" id="project" role="tabpanel">
-        <div class="card">
+        <div class="card col-11">
             <div class="card-body row">
                 <div class="info d-flex align-items-center col-xl-7">
                     <img class="rounded-circle avatar-xl shadow ms-3" alt="200x200" src="{{ asset('assets/images/users/avatar-4.jpg') }}">
@@ -158,6 +158,170 @@
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eaque tenetur voluptatum. Reiciendis asperiores maiores similique repellat.
                             </p>
                         </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="board" role="tabpanel">
+        <div class="d-flex gap-2">
+            <div class="col-3">
+                <div class="d-flex align-items-center">
+                    <h5 class="text-uppercase m-0">Tugas Baru</h5>
+                    <div class="badge bg-success mx-2">2</div>
+                </div>
+                <div class="mt-3 mx-0 px-0">
+                    @foreach (range(1, 2) as $item)
+                    <div class="card col-11">
+                        <div class="card-body">
+                            <h5 class="text-secondary">
+                                Lorem ipsum dolor sit amet consectetur. Et in et quis metus nunc tempus dignissim dui amet vulputate.
+                            </h5>
+                            <div class="d-flex gap-2">
+                                <div class="badge bg-warning-subtle text-warning">Front-end</div>
+                                <div class="badge bg-danger-subtle text-danger">Mendesak</div>
+                                <div class="badge bg-secondary">Direvisi mentor</div>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex gap-2 align-items-center" style="border-top-style: dotted;">
+                            <h6 class="text-secondary" style="font-size: 12px">3 Hari Lagi</h6>
+                            <div class="avatar-group">
+                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Christi">
+                                    <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle avatar-xxs">
+                                </a>
+                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Frank Hook">
+                                    <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle avatar-xxs">
+                                </a>
+                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="more">
+                                    <div class="avatar-xxs">
+                                        <div class="avatar-title rounded-circle">
+                                            3+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="d-flex align-items-center col-3">
+                    <h5 class="text-uppercase m-0">Dikerjakan</h5>
+                    <div class="badge bg-secondary mx-2">5</div>
+                </div>
+                <div class="mt-3 ">
+                    @foreach (range(1, 4) as $item)
+                    <div class="card col-11">
+                        <div class="card-body">
+                            <h5 class="text-secondary">
+                                Lorem ipsum dolor sit amet consectetur. Et in et quis metus nunc tempus dignissim dui amet vulputate.
+                            </h5>
+                            <div class="d-flex gap-2">
+                                <div class="badge bg-warning-subtle text-warning">Front-end</div>
+                                <div class="badge bg-danger-subtle text-danger">Mendesak</div>
+                                <div class="badge bg-secondary">Direvisi mentor</div>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex gap-2 align-items-center" style="border-top-style: dotted;">
+                            <h6 class="text-danger" style="font-size: 11px">Sudah melewati batas deadline</h6>
+                            <div class="avatar-group">
+                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Christi">
+                                    <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle avatar-xxs">
+                                </a>
+                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Frank Hook">
+                                    <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle avatar-xxs">
+                                </a>
+                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="more">
+                                    <div class="avatar-xxs">
+                                        <div class="avatar-title rounded-circle">
+                                            3+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="d-flex align-items-center col-3">
+                    <h5 class="text-uppercase m-0">Direvisi</h5>
+                    <div class="badge bg-warning mx-2">1</div>
+                </div>
+                <div class="mt-3 ">
+                    @foreach (range(1, 1) as $item)
+                    <div class="card col-11">
+                        <div class="card-body">
+                            <h5 class="text-secondary">
+                                Lorem ipsum dolor sit amet consectetur. Et in et quis metus nunc tempus dignissim dui amet vulputate.
+                            </h5>
+                            <div class="d-flex gap-2">
+                                <div class="badge bg-warning-subtle text-warning">Front-end</div>
+                                <div class="badge bg-danger-subtle text-danger">Mendesak</div>
+                                <div class="badge bg-secondary">Direvisi mentor</div>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex gap-2 align-items-center" style="border-top-style: dotted;">
+                            <h6 class="text-danger" style="font-size: 11px">Sudah melewati batas deadline</h6>
+                            <div class="avatar-group">
+                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Christi">
+                                    <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle avatar-xxs">
+                                </a>
+                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Frank Hook">
+                                    <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle avatar-xxs">
+                                </a>
+                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="more">
+                                    <div class="avatar-xxs">
+                                        <div class="avatar-title rounded-circle">
+                                            3+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="d-flex align-items-center col-3">
+                    <h5 class="text-uppercase m-0">Selesai</h5>
+                    <div class="badge bg-info mx-2">2</div>
+                </div>
+                <div class="mt-3 ">
+                    @foreach (range(1, 2) as $item)
+                    <div class="card col-11">
+                        <div class="card-body">
+                            <h5 class="text-secondary">
+                                Lorem ipsum dolor sit amet consectetur. Et in et quis metus nunc tempus dignissim dui amet vulputate.
+                            </h5>
+                            <div class="d-flex gap-2">
+                                <div class="badge bg-warning-subtle text-warning">Front-end</div>
+                                <div class="badge bg-danger-subtle text-danger">Mendesak</div>
+                                <div class="badge bg-secondary">Direvisi mentor</div>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex gap-2 align-items-center" style="border-top-style: dotted;">
+                            <h6 class="text-danger" style="font-size: 11px">Sudah melewati batas deadline</h6>
+                            <div class="avatar-group">
+                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Christi">
+                                    <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle avatar-xxs">
+                                </a>
+                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Frank Hook">
+                                    <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle avatar-xxs">
+                                </a>
+                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="more">
+                                    <div class="avatar-xxs">
+                                        <div class="avatar-title rounded-circle">
+                                            3+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     @endforeach
                 </div>
             </div>
