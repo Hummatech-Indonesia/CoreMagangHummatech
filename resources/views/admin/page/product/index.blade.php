@@ -12,7 +12,7 @@
     <div class="card-body">
         <div class="row g-2">
             <div class="col-sm-4">
-                <h4 class="mx-5 pt-2">Daftar Paket</h4>
+                <h4 class="mx-1 pt-2">Daftar Paket</h4>
             </div>
             <div class="col-sm-auto ms-auto d-flex">
                 <div class="search-box mx-3">
@@ -55,7 +55,6 @@
 
 <div class="row">
     @forelse ($product as $product)
-
     <div class="col-sm-6 col-xl-3">
         <div class="card mb-3">
             <div class="d-flex justify-content-center">
