@@ -9,7 +9,8 @@
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="/siswa-offline" class="text-nowrap logo-img">
                 <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="180" alt="" />
-                <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="180" alt="" style="display: none;"/>
+                <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="180" alt=""
+                    style="display: none;" />
             </a>
             <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8 text-muted text-primary"></i>
@@ -132,6 +133,14 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ url('/siswa-online/berlangganan-materi') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-shopping-cart"></i>
+                            </span>
+                            <span class="hide-menu">Beli Materi</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ url('/siswa-online/tugas') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-pencil"></i>
@@ -172,6 +181,14 @@
                         <span class="hide-menu">Riwayat Transaksi</span>
                     </a>
                 </li>
+
+                <!-- ============================= -->
+                <!-- Home -->
+                <!-- ============================= -->
+                <li class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Jadwal Zoom</span>
+                </li>
             </ul>
 
             @if (!auth()->user()->feature)
@@ -188,6 +205,14 @@
                         </div>
                     </div>
                 </div>
+            @else
+                <ul class="list-group">
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                </ul>
             @endif
         </nav>
         <div class="fixed-profile p-3 bg-light-secondary rounded sidebar-ad mt-3">

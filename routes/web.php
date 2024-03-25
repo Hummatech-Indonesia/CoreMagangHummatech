@@ -89,7 +89,7 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
     })->name('.class.division');
 
     Route::get('journal', [JournalController::class, 'index'])->name('.journal.index');
-})->middleware("roles:siswa-offline");
+})->middleware("roles:siswa-offline", 'auth');
 
 # ================================================ Online Student Route Group =================================================
 Route::prefix('siswa-online')->middleware('roles:siswa-online', 'auth')->name(RolesEnum::ONLINE->value)->group(function () {
@@ -124,7 +124,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/process', 'subscribeAddCartProcess')->name('process');
         Route::post('/remove', 'subscribeDeleteCartProcess')->name('delete');
         Route::get('/checkout', 'checkout')->name('checkout');
-    })->middleware('roles:siswa-offline,siswa-online');
+    });
 
     # Voucher Subscription Apply
     Route::controller(VoucherSubmitController::class)->prefix('voucher')->name('voucher.')->group(function () {

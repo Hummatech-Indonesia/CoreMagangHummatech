@@ -26,7 +26,7 @@ class RoleUserMiddleware
                 return auth()->user()->hasRole($role);
             }, $roles))
         ) {
-            return back();
+            return abort(403, 'Anda tidak memiliki akses ke halaman ini!');
         }
 
         # Else, continue and next to another request

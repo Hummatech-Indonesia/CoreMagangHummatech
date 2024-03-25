@@ -474,7 +474,7 @@
             $('.show-name').text(name);
             $('.show-identify_number').text(identify_number);
             $('.show-email').text(email);
-            $('.show-image').attr('src', '{{ asset('storage') }}/' + avatar);
+            $('.show-image').attr('src', avatar);
             $('.show-address').text(address);
             $('.show-phone').text(phone);
             $('.show-birthday').text(birth_place + ',' + birth_date)
