@@ -6,17 +6,7 @@
 
 @section('content')
 @php
-    $status = strtoupper($reference->status);
-    $refs = match ($status) {
-        'PENDING' => \App\Enum\TransactionStatusEnum::PENDING,
-        'PAID' => \App\Enum\TransactionStatusEnum::PAID,
-        'CANCELLED' => \App\Enum\TransactionStatusEnum::CANCELLED,
-        'EXPIRED' => \App\Enum\TransactionStatusEnum::EXPIRED,
-        'FAILED' => \App\Enum\TransactionStatusEnum::FAILED,
-        'REFUND' => \App\Enum\TransactionStatusEnum::REFUND,
-        'UNPAID' => \App\Enum\TransactionStatusEnum::UNPAID,
-        default => \App\Enum\TransactionStatusEnum::DEFAULT
-    };
+    $refs = $reference->getTransactionStatus();
 @endphp
 <div class="card bg-light-info shadow-none position-relative overflow-hidden">
     <div class="card-body px-4 py-3">
