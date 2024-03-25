@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\ResponseLetterController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
+use App\Http\Controllers\StudentOnline\CourseController;
 use App\Http\Controllers\StudentOnline\StudentOnlineController;
 
 # ==================================================== Homepage Group Route ===================================================
@@ -97,9 +98,16 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
 # ================================================ Online Student Route Group =================================================
 Route::prefix('siswa-online')->middleware('roles:siswa-online', 'auth')->name(RolesEnum::ONLINE->value)->group(function () {
     Route::get('/', [StudentOnlineController::class, 'index'])->name('.home');
-    Route::get('division', function () {
-        return view('student_online.division.index');
-    })->name('.class.division');
+
+    Route::controller(CourseController::class)->group(function() {
+        Route::get('/materi', 'index')->name('.course');
+        Route::get('/materi/{course}', 'detail')->name('.course.detail');
+        Route::get('/materi/{course}/course/{subCourse}', 'subCourseDetail')->name('.course.subcourse');
+    });
+
+    // Route::get('division', function () {
+    //     return view('student_online.division.index');
+    // })->name('.class.division');
 
     Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('.journal.download');
 
