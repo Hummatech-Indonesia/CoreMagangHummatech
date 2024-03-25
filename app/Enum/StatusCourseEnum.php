@@ -5,13 +5,13 @@ namespace App\Enum;
 enum StatusCourseEnum :string
 {
     case PAID = 'paid';
-    case FREE = 'free';
+    case SUBCRIBE = 'subcribe';
 
     public function label()
     {
         return match ($this) {
             self::PAID => 'Berbayar',
-            self::FREE => 'Gratis',
+            self::SUBCRIBE => 'Berlangganan',
         };
     }
 }
