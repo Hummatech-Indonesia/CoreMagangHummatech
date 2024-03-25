@@ -340,9 +340,9 @@
                 detail.append('<h6 class="f-w-600">Kegiatan</h6>');
                 detail.append('<p>' + description + '</p>')
                 detail.append('</div>');
-                detail.append('<div class="mb-2">');
+                detail.append('<div class="mb-2 col-12">');
                 detail.append('<h6 class="f-w-600">Bukti</h6>');
-                detail.append('<img src="' + image + '" width="100%"></img>')
+                detail.append('<img src="' + image + '" class="w-100"></img>')
                 detail.append('</div>');
                 $('#detail').modal('show');
             });
