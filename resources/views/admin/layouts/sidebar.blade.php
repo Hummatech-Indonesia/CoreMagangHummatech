@@ -120,7 +120,7 @@
                                 <a href="{{ url('/offline-students/team') }}" class="nav-link" data-key="t-api-key">Tim</a>
                             </li>
                             <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Presentasi</a>
+                                <a href="{{ url('/offline-students/presentation') }}" class="nav-link" data-key="t-api-key">Presentasi</a>
                             </li>
                             <li class="nav-item">
                                 <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">RFID</a>

@@ -69,6 +69,9 @@ Route::get('offline-students/team', function() {
 Route::get('offline-students/team/detail', function() {
     return view('admin.page.offline-students.team.detail');
 });
+Route::get('offline-students/presentation', function() {
+    return view('admin.page.offline-students.presentation.index');
+});
 // Route::get('administrator/course', function() {
 //     return view('admin.page.course.index');
 // });
