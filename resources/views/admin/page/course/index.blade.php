@@ -163,7 +163,15 @@
 
         <div id="paid" class="tab-pane fade">
             <div class="row">
-                @forelse ($courses as $course->status === 'paid')
+                @php
+                    $foundPaidCourse = false;
+                @endphp
+
+                @forelse ($courses as $course)
+                    @if ($course->status === 'paid')
+                        @php
+                            $foundPaidCourse = true;
+                        @endphp
                         <div class="col-xl-3">
                             <div class="card ribbon-box border shadow-none mb-lg-0">
                                 <div class="card-body">
@@ -174,7 +182,8 @@
                                         width="20em" height="170em" alt="Card image cap" />
                                     <div class="d-flex justify-content-end px-3 mb-4" style="margin-top: -45px">
                                         <div class="px-2 py-1 rounded-2 rounded"
-                                            style="background: #fff; font-size: 15px;">{{ $course->division->name }}</div>
+                                            style="background: #fff; font-size: 15px;">
+                                            {{ $course->division->name }}</div>
                                     </div>
                                     <a href="/administrator/course/detail" style="font-size: 18px" class="text-dark">
                                         {{ $course->title }}
@@ -196,13 +205,15 @@
                                 </div>
                             </div>
                         </div>
+                    @endif
                 @empty
-                    <div class="d-flex justify-content-center mb-2 mt-5">
-                        <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
-                    </div>
-                    <p class="fs-5 text-dark text-center">
-                        Data Masih Kosong
-                    </p>
+                    @if (!$foundPaidCourse)
+                        <div class="d-flex justify-content-center mb-2 mt-5">
+                            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                        </div>
+                        <p class="fs-5 text-dark text-center">
+                            Data
+                    @endif
                 @endforelse
             </div>
         </div>
