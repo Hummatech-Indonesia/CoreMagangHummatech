@@ -140,7 +140,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="#" aria-expanded="false">
+                        <a class="sidebar-link" href="{{ url('/siswa-online/meeting') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-calendar"></i>
                             </span>

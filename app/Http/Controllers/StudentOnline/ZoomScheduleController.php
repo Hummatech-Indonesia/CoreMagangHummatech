@@ -27,7 +27,8 @@ class ZoomScheduleController extends Controller
 
     public function indexStudent()
     {
-        return view('student_online.meeting.index');
+        $zoomSchedules = $this->zoomSchedule->get();
+        return view('student_online.meeting.index', compact('zoomSchedules'));
     }
 
     /**
