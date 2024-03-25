@@ -67,6 +67,9 @@ Route::post('offline-students/division-placement/{student}', [DivisionPlacementC
 Route::get('offline-students/team', function() {
     return view('admin.page.offline-students.team.index');
 });
+Route::get('offline-students/team/detail', function() {
+    return view('admin.page.offline-students.team.detail');
+});
 // Route::get('administrator/course', function() {
 //     return view('admin.page.course.index');
 // });
