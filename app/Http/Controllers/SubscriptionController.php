@@ -21,6 +21,7 @@ class SubscriptionController extends Controller
 
     public function __construct(ProductInterface $productInterface, PaymentInterface $paymentInterface, CheckoutProductService $checkout, VoucherInterface $voucherInterface)
     {
+        $this->middleware('roles:siswa-offline,siswa-online');
         $this->productInterface = $productInterface;
         $this->paymentInterface = $paymentInterface;
         $this->checkout = $checkout;

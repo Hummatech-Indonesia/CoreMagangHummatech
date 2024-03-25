@@ -124,7 +124,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/process', 'subscribeAddCartProcess')->name('process');
         Route::post('/remove', 'subscribeDeleteCartProcess')->name('delete');
         Route::get('/checkout', 'checkout')->name('checkout');
-    })->middleware('roles:siswa-offline,siswa-online');
+    });
 
     # Voucher Subscription Apply
     Route::controller(VoucherSubmitController::class)->prefix('voucher')->name('voucher.')->group(function () {

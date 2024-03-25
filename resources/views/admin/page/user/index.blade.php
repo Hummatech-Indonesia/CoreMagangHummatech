@@ -418,7 +418,7 @@
 
     <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
         style="display: none;">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="myModalLabel">Ubah Foto</h5>
@@ -429,15 +429,12 @@
                     @method('PUT')
                     <div class="modal-body">
                         <div class="col-12">
-                            <div class="mb-3">
-                                <label class="form-label">Foto</label>
-                                <br>
-                                <img src="" class="rounded show-image avatar-lg object-fit-cover" alt="">
-
-                                <input type="file" name="avatar" class="form-control">
+                            <div class="mb-3 d-flex gap-3 flex-column align-items-center">
+                                <img src="{{ asset('user.webp') }}" class="rounded show-image avatar-lg object-fit-cover" alt="User Profile" />
+                                <input type="file" id="image" name="avatar" class="form-control" />
                             </div>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer d-flex gap-2 justify-content-center p-0 pt-2 flex-row-reverse">
                             <button type="submit" class="btn btn-primary ">Simpan</button>
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
                         </div>
@@ -547,7 +544,7 @@
             $('.show-name').text(name);
             $('.show-identify_number').text(identify_number);
             $('.show-email').text(email);
-            $('.show-image').attr('src', avatar);
+            $('.show-image').attr('src', avatar ?? "{{ asset('user.webp') }}");
             $('.show-address').text(address);
             $('.show-phone').text(phone);
             $('.show-birthday').text(birth_place + ',' + birth_date)
@@ -577,7 +574,7 @@
             let id = $(this).data('id');
             let image = $(this).data('image');
             $('#form-change').attr('action', '/menu-siswa/update/' + id);
-            $('.show-image').attr('src', image);
+            $('.show-image').attr('src', image ? `{{ url('/storage') }}/${image}` : "{{ asset('user.webp') }}");
             $('#myModal').modal('show');
         });
 
