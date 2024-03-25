@@ -89,9 +89,9 @@
                                 </div>
                             </div>
                             <div class="tab-pane p-3" id="profile" role="tabpanel">
-                                <iframe src="https://youtu.be/7yYGRw0nDhI?si=g_-e_2wzV7Pr9UBC" width="600" height="450"
-                                    style="border:0;" allowfullscreen="" loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                <div>
+                                    <iframe width="560" height="315" src="{{ $subCourses->video_course }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                </div>
                             </div>
                         </div>
                     </div>
