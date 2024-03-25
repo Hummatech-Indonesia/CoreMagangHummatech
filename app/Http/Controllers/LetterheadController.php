@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Interfaces\LetterheadsInterface;
 use App\Models\Letterhead;
+use App\Services\LetterheadService;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreLetterheadRequest;
 use App\Http\Requests\UpdateLetterheadRequest;
-use App\Services\LetterheadService;
+use App\Contracts\Interfaces\LetterheadsInterface;
 
 class LetterheadController extends Controller
 {
@@ -24,8 +25,8 @@ class LetterheadController extends Controller
      */
     public function index()
     {
-        $letterheads = $this->letterhead->get();
-        return view('' , compact('letterheads'));
+        $letterheads = $this->letterhead->whereauth(Auth::user()->id);
+        return view('student_online.letterhead.index' , compact('letterheads'));
     }
 
     /**

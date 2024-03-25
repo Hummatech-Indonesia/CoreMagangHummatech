@@ -4,13 +4,14 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\LetterheadsInterface;
 use App\Contracts\Interfaces\PicketInterface;
+use App\Models\Letterhead;
 use App\Models\Picket;
 
 class LetterheadsRepository extends BaseRepository implements LetterheadsInterface
 {
-    public function __construct(Picket $picket)
+    public function __construct(Letterhead $letterhead)
     {
-        $this->model = $picket;
+        $this->model = $letterhead;
     }
 
     public function get(): mixed
@@ -29,5 +30,10 @@ class LetterheadsRepository extends BaseRepository implements LetterheadsInterfa
     public function delete(mixed $id): mixed
     {
         return $this->model->query()->findOrFail($id)->delete($id);
+    }
+
+    public function whereauth($authId): mixed
+    {
+        return $this->model->query()->where('user_id', $authId)->first();
     }
 }
