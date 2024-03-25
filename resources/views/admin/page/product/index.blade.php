@@ -12,7 +12,7 @@
     <div class="card-body">
         <div class="row g-2">
             <div class="col-sm-4">
-                <h4 class="mx-1 pt-2">Daftar Paket</h4>
+                <h4 class="mx-5 pt-2">Daftar Paket</h4>
             </div>
             <div class="col-sm-auto ms-auto d-flex">
                 <div class="search-box mx-3">
@@ -55,6 +55,7 @@
 
 <div class="row">
     @forelse ($product as $product)
+
     <div class="col-sm-6 col-xl-3">
         <div class="card mb-3">
             <div class="d-flex justify-content-center">
@@ -66,11 +67,18 @@
                     <h4 class="card-title mb-2 text-dark text-light-dark">IDR {{ number_format($product->price, 0, ',', '.') }} <small class="mt-3 text-muted">/bulan</small></h4>
                 </div>
                 <p class="mt-3 text-muted">{{$product->description}}</p>
+                <p class="mt-3 text-muted">{{$product->division->name}}</p>
+
                 <div class="justify-content-end d-flex">
-                    <button type="button" class="btn btn-warning mx-2 btn-edit" data-id="{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ $product->price }}"
-                        data-description="{{ $product->description }}" data-image="{{ $product->image }}" data-division_id="{{ $product->division_id }}">
-                        Edit
-                    </button>
+                    <button type="button" class="btn btn-warning mx-2 btn-edit"
+                    data-id="{{ $product->id }}"
+                    data-name="{{ $product->name }}"
+                    data-price="{{ $product->price }}"
+                    data-description="{{ $product->description }}"
+                    data-image="{{ $product->image }}"
+                    data-division_id="{{ $product->division_id }}">
+                    Edit
+                </button>
                     <button type="button" class="btn btn-danger btn-delete" data-id="{{ $product->id }}">
                         Hapus
                     </button>
@@ -81,12 +89,13 @@
     </div>
 
     @empty
-        <div class="d-flex justify-content-center mb-2 mt-5">
-            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
-        </div>
-        <h4 class="text-dark text-center">Tidak ada data</h4>
+    <div class="d-flex justify-content-center mb-2 mt-5">
+        <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+    </div>
+        <p class="fs-5 text-dark text-center">
+            Data Masih Kosong
+        </p>
     @endforelse
-
 </div>
 @include('admin.components.delete-modal-component')
 
@@ -108,7 +117,8 @@
                     </div>
                     <div class="form-group mb-3 mt-3 col-md-12">
                         <label for="division_id">Divisi</label>
-                        <select name="division_id" class="js-example-basic-single form-select" id="division_id-edit">
+                        <select name="division_id" class="js-example-basic-single1 form-select">
+                            <option value="" disabled selected>Pilih Divisi</option>
                             @foreach ($divisions as $division)
                                 @php
                                     $isUsed = \App\Models\Product::where('division_id', $division->id)->exists();
@@ -122,12 +132,9 @@
                             @endif
                         </select>
                     </div>
-
-
-
                     <div class="mb-1">
                         <label for="price" class="col-form-label">Harga</label>
-                        <input type="text" class="form-control" id="price" name="price" placeholder="Masukkan Harga Paket">
+                        <input type="number" class="form-control" id="price" name="price" placeholder="Masukkan Harga Paket" data-raw-value="">
                     </div>
                     <div class="mb-1">
                         <label for="" class="mt-2 mb-2">Deskripsi</label>
@@ -140,7 +147,6 @@
                         </figure>
                         <input type="file" name="image" class="form-control" onchange="preview(event)">
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-soft-danger" data-bs-dismiss="modal">Tutup</button>
@@ -169,21 +175,16 @@
                     </div>
                     <div class="form-group mb-3 mt-3 col-md-12">
                         <label for="division_id">Divisi</label>
-                        <select name="division_id" class="js-example-basic-single form-select" id="division_id-edit">
-                            <option value="" disabled selected>Pilih Divisi</option>
+                        <select name="division_id" class="js-example-basic-single2 form-select" id="division_id-edit">
+                            <option disabled>Pilih Divisi</option>
                             @foreach ($divisions as $division)
-                                @php
-                                    $isUsed = \App\Models\Product::where('division_id', $division->id)->exists();
-                                @endphp
-                                @if (!$isUsed)
-                                    <option value="{{ $division->id }}">{{ $division->name }}</option>
-                                @endif
+                                <option value="{{ $division->id }}">{{ $division->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="mb-1">
                         <label for="price" class="col-form-label">Harga</label>
-                        <input type="text" class="form-control" id="price-edit" name="price" placeholder="Masukkan Harga Paket">
+                        <input type="number" class="form-control" id="price-edit" name="price" placeholder="Masukkan Harga Paket">
                     </div>
                     <div class="mb-1">
                         <label for="" class="mt-2 mb-2">Deskripsi</label>
@@ -193,10 +194,9 @@
                         <label for="" class="mt-2 mb-2">Gambar</label>
                         <input type="file" name="image" class="form-control" onchange="preview(event)"><br>
                         <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
-                            <img class="img-thumbnail preview" itemprop="thumbnail" src="" />
+                            <img class="img-thumbnail preview" itemprop="thumbnail" id="img-thumnail" src="" />
                         </figure>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-soft-danger" data-bs-dismiss="modal">Tutup</button>
@@ -211,8 +211,7 @@
 @endsection
 
 @section('script')
-<!-- CSS -->
-<!-- JS -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -220,20 +219,14 @@
 
 
 <script>
-    $(document).ready(function() {
-        $('.js-example-basic-single').select2();
-    });
-</script>
-
-<script>
 
     $(document).ready(function() {
-        $(".js-example-basic-single-add").select2({
+        $(".js-example-basic-single1").select2({
             dropdownParent: $("#add")
         });
     });
     $(document).ready(function() {
-        $(".js-example-basic-single").select2({
+        $(".js-example-basic-single2").select2({
             dropdownParent: $("#modal-edit")
         });
     });
@@ -251,6 +244,20 @@
 </script>
 
 <script>
+    var priceInput = document.getElementById('price');
+    priceInput.addEventListener('input', function(e) {
+        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    });
+
+    var form = document.getElementById('myForm');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var rawValue = priceInput.value;
+        console.log('Value to be sent to the backend: ', rawValue);
+    });
+</script>
+
+<script>
     $('.btn-edit').click(function () {
         var id = $(this).data('id');
         var name = $(this).data('name');
@@ -258,14 +265,14 @@
         var description = $(this).data('description');
         var image = $(this).data('image');
         var division_id = $(this).data('division_id');
-
+        console.log(division_id);
         $('#form-update').attr('action', 'product/' + id);
         $('#name-edit').val(name);
         $('#price-edit').val(price);
         $('#description-edit').val(description);
         $('#image-edit').val(image);
         $('#img-thumnail').attr('src', 'storage/' + image);
-        $('#division_id-edit').val(division_id);
+        $('#division_id-edit').val(division_id).trigger('change');
         $('#modal-edit').modal('show');
     });
 

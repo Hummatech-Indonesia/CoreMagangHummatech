@@ -62,7 +62,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $divisions = $this->division->get(); 
+        return view('admin.page.product.edit', compact('product', 'divisions'));
     }
 
     /**
