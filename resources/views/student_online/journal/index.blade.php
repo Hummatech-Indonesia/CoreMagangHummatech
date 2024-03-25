@@ -259,7 +259,7 @@
                     <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="col-lg-6 text-start" id="detail-content">
+                    <div class="col-lg-12 text-start" id="detail-content">
                     </div>
                     <div class="modal-footer">
                         <div class="d-flex justify-content-end">
