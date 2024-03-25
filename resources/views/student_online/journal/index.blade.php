@@ -152,8 +152,8 @@
                                         @endif
                                         <button type="button" class="bg-transparent border-0 btn-detail"
                                             data-id="{{ $journal->id }}" data-name="{{ $journal->user->name }}"
-                                            data-date="{{ $journal->created_at }}"
-                                            data-school="{{ $journal->user->school }}" {{-- data-school="{{ $journal->user->student->school }}" --}}
+                                            data-date="{{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}"                                            data-school="{{ $journal->user->student->school }}" {{-- data-school="{{ $journal->user->student->school }}" --}}
+                                            data-time="{{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('HH:mm:ss') }}"                                            data-school="{{ $journal->user->student->school }}" {{-- data-school="{{ $journal->user->student->school }}" --}}
                                             data-description="{{ $journal->description }}"
                                             data-image="{{ asset('storage/' . $journal->image) }}">
                                             <svg width="29" height="32" viewBox="0 0 29 32" fill="none"
@@ -317,6 +317,7 @@
                 var name = $(this).data('name');
                 var date = $(this).data('date');
                 var school = $(this).data('school');
+                var time = $(this).data('time');
                 var description = $(this).data('description');
                 var image = $(this).data('image');
                 detail.append('<div class="mb-2">');
@@ -326,6 +327,10 @@
                 detail.append('<div class="mb-2">');
                 detail.append('<h6 class="f-w-600">Tanggal</h6>');
                 detail.append('<p class="text-muted">' + date + '</p>')
+                detail.append('</div>');
+                detail.append('<div class="mb-2">');
+                detail.append('<h6 class="f-w-600">Jam</h6>');
+                detail.append('<p class="text-muted">' + time + '</p>')
                 detail.append('</div>');
                 detail.append('<div class="mb-2">');
                 detail.append('<h6 class="f-w-600">Sekolah</h6>');
