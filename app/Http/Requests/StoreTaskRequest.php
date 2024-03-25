@@ -23,7 +23,10 @@ class StoreTaskRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'sub_course_id' => 'required',
+            'title' => 'required',
+            'level' => 'required'
         ];
     }
 }

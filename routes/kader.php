@@ -3,6 +3,7 @@
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\SubCourseController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('create/jurnal', [JournalController::class , 'store']);
@@ -14,6 +15,7 @@ Route::get('timetable', function () {return view('mentor.zoomschedule');});
 // mentor
 Route::get('challenge', [CourseController::class ,'index']);
 Route::post('create/materi', [CourseController::class ,'store']);
+Route::post('create/task', [TaskController::class ,'store']);
 Route::post('create/sub-materi/{course}', [SubCourseController::class ,'store']);
 Route::get('detail/pelajari/{subCourse}', [SubCourseController::class ,'show']);
 Route::get('show/materi/{course}', [CourseController::class ,'show']);
