@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('presentase');
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('type' , [TypeVoucherEnum::QUOTA->value , TypeVoucherEnum::UNLIMITED->value]);
+            $table->enum('type' , [TypeVoucherEnum::QUOTA->value , TypeVoucherEnum::UNLIMITED->value]);
             $table->string('quota')->default('0');
             $table->timestamps();
-        });     
+        });
     }
 
     /**

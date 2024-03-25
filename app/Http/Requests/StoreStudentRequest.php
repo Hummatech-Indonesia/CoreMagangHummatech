@@ -43,7 +43,7 @@ class StoreStudentRequest extends FormRequest
             'rfid' => 'nullable',
             'internship_type' => 'required',
             'division_id' => 'required_if:internship_type,online|nullable',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required',
             'confirm_password' => 'required|same:password',
         ];
@@ -74,6 +74,7 @@ class StoreStudentRequest extends FormRequest
             'major.required' => 'Jurusan wajib diisi.',
             'internship_type.required' => 'Jenis magang wajib diisi.',
             'email.required' => 'Email wajib diisi.',
+            'email.unique' => 'Email sudah terdaftar.',
             'password.required' => 'Password wajib diisi.',
             'division_id.required_if' => 'Divisi wajib diisi.',
             'confirm_password.same' => 'Konfirmasi password tidak sama.',
