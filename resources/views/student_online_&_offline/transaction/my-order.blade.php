@@ -29,7 +29,7 @@
 
     <div class="my-3 mb-5 d-flex gap-3">
         <div class="status-wrapper">
-            <select id="status" class="form-control">
+            <select id="status" class="form-select">
                 <option @if (!request()->get('status')) selected @endif value="">Semua Status</option>
                 @foreach (App\Enum\TransactionStatusEnum::cases() as $status)
                     <option @if (request()->get('status') === $status->value) selected @endif value="{{ $status->value }}">
@@ -38,7 +38,7 @@
             </select>
         </div>
         <div class="sort-wrapper">
-            <select id="sort" class="form-control">
+            <select id="sort" class="form-select">
                 <option @if (request()->get('sort') === 'latest' || !request()->get('sort')) selected @endif value="latest">Terbaru</option>
                 <option @if (request()->get('sort') === 'oldest') selected @endif value="oldest">Dari Lama</option>
             </select>

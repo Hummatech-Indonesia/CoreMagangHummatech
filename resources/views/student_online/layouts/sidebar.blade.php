@@ -142,9 +142,9 @@
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="#" aria-expanded="false">
                             <span>
-                                <i class="ti ti-clock"></i>
+                                <i class="ti ti-calendar"></i>
                             </span>
-                            <span class="hide-menu">Jadwal Mentor</span>
+                            <span class="hide-menu">Jadwal Bimbingan</span>
                         </a>
                     </li>
                     <li class="sidebar-item">

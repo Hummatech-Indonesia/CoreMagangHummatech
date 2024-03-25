@@ -64,4 +64,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(TransactionHistory::class);
     }
+    public function zoomSchedule()
+    {
+        return $this->hasMany(ZoomSchedule::class);
+    }
 }

@@ -15,6 +15,7 @@ use App\Http\Controllers\LimitsController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
 use App\Http\Controllers\StudentOnline\StudentOnlineController;
+use App\Http\Controllers\StudentOnline\ZoomScheduleController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\VoucherSubmitController;
@@ -97,6 +98,8 @@ Route::prefix('siswa-online')->middleware('roles:siswa-online', 'auth')->name(Ro
     })->name('.class.division');
 
     Route::get('journal', [JournalController::class, 'index'])->name('.journal.index');
+
+    Route::get('/meeting', [ZoomScheduleController::class, 'indexStudent'])->name('zoom-meeting.indexStudent');
 });
 
 # ================================================ School/Instance Route Group ================================================

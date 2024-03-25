@@ -18,6 +18,7 @@ return new class extends Migration
             $table->dateTime('end_date');
             $table->string('link');
             $table->foreignId('mentors_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
