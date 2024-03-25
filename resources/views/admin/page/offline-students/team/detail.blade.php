@@ -130,7 +130,39 @@
             </div>
         </div>
     </div>
-
+    <div class="tab-pane" id="note" role="tabpanel">
+        <div class="row gap-5 ms-3">
+            <div class="col-xl-4 card">
+                <div class="card-body my-2">
+                    <div class="project">
+                        <h4>IndeKost Mini Project</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolorem nam esse vitae!</p>
+                    </div>
+                    <div class="note">
+                        <h4>List Catatan:</h4>
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link mb-2 active" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Revisi Major Dan Minor In Project</a>
+                            <a class="nav-link mb-2" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Revisi Major Dan Minor In Project</a>
+                            <a class="nav-link mb-2" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Revisi Major Dan Minor In Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-7 card">
+                <div class="card-body my-2">
+                    <h4 class="mb-3">Revisi ajor dan minor in project</h4>
+                    @foreach (range(1,3) as $key => $item)
+                        <div class="my-1">
+                            <h5 class="m-0">Catatan {{ ++$key }}</h5>
+                            <p class="text-muted">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eaque tenetur voluptatum. Reiciendis asperiores maiores similique repellat.
+                            </p>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @endsection
