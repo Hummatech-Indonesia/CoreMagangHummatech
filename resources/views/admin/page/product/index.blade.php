@@ -82,7 +82,10 @@
     </div>
 
     @empty
-
+        <div class="d-flex justify-content-center mb-2 mt-5">
+            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+        </div>
+        <h4 class="text-dark text-center">Tidak ada data</h4>
     @endforelse
 
 </div>
