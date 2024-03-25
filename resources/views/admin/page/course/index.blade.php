@@ -163,8 +163,7 @@
 
         <div id="paid" class="tab-pane fade">
             <div class="row">
-                @forelse ($courses as $course)
-                    @if ($course->status === 'paid')
+                @forelse ($courses as $course->status === 'paid')
                         <div class="col-xl-3">
                             <div class="card ribbon-box border shadow-none mb-lg-0">
                                 <div class="card-body">
@@ -197,15 +196,7 @@
                                 </div>
                             </div>
                         </div>
-                    @empty
-                    @else
-                        <div class="d-flex justify-content-center mb-2 mt-5">
-                            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
-                        </div>
-                        <p class="fs-5 text-dark text-center">
-                            Data Masih Kosong
-                        </p>
-                    @endif
+                @empty
                     <div class="d-flex justify-content-center mb-2 mt-5">
                         <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
                     </div>
