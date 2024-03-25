@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DivisionController;
 use App\Http\Controllers\Admin\DivisionPlacementController;
 use App\Http\Controllers\JournalController;
+use App\Http\Controllers\StudentOnlineController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('division', [DivisionController::class, 'index'])->name('division.index');
@@ -21,9 +22,7 @@ Route::get('absent', function() {
 Route::put('journal/{journal}', [JournalController::class, 'update']);
 Route::get('siswa-online/jurnal', [JournalController::class, 'studentOnline']);
 
-Route::get('siswa-online/materi', function() {
-    return view('student_online.course.index');
-});
+Route::get('siswa-online/materi', [StudentOnlineController::class , 'index']);
 Route::get('siswa-online/materi/detail', function() {
     return view('student_online.course.detail');
 });

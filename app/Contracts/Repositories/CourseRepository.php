@@ -39,4 +39,10 @@ class CourseRepository extends BaseRepository implements CourseInterface
     {
         return $this->model->query()->count();
     }
+
+    public function GetWhere(mixed $id): mixed
+    {
+        return $this->model->query()->where('division_id' , $id)->get();
+    }
+
 }
