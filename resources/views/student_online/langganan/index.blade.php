@@ -51,7 +51,7 @@
 
                         <input type="hidden" name="id" value="{{ $product->id }}" />
 
-                        <button type="submit" class="btn btn-primary fw-bolder rounded-2 py-6 w-100 text-capitalize">Saya Pilih Ini</button>
+                        <button type="submit" class="btn btn-primary fw-bolder rounded-2 py-6 w-100 text-capitalize">Berlangganan</button>
                     </form>
                 </div>
             </div>

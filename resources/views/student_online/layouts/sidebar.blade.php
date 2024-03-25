@@ -116,7 +116,7 @@
                     </li>
                 @else
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="/siswa-online/jurnal" aria-expanded="false">
+                        <a class="sidebar-link" href="{{ url('/siswa-online/jurnal') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-check"></i>
                             </span>
@@ -124,7 +124,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="/siswa-online/materi" aria-expanded="false">
+                        <a class="sidebar-link" href="{{ url('/siswa-online/materi') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-book"></i>
                             </span>
@@ -132,7 +132,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="#" aria-expanded="false">
+                        <a class="sidebar-link" href="{{ url('/siswa-online/tugas') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-pencil"></i>
                             </span>
@@ -142,9 +142,9 @@
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="#" aria-expanded="false">
                             <span>
-                                <i class="ti ti-clock"></i>
+                                <i class="ti ti-calendar"></i>
                             </span>
-                            <span class="hide-menu">Jadwal Mentor</span>
+                            <span class="hide-menu">Jadwal Bimbingan</span>
                         </a>
                     </li>
                     <li class="sidebar-item">

@@ -48,6 +48,7 @@ use App\Contracts\Interfaces\LimitInterface;
 use App\Contracts\Interfaces\SubCourseInterface;
 use App\Contracts\Interfaces\TaskInterface;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
+use App\Contracts\Interfaces\ZoomScheduleInterface;
 use App\Contracts\Repositories\CodeOfConductRepository;
 use App\Contracts\Repositories\MentorStudentRepository;
 use App\Contracts\Repositories\ReportStudentRepository;
@@ -61,6 +62,7 @@ use App\Contracts\Repositories\LimitRepository;
 use App\Contracts\Repositories\SubCourseRepository;
 use App\Contracts\Repositories\TaskRepository;
 use App\Contracts\Repositories\TransactionHistoryRepository;
+use App\Contracts\Repositories\ZoomScheduleRepository;
 use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
@@ -93,7 +95,8 @@ class AppServiceProvider extends ServiceProvider
         MentorStudentInterface::class => MentorStudentRepository::class,
         TransactionHistoryInterface::class => TransactionHistoryRepository::class,
         LimitInterface::class => LimitRepository::class,
-        TaskInterface::class => TaskRepository::class
+        TaskInterface::class => TaskRepository::class,
+        ZoomScheduleInterface::class => ZoomScheduleRepository::class,
     ];
 
     /**
@@ -119,10 +122,10 @@ class AppServiceProvider extends ServiceProvider
 
         # Adding custom directive
         Blade::directive('fcurrency', function ($expression) {
-            return "<?php echo number_format($expression,2,',','.'); ?>";
+            return "<?php echo number_format($expression, 0,',','.'); ?>";
         });
         Blade::directive('currency', function ($expression) {
-            return "Rp<?php echo number_format($expression,2,',','.'); ?>";
+            return "Rp<?php echo number_format($expression, 0,',','.'); ?>";
         });
 
         # Paginator change to bootstrap
