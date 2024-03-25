@@ -48,17 +48,7 @@
     <div class="row">
         @forelse ($transactions as $transaction)
             @php
-                $status = strtoupper($transaction->status);
-                $refs = match ($status) {
-                    'PENDING' => \App\Enum\TransactionStatusEnum::PENDING,
-                    'PAID' => \App\Enum\TransactionStatusEnum::PAID,
-                    'CANCELLED' => \App\Enum\TransactionStatusEnum::CANCELLED,
-                    'EXPIRED' => \App\Enum\TransactionStatusEnum::EXPIRED,
-                    'FAILED' => \App\Enum\TransactionStatusEnum::FAILED,
-                    'REFUND' => \App\Enum\TransactionStatusEnum::REFUND,
-                    'UNPAID' => \App\Enum\TransactionStatusEnum::UNPAID,
-                    default => \App\Enum\TransactionStatusEnum::DEFAULT,
-                };
+                $refs = $transaction->getTransactionStatus();
             @endphp
             <div class="col-xl-4 col-xxl-3">
                 <div class="card">
@@ -154,7 +144,7 @@
             else
                 queryParams.delete('sort')
 
-            const newUrl = `${baseUrl}?${queryParams.toString()}`;
+            const newUrl = queryParams.size > 0 ? `${baseUrl}?${queryParams.toString()}` : baseUrl;
 
             // Update the URL
             window.location.href = newUrl;

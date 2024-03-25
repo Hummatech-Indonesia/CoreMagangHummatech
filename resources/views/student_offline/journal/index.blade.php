@@ -135,11 +135,11 @@
                                 <td>
                                     <div class="d-flex gap-2">
                                         @if ($journal->created_at->isToday())
-                                        <button type="button" class="bg-transparent border-0 btn-edit" 
+                                        <button type="button" class="bg-transparent border-0 btn-edit"
                                             data-id="{{ $journal->id }}"
                                             data-title="{{ $journal->title }}"
                                             data-image="{{ asset('storage/'.$journal->image) }}"
-                                            data-description="{{ $journal->description }}">
+                                            data-description="{!! nl2br($journal->description) !!}">
                                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -155,7 +155,7 @@
                                             data-date="{{ $journal->created_at }}"
                                             data-school="{{ $journal->user->student->school }}"
                                             {{-- data-school="{{ $journal->user->school }}" --}}
-                                            data-description="{{ $journal->description }}"
+                                            data-description="{!! nl2br($journal->description) !!}"
                                             data-image="{{ asset('storage/'. $journal->image) }}">
                                             <svg width="29" height="32" viewBox="0 0 29 32" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -273,10 +273,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $('.btn-edit').click(function () {
-            var id = $(this).data('id'); 
-            var title = $(this).data('title'); 
-            var description = $(this).data('description'); 
-            var image = $(this).data('image'); 
+            var id = $(this).data('id');
+            var title = $(this).data('title');
+            var description = $(this).data('description');
+            var image = $(this).data('image');
             $('#form-update').attr('action', '/journal/' + id);
             $('#title-edit').val(title);
             $('#description-edit').val(description);
@@ -306,10 +306,10 @@
             var detail = $('#detail-content');
             detail.empty();
             var id = $(this).data('id');
-            var name = $(this).data('name'); 
-            var date = $(this).data('date'); 
-            var school = $(this).data('school'); 
-            var description = $(this).data('description'); 
+            var name = $(this).data('name');
+            var date = $(this).data('date');
+            var school = $(this).data('school');
+            var description = $(this).data('description');
             var image = $(this).data('image');
             detail.append('<div class="mb-2">');
             detail.append('<h6 class="f-w-600">Nama</h6>');
@@ -335,7 +335,7 @@
         });
 
         $('.btn-delete').click(function () {
-            var id = $(this).data('id'); 
+            var id = $(this).data('id');
             $('#form-delete').attr('action', '/division/' + id);
             $('#modal-delete').modal('show');
         });
