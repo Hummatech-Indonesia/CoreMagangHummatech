@@ -7,6 +7,7 @@ use App\Models\Journal;
 use App\Http\Requests\StoreJournalRequest;
 use App\Http\Requests\UpdateJournalRequest;
 use App\Services\JournalService;
+use Carbon\Carbon;
 
 class JournalController extends Controller
 {
@@ -41,8 +42,23 @@ class JournalController extends Controller
      */
     public function store(StoreJournalRequest $request)
     {
-        $data = $this->service->store($request);
-        $this->journal->store($data);
+        $currentDate = Carbon::now()->locale('id_ID')->setTimezone('Asia/Jakarta')->isoFormat('HH:mm:ss');
+        if ($currentDate < '16:00:00' && $currentDate > '00:00:00') {
+            return redirect()->back()->with('error', 'Anda hanya dapat mengisi jurnal di jam 16.00 - 00.00');
+        } else {
+            $existingData = $this->journal->where();
+
+            if ($existingData) {
+                return redirect()->back()->with('error', 'Anda Telah Mengisi Jurnal Hari ini.');
+            }
+
+            if (now()->isWeekend()) {
+                return redirect()->back()->with('error', 'Hari ini adalah hari libur.');
+            }
+            $data = $this->service->store($request);
+            $this->journal->store($data);
+            return redirect()->back()->with('success', 'Jurnal Berhasil Ditambahkan');
+        }
     }
 
     /**

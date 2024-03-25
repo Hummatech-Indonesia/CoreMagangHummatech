@@ -24,7 +24,7 @@ class UpdateJournalRequest extends FormRequest
         return [
             'title' => 'required',
             'description' => 'required',
-            'image' => 'mimes:png,jpg|required'
+            'image' => 'mimes:png,jpg'
         ];
     }
 }
