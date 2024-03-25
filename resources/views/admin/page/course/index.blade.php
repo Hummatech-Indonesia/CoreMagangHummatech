@@ -17,7 +17,7 @@
                                 <button class="nav-link" id="free-tab" data-bs-toggle="pill" data-bs-target="#free"
                                     type="button" role="tab" aria-controls="free" aria-selected="false"
                                     data-position="1" tabindex="-1">
-                                    Gratis
+                                    Berlangganan
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
@@ -114,12 +114,12 @@
         <div id="free" class="tab-pane fade">
             <div class="row ">
                 @forelse ($courses as $course)
-                    @if ($course->status === 'free')
+                    @if ($course->status === 'subcribe')
                         <div class="col-xl-3">
                             <div class="card ribbon-box border shadow-none mb-lg-0">
                                 <div class="card-body">
                                     <span
-                                        class="ribbon-three {{ $course->price == null ? 'ribbon-three-success' : 'ribbon-three-secondary' }}  material-shadow"><span>{{ $course->price == null ? 'Gratis' : 'Rp.' . number_format($course->price, 0, ',', '.') }}</span></span>
+                                        class="ribbon-three {{ $course->price == null ? 'ribbon-three-success' : 'ribbon-three-secondary' }}  material-shadow"><span>{{ $course->status == 'subcribe' ? 'Berlangganan' : 'Rp.' . number_format($course->price, 0, ',', '.') }}</span></span>
                                     <img class="card-img-top img-responsive w-100"
                                         src="{{ asset('storage/' . $course->image) }}" style="object-fit: cover;"
                                         width="20em" height="170em" alt="Card image cap" />
