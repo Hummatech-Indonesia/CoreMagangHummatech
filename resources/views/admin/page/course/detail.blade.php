@@ -10,17 +10,32 @@
             </div>
         </div>
     </div>
+
+    @if($errors->all())
+    <div class="alert alert-danger">
+        <h3>Ada Kesalahan</h3>
+
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </div>
+    @endif
+
+    {{-- @foreach($course as $course) --}}
     <div class="row">
         <div class="col-lg-3">
-            <img class="img-responsive w-100 rounded rounde-3" src="{{ asset('assets/images/materi-1.png') }}" />
+            <img class="img-responsive w-100 rounded rounde-3" src="{{ asset('storage/' . $course->image) }}" />
         </div>
         <div class="col-lg-8 px-4">
             <div class="border-bottom my-3">
-                <h1>Tutorial Laravel SPA Menggunakan Blade Template Engine (Splade)</h1>
-                <p class="fs-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi fuga qui nam! Nemo, perspiciatis distinctio.</p>
+                <h1>{{ $course->title }}</h1>
+                <p class="fs-5">{{ $course->description }}</p>
             </div>
         </div>
     </div>
+    {{-- @endforeach --}}
+
+
     <div class="card my-4">
         <div class="p-3 py-2">
             <div class="d-flex g-2 align-items-center">
@@ -54,51 +69,66 @@
     <div class="tab-content text-muted">
         <div class="tab-pane active show" id="home-1" role="tabpanel">
             <div class="row">
-                @foreach(range(1, 3) as $item)
-                    <div class="col-12">
-                        <div class="card border-start border-info py-3 px-4">
-                            <div class="d-flex no-block align-items-start">
-                                <div class="col-lg-1 col-md-10 col-sm-1">
-                                    <img class="img-responsive w-100" src="{{ asset('assets/images/materi-1.png') }}" />
-                                </div>
-                                <div class="col-lg-9 col-sm-12 px-4">
-                                    <h5>Lorem, ipsum dolor.</h5>
-                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-                                </div>
-                                <div class="ms-auto">
-                                    <div class="dropdown d-inline-block">
-                                        <button class="bg-transparent border-0 fs-2 dropdown" style="margin-top: -10px" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ri-more-fill align-middle"></i>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li>
-                                                <a href="/administrator/course/detail/sub-course" type="button" class="dropdown-item btn-show">
-                                                    Detail Sub Materi
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <button type="button" class="dropdown-item edit-item-btn btn-edit" data-bs-toggle="modal"
-                                                data-bs-target="#edit">
-                                                    Edit Sub Materi
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button type="button" class="dropdown-item btn-delete text-danger" data-bs-toggle="modal"
-                                                data-bs-target="#modal-delete">
-                                                    Hapus Sub Materi
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
+                @forelse ($subCourses as $subCourse)
+
+                <div class="col-12">
+                    <div class="card border-start border-info py-3 px-4">
+                        <div class="d-flex no-block align-items-start">
+                            <div class="col-lg-1 col-md-10 col-sm-1">
+                                <img class="img-responsive w-100" src="{{ asset('storage/' . $subCourse->image) }}" />
+                            </div>
+                            <div class="col-lg-9 col-sm-12 px-4">
+                                <h5>{{$subCourse->title}}</h5>
+                                <p>{{$subCourse->description}}</p>
+                            </div>
+                            <div class="ms-auto">
+                                <div class="dropdown d-inline-block">
+                                    <button class="bg-transparent border-0 fs-2 dropdown" style="margin-top: -10px" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="ri-more-fill align-middle"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <a href="/administrator/subcourse/detail/{{ $subCourse->id }}" type="button" class="dropdown-item btn-show">
+                                                Detail Sub Materi
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="dropdown-item edit-item-btn btn-edit" data-bs-toggle="modal"
+                                            data-bs-target="#edit">
+                                                Edit Sub Materi
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="dropdown-item btn-delete text-danger" data-bs-toggle="modal"
+                                            data-bs-target="#modal-delete" data-id="{{ $subCourse->id }}">
+                                                Hapus Sub Materi
+                                            </button>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                </div>
+
+                @empty
+
+                <div class="d-flex justify-content-center mb-2 mt-5">
+                    <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                </div>
+                    <p class="fs-5 text-dark text-center">
+                        Data Masih Kosong
+                    </p>
+
+                @endforelse
             </div>
         </div>
     </div>
 
+    @include('admin.components.delete-modal-component')
+
+
+    <!-- Add sub course -->
     <div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
@@ -109,10 +139,10 @@
                     </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="/create/sub-materi/{{ $course->id }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
-                        <input type="hidden" name="course_id" value="">
+                        <input type="hidden" name="course_id" value="{{ $course->id }}">
                         <div class="mb-3">
                             <label for="">Judul Sub Materi</label>
                             <input type="text" name="title" class="form-control">
@@ -151,6 +181,7 @@
         </div>
     </div>
 
+    <!-- Edit Sub Course -->
     <div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-lg">

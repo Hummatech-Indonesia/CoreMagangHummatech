@@ -77,7 +77,7 @@
                         </a>
                         <p class="text-muted my-2">{{ Str::limit($course->description, 100) }}</p>
                         <div class="d-flex pt-3 gap-2">
-                            <a href="/administrator/course/detail" class="btn btn-secondary flex-fill">
+                            <a href="/administrator/course/detail/{{ $course->id }}" class="btn btn-secondary flex-fill">
                                 Lihat detail
                             </a>
                             <button class="py-1 btn btn-soft-warning btn-edit" data-bs-toggle="modal"
@@ -120,7 +120,7 @@
                         </a>
                         <p class="text-muted my-2">{{ Str::limit($course->description, 100) }}</p>
                         <div class="d-flex pt-3 gap-2">
-                            <a href="/administrator/course/detail" class="btn btn-secondary flex-fill">
+                            <a href="/administrator/course/detail/{{ $course->id }}" class="btn btn-secondary flex-fill">
                                 Lihat detail
                             </a>
                             <button class="py-1 btn btn-soft-warning btn-edit" data-bs-toggle="modal"
@@ -164,7 +164,7 @@
                         </a>
                         <p class="text-muted my-2">{{ Str::limit($course->description, 100) }}</p>
                         <div class="d-flex pt-3 gap-2">
-                            <a href="/administrator/course/detail" class="btn btn-secondary flex-fill">
+                            <a href="/administrator/course/detail/{{ $course->id }}" class="btn btn-secondary flex-fill">
                                 Lihat detail
                             </a>
                             <button class="py-1 btn btn-soft-warning btn-edit" type="button"

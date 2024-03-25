@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\PicketController;
 use App\Http\Controllers\Admin\AdminJournalController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SubCourseController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -78,4 +80,8 @@ Route::post('administrator/course/store', [CourseController::class, 'store'])->n
 Route::put('administrator/course/{course}', [CourseController::class, 'update'])->name('course.update');
 
 
+Route::get('/administrator/course/detail/{course}', [CourseController::class, 'show'])->name('course.detail');
+Route::delete('administrator/course/detail/{course}', [SubCourseController::class, 'destroy'])->name('subCourse.destroy');
+Route::get('/administrator/subcourse/detail/{subCourse}', [SubCourseController::class, 'show'])->name('subCourse.detail');
 
+Route::post('administrator/task/store', [TaskController::class, 'store'])->name('task.store');

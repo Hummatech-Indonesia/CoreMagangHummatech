@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\SubCourseInterface;
+use App\Contracts\Interfaces\TaskInterface;
 use App\Models\SubCourse;
 use App\Http\Requests\StoreSubCourseRequest;
 use App\Http\Requests\UpdateSubCourseRequest;
+use App\Models\Course;
 use App\Services\SubCourseService;
 
 class SubCourseController extends Controller
@@ -13,10 +16,14 @@ class SubCourseController extends Controller
 
     private SubCourseInterface $subCourse;
     private SubCourseService $service;
+    private CourseInterface $course;
+    private TaskInterface $task;
 
-    public function __construct(SubCourseInterface $subCourse ,SubCourseService $service)
+    public function __construct(SubCourseInterface $subCourse ,SubCourseService $service, CourseInterface $course, TaskInterface $task)
     {
+        $this->task = $task;
         $this->subCourse = $subCourse;
+        $this->course = $course;
         $this->service = $service;
     }
     /**
@@ -25,7 +32,8 @@ class SubCourseController extends Controller
     public function index()
     {
         $subCourses = $this->subCourse->get();
-        return view('' , compact('subCourses'));
+        $courses = $this->course->get();
+        return view('' , compact('subCourses', 'courses'));
     }
 
     /**
@@ -52,7 +60,10 @@ class SubCourseController extends Controller
     public function show(SubCourse $subCourse)
     {
         $subCourses = $this->subCourse->show($subCourse->id);
-        return view('mentor.challenge.subCourse.index' , compact('subCourses'));
+        $task = $this->task->get();
+        $courses = $this->course->get();
+
+        return view('admin.page.course.sub-course.index' , compact('subCourses','task','courses'));
     }
 
     /**

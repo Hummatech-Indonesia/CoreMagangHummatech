@@ -56,68 +56,89 @@
                 </button>
               </div>
               <div class="row">
-                  @foreach (range(1, 5) as $data)
-                      <div class="col-lg-12 m-0 p-0">
-                          <div class="card border-start border-info py-3 px-4 m-2">
-                              <div class="d-flex no-block align-items-center">
-                                  <div class="col-2">
-                                      <img class="img-responsive w-100" src="{{ asset('assets/images/materi-1.png') }}"/>
-                                  </div>
-                                  <div class="col-lg-9 px-3">
-                                      <h6 class="m-0">Lorem ipsum dolor sit amet.</h6>
-                                      <p style="font-size: 12px">Lorem ipsum dolor sit amet...</p>
-                                  </div>
-                                  <div class="ms-auto">
-                                    <div class="dropdown d-inline-block">
-                                        <button class="bg-transparent border-0 fs-2 dropdown" style="margin-top: -20px" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="ri-more-fill align-middle"></i>
+                @forelse ($task as $task)
+                <div class="col-lg-12 m-0 p-0">
+                    <div class="card border-start border-info py-3 px-4 m-2">
+                        <div class="d-flex no-block align-items-center">
+                            <div class="col-2">
+                                <img class="img-responsive w-100" src="{{ asset('assets/images/materi-1.png') }}"/>
+                            </div>
+                            <div class="col-lg-9 px-3">
+                                <h6 class="m-0">Lorem ipsum dolor sit amet.</h6>
+                                <p style="font-size: 12px">Lorem ipsum dolor sit amet...</p>
+                            </div>
+                            <div class="ms-auto">
+                            <div class="dropdown d-inline-block">
+                                <button class="bg-transparent border-0 fs-2 dropdown" style="margin-top: -20px" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="ri-more-fill align-middle"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a href="/administrator/course/detail/sub-course" type="button" class="dropdown-item btn-show" data-bs-toggle="modal"
+                                        data-bs-target="#detail">
+                                            Detail Tugas
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="dropdown-item edit-item-btn btn-edit" data-bs-toggle="modal"
+                                        data-bs-target="#edit">
+                                            Edit Tugas
                                         </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li>
-                                                <a href="/administrator/course/detail/sub-course" type="button" class="dropdown-item btn-show" data-bs-toggle="modal"
-                                                data-bs-target="#detail">
-                                                    Detail Tugas
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <button type="button" class="dropdown-item edit-item-btn btn-edit" data-bs-toggle="modal"
-                                                data-bs-target="#edit">
-                                                    Edit Tugas
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button type="button" class="dropdown-item btn-delete text-danger" data-bs-toggle="modal"
-                                                data-bs-target="#modal-delete">
-                                                    Hapus Tugas
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                              </div>
-                          </div>
-                      </div>
-                  @endforeach
+                                    </li>
+                                    <li>
+                                        <button type="button" class="dropdown-item btn-delete text-danger" data-bs-toggle="modal"
+                                        data-bs-target="#modal-delete">
+                                            Hapus Tugas
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                @empty
+
+                <div class="d-flex justify-content-center mb-2 mt-5">
+                    <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                </div>
+                    <p class="fs-5 text-dark text-center mb-5">
+                        Data Masih Kosong
+                    </p>
+
+                @endforelse
               </div>
             </div>
             <div class="materi">
               <h5>Materi Lainnya</h5>
               <div class="row">
-                  @foreach (range(1, 5) as $data)
-                      <div class="col-lg-12 m-0 p-0">
-                          <div class="card border-start border-info py-3 px-4 m-2">
-                              <div class="d-flex no-block align-items-center">
-                                  <div class="col-2">
-                                      <img class="img-responsive w-100" src="{{ asset('assets/images/materi-1.png') }}"/>
-                                  </div>
-                                  <div class="col-lg-9 px-3">
-                                      <h6 class="m-0">Lorem ipsum dolor sit amet.</h6>
-                                      <p style="font-size: 12px">Lorem ipsum dolor sit amet...</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  @endforeach
+                @forelse ($courses as $course)
+
+                <div class="col-lg-12 m-0 p-0">
+                    <div class="card border-start border-info py-3 px-4 m-2">
+                        <div class="d-flex no-block align-items-center">
+                            <div class="col-2">
+                                <img class="img-responsive w-100" src="{{ asset('storage/' . $course->image) }}"/>
+                            </div>
+                            <div class="col-lg-9 px-3">
+                                <h6 class="m-0">{{$course->title}}</h6>
+                                <p style="font-size: 12px">{{ Str::limit($course->description, 45) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @empty
+
+                <div class="d-flex justify-content-center mb-2 mt-5">
+                    <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                </div>
+                    <p class="fs-5 text-dark text-center mb-5">
+                        Data Masih Kosong
+                    </p>
+
+                @endforelse
               </div>
             </div>
             <div class="d-flex justify-content-center mt-3">
@@ -156,6 +177,7 @@
         </div>
     </div>
 
+    <!-- Add Task -->
     <div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-lg p-4">
@@ -224,6 +246,7 @@
         </div>
     </div>
 
+    <!-- -->
     <div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-lg p-4">

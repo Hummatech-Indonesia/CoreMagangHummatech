@@ -60,7 +60,7 @@ class CourseController extends Controller
         $countSub = $this->subCourse->count();
         $subCourses = $this->subCourse->where($course->id);
         $course = $this->course->show($course->id);
-        return view('mentor.challenge.show' , compact('course' , 'subCourses' , 'countSub'));
+        return view('admin.page.course.detail' , compact('course' , 'subCourses' , 'countSub'));
     }
 
     /**
