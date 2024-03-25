@@ -1,4 +1,5 @@
 @extends('admin.layouts.app')
+
 @section('content')
     <div class="row g-2 mb-4">
         <div class="col-sm-4">
@@ -75,7 +76,7 @@
                     <div class="card border-start border-info py-3 px-4">
                         <div class="d-flex no-block align-items-start">
                             <div class="col-lg-1 col-md-10 col-sm-1">
-                                <img class="img-responsive w-100" src="{{ asset('storage/' . $subCourse->image) }}" />
+                                <img class="img-responsive w-100" src="{{ asset('storage/' . $subCourse->image_course) }}" />
                             </div>
                             <div class="col-lg-9 col-sm-12 px-4">
                                 <h5>{{$subCourse->title}}</h5>

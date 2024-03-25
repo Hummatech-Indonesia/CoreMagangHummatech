@@ -38,7 +38,8 @@ class ApprovalService
     public function accept(AcceptedAprovalRequest $request, Student $student)
     {
         $data = $request->validated();
-        
+
+
         $start_date_formated = \carbon\Carbon::createFromDate($student->start_date)->locale('id')->isoFormat('D MMMM Y');
         $finish_date_formated = \carbon\Carbon::createFromDate($student->finish_date)->locale('id')->isoFormat('D MMMM Y');
 

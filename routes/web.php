@@ -3,24 +3,25 @@
 use App\Enum\RolesEnum;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LimitsController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminMentorController;
-use App\Http\Controllers\Admin\AdminStudentController;
-use App\Http\Controllers\Admin\ApprovalController;
-use App\Http\Controllers\Admin\WarningLetterController;
-use App\Http\Controllers\Admin\ResponseLetterController;
-use App\Http\Controllers\LimitsController;
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\StudentOfline\StudentOflineController;
-use App\Http\Controllers\StudentOnline\StudentOnlineController;
-use App\Http\Controllers\StudentOnline\ZoomScheduleController;
-use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\VoucherController;
+use App\Http\Controllers\DataAdminController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\VoucherSubmitController;
 use App\Http\Middleware\SubscribeCheckMiddleware;
+use App\Http\Controllers\Admin\ApprovalController;
+use App\Http\Controllers\Admin\AdminMentorController;
+use App\Http\Controllers\Admin\AdminStudentController;
+use App\Http\Controllers\Admin\WarningLetterController;
+use App\Http\Controllers\Admin\ResponseLetterController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use App\Http\Controllers\StudentOnline\ZoomScheduleController;
+use App\Http\Controllers\StudentOfline\StudentOflineController;
+use App\Http\Controllers\StudentOnline\StudentOnlineController;
 
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', function () {
@@ -34,38 +35,42 @@ Route::post('/register/post', [StudentController::class, 'store']);
 
 # ================================================ Administrator Route Group ==================================================
 Route::middleware(['roles:administrator', 'auth'])->group(function () {
-    // Dashboard Home
+    # Dashboard Home
     Route::get('administrator', [AdminController::class, 'index'])->name('.home');
 
-    // Approval
+    # Data Admin
+    Route::post('data-admin/store', [DataAdminController::class, 'store'])->name('data-admin.store');
+    Route::put('data-admin/update/{dataAdmin}', [DataAdminController::class, 'update'])->name('data-admin.update');
+
+    # Approval
     Route::get('approval', [ApprovalController::class, 'index'])->name('.approval.index');
     Route::put('approval/accept/{student}', [ApprovalController::class, 'accept'])->name('approval.accept');
     Route::put('approval/decline/{student}', [ApprovalController::class, 'decline'])->name('approval.decline');
     Route::delete('approval/delete/{student}', [ApprovalController::class, 'destroy'])->name('approval.delete');
 
-    // Warning letter
+    # Warning letter
     Route::get('warning-letter', [WarningLetterController::class, 'index'])->name('warning-letter.index');
     Route::post('warning-letter/store', [WarningLetterController::class, 'store'])->name('warning-letter.store');
     Route::get('warning-letter/show/{WarningLetter}', [WarningLetterController::class, 'show'])->name('warning-letter.show');
     Route::delete('warning-letter/delete/{WarningLetter}', [WarningLetterController::class, 'destroy'])->name('warning-letter.delete');
 
-    // Response letter
+    # Response letter
     Route::get('response-letter', [ResponseLetterController::class, 'index'])->name('response-letter.index');
     Route::get('show/student/{responseLetter}', [ResponseLetterController::class, 'show'])->name('response-letter.show');
 
-    // Voucher
+    # Voucher
     Route::get('voucher', [VoucherController::class, 'index'])->name('voucher.index');
     Route::post('voucher/store', [VoucherController::class, 'store'])->name('voucher.store');
     Route::delete('voucher/delete/{voucher}', [VoucherController::class, 'destroy'])->name('voucher.delete');
 
-    // Mentor
+    # Mentor
     Route::get('menu-mentor', [AdminMentorController::class, 'index'])->name('mentor.index');
     Route::post('menu-mentor/store', [AdminMentorController::class, 'store'])->name('mentor.store');
     Route::put('menu-mentor/update/{mentor}', [AdminMentorController::class, 'update'])->name('mentor.update');
     Route::delete('menu-mentor/delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('mentor.delete');
     Route::get('menu-mentor/detail/{mentor}', [AdminMentorController::class, 'show'])->name('mentor.show');
 
-    //student
+    #student
     Route::get('menu-siswa', [AdminStudentController::class, 'index'])->name('student.index');
     Route::put('menu-siswa/reset-password/{student}', [AdminStudentController::class, 'reset'])->name('student.update');
     Route::put('menu-siswa/update/{student}', [AdminStudentController::class, 'update']);
@@ -74,11 +79,9 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('menu-siswa/banned/{student}', [AdminStudentController::class, 'banned'])->name('student.banned');
     Route::put('menu-siswa/division-change/{student}', [AdminStudentController::class, 'divisionchange'])->name('student.divisionchange');
 
-    //Limit
+    #Limit
     Route::post('limit', [LimitsController::class, 'store'])->name('limit.store');
     Route::put('limit/update/{limits}', [LimitsController::class, 'update'])->name('limit.update');
-
-
 });
 
 # ================================================ Offline Student Route Group ================================================
@@ -97,6 +100,8 @@ Route::prefix('siswa-online')->middleware('roles:siswa-online', 'auth')->name(Ro
     Route::get('division', function () {
         return view('student_online.division.index');
     })->name('.class.division');
+
+    Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('.journal.download');
 
     Route::get('journal', [JournalController::class, 'index'])->name('.journal.index');
 
