@@ -36,8 +36,8 @@ class ApprovalController extends Controller
         $studentOnline = $this->approval->ListStudentOnline();
         $limits = $this->limit->first();
         $studentcount = $this->student->countStudentOffline();
-        $limit =  $this->limit->first()->limits;
-        $countLimits =   $limit - $studentcount;
+        $limit = $this->limit->first() ? $this->limit->first()->limits : 0;
+        $countLimits =   max(0, $limit - $studentcount);
         return view('admin.page.approval.index', compact('limits', 'studentOffline', 'studentOnline','countLimits'));
     }
 
