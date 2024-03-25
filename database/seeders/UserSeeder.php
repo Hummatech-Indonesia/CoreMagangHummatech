@@ -27,6 +27,15 @@ class UserSeeder extends Seeder
         Division::factory()->create([
             'name' => 'Web Technology',
         ]);
+        Division::factory()->create([
+            'name' => 'Mobile Devlopment',
+        ]);
+        Division::factory()->create([
+            'name' => 'Digital Marketing',
+        ]);
+        Division::factory()->create([
+            'name' => 'UI/UX DESIGNER',
+        ]);
         $student = Student::factory()->create([
             'name' => 'ABDUL KADER',
             'email' => 'abdulkader0126@gmail.com',
