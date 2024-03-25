@@ -152,8 +152,8 @@
                                         @endif
                                         <button type="button" class="bg-transparent border-0 btn-detail"
                                             data-id="{{ $journal->id }}" data-name="{{ $journal->user->name }}"
-                                            data-date="{{ $journal->created_at }}"
-                                            data-school="{{ $journal->user->school }}" {{-- data-school="{{ $journal->user->student->school }}" --}}
+                                            data-date="{{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}"                                            data-school="{{ $journal->user->student->school }}" {{-- data-school="{{ $journal->user->student->school }}" --}}
+                                            data-time="{{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('HH:mm:ss') }}"                                            data-school="{{ $journal->user->student->school }}" {{-- data-school="{{ $journal->user->student->school }}" --}}
                                             data-description="{{ $journal->description }}"
                                             data-image="{{ asset('storage/' . $journal->image) }}">
                                             <svg width="29" height="32" viewBox="0 0 29 32" fill="none"
@@ -259,7 +259,7 @@
                     <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="col-lg-6 text-start" id="detail-content">
+                    <div class="col-lg-12 text-start" id="detail-content">
                     </div>
                     <div class="modal-footer">
                         <div class="d-flex justify-content-end">
@@ -317,6 +317,7 @@
                 var name = $(this).data('name');
                 var date = $(this).data('date');
                 var school = $(this).data('school');
+                var time = $(this).data('time');
                 var description = $(this).data('description');
                 var image = $(this).data('image');
                 detail.append('<div class="mb-2">');
@@ -328,6 +329,10 @@
                 detail.append('<p class="text-muted">' + date + '</p>')
                 detail.append('</div>');
                 detail.append('<div class="mb-2">');
+                detail.append('<h6 class="f-w-600">Jam</h6>');
+                detail.append('<p class="text-muted">' + time + '</p>')
+                detail.append('</div>');
+                detail.append('<div class="mb-2">');
                 detail.append('<h6 class="f-w-600">Sekolah</h6>');
                 detail.append('<p class="text-muted">' + school + '</p>')
                 detail.append('</div>');
@@ -335,9 +340,9 @@
                 detail.append('<h6 class="f-w-600">Kegiatan</h6>');
                 detail.append('<p>' + description + '</p>')
                 detail.append('</div>');
-                detail.append('<div class="mb-2">');
+                detail.append('<div class="mb-2 col-12">');
                 detail.append('<h6 class="f-w-600">Bukti</h6>');
-                detail.append('<img src="' + image + '" width="100%"></img>')
+                detail.append('<img src="' + image + '" class="w-100"></img>')
                 detail.append('</div>');
                 $('#detail').modal('show');
             });

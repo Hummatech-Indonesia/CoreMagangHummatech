@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\RoleUserMiddleware;
+use App\Http\Middleware\SubscribeCheckMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'roles' => RoleUserMiddleware::class,
+            'subsrcribed' => SubscribeCheckMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

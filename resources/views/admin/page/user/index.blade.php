@@ -115,7 +115,8 @@
                                                 data-id="{{ $student->id }}">Reset Password</button>
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $student->id }}">Banned</button>
-                                            <button class="dropdown-item btn-change" data-id="{{ $student->id }}" data-image="{{ $student->avatar }}">Ganti
+                                            <button class="dropdown-item btn-change" data-id="{{ $student->id }}"
+                                                data-image="{{ $student->avatar }}">Ganti
                                                 Profile</button>
                                             <button class="dropdown-item btn-detail" data-name="{{ $student->name }}"
                                                 data-majors="{{ $student->major }}" data-class="{{ $student->class }}"
@@ -125,11 +126,11 @@
                                                 data-birthplace="{{ $student->birth_place }}"
                                                 data-startdate="{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                 data-finishdate="{{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
-                                                data-school="{{ $student->school }}"
-                                                data-avatar="{{ $student->avatar }}" data-cv="{{ $student->cv }}"
-                                                data-email="{{ $student->email }}"
-                                                data-selfstatement="{{ $student->self_statement }}"
-                                                data-parentsstatement="{{ $student->parents_statement }}"
+                                                data-email="{{ $student->email }}" data-school="{{ $student->school }}"
+                                                data-avatar="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}"
+                                                data-cv="{{ file_exists(public_path('storage/' . $student->cv)) ? asset('storage/' . $student->cv) : asset('no data.png') }}"
+                                                data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
+                                                data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
                                                 data-identify_number="{{ $student->identify_number }}">Detail</button>
                                             <button class="dropdown-item btn-delete text-danger" id="{{ $student->id }}"
                                                 data-id="{{ $student->id }}">Hapus</button>
@@ -139,7 +140,7 @@
                             </div>
                         </div>
                     </div>
-                    @empty
+                @empty
                     <div class="col-12 d-flex justify-content-center text-center">
                         <img src="{{ asset('no data.png') }}" width="200px" alt="">
                     </div>
@@ -192,8 +193,8 @@
                                                 data-id="{{ $studentoffline->id }}">Reset Password</button>
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $studentoffline->id }}">Banned</button>
-                                            <button class="dropdown-item btn-change"
-                                                data-id="{{ $studentoffline->id }}" data-image="{{ $student->avatar }}">Ganti
+                                            <button class="dropdown-item btn-change" data-id="{{ $studentoffline->id }}"
+                                                data-image="{{ $student->avatar }}">Ganti
                                                 Profile</button>
                                             <button class="dropdown-item btn-detail"
                                                 data-name="{{ $studentoffline->name }}"
@@ -206,11 +207,11 @@
                                                 data-startdate="{{ \carbon\Carbon::parse($studentoffline->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                 data-finishdate="{{ \carbon\Carbon::parse($studentoffline->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                 data-school="{{ $studentoffline->school }}"
-                                                data-avatar="{{ $studentoffline->avatar }}"
-                                                data-cv="{{ $studentoffline->cv }}"
                                                 data-email="{{ $studentoffline->email }}"
-                                                data-selfstatement="{{ $studentoffline->self_statement }}"
-                                                data-parentsstatement="{{ $studentoffline->parents_statement }}"
+                                                data-avatar="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}"
+                                                data-cv="{{ file_exists(public_path('storage/' . $student->cv)) ? asset('storage/' . $student->cv) : asset('no data.png') }}"
+                                                data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
+                                                data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
                                                 data-identify_number="{{ $studentoffline->identify_number }}">Detail</button>
                                             <button class="dropdown-item btn-delete text-danger"
                                                 id="{{ $studentoffline->id }}"
@@ -221,7 +222,7 @@
                             </div>
                         </div>
                     </div>
-                    @empty
+                @empty
                     <div class="col-12 d-flex justify-content-center text-center">
                         <img src="{{ asset('no data.png') }}" width="200px" alt="">
                     </div>
@@ -274,8 +275,8 @@
                                                 data-id="{{ $studentonline->id }}">Reset Password</button>
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $studentonline->id }}">Banned</button>
-                                            <button class="dropdown-item btn-change"
-                                                data-id="{{ $studentonline->id }}" data-image="{{ $student->avatar }}">Ganti
+                                            <button class="dropdown-item btn-change" data-id="{{ $studentonline->id }}"
+                                                data-image="{{ $student->avatar }}">Ganti
                                                 Profile</button>
                                             <button class="dropdown-item btn-detail"
                                                 data-name="{{ $studentonline->name }}"
@@ -288,11 +289,11 @@
                                                 data-startdate="{{ \carbon\Carbon::parse($studentonline->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                 data-finishdate="{{ \carbon\Carbon::parse($studentonline->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                 data-school="{{ $studentonline->school }}"
-                                                data-avatar="{{ $studentonline->avatar }}"
-                                                data-cv="{{ $studentonline->cv }}"
                                                 data-email="{{ $studentonline->email }}"
-                                                data-selfstatement="{{ $studentonline->self_statement }}"
-                                                data-parentsstatement="{{ $studentonline->parents_statement }}"
+                                                data-avatar="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}"
+                                                data-cv="{{ file_exists(public_path('storage/' . $student->cv)) ? asset('storage/' . $student->cv) : asset('no data.png') }}"
+                                                data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
+                                                data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
                                                 data-identify_number="{{ $studentonline->identify_number }}">Detail</button>
                                             <button class="dropdown-item btn-delete text-danger"
                                                 id="{{ $studentonline->id }}"
@@ -303,7 +304,7 @@
                             </div>
                         </div>
                     </div>
-                    @empty
+                @empty
                     <div class="col-12 d-flex justify-content-center text-center">
                         <img src="{{ asset('no data.png') }}" width="200px" alt="">
                     </div>
@@ -396,28 +397,16 @@
                             <h4>CV</h4>
                             <img class="rounded show-cv" alt="200x200" width="330" src="gambar.jpg"
                                 style="object-fit: cover; cursor: pointer;" onclick="zoomImage(this)">
-                            <div class="mt-2 d-flex justify-content-end">
-                                <a class="btn btn-primary download-cv" download="cv.jpg" href="gambar.jpg">Download</a>
-                            </div>
-
                         </div>
                         <div class="mt-3 mx-4">
                             <h4>Pernyataan Orang tua</h4>
                             <img class="rounded show-parent-statement" alt="200x200" width="330" src=""
                                 style="object-fit: cover;cursor: pointer;" onclick="zoomImage(this)">
-                            <div class="mt-2 d-flex justify-content-end ">
-                                <a class="btn btn-primary download-parent-statement" href=""
-                                    download="">Download</a>
-                            </div>
                         </div>
                         <div class="mt-3 mx-4">
                             <h4>Pernyataan Diri</h4>
                             <img class="rounded show-self-statement" alt="200x200" width="330" src=""
                                 style="object-fit: cover;cursor: pointer;" onclick="zoomImage(this)">
-                            <div class="mt-2 d-flex justify-content-end ">
-                                <a class="btn btn-primary download-self-statement" href=""
-                                    download="">Download</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -429,7 +418,7 @@
 
     <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
         style="display: none;">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="myModalLabel">Ubah Foto</h5>
@@ -440,15 +429,12 @@
                     @method('PUT')
                     <div class="modal-body">
                         <div class="col-12">
-                            <div class="mb-3">
-                                <label class="form-label">Foto</label>
-                                <br>
-                                <img src="" class="rounded show-image avatar-lg object-fit-cover" alt="">
-
-                                <input type="file" name="avatar" class="form-control">
+                            <div class="mb-3 d-flex gap-3 flex-column align-items-center">
+                                <img src="{{ asset('user.webp') }}" class="rounded show-image avatar-lg object-fit-cover" alt="User Profile" />
+                                <input type="file" id="image" name="avatar" class="form-control" />
                             </div>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer d-flex gap-2 justify-content-center p-0 pt-2 flex-row-reverse">
                             <button type="submit" class="btn btn-primary ">Simpan</button>
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
                         </div>
@@ -558,7 +544,7 @@
             $('.show-name').text(name);
             $('.show-identify_number').text(identify_number);
             $('.show-email').text(email);
-            $('.show-image').attr('src', '{{ asset('storage') }}/' + avatar);
+            $('.show-image').attr('src', avatar ?? "{{ asset('user.webp') }}");
             $('.show-address').text(address);
             $('.show-phone').text(phone);
             $('.show-birthday').text(birth_place + ',' + birth_date)
@@ -567,19 +553,13 @@
             $('.show-finish').text(finish_date);
 
             // console.log(cv);
-            $('.show-cv').attr('src', '{{ asset('storage') }}/' + cv);
-            $('.download-cv').attr('href', '{{ asset('storage') }}/' + cv);
-            $('.download-cv').attr('download', '{{ asset('storage') }}/' + cv);
+            $('.show-cv').attr('src', cv);
 
             // console.log(parents_statement);
-            $('.show-parent-statement').attr('src', '{{ asset('storage') }}/' + parents_statement);
-            $('.download-parent-statement').attr('href', '{{ asset('storage') }}/' + parents_statement);
-            $('.download-parent-statement').attr('download', '{{ asset('storage') }}/' + parents_statement);
+            $('.show-parent-statement').attr('src', parents_statement);
 
             // console.log(self_statement);
-            $('.show-self-statement').attr('src', '{{ asset('storage') }}/' + self_statement);
-            $('.download-self-statement').attr('href', '{{ asset('storage') }}/' + self_statement);
-            $('.download-self-statement').attr('download', '{{ asset('storage') }}/' + self_statement);
+            $('.show-self-statement').attr('src', self_statement);
 
 
             $('.btn-delete').attr('data-id', id);
@@ -594,7 +574,7 @@
             let id = $(this).data('id');
             let image = $(this).data('image');
             $('#form-change').attr('action', '/menu-siswa/update/' + id);
-            $('.show-image').attr('src', '{{ asset('storage') }}/' + image);
+            $('.show-image').attr('src', image ? `{{ url('/storage') }}/${image}` : "{{ asset('user.webp') }}");
             $('#myModal').modal('show');
         });
 

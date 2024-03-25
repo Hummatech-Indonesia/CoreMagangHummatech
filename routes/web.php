@@ -12,13 +12,14 @@ use App\Http\Controllers\Admin\ApprovalController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
 use App\Http\Controllers\LimitsController;
-use App\Http\Controllers\MentorController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
 use App\Http\Controllers\StudentOnline\StudentOnlineController;
+use App\Http\Controllers\StudentOnline\ZoomScheduleController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\VoucherSubmitController;
+use App\Http\Middleware\SubscribeCheckMiddleware;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 
 # ==================================================== Homepage Group Route ===================================================
@@ -88,7 +89,7 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
     })->name('.class.division');
 
     Route::get('journal', [JournalController::class, 'index'])->name('.journal.index');
-})->middleware("roles:siswa-offline");
+})->middleware("roles:siswa-offline", 'auth');
 
 # ================================================ Online Student Route Group =================================================
 Route::prefix('siswa-online')->middleware('roles:siswa-online', 'auth')->name(RolesEnum::ONLINE->value)->group(function () {
@@ -98,6 +99,8 @@ Route::prefix('siswa-online')->middleware('roles:siswa-online', 'auth')->name(Ro
     })->name('.class.division');
 
     Route::get('journal', [JournalController::class, 'index'])->name('.journal.index');
+
+    Route::get('/meeting', [ZoomScheduleController::class, 'indexStudent'])->name('zoom-meeting.indexStudent');
 });
 
 # ================================================ School/Instance Route Group ================================================
@@ -121,7 +124,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/process', 'subscribeAddCartProcess')->name('process');
         Route::post('/remove', 'subscribeDeleteCartProcess')->name('delete');
         Route::get('/checkout', 'checkout')->name('checkout');
-    })->middleware('roles:siswa-offline,siswa-online');
+    });
 
     # Voucher Subscription Apply
     Route::controller(VoucherSubmitController::class)->prefix('voucher')->name('voucher.')->group(function () {

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\StudentOnline;
 
 use App\Contracts\Interfaces\ZoomScheduleInterface;
+use App\Http\Controllers\Controller;
 use App\Models\ZoomSchedule;
 use App\Http\Requests\StoreZoomScheduleRequest;
 use App\Http\Requests\UpdateZoomScheduleRequest;
@@ -22,6 +23,12 @@ class ZoomScheduleController extends Controller
     {
         $zoomSchedules = $this->zoomSchedule->get();
         return view('' , compact('zoomSchedules'));
+    }
+
+    public function indexStudent()
+    {
+        $zoomSchedules = $this->zoomSchedule->get();
+        return view('student_online.meeting.index', compact('zoomSchedules'));
     }
 
     /**

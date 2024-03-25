@@ -15,5 +15,6 @@ interface TransactionHistoryInterface extends GetInterface, StoreInterface, Upda
      * @param string $id
      * @return mixed
      */
-    public function getId(string $id): mixed;
+    public function
+    getId(string $id): mixed;
 }

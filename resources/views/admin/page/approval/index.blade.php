@@ -115,11 +115,12 @@
                                                             data-startdate="{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                             data-finishdate="{{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                             data-school="{{ $student->school }}"
-                                                            data-avatar="{{ $student->avatar }}"
-                                                            data-cv="{{ $student->cv }}"
                                                             data-email="{{ $student->email }}"
-                                                            data-selfstatement="{{ $student->self_statement }}"
-                                                            data-parentsstatement="{{ $student->parents_statement }}"
+                                                            data-avatar="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}"
+                                                            data-cv="{{ file_exists(public_path('storage/' . $student->cv)) ? asset('storage/' . $student->cv) : asset('no data.png') }}"
+                                                            data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
+                                                            data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
+                                                            data-identify_number="{{ $student->identify_number }}"
                                                             data-identify_number="{{ $student->identify_number }}"
                                                             class="btn bg-secondary-subtle text-secondary btn-detail">
                                                             <i class="ri-eye-fill"></i>
@@ -222,11 +223,11 @@
                                                             data-startdate="{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                             data-finishdate="{{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                             data-school="{{ $student->school }}"
-                                                            data-avatar="{{ $student->avatar }}"
-                                                            data-cv="{{ $student->cv }}"
                                                             data-email="{{ $student->email }}"
-                                                            data-selfstatement="{{ $student->self_statement }}"
-                                                            data-parentsstatement="{{ $student->parents_statement }}"
+                                                            data-avatar="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}"
+                                                            data-cv="{{ file_exists(public_path('storage/' . $student->cv)) ? asset('storage/' . $student->cv) : asset('no data.png') }}"
+                                                            data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
+                                                            data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
                                                             data-identify_number="{{ $student->identify_number }}"
                                                             class="btn bg-secondary-subtle text-secondary btn-detail">
                                                             <i class="ri-eye-fill"></i>
@@ -406,7 +407,7 @@
                             <input type="number" class="form-control" name="letter_number" id="">
                             <div class="mt-4 mb-3 d-flex justify-content-center gap-2">
                                 <button class="btn btn-success">Ya,terima</button>
-                                <button class="btn btn-light">Batal</button>
+                                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Batal</button>
                             </div>
                         </form>
                     </div>
@@ -473,7 +474,7 @@
             $('.show-name').text(name);
             $('.show-identify_number').text(identify_number);
             $('.show-email').text(email);
-            $('.show-image').attr('src', '{{ asset('storage') }}/' + avatar);
+            $('.show-image').attr('src', avatar);
             $('.show-address').text(address);
             $('.show-phone').text(phone);
             $('.show-birthday').text(birth_place + ',' + birth_date)
@@ -482,19 +483,19 @@
             $('.show-finish').text(finish_date);
 
             // console.log(cv);
-            $('.show-cv').attr('src', '{{ asset('storage') }}/' + cv);
-            $('.download-cv').attr('href', '{{ asset('storage') }}/' + cv);
-            $('.download-cv').attr('download', '{{ asset('storage') }}/' + cv);
+            $('.show-cv').attr('src', cv);
+            $('.download-cv').attr('href', cv);
+            $('.download-cv').attr('download', cv);
 
             // console.log(parents_statement);
-            $('.show-parent-statement').attr('src', '{{ asset('storage') }}/' + parents_statement);
-            $('.download-parent-statement').attr('href', '{{ asset('storage') }}/' + parents_statement);
-            $('.download-parent-statement').attr('download', '{{ asset('storage') }}/' + parents_statement);
+            $('.show-parent-statement').attr('src', parents_statement);
+            $('.download-parent-statement').attr('href', parents_statement);
+            $('.download-parent-statement').attr('download', parents_statement);
 
             // console.log(self_statement);
-            $('.show-self-statement').attr('src', '{{ asset('storage') }}/' + self_statement);
-            $('.download-self-statement').attr('href', '{{ asset('storage') }}/' + self_statement);
-            $('.download-self-statement').attr('download', '{{ asset('storage') }}/' + self_statement);
+            $('.show-self-statement').attr('src', self_statement);
+            $('.download-self-statement').attr('href', self_statement);
+            $('.download-self-statement').attr('download', self_statement);
 
 
             $('.btn-delete').attr('data-id', id);
