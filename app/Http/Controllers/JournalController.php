@@ -2,24 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Interfaces\JournalInterface;
+use Carbon\Carbon;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Models\Journal;
+use App\Services\JournalService;
 use App\Http\Requests\StoreJournalRequest;
 use App\Http\Requests\UpdateJournalRequest;
-use App\Services\JournalService;
-use Carbon\Carbon;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Contracts\Interfaces\JournalInterface;
+use App\Contracts\Interfaces\DataAdminInterface;
+use App\Contracts\Interfaces\LetterheadsInterface;
+use App\Contracts\Interfaces\SignatureInterface;
+use App\Contracts\Interfaces\StudentInterface;
 
 class JournalController extends Controller
 {
     private JournalInterface $journal;
     private JournalService $service;
+    private DataAdminInterface $dataadmin;
+    private SignatureInterface $signature;
+    private LetterheadsInterface $letterheads;
+    private StudentInterface $student;
 
-    public function __construct(JournalInterface $journal, JournalService $service)
+    public function __construct(JournalInterface $journal, JournalService $service, DataAdminInterface $dataadmin, SignatureInterface $signature, StudentInterface $student, LetterheadsInterface $letterheads)
     {
         $this->middleware('subsrcribed:online');
 
         $this->journal = $journal;
+        $this->student = $student;
+        $this->dataadmin = $dataadmin;
         $this->service = $service;
+        $this->letterheads = $letterheads;
+        $this->signature = $signature;
+
     }
 
     /**
@@ -105,5 +121,61 @@ class JournalController extends Controller
     {
         $journals = $this->journal->get();
         return view('student_online.journal.index', compact('journals'));
+    }
+
+    public function DownloadPdf()
+    {
+        $journals = $this->journal->get();
+        $header = $this->letterheads->get();
+        $datastudent = $this->student->get();
+
+        $months = $journals->groupBy(function ($date) {
+            return \Carbon\Carbon::parse($date->created_at)->format('Y-m');
+        });
+        $dompdf = new Dompdf();
+            $options = new Options();
+            $options->set('isHtml5ParserEnabled', true);
+            $options->set('isPhpEnabled', true);
+            $options->set('isRemoteEnabled', true);
+            $dompdf->setOptions($options);
+
+            $combinedHtml = '';
+            $dataadmin = $this->dataadmin->get();
+            // Loop through months and append HTML to the combined HTML string
+            foreach ($months as $month => $jurnals) {
+                $signature = $this->signature->store([
+                    'qr' => '', // Placeholder untuk QR code, akan diperbarui nanti
+                    'data_admin_id' => $dataadmin->id
+                ]);
+
+                $qrCode = QrCode::size(100)->generate(url('/data-qr/' . $signature->id)); // Mengarahkan ke ID signature yang baru saja dibuat
+                $qrCodeImage = 'data:image/png;base64,' . base64_encode($qrCode);
+
+                $signature->qr = $qrCodeImage; // Memperbarui kolom qr dengan QR code yang baru dibuat
+                $signature->save();
+
+                $html = view('desain_pdf.jurnal', [
+                    'data' => $jurnals,
+                    'months' => $month,
+                    'letterheads' => $header,
+                    'datadiri' => $datastudent,
+                    'qrCodeImage' => $qrCodeImage
+                ])->render();
+                $combinedHtml .= $html;
+            }
+
+            $dompdf->loadHtml($combinedHtml);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+
+            $output = $dompdf->output();
+
+            // Set header for PDF download
+            $headers = [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="jurnal.pdf"'
+            ];
+
+            return response($output, 200, $headers);
     }
 }

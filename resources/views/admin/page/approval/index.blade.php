@@ -122,6 +122,7 @@
                                                             data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
                                                             data-identify_number="{{ $student->identify_number }}"
                                                             data-identify_number="{{ $student->identify_number }}"
+                                                            data-internship_type="{{ $student->internship_type }}"
                                                             class="btn bg-secondary-subtle text-secondary btn-detail">
                                                             <i class="ri-eye-fill"></i>
                                                         </button>
@@ -229,6 +230,7 @@
                                                             data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
                                                             data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
                                                             data-identify_number="{{ $student->identify_number }}"
+                                                            data-internship_type="{{ $student->internship_type }}"
                                                             class="btn bg-secondary-subtle text-secondary btn-detail">
                                                             <i class="ri-eye-fill"></i>
                                                         </button>
@@ -278,6 +280,10 @@
                         </div>
                         <div class="d-flex justify-content-center align-items-center mt-4">
                             <h4 class="show-name"></h4>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center mb-2">
+                            <span class="badge bg-primary-subtle text-primary show-internship_type p-2"></span>
+
                         </div>
                         <div class="row mx-2">
                             <div class="col-6 d-flex align-items-center gap-1">
@@ -470,8 +476,10 @@
             let parents_statement = $(this).data('parentsstatement');
             let email = $(this).data('email');
             let identify_number = $(this).data('identify_number');
+            let intern = $(this).data('internship_type');
 
             $('.show-name').text(name);
+            $('.show-internship_type').text(intern);
             $('.show-identify_number').text(identify_number);
             $('.show-email').text(email);
             $('.show-image').attr('src', avatar);

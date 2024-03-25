@@ -3,9 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\URL;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use App\Contracts\Interfaces\TaskInterface;
 use App\Contracts\Interfaces\UserInterface;
+use App\Contracts\Interfaces\LimitInterface;
 use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\MentorInterface;
 use App\Contracts\Interfaces\PicketInterface;
@@ -15,9 +18,14 @@ use App\Contracts\Interfaces\PaymentInterface;
 use App\Contracts\Interfaces\ProductInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\VoucherInterface;
+use App\Contracts\Repositories\TaskRepository;
 use App\Contracts\Repositories\UserRepository;
 use App\Contracts\Interfaces\ApprovalInterface;
 use App\Contracts\Interfaces\DivisionInterface;
+use App\Contracts\Repositories\LimitRepository;
+use App\Contracts\Interfaces\DataAdminInterface;
+use App\Contracts\Interfaces\SignatureInterface;
+use App\Contracts\Interfaces\SubCourseInterface;
 use App\Contracts\Repositories\CourseRepository;
 use App\Contracts\Repositories\MentorRepository;
 use App\Contracts\Repositories\PicketRepository;
@@ -32,6 +40,10 @@ use App\Contracts\Interfaces\LetterheadsInterface;
 use App\Contracts\Repositories\ApprovalRepository;
 use App\Contracts\Repositories\DivisionRepository;
 use App\Contracts\Interfaces\AdminJournalInterface;
+use App\Contracts\Interfaces\ZoomScheduleInterface;
+use App\Contracts\Repositories\DataAdminRepository;
+use App\Contracts\Repositories\SignatureRepository;
+use App\Contracts\Repositories\SubCourseRepository;
 use App\Contracts\Interfaces\CodeOfConductInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\WarningLetterInterface;
@@ -43,12 +55,8 @@ use App\Contracts\Interfaces\ResponseLetterInterface;
 use App\Contracts\Repositories\LetterheadsRepository;
 use App\Contracts\Interfaces\PicketingReportInterface;
 use App\Contracts\Repositories\AdminJournalRepository;
+use App\Contracts\Repositories\ZoomScheduleRepository;
 use App\Contracts\Interfaces\AttendanceDetailInterface;
-use App\Contracts\Interfaces\LimitInterface;
-use App\Contracts\Interfaces\SubCourseInterface;
-use App\Contracts\Interfaces\TaskInterface;
-use App\Contracts\Interfaces\TransactionHistoryInterface;
-use App\Contracts\Interfaces\ZoomScheduleInterface;
 use App\Contracts\Repositories\CodeOfConductRepository;
 use App\Contracts\Repositories\MentorStudentRepository;
 use App\Contracts\Repositories\ReportStudentRepository;
@@ -56,14 +64,10 @@ use App\Contracts\Repositories\WarningLetterRepository;
 use App\Contracts\Repositories\AbsenteePermitRepository;
 use App\Contracts\Repositories\AttendanceRuleRepository;
 use App\Contracts\Repositories\ResponseLetterRepository;
+use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\AttendanceDetailRepository;
-use App\Contracts\Repositories\LimitRepository;
-use App\Contracts\Repositories\SubCourseRepository;
-use App\Contracts\Repositories\TaskRepository;
 use App\Contracts\Repositories\TransactionHistoryRepository;
-use App\Contracts\Repositories\ZoomScheduleRepository;
-use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -97,6 +101,8 @@ class AppServiceProvider extends ServiceProvider
         LimitInterface::class => LimitRepository::class,
         TaskInterface::class => TaskRepository::class,
         ZoomScheduleInterface::class => ZoomScheduleRepository::class,
+        DataAdminInterface::class => DataAdminRepository::class,
+        SignatureInterface::class => SignatureRepository::class
     ];
 
     /**
