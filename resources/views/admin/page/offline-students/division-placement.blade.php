@@ -73,9 +73,9 @@
                                                     data-address="{{ $studentOffline->address }}" data-birthdate="{{ $studentOffline->birth_date }}"
                                                     data-birthplace="{{ $studentOffline->birth_place }}"
                                                     data-startdate="{{ \carbon\Carbon::parse($studentOffline->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
-                                                    data-finishdate="{{ \carbon\Carbon::parse($studentOffline->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}" 
+                                                    data-finishdate="{{ \carbon\Carbon::parse($studentOffline->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                     data-school="{{ $studentOffline->school }}"
-                                                    data-avatar="{{ asset('storage/'. $studentOffline->avatar) }}" 
+                                                    data-avatar="{{ asset('storage/'. $studentOffline->avatar) }}"
                                                     data-cv="{{ asset('storage/'. $studentOffline->cv) }}"
                                                     data-selfstatement="{{ asset('storage/'. $studentOffline->self_statement) }}"
                                                     data-parentsstatement="{{ asset('storage/'. $studentOffline->parents_statement) }}">
@@ -92,7 +92,16 @@
                                     </td>
                                 </tr>
                             @empty
-                                <p>Tidak ada data</p>
+                            <tr>
+                                <td colspan="8">
+                                    <div class="d-flex justify-content-center mb-3 mt-3">
+                                        <img src="{{ asset('no data.png') }}" width="200px" alt="" srcset="">
+                                    </div>
+                                    <p class="text-center mb-0 fs-5">
+                                        Data Masih Kosong
+                                    </p>
+                                </td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>
@@ -247,7 +256,7 @@
         $(document).ready(function() {
             $("#message").modal('show');
         });
-        
+
         $('.btn-edit').click(function () {
             var id = $(this).data('id');
             $('#form-update').attr('action', '/offline-students/division-placement/' + id);

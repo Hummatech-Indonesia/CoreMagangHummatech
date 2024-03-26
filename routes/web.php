@@ -9,6 +9,8 @@ use App\Http\Controllers\JournalController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\DataAdminController;
+use App\Http\Controllers\StatementController;
+use App\Http\Controllers\LetterheadController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\SubscriptionController;
@@ -19,11 +21,10 @@ use App\Http\Controllers\Admin\AdminMentorController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
-use App\Http\Controllers\LetterheadController;
+use App\Http\Controllers\StudentOnline\CourseController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
-use App\Http\Controllers\StudentOnline\CourseController;
 use App\Http\Controllers\StudentOnline\StudentOnlineController;
 
 # ==================================================== Homepage Group Route ===================================================
@@ -34,7 +35,12 @@ Route::get('/', function () {
 # ================================================ Authentication Routes Group ================================================
 Auth::routes();
 
+# Register
 Route::post('/register/post', [StudentController::class, 'store']);
+
+# Statement
+Route::get('statement-self', [StatementController::class, 'self'])->name('statement-self');
+Route::get('statement-parent', [StatementController::class, 'parent'])->name('statement-parent');
 
 # ================================================ Administrator Route Group ==================================================
 Route::middleware(['roles:administrator', 'auth'])->group(function () {
