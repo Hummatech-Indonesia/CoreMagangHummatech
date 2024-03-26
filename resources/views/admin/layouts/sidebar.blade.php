@@ -60,11 +60,6 @@
                 </li>
                 <li class="menu-title"><span data-key="t-menu">Magang</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('rfid*') ? 'active' : '' }}" href="{{ url('/rfid') }}">
-                        <i class=" ri-apps-line"></i> <span data-key="t-dashboards">Divisi</span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarApps1" data-bs-toggle="collapse" role="button"
                         aria-expanded="{{ request()->is('approval*') ? 'true' : 'false' }}"
                         aria-controls="sidebarApps">
