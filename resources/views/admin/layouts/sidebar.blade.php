@@ -33,35 +33,53 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ url('/administrator') }}">
+                    <a class="nav-link menu-link {{ request()->is('administrator*') ? 'active' : '' }}"
+                        href="{{ url('/administrator') }}">
                         <i class="mdi mdi-speedometer"></i> <span data-key="t-dashboards">Dashboards</span>
                     </a>
-                </li> <!-- end Dashboard Menu -->
+                </li>
+                <li class="menu-title"><span data-key="t-menu">Paket</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ url('/product') }}">
+                    <a class="nav-link menu-link {{ request()->is('administrator/course*') ? 'active' : '' }}"
+                        href="{{ url('/administrator/course') }}">
+                        <i class="ri-book-open-line"></i> <span data-key="t-dashboards">Materi</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->is('product*') ? 'active' : '' }}"
+                        href="{{ url('/product') }}">
                         <i class=" ri-price-tag-2-line"></i> <span data-key="t-dashboards">Daftar Paket</span>
                     </a>
                 </li>
 
                 <li class="nav-item {{ request()->is('/voucher') ? 'active' : '' }}">
-                    <a class="nav-link menu-link" href="{{ url('/voucher') }}">
+                    <a class="nav-link menu-link {{ request()->is('voucher*') ? 'active' : '' }}"
+                        href="{{ url('/voucher') }}">
                         <i class=" las la-ticket-alt"></i> <span data-key="t-dashboards">Kode Kupon</span>
                     </a>
-                </li> <!-- end Dashboard Menu -->
+                </li>
+                <li class="menu-title"><span data-key="t-menu">Magang</span></li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->is('rfid*') ? 'active' : '' }}" href="{{ url('/rfid') }}">
+                        <i class=" ri-apps-line"></i> <span data-key="t-dashboards">Divisi</span>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarApps1" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarApps">
-                        <i class=" ri-bookmark-2-fill"></i> <span data-key="t-apps">Approval</span>
+                        aria-expanded="{{ request()->is('approval*') ? 'true' : 'false' }}"
+                        aria-controls="sidebarApps">
+                        <i class="ri-bookmark-2-fill"></i> <span data-key="t-apps">Approval</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarApps1">
+                    <div class="collapse menu-dropdown {{ request()->is('approval*') ? 'show' : '' }}"
+                        id="sidebarApps1">
                         <ul class="nav nav-sm flex-column">
-
                             <li class="nav-item">
-                                <a href="{{ url('/approval') }}" class="nav-link" data-key="t-chat"> Pendaftaran </a>
+                                <a href="{{ url('/approval') }}"
+                                    class="nav-link {{ request()->is('approval*') ? 'active' : '' }}"
+                                    data-key="t-chat">Pendaftaran</a>
                             </li>
                             {{-- <li class="nav-item {{ request()->is('/permission') ? 'active' : '' }}">
-                                <a href="{{ url('/permission') }}" class="nav-link" data-key="t-api-key">Izin &
-                                    Sakit</a>
+                                <a href="{{ url('/permission') }}" class="nav-link" data-key="t-api-key">Izin &amp; Sakit</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ url('/top-up') }}" class="nav-link" data-key="t-api-key">TopUp</a>
@@ -69,145 +87,60 @@
                         </ul>
                     </div>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarForms" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarForms">
-                        <i class=" ri-account-circle-line"></i> <span data-key="t-forms">User</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarForms">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="/menu-siswa" class="nav-link" data-key="t-basic-elements">Siswa</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/menu-mentor" class="nav-link" data-key="t-form-select">Mentor</a>
-                            {{-- </li>
-                            <li class="nav-item">
-                                <a href="{{ url('/alumni') }}" class="nav-link" data-key="t-checkboxs-radios">Alumni</a>
-                            </li> --}}
-                            {{-- <li class="nav-item">
-                                <a href="{{ url('/person-in-charge') }}" class="nav-link" data-key="t-pickers">
-                                    Penanggung Jawab </a>
-                            </li> --}}
-                            <li class="nav-item">
-                                <a href="{{ url('/rfid') }}" class="nav-link" data-key="t-input-masks">RFID</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('/students-rejected') }}" class="nav-link" data-key="t-advanced">Siswa
-                                    Ditolak</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('/students-banned') }}" class="nav-link" data-key="t-range-slider"> Banned Siswa </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#siswaOffline" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="siswaOffline">
-                        <i class="ri-user-line"></i> <span data-key="t-surat">Siswa Offline</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="siswaOffline">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ url('/offline-students/division-placement') }}" class="nav-link" data-key="t-chat">
-                                    Penempatan Divisi </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('/offline-students/team') }}" class="nav-link" data-key="t-api-key">Tim</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('/offline-students/presentation') }}" class="nav-link" data-key="t-api-key">Presentasi</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">RFID</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#siswaOnline" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="siswaOnline">
-                        <i class="ri-user-line"></i> <span data-key="t-surat">Siswa Online</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="siswaOnline">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link" data-key="t-chat">
-                                    Penetapan Mentor </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Tim</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Presentasi</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ url('/administrator/course') }}">
-                        <i class="ri-book-open-line"></i> <span data-key="t-dashboards">Materi</span>
-                    </a>
-                </li>
-
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarCharts1" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarCharts">
+                        aria-expanded="{{ request()->is('journal*') || request()->is('absent*') ? 'true' : 'false' }}"
+                        aria-controls="sidebarCharts">
                         <i class="ri-article-line"></i> <span data-key="t-charts">Pendataan Admin</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarCharts1">
+                    <div class="collapse menu-dropdown {{ request()->is('journal*') || request()->is('absent*') ? 'show' : '' }}"
+                        id="sidebarCharts1">
                         <ul class="nav nav-sm flex-column">
-
                             <li class="nav-item">
-                                <a href="{{ url('/journal') }}" class="nav-link" data-key="t-chartjs"> Jurnal </a>
+                                <a href="{{ url('/journal') }}"
+                                    class="nav-link {{ request()->is('journal*') ? 'active' : '' }}"
+                                    data-key="t-chartjs">Jurnal</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/absent') }}" class="nav-link" data-key="t-echarts"> Absensi
-                                </a>
+                                <a href="{{ url('/absent') }}"
+                                    class="nav-link {{ request()->is('absent*') ? 'active' : '' }}"
+                                    data-key="t-echarts">Absensi</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-echarts"> Report
-                                </a>
-                            </li>
+                            {{-- <li class="nav-item">
+                                <a href="" class="nav-link" data-key="t-echarts">Report</a>
+                            </li> --}}
                         </ul>
                     </div>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarApps">
+                        aria-expanded="{{ request()->is('response-letter*') || request()->is('warning-letter*') ? 'true' : 'false' }}"
+                        aria-controls="sidebarApps">
                         <i class="ri-file-list-3-line"></i> <span data-key="t-surat">Surat</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarApps">
+                    <div class="collapse menu-dropdown {{ request()->is('response-letter*') || request()->is('warning-letter*') ? 'show' : '' }}"
+                        id="sidebarApps">
                         <ul class="nav nav-sm flex-column">
-
                             <li class="nav-item">
-                                <a href="{{ url('/response-letter') }}" class="nav-link" data-key="t-chat">
+                                <a href="{{ url('/response-letter') }}"
+                                    class="nav-link {{ request()->is('response-letter*') ? 'active' : '' }}"
+                                    data-key="t-chat">
                                     Pendaftaran </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="" class="nav-link" data-key="t-api-key">Izin &
                                     Sakit</a>
                             </li>
                             <li class="nav-item">
                                 <a href="" class="nav-link" data-key="t-api-key">TopUp</a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
-                                <a href="{{ url('/warning-letter') }}" class="nav-link" data-key="t-api-key">SP</a>
+                                <a href="{{ url('/warning-letter') }}"
+                                    class="nav-link {{ request()->is('warning-letter*') ? 'active' : '' }}"
+                                    data-key="t-api-key">SP</a>
                             </li>
                         </ul>
                     </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ url('/announcement') }}">
-                        <i class=" ri-radar-line"></i> <span data-key="t-dashboards">Pengumuman</span>
-                    </a>
                 </li>
 
                 <li class="nav-item">
@@ -215,6 +148,7 @@
                         <i class=" ri-apps-line"></i> <span data-key="t-dashboards">Divisi</span>
                     </a>
                 </li>
+
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="">
@@ -228,6 +162,107 @@
                         <i class="ri-slideshow-line"></i> <span data-key="t-dashboards">Presentasi</span>
                     </a>
                 </li>
+                <li class="menu-title"><span data-key="t-menu">Siswa</span></li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarForms" data-bs-toggle="collapse" role="button"
+                        aria-expanded="{{ request()->is('menu-siswa*') || request()->is('menu-mentor*') || request()->is('students-rejected*') || request()->is('students-banned*') ? 'true' : 'false' }}"
+                        aria-controls="sidebarForms">
+                        <i class="ri-account-circle-line"></i> <span data-key="t-forms">User</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{ request()->is('menu-siswa*') || request()->is('menu-mentor*') || request()->is('students-rejected*') || request()->is('students-banned*') ? 'show' : '' }}"
+                        id="sidebarForms">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="/menu-siswa"
+                                    class="nav-link {{ request()->is('menu-siswa*') ? 'active' : '' }}"
+                                    data-key="t-basic-elements">Siswa</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/menu-mentor"
+                                    class="nav-link {{ request()->is('menu-mentor*') ? 'active' : '' }}"
+                                    data-key="t-form-select">Mentor</a>
+                            </li>
+                            {{-- <li class="nav-item">
+                                <a href="{{ url('/alumni') }}" class="nav-link {{ request()->is('alumni*') ? 'active' : '' }}" data-key="t-checkboxs-radios">Alumni</a>
+                            </li> --}}
+                            {{-- <li class="nav-item">
+                                <a href="{{ url('/person-in-charge') }}" class="nav-link {{ request()->is('person-in-charge*') ? 'active' : '' }}" data-key="t-pickers">Penanggung Jawab</a>
+                            </li> --}}
+
+                            <li class="nav-item">
+                                <a href="{{ url('/students-rejected') }}"
+                                    class="nav-link {{ request()->is('students-rejected*') ? 'active' : '' }}"
+                                    data-key="t-advanced">Siswa Ditolak</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/students-banned') }}"
+                                    class="nav-link {{ request()->is('students-banned*') ? 'active' : '' }}"
+                                    data-key="t-range-slider">Banned Siswa</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#siswaOffline" data-bs-toggle="collapse" role="button"
+                        aria-expanded="{{ request()->is('offline-students/division-placement*') || request()->is('offline-students/team*') || request()->is('offline-students/presentation*') ? 'true' : 'false' }}"
+                        aria-controls="siswaOffline">
+                        <i class="ri-user-line"></i> <span data-key="t-surat">Siswa Offline</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{ request()->is('offline-students/division-placement*') || request()->is('offline-students/team*') || request()->is('offline-students/presentation*') ? 'show' : '' }}"
+                        id="siswaOffline">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ url('/offline-students/division-placement') }}"
+                                    class="nav-link {{ request()->is('offline-students/division-placement*') ? 'active' : '' }}"
+                                    data-key="t-chat">
+                                    Penempatan Divisi </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/offline-students/team') }}"
+                                    class="nav-link {{ request()->is('offline-students/team*') ? 'active' : '' }}"
+                                    data-key="t-api-key">Tim</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/offline-students/presentation') }}"
+                                    class="nav-link {{ request()->is('offline-students/presentation*') ? 'active' : '' }}"
+                                    data-key="t-api-key">Presentasi</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#siswaOnline" data-bs-toggle="collapse" role="button"
+                        aria-expanded="{{ request()->is('pengiriman-surat*') ? 'true' : 'false' }}"
+                        aria-controls="siswaOnline">
+                        <i class="ri-user-line"></i> <span data-key="t-surat">Siswa Online</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{ request()->is('pengiriman-surat*') ? 'show' : '' }}"
+                        id="siswaOnline">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="javascript:void(0)"
+                                    class="nav-link {{ request()->is('pengiriman-surat*') ? 'active' : '' }}"
+                                    data-key="t-chat">
+                                    Penetapan Mentor </a>
+                            </li>
+                            {{-- <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Tim</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Presentasi</a>
+                            </li> --}}
+                        </ul>
+                    </div>
+                </li>
+
+                {{-- <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ url('/announcement') }}">
+                        <i class=" ri-radar-line"></i> <span data-key="t-dashboards">Pengumuman</span>
+                    </a>
+                </li> --}}
+
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarCharts2" data-bs-toggle="collapse" role="button"
@@ -249,7 +284,7 @@
                     </div>
                 </li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link" href="">
                         <i class=" ri-wallet-3-line"></i> <span data-key="t-widgets">Transaksi</span>
                     </a>
@@ -273,7 +308,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
 
             </ul>
         </div>

@@ -279,12 +279,17 @@
                                             </tr>
                                         @endif
                                     @empty
-                                    <div class="d-flex justify-content-center mb-2 mt-5">
-                                        <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
-                                    </div>
-                                        <p class="fs-5 text-dark text-center">
-                                            Data Masih Kosong
-                                        </p>
+                                    <tr>
+                                        <td colspan="8">
+                                            <div class="d-flex justify-content-center mt-3">
+                                                <img src="{{ asset('no data.png') }}" width="200px"
+                                                    alt="">
+                                            </div>
+                                            <h4 class="text-center mt-2 mb-4">
+                                                Data Masih kosong
+                                            </h4>
+                                        </td>
+                                    </tr>
                                     @endforelse
                                     </tbody>
                                 </table>
@@ -490,12 +495,17 @@
                                                 </tr>
                                             @endif
                                         @empty
-                                        <div class="d-flex justify-content-center mb-2 mt-5">
-                                            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
-                                        </div>
-                                            <p class="fs-5 text-dark text-center">
-                                                Data Masih Kosong
-                                            </p>
+                                        <tr>
+                                            <td colspan="8">
+                                                <div class="d-flex justify-content-center mt-3">
+                                                    <img src="{{ asset('no data.png') }}" width="200px"
+                                                        alt="">
+                                                </div>
+                                                <h4 class="text-center mt-2 mb-4">
+                                                    Data Masih kosong
+                                                </h4>
+                                            </td>
+                                        </tr>
                                         @endforelse
                                     </tbody>
                                 </table>
