@@ -144,18 +144,21 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ url('/division') }}">
+                    <a class="nav-link menu-link {{ request()->is('division*') ? 'active' : '' }}" href="{{ url('/division') }}">
                         <i class=" ri-apps-line"></i> <span data-key="t-dashboards">Divisi</span>
                     </a>
                 </li>
-
-
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="">
-                        <i class="ri-rocket-line"></i> <span data-key="t-dashboards">Tim</span>
+                    <a class="nav-link menu-link {{ request()->is('rfid*') ? 'active' : '' }}" href="{{ url('/rfid') }}">
+                        <i class=" ri-apps-line"></i> <span data-key="t-dashboards">RFID</span>
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link menu-link " href="">
+                        <i class="ri-rocket-line"></i> <span data-key="t-dashboards">Tim</span>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="">
