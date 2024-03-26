@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->enum('type' , [TypeVoucherEnum::QUOTA->value , TypeVoucherEnum::UNLIMITED->value]);
-            $table->string('quota')->default('0');
+            $table->string('quota')->nullable();
             $table->timestamps();
         });
     }

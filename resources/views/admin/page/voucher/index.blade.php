@@ -44,6 +44,7 @@
                             {{ \Carbon\Carbon::parse($voucher->end_date)->locale('id')->isoFormat('dddd, D MMMM Y') }}</p>
                     </div>
                     <div class="card-body">
+                        <h6 class="badge {{ $voucher->quota === null ? 'text-success bg-success-subtle' : 'text-danger bg-danger-subtle' }}">KUOTA: {{ $voucher->quota ?? 'Tidak Terbatas' }}</h6>
                         <h4 class="text-secondary fw-semibold">{{ $voucher->code_voucher }}</h4>
                     </div>
                 </div>
@@ -89,6 +90,18 @@
                                     {{ $message }}
                                 </p>
                             @enderror
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label for="">Jenis Voucher</label>
+                            <select name="type" id="type" onchange="toggleQuota()" class="form-select">
+                                <option value="unlimited">Unlimited</option>
+                                <option value="quota">quota</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mb-2" hidden id="quota">
+                            <label for="">Jumlah Voucher</label>
+                            <input type="number" name="quota" value="{{ old('quota') }}"
+                                placeholder="Masukan Jumlah Voucher" class="form-control" id="">
                         </div>
                         <div class="col-12 mb-2">
                             <label for="">Mulai Voucher</label>
@@ -139,6 +152,17 @@
     <script>
         function capitalizeInput(input) {
             input.value = input.value.toUpperCase();
+        }
+    </script>
+    <script>
+        function toggleQuota() {
+            const internshipType = document.getElementById('type');
+            const divisionContainer = document.getElementById('quota');
+            if (internshipType.value === 'quota') {
+                divisionContainer.hidden = false;
+            } else {
+                divisionContainer.hidden = true;
+            }
         }
     </script>
 @endsection
