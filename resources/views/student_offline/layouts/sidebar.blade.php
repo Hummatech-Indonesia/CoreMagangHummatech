@@ -63,6 +63,14 @@
                         <span class="hide-menu">Tugas</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ url('/siswa-offline/challenge') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-chart-area-line"></i>
+                        </span>
+                        <span class="hide-menu">Tantangan</span>
+                    </a>
+                </li>
 
 
                 <li class="sidebar-item">
