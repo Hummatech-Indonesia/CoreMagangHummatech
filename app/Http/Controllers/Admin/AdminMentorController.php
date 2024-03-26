@@ -63,7 +63,7 @@ class AdminMentorController extends Controller
     {
         $data = $this->mentorservice->update($mentor, $request);
         $this->mentor->update($mentor->id, $data);
-        $result = $this->mentorDivisionService->update($mentor, $request);
+        $this->mentorDivisionService->update($mentor, $request);
         return back()->with('succes', 'Mentor Berhasil Diubah');
     }
 
