@@ -45,7 +45,7 @@
                             <div class="message-body" data-simplebar>
                                 <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item">
                                     <span class="me-3">
-                                        <img src="../../dist/images/profile/user-1.jpg" alt="user"
+                                        <img src="https://via.placeholder.com/480x480" alt="user"
                                             class="rounded-circle" width="48" height="48" />
                                     </span>
                                     <div class="w-75 d-inline-block v-middle">
@@ -55,7 +55,7 @@
                                 </a>
                                 <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item">
                                     <span class="me-3">
-                                        <img src="../../dist/images/profile/user-2.jpg" alt="user"
+                                        <img src="https://via.placeholder.com/480x480" alt="user"
                                             class="rounded-circle" width="48" height="48" />
                                     </span>
                                     <div class="w-75 d-inline-block v-middle">
@@ -65,7 +65,7 @@
                                 </a>
                                 <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item">
                                     <span class="me-3">
-                                        <img src="../../dist/images/profile/user-3.jpg" alt="user"
+                                        <img src="https://via.placeholder.com/480x480" alt="user"
                                             class="rounded-circle" width="48" height="48" />
                                     </span>
                                     <div class="w-75 d-inline-block v-middle">
@@ -75,7 +75,7 @@
                                 </a>
                                 <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item">
                                     <span class="me-3">
-                                        <img src="../../dist/images/profile/user-4.jpg" alt="user"
+                                        <img src="https://via.placeholder.com/480x480" alt="user"
                                             class="rounded-circle" width="48" height="48" />
                                     </span>
                                     <div class="w-75 d-inline-block v-middle">
@@ -85,7 +85,7 @@
                                 </a>
                                 <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item">
                                     <span class="me-3">
-                                        <img src="../../dist/images/profile/user-5.jpg" alt="user"
+                                        <img src="https://via.placeholder.com/480x480" alt="user"
                                             class="rounded-circle" width="48" height="48" />
                                     </span>
                                     <div class="w-75 d-inline-block v-middle">
@@ -95,7 +95,7 @@
                                 </a>
                                 <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item">
                                     <span class="me-3">
-                                        <img src="../../dist/images/profile/user-1.jpg" alt="user"
+                                        <img src="https://via.placeholder.com/480x480" alt="user"
                                             class="rounded-circle" width="48" height="48" />
                                     </span>
                                     <div class="w-75 d-inline-block v-middle">
