@@ -6,31 +6,31 @@
         </div>
         <div class="col-sm-auto ms-auto">
             <div class="text-end">
-                <a href="siswa-online/materi" class="btn btn-primary">Kembali</a>
+                <a href="/siswa-offline/course" class="btn btn-primary">Kembali</a>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-3">
-            <img class="img-responsive w-100" src="{{ asset('assets/images/materi-1.png') }}"  />
+            <img class="img-responsive w-100" src="{{ asset('storage/' .$courses->image) }}"  />
         </div>
         <div class="col-lg-8 px-4">
             <div class="border-bottom mb-3">
-                <h1>Tutorial Laravel SPA Menggunakan Blade Template Engine (Splade)</h1>
-                <p class="fs-5">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum, dolore.</p>
+                <h1>{{ $courses->title }}</h1>
+                <p class="fs-5">{{ $courses->description }}</p>
             </div>
             <div class="d-flex gap-5">
                 <div class="gap-2 d-flex">
                     <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg" class="mt-1">
                         <path d="M10.554 2.375H17.8013M10.554 5.875H15.0835M10.554 11.125H17.8013M10.554 14.625H15.0835M1.49487 2.375C1.49487 2.14294 1.59032 1.92038 1.76021 1.75628C1.9301 1.59219 2.16052 1.5 2.40078 1.5H6.02442C6.26469 1.5 6.49511 1.59219 6.665 1.75628C6.83489 1.92038 6.93033 2.14294 6.93033 2.375V5.875C6.93033 6.10706 6.83489 6.32962 6.665 6.49372C6.49511 6.65781 6.26469 6.75 6.02442 6.75H2.40078C2.16052 6.75 1.9301 6.65781 1.76021 6.49372C1.59032 6.32962 1.49487 6.10706 1.49487 5.875V2.375ZM1.49487 11.125C1.49487 10.8929 1.59032 10.6704 1.76021 10.5063C1.9301 10.3422 2.16052 10.25 2.40078 10.25H6.02442C6.26469 10.25 6.49511 10.3422 6.665 10.5063C6.83489 10.6704 6.93033 10.8929 6.93033 11.125V14.625C6.93033 14.8571 6.83489 15.0796 6.665 15.2437C6.49511 15.4078 6.26469 15.5 6.02442 15.5H2.40078C2.16052 15.5 1.9301 15.4078 1.76021 15.2437C1.59032 15.0796 1.49487 14.8571 1.49487 14.625V11.125Z" stroke="#5D87FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <p class="text-muted">5 Tugas</p>
+                    <p class="text-muted">{{$taskCount}} Tugas</p>
                 </div>
                 <div class="gap-2 d-flex">
                     <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="mt-1">
                         <path d="M10 14.4165C8.74584 13.6924 7.32318 13.3112 5.875 13.3112C4.42682 13.3112 3.00416 13.6924 1.75 14.4165V2.49982C3.00416 1.77573 4.42682 1.39453 5.875 1.39453C7.32318 1.39453 8.74584 1.77573 10 2.49982M10 14.4165C11.2542 13.6924 12.6768 13.3112 14.125 13.3112C15.5732 13.3112 16.9958 13.6924 18.25 14.4165V2.49982C16.9958 1.77573 15.5732 1.39453 14.125 1.39453C12.6768 1.39453 11.2542 1.77573 10 2.49982M10 14.4165V2.49982" stroke="#5D87FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <p class="text-muted">27 Materi</p>
+                    <p class="text-muted">{{$subCourseCount}} Materi</p>
                 </div>
             </div>
         </div>
@@ -65,29 +65,33 @@
     </div>
     <div class="tab-content">
         <div class="tab-pane active" id="home2" role="tabpanel">
-            @foreach (range(1, 3) as $data)
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card border-start border-info py-3 px-4">
-                                <div class="d-flex no-block align-items-center">
-                                    <div class="col-lg-1 col-md-10 col-sm-1">
-                                        <img class="img-responsive w-100" src="{{ asset('assets/images/materi-1.png') }}"/>
-                                    </div>
-                                    <div class="col-lg-9 col-sm-12 px-4">
-                                        <h5>Lorem ipsum dolor sit amet consectetur. Netus nam porta elit pellentesque accumsan commodo sed adipiscing turpis integer.</h5>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur ipsam fugiat tenetur.</p>
-                                    </div>
-                                <div class="ms-auto">
-                                    <a href="/siswa-offline/course/detail/learn-more" class="btn btn-light-primary text-primary">
-                                        Pelajari
-                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-books"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" /><path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" /><path d="M5 8h4" /><path d="M9 16h4" /><path d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" /><path d="M14 9l4 -1" /><path d="M16 16l3.923 -.98" /></svg>
-                                    </a>
+            @forelse ($subCourse as $subCourse)
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card border-start border-info py-3 px-4">
+                            <div class="d-flex no-block align-items-center">
+                                <div class="col-lg-1 col-md-10 col-sm-1">
+                                    <img class="img-responsive w-100" src="{{ asset('storage/' . $subCourse->image_course) }}"/>
                                 </div>
+                                <div class="col-lg-9 col-sm-12 px-4">
+                                    <h5>{{$subCourse->title}}</h5>
+                                    <p>{{$subCourse->description}}</p>
                                 </div>
-                        </div>
+                            <div class="ms-auto">
+                                <a href="/siswa-offline/course/detail/learn-more/{{$subCourse->id}}" class="btn btn-light-primary text-primary">
+                                    Pelajari
+                                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-books"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" /><path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" /><path d="M5 8h4" /><path d="M9 16h4" /><path d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" /><path d="M14 9l4 -1" /><path d="M16 16l3.923 -.98" /></svg>
+                                </a>
+                            </div>
+                            </div>
                     </div>
                 </div>
-            @endforeach
+            </div>
+
+            @empty
+
+            @endforelse
         </div>
         {{-- <div class="tab-pane" id="profile2" role="tabpanel">
                 <div class="row">

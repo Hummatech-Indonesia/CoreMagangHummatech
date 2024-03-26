@@ -3,8 +3,10 @@
 use App\Http\Controllers\Admin\PicketController;
 use App\Http\Controllers\Admin\AdminJournalController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\StudentOfline\CourseOfflineController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCourseController;
+use App\Http\Controllers\SubCourseOfflineController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,15 +57,22 @@ Route::get('student', function (){
 Route::get('siswa-offline/absensi', function (){
     return view('student_offline.absensi.index');
 });
-Route::get('/siswa-offline/course', function (){
-    return view('student_offline.course.index');
-});
-Route::get('/siswa-offline/course/detail', function (){
-    return view('student_offline.course.detail');
-});
-Route::get('/siswa-offline/course/detail/learn-more', function (){
-    return view('student_offline.course.learn-more');
-});
+// Route::get('/siswa-offline/course', function (){
+//     return view('student_offline.course.index');
+// });
+// Route::get('/siswa-offline/course/detail', function (){
+//     return view('student_offline.course.detail');
+// });
+
+Route::get('/siswa-offline/course',[CourseOfflineController::class,'index']);
+Route::get('/siswa-offline/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('materi.detail');
+Route::get('/siswa-offline/course/detail/learn-more/{subCourse}', [CourseOfflineController::class, 'showSub'])->name('submateri.detail');
+
+
+
+// Route::get('/siswa-offline/course/detail/learn-more', function (){
+//     return view('student_offline.course.learn-more');
+// });
 Route::get('/siswa-offline/course/detail/answer-detail', function (){
     return view('student_offline.course.answer-detail');
 });
