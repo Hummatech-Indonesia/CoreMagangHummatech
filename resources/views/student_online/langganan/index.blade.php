@@ -57,6 +57,13 @@
             </div>
         </div>
         @empty
+            <div class="col-12">
+                <div class="text-center">
+                    <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
+                        alt="No Data" height="150px" width="auto" />
+                    <h3>Tidak Ada Data Data</h3>
+                </div>
+            </div>
         @endforelse
     </div>
 @endsection

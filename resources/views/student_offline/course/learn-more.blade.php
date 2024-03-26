@@ -35,12 +35,29 @@
                         <div class="tab-content">
                           <div class="tab-pane active" id="home" role="tabpanel">
                             <div class="p-3">
-                                <img class="img-responsive w-100" src="{{ asset('assets/images/materi-1.png') }}"/>
+                                <main role="main">
+                                    <div id="carousel" class="carousel" data-ride="carousel">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <canvas id="pdf-canvas" class="d-block w-100" data-file="{{ asset('storage/' . $subCourse->file_course) }}"></canvas>
+                                                <div class="carousel-caption d-none d-md-block">
+                                                    <span>Page: <span id="page-num"></span> / <span id="page-count"></span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a class="carousel-control-prev" href="#" role="button" data-slide="prev">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </a>
+                                        <a class="carousel-control-next" href="#" role="button" data-slide="next">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </a>
+                                    </div>
+                                </main>
                             </div>
                           </div>
                           <div class="tab-pane p-3" id="profile" role="tabpanel">
                             <div class="ratio ratio-16x9">
-                                <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" title="YouTube video" allowfullscreen></iframe>
+                                <iframe width="560" height="315" src="{{ $subCourse->video_course }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                             </div>
                           </div>
                         </div>
@@ -104,21 +121,25 @@
         </div>
             <h5>Materi Lainnya</h5>
             <div class="row">
-                @foreach (range(1, 5) as $data)
-                    <div class="col-lg-12 m-0 p-0">
-                        <div class="card border-start border-info py-3 px-4 m-2">
-                            <div class="d-flex no-block align-items-center">
-                                <div class="col-2">
-                                    <img class="img-responsive w-100" src="{{ asset('assets/images/materi-1.png') }}"/>
-                                </div>
-                                <div class="col-lg-9 px-3">
-                                    <h6 class="m-0">Lorem ipsum dolor sit amet.</h6>
-                                    <p style="font-size: 12px">Lorem ipsum dolor sit amet...</p>
-                                </div>
+                @forelse ($courses as $course)
+
+                <div class="col-lg-12 m-0 p-0">
+                    <div class="card border-start border-info py-3 px-4 m-2">
+                        <div class="d-flex no-block align-items-center">
+                            <div class="col-2">
+                                <img class="img-responsive w-100" src="{{ asset('storage/' .$course->image) }}"/>
+                            </div>
+                            <div class="col-lg-9 px-3">
+                                <h6 class="m-0">{{$course->title}}</h6>
+                                <p style="font-size: 12px">{{ Str::limit($course->description, 60) }}</p>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                </div>
+
+                @empty
+
+                @endforelse
                 <div class="d-flex justify-content-center mt-3">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
@@ -254,6 +275,8 @@
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $('.btn-edit').click(function () {
@@ -316,6 +339,80 @@
             var id = $(this).data('id');
             $('#form-delete').attr('action', '/division/' + id);
             $('#modal-delete').modal('show');
+        });
+    </script>
+    <script>
+        var url = "{{ asset('storage/' . $subCourse->file_course) }}";
+
+        var pdfjsLib = window['pdfjs-dist/build/pdf'];
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
+
+        var pdfDoc = null,
+            pageNum = 1,
+            pageRendering = false,
+            pageNumPending = null,
+            scale = 0.8,
+            canvas = document.getElementById('pdf-canvas'),
+            ctx = canvas.getContext('2d');
+
+        function renderPage(num) {
+            pageRendering = true;
+            pdfDoc.getPage(num).then(function(page) {
+                var viewport = page.getViewport({scale: scale});
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                var renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+                var renderTask = page.render(renderContext);
+
+                renderTask.promise.then(function () {
+                    pageRendering = false;
+                    if (pageNumPending !== null) {
+                        renderPage(pageNumPending);
+                        pageNumPending = null;
+                    }
+                });
+            });
+
+            document.getElementById('page-num').textContent = num;
+        }
+
+        function queueRenderPage(num) {
+            if (pageRendering) {
+                pageNumPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+
+        function onPrevPage() {
+            if (pageNum <= 1) {
+                return;
+            }
+            pageNum--;
+            queueRenderPage(pageNum);
+        }
+
+        function onNextPage() {
+            if (pageNum >= pdfDoc.numPages) {
+                return;
+            }
+            pageNum++;
+            queueRenderPage(pageNum);
+        }
+
+        document.getElementById('prev').addEventListener('click', onPrevPage);
+        document.getElementById('next').addEventListener('click', onNextPage);
+
+        pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+            pdfDoc = pdfDoc_;
+            document.getElementById('page-count').textContent = pdfDoc.numPages;
+
+            renderPage(pageNum);
         });
     </script>
 @endsection

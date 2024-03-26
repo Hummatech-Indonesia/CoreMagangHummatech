@@ -27,6 +27,8 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
 use App\Http\Controllers\StudentOnline\StudentOnlineController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskSubmissionController;
 
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', function () {
@@ -115,6 +117,10 @@ Route::prefix('siswa-online')->middleware('roles:siswa-online', 'auth')->name(Ro
         Route::get('/materi', 'index')->name('.course');
         Route::get('/materi/{course}', 'detail')->name('.course.detail');
         Route::get('/materi/{course}/course/{subCourse}', 'subCourseDetail')->name('.course.subcourse');
+    });
+
+    Route::controller(TaskSubmissionController::class)->prefix('/task')->group(function() {
+        Route::get('/{task}', 'detailStudentOnline')->name('.task.detail');
     });
 
     // Route::get('division', function () {

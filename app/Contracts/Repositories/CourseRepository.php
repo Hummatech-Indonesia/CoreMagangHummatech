@@ -29,7 +29,7 @@ class CourseRepository extends BaseRepository implements CourseInterface
     }
     public function show(mixed $id): mixed
     {
-        return $this->model->query()->findOrFail($id)->first();
+        return $this->model->query()->findOrFail($id);
     }
     public function delete(mixed $id): mixed
     {

@@ -22,7 +22,7 @@ class SubCourseRepository extends BaseRepository implements SubCourseInterface
     }
     public function GetWhere(mixed $id): mixed
     {
-        return $this->model->query()->where('course_id' , $id)->get();
+        return $this->model->query()->where('course_id' , $id)->paginate(5);
     }
 
     public function store(array $data): mixed

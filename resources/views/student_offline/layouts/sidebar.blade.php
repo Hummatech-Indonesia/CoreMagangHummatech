@@ -55,6 +55,22 @@
                         <span class="hide-menu">Materi</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ url('/siswa-offline/task') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-clipboard-copy"></i>
+                        </span>
+                        <span class="hide-menu">Tugas</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ url('/siswa-offline/challenge') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-chart-area-line"></i>
+                        </span>
+                        <span class="hide-menu">Tantangan</span>
+                    </a>
+                </li>
 
 
                 <li class="sidebar-item">
@@ -79,6 +95,49 @@
                                     <i class="ti ti-circle"></i>
                                 </div>
                                 <span class="hide-menu">History Transaksi</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow" href="#">
+                        <span class="d-flex">
+                            <i class="ti ti-antenna-bars-1"></i>
+                        </span>
+                        <span class="hide-menu">Lainnya</span>
+                    </a>
+                    <ul class="collapse first-level">
+                        <li class="sidebar-item">
+                            <a href="{{ url('siswa-offline/others/rules') }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Tata Tertib</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ url('siswa-offline/others/picket')}}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Jadwal Piket</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Siswa</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Kop Surat</span>
                             </a>
                         </li>
                     </ul>

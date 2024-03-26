@@ -18,13 +18,14 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        # Create Default Admin User
         User::factory()->create([
             'name' => 'Pkl Hummatechh',
             'email' => 'pkl@hummatech.com',
             'password' => bcrypt('magang2024')
         ])->assignRole(RolesEnum::ADMIN);
+
+        # Create Divisi
         Division::factory()->create([
             'name' => 'Web Technology',
         ]);
@@ -37,6 +38,8 @@ class UserSeeder extends Seeder
         Division::factory()->create([
             'name' => 'UI/UX DESIGNER',
         ]);
+
+        # Create Some user profile
         $student = Student::factory()->create([
             'name' => 'ABDUL KADER',
             'email' => 'abdulkader0126@gmail.com',
@@ -92,6 +95,7 @@ class UserSeeder extends Seeder
             'internship_type' => 'offline'
         ]);
 
+        # Create User data
         User::factory()->create([
             'name' => $student->name,
             'email' => $student->email,
@@ -104,6 +108,8 @@ class UserSeeder extends Seeder
             'password' => $studentoffline->password,
             'student_id' => $studentoffline->id
         ])->assignRole(RolesEnum::OFFLINE);
+
+        # Create Mentor Data
         $mentor = Mentor::factory()->create([
             'name' => 'Test Mentor',
             'email' => 'mentor@example.com',
@@ -120,6 +126,7 @@ class UserSeeder extends Seeder
             'mentors_id' => $mentor->id,
         ]);
 
+        # Assign Mentor Role
         $user->assignRole(RolesEnum::MENTOR);
     }
 }
