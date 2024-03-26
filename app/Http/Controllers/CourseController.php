@@ -57,10 +57,11 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
+        $id  = $course->id;
         $countSub = $this->subCourse->count();
         $subCourses = $this->subCourse->where($course->id);
         $course = $this->course->show($course->id);
-        return view('admin.page.course.detail' , compact('course' , 'subCourses' , 'countSub'));
+        return view('admin.page.course.detail' , compact('course' , 'subCourses' , 'countSub' , 'id'));
     }
 
     /**
