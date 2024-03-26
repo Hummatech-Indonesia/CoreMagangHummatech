@@ -153,12 +153,12 @@
                         <i class=" ri-apps-line"></i> <span data-key="t-dashboards">RFID</span>
                     </a>
                 </li>
-
+{{-- 
                 <li class="nav-item">
                     <a class="nav-link menu-link " href="">
                         <i class="ri-rocket-line"></i> <span data-key="t-dashboards">Tim</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="">
