@@ -242,7 +242,7 @@
                                     Jadwal Piket </a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link" data-key="t-echarts"> Laporan Piket
+                                <a href="{{ url('/report') }}" class="nav-link" data-key="t-echarts"> Laporan Piket
                                 </a>
                             </li>
                         </ul>
