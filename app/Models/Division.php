@@ -20,4 +20,10 @@ class Division extends Model
         return $this->hasMany(Course::class);
     }
 
+    public function mentordivision()
+    {
+        return $this->hasMany(MentorDivision::class);
+    }
+
+
 }

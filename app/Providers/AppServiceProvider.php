@@ -50,6 +50,7 @@ use App\Contracts\Interfaces\WarningLetterInterface;
 use App\Contracts\Repositories\AttendanceRepository;
 use App\Contracts\Interfaces\AbsenteePermitInterface;
 use App\Contracts\Interfaces\AttendanceRuleInterface;
+use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\ReportStudenttInterface;
 use App\Contracts\Interfaces\ResponseLetterInterface;
 use App\Contracts\Repositories\LetterheadsRepository;
@@ -63,6 +64,7 @@ use App\Contracts\Repositories\ReportStudentRepository;
 use App\Contracts\Repositories\WarningLetterRepository;
 use App\Contracts\Repositories\AbsenteePermitRepository;
 use App\Contracts\Repositories\AttendanceRuleRepository;
+use App\Contracts\Repositories\MentorDivisionRepository;
 use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Contracts\Repositories\PicketingReportRepository;
@@ -102,7 +104,8 @@ class AppServiceProvider extends ServiceProvider
         TaskInterface::class => TaskRepository::class,
         ZoomScheduleInterface::class => ZoomScheduleRepository::class,
         DataAdminInterface::class => DataAdminRepository::class,
-        SignatureInterface::class => SignatureRepository::class
+        SignatureInterface::class => SignatureRepository::class,
+        MentorDivisionInterface::class => MentorDivisionRepository::class,
     ];
 
     /**

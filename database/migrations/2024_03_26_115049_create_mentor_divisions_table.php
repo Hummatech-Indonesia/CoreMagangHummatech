@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mentors', function (Blueprint $table) {
+        Schema::create('mentor_divisions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('password')->default('password');
-            $table->string('image')->default('defaul.jpg');
+            $table->foreignId('mentor_id')->constrained('mentors')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('division_id')->constrained('divisions')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mentors');
+        Schema::dropIfExists('mentor_divisions');
     }
 };

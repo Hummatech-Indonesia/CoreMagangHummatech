@@ -29,5 +29,10 @@ class DivisionRepository extends BaseRepository implements DivisionInterface
     {
         return $this->model->query()->findOrFail($id)->delete($id);
     }
+
+    public function where(mixed $id): mixed
+    {
+        return $this->model->query()->where('id', $id)->get();
+    }
 }
 

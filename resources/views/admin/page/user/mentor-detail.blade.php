@@ -20,8 +20,11 @@
                     </div>
                     <div class="text-center ">
                         <h5 class="mb-1">{{ $mentor->name }}</h5>
+                        @foreach ($mentor->mentordivision as $item)
                         <p class="mb-1 badge bg-secondary-subtle text-secondary " style="font-size: 12px">
-                            {{ $mentor->division->name }}</p>
+                            {{ $item->division->name }}
+                            </p>
+                        @endforeach
                         <p class="mb-3 text-primary" style="font-size: 15px"><i
                                 class="ri-mail-line me-1"></i>{{ $mentor->email }}</p>
                     </div>

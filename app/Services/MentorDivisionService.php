@@ -2,25 +2,26 @@
 
 namespace App\Services;
 
+use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Enum\TypeEnum;
+use App\Models\Mentor;
 use App\Services\Traits\UploadTrait;
 use App\Http\Requests\StoreMentorRequest;
-use App\Contracts\Interfaces\MentorInterface;
-use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Http\Requests\UpdateMentorRequest;
-use App\Models\Mentor;
+use App\Contracts\Interfaces\MentorInterface;
+use App\Models\MentorDivision;
 
-class MentorService
+class MentorDivisionService
 {
     use UploadTrait;
 
     private MentorInterface $mentor;
-    private MentorStudentInterface $mentorStudent;
+    private MentorDivisionInterface $mentorDivision;
 
-    public function __construct(MentorInterface $mentor, MentorStudentInterface $mentorStudent)
+    public function __construct(MentorInterface $mentor, MentorDivisionInterface $mentorDivision)
     {
         $this->mentor = $mentor;
-        $this->mentorStudent = $mentorStudent;
+        $this->mentorDivision = $mentorDivision;
     }
 
     use UploadTrait;
@@ -47,14 +48,21 @@ class MentorService
      *
      * @return array|bool
      */
-    public function store(StoreMentorRequest $request): array|bool
+    public function store(StoreMentorRequest $request, Mentor $mentor): array|bool
     {
         $data = $request->validated();
-        unset($data['division_id']);
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $data['image'] = $request->file('image')->store(TypeEnum::MENTOR->value, 'public');
-            return $data;
+
+        foreach ($data['division_id'] as $division) {
+            $datanew = [
+                'division_id' => $division,
+                'mentor_id' => $mentor->id,
+            ];
+
+            $this->mentorDivision->store($datanew);
         }
+
+
+
         return false;
     }
 
@@ -69,15 +77,19 @@ class MentorService
     public function update(Mentor $mentor, UpdateMentorRequest $request): array|bool
     {
         $data = $request->validated();
-        unset($data['division_id']);
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $this->remove($mentor->image);
-            $data['image'] = $request->file('image')->store(TypeEnum::MENTOR->value, 'public');
-        } else {
-            $data['image'] = $mentor->image;
+        $this->mentorDivision->delete($mentor->id);
+
+
+        foreach ($data['division_id'] as $division) {
+            $datanew = [
+                'division_id' => $division,
+                'mentor_id' => $mentor->id,
+            ];
+
+            $this->mentorDivision->store($datanew);
         }
 
-        return $data;
+        return false;
     }
 
     public function delete(Mentor $mentor)

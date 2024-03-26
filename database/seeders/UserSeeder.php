@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Enum\RolesEnum;
 use App\Models\Division;
 use App\Models\Mentor;
+use App\Models\MentorDivision;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -106,6 +107,10 @@ class UserSeeder extends Seeder
         $mentor = Mentor::factory()->create([
             'name' => 'Test Mentor',
             'email' => 'mentor@example.com',
+        ]);
+
+        MentorDivision::factory()->create([
+            'mentor_id' => $mentor->id,
             'division_id' => 1
         ]);
 
