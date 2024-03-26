@@ -80,3 +80,7 @@ Route::get('administrator/course/detail', function() {
 Route::get('administrator/course/detail/sub-course', function() {
     return view('admin.page.course.sub-course.index');
 });
+
+Route::get('offlie-student/task', function(){
+    return view('student_offline.task.index');
+});
