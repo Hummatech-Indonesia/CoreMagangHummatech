@@ -26,17 +26,18 @@
         <div class="col-lg-3">
             <div class="card card-height-100">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between mb-3">
                         <div>
-                            <p class="fw-medium text-muted mb-0">{{ $division->name }}</p>
-                            <h2 class="mt-4 ff-secondary fw-bold">
-                                <span class="counter-value" data-target="50"></span>
-                            </h2>
+                            <h4 class="mt-2 mb-4 ff-secondary fw-bold">
+                                <span >
+                                    {{ $division->name }}
+                                </span>
+                            </h4>
                         </div>
                         <div>
                             <div class="avatar-sm flex-shrink-0">
                                 <span class="avatar-title bg-success-subtle rounded-circle fs-2">
-
+                                    <img src="{{ asset('berkas/logo.png') }}" alt="" srcset="" class="avatar-title bg-success-subtle rounded-circle fs-2">
                                 </span>
                             </div>
                         </div>
