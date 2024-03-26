@@ -33,10 +33,10 @@ class StoreStudentRequest extends FormRequest
             'school' => 'required',
             'school_address' => 'required',
             'school_phone' => 'required',
-            'avatar' => 'required',
-            'cv' => 'required',
-            'self_statement' => 'required',
-            'parents_statement' => 'required',
+            'avatar' => 'required|max:5000|mimes:png,jpg,jpeg',
+            'cv' => 'required|max:5000|mimes:png,jpg,jpeg',
+            'self_statement' => 'required|max:5000|mimes:png,jpg,jpeg',
+            'parents_statement' => 'required|max:5000|mimes:png,jpg,jpeg',
             'start_date' => 'required|date|after_or_equal:today',
             'finish_date' => 'required|date|after_or_equal:start_date',
             'major' => 'required',
@@ -65,8 +65,12 @@ class StoreStudentRequest extends FormRequest
             'school_phone.required' => 'Nomor telepon sekolah wajib diisi.',
             'avatar.required' => 'Avatar wajib diisi.',
             'cv.required' => 'CV wajib diisi.',
+            'cv.max' => 'CV maksimal 5 MB.',
+            'avatar.max' => 'Ukuran avatar maksimal 5 MB.',
             'self_statement.required' => 'Kartu identitas wajib diisi.',
+            'self_statement.max' => 'Ukuran kartu identitas maksimal 5 MB.',
             'parents_statement.required' => 'Kartu keluarga wajib diisi.',
+            'parents_statement.max' => 'Ukuran kartu identitas maksimal 5 MB.',
             'start_date.required' => 'Tgl. mulai wajib diisi.',
             'start_date.after_or_equal' => 'Tgl. mulai harus sama atau setelah tanggal sekarang.',
             'finish_date.required' => 'Tgl. selesai wajib diisi.',
@@ -79,7 +83,6 @@ class StoreStudentRequest extends FormRequest
             'division_id.required_if' => 'Divisi wajib diisi.',
             'confirm_password.same' => 'Konfirmasi password tidak sama.',
             'confirm_password.required' => 'Konfirmasi password wajib diisi.',
-
 
         ];
     }

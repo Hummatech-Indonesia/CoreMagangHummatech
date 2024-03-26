@@ -5,8 +5,9 @@ use App\Contracts\Interfaces\Eloquent\DeleteInterface;
 use App\Contracts\Interfaces\Eloquent\GetInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
+use App\Contracts\Interfaces\Eloquent\Whereterface;
 
-interface DivisionInterface extends GetInterface , StoreInterface , DeleteInterface , UpdateInterface
+interface DivisionInterface extends GetInterface , StoreInterface , DeleteInterface , UpdateInterface ,Whereterface
 {
-    
+
 }

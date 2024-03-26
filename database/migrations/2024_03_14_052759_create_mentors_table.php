@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('email');
             $table->string('password')->default('password');
             $table->string('image')->default('defaul.jpg');
-            $table->foreignId('division_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
