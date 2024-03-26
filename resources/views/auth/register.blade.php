@@ -117,7 +117,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsFirstName">Alamat</label>
-                                            <textarea id="multiStepsFirstName" name="address" class="form-control"  placeholder="Alamat">{{ old('address') }}</textarea>
+                                            <textarea id="multiStepsFirstName" name="address" class="form-control" placeholder="Alamat">{{ old('address') }}</textarea>
                                             @error('address')
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
@@ -161,8 +161,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsFirstName">Alamat Sekolah</label>
-                                            <textarea id="multiStepsFirstName" name="school_address" class="form-control"
-                                                placeholder="Alamat Sekolah">{{ old('school_address') }}</textarea>
+                                            <textarea id="multiStepsFirstName" name="school_address" class="form-control" placeholder="Alamat Sekolah">{{ old('school_address') }}</textarea>
                                             @error('school_address')
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
@@ -198,6 +197,7 @@
                                             <label class="form-label" for="multiStepsFirstName">Foto Siswa</label>
                                             <input type="file" id="multiStepsFirstName" name="avatar"
                                                 class="form-control" />
+                                            <p class="text-danger">*Foto Harus Berformat .jpg, .jpeg, atau .png</p>
                                             @error('avatar')
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
@@ -216,12 +216,14 @@
                                             <div class="input-group">
                                                 <input type="file" id="multiStepsMobile" name="self_statement"
                                                     class="form-control multi-steps-mobile" placeholder="202 555 0111" />
-                                                </div>
-                                                <p class="text-danger">*Surat Pernyataan Diri Harus Berformat .jpg, .jpeg,
-                                                    atau .png</p>
-                                                @error('self_statement')
-                                                    <p class="text-danger m-0">{{ $message }}</p>
-                                                @enderror
+                                            </div>
+                                            <p class="text-danger">*Surat Pernyataan Diri Harus Berformat .jpg, .jpeg,
+                                                atau .png</p>
+                                            @error('self_statement')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
+                                            <button class="btn btn-primary btn-xs" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#createSuratPernyataan">Buat Surat Pernyataan Diri</button>
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsPincode">Surat Pernyataan Orang
@@ -230,10 +232,13 @@
                                                 class="form-control multi-steps-pincode" />
                                             <p class="text-danger">*Surat Pernyataan Diri Harus Berformat .jpg, .jpeg, atau
                                                 .png</p>
-                                                @error('parents_statement')
-                                                    <p class="text-danger m-0">{{ $message }}</p>
-                                                @enderror
-                                            </div>
+                                            @error('parents_statement')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
+                                            <button class="btn btn-primary btn-xs" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#create-parent-statement">Buat Surat Pernyataan Orang
+                                                Tua</button>
+                                        </div>
 
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsMobile">Mulai Magang</label>
@@ -311,7 +316,7 @@
                                                 <i class="ti ti-arrow-right ti-xs"></i></button>
                                         </div>
                                         <a href="/login" class="text-black mt-4 text-center ">Sudah punya akun? <span
-                                            class="text-primary">Masuk</span></a>
+                                                class="text-primary">Masuk</span></a>
                                     </div>
                                 </div>
                                 <!-- Billing Links -->
@@ -345,8 +350,9 @@
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsAddress">konfirmasi password</label>
                                             <div class="input-group input-group-merge">
-                                                <input type="password" name="confirm_password" id="multiStepsFirstName" class="form-control"
-                                                    placeholder="password" aria-describedby="multiStepsConfirmPass2" />
+                                                <input type="password" name="confirm_password" id="multiStepsFirstName"
+                                                    class="form-control" placeholder="password"
+                                                    aria-describedby="multiStepsConfirmPass2" />
                                                 <span class="input-group-text cursor-pointer"
                                                     id="multiStepsConfirmPass2"><i class="ti ti-eye-off"></i></span>
                                             </div>
@@ -363,7 +369,7 @@
                                                     class="align-middle d-sm-inline-block d-none me-sm-1 me-0">Simpan</span></button>
                                         </div>
                                         <a href="/login" class="text-black mt-4 text-center ">Sudah punya akun? <span
-                                            class="text-primary">Masuk</span></a>
+                                                class="text-primary">Masuk</span></a>
                                     </div>
                                 </div>
                             </form>
@@ -373,6 +379,231 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="createSuratPernyataan" tabindex="-1" aria-labelledby="createSuratPernyataanLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createSuratPernyataanLabel">Buat
+                        Surat Pernyataan Diri</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/statement-self" method="GET">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label for="">Nama</label>
+                                <input type="text" class="form-control" placeholder="Masukan Nama" name="name">
+                                @error('name')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="">Tempat Lahir</label>
+                                <input type="text" class="form-control" placeholder="Masukan Tempat Lahir"
+                                    name="birth_place">
+                                @error('birth_place')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="">Tgl. Lahir</label>
+                                <input type="date" class="form-control" placeholder="Masukan Tgl. Lahir"
+                                    name="birth_date">
+                                @error('birth_date')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="">Alamat</label>
+                                <textarea class="form-control" placeholder="Masukan Alamat" name="address"></textarea>
+                                @error('address')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="">No Telp</label>
+                                <input type="number" class="form-control" placeholder="Masukan No. Telp"
+                                    name="phone">
+                                @error('phone')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="">Email</label>
+                                <input type="email" class="form-control" placeholder="Masukan Email" name="email">
+                                @error('email')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="create-parent-statement" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Pernyataan</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/statement-parent" method="GET">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="parent_name">Nama Orang tua</label>
+                                    <input type="text" name="parent_name" value="{{ old('parent_name') }}"
+                                        placeholder="Masukkan Nama Orang tua" class="form-control" id="">
+                                    @error('parent_name')
+                                        <p class="text-danger">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="identity_card">No. KTP</label>
+                                    <input type="number" name="identity_card" value="{{ old('identity_card') }}"
+                                        placeholder="Masukkan No. KTP" class="form-control" id="">
+                                    @error('identity_card')
+                                        <p class="text-danger">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="parent_address">Alamat Orang tua</label>
+                                    <textarea name="parent_address" placeholder="Masukkan Alamat Orang tua" class="form-control" id="">{{ old('parent_address') }}</textarea>
+                                    @error('parent_address')
+                                        <p class="text-danger">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="parent_place_birth">Tempat Lahir Orang tua</label>
+                                    <input type="text" name="parent_place_birth"
+                                        value="{{ old('parent_place_birth') }}"
+                                        placeholder="Masukkan Tempat Lahir Orang tua" class="form-control"
+                                        id="">
+                                    @error('parent_place_birth')
+                                        <p class="text-danger">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="parent_date_birth">Tgl. Lahir Orang tua</label>
+                                    <input type="date" name="parent_date_birth"
+                                        value="{{ old('parent_date_birth') }}" class="form-control" id="">
+                                    @error('parent_date_birth')
+                                        <p class="text-danger">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="parent_phone">No-Telp Orang tua</label>
+                                    <input type="number" name="parent_phone" value="{{ old('parent_phone') }}"
+                                        placeholder="Masukkan No. Telp Orang tua" class="form-control" id="">
+                                    @error('parent_phone')
+                                        <p class="text-danger">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="student_name">Nama Siswa</label>
+                                    <input type="text" name="student_name" value="{{ old('student_name') }}"
+                                        placeholder="Masukkan Nama Siswa" class="form-control" id="">
+                                    @error('student_name')
+                                        <p class="text-danger">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="place_birth">Tempat Lahir</label>
+                                    <input type="text" name="place_birth" value="{{ old('place_birth') }}"
+                                        placeholder="Masukkan Tempat Lahir" class="form-control" id="">
+                                    @error('place_birth')
+                                        <p class="text-danger">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="date_birth">Tgl. Lahir</label>
+                                    <input type="date" name="date_birth" value="{{ old('date_birth') }}"
+                                        class="form-control" id="">
+                                    @error('date_birth')
+                                        <p class="text-danger">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="major">Jurusan</label>
+                                    <select name="major" class="form-control" id="">
+                                        <option value selected disabled>Pilih Jurusan</option>
+                                        <option value="Teknik Informatika"
+                                            {{ old('major') == 'Teknik Informatika' ? 'selected' : '' }}>Teknik Informatika
+                                        </option>
+                                        <option value="Rekayasa Perangkat Lunak"
+                                            {{ old('major') == 'Rekayasa Perangkat Lunak' ? 'selected' : '' }}>Rekayasa
+                                            Perangkat Lunak</option>
+                                        <option value="Multi Media" {{ old('major') == 'Multi Media' ? 'selected' : '' }}>
+                                            Multi Media</option>
+                                    </select>
+                                    @error('major')
+                                        <p class="text-danger">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone">No. Telp</label>
+                                    <input type="number" value="{{ old('phone') }}" placeholder="Masukan No. Telp"
+                                        name="phone" class="form-control" id="">
+                                    @error('phone')
+                                        <p class="text-danger">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @if ($errors->any())
+        <div class="alert alert-danger mt-2">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div id="modalForm" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
         style="display: none;">

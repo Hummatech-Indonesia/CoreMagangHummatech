@@ -28,16 +28,11 @@
 
 <body style="padding:0px; margin:0px;font-size: 16px">
 
-    <div style="padding:0px; margin:0px">
-        {{-- <img style="margin: 0px; padding: 0px; width:100%" src="{{ asset('image/header.png') }}" alt="" srcset=""> --}}
-        <img style="margin: 0px; padding: 0px; width:100%" src="{{ storage_path('../public/image/header.png') }}"
-            alt="" srcset="">
-    </div>
     <div style="text-align: center;margin-top: 20px">
         <h4 style="margin: 6px">SURAT PERNYATAAN DIRI ORANG TUA</h4>
     </div>
     <div>
-        <table style="margin-top:10px; margin-left: 100px">
+        <table style="margin-top:40px; margin-left: 100px">
             <tr>
                 <td>Saya yang bertanda tangan di bawah ini:</td>
             </tr>
@@ -108,11 +103,6 @@
             <p style="line-height: 4">(....................)</p>
         </div>
     </div>
-    <footer class="footer">
-        {{-- <img style="margin: 0px; padding: 0px; width:100%" src="{{ asset('image/footer_pdf.png') }}" alt="" srcset=""> --}}
-        <img style="margin: 0px; padding: 0px; width:100%; object-fit:cover"
-            src="{{ storage_path('../public/image/footer_pdf.png') }}" alt="" srcset="">
-    </footer>
 </body>
 
 </html>
