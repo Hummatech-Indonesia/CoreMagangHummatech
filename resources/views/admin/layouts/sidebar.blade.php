@@ -59,13 +59,13 @@
                             <li class="nav-item">
                                 <a href="{{ url('/approval') }}" class="nav-link" data-key="t-chat"> Pendaftaran </a>
                             </li>
-                            <li class="nav-item {{ request()->is('/permission') ? 'active' : '' }}">
+                            {{-- <li class="nav-item {{ request()->is('/permission') ? 'active' : '' }}">
                                 <a href="{{ url('/permission') }}" class="nav-link" data-key="t-api-key">Izin &
                                     Sakit</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ url('/top-up') }}" class="nav-link" data-key="t-api-key">TopUp</a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </li>
@@ -82,14 +82,14 @@
                             </li>
                             <li class="nav-item">
                                 <a href="/menu-mentor" class="nav-link" data-key="t-form-select">Mentor</a>
-                            </li>
+                            {{-- </li>
                             <li class="nav-item">
                                 <a href="{{ url('/alumni') }}" class="nav-link" data-key="t-checkboxs-radios">Alumni</a>
-                            </li>
-                            <li class="nav-item">
+                            </li> --}}
+                            {{-- <li class="nav-item">
                                 <a href="{{ url('/person-in-charge') }}" class="nav-link" data-key="t-pickers">
                                     Penanggung Jawab </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a href="{{ url('/rfid') }}" class="nav-link" data-key="t-input-masks">RFID</a>
                             </li>
@@ -100,11 +100,10 @@
                             <li class="nav-item">
                                 <a href="{{ url('/students-banned') }}" class="nav-link" data-key="t-range-slider"> Banned Siswa </a>
                             </li>
-
                         </ul>
                     </div>
                 </li>
-                                
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#siswaOffline" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="siswaOffline">
@@ -128,7 +127,7 @@
                         </ul>
                     </div>
                 </li>
-                
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#siswaOnline" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="siswaOnline">

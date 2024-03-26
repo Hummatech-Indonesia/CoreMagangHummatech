@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DivisionController;
 use App\Http\Controllers\Admin\DivisionPlacementController;
 use App\Http\Controllers\JournalController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentOnlineController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,9 +58,7 @@ Route::get('person-in-charge/detail', function() {
 Route::get('students-rejected', function() {
     return view('admin.page.user.students-rejected');
 });
-Route::get('students-banned', function() {
-    return view('admin.page.user.students-banned');
-});
+Route::get('students-banned', [StudentController::class , 'index']);
 Route::get('offline-students/division-placement', [DivisionPlacementController::class, 'index']);
 Route::post('offline-students/division-placement/{student}', [DivisionPlacementController::class ,'divisionchange'])->name('division-placement');
 Route::get('offline-students/team', function() {

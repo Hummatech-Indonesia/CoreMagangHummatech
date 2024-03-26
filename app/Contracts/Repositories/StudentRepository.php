@@ -105,4 +105,9 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query()->where('internship_type', InternshipTypeEnum::ONLINE->value)->where('status', 'accepted')->get();
     }
 
+    public function getstudentbanned(): mixed
+    {
+        return $this->model->query()->where('status' , 'banned')->get();
+    }
+
 }

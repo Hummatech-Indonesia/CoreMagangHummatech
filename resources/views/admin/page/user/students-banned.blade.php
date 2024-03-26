@@ -36,41 +36,44 @@
                                 <th scope="col">Kelas</th>
                                 <th scope="col">Masa Magang</th>
                                 <th scope="col">Sekolah</th>
+                                <th scope="col">Status Siswa</th>
                                 <th scope="col" class="text-center" style="width: 150px;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse ($students as $student)
                             <tr>
-                                <td>01</td>
-                                <td>FARAH AMALIA</td>
-                                <td>farah@gmail.com</td>
-                                <td>Rekayasa Perangkat Lunak</td>
-                                <td>11</td>
-                                <td>19 Maret 2024 - 19 Desember 2024</td>
-                                <td>SMKN 1 KEPANJEN</td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $student->name }}</td>
+                                <td>{{ $student->email }}</td>
+                                <td>{{ $student->major }}</td>
+                                <td>{{ $student->class }}</td>
+                                <td>{{ $student->start_date }} - {{ $student->finish_date }}</td>
+                                <td>{{ $student->school }}</td>
+                                @if ($student->internship_type == 'online')
+                                <td>ONLINE</td>
+                                @else
+                                <td>OFFLINE</td>
+                                @endif
                                 <td class="text-center">
                                     <button class="btn btn-info shadow-none">Buka Banned</button>
                                 </td>
                             </tr>
+                            @empty
+                            <tr>
+                                <td colspan="8">
+                                    <div class="d-flex justify-content-center mb-3 mt-3">
+                                        <img src="{{ asset('no data.png') }}" width="200px" alt="" srcset="">
+                                    </div>
+                                    <p class="text-center mb-0 fs-5">
+                                        Data Masih Kosong
+                                    </p>
+                                </td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div class="d-flex justify-content-between px-3">
-                <p>Showing 1 to 10 of 14 entries</p>
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-end">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </div>
     </div>
