@@ -17,7 +17,7 @@
                                 <button class="nav-link" id="free-tab" data-bs-toggle="pill" data-bs-target="#free"
                                     type="button" role="tab" aria-controls="free" aria-selected="false"
                                     data-position="1" tabindex="-1">
-                                    Gratis
+                                    Berlangganan
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
@@ -71,7 +71,7 @@
                         <div class="card ribbon-box border shadow-none mb-lg-0">
                             <div class="card-body">
                                 <span
-                                    class="ribbon-three {{ $course->price == null ? 'ribbon-three-success' : 'ribbon-three-secondary' }}  material-shadow"><span>{{ $course->price == null ? 'Gratis' : 'Rp.' . number_format($course->price, 0, ',', '.') }}</span></span>
+                                    class="ribbon-three {{ $course->price == null ? 'ribbon-three-success' : 'ribbon-three-secondary' }}  material-shadow"><span>{{ $course->status == 'subcribe' ? 'Berlangganan' : 'Rp.' . number_format($course->price, 0, ',', '.') }}</span></span>
                                 <img class="card-img-top img-responsive w-100"
                                     src="{{ asset('storage/' . $course->image) }}" style="object-fit: cover;" width="20em"
                                     height="170em" alt="Card image cap" />
@@ -101,12 +101,12 @@
                         </div>
                     </div>
                 @empty
-                <div class="d-flex justify-content-center mb-2 mt-5">
-                    <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
-                </div>
-                <p class="fs-5 text-dark text-center">
-                    Data Masih Kosong
-                </p>
+                    <div class="d-flex justify-content-center mb-2 mt-5">
+                        <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                    </div>
+                    <p class="fs-5 text-dark text-center">
+                        Data Masih Kosong
+                    </p>
                 @endforelse
             </div>
         </div>
@@ -114,12 +114,12 @@
         <div id="free" class="tab-pane fade">
             <div class="row ">
                 @forelse ($courses as $course)
-                    @if ($course->status === 'free')
+                    @if ($course->status === 'subcribe')
                         <div class="col-xl-3">
                             <div class="card ribbon-box border shadow-none mb-lg-0">
                                 <div class="card-body">
                                     <span
-                                        class="ribbon-three {{ $course->price == null ? 'ribbon-three-success' : 'ribbon-three-secondary' }}  material-shadow"><span>{{ $course->price == null ? 'Gratis' : 'Rp.' . number_format($course->price, 0, ',', '.') }}</span></span>
+                                        class="ribbon-three {{ $course->price == null ? 'ribbon-three-success' : 'ribbon-three-secondary' }}  material-shadow"><span>{{ $course->status == 'subcribe' ? 'Berlangganan' : 'Rp.' . number_format($course->price, 0, ',', '.') }}</span></span>
                                     <img class="card-img-top img-responsive w-100"
                                         src="{{ asset('storage/' . $course->image) }}" style="object-fit: cover;"
                                         width="20em" height="170em" alt="Card image cap" />
@@ -163,8 +163,15 @@
 
         <div id="paid" class="tab-pane fade">
             <div class="row">
+                @php
+                    $foundPaidCourse = false;
+                @endphp
+
                 @forelse ($courses as $course)
                     @if ($course->status === 'paid')
+                        @php
+                            $foundPaidCourse = true;
+                        @endphp
                         <div class="col-xl-3">
                             <div class="card ribbon-box border shadow-none mb-lg-0">
                                 <div class="card-body">
@@ -175,7 +182,8 @@
                                         width="20em" height="170em" alt="Card image cap" />
                                     <div class="d-flex justify-content-end px-3 mb-4" style="margin-top: -45px">
                                         <div class="px-2 py-1 rounded-2 rounded"
-                                            style="background: #fff; font-size: 15px;">{{ $course->division->name }}</div>
+                                            style="background: #fff; font-size: 15px;">
+                                            {{ $course->division->name }}</div>
                                     </div>
                                     <a href="/administrator/course/detail" style="font-size: 18px" class="text-dark">
                                         {{ $course->title }}
@@ -198,14 +206,14 @@
                             </div>
                         </div>
                     @endif
-
                 @empty
-                    <div class="d-flex justify-content-center mb-2 mt-5">
-                        <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
-                    </div>
-                    <p class="fs-5 text-dark text-center">
-                        Data Masih Kosong
-                    </p>
+                    @if (!$foundPaidCourse)
+                        <div class="d-flex justify-content-center mb-2 mt-5">
+                            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                        </div>
+                        <p class="fs-5 text-dark text-center">
+                            Data
+                    @endif
                 @endforelse
             </div>
         </div>
