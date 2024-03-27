@@ -86,13 +86,9 @@ Route::get('siswa-offline/others/rules', function (){
 Route::get('siswa-offline/others/picket', function (){
     return view('student_offline.others.picket');
 });
-
-
-
-
-
-
-
+Route::get('siswa-offline/others/student', function (){
+    return view('student_offline.others.student');
+});
 
 
 Route::get('administrator/course',[CourseController::class,'index']);
