@@ -24,7 +24,7 @@ class UpdateSubCourseRequest extends FormRequest
         return [
             'title' => 'required',
             'description' => 'required',
-            'file_course' => 'nullable',
+            'file_course' => 'nullable|mimes:pdf',
             'video_course' => 'required',
             'image_course' => 'nullable'
         ];
