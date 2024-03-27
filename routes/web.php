@@ -32,7 +32,7 @@ use App\Http\Controllers\TaskSubmissionController;
 
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing.index');
 })->name('home');
 
 # ================================================ Authentication Routes Group ================================================
@@ -97,6 +97,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
 
     # Mentor Placement
     Route::get('online-student/menotor-placement', [MentorPlacementController::class, 'index'])->name('placement.index');
+    Route::put('online-student/menotor-placement/update/{student}', [MentorPlacementController::class, 'update'])->name('placement.update');
 });
 
 # ================================================ Offline Student Route Group ================================================

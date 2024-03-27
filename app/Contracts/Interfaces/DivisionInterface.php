@@ -9,5 +9,4 @@ use App\Contracts\Interfaces\Eloquent\Whereterface;
 
 interface DivisionInterface extends GetInterface , StoreInterface , DeleteInterface , UpdateInterface ,Whereterface
 {
-
 }
