@@ -150,7 +150,7 @@
                 </li>
 
             </ul>
-            <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
+            {{-- <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
                 <div class="d-flex">
                     <div class="unlimited-access-title">
                         <h6 class="fw-semibold fs-4 mb-6 text-dark ">Buka Kunci</h6>
@@ -162,7 +162,7 @@
                             class="img-fluid">
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </nav>
         <div class="fixed-profile p-3 bg-light-secondary rounded sidebar-ad mt-3">
             <div class="hstack gap-3">
