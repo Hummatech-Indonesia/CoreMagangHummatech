@@ -24,7 +24,7 @@ class StoreSubCourseRequest extends FormRequest
         return [
             'title' => 'required',
             'description' => 'required',
-            'file_course' => 'required',
+            'file_course' => 'required|mimes:pdf',
             'video_course' => 'required',
             'image_course' => 'required',
             'course_id' => 'required'

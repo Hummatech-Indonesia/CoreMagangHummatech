@@ -62,8 +62,9 @@ class SubCourseController extends Controller
         $subCourses = $this->subCourse->show($subCourse->id);
         $task = $this->task->get();
         $courses = $this->course->get();
+        // dd($courses);
 
-        return view('admin.page.course.sub-course.index' , compact('subCourses','task','courses'));
+        return view('admin.page.course.sub-course.index' , compact('subCourses','task','courses', 'subCourse'));
     }
 
     /**
