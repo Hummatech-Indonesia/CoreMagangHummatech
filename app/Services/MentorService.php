@@ -50,7 +50,7 @@ class MentorService
     public function store(StoreMentorRequest $request): array|bool
     {
         $data = $request->validated();
-        unset($data['student_id']);
+        unset($data['division_id']);
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $data['image'] = $request->file('image')->store(TypeEnum::MENTOR->value, 'public');
             return $data;
@@ -69,7 +69,7 @@ class MentorService
     public function update(Mentor $mentor, UpdateMentorRequest $request): array|bool
     {
         $data = $request->validated();
-
+        unset($data['division_id']);
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $this->remove($mentor->image);
             $data['image'] = $request->file('image')->store(TypeEnum::MENTOR->value, 'public');

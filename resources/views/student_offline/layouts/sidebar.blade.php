@@ -63,8 +63,22 @@
                         <span class="hide-menu">Tugas</span>
                     </a>
                 </li>
-
-
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ url('/siswa-offline/challenge') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-chart-area-line"></i>
+                        </span>
+                        <span class="hide-menu">Tantangan</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ url('siswa-offline/purchase') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-building-store"></i>
+                        </span>
+                        <span class="hide-menu">Pembelian</span>
+                    </a>
+                </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="#">
                         <span class="d-flex">
@@ -92,8 +106,51 @@
                     </ul>
                 </li>
 
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow" href="#">
+                        <span class="d-flex">
+                            <i class="ti ti-dots-circle-horizontal"></i>
+                        </span>
+                        <span class="hide-menu">Lainnya</span>
+                    </a>
+                    <ul class="collapse first-level">
+                        <li class="sidebar-item">
+                            <a href="{{ url('siswa-offline/others/rules') }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Tata Tertib</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ url('siswa-offline/others/picket')}}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Jadwal Piket</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ url('siswa-offline/others/student')}}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Siswa</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ url('/siswa-offline/letter-head') }}" class="sidebar-link">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Kop Surat</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
-            <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
+            {{-- <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
                 <div class="d-flex">
                     <div class="unlimited-access-title">
                         <h6 class="fw-semibold fs-4 mb-6 text-dark ">Buka Kunci</h6>
@@ -105,7 +162,7 @@
                             class="img-fluid">
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </nav>
         <div class="fixed-profile p-3 bg-light-secondary rounded sidebar-ad mt-3">
             <div class="hstack gap-3">

@@ -63,16 +63,14 @@ Route::get('siswa-offline/absensi', function (){
 // Route::get('/siswa-offline/course/detail', function (){
 //     return view('student_offline.course.detail');
 // });
+// Route::get('/siswa-offline/course/detail/learn-more', function (){
+//     return view('student_offline.course.learn-more');
+// });
 
 Route::get('/siswa-offline/course',[CourseOfflineController::class,'index']);
 Route::get('/siswa-offline/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('materi.detail');
 Route::get('/siswa-offline/course/detail/learn-more/{subCourse}', [CourseOfflineController::class, 'showSub'])->name('submateri.detail');
 
-
-
-// Route::get('/siswa-offline/course/detail/learn-more', function (){
-//     return view('student_offline.course.learn-more');
-// });
 Route::get('/siswa-offline/course/detail/answer-detail', function (){
     return view('student_offline.course.answer-detail');
 });
@@ -82,6 +80,21 @@ Route::get('siswa-offline/transaction/topUp', function (){
 Route::get('siswa-offline/transaction/history', function (){
     return view('student_offline.transaction.transaction_history');
 });
+Route::get('siswa-offline/others/rules', function (){
+    return view('student_offline.others.rules');
+});
+Route::get('siswa-offline/others/picket', function (){
+    return view('student_offline.others.picket');
+});
+Route::get('siswa-offline/others/student', function (){
+    return view('student_offline.others.student');
+});
+Route::get('siswa-offline/purchase', function (){
+    return view('student_offline.purchase.index');
+});
+Route::get('siswa-offline/purchase/detail', function (){
+    return view('student_offline.purchase.detail');
+});
 
 
 Route::get('administrator/course',[CourseController::class,'index']);
@@ -90,7 +103,8 @@ Route::put('administrator/course/{course}', [CourseController::class, 'update'])
 
 
 Route::get('/administrator/course/detail/{course}', [CourseController::class, 'show'])->name('course.detail');
-Route::delete('administrator/course/detail/{course}', [SubCourseController::class, 'destroy'])->name('subCourse.destroy');
+Route::delete('administrator/subcourse/delete/{subCourse}', [SubCourseController::class, 'destroy'])->name('subCourse.destroy');
 Route::get('/administrator/subcourse/detail/{subCourse}', [SubCourseController::class, 'show'])->name('subCourse.detail');
+Route::put('/administrator/subcourse/edit/{subCourse}', [SubCourseController::class, 'update'])->name('subCourse.update');
 
 Route::post('administrator/task/store', [TaskController::class, 'store'])->name('task.store');

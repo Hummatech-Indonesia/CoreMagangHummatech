@@ -25,4 +25,9 @@ class Mentor extends Model
     {
         return $this->hasMany(MentorStudent::class);
     }
+
+    public function mentordivision()
+    {
+        return $this->hasMany(MentorDivision::class);
+    }
 }

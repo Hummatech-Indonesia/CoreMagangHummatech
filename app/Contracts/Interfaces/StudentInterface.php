@@ -50,5 +50,15 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
      * List Student Offline
      */
     public function listStudentOnline(): mixed;
+
+    /**
+     * Get Student Banned
+     */
     public function getstudentbanned(): mixed;
+
+    /**
+     * Get Student Mentor Placement
+     */
+
+     public function getstudentmentorplacement(mixed $id): mixed;
 }

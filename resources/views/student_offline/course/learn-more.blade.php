@@ -1,4 +1,42 @@
 @extends('student_offline.layouts.app')
+@section('style')
+    <style>
+        .carousel-control-prev,
+        .carousel-control-next {
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            opacity: 0.5;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            border-radius: 50%;
+            font-size: 20px;
+            text-align: center;
+            line-height: 40px;
+            position: absolute;
+        }
+
+        .carousel-control-prev {
+            left: 10px;
+        }
+
+        .carousel-control-next {
+            right: 10px;
+        }
+
+        .carousel-caption {
+            color: black;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="text-end">
         <a href="/siswa-online/materi/detail" class="btn btn-primary">Kembali</a>
@@ -39,10 +77,12 @@
                                     <div id="carousel" class="carousel" data-ride="carousel">
                                         <div class="carousel-inner">
                                             <div class="carousel-item active">
-                                                <canvas id="pdf-canvas" class="d-block w-100" data-file="{{ asset('storage/' . $subCourse->file_course) }}"></canvas>
-                                                <div class="carousel-caption d-none d-md-block">
-                                                    <span>Page: <span id="page-num"></span> / <span id="page-count"></span></span>
-                                                </div>
+                                                <canvas id="pdf-canvas" class="d-block w-100"
+                                                        data-file="{{ asset('storage/' . $subCourse->file_course) }}"></canvas>
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <span>Page: <span id="page-num"></span> /
+                                                            <span id="page-count"></span></span>
+                                                    </div>
                                             </div>
                                         </div>
                                         <a class="carousel-control-prev" href="#" role="button" data-slide="prev">
@@ -71,50 +111,64 @@
           <div class="accordion-item  mt-2">
               <h2 class="accordion-header" id="accordionborderedExample2">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accor_borderedExamplecollapse2" aria-expanded="false" aria-controls="accor_borderedExamplecollapse2">
-                      Tugas <span class="badge bg-primary ms-1 rounded-circle">3</span>
+                      Tugas <span class="badge bg-primary ms-1 rounded-circle">{{ $taskCount }}</span>
                   </button>
               </h2>
               <div id="accor_borderedExamplecollapse2" class="accordion-collapse collapse" aria-labelledby="accordionborderedExample2" data-bs-parent="#accordionBordered">
                 <div class="p-2 mt-2">
-                  @foreach (range(1, 2) as $data)
-                    <div style="width: 95%" class=" card m-2 border-start border-info px-3 py-2">
-                      <span style="width: fit-content; font-size: 10px" class="mb-1 badge bg-warning-subtle text-warning">Sedang</span>
-                      <div class="d-flex">
-                        <p class="m-0">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. </p>
-                        <button type="button" class="btn btn-light-primary text-primary" style="font-size: 10px" data-bs-toggle="modal" data-bs-target="#add">
-                          Kumpulkan
-                          <svg  xmlns="http://www.w3.org/2000/svg"  width="15"  height="15"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-databricks"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l9 5l9 -5v-3l-9 5l-9 -5v-3l9 5l9 -5v-3l-9 5l-9 -5l9 -5l5.418 3.01" /></svg>
-                        </button>
-                      </div>
-                    </div>
-                  @endforeach
-                  <div style="width: 95%" class=" card m-2 border-start border-info px-3 py-2">
-                    <span style="width: fit-content; font-size: 10px" class="mb-1 badge bg-warning-subtle text-warning">Sedang</span>
-                    <div class="d-flex">
-                      <p class="m-0">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. </p>
-                      <div class="dropdown d-inline-block">
-                        <button class="btn btn-light-success text-success dropdown text-center px-4" style="font-size: 10px" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Selesai
-                            <svg  xmlns="http://www.w3.org/2000/svg"  width="15"  height="15"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-dots-vertical"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <button type="button" class="dropdown-item edit-item-btn btn-edit" data-id="1"
-                                data-start="15-03-2024"
-                                data-end="18-03-2024"
-                                data-description="Lorem ipsum dolor sit amet consectetur. Interdum.."
-                                data-status="Penting">
+                    @forelse ($task as $task)
+                        <div class="col-lg-12 m-0 p-0">
+                            <div class="card border-start border-info py-3 px-4 m-2">
+                                <div class="d-flex no-block align-items-center">
+                                    <div class="col-lg-9 px-3">
+                                        <div class="col-2 bg-light-success rounded" style="background-color: #E6FFFA">
+                                            <p style="" class="text-success text-center">{{ $task->level }}</p>
+                                        </div>
+                                        <h6 class="m-0">{{ $task->title }}</h6>
+                                    </div>
+                                    <div class="ms-auto">
+                                        {{-- @if () --}}
+                                            <div class="dropdown d-inline-block">
+                                                <button class="btn btn-light-success text-success dropdown text-center px-4" style="font-size: 10px" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Selesai
+                                                    <svg  xmlns="http://www.w3.org/2000/svg"  width="15"  height="15"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-dots-vertical"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li>
+                                                        <button type="button" class="dropdown-item edit-item-btn btn-edit" data-id="1"
+                                                        data-start="15-03-2024"
+                                                        data-end="18-03-2024"
+                                                        data-description="Lorem ipsum dolor sit amet consectetur. Interdum.."
+                                                        data-status="Penting">
+                        
+                                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M7.8125 3.43732L10.3125 5.93732M2.8125 8.43732L5.3125 10.9373M1.875 11.8747H4.375L10.9375 5.3122C11.269 4.98068 11.4553 4.53104 11.4553 4.0622C11.4553 3.59336 11.269 3.14372 10.9375 2.8122C10.606 2.48068 10.1563 2.29443 9.6875 2.29443C9.21866 2.29443 8.76902 2.48068 8.4375 2.8122L1.875 9.3747V11.8747ZM13.125 9.37482V11.8748H8.125L10.625 9.37482H13.125Z" stroke="#5A6A85" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                        Edit Jawaban
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        {{-- @else --}}
+                                            <button type="button" class="btn btn-light-primary text-primary" style="font-size: 10px" data-bs-toggle="modal" data-bs-target="#add">
+                                                Kumpulkan
+                                                <svg  xmlns="http://www.w3.org/2000/svg"  width="15"  height="15"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-databricks"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l9 5l9 -5v-3l-9 5l-9 -5v-3l9 5l9 -5v-3l-9 5l-9 -5l9 -5l5.418 3.01" /></svg>
+                                            </button>
+                                        {{-- @endif --}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7.8125 3.43732L10.3125 5.93732M2.8125 8.43732L5.3125 10.9373M1.875 11.8747H4.375L10.9375 5.3122C11.269 4.98068 11.4553 4.53104 11.4553 4.0622C11.4553 3.59336 11.269 3.14372 10.9375 2.8122C10.606 2.48068 10.1563 2.29443 9.6875 2.29443C9.21866 2.29443 8.76902 2.48068 8.4375 2.8122L1.875 9.3747V11.8747ZM13.125 9.37482V11.8748H8.125L10.625 9.37482H13.125Z" stroke="#5A6A85" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                Edit Jawaban
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                    </div>
-                  </div>
+                    @empty
+
+                        <div class="d-flex justify-content-center mb-2 mt-5">
+                            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                        </div>
+                        <p class="fs-5 text-dark text-center mb-5">
+                            Data Masih Kosong
+                        </p>
+                    @endforelse
                 </div>
               </div>
           </div>
@@ -274,11 +328,122 @@
 </div>
 @endsection
 @section('script')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
-    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+<script>
+    $(function() {
+        let pdfDoc = null,
+            pageNum = 1,
+            pageRendering = false,
+            pageNumPending = null;
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
+        const scale = 5.0,
+            canvas = document.getElementById('pdf-canvas'),
+            pnum = document.getElementById('page-num'),
+            ctx = canvas.getContext('2d');
+
+        /**
+         * Get page info from document, resize canvas accordingly, and render page.
+         * @param num Page number.
+         */
+        function renderPage(num) {
+            pageRendering = true;
+
+            // Using promise to fetch the page
+            pdfDoc.getPage(num).then(function(page) {
+                const page_viewport = page.getViewport({
+                    scale
+                });
+                canvas.height = page_viewport.height;
+                canvas.width = page_viewport.width;
+
+                // Render PDF page into canvas context
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport: page_viewport
+                };
+                const renderTask = page.render(renderContext);
+
+                // Wait for rendering to finish
+                renderTask.promise.then(function() {
+                    pageRendering = false;
+                    if (pageNumPending !== null) {
+                        // New page rendering is pending
+                        renderPage(pageNumPending);
+                        pageNumPending = null;
+                    }
+                });
+            });
+
+            // Update page counters
+            pnum.textContent = num;
+        }
+
+        /**
+         * If another page rendering in progress, waits until the rendering is
+         * finished. Otherwise, executes rendering immediately.
+         */
+        function queueRenderPage(num) {
+            if (pageRendering) {
+                pageNumPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+
+        /**
+         * Displays previous page.
+         */
+        document.querySelector(".carousel-control-prev").addEventListener('click', function() {
+            if (pageNum > 1) {
+                pageNum--;
+                queueRenderPage(pageNum);
+            }
+        });
+
+        /**
+         * Displays next page.
+         */
+        document.querySelector(".carousel-control-next").addEventListener('click', function() {
+            if (pageNum < pdfDoc.numPages) {
+                pageNum++;
+                queueRenderPage(pageNum);
+            }
+        });
+
+        /**
+         * Asynchronously downloads PDF.
+         */
+        (function() {
+            const url = canvas.dataset.file;
+            pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+                pdfDoc = pdfDoc_;
+                document.getElementById("page-count").textContent = pdfDoc.numPages;
+
+                // Initial/first page rendering
+                renderPage(pageNum);
+            });
+        })();
+    });
+    
+        $('.btn-edit').click(function() {
+            var id = $(this).data('id');
+            var title = $(this).data('title');
+            var description = $(this).data('description');
+            var image = $(this).data('image');
+            $('#form-update').attr('action', '/journal/' + id);
+            $('#title-edit').val(title);
+            $('#description-edit').val(description);
+            $('#image-edit').attr('src', image);
+            $('#modal-edit').modal('show');
+        });
+
         $('.btn-edit').click(function () {
             var id = $(this).data('id');
             $('#form-update').attr('action', '/material/' + id);
@@ -302,46 +467,11 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-
-        $('.btn-detail').click(function() {
-            var detail = $('#detail-content');
-            detail.empty();
-            var id = $(this).data('id');
-            var name = $(this).data('name');
-            var date = $(this).data('date');
-            var school = $(this).data('school');
-            var description = $(this).data('description');
-            var image = $(this).data('image');
-            detail.append('<div class="mb-2">');
-            detail.append('<h6 class="f-w-600">Nama</h6>');
-            detail.append('<p class="text-muted">' + name + '</p>')
-            detail.append('</div>');
-            detail.append('<div class="mb-2">');
-            detail.append('<h6 class="f-w-600">Tanggal</h6>');
-            detail.append('<p class="text-muted">' + date + '</p>')
-            detail.append('</div>');
-            detail.append('<div class="mb-2">');
-            detail.append('<h6 class="f-w-600">Sekolah</h6>');
-            detail.append('<p class="text-muted">' + school + '</p>')
-            detail.append('</div>');
-            detail.append('<div class="mb-2">');
-            detail.append('<h6 class="f-w-600">Kegiatan</h6>');
-            detail.append('<p>' + description + '</p>')
-            detail.append('</div>');
-            detail.append('<div class="mb-2">');
-            detail.append('<h6 class="f-w-600">Bukti</h6>');
-            detail.append('<img src="' + image + '" width="100%"></img>')
-            detail.append('</div>');
-            $('#detail').modal('show');
-        });
-
         $('.btn-delete').click(function () {
             var id = $(this).data('id');
             $('#form-delete').attr('action', '/division/' + id);
             $('#modal-delete').modal('show');
         });
-    </script>
-    <script>
         var url = "{{ asset('storage/' . $subCourse->file_course) }}";
 
         var pdfjsLib = window['pdfjs-dist/build/pdf'];

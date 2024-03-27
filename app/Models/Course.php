@@ -27,6 +27,13 @@ class Course extends Model
         })->sum();
     }
 
+    public function getAllTask()
+    {
+        return $this->subCourse->map(function($item) {
+            return $item->task;
+        })->flatten();
+    }
+
     public function division()
     {
         return $this->belongsTo(Division::class);

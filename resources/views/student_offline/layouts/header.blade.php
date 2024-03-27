@@ -30,6 +30,21 @@
                     {{-- <i class="ti ti-align-justified fs-7"></i> --}}
                 </a>
                 <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-center">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            @if(auth()->user()->student->division->id == '1')
+                                <span class="mb-1 badge font-medium bg-light-warning text-warning">{{ auth()->user()->student->division->name }}</span>
+                            @elseif(auth()->user()->student->division->id == '2')
+                                <span class="mb-1 badge font-medium bg-light-success text-success">{{ auth()->user()->student->division->name }}</span>
+                            @elseif(auth()->user()->student->division->id == '3')
+                                <span class="mb-1 badge font-medium bg-light-secondary text-secondary">{{ auth()->user()->student->division->name }}</span>
+                            @elseif(auth()->user()->student->division->id == '4')
+                                <span class="mb-1 badge font-medium bg-light-primary text-primary">{{ auth()->user()->student->division->name }}</span>
+                            @else
+                                <span class="mb-1 badge font-medium bg-light-info text-info">{{ auth()->user()->student->division->name }}</span>
+                            @endif
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -159,10 +174,10 @@
                                             height="80" alt="" />
                                     @endif
                                     <div class="ms-3">
-                                        <h5 class="mb-1 fs-3">Mathew Anderson</h5>
-                                        <span class="mb-1 d-block text-dark">Designer</span>
+                                        <h5 class="mb-1 fs-3">{{ auth()->user()->student->name }}</h5>
+                                        <span class="mb-1 d-block text-dark">{{ auth()->user()->student->division->name }}</span>
                                         <p class="mb-0 d-flex text-dark align-items-center gap-2">
-                                            <i class="ti ti-mail fs-4"></i> info@modernize.com
+                                            <i class="ti ti-mail fs-4"></i> {{ auth()->user()->student->email}}
                                         </p>
                                     </div>
                                 </div>

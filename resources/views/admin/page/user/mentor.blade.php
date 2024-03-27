@@ -79,7 +79,11 @@
                                                         {{ $mentor->name }}
                                                     </td>
                                                     <td>{{ $mentor->email }}</td>
-                                                    <td>{{ $mentor->division->name }}</td>
+                                                    <td>
+                                                        @foreach ($mentor->mentordivision as $item)
+                                                            {{ $item->division->name }},
+                                                        @endforeach
+                                                    </td>
                                                     <td>
                                                         <div class="dropdown d-inline-block">
                                                             <button class="btn btn-soft-secondary btn-sm dropdown"
@@ -102,7 +106,7 @@
                                                                         data-id="{{ $mentor->id }}"
                                                                         data-name="{{ $mentor->name }}"
                                                                         data-email="{{ $mentor->email }}"
-                                                                        data-division="{{ $mentor->division_id }}"
+                                                                        data-division="{{ $mentor->mentordivision }}"
                                                                         @if (file_exists(public_path('storage/' . $mentor->image))) data-image="{{ asset('storage/' . $mentor->image) }}"
                                                                         @else
                                                                             data-image="{{ asset('user.webp') }}" @endif>
@@ -193,8 +197,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Divisi</label>
-                            <select name="division_id" id="mentor-division" class="form-select">
-                                <option disabled selected>Pilih Divisi</option>
+                            <select name="division_id[]" id="mentor-division" multiple class="form-select">
                                 @foreach ($divisions as $division)
                                     <option value="{{ $division->id }}">{{ $division->name }}</option>
                                 @endforeach
@@ -241,8 +244,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Divisi</label>
-                            <select name="division_id" id="" class="form-select">
-                                <option disabled selected>Pilih Divisi</option>
+                            <select name="division_id[]" id="division" multiple class="form-select">
                                 @foreach ($divisions as $division)
                                     <option value="{{ $division->id }}">{{ $division->name }}</option>
                                 @endforeach
@@ -254,34 +256,6 @@
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modal-show" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title mx-4" id="showModalLabel">Detail Mentor</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="">Nama</label>
-                        <h6 class="mentor-name"></h6>
-                    </div>
-                    <div class="mb-3">
-                        <label for="">Email</label>
-                        <h6 class="mentor-email"></h6>
-                    </div>
-                    <div class="mb-3">
-                        <label for="">Divisi</label>
-                        <h6 class="mentor-division"></h6>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
-                </div>
             </div>
         </div>
     </div>
@@ -298,10 +272,11 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
-        $('.js-example-basic-multiple').select2({
+        $('#division').select2({
             dropdownParent: $('#addModal')
         });
-        $('.js-example-basic-multiple').select2({
+
+        $('#mentor-division').select2({
             dropdownParent: $('#modal-edit')
         });
 
@@ -309,13 +284,16 @@
             var id = $(this).data('id');
             var name = $(this).data('name');
             var email = $(this).data('email');
-            var division = $(this).data('division');
+            var divisionIds = $(this).data('division');
+            var divisionIdsArray = $.map(divisionIds, function(div) {
+                return div.division_id;
+            });
             var image = $(this).data('image');
             $('#mentor-id').val(id);
             $('#mentor-name').val(name);
+            $('#mentor-division').val(divisionIdsArray).trigger('change');
             $('#mentor-email').val(email);
             $('#mentor-image').attr('src', image);
-            $('#mentor-division').val(division).find('option[value="' + division + '"]').prop('selected', true);
             $('#modal-edit').modal('show');
 
             $('#form-update').attr('action', '/menu-mentor/update/' + id);

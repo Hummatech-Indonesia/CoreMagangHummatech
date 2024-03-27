@@ -85,12 +85,13 @@ class SubCourseService
     {
         $data = $request->validated();
 
-        if ($request->hasFile('image_course') && $request->file('image_course')->isValid() || $request->hasFile('file_course') && $request->file('file_course')->isValid()) {
+        if ($request->hasFile('image_course') && $request->file('image_course')->isValid()) {
             $data['image_course'] = $request->file('image_course')->store(TypeEnum::IMAGE_COURSE->value, 'public');
+        }elseif ($request->hasFile('file_course') && $request->file('file_course')->isValid()) {
             $data['file_course'] = $request->file('file_course')->store(TypeEnum::FILE_COURSE->value, 'public');
         }else {
-            $data['image_course'] = $subCourse->image;
-            $data['file_course'] = $subCourse->image;
+            $data['image_course'] = $subCourse->image_course;
+            $data['file_course'] = $subCourse->file_course;
         }
         return $data;
     }
