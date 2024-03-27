@@ -4,7 +4,7 @@
 <style>
     .image-container {
     position: relative;
-    width: 60%;
+    width: 100%;
 }
 
 .image-container img {

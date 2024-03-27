@@ -37,14 +37,15 @@
     </div>
 
     <div class="row">
+        @forelse ($students as $student)
         <div class="col-lg-4 col-md-6">
             <div class="card text-center">
                 <div class="card-body">
                     <img src="{{ asset('assets-user/dist/images/profile/user-6.jpg') }}" class="rounded-1 img-fluid" width="90" alt="">
                     <div class="mt-n2">
-                        <span class="badge bg-primary">Rpl</span>
-                        <h3 class="card-title mt-3">Matt Carlson</h3>
-                        <h6 class="card-subtitle">SMK Negeri 001</h6>
+                        <span class="badge bg-primary">{{ $student->major }}</span>
+                        <h3 class="card-title mt-3">{{ $student->name }}</h3>
+                        <h6 class="card-subtitle">{{ $student->school }}</h6>
                     </div>
                     <div class="row mt-3 justify-content-center">
                         <div class="col-6">
@@ -57,68 +58,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-6">
-            <div class="card text-center">
-                <div class="card-body">
-                    <img src="{{ asset('assets-user/dist/images/profile/user-6.jpg') }}" class="rounded-1 img-fluid" width="90" alt="">
-                    <div class="mt-n2">
-                        <span class="badge bg-primary">Rpl</span>
-                        <h3 class="card-title mt-3">Matt Carlson</h3>
-                        <h6 class="card-subtitle">SMK Negeri 001</h6>
-                    </div>
-                    <div class="row mt-3 justify-content-center">
-                        <div class="col-6">
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#laporModal">
-                                <i class="ti ti-flag"></i>
-                                Laporkan
-                            </button>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+        @empty
+        <div class="d-flex justify-content-center mb-2 mt-5">
+            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
         </div>
-        <div class="col-lg-4 col-md-6">
-            <div class="card text-center">
-                <div class="card-body">
-                    <img src="{{ asset('assets-user/dist/images/profile/user-6.jpg') }}" class="rounded-1 img-fluid" width="90" alt="">
-                    <div class="mt-n2">
-                        <span class="badge bg-primary">Rpl</span>
-                        <h3 class="card-title mt-3">Matt Carlson</h3>
-                        <h6 class="card-subtitle">SMK Negeri 001</h6>
-                    </div>
-                    <div class="row mt-3 justify-content-center">
-                        <div class="col-6">
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#laporModal">
-                                <i class="ti ti-flag"></i>
-                                Laporkan
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-            <div class="card text-center">
-                <div class="card-body">
-                    <img src="{{ asset('assets-user/dist/images/profile/user-6.jpg') }}" class="rounded-1 img-fluid" width="90" alt="">
-                    <div class="mt-n2">
-                        <span class="badge bg-primary">Rpl</span>
-                        <h3 class="card-title mt-3">Matt Carlson</h3>
-                        <h6 class="card-subtitle">SMK Negeri 001</h6>
-                    </div>
-                    <div class="row mt-3 justify-content-center">
-                        <div class="col-6">
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#laporModal">
-                                <i class="ti ti-flag"></i>
-                                Laporkan
-                            </button>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <p class="fs-5 text-dark text-center mb-5">
+            Data Masih Kosong
+        </p>
+        @endforelse
     </div>
 
     <nav aria-label="...">
@@ -160,22 +107,23 @@
                 <h5 class="modal-title" id="laporModalLabel">Laporkan Masalah</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="{{ route('report.store') }}" method="POST" enctype="multipart/form-data">
             <div class="modal-body">
-                <form>
+                    @csrf
                     <div class="mb-3">
                         <label for="deskripsiInput" class="form-label">Deskripsi</label>
-                        <textarea class="form-control" id="deskripsiInput" rows="3"></textarea>
+                        <textarea class="form-control" id="deskripsiInput" name="description" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="gambarInput" class="form-label">Upload Gambar</label>
-                        <input class="form-control" type="file" id="gambarInput" name="gambar">
+                        <input class="form-control" type="file" id="gambarInput" name="image">
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary">Kirim</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Kirim</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

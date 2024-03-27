@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DivisionController;
 use App\Http\Controllers\Admin\DivisionPlacementController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LetterheadController;
+use App\Http\Controllers\ReportStudentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentOnlineController;
 use Illuminate\Support\Facades\Route;
@@ -90,3 +91,6 @@ Route::get('siswa-offline/challenge', function(){
 });
 Route::get('siswa-offline/letter-head', [LetterheadController::class, 'indexOffline']);
 Route::post('siswa-offline/letter-head', [LetterheadController::class, 'store'])->name('letterhead-offline.store');
+
+Route::get('siswa-offline/others/student', [ReportStudentController::class, 'index']);
+Route::post('siswa-offline/others/student/report', [ReportStudentController::class, 'store'])->name('report.store');

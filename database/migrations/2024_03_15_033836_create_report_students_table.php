@@ -15,7 +15,6 @@ return new class extends Migration
         Schema::create('report_students', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('title');
             $table->string('image');
             $table->longText('description');
             $table->enum('status' ,[ReportStudentEnum::ACCEPTED->value, ReportStudentEnum::DECLINED->value,ReportStudentEnum::PENDING->value])->default(ReportStudentEnum::PENDING->value);
