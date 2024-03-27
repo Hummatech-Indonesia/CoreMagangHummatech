@@ -103,7 +103,8 @@ Route::put('administrator/course/{course}', [CourseController::class, 'update'])
 
 
 Route::get('/administrator/course/detail/{course}', [CourseController::class, 'show'])->name('course.detail');
-Route::delete('administrator/course/detail/{course}', [SubCourseController::class, 'destroy'])->name('subCourse.destroy');
+Route::delete('administrator/subcourse/delete/{subCourse}', [SubCourseController::class, 'destroy'])->name('subCourse.destroy');
 Route::get('/administrator/subcourse/detail/{subCourse}', [SubCourseController::class, 'show'])->name('subCourse.detail');
+Route::put('/administrator/subcourse/edit/{subCourse}', [SubCourseController::class, 'update'])->name('subCourse.update');
 
 Route::post('administrator/task/store', [TaskController::class, 'store'])->name('task.store');
