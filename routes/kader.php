@@ -13,9 +13,15 @@ Route::get('permission', function () {return view('admin.page.approval.permision
 // end admin
 Route::get('timetable', function () {return view('mentor.zoomschedule');});
 // mentor
+
 Route::get('challenge', [CourseController::class ,'index']);
 Route::post('create/materi', [CourseController::class ,'store']);
+
+# Task
 Route::post('create/task', [TaskController::class ,'store']);
+Route::put('update/task/{task}', [TaskController::class ,'update']);
+Route::delete('delete/task/{task}', [TaskController::class ,'destroy']);
+# sub materi
 Route::post('create/sub-materi/{course}', [SubCourseController::class ,'store']);
 Route::get('detail/pelajari/{subCourse}', [SubCourseController::class ,'show']);
 Route::get('show/materi/{course}', [CourseController::class ,'show']);

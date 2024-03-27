@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('report_students', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('title');
             $table->string('image');
             $table->longText('description');

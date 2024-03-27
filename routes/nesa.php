@@ -100,10 +100,12 @@ Route::get('siswa-offline/purchase/detail', function (){
 Route::get('administrator/course',[CourseController::class,'index']);
 Route::post('administrator/course/store', [CourseController::class, 'store'])->name('course.store');
 Route::put('administrator/course/{course}', [CourseController::class, 'update'])->name('course.update');
+Route::delete('administrator/course/delete/{course}', [CourseController::class, 'destroy'])->name('course.destroy');
 
 
 Route::get('/administrator/course/detail/{course}', [CourseController::class, 'show'])->name('course.detail');
-Route::delete('administrator/course/detail/{course}', [SubCourseController::class, 'destroy'])->name('subCourse.destroy');
+Route::delete('administrator/subcourse/delete/{subCourse}', [SubCourseController::class, 'destroy'])->name('subCourse.destroy');
 Route::get('/administrator/subcourse/detail/{subCourse}', [SubCourseController::class, 'show'])->name('subCourse.detail');
+Route::put('/administrator/subcourse/edit/{subCourse}', [SubCourseController::class, 'update'])->name('subCourse.update');
 
 Route::post('administrator/task/store', [TaskController::class, 'store'])->name('task.store');

@@ -29,6 +29,12 @@ class LetterheadController extends Controller
         return view('student_online.letterhead.index' , compact('letterheads'));
     }
 
+    public function indexOffline()
+    {
+        $letterheads = $this->letterhead->whereauth(Auth::user()->id);
+        return view('student_offline.others.letter-head' , compact('letterheads'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

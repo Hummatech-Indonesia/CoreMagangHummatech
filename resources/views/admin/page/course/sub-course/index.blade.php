@@ -39,7 +39,7 @@
 @endsection
 @section('content')
     <div class="text-end mb-4">
-        <a href="/administrator/course/detail" class="btn text-white" style="background-color: #7E7E7E;">Kembali</a>
+        <a href="/administrator/course/detail/{{ $subCourse->course_id }}" class="btn text-white" style="background-color: #7E7E7E;">Kembali</a>
     </div>
 
     <div class="row">
@@ -90,7 +90,8 @@
                             </div>
                             <div class="tab-pane p-3" id="profile" role="tabpanel">
                                 <div>
-                                    <iframe width="560" height="315" src="{{ $subCourses->video_course }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                    <iframe width="560" height="315" src="{{ $subCourses->video_course }}"
+                                        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                                 </div>
                             </div>
                         </div>
@@ -107,13 +108,13 @@
                     </button>
                 </div>
                 <div class="row mb-3">
-                    @forelse ($task as $task)
+                    @forelse ($task->where('sub_course_id', $subCourse->id) as $task)
                         <div class="col-lg-12 m-0 p-0">
                             <div class="card border-start border-info py-3 px-4 m-2">
                                 <div class="d-flex no-block align-items-center">
                                     <div class="col-lg-9 px-3">
-                                        <div class="col-2 bg-light-success rounded" style="background-color: #E6FFFA">
-                                            <p style="" class="text-success text-center">{{ $task->level }}</p>
+                                        <div class="col-2 bg-light-success rounded w-25" style="background-color: #E6FFFA">
+                                            <p style="" class="text-success text-center ">{{ $task->level }}</p>
                                         </div>
                                         <h6 class="m-0">{{ $task->title }}</h6>
                                     </div>
@@ -125,21 +126,20 @@
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end">
                                                 <li>
-                                                    <a type="button"
-                                                        class="dropdown-item btn-show" data-bs-toggle="modal"
+                                                    <a type="button" class="dropdown-item btn-show" data-bs-toggle="modal"
                                                         data-bs-target="#detail">
                                                         Detail Tugas
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <button type="button" class="dropdown-item edit-item-btn btn-edit"
-                                                        data-bs-toggle="modal" data-bs-target="#edit">
+                                                        data-id="{{ $task->id }}" data-title="{{ $task->title }}" data-level="{{ $task->level }}" data-description="{{ $task->description }}" data-level="{{ $task->level }}">
                                                         Edit Tugas
                                                     </button>
                                                 </li>
                                                 <li>
                                                     <button type="button" class="dropdown-item btn-delete text-danger"
-                                                        data-bs-toggle="modal" data-bs-target="#modal-delete">
+                                                        data-id="{{ $task->id }}">
                                                         Hapus Tugas
                                                     </button>
                                                 </li>
@@ -161,36 +161,7 @@
                     @endforelse
                 </div>
             </div>
-            <div class="materi">
-                <h5>Materi Lainnya</h5>
-                <div class="row">
-                    @forelse ($courses as $course)
-                        <div class="col-lg-12 m-0 p-0">
-                            <div class="card border-start border-info py-3 px-4 m-2">
-                                <div class="d-flex no-block align-items-center">
-                                    <div class="col-2">
-                                        <img class="img-responsive w-100"
-                                            src="{{ asset('storage/' . $course->image) }}" />
-                                    </div>
-                                    <div class="col-lg-9 px-3">
-                                        <h6 class="m-0">{{ $course->title }}</h6>
-                                        <p style="font-size: 12px">{{ Str::limit($course->description, 45) }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                    @empty
-
-                        <div class="d-flex justify-content-center mb-2 mt-5">
-                            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
-                        </div>
-                        <p class="fs-5 text-dark text-center mb-5">
-                            Data Masih Kosong
-                        </p>
-                    @endforelse
-                </div>
-            </div>
             <div class="d-flex justify-content-center mt-3">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
@@ -241,7 +212,7 @@
                         <input type="hidden" name="course_id" value="">
                         <div class="mb-3">
                             <label for="">Tugas</label>
-                           <input type="text" name="title" class="form-control">
+                            <input type="text" name="title" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label for="">Deskripsi</label>
@@ -249,11 +220,12 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Level</label>
-                            <select class="tambah js-example-basic-single form-select" aria-label=".form-select example" name="level">
+                            <select class="tambah js-example-basic-single form-select" aria-label=".form-select example"
+                                name="level">
                                 <option value="" disabled selected>Pilih level materi</option>
                                 <option value="easy">Mudah</option>
                                 <option value="normal">Biasa</option>
-                                <option value="difficult">Sulit</option>
+                                <option value="hard">Sulit</option>
                             </select>
                         </div>
                     </div>
@@ -298,7 +270,7 @@
     </div>
 
     <!-- -->
-    <div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade" id="modal-edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-lg p-4">
             <div class="modal-content">
@@ -308,22 +280,27 @@
                     </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="" method="post" id="form-update" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="modal-body">
-                        <input type="hidden" name="course_id" value="">
+                        <input type="hidden" name="sub_course_id" value="{{ $subCourses->id }}">
                         <div class="mb-3">
                             <label for="">Tugas</label>
-                            <textarea name="description" id="" class="form-control" rows="5" placeholder="Masukkan tugas"></textarea>
+                            <input type="text" name="title" id="title-edit" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Deskripsi</label>
+                            <textarea name="description" id="description-edit" class="form-control" rows="5" placeholder="Masukkan tugas"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="">Level</label>
-                            <select class="tambah js-example-basic-single form-control" aria-label=".form-select example"
-                                name="student_id">
+                            <select class="tambah js-example-basic-single form-control" id="level-edit" aria-label=".form-select example"
+                                name="level">
                                 <option value="">Pilih level materi</option>
-                                <option value="">Mudah</option>
-                                <option value="">Biasa</option>
-                                <option value="">Sulit</option>
+                                <option value="easy">Mudah</option>
+                                <option value="normal">Biasa</option>
+                                <option value="hard">Sulit</option>
                             </select>
                         </div>
                     </div>
@@ -341,6 +318,8 @@
             </div>
         </div>
     </div>
+
+    @include('admin.components.delete-modal-component')
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
@@ -457,11 +436,11 @@
             var id = $(this).data('id');
             var title = $(this).data('title');
             var description = $(this).data('description');
-            var image = $(this).data('image');
-            $('#form-update').attr('action', '/journal/' + id);
+            var level = $(this).data('level');
+            $('#form-update').attr('action', '/update/task/' + id);
             $('#title-edit').val(title);
             $('#description-edit').val(description);
-            $('#image-edit').attr('src', image);
+            $('#level-edit').val(level).trigger('change');
             $('#modal-edit').modal('show');
         });
 
@@ -517,7 +496,7 @@
 
         $('.btn-delete').click(function() {
             var id = $(this).data('id');
-            $('#form-delete').attr('action', '/division/' + id);
+            $('#form-delete').attr('action', '/delete/task/' + id);
             $('#modal-delete').modal('show');
         });
 
