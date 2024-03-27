@@ -41,4 +41,5 @@ class MentorRepository extends BaseRepository implements MentorInterface
     {
         return $this->model->query()->where('id', $id)->delete();
     }
+
 }

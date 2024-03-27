@@ -9,4 +9,6 @@ use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface MentorInterface extends GetInterface, StoreInterface, UpdateInterface, DeleteInterface, ShowInterface
-{}
+{
+
+}

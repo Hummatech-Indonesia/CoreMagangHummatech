@@ -112,7 +112,7 @@
                             <select class="form-select" name="mentor_id" aria-label="Default select example">
                                 <option selected>Open this select menu</option>
                                 @foreach ($mentors as $mentor)
-                                    <option value="{{ $mentor->id }}">{{ $mentor->name }}</option>
+                                    <option value="{{ $mentor->mentor->id }}">{{ $mentor->mentor->name }}</option>
                                 @endforeach
                             </select>
                         </div>

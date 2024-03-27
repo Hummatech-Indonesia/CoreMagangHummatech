@@ -13,4 +13,6 @@ interface MentorDivisionInterface extends GetInterface, StoreInterface , Wherete
      * Get mentor by id
      */
     public function whereMentor($id):mixed;
+
+    public function whereMentorDivision(mixed $id): mixed;
 }
