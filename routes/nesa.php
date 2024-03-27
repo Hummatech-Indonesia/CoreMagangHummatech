@@ -100,6 +100,7 @@ Route::get('siswa-offline/purchase/detail', function (){
 Route::get('administrator/course',[CourseController::class,'index']);
 Route::post('administrator/course/store', [CourseController::class, 'store'])->name('course.store');
 Route::put('administrator/course/{course}', [CourseController::class, 'update'])->name('course.update');
+Route::delete('administrator/course/delete/{course}', [CourseController::class, 'destroy'])->name('course.destroy');
 
 
 Route::get('/administrator/course/detail/{course}', [CourseController::class, 'show'])->name('course.detail');

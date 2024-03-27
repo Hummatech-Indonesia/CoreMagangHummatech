@@ -5,7 +5,7 @@ namespace App\Enum;
 enum TaskStatusEnum: string
 {
     case PENDING = 'pending';
-    case INPROGRESS = 'inprogress';
+    case INPROGRESS = 'w';
     case COMPLETED = 'completed';
 
     public function label(): string

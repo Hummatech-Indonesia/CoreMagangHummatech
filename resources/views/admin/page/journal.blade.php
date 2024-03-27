@@ -565,7 +565,7 @@
                 <div>
                     <h6>Bukti :</h6>
                     <p id="modalName">
-                        <div class="image-container">
+                        <div class="">
                             <img src="{{ asset('storage/' . $journal->image) }}" alt="My Image" style="width: 100%; height: auto;">
                             <div class="overlay">
                                 <a href="{{ asset('storage/' . $journal->image) }}" class="image-popup" data-modal-id="showModal_{{ $journal->id }}" title="My Image">
