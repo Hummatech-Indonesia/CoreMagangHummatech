@@ -555,7 +555,7 @@
                 </div>
                 <div>
                     <h6>Kegiatan :</h6>
-                    <pre id="modalName">
+                    <pre>
                         {{$journal->description}}
                     </pre>
                 </div>
