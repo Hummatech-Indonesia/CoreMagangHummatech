@@ -4,7 +4,7 @@
 <style>
     .image-container {
     position: relative;
-    width: 60%;
+    width: 100%;
 }
 
 .image-container img {
@@ -565,7 +565,7 @@
                 <div>
                     <h6>Bukti :</h6>
                     <p id="modalName">
-                        <div class="">
+                        <div class="image-container">
                             <img src="{{ asset('storage/' . $journal->image) }}" alt="My Image" style="width: 100%; height: auto;">
                             <div class="overlay">
                                 <a href="{{ asset('storage/' . $journal->image) }}" class="image-popup" data-modal-id="showModal_{{ $journal->id }}" title="My Image">
