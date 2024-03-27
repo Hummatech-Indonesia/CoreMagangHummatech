@@ -32,7 +32,7 @@ use App\Http\Controllers\TaskSubmissionController;
 
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing.index');
 })->name('home');
 
 # ================================================ Authentication Routes Group ================================================
