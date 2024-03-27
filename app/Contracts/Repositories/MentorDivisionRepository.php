@@ -39,6 +39,9 @@ class MentorDivisionRepository extends BaseRepository implements MentorDivisionI
     {
         return $this->model->query()->where('mentor_id', $id)->delete();
     }
-
+    public function whereMentorDivision(mixed $id): mixed
+    {
+        return $this->model->query()->where('division_id', $id)->get();;
+    }
 
 }

@@ -240,7 +240,7 @@
                         id="siswaOnline">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="javascript:void(0)"
+                                <a href="{{ url('/online-student/menotor-placement') }}"
                                     class="nav-link {{ request()->is('pengiriman-surat*') ? 'active' : '' }}"
                                     data-key="t-chat">
                                     Penetapan Mentor </a>

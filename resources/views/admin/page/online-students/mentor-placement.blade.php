@@ -45,7 +45,7 @@
                         </tr>
                     </thead>
                     <tbody class="list" id="searchResult">
-                        @foreach ($students as $student)
+                        @forelse ($students as $student)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
@@ -71,12 +71,24 @@
                                 </td>
                                 <td class="text-center">
                                     <button type="button"
-                                        class="btn btn-sm bg-secondary-subtle text-secondary edit-placement" data-id="2">
+                                        class="btn btn-sm bg-secondary-subtle text-secondary edit-placement" data-id="{{ $student->id }}" data-division="{{ $student->division_id }}">
                                         <i class="ri-apps-2-line align-bottom me-2 text-secondary"></i> Tempatkan Divisi
                                     </button>
                                 </td>
                             </tr>
-                        @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="8">
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <img src="{{ asset('no data.png') }}" width="200px"
+                                            alt="">
+                                    </div>
+                                    <h4 class="text-center mt-2 mb-4">
+                                        Data Masih kosong
+                                    </h4>
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </table>
@@ -91,21 +103,25 @@
                     <h5 class="modal-title" id="myModalLabel">Pilih Mentor</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                 </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="example-date-input" class="form-label">Pilih Mentor</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            @foreach ($mentors as $mentor)
-                                <option value="{{ $mentor->id }}">{{ $mentor->name }}</option>
-                            @endforeach
-                        </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary ">Save Changes</button>
-                </div>
-
+                <form action="" id="form-placement" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="example-date-input" class="form-label">Pilih Mentor</label>
+                            <select class="form-select" name="mentor_id" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                @foreach ($mentors as $mentor)
+                                    <option value="{{ $mentor->mentor->id }}">{{ $mentor->mentor->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary ">Simpan</button>
+                        </div>
+                    </div>
+                </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
@@ -118,7 +134,8 @@
     <script>
         $('.edit-placement').on('click', function() {
             var id = $(this).data('id');
-
+            var division = $(this).data('division');
+            $('#form-placement').attr('action', '/online-student/menotor-placement/update/' + id);
             $('#myModal').modal('show');
         });
     </script>
