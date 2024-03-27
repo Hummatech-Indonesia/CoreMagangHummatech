@@ -71,8 +71,14 @@
                         <span class="hide-menu">Tantangan</span>
                     </a>
                 </li>
-
-
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ url('siswa-offline/purchase') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-building-store"></i>
+                        </span>
+                        <span class="hide-menu">Pembelian</span>
+                    </a>
+                </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="#">
                         <span class="d-flex">
