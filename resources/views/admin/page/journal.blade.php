@@ -567,26 +567,26 @@
                     </div>
                     <div class="modal-body">
                         <div>
-                            <h6 class="text-border">Nama :</h6>
+                            <h5 class="text-border">Nama :</h5>
                             <p id="modalName">{{ $journal->user->name }}</p>
                         </div>
                         <div>
-                            <h6  class="text-border">Tanggal :</h6>
+                            <h5  class="text-border">Tanggal :</h5>
                             <td>{{ \Carbon\Carbon::parse($journal->updated_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
                             </td>
                         </div>
                         <div>
-                            <h6 class="pt-3 text-border">Jam :</h6>
+                            <h5 class="pt-3 text-border">Jam :</h5>
                             <p>{{ \Carbon\Carbon::parse($journal->created_at)->format('H:i') }}</p>
                         </div>
                         <div>
-                            <h6  class="text-border">Kegiatan :</h6>
+                            <h5  class="text-border">Kegiatan :</h5>
                             <p class="break-word">
                                 {{ $journal->description }}
                             </p>
                         </div>
                         <div>
-                            <h6  class="text-border">Bukti :</h6>
+                            <h5  class="text-border">Bukti :</h5>
                             <p id="modalName">
                             <div class="image-container">
                                 <img src="{{ asset('storage/' . $journal->image) }}" alt="My Image"
