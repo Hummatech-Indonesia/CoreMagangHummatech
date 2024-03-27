@@ -7,6 +7,7 @@
         }
 
         @media screen and (min-width: 992px) {
+
             #detail-data .row .col-md-6:first-child,
             #detail-data .row .col-md-6:nth-child(3) {
                 border-right: 1px solid var(--bs-gray-200);
@@ -31,6 +32,7 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-lg-3">
             <img alt="{{ $course->title }}" class="img-responsive w-100" src="{{ asset("storage/{$course->image}") }}" />
@@ -62,145 +64,70 @@
             </div>
         </div>
     </div>
-    <div class="card my-4 py-3">
-        <div class="row g-2 px-4">
-            <div class="d-flex g-2 justify-content-between">
-                <ul class="nav nav-tabs gap-2" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link d-flex active" data-bs-toggle="tab" href="#home2" role="tab">
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-book">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
-                                    <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
-                                    <path d="M3 6l0 13" />
-                                    <path d="M12 6l0 13" />
-                                    <path d="M21 6l0 13" />
-                                </svg>
-                            </span>
-                            <span class="d-none d-md-block ms-2">Materi</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link d-flex" data-bs-toggle="tab" href="#profile2" role="tab">
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    class="icon icon-tabler icons-tabler-outline icon-tabler-list-details">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M13 5h8" />
-                                    <path d="M13 9h5" />
-                                    <path d="M13 15h8" />
-                                    <path d="M13 19h5" />
-                                    <path
-                                        d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                                    <path
-                                        d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                                </svg>
-                            </span>
-                            <span class="d-none d-md-block ms-2">Tugas</span>
-                        </a>
-                    </li>
-                </ul>
-                <div class="d-flex gap-2">
-                    <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Materi">
-                    <button class="btn btn-primary">Cari</button>
-                </div>
-            </div>
+
+    <div class="py-4 mb-3" id="header-content">
+        <div class="d-flex g-2 align-items-center justify-content-between">
+            <h3 class="mb-3 mb-lg-0">Daftar Materi</h3>
+            <form method="GET" class="d-flex gap-2">
+                <input type="text" class="form-control" id="search course" placeholder="Cari Materi" name="search" value="{{ request()->get('search') }}" />
+                <button class="btn btn-primary">Cari</button>
+            </form>
         </div>
     </div>
-    <div class="tab-content">
-        <div class="tab-pane active" id="home2" role="tabpanel">
-            @forelse ($course->subCourse as $subCourse)
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card border-start border-info py-3 px-4">
-                            <div class="d-flex no-block align-items-center">
-                                <div class="col-lg-1 col-md-10 col-sm-1">
-                                    <img class="img-responsive w-100"
-                                        src="{{ asset("storage/{$subCourse->image_course}") }}" />
-                                </div>
-                                <div class="col-lg-9 col-sm-12 px-4">
-                                    <h5>{{ $subCourse->title }}</h5>
-                                    <p>{{ $subCourse->description }}</p>
-                                </div>
-                                <div class="ms-auto">
-                                    <a href="{{ route('siswa-online.course.subcourse', ['subCourse' => $subCourse->id, 'course' => $course->id]) }}"
-                                        class="btn btn-light-primary gap-2 d-flex align-items-center text-primary">
-                                        Pelajari
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="icon icon-tabler icons-tabler-outline icon-tabler-books">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path
-                                                d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
-                                            <path
-                                                d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
-                                            <path d="M5 8h4" />
-                                            <path d="M9 16h4" />
-                                            <path
-                                                d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" />
-                                            <path d="M14 9l4 -1" />
-                                            <path d="M16 16l3.923 -.98" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="text-center">
-                                <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
-                                    alt="No Data" height="150px" width="auto" />
-                                <h3>Tidak Ada Data</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforelse
-        </div>
-        <div class="tab-pane" id="profile2" role="tabpanel">
-            <div class="row">
-                @forelse ($course->getAllTask() as $task)
-                    <div class="col-12">
-                        <div class="card border-start border-info py-3 px-4">
-                            <div class="d-flex align-items-center">
-                                <div class="col-lg-10">
-                                    <div class="mb-3 d-flex gap-2 align-items-center">
-                                        <span
-                                            class="badge bg-light-{{ $task->getLevel()->color() }} text-{{ $task->getLevel()->color() }}">{{ $task->getLevel()->label() }}</span>
-                                        <span class="badge bg-{{ $task->getStatus()->color() }}">{{ $task->getStatus()->label() }}</span>
-                                    </div>
 
-                                    <h5 class="fw-bolder">{{ $task->title }} <small>dari <a href="{{ route('siswa-online.course.subcourse', ['subCourse' => $task->subCourse->id, 'course' => $course->id]) }}">{{ $task->subCourse->title }}</a></small></h5>
-                                    <p class="mb-0">{{ $task->description }}</p>
-                                </div>
-                                <div class="ms-auto">
-                                    <a href="{{ route('siswa-online.tasksubmit.detail', $task->id) }}" class="btn btn-primary">Lihat Tugas</a>
-                                </div>
+    <section id="courses">
+        @forelse ($subCourses as $subCourse)
+            <div class="row">
+                <div class="col-12">
+                    <div class="card border-start border-info py-3 px-4">
+                        <div class="d-flex no-block align-items-center">
+                            <div class="col-lg-1 col-md-10 col-sm-1">
+                                <img alt="{{ $subCourse->title }}" class="img-responsive w-100" src="{{ asset("storage/{$subCourse->image_course}") }}" />
+                            </div>
+                            <div class="col-lg-9 col-sm-12 px-4">
+                                <h5>{{ $subCourse->title }}</h5>
+                                <p>{{ $subCourse->description }}</p>
+                            </div>
+                            <div class="ms-auto">
+                                <a href="{{ route('siswa-online.course.subcourse', ['subCourse' => $subCourse->id, 'course' => $course->id]) }}"
+                                    class="btn btn-light-primary gap-2 d-flex align-items-center text-primary">
+                                    Pelajari
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-books">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path
+                                            d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+                                        <path
+                                            d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+                                        <path d="M5 8h4" />
+                                        <path d="M9 16h4" />
+                                        <path
+                                            d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" />
+                                        <path d="M14 9l4 -1" />
+                                        <path d="M16 16l3.923 -.98" />
+                                    </svg>
+                                </a>
                             </div>
                         </div>
                     </div>
-                @empty
-                    <div class="col-12">
+                </div>
+            </div>
+        @empty
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
                         <div class="text-center">
                             <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
                                 alt="No Data" height="150px" width="auto" />
-                            <h3>Tidak Ada Data Tugas Tersedia</h3>
+                            <h3>Tidak Ada Data</h3>
                         </div>
                     </div>
-                @endforelse
+                </div>
             </div>
-        </div>
-    </div>
+        @endforelse
+    </section>
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
