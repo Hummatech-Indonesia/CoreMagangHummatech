@@ -109,7 +109,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="#">
                         <span class="d-flex">
-                            <i class="ti ti-antenna-bars-1"></i>
+                            <i class="ti ti-dots-circle-horizontal"></i>
                         </span>
                         <span class="hide-menu">Lainnya</span>
                     </a>
