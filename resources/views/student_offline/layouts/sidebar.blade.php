@@ -109,7 +109,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="#">
                         <span class="d-flex">
-                            <i class="ti ti-antenna-bars-1"></i>
+                            <i class="ti ti-dots-circle-horizontal"></i>
                         </span>
                         <span class="hide-menu">Lainnya</span>
                     </a>
@@ -139,7 +139,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="{{ url('/siswa-offline/letter-head') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
@@ -150,7 +150,7 @@
                 </li>
 
             </ul>
-            <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
+            {{-- <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
                 <div class="d-flex">
                     <div class="unlimited-access-title">
                         <h6 class="fw-semibold fs-4 mb-6 text-dark ">Buka Kunci</h6>
@@ -162,7 +162,7 @@
                             class="img-fluid">
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </nav>
         <div class="fixed-profile p-3 bg-light-secondary rounded sidebar-ad mt-3">
             <div class="hstack gap-3">
