@@ -4,19 +4,14 @@ namespace App\Services;
 
 use App\Enum\TypeEnum;
 use App\Services\Traits\UploadTrait;
-use App\Http\Requests\StoreSaleRequest;
-use App\Http\Requests\StoreTaskAnswerRequest;
 use App\Http\Requests\StoreTaskSubmissionRequest;
-use App\Http\Requests\UpdateSaleRequest;
-use App\Http\Requests\UpdateTaskAnswerRequest;
 use App\Http\Requests\UpdateTaskSubmissionRequest;
-use App\Models\Sale;
-use App\Models\TaskAnswer;
 use App\Models\TaskSubmission;
+use App\Services\Traits\HasDownloadActionTrait;
 
 class TaskSubmissionService
 {
-    use UploadTrait;
+    use UploadTrait, HasDownloadActionTrait;
 
     /**
      * Handle custom upload validation.

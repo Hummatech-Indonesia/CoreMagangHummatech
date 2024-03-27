@@ -8,5 +8,5 @@ use App\Contracts\Interfaces\Eloquent\PaginationInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
-interface TaskSubmissionInterface extends PaginationInterface, StoreInterface, UpdateInterface, DeleteInterface, DownloadInterface
+interface TaskSubmissionInterface extends PaginationInterface, StoreInterface, UpdateInterface, DeleteInterface
 {}

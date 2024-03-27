@@ -13,6 +13,11 @@ class TaskRepository extends BaseRepository implements TaskInterface
         $this->model = $task;
     }
 
+    public function getId(int $id): mixed
+    {
+        return $this->model->query()->findOrFail($id);
+    }
+
     public function get(): mixed
     {
         return $this->model->query()->get();

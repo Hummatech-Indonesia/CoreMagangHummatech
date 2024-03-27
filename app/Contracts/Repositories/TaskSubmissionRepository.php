@@ -30,9 +30,4 @@ class TaskSubmissionRepository extends BaseRepository implements TaskSubmissionI
     {
         return $this->model->query()->findOrFail($id)->delete($id);
     }
-    public function download(Model $model): BinaryFileResponse
-    {
-        dd($model);
-        return response()->download($this->model->query()->get()->toArray());
-    }
 }

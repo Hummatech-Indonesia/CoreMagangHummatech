@@ -125,10 +125,17 @@
                         @forelse ($submissions as $index => $submission)
                             <tr>
                                 <th scope="row">{{ $index + 1 }}</th>
-                                <td>{{ $submission->created_at->locale('id')->isoFormat('LLLL') }}</td>
-                                <td></td>
+                                <td>{{ $submission->created_at->locale('id')->diffForHumans() }}</td>
+                                <td>
+                                    <a href="{{ route('siswa-online.tasksubmit.download', ['task' => $task->id, 'taskSubmission' => $submission->id]) }}" class="d-flex gap-2 align-items-center">
+                                        <i class="fas fa-download"></i>
+                                        Unduh Berkas
+                                    </a>
+                                </td>
                                 <td>{{ $submission->rating ?? 0 }} / 10</td>
-                                <td></td>
+                                <td>
+                                    <span class="badge bg-{{ $submission->getStatus()->color() }}">{{ $submission->getStatus()->label() }}</span>
+                                </td>
                             </tr>
                         @empty
                             <tr>

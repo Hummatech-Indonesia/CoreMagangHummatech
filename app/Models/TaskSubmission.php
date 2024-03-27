@@ -17,6 +17,11 @@ class TaskSubmission extends Model
         'file',
     ];
 
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
+
     public static function getStatuses(): Collection
     {
         return collect(TaskSubmissionStatusEnum::cases())->pluck('value');
