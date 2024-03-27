@@ -479,7 +479,7 @@
 
         $('.btn-delete').click(function() {
             var id = $(this).data('id');
-            $('#form-delete').attr('action', '/division/' + id);
+            $('#form-delete').attr('action', '/administrator/course/delete/' + id);
             $('#modal-delete').modal('show');
         });
 

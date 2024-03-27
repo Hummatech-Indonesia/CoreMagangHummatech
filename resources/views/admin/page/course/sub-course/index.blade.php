@@ -39,7 +39,7 @@
 @endsection
 @section('content')
     <div class="text-end mb-4">
-        <a href="/administrator/course/detail" class="btn text-white" style="background-color: #7E7E7E;">Kembali</a>
+        <a href="/administrator/course/detail/{{ $subCourse->course_id }}" class="btn text-white" style="background-color: #7E7E7E;">Kembali</a>
     </div>
 
     <div class="row">
