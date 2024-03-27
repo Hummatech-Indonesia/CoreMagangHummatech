@@ -2,13 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\TaskInterface;
+use App\Contracts\Interfaces\TaskSubmissionInterface;
 use App\Models\TaskSubmission;
 use App\Http\Requests\StoreTaskSubmissionRequest;
 use App\Http\Requests\UpdateTaskSubmissionRequest;
 use App\Models\Task;
+use App\Services\TaskSubmissionService;
+use Illuminate\Http\Request;
 
 class TaskSubmissionController extends Controller
 {
+    private TaskSubmissionInterface $taskSubmission;
+    private TaskSubmissionService $taskSubmissionService;
+    private TaskInterface $task;
+
+    public function __construct(TaskSubmissionInterface $taskSubmission, TaskSubmissionService $taskSubmissionService, TaskInterface $task)
+    {
+        $this->taskSubmission = $taskSubmission;
+        $this->taskSubmissionService = $taskSubmissionService;
+        $this->task = $task;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -20,9 +35,10 @@ class TaskSubmissionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Task $task)
     {
-        //
+        $submissions = $task->submissions()->latest()->paginate(5);
+        return view('student_online.task.answer-detail', compact('task', 'submissions'));
     }
 
     /**
@@ -30,7 +46,23 @@ class TaskSubmissionController extends Controller
      */
     public function store(StoreTaskSubmissionRequest $request)
     {
-        //
+        $taskData = $this->task->getId($request->task_id);
+
+        # Check task status
+        if($taskData->status === 'inprogress') {
+            return redirect()->back()->with('error', 'Tugas ini sedang di kerjakan, harap tunggu proses kurasi dari mentor.');
+        } elseif($taskData->status === 'completed') {
+            return redirect()->back()->with('error', 'Tugas ini telah selesai, kamu nggak perlu ngirim tugas lagi.');
+        }
+
+        # Store task submission
+        $data = $this->taskSubmissionService->store($request);
+        $this->taskSubmission->store($data);
+
+        # Update status task into inprogress
+        $taskData->update(['status' => 'inprogress']);
+
+        return redirect()->back()->with('success', 'Tugas telah dikumpulkan, tunggu proses kurasi dari mentor.');
     }
 
     /**
@@ -65,8 +97,9 @@ class TaskSubmissionController extends Controller
         //
     }
 
-    public function detailStudentOnline(Task $task)
+    public function download(Task $task, TaskSubmission $taskSubmission)
     {
-        return view('student_online.task.answer-detail', compact('task'));
+        $submissions = $this->taskSubmissionService->download($taskSubmission);
+        return $submissions;
     }
 }

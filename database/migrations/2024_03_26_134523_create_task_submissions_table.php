@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\TaskSubmissionStatusEnum;
 use App\Models\TaskSubmission;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,9 +18,8 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignId('task_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->text('description')->nullable();
             $table->text('file')->nullable();
-            $table->enum('status', TaskSubmission::getStatuses()->toArray())->nullable();
+            $table->enum('status', TaskSubmission::getStatuses()->toArray())->default(TaskSubmissionStatusEnum::PENDING)->nullable();
             $table->text('comment')->nullable();
             $table->unsignedTinyInteger('rating')->nullable()->default(0);
         });
