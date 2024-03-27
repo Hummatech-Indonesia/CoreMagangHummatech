@@ -50,19 +50,6 @@
         </div>
     </div>
 
-    @if ($errors->all())
-        <div class="alert alert-danger">
-            <h3>Ada Kesalahan</h3>
-
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </div>
-    @endif
-
-
-
-
     <div class="tab-content">
         <div id="all" class="tab-pane fade show active">
             <div class="row ">
@@ -88,9 +75,10 @@
                                         class="btn btn-secondary flex-fill">
                                         Lihat detail
                                     </a>
-                                    <button class="py-1 btn btn-soft-warning btn-edit" data-bs-toggle="modal"
-                                        data-bs-target="#edit" data-id="{{ $course->id }}"
-                                        data-title="{{ $course->title }}" data-description="{{ $course->description }}">
+                                    <button class="py-1 btn btn-soft-warning btn-edit" type="button"
+                                        data-id="{{ $course->id }}" data-title="{{ $course->title }}"
+                                        data-description="{{ $course->description }}"
+                                        data-division="{{ $course->division_id }}" data-status="{{ $course->status }}" data-price="{{ $course->price }}" data-image="{{ $course->image }}">
                                         <i class="ri-pencil-line fs-3"></i>
                                     </button>
                                     <button class="py-1 btn btn-soft-danger">
@@ -136,9 +124,12 @@
                                             class="btn btn-secondary flex-fill">
                                             Lihat detail
                                         </a>
-                                        <button class="py-1 btn btn-soft-warning btn-edit" data-bs-toggle="modal"
-                                            data-bs-target="#edit" data-id="{{ $course->id }}"
-                                            data-title="{{ $course->title }}">
+                                        <button class="py-1 btn btn-soft-warning btn-edit" data-id="{{ $course->id }}"
+                                            data-title="{{ $course->title }}"
+                                            data-description="{{ $course->description }}"
+                                            data-division="{{ $course->division_id }}"
+                                            data-status="{{ $course->status }}"
+                                            data-image="{{ $course->image }}">
                                             <i class="ri-pencil-line fs-3"></i>
                                         </button>
                                         <button class="py-1 btn btn-soft-danger">
@@ -195,7 +186,11 @@
                                             Lihat detail
                                         </a>
                                         <button class="py-1 btn btn-soft-warning btn-edit" type="button"
-                                            data-id="{{ $course->id }}" data-title="{{ $course->title }}">
+                                            data-id="{{ $course->id }}" data-title="{{ $course->title }}"
+                                            data-description="{{ $course->description }}"
+                                            data-division="{{ $course->division_id }}"
+                                            data-status="{{ $course->status }}"
+                                            data-image="{{ $course->image }}">
                                             <i class="ri-pencil-line fs-3"></i>
                                         </button>
                                         <button class="py-1 btn btn-soft-danger">
@@ -233,10 +228,16 @@
                         <div class="mb-3">
                             <label for="title">Judul</label>
                             <input type="text" name="title" class="form-control" placeholder="Judul materi">
+                            @error('title')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="description">Deskripsi</label>
                             <textarea name="description" class="form-control" placeholder="Masukkan deskripsi"></textarea>
+                            @error('description')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="divisi" class="col-form-label">Divisi</label>
@@ -248,7 +249,9 @@
                                     <option value="{{ $division->id }}">{{ $division->name }}</option>
                                 @endforeach
                             </select>
-
+                            @error('division_id')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label>Status</label>
@@ -262,6 +265,9 @@
                                     </div>
                                 @endforeach
                             </div>
+                            @error('status')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="mb-3 price" id="price" style="display: none;">
                             <label for="priceInput">Harga</label>
@@ -276,6 +282,9 @@
                             <label for="image">Foto materi</label>
                             <input type="file" name="image" id="imageInput" class="form-control">
                             <div id="imagePreview" class="mt-2"></div>
+                            @error('image')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
 
@@ -313,7 +322,7 @@
                             <label for="divisi" class="col-form-label">Divisi</label>
                             <select
                                 class="tambah js-example-basic-single1 form-control @error('divisi') is-invalid @enderror"
-                                aria-label=".form-select example" name="division_id">
+                                aria-label=".form-select example" id="division-edit" name="division_id">
                                 <option value="">Pilih divisi</option>
                                 @foreach ($divisions as $division)
                                     <option value="{{ $division->id }}">{{ $division->name }}</option>
@@ -326,7 +335,7 @@
                             <div>
                                 @foreach (\App\Enum\StatusCourseEnum::cases() as $status)
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" id="studentSelect1" type="radio"
+                                        <input class="form-check-input status-edit" id="studentSelect1" type="radio"
                                             name="status" id="{{ $status->value }}" value="{{ $status->value }}">
                                         <label class="form-check-label"
                                             for="{{ $status->value }}">{{ $status->label() }}</label>
@@ -334,9 +343,9 @@
                                 @endforeach
                             </div>
                         </div>
-                        <div class="mb-3 price" id="price" style="display: none;">
+                        <div class="mb-3 price" id="price-edit" style="display: none;">
                             <label for="priceInput">Harga</label>
-                            <input type="number" name="price" id="price" placeholder="Masukan harga"
+                            <input type="number" name="price" id="price-edit-input" placeholder="Masukan harga"
                                 class="form-control">
                             @error('price')
                                 <small class="text-danger">{{ $message }}</small>
@@ -345,6 +354,9 @@
                         <div class="mb-3">
                             <label for="image">Foto materi</label>
                             <input type="file" name="image" id="" class="form-control">
+                            <div id="imagePreview-edit" class="mt-2">
+                                <img src="" id="image-edit" class="img-thumbnail" alt="">
+                            </div>
                         </div>
 
 
@@ -379,6 +391,7 @@
             });
         });
     </script>
+
     <script>
         const imageInput = document.getElementById('imageInput');
         const imagePreview = document.getElementById('imagePreview');
@@ -418,6 +431,15 @@
                 }
             });
         });
+        $(document).ready(function() {
+            $('input[type=radio][name=status]').change(function() {
+                if (this.value === 'paid') {
+                    $('#price-edit').show();
+                } else {
+                    $('#price-edit').hide();
+                }
+            });
+        });
     </script>
 
     <script>
@@ -425,10 +447,30 @@
             var id = $(this).data('id');
             var title = $(this).data('title');
             var description = $(this).data('description');
+            var division = $(this).data('division');
+            var status = $(this).data('status');
+            var price = $(this).data('price');
+            var image = $(this).data('image');
 
             $('#form-update').attr('action', '/administrator/course/' + id);
             $('#title-edit').val(title);
+            $('#division-edit').val(division);
             $('#description-edit').val(description);
+            $('#division-edit').val(division).trigger('change');
+            $('.status-edit').each(function() {
+                if ($(this).val() === status) {
+                    $(this).prop('checked', true);
+                }
+            });
+            $('#image-edit').attr('src', '/storage/' + image);
+
+            if(status === 'paid' || price > 0) {
+                $('#price-edit').show();
+                $('#price-edit-input').val(price);
+            } else {
+                $('#price-edit').hide();
+            }
+
 
             $('#modal-edit').modal('show');
         });
