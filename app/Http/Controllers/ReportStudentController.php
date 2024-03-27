@@ -8,25 +8,26 @@ use App\Models\ReportStudent;
 use App\Http\Requests\StoreReportStudentRequest;
 use App\Http\Requests\UpdateReportStudentRequest;
 use App\Services\ReportStudentService;
-use App\Services\StudentService;
 
 class ReportStudentController extends Controller
 {
     private ReportStudenttInterface $reportStudent;
     private ReportStudentService $service;
+    private StudentInterface $student;
 
-    public function __construct(ReportStudenttInterface $reportStudent , StudentService $service)
+    public function __construct(ReportStudenttInterface $reportStudent , ReportStudentService $service, StudentInterface $student)
     {
         $this->reportStudent = $reportStudent;
         $this->service = $service;
+        $this->student = $student;
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $students = $this->reportStudent->get();
-        return view('' , compact('students'));
+        $students = $this->student->getstudentexceptauth(auth()->user()->student->id);
+        return view('student_offline.others.student' , compact('students'));
     }
 
     /**
@@ -44,7 +45,7 @@ class ReportStudentController extends Controller
     {
         $data = $this->service->store($request);
         $this->reportStudent->store($data);
-        return back()->with('success' , 'Berhasil Menambahkan data');
+        return back()->with('success' , 'Siswa berhasil dilaporkan');
     }
 
     /**
