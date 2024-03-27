@@ -39,9 +39,6 @@
 .image-container:hover .overlay {
     opacity: 1;
 }
-#modalName:not(:first-child) {
-    white-space: pre-wrap;
-}
 </style>
 @endsection
 @section('content')
