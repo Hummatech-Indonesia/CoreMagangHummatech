@@ -92,13 +92,16 @@
                                             </li>
                                             <li>
                                                 <button type="button" class="dropdown-item edit-item-btn btn-edit"
-                                                    data-bs-toggle="modal" data-bs-target="#edit">
+                                                    data-id="{{ $subCourse->id }}" data-title="{{ $subCourse->title }}"
+                                                    data-description="{{ $subCourse->description }}"
+                                                    data-image="{{ $subCourse->image_course }}"
+                                                    data-file="{{ $subCourse->file_course }}"
+                                                    data-video="{{ $subCourse->video_course }}">
                                                     Edit Sub Materi
                                                 </button>
                                             </li>
                                             <li>
                                                 <button type="button" class="dropdown-item btn-delete text-danger"
-                                                    data-bs-toggle="modal" data-bs-target="#modal-delete"
                                                     data-id="{{ $subCourse->id }}">
                                                     Hapus Sub Materi
                                                 </button>
@@ -122,8 +125,6 @@
             </div>
         </div>
     </div>
-
-    @include('admin.components.delete-modal-component')
 
 
     <!-- Add sub course -->
@@ -180,7 +181,7 @@
     <!-- Edit Sub Course -->
     <div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-dialog modal-dialog modal-lg ">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center">
                     <h4 class="modal-title" id="myLargeModalLabel">
@@ -188,29 +189,33 @@
                     </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="" method="post" id="edit-form" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="modal-body">
-                        <input type="hidden" name="course_id" value="">
+                        <input type="hidden" name="course_id" value="{{ $id }}">
                         <div class="mb-3">
                             <label for="">Judul Sub Materi</label>
-                            <input type="text" name="title" class="form-control">
+                            <input type="text" name="title" id="edit-title" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label for="">Deskripsi Sub Materi</label>
-                            <textarea name="description" id="" class="form-control"></textarea>
+                            <textarea name="description" id="edit-description" class="form-control"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="">Foto Sub Materi</label>
-                            <input type="file" name="image_course" class="form-control">
+                            <div class="w-50 mb-2">
+                                <img src="" id="edit-image" class="img-fluid w-50" alt="">
+                            </div>
+                            <input type="file" name="image_course" id="edit-image" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label for="">Link video Sub Materi</label>
-                            <input type="url" name="video_course" class="form-control">
+                            <input type="url" name="video_course" id="edit-video" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label for="">File Sub Materi</label>
-                            <input type="file" name="file_course" class="form-control">
+                            <input type="file" name="file_course" id="edit-file" class="form-control">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -227,6 +232,8 @@
             </div>
         </div>
     </div>
+
+    @include('admin.components.delete-modal-component')
 @endsection
 
 @section('script')
@@ -238,6 +245,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
     <script>
-        
+        $('.btn-edit').on('click', function() {
+            let id = $(this).data('id');
+            let title = $(this).data('title');
+            let description = $(this).data('description');
+            let image = $(this).data('image');
+            let video = $(this).data('video');
+            let file = $(this).data('file');
+
+            $('#edit-title').val(title);
+            $('#edit-description').val(description);
+            $('#edit-image').attr('src', '/storage/' + image);
+            $('#edit-video').val(video);
+
+            $('#edit-form').attr('action', '/administrator/subcourse/edit/' + id);
+            $('#edit').modal('show');
+        });
+    </script>
+
+    <script>
+        $('.btn-delete').on('click', function() {
+            let id = $(this).data('id');
+
+            $('#form-delete').attr('action', '/administrator/subcourse/delete/' + id);
+            $('#modal-delete').modal('show');
+        });
     </script>
 @endsection

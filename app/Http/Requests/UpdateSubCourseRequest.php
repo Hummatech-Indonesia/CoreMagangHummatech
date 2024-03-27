@@ -24,9 +24,9 @@ class UpdateSubCourseRequest extends FormRequest
         return [
             'title' => 'required',
             'description' => 'required',
-            'file_course' => 'required',
+            'file_course' => 'nullable',
             'video_course' => 'required',
-            'image_course' => 'required'
+            'image_course' => 'nullable'
         ];
     }
 }

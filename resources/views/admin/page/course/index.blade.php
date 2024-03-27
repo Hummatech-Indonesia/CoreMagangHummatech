@@ -81,7 +81,7 @@
                                         data-division="{{ $course->division_id }}" data-status="{{ $course->status }}" data-price="{{ $course->price }}" data-image="{{ $course->image }}">
                                         <i class="ri-pencil-line fs-3"></i>
                                     </button>
-                                    <button class="py-1 btn btn-soft-danger">
+                                    <button class="py-1 btn btn-soft-danger btn-delete" type="button" data-id="{{ $course->id }}">
                                         <i class=" ri-delete-bin-5-line fs-3"></i>
                                     </button>
                                 </div>
@@ -132,7 +132,7 @@
                                             data-image="{{ $course->image }}">
                                             <i class="ri-pencil-line fs-3"></i>
                                         </button>
-                                        <button class="py-1 btn btn-soft-danger">
+                                        <button class="py-1 btn btn-soft-danger btn-delete" type="button" data-id="{{ $course->id }}">
                                             <i class=" ri-delete-bin-5-line fs-3"></i>
                                         </button>
                                     </div>
@@ -193,7 +193,7 @@
                                             data-image="{{ $course->image }}">
                                             <i class="ri-pencil-line fs-3"></i>
                                         </button>
-                                        <button class="py-1 btn btn-soft-danger">
+                                        <button class="py-1 btn btn-soft-danger btn-delete" type="button" data-id="{{ $course->id }}">
                                             <i class=" ri-delete-bin-5-line fs-3"></i>
                                         </button>
                                     </div>
@@ -369,6 +369,8 @@
             </div>
         </div>
     </div>
+
+    @include('admin.components.delete-modal-component')
 @endsection
 
 @section('script')
@@ -480,5 +482,6 @@
             $('#form-delete').attr('action', '/division/' + id);
             $('#modal-delete').modal('show');
         });
+
     </script>
 @endsection
