@@ -22,7 +22,6 @@ class StoreReportStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required',
             'image' => 'required',
             'description' => 'required'
         ];

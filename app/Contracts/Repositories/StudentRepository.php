@@ -115,4 +115,9 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query()->where('internship_type', InternshipTypeEnum::ONLINE->value)->where('status', 'accepted')->whereNotIn('id', $id)->get();
     }
 
+    public function getstudentexceptauth(mixed $id): mixed
+    {
+        return $this->model->query()->where('id', '!=', $id)->get();
+    }
+
 }
