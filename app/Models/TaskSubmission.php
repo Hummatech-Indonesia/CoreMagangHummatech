@@ -11,6 +11,12 @@ class TaskSubmission extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'task_id',
+        'file',
+    ];
+
     public static function getStatuses(): Collection
     {
         return collect(TaskSubmissionStatusEnum::cases())->pluck('value');

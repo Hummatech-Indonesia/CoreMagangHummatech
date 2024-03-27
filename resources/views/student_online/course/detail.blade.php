@@ -184,7 +184,7 @@
                                     <p class="mb-0">{{ $task->description }}</p>
                                 </div>
                                 <div class="ms-auto">
-                                    <a href="{{ route('siswa-online.task.detail', $task->id) }}" class="btn btn-primary">Lihat Tugas</a>
+                                    <a href="{{ route('siswa-online.tasksubmit.detail', $task->id) }}" class="btn btn-primary">Lihat Tugas</a>
                                 </div>
                             </div>
                         </div>

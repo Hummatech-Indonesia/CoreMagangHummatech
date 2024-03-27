@@ -58,6 +58,7 @@ use App\Contracts\Interfaces\PicketingReportInterface;
 use App\Contracts\Repositories\AdminJournalRepository;
 use App\Contracts\Repositories\ZoomScheduleRepository;
 use App\Contracts\Interfaces\AttendanceDetailInterface;
+use App\Contracts\Interfaces\TaskSubmissionInterface;
 use App\Contracts\Repositories\CodeOfConductRepository;
 use App\Contracts\Repositories\MentorStudentRepository;
 use App\Contracts\Repositories\ReportStudentRepository;
@@ -69,6 +70,7 @@ use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\AttendanceDetailRepository;
+use App\Contracts\Repositories\TaskSubmissionRepository;
 use App\Contracts\Repositories\TransactionHistoryRepository;
 
 class AppServiceProvider extends ServiceProvider
@@ -106,6 +108,7 @@ class AppServiceProvider extends ServiceProvider
         DataAdminInterface::class => DataAdminRepository::class,
         SignatureInterface::class => SignatureRepository::class,
         MentorDivisionInterface::class => MentorDivisionRepository::class,
+        TaskSubmissionInterface::class => TaskSubmissionRepository::class
     ];
 
     /**

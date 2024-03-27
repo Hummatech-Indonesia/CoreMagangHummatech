@@ -11,7 +11,7 @@ class AttendanceRuleObserver
     /**
      * Handle the AttendanceRule "creating" event.
      *
-     * @param  \App\Models\AttendanceRule  $attendanceRule
+     * @param AttendanceRule $attendanceRule
      * @return void
      */
     public function creating(AttendanceRule $attendanceRule)
