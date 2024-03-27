@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Webteck - Technology & IT Solutions HTML Template - Software Company</title>
+    <title>{{ env('APP_NAME') }}</title>
     <meta name="author" content="Themeholy">
     <meta name="description" content="Webteck - Technology & IT Solutions HTML Template">
     <meta name="keywords" content="Webteck - Technology & IT Solutions HTML Template">
