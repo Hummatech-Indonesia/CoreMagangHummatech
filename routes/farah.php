@@ -7,6 +7,7 @@ use App\Http\Controllers\LetterheadController;
 use App\Http\Controllers\ReportStudentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentOnlineController;
+use App\Http\Controllers\TaskSubmissionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('division', [DivisionController::class, 'index'])->name('division.index');
@@ -94,3 +95,5 @@ Route::post('siswa-offline/letter-head', [LetterheadController::class, 'store'])
 
 Route::get('siswa-offline/others/student', [ReportStudentController::class, 'index']);
 Route::post('siswa-offline/others/student/report', [ReportStudentController::class, 'store'])->name('report.store');
+
+Route::post('siswa-offline/task/store', [TaskSubmissionController::class, 'store']);
