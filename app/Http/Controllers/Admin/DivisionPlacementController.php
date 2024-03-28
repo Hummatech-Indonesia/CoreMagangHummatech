@@ -32,9 +32,10 @@ class DivisionPlacementController extends Controller
     public function index()
     {
         $studentid = $this->student->pluck('id')->toArray();
-        $studentOfflines = $this->student->getstudentdivisionplacement($studentid);
+        $studentOfflines = $this->student->getstudentdivisionplacement();
+        $students = $this->student->getstudentdivisionplacementedit();
         $divisions = $this->division->get();
-        return view('admin.page.offline-students.division-placement', compact('studentOfflines', 'divisions'));
+        return view('admin.page.offline-students.division-placement', compact('studentOfflines', 'divisions', 'students'));
     }
 
     public function divisionchange( UpdateStudentRequest $request, Student $student)
