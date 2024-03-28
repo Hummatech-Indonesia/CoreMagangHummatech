@@ -74,6 +74,49 @@ class AttendanceController extends Controller
     }
 
     /**
+     * doAttendanceOnline
+     *
+     * @return mixed
+     */
+    private function doAttendanceOnline(): mixed
+    {
+        $max = $this->maxLate->get();
+        $today = now()->format('l');
+        $student = auth()->user()->student;
+        $time = now()->format('H:i:s');
+        $attendanceRule = $this->attendanceRule->getByDay($today);
+
+        if (!$attendance = $this->attendance->checkAttendanceStudent($student->id)) {
+            if ($time > Carbon::createFromFormat('H:i:s', $attendanceRule->checkin_ends)->addMinutes($max ? (int) $max->minute : 15)->format('H:i:s')) return ResponseHelper::error(null, "Tidak bisa absen karena telat saat masuk pagi!");
+            $attendance = $this->attendance->store(['student_id' => $student->id]);
+        }
+        $attendance_id = $attendance->id;
+        if ($time >= $attendanceRule->checkin_starts && $time <= Carbon::createFromFormat('H:i:s', $attendanceRule->checkin_ends)->addMinutes($max ? (int) $max->minute : 15)->format('H:i:s')) {
+            // FirebaseNotificationHelper::send($this->getStudentByRfid($rfid)->hasOneUser->id, "Absensi", "Berhasil absensi pagi");
+            return $this->attendanceDetail->store(['attendance_id' => $attendance_id, 'status' => 'present']);
+        } else if ($time >= $attendanceRule->checkout_starts && $time <= $attendanceRule->checkout_ends) {
+            return $this->attendanceDetail->store(['attendance_id' => $attendance_id, 'status' => 'return']);
+        }
+        return null;
+    }
+
+    /**
+     * onlinePresence
+     *
+     * @return JsonResponse
+     */
+    public function onlinePresence(): JsonResponse
+    {
+        $today = now()->format('l');
+        $attendanceRule = $this->attendanceRule->getByDay($today);
+        if (!$attendanceRule) return ResponseHelper::error(null, "Tidak ada jam absen hari ini");
+        $doAttendance = $this->doAttendanceOnline();
+        if (!$doAttendance) return ResponseHelper::error(null, "Jam absensi tidak tersedia");
+        if (!$doAttendance->wasRecentlyCreated) return ResponseHelper::error(null, "Anda telah absensi pada jam ini");
+        return ResponseHelper::success(auth()->user()->student, "Berhasil absensi");
+    }
+
+    /**
      * attendanceByRfid
      *
      * @param  mixed $rfid
