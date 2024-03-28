@@ -96,4 +96,4 @@ Route::post('siswa-offline/letter-head', [LetterheadController::class, 'store'])
 Route::get('siswa-offline/others/student', [ReportStudentController::class, 'index']);
 Route::post('siswa-offline/others/student/report', [ReportStudentController::class, 'store'])->name('report.store');
 
-Route::post('siswa-offline/task/store', [TaskSubmissionController::class, 'store']);
+Route::post('siswa-offline/task/store', [TaskSubmissionController::class, 'store'])->name('task-offline.store');

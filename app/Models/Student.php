@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Attendance;
+use App\Models\WarningLetter;
+use App\Models\ResponseLetter;
 use App\Base\Interfaces\HasAttendances;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Division;
 
 class Student extends Model implements HasAttendances
 {
@@ -45,5 +49,10 @@ class Student extends Model implements HasAttendances
     public function taskAnswers(): HasMany
     {
         return $this->hasMany(TaskAnswer::class);
+    }
+
+    public function mentorstudent()
+    {
+        return $this->hasMany(MentorStudent::class);
     }
 }
