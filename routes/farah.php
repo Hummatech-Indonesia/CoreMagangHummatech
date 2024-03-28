@@ -7,6 +7,7 @@ use App\Http\Controllers\LetterheadController;
 use App\Http\Controllers\ReportStudentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentOnlineController;
+use App\Http\Controllers\StudentTaskController;
 use App\Http\Controllers\TaskSubmissionController;
 use Illuminate\Support\Facades\Route;
 
@@ -96,4 +97,5 @@ Route::post('siswa-offline/letter-head', [LetterheadController::class, 'store'])
 Route::get('siswa-offline/others/student', [ReportStudentController::class, 'index']);
 Route::post('siswa-offline/others/student/report', [ReportStudentController::class, 'store'])->name('report.store');
 
-Route::post('siswa-offline/task/store', [TaskSubmissionController::class, 'store'])->name('task-offline.store');
+Route::post('siswa-offline/task/store', [StudentTaskController::class, 'store'])->name('task-offline.store');
+Route::patch('siswa-offline/task/update/{studentTask}', [StudentTaskController::class, 'update'])->name('task-offline.update');

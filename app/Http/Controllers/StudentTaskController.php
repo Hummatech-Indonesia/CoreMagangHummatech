@@ -41,7 +41,7 @@ class StudentTaskController extends Controller
     {
         $data = $this->servicestudentTask->store($request);
         $this->studentTask->store($data);
-        return back()->with('success' , 'Berhasil Menambahkan data');
+        return back()->with('success' , 'Berhasil Mengumpulkan tugas');
     }
 
     /**
