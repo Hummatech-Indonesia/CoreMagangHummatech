@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('journals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('title');
             $table->longText('description');
             $table->string('image');

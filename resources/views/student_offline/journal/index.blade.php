@@ -114,8 +114,8 @@
                             <tr>
                                 <td>
                                     <div class="ms-3">
-                                        <h6 class="fs-4 fw-semibold mb-0">{{ $journal->user->name }}</h6>
-                                        <span class="fw-normal">{{ $journal->user->email }}</span>
+                                        <h6 class="fs-4 fw-semibold mb-0">{{ $journal->student->name }}</h6>
+                                        <span class="fw-normal">{{ $journal->student->email }}</span>
                                     </div>
                                 </td>
                                 <td>
@@ -151,11 +151,11 @@
                                         @endif
                                         <button type="button" class="bg-transparent border-0 btn-detail"
                                             data-id="{{ $journal->id }}"
-                                            data-name="{{ $journal->user->name }}"
+                                            data-name="{{ $journal->student->name }}"
                                             data-date="{{ $journal->created_at }}"
-                                            data-school="{{ $journal->user->student->school }}"
-                                            {{-- data-school="{{ $journal->user->school }}" --}}
-                                            data-description="{!! br2nl($journal->description) !!}"
+                                            data-school="{{ $journal->student->school }}"
+                                            {{-- data-school="{{ $journal->student->school }}" --}}
+                                            data-description="{{ nl2br($journal->description) }}"
                                             data-image="{{ asset('storage/'. $journal->image) }}">
                                             <svg width="29" height="32" viewBox="0 0 29 32" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">

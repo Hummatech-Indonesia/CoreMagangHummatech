@@ -9,8 +9,8 @@ class Journal extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function user()
+    public function student()
     {
-        return $this->belongsTo(User::class ,'user_id');
+        return $this->belongsTo(Student::class ,'student_id');
     }
 }
