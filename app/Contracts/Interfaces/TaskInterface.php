@@ -9,4 +9,12 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 use App\Contracts\Interfaces\Eloquent\WhereSingleInterface;
 
 interface TaskInterface extends GetInterface, StoreInterface, UpdateInterface, DeleteInterface, WhereSingleInterface
-{}
+{
+    /**
+     * Filtering data by status
+     *
+     * @param string $filter Filtering status
+     * @return mixed
+     */
+    public function filterByStatus(?string $filter): mixed;
+}

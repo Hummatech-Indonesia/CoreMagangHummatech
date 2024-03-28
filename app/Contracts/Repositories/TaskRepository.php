@@ -1,9 +1,7 @@
 <?php
 namespace App\Contracts\Repositories;
 
-use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\TaskInterface;
-use App\Models\Student;
 use App\Models\Task;
 
 class TaskRepository extends BaseRepository implements TaskInterface
@@ -11,6 +9,14 @@ class TaskRepository extends BaseRepository implements TaskInterface
     public function __construct(Task $task)
     {
         $this->model = $task;
+    }
+    public function filterByStatus(?string $id): mixed
+    {
+        return $this->model->query()->when($id, function($q) use ($id) {
+            return $q->whereHas('submissions', function($query) use ($id) {
+                $query->where('status', $id);
+            });
+        });
     }
 
     public function getId(int $id): mixed

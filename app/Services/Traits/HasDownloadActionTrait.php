@@ -19,7 +19,7 @@ trait HasDownloadActionTrait
         $userName = auth()->user()->name;
         $currentDate = now()->format('d-m-Y_H-i-s');
 
-        $fullDownloadName = "{$currentDate}_{$userName}_{$courseTitle}_{$subCourseName}_{$filename}";
+        $fullDownloadName = "{$currentDate}_{$userName}_{$courseTitle}_{$subCourseName}";
 
         if ($extension) {
             $fullDownloadName .= ".$extension";

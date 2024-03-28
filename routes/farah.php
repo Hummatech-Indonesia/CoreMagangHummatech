@@ -37,15 +37,15 @@ Route::get('siswa-online/materi/detail/pelajari', function() {
     return view('student_online.course.learn-more');
 });
 
-Route::get('siswa-online/tugas', function() {
-    return view('student_online.task.index');
-});
-Route::get('siswa-online/tugas/detail', function() {
-    return view('student_online.task.detail');
-});
-Route::get('siswa-online/tugas/detail/detail-jawaban', function() {
-    return view('student_online.task.answer-detail');
-});
+// Route::get('siswa-online/tugas', function() {
+//     return view('student_online.task.index');
+// });
+// Route::get('siswa-online/tugas/detail', function() {
+//     return view('student_online.task.detail');
+// });
+// Route::get('siswa-online/tugas/detail/detail-jawaban', function() {
+//     return view('student_online.task.answer-detail');
+// });
 
 Route::get('top-up', function() {
     return view('admin.page.approval.top-up');

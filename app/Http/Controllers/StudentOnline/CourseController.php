@@ -29,10 +29,10 @@ class CourseController extends Controller
 
     public function detail(Course $course, Request $request)
     {
-        $subCourses = $course->subCourse
+        $subCourses = $course->subCourse()
             ->when($request->search, function ($query) use ($request) {
-                $query->where('title', 'LIKE', '%' . $request->search . '%');
-            });
+                $query->where('title', 'LIKE', '%' . $request->get('search') . '%');
+            })->paginate(10);
         return view('student_online.course.detail' , compact('course', 'subCourses'));
     }
 
