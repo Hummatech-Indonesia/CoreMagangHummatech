@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use App\Models\Logo;
 use App\Models\Sale;
 use App\Models\Team;
-use App\Enum\TypeEnum ;
+use App\Enum\TypeEnum;
 use App\Models\Journal;
 use App\Models\Product;
 use App\Models\Service;
@@ -60,16 +60,11 @@ class JournalService
     {
         $data = $request->validated();
 
-        $currentDate = Carbon::now()->locale('id_ID')->setTimezone('Asia/Jakarta')->isoFormat('HH:mm:ss');
-        if ($currentDate < '16:00:00' && $currentDate > '00:00:00') {
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $data['image'] = $request->file('image')->store(TypeEnum::JOURNAL->value, 'public');
             return $data;
-        } else{
-            if ($request->hasFile('image') && $request->file('image')->isValid()) {
-                $data['image'] = $request->file('image')->store(TypeEnum::JOURNAL->value, 'public');
-                return $data;
-            }
-            return false;
         }
+        return false;
     }
 
     /**
