@@ -232,16 +232,16 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#siswaOnline" data-bs-toggle="collapse" role="button"
-                        aria-expanded="{{ request()->is('pengiriman-surat*') ? 'true' : 'false' }}"
+                        aria-expanded="{{ request()->is('online-student/menotor-placement*') ? 'true' : 'false' }}"
                         aria-controls="siswaOnline">
                         <i class="ri-user-line"></i> <span data-key="t-surat">Siswa Online</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ request()->is('pengiriman-surat*') ? 'show' : '' }}"
+                    <div class="collapse menu-dropdown {{ request()->is('online-student/menotor-placement*') ? 'show' : '' }}"
                         id="siswaOnline">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ url('/online-student/menotor-placement') }}"
-                                    class="nav-link {{ request()->is('pengiriman-surat*') ? 'active' : '' }}"
+                                    class="nav-link {{ request()->is('online-student/menotor-placement*') ? 'active' : '' }}"
                                     data-key="t-chat">
                                     Penetapan Mentor </a>
                             </li>

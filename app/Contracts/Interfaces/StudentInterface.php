@@ -62,5 +62,29 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
 
      public function getstudentmentorplacement(mixed $id): mixed;
 
+     /**
+      * Get Student Except Auth
+      */
     public function getstudentexceptauth(mixed $id): mixed;
+
+    /**
+     * Get Student Division Placement
+     */
+    public function getstudentdivisionplacement(): mixed;
+
+    /**
+     * Pluck  collumn
+     */
+    public function pluck(mixed $column): mixed;
+
+    /**
+     * Get Edit Student Mentor Placement
+     */
+    public function geteditstudentmentorplacement(mixed $id): mixed;
+
+    /**
+     * Get Edit Student Division Placement
+     */
+    public function getstudentdivisionplacementedit(): mixed;
+
 }

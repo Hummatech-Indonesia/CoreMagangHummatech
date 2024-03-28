@@ -36,7 +36,7 @@ class MentorStudentRepository extends BaseRepository implements MentorStudentInt
 
     public function delete(mixed $id): mixed
     {
-        return $this->model->query()->where('id', $id)->delete();
+        return $this->model->query()->where('student_id', $id)->delete();
     }
 
     public function pluck($column)
