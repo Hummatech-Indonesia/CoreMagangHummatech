@@ -27,9 +27,15 @@ class TaskSubmissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $tasks = $this->task
+                        ->filterByStatus($request->get('status'))
+                        ->when($request->get('search'), function($query) use ($request) {
+                            $query->where('title', 'like', '%'.$request->get('search').'%');
+                        })
+                        ->paginate(20);
+        return view('student_online.task.index', compact('tasks'));
     }
 
     /**

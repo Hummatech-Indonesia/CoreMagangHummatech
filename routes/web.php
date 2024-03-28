@@ -108,10 +108,10 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
     })->name('.class.division');
 
     Route::get('journal', [JournalController::class, 'index'])->name('.journal.index');
-})->middleware("roles:siswa-offline", 'auth');
+})->middleware(["roles:siswa-offline", 'auth']);
 
 # ================================================ Online Student Route Group =================================================
-Route::prefix('siswa-online')->middleware('roles:siswa-online', 'auth')->name(RolesEnum::ONLINE->value)->group(function () {
+Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(RolesEnum::ONLINE->value)->group(function () {
     Route::get('/', [StudentOnlineController::class, 'index'])->name('.home');
 
     Route::controller(CourseController::class)->group(function() {
@@ -121,6 +121,7 @@ Route::prefix('siswa-online')->middleware('roles:siswa-online', 'auth')->name(Ro
     });
 
     Route::controller(TaskSubmissionController::class)->name('.tasksubmit')->prefix('/tugas')->group(function() {
+        Route::get('/', 'index')->name('.index');
         Route::get('/{task}', 'create')->name('.detail');
         Route::get('/{task}/download/{taskSubmission}', 'download')->name('.download');
         Route::post('/submit', 'store')->name('.submit');
