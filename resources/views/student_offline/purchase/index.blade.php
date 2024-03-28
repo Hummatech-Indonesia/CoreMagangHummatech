@@ -73,9 +73,14 @@
                                     <p class="text-mute">
                                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda inventore molestias necessitatibus nisi.
                                     </p>
-                                    <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-primary w-100">
-                                        Beli Sekarang
-                                    </a>
+                                    <div class="d-flex">
+                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-rounded btn-outline-primary w-100">
+                                            Lihat Detail
+                                        </a>
+                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-primary w-100 mx-2">
+                                            Beli Sekarang
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -105,9 +110,14 @@
                                     <p class="text-mute">
                                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda inventore molestias necessitatibus nisi.
                                     </p>
-                                    <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#add">
-                                        Beli Sekarang
-                                    </button>
+                                    <div class="d-flex">
+                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-rounded btn-outline-primary w-100">
+                                            Lihat Detail
+                                        </a>
+                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-primary w-100 mx-2">
+                                            Beli Sekarang
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

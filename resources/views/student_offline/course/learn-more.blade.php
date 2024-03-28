@@ -182,7 +182,9 @@
                                 <img class="img-responsive w-100" src="{{ asset('storage/' .$course->image) }}"/>
                             </div>
                             <div class="col-lg-9 px-3">
-                                <h6 class="m-0">{{$course->title}}</h6>
+                                <a href="/siswa-offline/course/detail/{{ $course->id }}" style="font-size: 15px" class="text-dark">
+                                    {{$course->title}}
+                                </a>
                                 <p style="font-size: 12px">{{ Str::limit($course->description, 60) }}</p>
                             </div>
                         </div>
