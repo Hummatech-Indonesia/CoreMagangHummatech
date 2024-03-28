@@ -30,9 +30,10 @@ class StudentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function Openbanned(Student $student)
     {
-        //
+        $this->student->update($student->id, ['status' => 'accepted']);
+        return redirect()->back()->with(['success' => 'Pengguna Berhasil Di Unbaned']);
     }
 
     /**

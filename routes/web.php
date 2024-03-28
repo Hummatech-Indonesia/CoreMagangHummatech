@@ -90,6 +90,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::delete('menu-siswa/delete/{student}', [AdminStudentController::class, 'destroy'])->name('student.delete');
     Route::put('menu-siswa/banned/{student}', [AdminStudentController::class, 'banned'])->name('student.banned');
     Route::put('menu-siswa/division-change/{student}', [AdminStudentController::class, 'divisionchange'])->name('student.divisionchange');
+    Route::put('students-banned/Open/{student}', [StudentController::class, 'Openbanned'])->name('students.banned.open');
 
     #Limit
     Route::post('limit', [LimitsController::class, 'store'])->name('limit.store');
@@ -99,6 +100,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('online-student/menotor-placement', [MentorPlacementController::class, 'index'])->name('placement.index');
     Route::post('online-student/menotor-placement/post/{student}', [MentorPlacementController::class, 'store'])->name('placement.update');
     Route::put('online-student/menotor-placement/edit/{student}', [MentorPlacementController::class, 'update'])->name('placement.delete');
+
 });
 
 # ================================================ Offline Student Route Group ================================================
