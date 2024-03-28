@@ -24,7 +24,7 @@ class StoreTaskSubmissionRequest extends FormRequest
         return [
             'task_id' => 'required|exists:tasks,id',
             'user_id' => 'required|exists:users,id',
-            'file' => 'mimes:pdf,doc,docx|max:8196',
+            'file' => 'mimes:zip|max:8196',
         ];
     }
 }
