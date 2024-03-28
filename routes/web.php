@@ -97,7 +97,8 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
 
     # Mentor Placement
     Route::get('online-student/menotor-placement', [MentorPlacementController::class, 'index'])->name('placement.index');
-    Route::put('online-student/menotor-placement/update/{student}', [MentorPlacementController::class, 'update'])->name('placement.update');
+    Route::post('online-student/menotor-placement/post/{student}', [MentorPlacementController::class, 'store'])->name('placement.update');
+    Route::put('online-student/menotor-placement/edit/{student}', [MentorPlacementController::class, 'update'])->name('placement.delete');
 });
 
 # ================================================ Offline Student Route Group ================================================

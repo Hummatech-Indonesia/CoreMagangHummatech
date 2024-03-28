@@ -9,6 +9,7 @@ use App\Services\Traits\UploadTrait;
 use App\Contracts\Interfaces\MentorInterface;
 use App\Http\Requests\UpdateMentorStudentRequest;
 use App\Contracts\Interfaces\MentorDivisionInterface;
+use App\Contracts\Interfaces\MentorStudentInterface;
 
 class MentorStudentService
 {
@@ -16,10 +17,12 @@ class MentorStudentService
 
     private MentorInterface $mentor;
     private MentorDivisionInterface $mentorDivision;
+    private MentorStudentInterface $mentorStudent;
 
-    public function __construct(MentorInterface $mentor, MentorDivisionInterface $mentorDivision)
+    public function __construct(MentorInterface $mentor, MentorDivisionInterface $mentorDivision, MentorStudentInterface $mentorStudent)
     {
         $this->mentor = $mentor;
+        $this->mentorStudent = $mentorStudent;
         $this->mentorDivision = $mentorDivision;
     }
 
@@ -49,9 +52,23 @@ class MentorStudentService
      *
      * @return array|bool
      */
+    public function store(Student $student, UpdateMentorStudentRequest $request): array|bool
+    {
+        $data = $request->validated();
+
+        $newData = [
+            'student_id' => $student->id,
+            'mentor_id' => $data['mentor_id'],
+        ];
+
+        return $newData;
+    }
     public function update(Student $student, UpdateMentorStudentRequest $request): array|bool
     {
         $data = $request->validated();
+
+
+        $this->mentorStudent->delete($student->id);
 
         $newData = [
             'student_id' => $student->id,

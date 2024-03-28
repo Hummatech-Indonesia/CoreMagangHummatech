@@ -2,24 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Contracts\Interfaces\DivisionInterface;
-use App\Contracts\Interfaces\StudentInterface;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateStudentRequest;
+use App\Contracts\Interfaces\StudentInterface;
+use App\Contracts\Interfaces\DivisionInterface;
+use App\Contracts\Interfaces\MentorStudentInterface;
 
 class DivisionPlacementController extends Controller
 {
     private StudentInterface $student;
     private DivisionInterface $division;
+    private MentorStudentInterface $mentorStudent;
 
     /**
      * Create a new controller instance.
      */
-    public function __construct(StudentInterface $student, DivisionInterface $division)
+    public function __construct(StudentInterface $student, DivisionInterface $division, MentorStudentInterface $mentorStudent)
     {
         $this->student = $student;
+        $this->mentorStudent = $mentorStudent;
         $this->division = $division;
     }
 
@@ -28,7 +31,8 @@ class DivisionPlacementController extends Controller
      */
     public function index()
     {
-        $studentOfflines = $this->student->listStudentOffline();
+        $studentid = $this->student->pluck('id')->toArray();
+        $studentOfflines = $this->student->getstudentdivisionplacement($studentid);
         $divisions = $this->division->get();
         return view('admin.page.offline-students.division-placement', compact('studentOfflines', 'divisions'));
     }

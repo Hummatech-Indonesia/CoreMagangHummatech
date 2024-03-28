@@ -120,4 +120,19 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query()->where('id', '!=', $id)->get();
     }
 
+    public function getstudentdivisionplacement(mixed $id): mixed
+    {
+        return $this->model->query()->where('internship_type', InternshipTypeEnum::OFFLINE->value)->where('division_id', null)->where('status', 'accepted')->whereNotIn('id', $id)->get();
+    }
+
+    public function  pluck($column)
+    {
+        return $this->model->query()->pluck($column);
+    }
+
+    public function geteditstudentmentorplacement(mixed $id): mixed
+    {
+        return $this->model->query()->where('internship_type', InternshipTypeEnum::ONLINE->value)->where('status', 'accepted')->whereIn('id', $id)->get();
+    }
+
 }
