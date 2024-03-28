@@ -32,7 +32,7 @@ use App\Http\Controllers\TaskSubmissionController;
 
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing.index');
 })->name('home');
 
 # ================================================ Authentication Routes Group ================================================
@@ -120,7 +120,7 @@ Route::prefix('siswa-online')->middleware('roles:siswa-online', 'auth')->name(Ro
         Route::get('/materi/{course}/course/{subCourse}', 'subCourseDetail')->name('.course.subcourse');
     });
 
-    Route::controller(TaskSubmissionController::class)->name('.tasksubmit')->prefix('/task')->group(function() {
+    Route::controller(TaskSubmissionController::class)->name('.tasksubmit')->prefix('/tugas')->group(function() {
         Route::get('/{task}', 'create')->name('.detail');
         Route::get('/{task}/download/{taskSubmission}', 'download')->name('.download');
         Route::post('/submit', 'store')->name('.submit');

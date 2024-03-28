@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\SubCourseInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\SubCourse;
+use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
@@ -20,15 +21,19 @@ class CourseController extends Controller
         $this->course = $course;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $courses = $this->course->GetWhere(auth()->user()->student->division_id);
         return view('student_online.course.index' , compact('courses'));
     }
 
-    public function detail(Course $course)
+    public function detail(Course $course, Request $request)
     {
-        return view('student_online.course.detail' , compact('course'));
+        $subCourses = $course->subCourse
+            ->when($request->search, function ($query) use ($request) {
+                $query->where('title', 'LIKE', '%' . $request->search . '%');
+            });
+        return view('student_online.course.detail' , compact('course', 'subCourses'));
     }
 
     public function subCourseDetail(Course $course, SubCourse $subCourse)
