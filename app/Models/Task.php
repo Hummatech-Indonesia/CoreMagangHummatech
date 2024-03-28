@@ -54,4 +54,14 @@ class Task extends Model
             default => TaskLevelEnum::NORMAL,
         };
     }
+
+    /**
+     * Get all of the studentTasks for the Task
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function studentTasks(): HasMany
+    {
+        return $this->hasMany(StudentTask::class);
+    }
 }

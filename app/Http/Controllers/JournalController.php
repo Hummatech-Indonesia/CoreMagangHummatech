@@ -35,7 +35,6 @@ class JournalController extends Controller
         $this->service = $service;
         $this->letterheads = $letterheads;
         $this->signature = $signature;
-
     }
 
     /**
@@ -60,9 +59,10 @@ class JournalController extends Controller
      */
     public function store(StoreJournalRequest $request)
     {
+
         $currentDate = Carbon::now()->locale('id_ID')->setTimezone('Asia/Jakarta')->isoFormat('HH:mm:ss');
-        if ($currentDate < '16:00:00' && $currentDate > '00:00:00') {
-            return redirect()->back()->with('error', 'Anda hanya dapat mengisi jurnal di jam 16.00 - 00.00');
+        if ($currentDate < '16:00:00' && $currentDate > '23:59:00') {
+            return redirect()->back()->with('error', 'Waktu pengumpulan adalah jam 4 sore sampai 12 malam');
         } else {
             $existingData = $this->journal->where();
 
@@ -79,7 +79,7 @@ class JournalController extends Controller
         }
     }
 
-    /**
+    /**f
      * Display the specified resource.
      */
     public function show(Journal $journal)
@@ -133,49 +133,49 @@ class JournalController extends Controller
             return \Carbon\Carbon::parse($date->created_at)->format('Y-m');
         });
         $dompdf = new Dompdf();
-            $options = new Options();
-            $options->set('isHtml5ParserEnabled', true);
-            $options->set('isPhpEnabled', true);
-            $options->set('isRemoteEnabled', true);
-            $dompdf->setOptions($options);
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $dompdf->setOptions($options);
 
-            $combinedHtml = '';
-            $dataadmin = $this->dataadmin->get();
-            // Loop through months and append HTML to the combined HTML string
-            foreach ($months as $month => $jurnals) {
-                $signature = $this->signature->store([
-                    'qr' => '', // Placeholder untuk QR code, akan diperbarui nanti
-                    'data_admin_id' => $dataadmin->id
-                ]);
+        $combinedHtml = '';
+        $dataadmin = $this->dataadmin->get();
+        // Loop through months and append HTML to the combined HTML string
+        foreach ($months as $month => $jurnals) {
+            $signature = $this->signature->store([
+                'qr' => '', // Placeholder untuk QR code, akan diperbarui nanti
+                'data_admin_id' => $dataadmin->id
+            ]);
 
-                $qrCode = QrCode::size(100)->generate(url('/data-qr/' . $signature->id)); // Mengarahkan ke ID signature yang baru saja dibuat
-                $qrCodeImage = 'data:image/png;base64,' . base64_encode($qrCode);
+            $qrCode = QrCode::size(100)->generate(url('/data-qr/' . $signature->id)); // Mengarahkan ke ID signature yang baru saja dibuat
+            $qrCodeImage = 'data:image/png;base64,' . base64_encode($qrCode);
 
-                $signature->qr = $qrCodeImage; // Memperbarui kolom qr dengan QR code yang baru dibuat
-                $signature->save();
+            $signature->qr = $qrCodeImage; // Memperbarui kolom qr dengan QR code yang baru dibuat
+            $signature->save();
 
-                $html = view('desain_pdf.jurnal', [
-                    'data' => $jurnals,
-                    'months' => $month,
-                    'letterheads' => $header,
-                    'datadiri' => $datastudent,
-                    'qrCodeImage' => $qrCodeImage
-                ])->render();
-                $combinedHtml .= $html;
-            }
+            $html = view('desain_pdf.jurnal', [
+                'data' => $jurnals,
+                'months' => $month,
+                'letterheads' => $header,
+                'datadiri' => $datastudent,
+                'qrCodeImage' => $qrCodeImage
+            ])->render();
+            $combinedHtml .= $html;
+        }
 
-            $dompdf->loadHtml($combinedHtml);
-            $dompdf->setPaper('A4', 'portrait');
-            $dompdf->render();
+        $dompdf->loadHtml($combinedHtml);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
 
-            $output = $dompdf->output();
+        $output = $dompdf->output();
 
-            // Set header for PDF download
-            $headers = [
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="jurnal.pdf"'
-            ];
+        // Set header for PDF download
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="jurnal.pdf"'
+        ];
 
-            return response($output, 200, $headers);
+        return response($output, 200, $headers);
     }
 }

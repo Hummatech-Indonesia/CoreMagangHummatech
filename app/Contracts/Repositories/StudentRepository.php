@@ -8,6 +8,12 @@ use App\Models\Student;
 
 class StudentRepository extends BaseRepository implements StudentInterface
 {
+    /**
+     * __construct
+     *
+     * @param  mixed $student
+     * @return void
+     */
     public function __construct(Student $student)
     {
         $this->model = $student;
@@ -48,23 +54,66 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->firstOrFail();
     }
 
+    /**
+     * Get Data
+     *
+     * @return mixed
+     */
     public function get(): mixed
     {
         return $this->model->query()->get();
     }
+
+    /**
+     * Store data to database
+     *
+     * @param  array $data
+     * @return mixed
+     */
     public function store(array $data): mixed
     {
         return $this->model->query()->create($data);
     }
+
+    /**
+     * Show data Into Database
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function show(mixed $id): mixed
+    {
+        return $this->model->query()->findOrFail($id);
+    }
+
+    /**
+     * Update data to database
+     *
+     * @param  mixed $id
+     * @param  array $data
+     * @return mixed
+     */
     public function update(mixed $id, array $data): mixed
     {
         return $this->model->query()->findOrFail($id)->update($data);
     }
+
+    /**
+     * Delete data to database
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
     public function delete(mixed $id): mixed
     {
         return $this->model->query()->findOrFail($id)->delete($id);
     }
 
+    /**
+     * Where Status Accepted
+     *
+     * @return mixed
+     */
     public function where(): mixed
     {
         return $this->model->query()
@@ -73,6 +122,22 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->get();
     }
 
+    /**
+     * Pluck Collumn From Database
+     *
+     * @param  mixed $column
+     * @return mixed
+     */
+    public function  pluck(mixed $column): mixed
+    {
+        return $this->model->query()->pluck($column);
+    }
+
+    /**
+     * List All Student
+     *
+     * @return mixed
+     */
     public function listStudent(): mixed
     {
         return $this->model->query()
@@ -80,44 +145,137 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->get();
     }
 
-    public function show(mixed $id): mixed
-    {
-        return $this->model->query()->findOrFail($id);
-    }
-
+    /**
+     * Show Student To Warning Letter
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
     public function sp(mixed $id): mixed
     {
-        return $this->model->query()->where('id', $id)->firstOrFail();
+        return $this->model->query()
+        ->where('id', $id)
+        ->firstOrFail();
     }
 
+    /**
+     * Count Student Offline
+     *
+     * @return mixed
+     */
     public function countStudentOffline(): mixed
     {
-        return $this->model->query()->where('internship_type', InternshipTypeEnum::OFFLINE->value)->where('status', 'accepted')->count();
+        return $this->model->query()
+        ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
+        ->where('status', 'accepted')
+        ->count();
     }
 
+    /**
+     * List Student Offline
+     *
+     * @return mixed
+     */
     public function listStudentOffline(): mixed
     {
-        return $this->model->query()->where('internship_type', InternshipTypeEnum::OFFLINE->value)->where('status', 'accepted')->get();
+        return $this->model->query()
+        ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
+        ->where('status', 'accepted')
+        ->get();
     }
 
+    /**
+     * List Student Online
+     *
+     * @return mixed
+     */
     public function listStudentOnline(): mixed
     {
-        return $this->model->query()->where('internship_type', InternshipTypeEnum::ONLINE->value)->where('status', 'accepted')->get();
+        return $this->model->query()
+        ->where('internship_type', InternshipTypeEnum::ONLINE->value)
+        ->where('status', 'accepted')
+        ->get();
     }
 
+    /**
+     * Get Student By Status Banned
+     *
+     * @return mixed
+     */
     public function getstudentbanned(): mixed
     {
-        return $this->model->query()->where('status' , 'banned')->get();
+        return $this->model->query()
+        ->where('status', 'banned')
+        ->get();
     }
 
+    /**
+     * Get Student By Status Accepted
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
     public function getstudentmentorplacement(mixed $id): mixed
     {
-        return $this->model->query()->where('internship_type', InternshipTypeEnum::ONLINE->value)->where('status', 'accepted')->whereNotIn('id', $id)->get();
+        return $this->model->query()
+        ->where('internship_type', InternshipTypeEnum::ONLINE->value)
+        ->where('status', 'accepted')
+        ->whereNotIn('id', $id)
+        ->get();
     }
 
+    /**
+     * Get Student By Status Accepted
+     *
+     * @param  mixed $id
+     */
     public function getstudentexceptauth(mixed $id): mixed
     {
-        return $this->model->query()->where('id', '!=', $id)->get();
+        return $this->model->query()
+        ->where('id', '!=', $id)
+        ->get();
     }
 
+    /**
+     * Get Student for Division Placement
+     *
+     * @return mixed
+     */
+    public function getstudentdivisionplacement(): mixed
+    {
+        return $this->model->query()
+        ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
+        ->where('status', 'accepted')
+        ->where('division_id', null)
+        ->get();
+    }
+
+    /**
+     * Get Edit Student Mentor Placement
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function geteditstudentmentorplacement(mixed $id): mixed
+    {
+        return $this->model->query()
+        ->where('internship_type', InternshipTypeEnum::ONLINE->value)
+        ->where('status', 'accepted')
+        ->whereIn('id', $id)
+        ->get();
+    }
+
+    /**
+     * Get Edit Student Division Placement
+     *
+     * @return mixed
+     */
+    public function getstudentdivisionplacementedit(): mixed
+    {
+        return $this->model->query()
+            ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
+            ->where('status', 'accepted')
+            ->where('division_id', '!=', null)
+            ->get();
+    }
 }

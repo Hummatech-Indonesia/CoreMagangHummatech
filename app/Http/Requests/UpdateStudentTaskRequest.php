@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTaskSubmissionRequest extends FormRequest
+class UpdateStudentTaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,7 @@ class StoreTaskSubmissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'task_id' => 'required|exists:tasks,id',
-            'user_id' => 'required|exists:users,id',
-            'file' => 'mimes:zip|max:8196',
+            //
         ];
     }
 }

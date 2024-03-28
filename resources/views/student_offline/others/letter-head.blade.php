@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-12">
                         <label for="" class="text-dark fw-bold">Logo</label>
-                        <input type="file" class="form-control" name="" id="">
+                        <input type="file" class="form-control" name="logo" id="">
                         <div class="w-25">
                             <img src="{{ $letterheads == null ? asset('logopkldark.png') : asset('storage/' . $letterheads->logo) }}"
                                 class="w-50" alt="">

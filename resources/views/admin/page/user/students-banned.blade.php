@@ -56,7 +56,11 @@
                                 <td>OFFLINE</td>
                                 @endif
                                 <td class="text-center">
-                                    <button class="btn btn-info shadow-none">Buka Banned</button>
+                                    <form action="students-banned/Open/{{ $student->id }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('PUT')
+                                        <button class="btn btn-info shadow-none">Buka Banned</button>
+                                    </form>
                                 </td>
                             </tr>
                             @empty

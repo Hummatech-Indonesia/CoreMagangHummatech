@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Admin\PicketController;
 use App\Http\Controllers\Admin\AdminJournalController;
+use App\Http\Controllers\Admin\PicketingReportController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentOfline\CourseOfflineController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StudentOfline\PicketOfflineController;
 use App\Http\Controllers\SubCourseController;
 use App\Http\Controllers\SubCourseOfflineController;
 use App\Http\Controllers\TaskController;
@@ -57,15 +59,6 @@ Route::get('student', function (){
 Route::get('siswa-offline/absensi', function (){
     return view('student_offline.absensi.index');
 });
-// Route::get('/siswa-offline/course', function (){
-//     return view('student_offline.course.index');
-// });
-// Route::get('/siswa-offline/course/detail', function (){
-//     return view('student_offline.course.detail');
-// });
-// Route::get('/siswa-offline/course/detail/learn-more', function (){
-//     return view('student_offline.course.learn-more');
-// });
 
 Route::get('/siswa-offline/course',[CourseOfflineController::class,'index']);
 Route::get('/siswa-offline/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('materi.detail');
@@ -83,9 +76,11 @@ Route::get('siswa-offline/transaction/history', function (){
 Route::get('siswa-offline/others/rules', function (){
     return view('student_offline.others.rules');
 });
-Route::get('siswa-offline/others/picket', function (){
-    return view('student_offline.others.picket');
-});
+
+Route::get('siswa-offline/others/picket',[PicketOfflineController::class,'index']);
+// Route::post('report-picket/store', [PicketingReportController::class, 'store'])->name('report-picket.store');
+
+
 // Route::get('c', function (){
 //     return view('student_offline.others.student');
 // });
@@ -94,6 +89,9 @@ Route::get('siswa-offline/purchase', function (){
 });
 Route::get('siswa-offline/purchase/detail', function (){
     return view('student_offline.purchase.detail');
+});
+Route::get('siswa-offline/certificate', function (){
+    return view('student_offline.certificate.index');
 });
 
 
