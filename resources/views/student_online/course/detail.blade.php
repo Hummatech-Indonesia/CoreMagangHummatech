@@ -127,6 +127,8 @@
                 </div>
             </div>
         @endforelse
+
+        {{ $subCourses->links() }}
     </section>
 @endsection
 @section('script')

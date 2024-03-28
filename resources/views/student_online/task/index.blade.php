@@ -25,7 +25,20 @@
     <div class="card my-4 py-3">
         <div class="row g-2 px-4">
             <div class="d-flex g-2 justify-content-between">
-                <ul class="nav nav-tabs gap-2" role="tablist">
+                <div class="dropdown d-lg-none">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="icon icon-tabler icon-tabler-menu-2">
+                            <path d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="{{ route('siswa-online.tasksubmit.index') }}">Tugas</a></li>
+                    </ul>
+                </div>
+                <ul class="nav nav-tabs gap-2 d-none d-md-none d-lg-flex" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link d-flex {{ !request()->get('status') ? 'active' : '' }}"
                             href="{{ route('siswa-online.tasksubmit.index') }}">
