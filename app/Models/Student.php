@@ -41,18 +41,19 @@ class Student extends Model implements HasAttendances
     {
         return $this->belongsTo(Division::class);
     }
-    /**
-     * Get all of the taskAnswers for the Student
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function taskAnswers(): HasMany
-    {
-        return $this->hasMany(TaskAnswer::class);
-    }
 
     public function mentorstudent()
     {
         return $this->hasMany(MentorStudent::class);
+    }
+
+    /**
+     * Get all of the studentTasks for the Task
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function studentTasks(): HasMany
+    {
+        return $this->hasMany(StudentTask::class);
     }
 }
