@@ -2,7 +2,7 @@
 @section('content')
     <div class="th-hero-wrapper hero-1" id="hero">
         <div class="hero-img tilt-active"><img src="assets_landing/img/hero/hero_img_1_1.png" alt="Hero Image"></div>
-        <div class="container">
+    <div class="container">
             <div class="hero-style1"><span class="hero-subtitle">Solusi meningkatkan skill</span>
                 <h1 class="hero-title">Membentuk Masa Depan</h1>
                 <h1 class="hero-title"><span class="text-theme fw-medium">Pkl Di Hummatech</span></h1>
