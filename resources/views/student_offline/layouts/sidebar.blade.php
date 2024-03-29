@@ -13,6 +13,32 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="init">
             <ul id="sidebarnav">
+                <li class="nav-item mb-0 mt-2">
+                    <a href="/dashboard/task">
+                        <div class="myElement py-2 px-3 rounded gradient-bg">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex  gap-2">
+                                    <div class="">
+                                        <svg  width="35" height="35" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="18.5" cy="18.5" r="18.5" fill="#5D87FF" />
+                                            <path d="M10 11H28M11 11V21C11 21.5304 11.2107 22.0391 11.5858 22.4142C11.9609 22.7893 12.4696 23 13 23H25C25.5304 23 26.0391 22.7893 26.4142 22.4142C26.7893 22.0391 27 21.5304 27 21V11M19 23V27M16 27H22M15 19L18 16L20 18L23 15" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </div>
+                                    <div class="mt-2">
+                                        <span class="hide-menu">Presentasi</span>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 12H19M19 12L15 16M19 12L15 8" stroke="#2A3547" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
                 <!-- ============================= -->
                 <!-- Home -->
                 <!-- ============================= -->
@@ -69,6 +95,14 @@
                             <i class="ti ti-chart-area-line"></i>
                         </span>
                         <span class="hide-menu">Tantangan</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ url('siswa-offline/certificate') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-file-certificate"></i>
+                        </span>
+                        <span class="hide-menu">Sertifikat</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
