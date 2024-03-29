@@ -14,8 +14,8 @@
             </div>
         </div>
         <div class="hero-shape1"><img src="assets_landing/img/hero/hero_shape_1_1.svg" alt="shape"></div>
-        <div class="hero-shape2"><img src="assets_landing_landing/img/hero/hero_shape_1_2.svg" alt="shape"></div>
-        <div class="hero-shape3"><img src="assets_landing_landing/img/hero/hero_shape_1_3.svg" alt="shape"></div>
+        <div class="hero-shape2"><img src="assets_landing/img/hero/hero_shape_1_2.svg" alt="shape"></div>
+        <div class="hero-shape3"><img src="assets_landing/img/hero/hero_shape_1_3.svg" alt="shape"></div>
     </div>
     {{-- <section class="about-sec-v4 space-bottom">
         <div class="container">
