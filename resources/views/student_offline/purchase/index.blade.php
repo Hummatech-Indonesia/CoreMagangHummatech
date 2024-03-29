@@ -34,7 +34,7 @@
               <span class="d-none d-md-block font-weight-medium">Riwayat Pembelian</span>
             </a>
           </li>
-          <li class="nav-item ms-auto">
+          <li class="nav-item ms-auto ">
             <form action="">
                 <div class="d-flex">
                     <div class="search-box mx-2">
@@ -47,6 +47,7 @@
             </form>
           </li>
         </ul>
+
         <div class="tab-content">
 
             <div class="tab-pane active" id="task" role="tabpanel">
@@ -74,10 +75,10 @@
                                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda inventore molestias necessitatibus nisi.
                                     </p>
                                     <div class="d-flex">
-                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-rounded btn-outline-primary w-100">
+                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-sm btn-rounded btn-outline-primary w-100">
                                             Lihat Detail
                                         </a>
-                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-primary w-100 mx-2">
+                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-sm btn-primary w-100 mx-2">
                                             Beli Sekarang
                                         </a>
                                     </div>
@@ -111,10 +112,10 @@
                                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda inventore molestias necessitatibus nisi.
                                     </p>
                                     <div class="d-flex">
-                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-rounded btn-outline-primary w-100">
+                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-sm btn-rounded btn-outline-primary w-100">
                                             Lihat Detail
                                         </a>
-                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-primary w-100 mx-2">
+                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-sm btn-primary w-100 mx-2">
                                             Beli Sekarang
                                         </a>
                                     </div>
@@ -263,23 +264,7 @@
         </div>
       </div> --}}
 
-    {{-- <div class="row g-2 mb-4">
-        <div class="col-sm-4">
-            <h4 class="mx-1">Tugas</h4>
-        </div>
-        <div class="col-sm-auto ms-auto">
-            <form action="">
-                <div class="d-flex">
-                    <div class="search-box mx-2">
-                        <input type="text" class="form-control search-chat py-2" id="text-srh" placeholder="Cari Materi">
-                    </div>
-                    <button class="btn btn-primary">
-                        Cari
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div> --}}
+
 
 
 

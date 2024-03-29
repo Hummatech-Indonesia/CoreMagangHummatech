@@ -6,19 +6,18 @@
                 <div class="card-body position-relative">
                     <div class="row">
                         <div class="col-sm-7">
-                            <div class="d-flex align-items-center mb-7">
-                                <div class="rounded-circle overflow-hidden me-6">
-                                    <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt=""
-                                        width="40" height="40">
+                            <div class="d-flex align-items-center mb-7 flex-column flex-sm-row">
+                                <div class="d-flex align-items-center justify-content-center overflow-hidden me-sm-6 mb-3 mb-sm-0" style="width: 40px; height: 40px;">
+                                    <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt="" class="img-fluid rounded-circle" style="object-fit: cover;">
                                 </div>
-                                <h5 class="fw-semibold mb-0 fs-5">Selamat Datang &nbsp;&nbsp; {{ auth()->user()->name }}!</h5>
-                                <button class="btn btn-primary mx-3">Isi Saldo</button>
+                                <h5 class="fw-semibold mb-3 mb-sm-0 fs-5 text-center text-sm-start">Selamat Datang &nbsp; {{ auth()->user()->name }}!</h5>
+                                <button class="btn btn-primary btn-sm mt-3 w-10 mt-sm-0 ms-sm-3">Isi Saldo</button>
                             </div>
                             <div class="d-flex align-items-center">
                                 <div class="border-end pe-4 border-muted border-opacity-10">
-                                    {{-- <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">Divisi {{ auth()->user()->student->division->name }}</h3> --}}
-                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center mb-3">Rp.1200.500.00
-                                        <span></span>
+                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center mb-3">
+                                        Rp.1200.500.00
+                                        <i class="ti ti-trending-up fs-6 mt-1 mx-2 text-success"></i>
                                     </h3>
                                     <h6>Saldo anda saat ini</h6>
                                 </div>
@@ -72,10 +71,15 @@
                 </div>
             </div>
         </div>
+
+        
+
     </div>
 @endsection
 @section('script')
 <script src="{{ asset('assets-user/dist/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
 <script src="{{ asset('assets-user/dist/js/dashboard2.js') }}"></script>
+<script>
 
+</script>
 @endsection
