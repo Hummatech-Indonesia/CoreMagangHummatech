@@ -429,7 +429,7 @@
                                     <li class="unavailable"><i class="fas fa-circle-check"></i> Synced To Cloud Database
                                     </li>
                                 </ul>
-                            </div><a href="pricing.html" class="th-btn">PURCHASE NOW<i
+                            </div><a href="javascript:void(0)" class="th-btn">PURCHASE NOW<i
                                     class="fa-regular fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
@@ -454,7 +454,7 @@
                                     <li class="unavailable"><i class="fas fa-circle-check"></i> Synced To Cloud Database
                                     </li>
                                 </ul>
-                            </div><a href="pricing.html" class="th-btn">PURCHASE NOW<i
+                            </div><a href="javascript:void(0)" class="th-btn">PURCHASE NOW<i
                                     class="fa-regular fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
@@ -478,7 +478,7 @@
                                     <li><i class="fas fa-circle-check"></i> Data backup and recovery</li>
                                     <li><i class="fas fa-circle-check"></i> Synced To Cloud Database</li>
                                 </ul>
-                            </div><a href="pricing.html" class="th-btn">PURCHASE NOW<i
+                            </div><a href="javascript:void(0)" class="th-btn">PURCHASE NOW<i
                                     class="fa-regular fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>
