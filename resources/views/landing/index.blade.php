@@ -253,7 +253,7 @@
                             data-mask-src="assets/img/theme-img/title_shape_2.svg"></span> <img
                             src="assets_landing/img/theme-img/title_shape_2.svg" alt="shape"></div>Team Kami
                 </span>
-                <h2 class="sec-title">Lihat Tim Ahli Terampil<span class="text-theme">&nbsp; Kami</span></h2>
+                <h2 class="sec-title">Tim<span class="text-theme">&nbsp; Pkl Hummatech</span></h2>
             </div>
             <div class="slider-area">
                 <div class="swiper th-slider has-shadow" id="teamSlider1"
@@ -261,7 +261,7 @@
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <div class="th-team team-grid">
-                                <div class="team-img"><img src="assets_landing/img/team/team_3_1.jpg" alt="Team">
+                                <div class="team-img"><img src="{{ asset('team/kader.png') }}" alt="Team">
                                 </div>
                                 <div class="team-social">
                                     <div class="play-btn"><i class="far fa-plus"></i></div>
@@ -272,14 +272,14 @@
                                                 class="fab fa-instagram"></i></a> <a target="_blank"
                                             href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
                                 </div>
-                                <h3 class="box-title"><a href="team-details.html">Rayan Athels</a></h3><span
-                                    class="team-desig">Founder & CEO</span>
+                                <h3 class="box-title"><a href="javascript:void(0)">Abdul Kader</a></h3><span
+                                    class="team-desig">Ketua Tim</span>
                                 <div class="box-particle" id="team-p1"></div>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="th-team team-grid">
-                                <div class="team-img"><img src="assets_landing/img/team/team_3_2.jpg" alt="Team">
+                                <div class="team-img"><img src="{{ asset('team/femas.png') }}" alt="Team">
                                 </div>
                                 <div class="team-social">
                                     <div class="play-btn"><i class="far fa-plus"></i></div>
@@ -290,14 +290,14 @@
                                                 class="fab fa-instagram"></i></a> <a target="_blank"
                                             href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
                                 </div>
-                                <h3 class="box-title"><a href="team-details.html">Alex Furnandes</a></h3><span
-                                    class="team-desig">Project Manager</span>
+                                <h3 class="box-title"><a href="javascript:void(0)">Femas Akbar Faturrohim</a></h3><span
+                                    class="team-desig">Ketua Mobile Devloper</span>
                                 <div class="box-particle" id="team-p2"></div>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="th-team team-grid">
-                                <div class="team-img"><img src="assets_landing/img/team/team_3_3.jpg" alt="Team">
+                                <div class="team-img"><img src="{{ asset('team/adi.png') }}" alt="Team">
                                 </div>
                                 <div class="team-social">
                                     <div class="play-btn"><i class="far fa-plus"></i></div>
@@ -308,14 +308,14 @@
                                                 class="fab fa-instagram"></i></a> <a target="_blank"
                                             href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
                                 </div>
-                                <h3 class="box-title"><a href="team-details.html">Mary Crispy</a></h3><span
-                                    class="team-desig">Cheif Expert</span>
+                                <h3 class="box-title"><a href="javascript:void(0)">Amir Zuhdi Wibowo</a></h3><span
+                                    class="team-desig">Web Developer</span>
                                 <div class="box-particle" id="team-p3"></div>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="th-team team-grid">
-                                <div class="team-img"><img src="assets_landing/img/team/team_3_4.jpg" alt="Team">
+                                <div class="team-img"><img src="{{ asset('team/farah.png') }}" alt="Team">
                                 </div>
                                 <div class="team-social">
                                     <div class="play-btn"><i class="far fa-plus"></i></div>
@@ -326,14 +326,14 @@
                                                 class="fab fa-instagram"></i></a> <a target="_blank"
                                             href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
                                 </div>
-                                <h3 class="box-title"><a href="team-details.html">Henry Joshep</a></h3><span
-                                    class="team-desig">Product Manager</span>
+                                <h3 class="box-title"><a href="javascript:void(0)">Farah Amalia</a></h3><span
+                                    class="team-desig">Web Developer</span>
                                 <div class="box-particle" id="team-p4"></div>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="th-team team-grid">
-                                <div class="team-img"><img src="assets_landing/img/team/team_3_1.jpg" alt="Team">
+                                <div class="team-img"><img src="{{ asset('team/nesa.png') }}" alt="Team">
                                 </div>
                                 <div class="team-social">
                                     <div class="play-btn"><i class="far fa-plus"></i></div>
@@ -344,14 +344,14 @@
                                                 class="fab fa-instagram"></i></a> <a target="_blank"
                                             href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
                                 </div>
-                                <h3 class="box-title"><a href="team-details.html">Rayan Athels</a></h3><span
-                                    class="team-desig">Founder & CEO</span>
+                                <h3 class="box-title"><a href="javascript:void(0)">Nesa Athussholeha</a></h3><span
+                                    class="team-desig">Web Developer</span>
                                 <div class="box-particle" id="team-p1"></div>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="th-team team-grid">
-                                <div class="team-img"><img src="assets_landing/img/team/team_3_2.jpg" alt="Team">
+                                <div class="team-img"><img src="{{ asset('team/panji.png') }}" alt="Team">
                                 </div>
                                 <div class="team-social">
                                     <div class="play-btn"><i class="far fa-plus"></i></div>
@@ -362,14 +362,14 @@
                                                 class="fab fa-instagram"></i></a> <a target="_blank"
                                             href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
                                 </div>
-                                <h3 class="box-title"><a href="team-details.html">Alex Furnandes</a></h3><span
-                                    class="team-desig">Project Manager</span>
+                                <h3 class="box-title"><a href="javascript:void(0)">Panji Aryo Kusumo</a></h3><span
+                                    class="team-desig">Mobile Devloper</span>
                                 <div class="box-particle" id="team-p2"></div>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="th-team team-grid">
-                                <div class="team-img"><img src="assets_landing/img/team/team_3_3.jpg" alt="Team">
+                                <div class="team-img"><img src="{{ asset('team/aris.png') }}" alt="Team">
                                 </div>
                                 <div class="team-social">
                                     <div class="play-btn"><i class="far fa-plus"></i></div>
@@ -380,8 +380,8 @@
                                                 class="fab fa-instagram"></i></a> <a target="_blank"
                                             href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
                                 </div>
-                                <h3 class="box-title"><a href="team-details.html">Mary Crispy</a></h3><span
-                                    class="team-desig">Cheif Expert</span>
+                                <h3 class="box-title"><a href="javascript:void(0)">M.Fajrul Falah Ar-riziq</a></h3><span
+                                    class="team-desig">Web Devloper</span>
                                 <div class="box-particle" id="team-p3"></div>
                             </div>
                         </div>
@@ -398,7 +398,7 @@
                                                 class="fab fa-instagram"></i></a> <a target="_blank"
                                             href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
                                 </div>
-                                <h3 class="box-title"><a href="team-details.html">Henry Joshep</a></h3><span
+                                <h3 class="box-title"><a href="javascript:void(0)">Henry Joshep</a></h3><span
                                     class="team-desig">Product Manager</span>
                                 <div class="box-particle" id="team-p4"></div>
                             </div>
