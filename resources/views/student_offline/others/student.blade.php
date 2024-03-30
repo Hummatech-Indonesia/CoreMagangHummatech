@@ -63,7 +63,7 @@
             <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
         </div>
         <p class="fs-5 text-dark text-center mb-5">
-            Data Masih Kosong
+            Tidak ada siswa magang offline selain kamu
         </p>
         @endforelse
     </div>
