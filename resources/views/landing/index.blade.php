@@ -385,24 +385,6 @@
                                 <div class="box-particle" id="team-p3"></div>
                             </div>
                         </div>
-                        <div class="swiper-slide">
-                            <div class="th-team team-grid">
-                                <div class="team-img"><img src="assets_landing/img/team/team_3_4.jpg" alt="Team">
-                                </div>
-                                <div class="team-social">
-                                    <div class="play-btn"><i class="far fa-plus"></i></div>
-                                    <div class="th-social"><a target="_blank" href="https://facebook.com/"><i
-                                                class="fab fa-facebook-f"></i></a> <a target="_blank"
-                                            href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a
-                                            target="_blank" href="https://instagram.com/"><i
-                                                class="fab fa-instagram"></i></a> <a target="_blank"
-                                            href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
-                                </div>
-                                <h3 class="box-title"><a href="javascript:void(0)">Henry Joshep</a></h3><span
-                                    class="team-desig">Product Manager</span>
-                                <div class="box-particle" id="team-p4"></div>
-                            </div>
-                        </div>
                     </div>
                 </div><button data-slider-prev="#teamSlider1" class="slider-arrow style3 slider-prev"><i
                         class="far fa-arrow-left"></i></button> <button data-slider-next="#teamSlider1"
