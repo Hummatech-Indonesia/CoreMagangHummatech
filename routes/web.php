@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\MentorPlacementController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\StudentOnline\CourseController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
@@ -31,9 +32,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskSubmissionController;
 
 # ==================================================== Homepage Group Route ===================================================
-Route::get('/', function () {
-    return view('landing.index');
-})->name('home');
+Route::get('/', [LandingController::class , 'index'])->name('home');
 
 # ================================================ Authentication Routes Group ================================================
 Auth::routes();

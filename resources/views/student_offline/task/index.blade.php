@@ -56,113 +56,89 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="task" role="tabpanel">
-                <div class="d-flex flex-wrap justify-content-between all-category note-important">
-                    <div class="col-xl-6 col-lg-12" style="width: 49%">
-                        <div class="card border-start border-info py-3 px-4">
-                            <div class="d-flex no-block align-items-center">
-                                <div class="col-lg-9">
-                                    <div class="d-flex gap-2">
-                                        <p>Nama Materi -> Nama Sub Materi</p>
-                                        <p class="badge bg-light-success text-success" style="font-size: 12px">
-                                            Mudah
-                                        </p>
+                <div class="d-flex flex-wrap  all-category note-important">
+                    @forelse ($tasks as $task)
+                        <div class="p-1 col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                            <div class="card border-start border-info py-3 px-4">
+                                <div class="d-flex align-items-center flex-wrap all-category note-important">
+                                    <div class="col-lg-9 col-sm-12">
+                                        <div class="d-flex align-items-s gap-3 col-sm-12">
+                                            <p>{{ $task->subCourse->course->title }} -> {{ $task->subCourse->title }}</p>
+                                            <p class="badge bg-light-success text-success" style="font-size: 12px">
+                                                {{ $task->level }}
+                                            </p>
+                                        </div>
+                                        <h5 class="col-sm-12">{{ $task->title }}</h5>
                                     </div>
-                                    <h5>Lorem ipsum dolor sit amet consectetur. Netus nam porta elit pellentesque accumsan commod.</h5>
-                                </div>
-                                <div class="ms-auto">
-                                    <button type="button" class="btn btn-light-primary text-primary" data-bs-toggle="modal" data-bs-target="#add">
-                                        Kumpulkan
-                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-databricks"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l9 5l9 -5v-3l-9 5l-9 -5v-3l9 5l9 -5v-3l-9 5l-9 -5l9 -5l5.418 3.01" /></svg>
-                                    </button>
+                                    <div class="ms-auto col-sm-12">
+                                        <button type="button" class="btn btn-light-primary text-primary" data-bs-toggle="modal" data-bs-target="#add">
+                                            Kumpulkan
+                                            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-databricks"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l9 5l9 -5v-3l-9 5l-9 -5v-3l9 5l9 -5v-3l-9 5l-9 -5l9 -5l5.418 3.01" /></svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-12" style="width: 49%">
-                        <div class="card border-start border-info py-3 px-4">
-                            <div class="d-flex no-block align-items-center">
-                                <div class="col-lg-9">
-                                    <div class="d-flex gap-2">
-                                        <p>Nama Materi -> Nama Sub Materi</p>
-                                        <p class="badge bg-light-success text-success" style="font-size: 12px">
-                                            Mudah
-                                        </p>
-                                    </div>
-                                    <h5>Lorem ipsum dolor sit amet consectetur. Netus nam porta elit pellentesque accumsan commod.</h5>
-                                </div>
-                                <div class="ms-auto">
-                                    <button type="button" class="btn btn-light-primary text-primary" data-bs-toggle="modal" data-bs-target="#add">
-                                        Kumpulkan
-                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-databricks"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l9 5l9 -5v-3l-9 5l-9 -5v-3l9 5l9 -5v-3l-9 5l-9 -5l9 -5l5.418 3.01" /></svg>
-                                    </button>
-                                </div>
-                            </div>
+                    @empty
+                        <div class="d-flex justify-content-center mb-2 mt-5">
+                            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
                         </div>
-                    </div>
+                        <p class="fs-5 text-dark text-center">
+                            Data Masih Kosong
+                        </p>
+                    @endforelse
                 </div>   
             </div>
             <div class="tab-pane" id="done" role="tabpanel">
-                <div class="d-flex flex-wrap justify-content-between all-category note-important">
-                    <div class="col-xl-6 col-lg-12" style="width: 49%">
-                        <div class="card border-start border-info py-3 px-4">
-                            <div class="d-flex no-block align-items-center">
-                                <div class="col-lg-9">
-                                    <div class="d-flex gap-2">
-                                        <p>Nama Materi -> Nama Sub Materi</p>
-                                        <p class="badge bg-light-success text-success" style="font-size: 12px">
-                                            Mudah
-                                        </p>
+                <div class="d-flex flex-wrap  all-category note-important">
+                    @forelse ($tasks as $task)
+                        <div class="p-1 col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                            <div class="card border-start border-info py-3 px-4">
+                                <div class="d-flex align-items-center flex-wrap all-category note-important">
+                                    <div class="col-lg-9 col-sm-12">
+                                        <div class="d-flex align-items-start gap-3 col-sm-12">
+                                            <p>{{ $task->subCourse->course->title }} -> {{ $task->subCourse->title }}</p>
+                                            <p class="badge bg-light-success text-success" style="font-size: 12px">
+                                                {{ $task->level }}
+                                            </p>
+                                        </div>
+                                        <h5 class="col-sm-12">{{ $task->title }}</h5>
                                     </div>
-                                    <h5>Lorem ipsum dolor sit amet consectetur. Netus nam porta elit pellentesque accumsan commod.</h5>
-                                </div>
-                                <div class="ms-auto">
-                                    <div class="dropdown d-inline-block">
-                                        <button class="btn btn-light-success text-success dropdown text-center px-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Selesai
-                                            <svg  xmlns="http://www.w3.org/2000/svg"  width="19"  height="19"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-dots-vertical"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li>
-                                                <button type="button" class="dropdown-item edit-item-btn btn-edit" data-id="1"
-                                                data-start="15-03-2024"
-                                                data-end="18-03-2024"
-                                                data-description="Lorem ipsum dolor sit amet consectetur. Interdum.."
-                                                data-status="Penting">
-                
-                                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M7.8125 3.43732L10.3125 5.93732M2.8125 8.43732L5.3125 10.9373M1.875 11.8747H4.375L10.9375 5.3122C11.269 4.98068 11.4553 4.53104 11.4553 4.0622C11.4553 3.59336 11.269 3.14372 10.9375 2.8122C10.606 2.48068 10.1563 2.29443 9.6875 2.29443C9.21866 2.29443 8.76902 2.48068 8.4375 2.8122L1.875 9.3747V11.8747ZM13.125 9.37482V11.8748H8.125L10.625 9.37482H13.125Z" stroke="#5A6A85" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                                Edit Jawaban
-                                                </button>
-                                            </li>
-                                        </ul>
+                                    <div class="ms-auto col-sm-12">
+                                        <div class="dropdown d-inline-block">
+                                            <button class="btn btn-light-success text-success dropdown text-center px-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Selesai
+                                                <svg  xmlns="http://www.w3.org/2000/svg"  width="19"  height="19"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-dots-vertical"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li>
+                                                    <button type="button" class="dropdown-item edit-item-btn btn-edit" data-id="1"
+                                                    data-start="15-03-2024"
+                                                    data-end="18-03-2024"
+                                                    data-description="Lorem ipsum dolor sit amet consectetur. Interdum.."
+                                                    data-status="Penting">
+                    
+                                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M7.8125 3.43732L10.3125 5.93732M2.8125 8.43732L5.3125 10.9373M1.875 11.8747H4.375L10.9375 5.3122C11.269 4.98068 11.4553 4.53104 11.4553 4.0622C11.4553 3.59336 11.269 3.14372 10.9375 2.8122C10.606 2.48068 10.1563 2.29443 9.6875 2.29443C9.21866 2.29443 8.76902 2.48068 8.4375 2.8122L1.875 9.3747V11.8747ZM13.125 9.37482V11.8748H8.125L10.625 9.37482H13.125Z" stroke="#5A6A85" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                    Edit Jawaban
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-12" style="width: 49%">
-                        <div class="card border-start border-info py-3 px-4">
-                            <div class="d-flex no-block align-items-center">
-                                <div class="col-lg-9">
-                                    <div class="d-flex gap-2">
-                                        <p>Nama Materi -> Nama Sub Materi</p>
-                                        <p class="badge bg-light-success text-success" style="font-size: 12px">
-                                            Mudah
-                                        </p>
-                                    </div>
-                                    <h5>Lorem ipsum dolor sit amet consectetur. Netus nam porta elit pellentesque accumsan commod.</h5>
-                                </div>
-                                <div class="ms-auto">
-                                    <button type="button" class="btn btn-light-primary text-primary" data-bs-toggle="modal" data-bs-target="#add">
-                                        Kumpulkan
-                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-databricks"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l9 5l9 -5v-3l-9 5l-9 -5v-3l9 5l9 -5v-3l-9 5l-9 -5l9 -5l5.418 3.01" /></svg>
-                                    </button>
-                                </div>
-                            </div>
+                    @empty
+                        <div class="d-flex justify-content-center mb-2 mt-5">
+                            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
                         </div>
-                    </div>
-                </div>   
+                        <p class="fs-5 text-dark text-center">
+                            Data Masih Kosong
+                        </p>
+                    @endforelse
+                </div>  
             </div>
             <div class="tab-pane" id="acc" role="tabpanel">
                 <div class="sub-materi py-4">

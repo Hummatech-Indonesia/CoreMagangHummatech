@@ -25,7 +25,7 @@ class AdminJournalController extends Controller
      */
     public function index()
     {
-        $journals = $this->journal->get();
+        $journals = $this->journal->getjournal();
         $adminJournal = $this->adminJournal->get();
         return view('admin.page.journal', compact('journals','adminJournal'));
     }

@@ -229,9 +229,10 @@ class StudentRepository extends BaseRepository implements StudentInterface
      *
      * @param  mixed $id
      */
-    public function getstudentexceptauth(mixed $id): mixed
+    public function getstudentoffexceptauth(mixed $id): mixed
     {
         return $this->model->query()
+        ->where('internship_type', 'offline')
         ->where('id', '!=', $id)
         ->get();
     }

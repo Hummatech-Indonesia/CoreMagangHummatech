@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\StudentTaskInterface;
+use App\Contracts\Interfaces\TaskInterface;
 use App\Models\StudentTask;
 use App\Http\Requests\StoreStudentTaskRequest;
 use App\Http\Requests\UpdateStudentTaskRequest;
@@ -12,18 +13,21 @@ class StudentTaskController extends Controller
 {
     private StudentTaskInterface $studentTask;
     private StudentTaskService $servicestudentTask;
+    private TaskInterface $task;
 
-    public function __construct(StudentTaskService $servicestudentTask, StudentTaskInterface $studentTask)
+    public function __construct(StudentTaskService $servicestudentTask, StudentTaskInterface $studentTask, TaskInterface $task)
     {
         $this->studentTask = $studentTask;
         $this->servicestudentTask = $servicestudentTask;
+        $this->task = $task;
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
+        $tasks = $this->task->get();
+        return view('student_offline.task.index', compact('tasks'));
     }
 
     /**

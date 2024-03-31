@@ -26,7 +26,7 @@ class ReportStudentController extends Controller
      */
     public function index()
     {
-        $students = $this->student->getstudentexceptauth(auth()->user()->student->id);
+        $students = $this->student->getstudentoffexceptauth(auth()->user()->student->id);
         return view('student_offline.others.student' , compact('students'));
     }
 
