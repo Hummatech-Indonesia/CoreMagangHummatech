@@ -139,6 +139,14 @@
                         </li>
                     </ul>
                 </li>
+                <li class="sidebar-item">
+                    <a href="{{ url('/siswa-offline/letter-head') }}" class="sidebar-link">
+                        <div class="round-16 d-flex align-items-center justify-content-center">
+                            <i class="ti ti-notes"></i>
+                        </div>
+                        <span class="hide-menu">Kop Surat</span>
+                    </a>
+                </li>
 
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="#">
@@ -172,16 +180,9 @@
                                 <span class="hide-menu">Siswa</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a href="{{ url('/siswa-offline/letter-head') }}" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">Kop Surat</span>
-                            </a>
-                        </li>
                     </ul>
                 </li>
+                
 
             </ul>
             {{-- <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
