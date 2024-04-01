@@ -118,7 +118,7 @@
                 <div class="p-2 mt-2">
                     @forelse ($tasks as $task)
                     @php
-                        $status = $studentTasks->where('task_id', $task->id)
+                        $studentTask = $studentTasks->where('task_id', $task->id)
                                             ->where('student_id', auth()->user()->student->id)
                                             ->first();
                     @endphp
@@ -130,7 +130,7 @@
                                         <h6 class="m-0">{{ $task->title }}</h6>
                                     </div>
                                     <div class="ms-auto">
-                                        @if ($status)
+                                        @if ($studentTask)
                                             <div class="dropdown d-inline-block">
                                                 <button class="btn btn-light-success text-success dropdown text-center px-4" style="font-size: 10px" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                     Selesai
@@ -138,16 +138,16 @@
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                     <li>
-                                                        <button type="button" class="dropdown-item edit-item-btn btn-edit" 
-                                                        data-id="{{ $task->id }}" data-user="{{ auth()->user()->student->id }}" 
-                                                        data-question="{{ $task->title }}" data-description="{{ $task->description }}" 
-                                                        >
-                        
-                                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M7.8125 3.43732L10.3125 5.93732M2.8125 8.43732L5.3125 10.9373M1.875 11.8747H4.375L10.9375 5.3122C11.269 4.98068 11.4553 4.53104 11.4553 4.0622C11.4553 3.59336 11.269 3.14372 10.9375 2.8122C10.606 2.48068 10.1563 2.29443 9.6875 2.29443C9.21866 2.29443 8.76902 2.48068 8.4375 2.8122L1.875 9.3747V11.8747ZM13.125 9.37482V11.8748H8.125L10.625 9.37482H13.125Z" stroke="#5A6A85" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        </svg>
-                                                        Edit Jawaban
-                                                        </button>
+                                                            <button type="button" class="dropdown-item edit-item-btn btn-edit" 
+                                                            data-id="{{ $studentTask->id }}"
+                                                            data-question="{{ $task->title }}" data-description="{{ $task->description }}" 
+                                                            >
+                            
+                                                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M7.8125 3.43732L10.3125 5.93732M2.8125 8.43732L5.3125 10.9373M1.875 11.8747H4.375L10.9375 5.3122C11.269 4.98068 11.4553 4.53104 11.4553 4.0622C11.4553 3.59336 11.269 3.14372 10.9375 2.8122C10.606 2.48068 10.1563 2.29443 9.6875 2.29443C9.21866 2.29443 8.76902 2.48068 8.4375 2.8122L1.875 9.3747V11.8747ZM13.125 9.37482V11.8748H8.125L10.625 9.37482H13.125Z" stroke="#5A6A85" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            </svg>
+                                                            Edit Jawaban
+                                                            </button>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -461,9 +461,7 @@
             var question = $(this).data('question');
             var description = $(this).data('description');
             var id = $(this).data('id');
-            var user = $(this).data('user');
             $('#taskId-edit').val(id);
-            $('#userId-edit').val(user);
             $("#question-edit").text(question);
             $("#description-question-edit").text(description);
             $('#form-update').attr('action', '/siswa-offline/task/update/' + id);
