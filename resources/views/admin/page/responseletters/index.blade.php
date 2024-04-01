@@ -44,7 +44,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($responsesletters as $responsesletter)
+                                    @forelse ($responsesletters as $responsesletter)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $responsesletter->student->name }}</td>
@@ -56,20 +56,30 @@
                                                 <a href="show/student/{{ $responsesletter->id }}"
                                                     class="btn btn-soft-primary edit-item-btn"><i
                                                         class="ri-eye-fill align-bottom me-1"></i></a>
-                                                <a href="{{ asset('storage/response_letter/' .$responsesletter->letter_file) }}"
+                                                <a href="{{ asset('storage/response_letter/' . $responsesletter->letter_file) }}"
                                                     class="btn btn-soft-warning edit-item-btn"
-                                                    onclick="printPDF('{{ asset('storage/response_letter/' .$responsesletter->letter_file) }}'); return false;"><i
+                                                    onclick="printPDF('{{ asset('storage/response_letter/' . $responsesletter->letter_file) }}'); return false;"><i
                                                         class="ri-printer-line align-bottom me-1"></i></a>
-
                                                 <script>
                                                     function printPDF(pdfUrl) {
                                                         var printWindow = window.open(pdfUrl, '_blank');
-                                                        printWindow.addEventListener('load', function() {
-                                                        });
+                                                        printWindow.addEventListener('load', function() {});
                                                     }
                                                 </script>
                                             </td>
-                                    @endforeach
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="8">
+                                                <div class="d-flex justify-content-center mt-3">
+                                                    <img src="{{ asset('no data.png') }}" width="200px" alt="">
+                                                </div>
+                                                <h4 class="text-center mt-2 mb-4">
+                                                    Data Masih kosong
+                                                </h4>
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
