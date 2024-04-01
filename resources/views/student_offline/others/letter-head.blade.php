@@ -130,7 +130,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="d-flex align-items-center justify-content-center">
+                    <div class="d-flex align-items-center ps-5">
                         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-1">
                             <img src="{{ asset('storage/'. $letterheads->logo) }}" class="w-100">
                         </div>
