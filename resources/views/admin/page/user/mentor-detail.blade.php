@@ -15,14 +15,14 @@
                     <div class="d-flex align-items-center justify-content-center py-4">
                         <div class="">
                             <img src="{{ asset('storage/' . $mentor->image) }}" alt=""
-                                class="rounded-circle img-thumbnail avatar-lg">
+                                class="rounded-circle img-thumbnail avatar-lg" style="object-fit: cover">
                         </div>
                     </div>
                     <div class="text-center ">
                         <h5 class="mb-1">{{ $mentor->name }}</h5>
                         @foreach ($mentor->mentordivision as $item)
-                        <p class="mb-1 badge bg-secondary-subtle text-secondary " style="font-size: 12px">
-                            {{ $item->division->name }}
+                            <p class="mb-1 badge bg-secondary-subtle text-secondary " style="font-size: 12px">
+                                {{ $item->division->name }}
                             </p>
                         @endforeach
                         <p class="mb-3 text-primary" style="font-size: 15px"><i
@@ -55,11 +55,11 @@
                                         <tbody>
                                             @forelse ($mentor->mentorstudent as $student)
                                                 <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $student->student->name }}</td>
-                                                    <td>{{ $student->student->email }}</td>
-                                                    <td>{{ $student->student->school }}</td>
-                                                    <td>
+                                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                                    <td class="text-center">{{ $student->student->name }}</td>
+                                                    <td class="text-center">{{ $student->student->email }}</td>
+                                                    <td class="text-center">{{ $student->student->school }}</td>
+                                                    <td class="text-center">
                                                         <span class="badge bg-secondary-subtle text-secondary">
                                                             {{ $student->student->internship_type }}
                                                         </span>
@@ -67,8 +67,14 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="5" class="text-center">
-                                                        Tidak ada siswa
+                                                    <td colspan="8">
+                                                        <div class="d-flex justify-content-center mt-3">
+                                                            <img src="{{ asset('no data.png') }}" width="200px"
+                                                                alt="">
+                                                        </div>
+                                                        <h4 class="text-center mt-2 mb-4">
+                                                            Data Masih kosong
+                                                        </h4>
                                                     </td>
                                                 </tr>
                                             @endforelse
