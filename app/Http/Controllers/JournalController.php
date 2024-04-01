@@ -28,7 +28,6 @@ class JournalController extends Controller
     public function __construct(JournalInterface $journal, JournalService $service, DataAdminInterface $dataadmin, SignatureInterface $signature, StudentInterface $student, LetterheadsInterface $letterheads)
     {
         $this->middleware('subsrcribed:online');
-
         $this->journal = $journal;
         $this->student = $student;
         $this->dataadmin = $dataadmin;
@@ -44,6 +43,13 @@ class JournalController extends Controller
     {
         $journals = $this->journal->get();
         return view('student_offline.journal.index', compact('journals'));
+    }
+    
+
+    public function getjournals()
+    {
+        $journals = $this->journal->getjournal();
+        return view('admin.page.journal' , compact('journals'));
     }
 
     /**

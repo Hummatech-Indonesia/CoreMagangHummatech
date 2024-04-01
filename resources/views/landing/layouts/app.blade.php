@@ -7,8 +7,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>{{ env('APP_NAME') }}</title>
     <meta name="author" content="Themeholy">
-    <meta name="description" content="Webteck - Technology & IT Solutions HTML Template">
-    <meta name="keywords" content="Webteck - Technology & IT Solutions HTML Template">
+    <meta name="description" content="Hummatech - Ayo bergabung dengan hummatech">
+    <meta name="keywords" content="Hummatech - Ayo bergabung dengan hummatech">
     <meta name="robots" content="INDEX,FOLLOW">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="57x57" href="assets_landing/img/favicons/apple-icon-57x57.png">
