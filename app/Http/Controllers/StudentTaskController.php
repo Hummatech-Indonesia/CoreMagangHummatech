@@ -26,8 +26,10 @@ class StudentTaskController extends Controller
      */
     public function index()
     {
-        $tasks = $this->task->get();
-        return view('student_offline.task.index', compact('tasks'));
+        $tasks = $this->task->getUnsubmittedTasks();
+        $taskDones = $this->studentTask->getByStatus('completed');
+        $taskPendings = $this->studentTask->getByStatus('pending');
+        return view('student_offline.task.index', compact('tasks', 'taskDones', 'taskPendings'));
     }
 
     /**

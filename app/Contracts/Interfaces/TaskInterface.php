@@ -17,4 +17,5 @@ interface TaskInterface extends GetInterface, StoreInterface, UpdateInterface, D
      * @return mixed
      */
     public function filterByStatus(?string $filter): mixed;
+    public function getUnsubmittedTasks();
 }

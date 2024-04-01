@@ -27,4 +27,8 @@ class StudentTaskRepository extends BaseRepository implements StudentTaskInterfa
     {
         return $this->model->query()->findOrFail($id)->delete($id);
     }
+    public function getByStatus(string $status): mixed
+    {
+        return $this->model->query()->where('status', $status)->get(); 
+    }
 }

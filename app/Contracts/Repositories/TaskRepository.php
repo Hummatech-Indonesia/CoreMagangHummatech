@@ -40,4 +40,10 @@ class TaskRepository extends BaseRepository implements TaskInterface
     {
         return $this->model->query()->findOrFail($id)->delete($id);
     }
+    public function getUnsubmittedTasks()
+    {
+        return Task::leftJoin('student_tasks', 'tasks.id', '=', 'student_tasks.task_id')
+            ->whereNull('student_tasks.task_id')
+            ->get();
+    }
 }
