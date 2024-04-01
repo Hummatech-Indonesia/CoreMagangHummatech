@@ -20,7 +20,6 @@ return new class extends Migration
             $table->longText('description');
             $table->enum('level', Task::getLevels()->toArray())->default(TaskLevelEnum::NORMAL);
             $table->foreignId('sub_course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->enum('status', Task::getStatuses()->toArray())->default(TaskStatusEnum::PENDING);
             $table->timestamps();
         });
     }
