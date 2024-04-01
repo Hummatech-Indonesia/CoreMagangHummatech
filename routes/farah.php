@@ -90,8 +90,9 @@ Route::get('siswa-offline/challenge', function(){
     return view('student_offline.challenge.index');
 });
 Route::get('siswa-offline/letter-head', [LetterheadController::class, 'indexOffline']);
-Route::post('siswa-offline/letter-head', [LetterheadController::class, 'store'])->name('letterhead-offline.store');
-Route::put('siswa-offline/letter-head/{letterhead}', [LetterheadController::class, 'update'])->name('letterhead-offline.update');
+Route::post('letter-head', [LetterheadController::class, 'store'])->name('letterhead.store');
+Route::put('letter-head/{letterhead}', [LetterheadController::class, 'update'])->name('letterhead.update');
+Route::delete('letter-head/{letterhead}', [LetterheadController::class, 'destroy'])->name('letterhead.delete');
 
 Route::get('siswa-offline/others/student', [ReportStudentController::class, 'index']);
 Route::post('siswa-offline/others/student/report', [ReportStudentController::class, 'store'])->name('report.store');

@@ -25,7 +25,7 @@
         </div>
         <div class="col-12">
             @if ($letterheads == null)
-            <form action="{{route('letterhead-offline.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('letterhead.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-6">
@@ -63,12 +63,14 @@
                 </div>
                 <div class="d-flex justify-content-end gap-3">
                     <button class=" btn btn-success" type="submit">Simpan</button>
-                    <button type="button" class="btn btn-primary btn-preview">Preview</button>
-                    <button class=" btn btn-rounded bg-danger-subtle text-danger">Hapus</button>
+                    @if ($letterheads != null)
+                        <button type="button" class="btn btn-primary btn-preview">Preview</button>
+                        <button type="button" class=" btn btn-rounded bg-danger-subtle text-danger btn-delete" data-id="{{ $letterheads->id }}">Hapus</button>
+                    @endif
                 </div>
             </form>
             @else
-            <form action="/siswa-offline/letter-head/{{ $letterheads->id }}" method="POST" enctype="multipart/form-data">
+            <form action="/letter-head/{{ $letterheads->id }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -107,14 +109,17 @@
                 </div>
                 <div class="d-flex justify-content-end gap-3">
                     <button class=" btn btn-success" type="submit">Simpan</button>
-                    <button type="button" class="btn btn-primary btn-preview">Preview</button>
-                    <button class=" btn btn-rounded bg-danger-subtle text-danger">Hapus</button>
+                    @if ($letterheads != null)
+                        <button type="button" class="btn btn-primary btn-preview">Preview</button>
+                        <button type="button" class=" btn btn-rounded bg-danger-subtle text-danger btn-delete" data-id="{{ $letterheads->id }}">Hapus</button>
+                    @endif
                 </div>
             </form>
             @endif
         </div>
     </div>
 
+    @if ($letterheads != null)
     <div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
@@ -150,6 +155,8 @@
             </div>
         </div>
     </div>
+    @endif
+    @include('admin.components.delete-modal-component')
 @endsection
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -159,6 +166,11 @@
 <script>
     $('.btn-preview').click(function() {
         $('#add').modal('show');
+    });
+    $('.btn-delete').click(function () {
+        var id = $(this).data('id');
+        $('#form-delete').attr('action', '/letter-head/' + id);
+        $('#modal-delete').modal('show');
     });
 </script>
 @endsection
