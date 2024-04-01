@@ -126,8 +126,7 @@
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end">
                                                 <li>
-                                                    <a type="button" class="dropdown-item btn-show" data-bs-toggle="modal"
-                                                        data-bs-target="#detail">
+                                                    <a type="button" class="dropdown-item btn-show btn-detail" data-id="{{ $task->id }}" data-title="{{ $task->title }}" data-level="{{ $task->level }}" data-description="{{ $task->description }}" data-level="{{ $task->level }}">
                                                         Detail Tugas
                                                     </a>
                                                 </li>
@@ -255,15 +254,21 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h5>Tugas</h5>
-                    <p class="text-muted ">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta non eum harum beatae doloribus
-                        deleniti? Magni qui soluta blanditiis animi labore architecto, id dignissimos nam fugit deleniti
-                        iure exercitationem suscipit.
+                    <h5>Judul</h5>
+                    <p class="text-muted title">
+
+                    </p>
+                    <h5 class="mt-2">Deskripsi</h5>
+                    <p class="text-muted description">
+
+                    </p>
+                    <h5 class="mt-2">Level</h5>
+                    <p class="text-muted level">
+
                     </p>
                 </div>
                 <div class="modal-footer text-end">
-                    <button class="btn text-white" style="background-color: #7E7E7E;">Kembali</button>
+                    <button class="btn text-white" style="background-color: #7E7E7E;" data-bs-dismiss="modal">Kembali</button>
                 </div>
             </div>
         </div>
@@ -498,6 +503,17 @@
             var id = $(this).data('id');
             $('#form-delete').attr('action', '/delete/task/' + id);
             $('#modal-delete').modal('show');
+        });
+        $('.btn-detail').click(function() {
+            var id = $(this).data('id');
+            var title = $(this).data('title');
+            var description = $(this).data('description');
+            var level = $(this).data('level');
+
+            $('#detail').modal('show');
+            $('.description').text(description);
+            $('.level').text(level);
+            $('.title').text(title);
         });
 
         $(document).ready(function() {
