@@ -1,7 +1,7 @@
 @extends('auth.layouts.app')
 
 @section('content')
-    <div class="authentication-wrapper authentication-cover authentication-bg">
+    {{-- <div class="authentication-wrapper authentication-cover authentication-bg">
         <div class="authentication-inner row">
             <div class="d-none d-lg-flex col-lg-7 p-0">
                 <div class="">
@@ -51,7 +51,113 @@
                 </div>
             </div>
         </div>
+    </div> --}}
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('{{ asset('assetsLogin/bg-login.png') }}') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 5%;
+            padding: 3rem;
+        }
+        .gradient-btn {
+            background: linear-gradient(to right, #B1C5FF 0%, #3577F1 100%);
+            border: none;
+        }
+        .person-holding-card {
+            position: absolute;
+            left: 62%;
+            transform: translateX(-49%);
+            bottom: 45%;
+            z-index: 1;
+            width: 340px;
+            height: auto;
+        }
+        h3{
+            font-size: 30px;
+        }
+        h5{
+            font-size: 14px;
+        }
+
+        @media (min-width: 185px) and (max-width: 1280px) {
+            body {
+                height: 100%;
+                align-items: flex-start;
+                padding-top: 7rem;
+            }
+            .card {
+                max-width: 100%;
+                margin: 1rem;
+                padding: 1rem;
+            }
+            .person-holding-card {
+                display: none;
+            }
+            h3{
+                font-size: 22px;
+            }
+            h5{
+                font-size: 12px;
+            }
+        }
+    </style>
+
+    <div class="card">
+        <div class="card-body">
+            <div class=" text-center">
+                <h3 class="mb-2 text-dark">Selamat datang!👋</h3>
+                <h5 class="text-dark mb-4">Masuk dan mulai berpetualang</h5>
+            </div>
+            <form id="formAuthentication" class="mb-3  " action="{{ route('login') }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="email" name="email"
+                        placeholder="Masukkan email Anda" autofocus>
+                    @error('username')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="my-4 form-password-toggle">
+                    <label for="email" class="form-label">Password</label>
+                    <div class="input-group input-group-merge">
+                        <input type="password" id="password" class="form-control" name="password"
+                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                            aria-describedby="password" />
+                        <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
+                        @error('password')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="">
+                    <button type="submit" class="btn btn-primary d-grid w-100 rounded-pill gradient-btn">
+                        Masuk
+                    </button>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="/register" class="text-black mt-2">Belum Punya akun? <span
+                            class="text-primary mb-4">Daftar</span></a>
+                </div>
+            </form>
+        </div>
     </div>
+    <img src="{{ asset('assetsLogin/cartoon-login.png') }}" alt="Person holding card" class="person-holding-card">
 
     @if (session('pending'))
 
