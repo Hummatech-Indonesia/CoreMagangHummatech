@@ -1,13 +1,13 @@
 @extends('student_offline.layouts.app')
 @section('content')
 
-<div class="d-flex gap-2 flex-wrap">
+<div class="row gap-2 flex-wrap">
     <div class="col-lg-8">
         <div class=" d-flex align-items-stretch">
             <div class="card w-100 bg-light-info overflow-hidden shadow-none" >
                 <div class="card-body position-relative">
                     <div class="row">
-                        <div class="col-sm-7">
+                        <div class="col-md-12 ">
                             <div class="d-flex align-items-center mb-3 flex-column flex-sm-row">
                                 <div class="d-flex align-items-center justify-content-center overflow-hidden me-sm-6 mb-3 mb-sm-0" style="width: 40px; height: 40px;">
                                     <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt="" class="img-fluid rounded-circle" style="object-fit: cover;">
@@ -49,7 +49,7 @@
     </div>
 
 
-    <div class="d-flex align-items-stretch">
+    <div class="row align-items-stretch col-lg-4">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
@@ -69,7 +69,7 @@
 
 <div class="all-category note-important">
     <div class="d-flex align-items-center mb-3 pt-3">
-        <h5 class="mb-0 ms-5">Materi Baru</h5>
+        <h5 class="mb-0">Materi Baru</h5>
     </div>
     <div class="d-flex flex-wrap">
         @foreach (range(1, 4) as $item)
@@ -116,7 +116,7 @@
         series: [44, 55, 41, 17],
         chart: {
             type: 'donut',
-            height: 500
+            height: 400
         },
         labels: ['Hadir', 'Telat', 'Izin', 'Alpha'],
         colors: ['#13DEB9', '#5D87FF', '#49BEFF', '#FFAE1F'],
