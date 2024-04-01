@@ -62,8 +62,8 @@ class LetterheadService
     {
         $data = $request->validated();
 
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $data['image'] = $request->file('image')->store(TypeEnum::LETTERHEAD->value, 'public');
+        if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
+            $data['logo'] = $request->file('logo')->store(TypeEnum::LETTERHEAD->value, 'public');
             return $data;
         }
         return false;
@@ -81,11 +81,11 @@ class LetterheadService
     {
         $data = $request->validated();
 
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $this->remove($letterhead->image);
-            $data['image'] = $request->file('image')->store(TypeEnum::LETTERHEAD->value, 'public');
+        if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
+            $this->remove($letterhead->logo);
+            $data['logo'] = $request->file('logo')->store(TypeEnum::LETTERHEAD->value, 'public');
         } else {
-            $data['image'] = $letterhead->image;
+            $data['logo'] = $letterhead->logo;
         }
 
         return $data;
@@ -93,6 +93,6 @@ class LetterheadService
 
     public function delete(Letterhead $letterhead)
     {
-        $this->remove($letterhead->image);
+        $this->remove($letterhead->logo);
     }
 }
