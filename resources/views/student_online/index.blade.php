@@ -63,7 +63,7 @@
         </div>
     </div> --}}
 
-    <div class="d-flex gap-2 flex-wrap">
+    {{-- <div class="row gap-2 flex-wrap">
         <div class="col-lg-8">
             <div class=" d-flex align-items-stretch">
                 <div class="card w-100 bg-light-info overflow-hidden shadow-none" >
@@ -106,7 +106,68 @@
         </div>
 
 
-        <div class="d-flex align-items-stretch">
+        <div class="row align-items-stretch col-lg-4 col-sm-5">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div class="">
+                            <h5 class="card-title fw-semibold">Data Absensi</h5>
+                            <p class="card-subtitle">Tahun ini</p>
+                        </div>
+                        <div>
+                            <button class="btn btn-success">Absen</button>
+                        </div>
+                    </div>
+                    <div id="chart-absen" class=""></div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+
+    <div class="row gap-2 flex-wrap">
+        <div class="col-lg-8">
+            <div class=" d-flex align-items-stretch">
+                <div class="card w-100 bg-light-info overflow-hidden shadow-none" >
+                    <div class="card-body position-relative">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="d-flex align-items-center mb-3 flex-column flex-sm-row">
+                                    <div class="d-flex align-items-center justify-content-center overflow-hidden me-sm-6 mb-3 mb-sm-0" style="width: 40px; height: 40px;">
+                                        <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt="" class="img-fluid rounded-circle" style="object-fit: cover;">
+                                    </div>
+                                    <h5 class="fw-semibold mb-3 mb-sm-0 fs-5 text-center text-sm-start">Selamat Datang {{ auth()->user()->name }}!</h5>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="border-end pe-4 border-muted border-opacity-10 mt-2">
+                                        <h4>Divisi {{ auth()->user()->student->division->name }}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="welcome-bg-img mb-n7 text-end">
+                                    <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/backgrounds/welcome-bg.svg"
+                                        alt="" class="img-fluid" style="width: 300px; height: auto;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card w-100">
+                <div class="card-body">
+                    <div>
+                        <div>
+                            <h5 class="card-title fw-semibold">Data Statistik Jurnal</h5>
+                            <p class="card-subtitle mb-2">Tahun ini</p>
+                        </div>
+                    </div>
+                    <div id="chart-journal"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row align-items-stretch col-lg-4">
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
@@ -118,7 +179,7 @@
                             <button class="btn btn-success">Absen</button>
                         </div>
                     </div>
-                    <div id="chart-absen" class=""></div>
+                    <div id="chart-absen" class="pt-4"></div>
                 </div>
             </div>
         </div>
@@ -360,7 +421,7 @@
         series: [44, 55, 41, 17],
         chart: {
             type: 'donut',
-            height: 500
+            height: 400
         },
         labels: ['Hadir', 'Telat', 'Izin', 'Alpha'],
         colors: ['#13DEB9', '#5D87FF', '#49BEFF', '#FFAE1F'],
@@ -410,7 +471,7 @@
         }],
         chart: {
             type: 'bar',
-            height: '230px',
+            height: '248px',
         },
         colors: ['#5D87FF', '#82D2FF'],
         plotOptions: {
