@@ -182,13 +182,15 @@
                     </a>
                 </li>
 
+                @if (auth()->user()->feature)
                 <!-- ============================= -->
-                <!-- Home -->
+                <!-- Jadwal Zoom -->
                 <!-- ============================= -->
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Jadwal Zoom</span>
                 </li>
+                @endif
             </ul>
 
             @if (!auth()->user()->feature)

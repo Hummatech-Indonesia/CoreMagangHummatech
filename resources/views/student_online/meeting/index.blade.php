@@ -13,12 +13,15 @@
     </div>
 
     <div class="row">
+        @forelse ($zoomSchedules as $zoom)
         <div class="col-md-4 col-xl-3">
             <div class="card">
-                <div class="card-header d-flex justify-content-between py-4 bg-primary">
-                    <h5 class="mb-0 text-white text-truncate">Judul Kegiatan</h5>
-                    <div>
-                        <span class="p-2 px-3 bg-white rounded text-primary">Mendatang</span>
+                <div class="card-header d-flex justify-content-between bg-white p-2 pb-0">
+                    <div class="p-4 rounded bg-primary d-flex justify-content-between w-100">
+                        <h5 class="mb-0 text-white text-truncate">Judul Kegiatan</h5>
+                        <div>
+                            <span class="p-2 px-3 bg-white rounded text-primary">Mendatang</span>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -49,78 +52,15 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-xl-3">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between py-4 bg-success">
-                    <h5 class="mb-0 text-white text-truncate">Judul Kegiatan</h5>
-                    <div>
-                        <span class="p-2 px-3 bg-white rounded text-success fw-bolder">Sekarang</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="d-flex flex-column gap-1 mb-3 col-md-6">
-                            <span class="fw-bolder d-lg-none">Tanggal Kegiatan</span>
-                            <span class="d-flex gap-2 align-items-center">
-                                <i class="fas fa-calendar"></i>
-                                12 Maret 2024
-                            </span>
-                        </div>
-                        <div class="d-flex flex-column gap-1 mb-3 col-md-6">
-                            <span class="fw-bolder d-lg-none">Tanggal Kegiatan</span>
-                            <span class="d-flex gap-2 align-items-center">
-                                <i class="fas fa-clock"></i>
-                                06.00 s/d 08.00
-                            </span>
-                        </div>
-                        <div class="d-flex flex-column gap-1 col-md-12">
-                            <span class="fw-bolder d-lg-none">Tautan Kegiatan</span>
-                            <span class="d-flex gap-2 align-items-center">
-                                <i class="fas fa-link"></i>
-                                <a class="text-truncate" target="_blank"
-                                    href="https://us05web.zoom.us/j/6417801427?pwd=a2xjM09oWkFrOVZ6U0xLY2dveWZVQT09">https://us05web.zoom.us/j/6417801427?pwd=a2xjM09oWkFrOVZ6U0xLY2dveWZVQT09</a>
-                            </span>
-                        </div>
+        @empty
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        Tidak ada kegiatan
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 col-xl-3">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between py-4 bg-warning">
-                    <h5 class="mb-0 text-white text-truncate">Judul Kegiatan</h5>
-                    <div>
-                        <span class="p-2 px-3 bg-white rounded text-warning">Berakhir</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="d-flex flex-column gap-1 mb-3 col-md-6">
-                            <span class="fw-bolder d-lg-none">Tanggal Kegiatan</span>
-                            <span class="d-flex gap-2 align-items-center">
-                                <i class="fas fa-calendar"></i>
-                                12 Maret 2024
-                            </span>
-                        </div>
-                        <div class="d-flex flex-column gap-1 mb-3 col-md-6">
-                            <span class="fw-bolder d-lg-none">Tanggal Kegiatan</span>
-                            <span class="d-flex gap-2 align-items-center">
-                                <i class="fas fa-clock"></i>
-                                06.00 s/d 08.00
-                            </span>
-                        </div>
-                        <div class="d-flex flex-column gap-1 col-md-12">
-                            <span class="fw-bolder d-lg-none">Tautan Kegiatan</span>
-                            <span class="d-flex gap-2 align-items-center">
-                                <i class="fas fa-link"></i>
-                                <a class="text-truncate" target="_blank"
-                                    href="https://us05web.zoom.us/j/6417801427?pwd=a2xjM09oWkFrOVZ6U0xLY2dveWZVQT09">https://us05web.zoom.us/j/6417801427?pwd=a2xjM09oWkFrOVZ6U0xLY2dveWZVQT09</a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforelse
     </div>
 @endsection
 

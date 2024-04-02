@@ -11,6 +11,11 @@ class SubCourse extends Model
     use HasFactory;
     protected $guarded = [];
 
+    public function subCourseUnlock(): mixed
+    {
+        return $this->hasOne(SubCourseUnlock::class);
+    }
+
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);

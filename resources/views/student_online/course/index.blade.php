@@ -41,7 +41,7 @@
         </div>
     </div>
     <div class="row">
-        @foreach ($courses as $course)
+        @forelse ($courses as $course)
             <div class="col-lg-6 col-md-4 col-sm-12 col-xl-3">
                 <div class="card">
                     <img alt="{{ $course->name }}" class="card-img-top img-responsive w-100" src="{{ asset("storage/{$course->image}") }}"
@@ -80,7 +80,12 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @empty
+        <div class="col-md-12 text-center">
+            <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" alt="No Data" height="120px" />
+            <h3 class="text-center">Belum ada materi</h3>
+        </div>
+        @endforelse
     </div>
 @endsection
 

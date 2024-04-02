@@ -36,6 +36,50 @@
             padding: 5px 10px;
             border-radius: 5px;
         }
+
+        .card-floating {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 270px;
+            margin: 2rem;
+            z-index: 1000;
+            width: calc(100% - ((2rem * 2) + 270px));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row;
+            padding: 1rem !important;
+            border-radius: var(--bs-border-radius-lg);
+        }
+
+        .card-floating [class*="navigation-"] {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .75rem;
+            border-radius: var(--bs-border-radius);
+            padding: .75rem 1.5rem;
+            color: var(--bs-primary);
+            background: rgba(var(--bs-primary-rgb), .125);
+        }
+
+        .card-floating [class*="navigation-"]:hover {
+            color: var(--bs-white);
+            background: rgba(var(--bs-primary-rgb), 1);
+        }
+
+        .card-floating [class*="navigation-"].disabled,
+        .card-floating [class*="navigation-"].disabled:hover {
+            cursor: not-allowed;
+            color: var(--bs-dark);
+            background: rgba(var(--bs-dark-rgb), .125);
+        }
+
+        .card-floating .course-title {
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
     </style>
 @endsection
 
@@ -77,10 +121,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a class="carousel-control-prev" href="#" role="button" data-slide="prev">
+                                        <a class="carousel-control-prev" href="javascript:void(0)" role="button" data-slide="prev">
                                             <i class="fas fa-chevron-left"></i>
                                         </a>
-                                        <a class="carousel-control-next" href="#" role="button" data-slide="next">
+                                        <a class="carousel-control-next" href="javascript:void(0)" role="button" data-slide="next">
                                             <i class="fas fa-chevron-right"></i>
                                         </a>
                                     </div>
@@ -89,8 +133,9 @@
                             </div>
                             <div class="tab-pane p-3" id="profile" role="tabpanel">
                                 <div class="ratio ratio-16x9">
-                                    <iframe width="560" height="315" src="{{ $subCourse->video_course }}"
-                                        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                    <iframe width="560" title="Video" class="embed-responsive-item" height="315"
+                                        src="{{ $subCourse->video_course }}" allow="autoplay; encrypted-media"
+                                        allowfullscreen></iframe>
                                 </div>
                             </div>
                         </div>
@@ -103,17 +148,40 @@
             <div class="row">
                 @forelse ($subCourses as $data)
                     <div class="col-lg-12 m-0 p-0">
-                        <a href="{{ $data->id === $subCourse->id ? 'javascript:void(0)' : route('siswa-online.course.subcourse', ['subCourse' => $data->id, 'course' => $course->id]) }}"
-                            class="card @if ($data->id === $subCourse->id) bg-primary text-white @endif border-start border-info py-3 px-4 m-2">
-                            <div class="d-flex no-block align-items-center">
-                                <div class="col-4">
-                                    <img alt="{{ $data->title }}" class="img-responsive w-100"
-                                        src="{{ asset("storage/{$data->image_course}") }}" />
+                        <a
+                            @if($data->unlock)
+                            href="{{ route('siswa-online.course.subcourse', ['course' => $course->id, 'subCourse' => $data->subCourse->id]) }}"
+                            @else
+                            href="javascript:void(0)"
+                            @endif
+
+                            class="card card-body mb-3"
+                            style="
+                            border-left: 6px solid var(--bs-gray-300);
+                            @if ($data->unlock) border-left-color: var(--bs-primary); @endif
+                        ">
+                            <div class="row align-items-center">
+                                <div class="col-md-4">
+                                    <img alt="{{ $data->subCourse->title }}" class="img-responsive w-100"
+                                        src="{{ asset("storage/{$data->subCourse->image_course}") }}" />
                                 </div>
-                                <div class="col-lg-8 px-3 d-flex flex-column gap-1">
-                                    <h6 class="m-0 @if ($data->id === $subCourse->id) text-white @endif">{{ $data->title }}
-                                    </h6>
-                                    <p style="font-size: 12px" class="mb-0">{{ Str::limit($data->description, 100) }}</p>
+                                <div class="col-lg-8 d-flex align-items-center gap-2">
+                                    <div class="d-flex flex-column gap-1">
+                                        <h3 class="m-0 mb-2 h5 fw-bolder">{{ $data->subCourse->title }}</h3>
+                                        <p style="font-size: 12px" class="mb-0">
+                                            {{ Str::limit($data->subCourse->description, 100) }}</p>
+                                    </div>
+                                    @if (!$data->unlock)
+                                        <div class="leading-1">
+                                            <svg width="31" height="31" viewBox="0 0 31 31" fill="none"
+                                                style="font-size: 5rem" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M12.9167 14.2083V11.625C12.9167 10.9399 13.1888 10.2828 13.6733 9.79831C14.1578 9.31384 14.8149 9.04167 15.5 9.04167C16.1851 9.04167 16.8422 9.31384 17.3267 9.79831C17.8112 10.2828 18.0833 10.9399 18.0833 11.625V14.2083M15.5 3.875C24.8 3.875 27.125 6.2 27.125 15.5C27.125 24.8 24.8 27.125 15.5 27.125C6.2 27.125 3.875 24.8 3.875 15.5C3.875 6.2 6.2 3.875 15.5 3.875ZM10.3333 15.5C10.3333 15.1574 10.4694 14.8289 10.7117 14.5867C10.9539 14.3444 11.2824 14.2083 11.625 14.2083H19.375C19.7176 14.2083 20.0461 14.3444 20.2883 14.5867C20.5306 14.8289 20.6667 15.1574 20.6667 15.5V19.375C20.6667 19.7176 20.5306 20.0461 20.2883 20.2883C20.0461 20.5306 19.7176 20.6667 19.375 20.6667H11.625C11.2824 20.6667 10.9539 20.5306 10.7117 20.2883C10.4694 20.0461 10.3333 19.7176 10.3333 19.375V15.5Z"
+                                                    stroke="#5D87FF" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </a>
@@ -135,6 +203,34 @@
 
             {{ $subCourses->links('pagination::simple-bootstrap-5') }}
         </div>
+    </div>
+
+    <div class="card-floating card card-body">
+        <a
+            @if($subCourseMeta->getPreviousAttribute()?->unlock)
+                href="{{ route('siswa-online.course.subcourse', ['course' => $course->id, 'subCourse' => $subCourse->id + 1]) }}"
+            @else
+                href="javascript:void(0)"
+            @endif
+
+            class="navigation-next @if(!$subCourseMeta->getPreviousAttribute()?->unlock) disabled @endif">
+            <i class="fas fa-arrow-left"></i>
+            <span>Sebelumnya</span>
+        </a>
+        <span class="course-title">
+            {{ $subCourse->title }}
+        </span>
+        <a
+            @if($subCourseMeta->getNextAttribute()->unlock)
+                href="{{ route('siswa-online.course.subcourse', ['course' => $course->id, 'subCourse' => $subCourse->id + 1]) }}"
+            @else
+                href="javascript:void(0)"
+            @endif
+
+            class="navigation-next @if(!$subCourseMeta->getNextAttribute()->unlock) disabled @endif">
+            <span>Selanjutnya</span>
+            <i class="fas fa-arrow-right"></i>
+        </a>
     </div>
 @endsection
 @section('script')
