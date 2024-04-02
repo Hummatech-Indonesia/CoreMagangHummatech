@@ -310,41 +310,29 @@
 
 <!-- Modal Laporkan -->
 <div class="modal fade" id="laporModal" tabindex="-1" aria-labelledby="laporModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="laporModalLabel">Laporkan Piket</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="{{ route('picket-report.store') }}" method="post" enctype="multipart/form-data">
             <div class="modal-body">
-                <form>
+                    @csrf
                     <div class="mb-3">
-                        <label for="waktuRadio" class="form-label">Waktu</label>
-                        <div id="waktuRadio">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="waktu" id="pagiRadio" value="pagi">
-                                <label class="form-check-label" for="pagiRadio">Pagi</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="waktu" id="soreRadio" value="sore">
-                                <label class="form-check-label" for="soreRadio">Sore</label>
-                            </div>
-                        </div>
+                        <label for="laporanTextarea" class="form-label">Laporan piket </label>
+                        <textarea class="form-control" id="laporanTextarea" rows="12" name="description"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="laporanTextarea" class="form-label">Deskripsi </label>
-                        <textarea class="form-control" id="laporanTextarea" rows="3"></textarea>
+                        <label for="proof" class="form-label">Bukti piket</label>
+                        <input class="form-control" type="file" id="proof" name="proof">
                     </div>
-                    <div class="mb-3">
-                        <label for="gambarInput" class="form-label">Upload Gambar</label>
-                        <input class="form-control" type="file" id="gambarInput" name="gambar">
-                    </div>
-                </form>
-            </div>
+                </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
-                <button type="submit" class="btn btn-primary" onclick="submitLaporan()">Simpan</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
+        </form>
         </div>
     </div>
 </div>

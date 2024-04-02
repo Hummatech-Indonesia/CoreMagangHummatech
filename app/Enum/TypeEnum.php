@@ -25,4 +25,5 @@ enum TypeEnum : string
 
     case TASKSUBMISSION = 'task_submission';
     case TASKANSWER = 'task-answer';
+    case PICKET = 'picket';
 }
