@@ -58,36 +58,38 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background: url('{{ asset('assetsLogin/bg-login.png') }}') no-repeat center center fixed;
+            min-height: 100vh;
+            background: url('{{ asset('assetsLogin/bg.png') }}') no-repeat center center fixed;
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
         }
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+        }
         .card {
             background: rgba(255, 255, 255, 0.7);
             border-radius: 5%;
-            padding: 3rem;
+            padding: 5rem;
+            margin:-1%;
+            backdrop-filter: blur(2px);
+
         }
         .gradient-btn {
-            background: linear-gradient(to right, #B1C5FF 0%, #3577F1 100%);
+            background: linear-gradient(to right, #B1D0FF 0%, #3597F1 100%);
             border: none;
         }
-        .person-holding-card {
-            position: absolute;
-            left: 62%;
-            transform: translateX(-49%);
-            bottom: 45%;
-            z-index: 1;
-            width: 340px;
+        img.person-holding-card {
+            max-width: 150px;
             height: auto;
-        }
-        h3{
-            font-size: 30px;
-        }
-        h5{
-            font-size: 14px;
+            margin: 0 0 300px 0;
+            align-self: center;
+            z-index: 1;
+
         }
 
         @media (min-width: 185px) and (max-width: 1280px) {
@@ -113,6 +115,9 @@
         }
     </style>
 
+
+
+<div class="login-container">
     <div class="card">
         <div class="card-body">
             <div class=" text-center">
@@ -157,7 +162,8 @@
             </form>
         </div>
     </div>
-    <img src="{{ asset('assetsLogin/cartoon-login.png') }}" alt="Person holding card" class="person-holding-card">
+    <img src="{{ asset('assetsLogin/cartoon.png') }}" alt="Person holding card" class="img-fluid person-holding-card">
+</div>
 
     @if (session('pending'))
 
@@ -184,6 +190,7 @@
             </div>
         </div>
     @endif
+
 @endsection
 
 @section('script')
