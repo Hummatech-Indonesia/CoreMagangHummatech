@@ -61,10 +61,10 @@ class PicketingReportService
         $data = $request->validated();
 
         if ($request->hasFile('proof') && $request->file('proof')->isValid()) {
-            $this->remove($picketingReport->file);
+            $this->remove($picketingReport->proof);
             $data['proof'] = $request->file('proof')->store(TypeEnum::PICKET->value, 'public');
         }else {
-            $data['proof'] = $picketingReport->file;
+            $data['proof'] = $picketingReport->proof;
         }
 
         return $data;
@@ -72,6 +72,6 @@ class PicketingReportService
 
     public function delete(PicketingReport $picketingReport)
     {
-        $this->remove($picketingReport->file);
+        $this->remove($picketingReport->proof);
     }
 }

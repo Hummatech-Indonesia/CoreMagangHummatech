@@ -24,11 +24,11 @@ class PicketOfflineController extends Controller
      */
     public function index()
     {
-        $reports = $this->report->get();
+        $report = $this->report->getToday();
         $pickets = $this->picket->get();
         $students = $this->student->get();
 
-        return view('student_offline.others.picket', compact('pickets','students','reports'));
+        return view('student_offline.others.picket', compact('pickets','students','report'));
     }
 
     /**

@@ -78,6 +78,8 @@ class PicketingReportController extends Controller
      */
     public function destroy(PicketingReport $picketingReport)
     {
-        //
+        $this->service->delete($picketingReport);
+        $this->picketingReport->delete($picketingReport->id);
+        return back()->with('success' , 'Berhasi Menghapus Laporan');
     }
 }

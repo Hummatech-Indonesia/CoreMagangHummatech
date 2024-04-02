@@ -13,7 +13,7 @@ class UpdatePicketingReportRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdatePicketingReportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => Rule::in(PicketingStatusEnum::ACCEPTED, PicketingStatusEnum::REJECTED, PicketingStatusEnum::PENDING),
+            'description' => 'required|max:1000',
+            'proof' => 'nullable|mimes:png,jpg,jpeg'
         ];
     }
 }
