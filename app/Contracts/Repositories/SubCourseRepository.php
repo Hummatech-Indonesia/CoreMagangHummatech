@@ -1,12 +1,7 @@
 <?php
 namespace App\Contracts\Repositories;
 
-use App\Contracts\Interfaces\AdminJournalInterface;
-use App\Contracts\Interfaces\JournalInterface;
-use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\SubCourseInterface;
-use App\Models\Journal;
-use App\Models\Student;
 use App\Models\SubCourse;
 
 class SubCourseRepository extends BaseRepository implements SubCourseInterface

@@ -2,9 +2,8 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\PicketingReportInterface;
-use App\Contracts\Interfaces\StudentInterface;
 use App\Models\PicketingReport;
-use App\Models\Student;
+use Carbon\Carbon;
 
 class PicketingReportRepository extends BaseRepository implements PicketingReportInterface
 {
@@ -28,5 +27,12 @@ class PicketingReportRepository extends BaseRepository implements PicketingRepor
     public function delete(mixed $id): mixed
     {
         return $this->model->query()->findOrFail($id)->delete($id);
+    }
+    public function getToday(): mixed
+    {
+        return $this->model->query()
+                    ->whereDate('created_at', Carbon::now()->toDateString()) 
+                    ->where('user_id', auth()->user()->id)
+                    ->first(); 
     }
 }

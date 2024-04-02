@@ -34,6 +34,12 @@
               <span class="d-none d-md-block font-weight-medium">Sore</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a data-bs-toggle="tab" href="#report" role="tab" class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color " id="report-nav">
+              <i class="ti ti-notes fill-white me-0 me-md-1"></i>
+              <span class="d-none d-md-block font-weight-medium">Laporan hari ini</span>
+            </a>
+          </li>
           <li class="nav-item ms-auto">
             <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#laporModal">
                 Laporkan
@@ -285,6 +291,44 @@
                     </div>
                 </div>
             </div>
+
+            <!-- REPORT -->
+            <div class="tab-pane" id="report" role="tabpanel">
+                <div class="row h-100 align-items-stretch justify-content-center pt-3">
+                    @if ($report != null)
+                        <div class="card">
+                            <div class="card-body">
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="d-block">
+                                    <button class="btn-edit border-0 mb-4 round-40 rounded-circle text-white d-flex align-items-center justify-content-center bg-success"
+                                    data-bs-toggle="modal" data-bs-target="#edit"
+                                    data-id="{{ $report->id }}"
+                                    data-description="{{ $report->description }}"
+                                    data-proof="{{ asset('storage/'. $report->proof) }}">
+                                    <i class="ti ti-pencil fs-6"></i>
+                                    </button>
+                                    <button class="btn-delete border-0 round-40 rounded-circle text-white d-flex align-items-center justify-content-center bg-danger"
+                                    data-id="{{ $report->id }}">
+                                    <i class="ti ti-trash fs-6"></i>
+                                    </button>
+                                </div>
+                                <div class="ms-3 align-self-center col-xxl-10">
+                                <h3 class=" fs-6">{{ \Carbon\Carbon::parse($report->created_at)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</h3>
+                                <span class="text-muted">{{ $report->description }}</span>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="d-flex justify-content-center mb-2 mt-5">
+                            <img src="{{ asset('no data.png') }}" alt="" width="200px" srcset="">
+                        </div>
+                        <p class="fs-5 text-dark text-center mb-5">
+                            Tidak ada laporan piket hari ini
+                        </p>
+                    @endif
+                </div>
+            </div>
         </div>
       </div>
 
@@ -321,7 +365,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="laporanTextarea" class="form-label">Laporan piket </label>
-                        <textarea class="form-control" id="laporanTextarea" rows="12" name="description"></textarea>
+                        <textarea class="form-control" id="laporanTextarea" rows="10" name="description"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="proof" class="form-label">Bukti piket</label>
@@ -337,6 +381,37 @@
     </div>
 </div>
 
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="laporModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="laporModalLabel">Edit Laporan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="form-update" method="post" enctype="multipart/form-data">
+            <div class="modal-body d-flex gap-3">
+                    @csrf
+                    @method('PUT')
+                    <div class="mb-3 col-7">
+                        <label for="laporanTextarea" class="form-label">Laporan piket </label>
+                        <textarea class="form-control" rows="17" id="des-edit" name="description"></textarea>
+                    </div>
+                    <div class="mb-3 col-4">
+                        <label for="proof" class="form-label">Bukti piket</label>
+                        <br>
+                        <img id="proof-edit" style="width: 300px;">
+                        <input class="form-control" type="file" id="proof" name="proof">
+                    </div>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+@include('admin.components.delete-modal-component')
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
@@ -344,8 +419,12 @@
     <script>
         $('.btn-edit').click(function () {
             var id = $(this).data('id');
-            $('#form-update').attr('action', '/material/' + id);
-            $('#modal-edit').modal('show');
+            var des = $(this).data('description');
+            var proof = $(this).data('proof');
+            $('#des-edit').val(des);
+            $('#proof-edit').attr('src', proof);
+            $('#form-update').attr('action', '/picket-report/' + id);
+            $('#medit').modal('show');
         });
         $('.btn-detail').click(function () {
             var id = $(this).data('id');
@@ -371,7 +450,7 @@
         }
         $('.btn-delete').click(function () {
             var id = $(this).data('id');
-            $('#form-delete').attr('action', '/division/' + id);
+            $('#form-delete').attr('action', '/picket-report/' + id);
             $('#modal-delete').modal('show');
         });
     </script>

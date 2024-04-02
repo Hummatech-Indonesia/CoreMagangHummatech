@@ -103,3 +103,5 @@ Route::patch('siswa-offline/task/update/{studentTask}', [StudentTaskController::
 
 
 Route::post('picket-report', [PicketingReportController::class, 'store'])->name('picket-report.store');
+Route::put('picket-report/{picketingReport}', [PicketingReportController::class, 'update'])->name('picket-report.update');
+Route::delete('picket-report/{picketingReport}', [PicketingReportController::class, 'destroy'])->name('picket-report.delete');

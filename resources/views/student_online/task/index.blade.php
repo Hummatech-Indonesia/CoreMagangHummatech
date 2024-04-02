@@ -35,7 +35,12 @@
                         </svg>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="{{ route('siswa-online.tasksubmit.index') }}">Tugas</a></li>
+                        <li><a class="dropdown-item {{ !request()->get('status') ? 'active' : '' }}"
+                            href="{{ route('siswa-online.tasksubmit.index') }}">Semua Tugas</a></li>
+                        <li><a class="dropdown-item {{ request()->get('status') === 'inprogress' ? 'active' : '' }}"
+                            href="{{ route('siswa-online.tasksubmit.index', ['status' => 'inprogress']) }}">Tugas Dinilai</a></li>
+                        <li><a class="dropdown-item {{ request()->get('status') === 'completed' ? 'active' : '' }}"
+                            href="{{ route('siswa-online.tasksubmit.index', ['status' => 'completed']) }}">Tugas Selesai</a></li>
                     </ul>
                 </div>
                 <ul class="nav nav-tabs gap-2 d-none d-md-none d-lg-flex" role="tablist">
@@ -101,8 +106,8 @@
             <div class="col-md-6">
                 <div class="card card-body" style="border-left: 6px solid var(--bs-primary)">
                     <div class="row align-items-center">
-                        <div class="col-md-9">
-                            <div class="d-flex mb-3 gap-3 align-items-center">
+                        <div class="col-lg-9">
+                            <div class="d-flex flex-column flex-lg-row mb-3 gap-3 align-items-start align-items-lg-center">
                                 <ul class="course-paginate breadcrumb">
                                     <li class="breadcrumb-item">
                                         <a
@@ -128,9 +133,9 @@
 
                             <h3 class="mb-0">{{ $task->title }}</h3>
                         </div>
-                        <div class="col-md-3 d-flex justify-content-end">
+                        <div class="col-lg-3 d-grid mt-3 mt-lg-0 d-lg-flex justify-content-start justify-content-lg-end">
                             <a href="{{ route('siswa-online.tasksubmit.detail', $task->id) }}"
-                                class="btn btn-primary">Lihat Detail</a>
+                                class="btn btn-primary w-100">Lihat Detail</a>
                         </div>
                     </div>
                 </div>

@@ -2,18 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Enum\PicketingStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class UpdatePicketingReportRequest extends FormRequest
+class StoreSubCourseUnlockRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,8 +22,7 @@ class UpdatePicketingReportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'required|max:1000',
-            'proof' => 'nullable|mimes:png,jpg,jpeg'
+            //
         ];
     }
 }

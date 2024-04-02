@@ -8,4 +8,6 @@ use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface PicketingReportInterface extends GetInterface, StoreInterface, UpdateInterface, DeleteInterface
-{}
+{
+    public function getToday(): mixed;
+}
