@@ -13,8 +13,8 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-4 col-md-6 col-sm-12 mb-4"> <!-- Menambahkan kelas grid untuk responsivitas -->
-        <div class="card h-100"> <!-- Menambahkan kelas h-100 untuk mengisi tinggi kartu -->
+    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div class="card h-100">
             <div class="card-header text-bg-primary d-flex align-items-center rounded-top-4">
                 <h4 class="card-title text-white mb-0">Belajar Laravel 11</h4>
                 <div class="ms-auto d-flex">
@@ -37,8 +37,9 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4 col-md-6 col-sm-12 mb-4"> <!-- Menambahkan kelas grid untuk responsivitas -->
-        <div class="card h-100"> <!-- Menambahkan kelas h-100 untuk mengisi tinggi kartu -->
+
+    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div class="card h-100">
             <div class="card-header text-bg-warning d-flex align-items-center rounded-top-4">
                 <h4 class="card-title text-white mb-0">Belajar Laravel 11</h4>
                 <div class="ms-auto d-flex">
@@ -61,6 +62,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 @endsection
