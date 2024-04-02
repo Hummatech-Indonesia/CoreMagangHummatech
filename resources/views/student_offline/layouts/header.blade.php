@@ -29,19 +29,22 @@
                     aria-controls="offcanvasWithBothOptions">
                     {{-- <i class="ti ti-align-justified fs-7"></i> --}}
                 </a>
+                
                 <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-center">
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            @if(auth()->user()->student->division->id == '1')
-                                <span class="mb-1 badge font-medium bg-light-warning text-warning">{{ auth()->user()->student->division->name }}</span>
-                            @elseif(auth()->user()->student->division->id == '2')
-                                <span class="mb-1 badge font-medium bg-light-success text-success">{{ auth()->user()->student->division->name }}</span>
-                            @elseif(auth()->user()->student->division->id == '3')
-                                <span class="mb-1 badge font-medium bg-light-secondary text-secondary">{{ auth()->user()->student->division->name }}</span>
-                            @elseif(auth()->user()->student->division->id == '4')
-                                <span class="mb-1 badge font-medium bg-light-primary text-primary">{{ auth()->user()->student->division->name }}</span>
+                            @if (!empty(auth()->user()->student->division_id))
+                                @if(auth()->user()->student->division->id == '1')
+                                    <span class="mb-1 badge font-medium bg-light-warning text-warning">{{ auth()->user()->student->division->name }}</span>
+                                @elseif(auth()->user()->student->division->id == '2')
+                                    <span class="mb-1 badge font-medium bg-light-success text-success">{{ auth()->user()->student->division->name }}</span>
+                                @elseif(auth()->user()->student->division->id == '3')
+                                    <span class="mb-1 badge font-medium bg-light-secondary text-secondary">{{ auth()->user()->student->division->name }}</span>
+                                @elseif(auth()->user()->student->division->id == '4')
+                                    <span class="mb-1 badge font-medium bg-light-primary text-primary">{{ auth()->user()->student->division->name }}</span>
+                                @endif
                             @else
-                                <span class="mb-1 badge font-medium bg-light-info text-info">{{ auth()->user()->student->division->name }}</span>
+                                <span class="mb-1 badge font-medium bg-light-primary text-primary">Anda belum memiliki divisi</span>
                             @endif
                         </a>
                     </li>
@@ -175,7 +178,11 @@
                                     @endif
                                     <div class="ms-3">
                                         <h5 class="mb-1 fs-3">{{ auth()->user()->student->name }}</h5>
-                                        <span class="mb-1 d-block text-dark">{{ auth()->user()->student->division->name }}</span>
+                                        @if (empty(auth()->user()->student->division_id))
+                                            <span class="mb-1 d-block text-dark">Anda belum memiliki divisi</span>
+                                        @else
+                                            <span class="mb-1 d-block text-dark">{{ auth()->user()->student->division->name }}</span>
+                                        @endif
                                         <p class="mb-0 d-flex text-dark align-items-center gap-2">
                                             <i class="ti ti-mail fs-4"></i> {{ auth()->user()->student->email}}
                                         </p>
