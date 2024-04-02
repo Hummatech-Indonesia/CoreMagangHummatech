@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePicketingReportRequest extends FormRequest
+class UpdateChallengeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,11 +19,12 @@ class StorePicketingReportRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+     public function rules(): array
     {
         return [
-            'description' => 'required|max:1000',
-            'proof' => 'required|mimes:png,jpg,jpeg'
+            'title' => 'required',
+            'level' => 'required',
+            'description' => 'required'
         ];
     }
 }

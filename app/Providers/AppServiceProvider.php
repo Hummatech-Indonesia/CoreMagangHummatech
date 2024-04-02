@@ -58,6 +58,7 @@ use App\Contracts\Interfaces\PicketingReportInterface;
 use App\Contracts\Repositories\AdminJournalRepository;
 use App\Contracts\Repositories\ZoomScheduleRepository;
 use App\Contracts\Interfaces\AttendanceDetailInterface;
+use App\Contracts\Interfaces\ChallengeInterface;
 use App\Contracts\Interfaces\StudentTaskInterface;
 use App\Contracts\Interfaces\SubCourseUnlockInterface;
 use App\Contracts\Interfaces\TaskSubmissionInterface;
@@ -72,6 +73,7 @@ use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\AttendanceDetailRepository;
+use App\Contracts\Repositories\ChallengeRepository;
 use App\Contracts\Repositories\StudentTaskRepository;
 use App\Contracts\Repositories\SubCourseUnlockRepository;
 use App\Contracts\Repositories\TaskSubmissionRepository;
@@ -115,6 +117,7 @@ class AppServiceProvider extends ServiceProvider
         TaskSubmissionInterface::class => TaskSubmissionRepository::class,
         StudentTaskInterface::class => StudentTaskRepository::class,
         SubCourseUnlockInterface::class => SubCourseUnlockRepository::class,
+        ChallengeInterface::class => ChallengeRepository::class
     ];
 
     /**

@@ -12,10 +12,12 @@ use App\Services\PicketingReportService;
 class PicketingReportController extends Controller
 {
     private PicketingReportInterface $picketingReport;
+    private PicketingReportService $service;
 
-    public function __construct(PicketingReportInterface $picketingReport)
+    public function __construct(PicketingReportInterface $picketingReport, PicketingReportService $service)
     {
         $this->picketingReport = $picketingReport;
+        $this->service = $service;
     }
 
     /**
@@ -40,7 +42,10 @@ class PicketingReportController extends Controller
      */
     public function store(StorePicketingReportRequest $request)
     {
-        //
+        $data = $this->service->store($request);
+        $data['user_id'] = auth()->user()->id;
+        $this->picketingReport->store($data);
+        return redirect()->back()->with('success', 'Berhasil mengirim lapoan piket.');
     }
 
     /**
