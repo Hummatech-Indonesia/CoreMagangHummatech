@@ -53,6 +53,12 @@ Route::get('student/journal', function (){
 Route::get('student', function (){
     return view('mentor.student.index');
 });
+Route::get('mentor/challenge', function (){
+    return view('mentor.challange.index');
+});
+Route::get('mentor/assessment', function (){
+    return view('mentor.assessment.index');
+});
 
 
 // siswa offline
@@ -80,7 +86,6 @@ Route::get('siswa-offline/others/rules', function (){
 Route::get('siswa-offline/others/picket',[PicketOfflineController::class,'index']);
 // Route::post('report-picket/store', [PicketingReportController::class, 'store'])->name('report-picket.store');
 
-
 // Route::get('c', function (){
 //     return view('student_offline.others.student');
 // });
@@ -95,6 +100,8 @@ Route::get('siswa-offline/certificate', function (){
 });
 
 
+
+//Admin
 Route::get('administrator/course',[CourseController::class,'index']);
 Route::post('administrator/course/store', [CourseController::class, 'store'])->name('course.store');
 Route::put('administrator/course/{course}', [CourseController::class, 'update'])->name('course.update');
