@@ -29,7 +29,6 @@
                     aria-controls="offcanvasWithBothOptions">
                     {{-- <i class="ti ti-align-justified fs-7"></i> --}}
                 </a>
-                
                 <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-center">
                     <li class="nav-item">
                         <a href="#" class="nav-link">
