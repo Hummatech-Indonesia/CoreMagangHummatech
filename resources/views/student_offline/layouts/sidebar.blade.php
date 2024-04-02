@@ -1,10 +1,16 @@
 <aside class="left-sidebar">
+    <style>
+        .myElement {
+            background: linear-gradient(to right, rgba(200, 200, 200, 0.5), #ffffff);
+        }
+    </style>
     <!-- Sidebar scroll-->
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="/siswa-offline" class="text-nowrap logo-img">
                 <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="180" alt="" />
-                <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="180" alt="" style="display: none;"/>
+                <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="180" alt=""
+                    style="display: none;" />
             </a>
             <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8 text-muted text-primary"></i>
@@ -19,9 +25,13 @@
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex  gap-2">
                                     <div class="">
-                                        <svg  width="35" height="35" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg width="35" height="35" viewBox="0 0 37 37" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <circle cx="18.5" cy="18.5" r="18.5" fill="#5D87FF" />
-                                            <path d="M10 11H28M11 11V21C11 21.5304 11.2107 22.0391 11.5858 22.4142C11.9609 22.7893 12.4696 23 13 23H25C25.5304 23 26.0391 22.7893 26.4142 22.4142C26.7893 22.0391 27 21.5304 27 21V11M19 23V27M16 27H22M15 19L18 16L20 18L23 15" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path
+                                                d="M10 11H28M11 11V21C11 21.5304 11.2107 22.0391 11.5858 22.4142C11.9609 22.7893 12.4696 23 13 23H25C25.5304 23 26.0391 22.7893 26.4142 22.4142C26.7893 22.0391 27 21.5304 27 21V11M19 23V27M16 27H22M15 19L18 16L20 18L23 15"
+                                                stroke="white" stroke-width="1.7" stroke-linecap="round"
+                                                stroke-linejoin="round" />
                                         </svg>
                                     </div>
                                     <div class="mt-2">
@@ -165,7 +175,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{ url('siswa-offline/others/picket')}}" class="sidebar-link">
+                            <a href="{{ url('siswa-offline/others/picket') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
@@ -173,7 +183,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{ url('siswa-offline/others/student')}}" class="sidebar-link">
+                            <a href="{{ url('siswa-offline/others/student') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
@@ -182,7 +192,7 @@
                         </li>
                     </ul>
                 </li>
-                
+
 
             </ul>
             {{-- <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
@@ -202,8 +212,8 @@
         <div class="fixed-profile p-3 bg-light-secondary rounded sidebar-ad mt-3">
             <div class="hstack gap-3">
                 <div class="john-img">
-                    <img src="../../dist/images/profile/user-1.jpg" class="rounded-circle" width="40" height="40"
-                        alt="">
+                    <img src="../../dist/images/profile/user-1.jpg" class="rounded-circle" width="40"
+                        height="40" alt="">
                 </div>
                 <div class="john-title">
                     <h6 class="mb-0 fs-4 fw-semibold">Mathew</h6>
