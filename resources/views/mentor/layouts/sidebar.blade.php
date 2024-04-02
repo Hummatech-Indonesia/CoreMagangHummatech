@@ -3,11 +3,12 @@
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="/siswa-offline" class="text-nowrap logo-img">
-                <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="250" alt="" />
-                <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="250" alt="" />
+                <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="180" alt="" />
+                <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="180" alt=""
+                    style="display: none;" />
             </a>
             <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-                <i class="ti ti-x fs-8 text-muted"></i>
+                <i class="ti ti-x fs-8 text-muted text-primary"></i>
             </div>
         </div>
         <!-- Sidebar navigation-->
@@ -40,9 +41,17 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/challenge" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ url('/mentor/assessment') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-activity"></i>
+                            <i class="ti ti-star"></i>
+                        </span>
+                        <span class="hide-menu">Penilaian</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ url('/mentor/challenge') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-chart-area-line"></i>
                         </span>
                         <span class="hide-menu">Tantangan</span>
                     </a>
