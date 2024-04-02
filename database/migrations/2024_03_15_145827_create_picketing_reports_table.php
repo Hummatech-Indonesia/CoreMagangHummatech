@@ -14,11 +14,11 @@ return new class extends Migration
     {
         Schema::create('picketing_reports', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('proof');
             $table->longText('description');
             $table->enum('status', [PicketingStatusEnum::PENDING->value, PicketingStatusEnum::ACCEPTED->value, PicketingStatusEnum::REJECTED->value])->default(PicketingStatusEnum::PENDING->value);
+            $table->timestamps();
         });
     }
 

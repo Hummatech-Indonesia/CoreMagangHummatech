@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DivisionController;
 use App\Http\Controllers\Admin\DivisionPlacementController;
+use App\Http\Controllers\Admin\PicketingReportController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LetterheadController;
 use App\Http\Controllers\ReportStudentController;
@@ -99,3 +100,6 @@ Route::post('siswa-offline/others/student/report', [ReportStudentController::cla
 
 Route::post('siswa-offline/task/store', [StudentTaskController::class, 'store'])->name('task-offline.store');
 Route::patch('siswa-offline/task/update/{studentTask}', [StudentTaskController::class, 'update'])->name('task-offline.update');
+
+
+Route::post('picket-report', [PicketingReportController::class, 'store'])->name('picket-report.store');

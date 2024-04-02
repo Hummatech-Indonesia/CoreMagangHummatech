@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class PicketingReport extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
 }
