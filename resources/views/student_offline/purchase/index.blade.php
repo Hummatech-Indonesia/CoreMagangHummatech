@@ -61,7 +61,7 @@
                     </div>
                     <div class="d-flex flex-wrap">
                         @foreach (range(1, 4) as $item)
-                        <div class="p-1 col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                        <div class="p-1 col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
                             <div class="card">
                                 <div class="card-body">
                                     <img src="{{ asset('assets-user/dist/images/crypto/c2.jpg') }}" alt="Deskripsi Gambar" class="img-fluid mb-3 rounded-2">
@@ -78,7 +78,7 @@
                                         <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-sm btn-rounded btn-outline-primary w-100">
                                             Lihat Detail
                                         </a>
-                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-sm btn-primary w-100 mx-2">
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary w-100 mx-2">
                                             Beli Sekarang
                                         </a>
                                     </div>
@@ -98,7 +98,7 @@
                     </div>
                     <div class="d-flex flex-wrap">
                         @foreach (range(1, 4) as $item)
-                        <div class="p-1 col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                        <div class="p-1 col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
                             <div class="card">
                                 <div class="card-body">
                                     <img src="{{ asset('assets-user/dist/images/crypto/c2.jpg') }}" alt="Deskripsi Gambar" class="img-fluid mb-3 rounded-2">
@@ -130,7 +130,7 @@
             <div class="tab-pane" id="done" role="tabpanel">
                 <div class="d-flex flex-wrap  all-category note-important">
                     @foreach (range(1, 4) as $item)
-                    <div class="p-1 col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                    <div class="p-1 col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
                         <div class="card">
                             <div class="card-body">
                                 <img src="{{ asset('assets-user/dist/images/crypto/c2.jpg') }}" alt="Deskripsi Gambar" class="img-fluid mb-3 rounded-2">
@@ -138,9 +138,7 @@
                                 <p class="text-mute">
                                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda inventore molestias necessitatibus nisi.
                                 </p>
-                                <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#add">
-                                    Pelajari
-                                </button>
+                                <a href="" class="btn btn-primary w-100">Pelajari</a>
                             </div>
                         </div>
                     </div>
