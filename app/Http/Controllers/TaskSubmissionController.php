@@ -105,7 +105,6 @@ class TaskSubmissionController extends Controller
 
     public function download(Task $task, TaskSubmission $taskSubmission)
     {
-        $submissions = $this->taskSubmissionService->download($taskSubmission);
-        return $submissions;
+        return $this->taskSubmissionService->download($taskSubmission);
     }
 }

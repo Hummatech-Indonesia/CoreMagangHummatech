@@ -21,7 +21,7 @@ class ZoomScheduleController extends Controller
      */
     public function index()
     {
-        $zoomSchedules = $this->zoomSchedule->get();
+        $zoomSchedules = $this->zoomSchedule->paginate(24);
         return view('' , compact('zoomSchedules'));
     }
 

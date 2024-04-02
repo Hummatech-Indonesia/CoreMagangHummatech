@@ -24,5 +24,4 @@ class Attendance extends Model implements HasStudent
     {
         return $this->belongsTo(Student::class);
     }
-
 }
