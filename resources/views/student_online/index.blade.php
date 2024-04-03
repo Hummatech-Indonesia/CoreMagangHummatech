@@ -205,7 +205,7 @@
                         </thead>
                         <tbody>
                             <tr class="search-items">
-                                <td class="d-flex">
+                                <td>
                                     <div class="ms-3">
                                         <div class="user-meta-info">
                                             <h6 class="user-name mb-0 text-primary" data-name="Emma Adams">Bank Mandiri</h6>
@@ -246,7 +246,7 @@
                             </tr>
 
                             <tr class="search-items">
-                                <td class="d-flex">
+                                <td>
                                     <div class="ms-3">
                                         <div class="user-meta-info">
                                             <h6 class="user-name mb-0 text-primary" data-name="Emma Adams">Bank Mandiri</h6>
@@ -287,7 +287,7 @@
                             </tr>
 
                             <tr class="search-items">
-                                <td class="d-flex">
+                                <td>
                                     <div class="ms-3">
                                         <div class="user-meta-info">
                                             <h6 class="user-name mb-0 text-primary" data-name="Emma Adams">Bank Mandiri</h6>
@@ -328,7 +328,7 @@
                             </tr>
 
                             <tr class="search-items">
-                                <td class="d-flex">
+                                <td>
                                     <div class="ms-3">
                                         <div class="user-meta-info">
                                             <h6 class="user-name mb-0 text-primary" data-name="Emma Adams">Bank Mandiri</h6>
