@@ -88,6 +88,47 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
+        {{-- presentaation modal --}}
+        <div id="presentation-modal" class="modal fade" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="text-center mt-2 mb-4">
+                            <a href="#" class="text-success">
+                                <span>
+                                    <img src="{{ asset('mobilelogo.png') }}" class="me-3" width="100"
+                                        alt="" />
+                                </span>
+                            </a>
+                            <h4 class="text-center text-border mb-3" style="font-weight: 600">
+                                Maintenance
+                            </h4>
+                        </div>
+                        <div class="card bg-light-blue" style="background-color: #d2dbf5">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-center mb-3" >
+                                    <svg width="30" height="31" viewBox="0 0 30 31" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M25.5 7.22374e-09C26.6478 -6.60637e-05 27.7523 0.453104 28.5874 1.26679C29.4225 2.08048 29.9252 3.19317 29.9925 4.3772L30 4.65V26.35C30.0001 27.5361 29.5615 28.6773 28.7741 29.5403C27.9866 30.4033 26.9098 30.9227 25.764 30.9923L25.5 31H4.5C3.35218 31.0001 2.24773 30.5469 1.41261 29.7332C0.57749 28.9195 0.0748387 27.8068 0.00750018 26.6228L6.99072e-09 26.35V4.65C-6.39326e-05 3.46392 0.438488 2.32265 1.22593 1.4597C2.01336 0.596739 3.09016 0.0773334 4.236 0.00775018L4.5 7.22374e-09H25.5ZM15 13.95H13.5L13.3245 13.9608C12.9599 14.0057 12.6239 14.1871 12.3801 14.4707C12.1363 14.7544 12.0017 15.1206 12.0017 15.5C12.0017 15.8794 12.1363 16.2456 12.3801 16.5293C12.6239 16.8129 12.9599 16.9943 13.3245 17.0392L13.5 17.05V21.7L13.5105 21.8813C13.55 22.2273 13.7011 22.5495 13.9395 22.7958C14.1779 23.0422 14.4897 23.1983 14.8245 23.2391L15 23.25H16.5L16.6755 23.2391C17.0103 23.1983 17.3221 23.0422 17.5605 22.7958C17.7989 22.5495 17.95 22.2273 17.9895 21.8813L18 21.7L17.9895 21.5187C17.9536 21.2024 17.8244 20.9053 17.6194 20.6676C17.4143 20.4299 17.1434 20.2633 16.8435 20.1903L16.6755 20.1593L16.5 20.15V15.5L16.4895 15.3187C16.45 14.9727 16.2989 14.6505 16.0605 14.4042C15.8221 14.1578 15.5103 14.0017 15.1755 13.9608L15 13.95ZM15.015 9.3L14.8245 9.31085C14.4599 9.35566 14.1239 9.53708 13.8801 9.82075C13.6363 10.1044 13.5017 10.4706 13.5017 10.85C13.5017 11.2294 13.6363 11.5956 13.8801 11.8793C14.1239 12.1629 14.4599 12.3443 14.8245 12.3891L15 12.4L15.1905 12.3891C15.5551 12.3443 15.8911 12.1629 16.1349 11.8793C16.3787 11.5956 16.5133 11.2294 16.5133 10.85C16.5133 10.4706 16.3787 10.1044 16.1349 9.82075C15.8911 9.53708 15.5551 9.35566 15.1905 9.31085L15.015 9.3Z"
+                                            fill="#5D87FF" />
+                                    </svg>
+                                </div>
+                                <p class="text-center text-border mb-3" style="font-weight: 600">
+                                    Mohon maaf sistem ini sedang dalam masa pengembangan <br>
+                                    Silahkan presentasi dengan menggunakan website <a href="https://task.hummatech.com/" target="_blank">task.hummatech.com</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center mt-4 gap-3">
+                            <button class="btn btn-light-danger text-danger" data-bs-dismiss="modal">Tutup</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
         <!-- /.modal -->
         <!--  Main wrapper -->
         <div class="body-wrapper">
