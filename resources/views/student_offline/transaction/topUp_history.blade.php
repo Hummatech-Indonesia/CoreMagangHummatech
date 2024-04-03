@@ -36,7 +36,7 @@
                 </thead>
                 <tbody>
                     <tr class="search-items">
-                        <td class="d-flex">
+                        <td >
                             <div class="ms-3">
                                 <div class="user-meta-info">
                                     <h6 class="user-name mb-0" data-name="Emma Adams">Rp.2.000.000</h6>
@@ -52,7 +52,7 @@
 
                     </tr>
                     <tr class="search-items">
-                        <td class="d-flex">
+                        <td>
                             <div class="ms-3">
                                 <div class="user-meta-info">
                                     <h6 class="user-name mb-0" data-name="Emma Adams">Rp.2.000.000</h6>
@@ -68,7 +68,7 @@
 
                     </tr>
                     <tr class="search-items">
-                        <td class="d-flex">
+                        <td>
                             <div class="ms-3">
                                 <div class="user-meta-info">
                                     <h6 class="user-name mb-0" data-name="Emma Adams">Rp.2.000.000</h6>
