@@ -59,6 +59,12 @@ Route::get('mentor/challenge', function (){
 Route::get('mentor/assessment', function (){
     return view('mentor.assessment.index');
 });
+Route::get('mentor/assessment/task-detail', function (){
+    return view('mentor.assessment.task_detail');
+});
+Route::get('mentor/assessment/challange-detail', function (){
+    return view('mentor.assessment.challange_detail');
+});
 
 
 // siswa offline
