@@ -129,10 +129,6 @@ Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(
         Route::post('/submit', 'store')->name('.submit');
     });
 
-    // Route::get('division', function () {
-    //     return view('student_online.division.index');
-    // })->name('.class.division');
-
     # Jurnal
     Route::get('journal', [JournalController::class, 'index'])->name('.journal.index');
     Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('.journal.download');
@@ -140,7 +136,6 @@ Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(
     # LetterHead
     Route::get('letterhead', [LetterheadController::class, 'index'])->name('.letterhead');
     Route::post('letterhead/store', [LetterheadController::class, 'store'])->name('.letterhead.store');
-
 
     Route::get('/meeting', [ZoomScheduleController::class, 'indexStudent'])->name('zoom-meeting.indexStudent');
 });
@@ -173,6 +168,9 @@ Route::middleware('auth')->group(function () {
         Route::post('apply', 'apply')->name('apply');
         Route::post('revoke', 'revoke')->name('revoke');
     });
+
+    # Course Buy
+    // Route::controller()
 
     # Redirect based on roles
     Route::get('/home', function () {
