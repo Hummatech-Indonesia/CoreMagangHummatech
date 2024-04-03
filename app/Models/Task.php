@@ -10,6 +10,34 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $title
+ * @property string $description
+ * @property string $level
+ * @property int $sub_course_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StudentTask> $studentTasks
+ * @property-read int|null $student_tasks_count
+ * @property-read \App\Models\SubCourse $subCourse
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TaskSubmission> $submissions
+ * @property-read int|null $submissions_count
+ * @method static \Database\Factories\TaskFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Task newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Task newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Task query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereSubCourseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Task whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Task extends Model
 {
     use HasFactory;

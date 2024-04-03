@@ -19,6 +19,11 @@ class TaskRepository extends BaseRepository implements TaskInterface
         });
     }
 
+    public function getTaskBySubcourse(int $id): mixed
+    {
+        return $this->model->query()->where('sub_course_id', $id)->get();
+    }
+
     public function getId(int $id): mixed
     {
         return $this->model->query()->findOrFail($id);

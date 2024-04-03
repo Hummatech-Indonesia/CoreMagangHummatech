@@ -5,6 +5,7 @@ namespace App\Http\Controllers\StudentOnline;
 use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\SubCourseInterface;
 use App\Contracts\Interfaces\SubCourseUnlockInterface;
+use App\Contracts\Interfaces\TaskInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\SubCourse;
@@ -13,15 +14,15 @@ use Illuminate\Http\Request;
 class CourseController extends Controller
 {
     private CourseInterface $course;
-    private SubCourseInterface $subCourse;
     private SubCourseUnlockInterface $subCourseStatus;
+    private TaskInterface $taskInterface;
 
-    public function __construct(CourseInterface $course, SubCourseInterface $subCourse, SubCourseUnlockInterface $subCourseStatus)
+    public function __construct(CourseInterface $course, SubCourseUnlockInterface $subCourseStatus, TaskInterface $taskInterface)
     {
         $this->middleware('subsrcribed');
-        $this->subCourse = $subCourse;
         $this->course = $course;
         $this->subCourseStatus = $subCourseStatus;
+        $this->taskInterface = $taskInterface;
     }
 
     public function index(Request $request)
@@ -41,6 +42,7 @@ class CourseController extends Controller
         $subCourses = $this->subCourseStatus->getCourseByUser($course->id, auth()->id(), '');
         $totalSubCourses = $this->subCourseStatus->count();
         $subCourseMeta = $subCourse->subCourseUnlock;
-        return view('student_online.course.learn-more', compact('course' , 'subCourse', 'subCourses', 'totalSubCourses', 'subCourseMeta'));
+        $taskData = $this->taskInterface->getTaskBySubcourse($subCourse->id);
+        return view('student_online.course.learn-more', compact('course' , 'subCourse', 'subCourses', 'totalSubCourses', 'subCourseMeta', 'taskData'));
     }
 }
