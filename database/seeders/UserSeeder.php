@@ -100,6 +100,7 @@ class UserSeeder extends Seeder
             'name' => $student->name,
             'email' => $student->email,
             'password' => $student->password,
+            'feature' => 1,
             'student_id' => $student->id
         ])->assignRole(RolesEnum::ONLINE);
         User::factory()->create([
