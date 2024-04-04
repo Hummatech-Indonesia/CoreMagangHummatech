@@ -1,6 +1,7 @@
 <?php
 
 use App\Enum\RolesEnum;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\MentorPlacementController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
+use App\Http\Controllers\CourseStoreController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\StudentOnline\CourseController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -170,7 +172,9 @@ Route::middleware('auth')->group(function () {
     });
 
     # Course Buy
-    // Route::controller()
+    Route::controller(CourseStoreController::class)->name('course-store.')->prefix('courses')->group(function() {
+        Route::get('/', 'index')->name('index');
+    });
 
     # Redirect based on roles
     Route::get('/home', function () {
