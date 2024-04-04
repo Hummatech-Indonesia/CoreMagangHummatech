@@ -80,14 +80,12 @@
                             </div>
                         </div>
                     @empty
-                        <div class="d-flex justify-content-center mb-2 mt-5">
-                            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
-                        </div>
-                        <p class="fs-5 text-dark text-center">
-                            Data Masih Kosong
-                        </p>
+                    <div class="col-md-12 text-center">
+                        <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" alt="No Data" height="120px" />
+                        <h3 class="text-center">Data Masih Kosong</h3>
+                    </div>
                     @endforelse
-                </div>   
+                </div>
             </div>
             <div class="tab-pane" id="done" role="tabpanel">
                 <div class="d-flex flex-wrap  all-category note-important">
@@ -105,10 +103,10 @@
                                         <h5 class="col-sm-12">{{ $taskPending->task->title }}</h5>
                                     </div>
                                     <div class="ms-auto col-sm-12">
-                                            <button type="button" class="btn btn-light-success text-success dropdown text-center px-4 btn-edit" 
+                                            <button type="button" class="btn btn-light-success text-success dropdown text-center px-4 btn-edit"
                                             data-id="{{ $taskPending->id }}"
                                             data-question="{{ $task->title }}" data-description="{{ $task->description }}" >
-            
+
                                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M7.8125 3.43732L10.3125 5.93732M2.8125 8.43732L5.3125 10.9373M1.875 11.8747H4.375L10.9375 5.3122C11.269 4.98068 11.4553 4.53104 11.4553 4.0622C11.4553 3.59336 11.269 3.14372 10.9375 2.8122C10.606 2.48068 10.1563 2.29443 9.6875 2.29443C9.21866 2.29443 8.76902 2.48068 8.4375 2.8122L1.875 9.3747V11.8747ZM13.125 9.37482V11.8748H8.125L10.625 9.37482H13.125Z" stroke="#5A6A85" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
@@ -119,16 +117,12 @@
                             </div>
                         </div>
                     @empty
-                        <div class="row">
-                            <div class="d-flex justify-content-center mb-2 mt-5">
-                                <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
-                            </div>
-                            <p class="fs-5 text-dark text-center">
-                                Data Masih Kosong
-                            </p>
-                        </div>
+                    <div class="col-md-12 text-center">
+                        <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" alt="No Data" height="120px" />
+                        <h3 class="text-center">Data Masih Kosong</h3>
+                    </div>
                     @endforelse
-                </div>  
+                </div>
             </div>
             <div class="tab-pane" id="acc" role="tabpanel">
                 <div class="sub-materi py-4">
@@ -166,16 +160,12 @@
                                 </div>
                             </div>
                         @empty
-                            <div class="row ">
-                                <div class="d-flex justify-content-center mb-2 mt-5">
-                                    <img src="{{ asset('no data.png') }}" alt="" width="200px" srcset="">
-                                </div>
-                                <p class="fs-5 text-dark text-center">
-                                    Belum ada tugas yang dinilai oleh mentor
-                                </p>
-                            </div>
+                        <div class="col-md-12 text-center">
+                            <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" alt="No Data" height="120px" />
+                            <h3 class="text-center">Data Masih Kosong</h3>
+                        </div>
                         @endforelse
-                    </div>   
+                    </div>
                 </div>
             </div>
         </div>
@@ -371,7 +361,7 @@
             $("#description-question").text(description);
             $('#add').modal('show');
         });
-        
+
         $('.btn-edit').click(function() {
             var question = $(this).data('question');
             var description = $(this).data('description');
