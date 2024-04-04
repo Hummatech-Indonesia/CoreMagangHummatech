@@ -2,7 +2,7 @@
 @section('content')
     <div class="th-hero-wrapper hero-1" id="hero">
         <div class="hero-img tilt-active"><img src="assets_landing/img/hero/hero_img_1_1.png" alt="Hero Image"></div>
-    <div class="container">
+        <div class="container">
             <div class="hero-style1"><span class="hero-subtitle">Solusi meningkatkan skill</span>
                 <h1 class="hero-title">Membentuk Masa Depan</h1>
                 <h1 class="hero-title"><span class="text-theme fw-medium">Pkl Di Hummatech</span></h1>
@@ -405,84 +405,40 @@
                             data-mask-src="assets_landing/img/theme-img/title_shape_2.svg"></span> <img
                             src="assets_landing/img/theme-img/title_shape_2.svg" alt="shape"></div>Materi
                 </span>
-                <h2 class="sec-title">Materi  <span class="text-theme fw-normal">Terbaik</span></h2>
+                <h2 class="sec-title">Materi <span class="text-theme fw-normal">Terbaik</span></h2>
             </div>
             <div class="row gy-4 justify-content-center">
-                <div class="col-xl-4 col-md-6">
-                    <div class="price-card">
-                        <div class="price-card_top">
-                            <h3 class="price-card_title">Silver Package</h3>
-                            <p class="price-card_text">Pricing plan for IT Solution company</p>
-                            <h4 class="price-card_price">$199.00 <span class="duration">/Per Month</span></h4>
-                            <div class="particle">
-                                <div class="price-particle" id="price-p1"></div>
+                @forelse ($courses as $course)
+                    <div class="col-xl-4 col-md-6">
+                        <div class="price-card">
+                            <div class="price-card_top">
+                                <h3 class="price-card_title">{{ $course->title }}</h3>
+                                <p class="price-card_text">{{ $course->division->name }}</p>
+                                <h4 class="price-card_price">@currency($course->price)<span class="duration"></span></h4>
+                                <div class="particle">
+                                    <div class="price-particle" id="price-p1"></div>
+                                </div>
+                            </div>
+                            <div class="price-card_content">
+                                <div class="checklist">
+                                    <p>
+                                        {{ $course->description }}
+                                    </p>
+                                </div><a href="/login" class="th-btn">Beli Materi<i
+                                        class="fa-regular fa-arrow-right ms-2"></i></a>
                             </div>
                         </div>
-                        <div class="price-card_content">
-                            <div class="checklist">
-                                <ul>
-                                    <li><i class="fas fa-circle-check"></i> 30 Days Trial Features</li>
-                                    <li><i class="fas fa-circle-check"></i> Unlimited Features</li>
-                                    <li><i class="fas fa-circle-check"></i> Multi-Language Content</li>
-                                    <li class="unavailable"><i class="fas fa-circle-check"></i> Data backup and recovery
-                                    </li>
-                                    <li class="unavailable"><i class="fas fa-circle-check"></i> Synced To Cloud Database
-                                    </li>
-                                </ul>
-                            </div><a href="javascript:void(0)" class="th-btn">PURCHASE NOW<i
-                                    class="fa-regular fa-arrow-right ms-2"></i></a>
+                    </div>
+                @empty
+                    <div class="col-12">
+                        <div class="text-center">
+                            <img src="{{ asset('assetsLogin/img/no-data-presentasi.png') }}" width="400px"
+                                alt="no-data">
+                            <p class="text-center fw-border text-dark fs-5" style="font-weight: 600 ">Materi Belum
+                                Tersedia</p>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-4 col-md-6">
-                    <div class="price-card">
-                        <div class="price-card_top">
-                            <h3 class="price-card_title">Gold Package</h3>
-                            <p class="price-card_text">Pricing plan for IT Solution company</p>
-                            <h4 class="price-card_price">$299.00 <span class="duration">/Per Month</span></h4>
-                            <div class="particle">
-                                <div class="price-particle" id="price-p2"></div>
-                            </div>
-                        </div>
-                        <div class="price-card_content">
-                            <div class="checklist">
-                                <ul>
-                                    <li><i class="fas fa-circle-check"></i> 30 Days Trial Features</li>
-                                    <li><i class="fas fa-circle-check"></i> Unlimited Features</li>
-                                    <li><i class="fas fa-circle-check"></i> Multi-Language Content</li>
-                                    <li><i class="fas fa-circle-check"></i> Data backup and recovery</li>
-                                    <li class="unavailable"><i class="fas fa-circle-check"></i> Synced To Cloud Database
-                                    </li>
-                                </ul>
-                            </div><a href="javascript:void(0)" class="th-btn">PURCHASE NOW<i
-                                    class="fa-regular fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-6">
-                    <div class="price-card">
-                        <div class="price-card_top">
-                            <h3 class="price-card_title">Platinum Package</h3>
-                            <p class="price-card_text">Pricing plan for IT Solution company</p>
-                            <h4 class="price-card_price">$599.00 <span class="duration">/Per Month</span></h4>
-                            <div class="particle">
-                                <div class="price-particle" id="price-p3"></div>
-                            </div>
-                        </div>
-                        <div class="price-card_content">
-                            <div class="checklist">
-                                <ul>
-                                    <li><i class="fas fa-circle-check"></i> 30 Days Trial Features</li>
-                                    <li><i class="fas fa-circle-check"></i> Unlimited Features</li>
-                                    <li><i class="fas fa-circle-check"></i> Multi-Language Content</li>
-                                    <li><i class="fas fa-circle-check"></i> Data backup and recovery</li>
-                                    <li><i class="fas fa-circle-check"></i> Synced To Cloud Database</li>
-                                </ul>
-                            </div><a href="javascript:void(0)" class="th-btn">PURCHASE NOW<i
-                                    class="fa-regular fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
         <div class="shape-mockup" data-top="0" data-right="0"><img src="assets_landing/img/shape/tech_shape_1.png"
