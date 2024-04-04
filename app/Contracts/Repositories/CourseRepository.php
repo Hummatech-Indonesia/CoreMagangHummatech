@@ -42,7 +42,7 @@ class CourseRepository extends BaseRepository implements CourseInterface
 
     public function GetWhere(mixed $id): mixed
     {
-        return $this->model->query()->where('division_id' , $id)->get();
+        return $this->model->query()->where('division_id' , $id)->where('status' , 'subcribe')->get();
     }
 
     public function getPaid()
