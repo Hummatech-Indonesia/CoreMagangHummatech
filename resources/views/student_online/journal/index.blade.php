@@ -119,8 +119,8 @@
                             <tr>
                                 <td>
                                     <div class="ms-3">
-                                        <h6 class="fs-4 fw-semibold mb-0">{{ $journal->user->name }}</h6>
-                                        <span class="fw-normal">{{ $journal->user->email }}</span>
+                                        <h6 class="fs-4 fw-semibold mb-0">{{ $journal->student->name }}</h6>
+                                        <span class="fw-normal">{{ $journal->student->email }}</span>
                                     </div>
                                 </td>
                                 <td>
@@ -154,9 +154,9 @@
                                             </button>
                                         @endif
                                         <button type="button" class="bg-transparent border-0 btn-detail"
-                                            data-id="{{ $journal->id }}" data-name="{{ $journal->user->name }}"
-                                            data-date="{{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}"                                            data-school="{{ $journal->user->student->school }}" {{-- data-school="{{ $journal->user->student->school }}" --}}
-                                            data-time="{{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('HH:mm:ss') }}"                                            data-school="{{ $journal->user->student->school }}" {{-- data-school="{{ $journal->user->student->school }}" --}}
+                                            data-id="{{ $journal->id }}" data-name="{{ $journal->student->name }}"
+                                            data-date="{{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}"                                            data-school="{{ $journal->student->school }}" {{-- data-school="{{ $journal->student->student->school }}" --}}
+                                            data-time="{{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('HH:mm:ss') }}"                                            data-school="{{ $journal->student->school }}" {{-- data-school="{{ $journal->user->student->school }}" --}}
                                             data-description="{{ $journal->description }}"
                                             data-image="{{ asset('storage/' . $journal->image) }}">
                                             <svg width="29" height="32" viewBox="0 0 29 32" fill="none"
