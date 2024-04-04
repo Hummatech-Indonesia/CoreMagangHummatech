@@ -53,13 +53,10 @@
             </div>
         </div>
         @empty
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        Tidak ada kegiatan
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-12 text-center">
+            <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" alt="No Data" height="120px" />
+            <h3 class="text-center">Belum Ada Kegiatan</h3>
+        </div>
         @endforelse
     </div>
 @endsection
