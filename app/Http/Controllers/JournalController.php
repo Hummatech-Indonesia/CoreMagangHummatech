@@ -72,7 +72,6 @@ class JournalController extends Controller
             return redirect()->back()->with('error', 'Waktu pengumpulan adalah jam 4 sore sampai 12 malam');
         } else {
             $existingData = $this->journal->where();
-
             if ($existingData) {
                 return redirect()->back()->with('error', 'Anda Telah Mengisi Jurnal Hari ini.');
             }
