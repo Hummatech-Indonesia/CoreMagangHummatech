@@ -23,7 +23,7 @@ class StoreJournalRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'description' => 'required',
+            'description' => 'required|min:255',
             'image' => 'mimes:png,jpg|required'
         ];
     }
