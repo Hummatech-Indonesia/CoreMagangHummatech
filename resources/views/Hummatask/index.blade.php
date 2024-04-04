@@ -13,8 +13,7 @@
                     </div>
                     <div class="d-flex align-items-center">
                         <div class="border-end pe-4 border-opacity-10">
-                            <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">Selamat datang, Shobibun Niam
-                                divisi UI/UX</h3>
+                            <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">Selamat datang, {{ auth()->user()->student->name }}</h3>
                         </div>
                     </div>
                 </div>
