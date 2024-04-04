@@ -34,10 +34,10 @@
     <div class="page-wrapper" id="main-wrapper" data-layout="horizontal" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
         <!-- Header Start -->
-        @include('Hummatask.layouts.header')
+        @include('Hummatask.team.layouts.header')
         <!-- Header End -->
         <!-- Sidebar Start -->
-        @include('Hummatask.layouts.sidebar')
+        @include('Hummatask.team.layouts.sidebar')
         <!-- Sidebar End -->
         <!-- Main wrapper -->
         <div class="body-wrapper">
