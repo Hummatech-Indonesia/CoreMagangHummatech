@@ -132,8 +132,6 @@ Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(
     });
 
     # Jurnal
-    Route::get('journal', [JournalController::class, 'index'])->name('.journal.index');
-    Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('.journal.download');
 
     # LetterHead
     Route::get('letterhead', [LetterheadController::class, 'index'])->name('.letterhead');
@@ -142,6 +140,8 @@ Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(
     Route::get('/meeting', [ZoomScheduleController::class, 'indexStudent'])->name('zoom-meeting.indexStudent');
 });
 
+Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('.journal.download');
+Route::get('journal', [JournalController::class, 'index'])->name('.journal.index');
 # ================================================ School/Instance Route Group ================================================
 
 # ==================================================== Another Route Group ====================================================
