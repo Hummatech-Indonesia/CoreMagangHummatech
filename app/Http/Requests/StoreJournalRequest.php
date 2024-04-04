@@ -23,8 +23,18 @@ class StoreJournalRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'description' => 'required|min:255',
+            'description' => 'required|min:150',
             'image' => 'mimes:png,jpg|required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Judul Tidak boleh kosong',
+            'description.required' => 'Deskripsi Tidak boleh kosong',
+            'description.min' => 'Deskripsi Minimal 150 karakter',
+            'image.required' => 'Image Tidak boleh kosong',
         ];
     }
 }
