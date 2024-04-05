@@ -59,6 +59,7 @@ use App\Contracts\Repositories\AdminJournalRepository;
 use App\Contracts\Repositories\ZoomScheduleRepository;
 use App\Contracts\Interfaces\AttendanceDetailInterface;
 use App\Contracts\Interfaces\ChallengeInterface;
+use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Contracts\Interfaces\OrderInterface;
 use App\Contracts\Interfaces\StudentTaskInterface;
 use App\Contracts\Interfaces\SubCourseUnlockInterface;
@@ -75,6 +76,7 @@ use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\AttendanceDetailRepository;
 use App\Contracts\Repositories\ChallengeRepository;
+use App\Contracts\Repositories\HummataskTeamRepository;
 use App\Contracts\Repositories\StudentTaskRepository;
 use App\Contracts\Repositories\SubCourseUnlockRepository;
 use App\Contracts\Repositories\TaskSubmissionRepository;
@@ -121,6 +123,7 @@ class AppServiceProvider extends ServiceProvider
         SubCourseUnlockInterface::class => SubCourseUnlockRepository::class,
         ChallengeInterface::class => ChallengeRepository::class,
         OrderInterface::class => OrderRepository::class,
+        HummataskTeamInterface::class => HummataskTeamRepository::class,
     ];
 
     /**
