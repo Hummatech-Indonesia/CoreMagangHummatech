@@ -11,7 +11,7 @@ class UpdateHummataskTeamRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,19 @@ class UpdateHummataskTeamRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|max:255|unique:hummatask_teams',
+            'image' => 'required|mimes:png,jpg,webp',
+            'description' => 'required'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Nama Tidak boleh kosong',
+            'name.unique' => 'Nama sudah ada',
+            'image.required' => 'Image Tidak boleh kosong',
+            'description.required' => 'Deskripsi Tidak boleh kosong',
+            'image.mimes' => 'Image hanya di perbolehkan Exstensi png,jpg,webp'
         ];
     }
 }
