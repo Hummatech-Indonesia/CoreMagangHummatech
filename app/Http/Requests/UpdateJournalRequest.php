@@ -27,4 +27,14 @@ class UpdateJournalRequest extends FormRequest
             'image' => 'mimes:png,jpg'
         ];
     }
+
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Judul harus diisi',
+            'description.required' => 'Deskripsi harus diisi',
+            'image.mimes' => 'Gambar harus berupa png, jpg atau jpeg'
+        ];
+    }
 }

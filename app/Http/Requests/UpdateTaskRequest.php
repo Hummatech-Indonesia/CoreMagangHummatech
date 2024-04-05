@@ -29,4 +29,16 @@ class UpdateTaskRequest extends FormRequest
             'level' => 'required'
         ];
     }
+
+
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Judul Tidak boleh kosong',
+            'description.required' => 'Deskripsi Tidak boleh kosong',
+            'sub_course_id.required' => 'Sub course Tidak boleh kosong',
+            'level.required' => 'Level tidak boleh kosong',
+        ];
+    }
 }

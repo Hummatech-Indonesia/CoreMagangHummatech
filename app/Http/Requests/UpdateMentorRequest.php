@@ -28,4 +28,16 @@ class UpdateMentorRequest extends FormRequest
             'image' => 'nullable|image',
         ];
     }
+
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Nama tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'division_id.required' => 'Division tidak boleh kosong',
+            'image.image' => 'File harus berupa gambar',
+            'image.nullable' => 'Gambar tidak boleh kosong',
+        ];
+    }
 }

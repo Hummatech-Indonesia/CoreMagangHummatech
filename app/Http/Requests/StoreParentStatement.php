@@ -35,4 +35,17 @@ class StoreParentStatement extends FormRequest
             'phone' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'parent_name.required' => 'Nama Lengkap harus diisi',
+            'identity_card.required' => 'Nomor Induk Kependudukan harus diisi',
+            'parent_address.required' => 'Alamat Lengkap harus diisi',
+            'parent_place_birth.required' => 'Tempat Lahir harus diisi',
+            'parent_date_birth.required' => 'Tanggal Lahir harus diisi',
+            'parent_phone.required' => 'Nomor Handphone harus diisi',
+            'student_name.required' => 'Nama Lengkap harus diisi',
+        ];
+    }
 }

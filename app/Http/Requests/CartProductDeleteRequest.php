@@ -25,4 +25,11 @@ class CartProductDeleteRequest extends FormRequest
             'id' => 'required|integer',
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'id.required' => 'id tidak boleh kosong',
+            'id.integer' => 'id harus berupa angka',
+        ];
+    }
 }

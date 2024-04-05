@@ -25,4 +25,11 @@ class StoreLimitsRequest extends FormRequest
             'limits' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'limits.required' => 'Limit Harus diisi'
+        ];
+    }
 }

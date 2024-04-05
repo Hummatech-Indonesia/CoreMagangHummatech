@@ -28,4 +28,15 @@ class UpdatePicketingReportRequest extends FormRequest
             'proof' => 'nullable|mimes:png,jpg,jpeg'
         ];
     }
+
+
+    public function messages()
+    {
+        return [
+            'description.required' => 'Deskripsi harus diisi',
+            'description.max' => 'Deskripsi tidak boleh lebih dari 1000 karakter',
+            'proof.mimes' => 'Format bukti pembayaran tidak sesuai',
+            'proof.nullable' => 'Bukti pembayaran tidak boleh kosong'
+        ];
+    }
 }

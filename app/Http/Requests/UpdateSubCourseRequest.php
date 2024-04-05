@@ -29,4 +29,15 @@ class UpdateSubCourseRequest extends FormRequest
             'image_course' => 'nullable'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'file_course.mimes' => 'File harus berupa PDF',
+            'video_course.required' => 'Video harus diisi',
+            'image_course.required' => 'Gambar harus diisi',
+            'title.required' => 'Judul harus diisi',
+            'description.required' => 'Deskripsi harus diisi',
+        ];
+    }
 }

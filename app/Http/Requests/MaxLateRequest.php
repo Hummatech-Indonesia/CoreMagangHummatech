@@ -17,4 +17,14 @@ class MaxLateRequest extends FormRequest
             'minute' => 'required|integer|min:0|max:300',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'minute.required' => 'Waktu harus diisi',
+            'minute.integer' => 'Waktu harus berupa angka',
+            'minute.min' => 'Waktu minimal 0 menit',
+            'minute.max' => 'Waktu maksimal 300 menit',
+        ];
+    }
 }

@@ -28,4 +28,14 @@ class UpdateWarning_LetterRequest extends FormRequest
             'file' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'date.required' => 'Tanggal harus diisi',
+            'reference_number.required' => 'Nomor Referensi harus diisi',
+            'file.required' => 'Tanggal harus diisi',
+            'file.mimes' => 'File harus berupa file PDF'
+        ];
+    }
 }

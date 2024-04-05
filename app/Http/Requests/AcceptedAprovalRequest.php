@@ -22,7 +22,15 @@ class AcceptedAprovalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'letter_number' => 'required'
+            'letter_number' => 'required|numeric'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'letter_number.required' => 'Harus diisi',
+            'letter_number.numeric' => 'Harus berupa angka'
         ];
     }
 }

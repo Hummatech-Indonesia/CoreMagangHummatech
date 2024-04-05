@@ -25,4 +25,11 @@ class VoucherRevokeRequest extends FormRequest
             'code' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'code.required' => 'Kode tidak boleh kosong',
+        ];
+    }
 }

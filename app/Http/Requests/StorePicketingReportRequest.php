@@ -26,4 +26,14 @@ class StorePicketingReportRequest extends FormRequest
             'proof' => 'required|mimes:png,jpg,jpeg'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'description.required' => 'Deskripsi harus diisi',
+            'description.max' => 'Deskripsi tidak boleh lebih dari 1000 karakter',
+            'proof.required' => 'Bukti pembayaran harus diisi',
+            'proof.mimes' => 'Bukti pembayaran harus berupa png, jpg, jpeg'
+        ];
+    }
 }

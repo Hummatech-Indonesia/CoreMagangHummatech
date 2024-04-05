@@ -28,4 +28,14 @@ class StoreZoomScheduleRequest extends FormRequest
             'link' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Judul tidak boleh kosong',
+           'start_date.required' => 'Tanggal mulai tidak boleh kosong',
+           'end_date.required' => 'Tanggal akhir tidak boleh kosong',
+           'link.required' => 'Link tidak boleh kosong',
+        ];
+    }
 }

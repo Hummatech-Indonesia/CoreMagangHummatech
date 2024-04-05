@@ -25,8 +25,17 @@ class StoreTaskRequest extends FormRequest
             'title' => 'required',
             'description' => 'required',
             'sub_course_id' => 'required',
-            'title' => 'required',
             'level' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Judul tidak boleh kosong',
+            'description.required' => 'Deskripsi tidak boleh kosong',
+            'sub_course_id.required' => 'Sub course tidak boleh kosong',
+            'level.required' => 'Level tidak boleh kosong'
         ];
     }
 }

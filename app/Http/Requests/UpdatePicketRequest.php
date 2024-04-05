@@ -26,4 +26,13 @@ class UpdatePicketRequest extends FormRequest
             'day' => 'required'
           ];
     }
+
+
+    public function messages()
+    {
+        return [
+            'tim.required' => 'Waktu Wajib diisi',
+            'day.required' => 'Hari Wajib diisi',
+        ];
+    }
 }

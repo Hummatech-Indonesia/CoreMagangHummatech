@@ -29,4 +29,14 @@ class StoreLetterheadRequest extends FormRequest
             'footer' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'letterhead_top.required' => 'Top Letterhead tidak boleh kosong',
+            'letterhead_middle.required' => 'Middle Letterhead tidak boleh kosong',
+            'letterhead_bottom.required' => 'Bottom Letterhead tidak boleh kosong',
+            'footer.required' => 'Footer tidak boleh kosong'
+        ];
+    }
 }

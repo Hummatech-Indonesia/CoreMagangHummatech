@@ -22,7 +22,15 @@ class UpdateCodeOfConductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => 'file|max:10240',
+            'file' => 'file|max:10240|required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'file.max' => 'File maksimal 10MB',
+            'file.required' => 'File tidak boleh kosong'
         ];
     }
 }

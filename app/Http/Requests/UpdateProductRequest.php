@@ -29,4 +29,16 @@ class UpdateProductRequest extends FormRequest
             'image' => 'nullable|mimes:png,jpg'
         ];
     }
+
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Nama produk wajib diisi',
+            'division_id.required' => 'Division wajib diisi',
+            'price.required' => 'Harga wajib diisi',
+            'description.required' => 'Deskripsi wajib diisi',
+            'image.required' => 'Gambar wajib diisi'
+        ];
+    }
 }

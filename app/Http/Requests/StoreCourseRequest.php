@@ -30,4 +30,16 @@ class StoreCourseRequest extends FormRequest
             'division_id' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Judul tidak boleh kosong',
+            'image.required' => 'Gambar tidak boleh kosong',
+            'description.required' => 'Deskripsi tidak boleh kosong',
+            'price.required' => 'Harga tidak boleh kosong',
+            'status.required' => 'Status tidak boleh kosong',
+            'division_id.required' => 'Divisi tidak boleh kosong'
+        ];
+    }
 }

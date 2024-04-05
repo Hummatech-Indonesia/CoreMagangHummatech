@@ -21,4 +21,19 @@ class AttendanceRuleRequest extends FormRequest
             'checkout_ends' => 'required',
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'checkin_starts.required' => 'Waktu masuk harus diisi',
+            'checkin_ends.required' => 'Waktu pulang harus diisi',
+            'break_starts.required' => 'Waktu pulang harus diisi',
+            'break_ends.required' => 'Waktu pulang harus diisi',
+            'return_starts.required' => 'Waktu pulang harus diisi',
+            'return_ends.required' => 'Waktu pulang harus diisi',
+            'checkout_starts.required' => 'Waktu pulang harus diisi',
+            'checkout_ends.required' => 'Waktu pulang harus diisi',
+            'day.required' => 'Tanggal harus diisi',
+            'day.day' => 'Tanggal harus diisi dengan tanggal yang benar',
+        ];
+    }
 }

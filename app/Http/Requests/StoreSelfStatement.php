@@ -30,4 +30,16 @@ class StoreSelfStatement extends FormRequest
             'email' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Nama tidak boleh kosong',
+            'birth_place.required' => 'Tempat lahir tidak boleh kosong',
+            'birth_date.required' => 'Tanggal lahir tidak boleh kosong',
+            'address.required' => 'Alamat tidak boleh kosong',
+            'phone.required' => 'Nomor telepon tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+        ];
+    }
 }

@@ -30,4 +30,17 @@ class UpdateVoucherRequest extends FormRequest
             'quota' => 'required'
         ];
     }
+
+
+    public function messages()
+    {
+        return [
+            'code_voucher.required' => 'Kode voucher harus diisi',
+            'presentase.required' => 'Presentase harus diisi',
+            'start_date.required' => 'Tanggal mulai harus diisi',
+            'type.required' => 'Type harus diisi',
+            'end_date.required' => 'Tanggal akhir harus diisi',
+            'quota.required' => 'Quota harus diisi',
+        ];
+    }
 }

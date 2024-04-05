@@ -26,4 +26,12 @@ class StoreReportStudentRequest extends FormRequest
             'description' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'image.required' => 'Gambar harus diisi',
+            'description.required' => 'Deskripsi harus diisi'
+        ];
+    }
 }

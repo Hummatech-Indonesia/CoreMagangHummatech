@@ -25,4 +25,13 @@ class StoreCodeOfConductRequest extends FormRequest
             'file' => 'file|max:10240|required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'file.required' => 'File tidak boleh kosong',
+            'file.file' => 'File harus berupa file',
+            'file.max' => 'File maksimal 10MB',
+        ];
+    }
 }

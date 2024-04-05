@@ -27,4 +27,14 @@ class UpdateReportStudentRequest extends FormRequest
             'description' => 'required'
         ];
     }
+
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Judul Tidak boleh kosong',
+            'image.required' => 'Gambar Tidak boleh kosong',
+            'description.required' => 'Deskripsi Tidak boleh kosong'
+        ];
+    }
 }

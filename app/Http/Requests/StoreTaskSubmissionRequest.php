@@ -27,4 +27,17 @@ class StoreTaskSubmissionRequest extends FormRequest
             'file' => 'mimes:zip|max:8196',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'task_id.required' => 'id harus diisi',
+            'task_id.exists' => 'id tidak ditemukan',
+            'user_id.required' => 'id harus diisi',
+            'user_id.exists' => 'id tidak ditemukan',
+            'file.required' => 'File tidak boleh kosong',
+            'file.mimes' => 'File harus berupa file',
+            'file.max' => 'File maksimal 8MB',
+        ];
+    }
 }

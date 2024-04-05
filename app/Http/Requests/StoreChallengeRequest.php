@@ -27,4 +27,13 @@ class StoreChallengeRequest extends FormRequest
             'description' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Title harus diisi',
+            'level.required' => 'Level harus diisi',
+            'description.required' => 'Deskripsi harus diisi'
+        ];
+    }
 }

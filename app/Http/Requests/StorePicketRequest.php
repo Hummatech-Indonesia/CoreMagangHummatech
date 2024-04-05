@@ -22,9 +22,18 @@ class StorePicketRequest extends FormRequest
     public function rules(): array
     {
         return [
-          'tim' => 'required',
-          'day_picket' => 'required',
-          'student_id' => 'required',
+            'tim' => 'required',
+            'day_picket' => 'required',
+            'student_id' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'tim.required' => 'Wajib diisi',
+            'day_picket.required' => 'Wajib diisi',
+            'student_id.required' => 'Wajib diisi',
         ];
     }
 }

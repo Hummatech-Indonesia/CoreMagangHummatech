@@ -26,4 +26,14 @@ class UpdateStudentRequest extends FormRequest
             'division_id' => 'nullable|exists:divisions,id',
         ];
     }
+
+
+    public function messages()
+    {
+        return [
+            'avatar.image' => 'File yang diupload bukan gambar',
+            'avatar.mimes' => 'File yang diupload bukan gambar',
+            'division_id.exists' => 'Divisi tidak ditemukan',
+        ];
+    }
 }

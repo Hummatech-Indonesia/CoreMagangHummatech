@@ -27,4 +27,13 @@ class UpdateChallengeRequest extends FormRequest
             'description' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Title harus diisi',
+            'level.required' => 'Level harus diisi',
+            'description.required' => 'Description harus diisi'
+        ];
+    }
 }

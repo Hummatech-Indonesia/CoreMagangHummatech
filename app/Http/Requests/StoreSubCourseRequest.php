@@ -30,4 +30,16 @@ class StoreSubCourseRequest extends FormRequest
             'course_id' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'course_id.required' => 'Pilih kursus terlebih dahulu',
+            'title.required' => 'Masukkan judul kursus',
+            'description.required' => 'Masukkan deskripsi kursus',
+            'file_course.required' => 'Masukkan file kursus',
+            'video_course.required' => 'Masukkan video kursus',
+            'image_course.required' => 'Masukkan gambar kursus',
+        ];
+    }
 }

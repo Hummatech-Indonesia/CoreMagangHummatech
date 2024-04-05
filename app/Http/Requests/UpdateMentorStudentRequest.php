@@ -25,4 +25,16 @@ class UpdateMentorStudentRequest extends FormRequest
             'mentor_id' => 'required|exists:mentors,id',
         ];
     }
+
+
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Nama tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'division_id.required' => 'Division tidak boleh kosong',
+            'image.required' => 'Foto tidak boleh kosong',
+        ];
+    }
 }

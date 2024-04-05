@@ -27,4 +27,16 @@ class StoreStudentTaskRequest extends FormRequest
             'file' => 'required|mimes:zip|max:8196',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+           'student_id.required' => 'Siswa harus dipilih.',
+            'task_id.required' => 'Tugas harus dipilih.',
+            'file.required' => 'File harus dipilih.',
+           'student_id.exists' => 'Siswa tidak ditemukan.',
+            'file.mimes' => 'File harus berupa zip.',
+            'file.max' => 'File terlalu besar.',
+        ];
+    }
 }

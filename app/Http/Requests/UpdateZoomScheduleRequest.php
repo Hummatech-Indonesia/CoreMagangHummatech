@@ -28,4 +28,14 @@ class UpdateZoomScheduleRequest extends FormRequest
             'link' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Judul Tidak boleh kosong',
+            'start_date.required' => 'Tanggal mulai Tidak boleh kosong',
+            'end_date.required' => 'Tanggal akhhir Tidak boleh kosong',
+            'link.required' => 'Link Tidak boleh kosong'
+        ];
+    }
 }

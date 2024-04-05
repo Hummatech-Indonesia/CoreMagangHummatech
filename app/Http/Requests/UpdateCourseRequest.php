@@ -30,4 +30,16 @@ class UpdateCourseRequest extends FormRequest
             'division_id' => 'nullable',
         ];
     }
+
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Judul Tidak boleh kosong',
+            'image.required' => 'Image tidak boleh kosong',
+            'description.required' => 'Deskripsi tidak boleh kosong',
+            'price.required' => 'Harga tidak boleh kosong',
+            'status.required' => 'Status tidak boleh kosong',
+        ];
+    }
 }

@@ -28,4 +28,14 @@ class UpdateDataAdminRequest extends FormRequest
             'field' => 'required',
         ];
     }
+
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Nama tidak boleh kosong',
+            'company.required' => 'Perusahaan tidak boleh kosong',
+            'field.required' => 'Bidang tidak boleh kosong',
+        ];
+    }
 }

@@ -31,4 +31,12 @@ class UpdateAbsenteePermitRequest extends FormRequest
             ],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'admin_note.required' => 'Admin tidak boleh kosong',
+           'status.required' => 'status tidak boleh kosong',
+        ];
+    }
 }

@@ -25,4 +25,13 @@ class CartProductAddRequest extends FormRequest
             'id' => 'required|exists:products,id|integer',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'id.required' => 'id harus diisi',
+            'id.exists' => 'id tidak ditemukan',
+            'id.integer' => 'id harus berupa angka',
+        ];
+    }
 }

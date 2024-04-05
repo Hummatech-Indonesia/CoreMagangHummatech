@@ -28,4 +28,14 @@ class StoreDataAdminRequest extends FormRequest
             'field' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'image.required' => 'Image harus diisi',
+            'name.required' => 'Nama harus diisi',
+            'company.required' => 'Perusahaan harus diisi',
+            'field.required' => 'Bidang harus diisi',
+        ];
+    }
 }

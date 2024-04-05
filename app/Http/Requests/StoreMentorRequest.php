@@ -28,4 +28,14 @@ class StoreMentorRequest extends FormRequest
             'image' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Nama tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'division_id.required' => 'Division tidak boleh kosong',
+            'image.required' => 'Foto tidak boleh kosong',
+        ];
+    }
 }
