@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DivisionController;
 use App\Http\Controllers\Admin\DivisionPlacementController;
 use App\Http\Controllers\Admin\PicketingReportController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LetterheadController;
 use App\Http\Controllers\ReportStudentController;
@@ -21,9 +22,7 @@ Route::get('announcement', function() {
     return view('admin.page.announcement.index');
 });
 
-Route::get('absent', function() {
-    return view('admin.page.absent.index');
-});
+Route::get('absent', [AttendanceController::class, 'index'])->name('attendance.index');
 
 Route::put('journal/{journal}', [JournalController::class, 'update']);
 Route::get('siswa-online/jurnal', [JournalController::class, 'studentOnline']);

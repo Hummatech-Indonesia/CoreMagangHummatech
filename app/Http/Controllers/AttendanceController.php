@@ -18,9 +18,14 @@ class AttendanceController extends Controller
         $this->attendance = $attendanceInterface;
     }
 
+    /**
+     * index
+     *
+     * @return View
+     */
     public function index(): View
     {
         $attendances = $this->student->listAttendance();
-        return view('', compact('attendances'));
+        return view('admin.page.absent.index', compact('attendances'));
     }
 }

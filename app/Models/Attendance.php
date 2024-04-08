@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Base\Interfaces\HasStudent;
+use App\Contracts\Interfaces\HasAttendanceDetails;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $student_id
@@ -28,7 +30,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Attendance whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Attendance extends Model implements HasStudent
+class Attendance extends Model implements HasStudent, HasAttendanceDetails
 {
     use HasFactory;
 
@@ -44,5 +46,15 @@ class Attendance extends Model implements HasStudent
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
+    }
+
+    /**
+     * attendanceDetails
+     *
+     * @return HasMany
+     */
+    public function attendanceDetails(): HasMany
+    {
+        return $this->hasMany(AttendanceDetail::class);
     }
 }

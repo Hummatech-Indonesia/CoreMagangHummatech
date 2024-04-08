@@ -52,28 +52,71 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($attendances as $attendance)
                     <tr>
-                        <td>1</td>
-                        <td>SHOBIBUN NIAM</td>
-                        <td>SMKN 1 TAMBAKBOYO</td>
-                        <td> 14 Maret 2028</td>
-                        <td class="text-center"><span class="badge bg-success-subtle text-success py-2 px-3">Masuk</span></td>
-                        <td class="text-center"><span class="badge bg-success-subtle text-success py-2 px-3">08:00</span></td>
-                        <td class="text-center"><span class="badge bg-success-subtle text-success py-2 px-3">12:00</span></td>
-                        <td class="text-center"><span class="badge bg-success-subtle text-success py-2 px-3">13:00</span></td>
-                        <td class="text-center"><span class="badge bg-success-subtle text-success py-2 px-3">16:00</span></td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $attendance->name }}</td>
+                        <td>{{ $attendance->school }}</td>
+                        <td>P</td>
+                        <td class="text-center"><span class="badge bg-success-subtle text-success py-2 px-3">{{ $attendance->attendances[0]->status }}</span></td>
+                        <td class="text-center">
+                        @if (isset($student->attendances[0]))
+                            @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                @if ($detailAttendance->status == 'present')
+                                    @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                            \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                        <span class="badge bg-success-subtle text-success py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @else
+                                        <span class="badge bg-danger-subtle text-danger py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endif
+                        </td>
+                        <td class="text-center">
+                        @if (isset($student->attendances[0]))
+                            @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                @if ($detailAttendance->status == 'break')
+                                    @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                            \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                        <span class="badge bg-success-subtle text-success py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @else
+                                        <span class="badge bg-danger-subtle text-danger py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endif
+                        </td>
+                        <td class="text-center">
+                        @if (isset($student->attendances[0]))
+                            @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                @if ($detailAttendance->status == 'return_break')
+                                    @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                            \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                        <span class="badge bg-success-subtle text-success py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @else
+                                        <span class="badge bg-danger-subtle text-danger py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endif
+                        </td>
+                        <td class="text-center">
+                        @if (isset($student->attendances[0]))
+                            @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                @if ($detailAttendance->status == 'return')
+                                    @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                            \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                        <span class="badge bg-success-subtle text-success py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @else
+                                        <span class="badge bg-danger-subtle text-danger py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endif
+                        </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>AMIR ZUHDI WIBOWO</td>
-                        <td>POLITEKNIK NEGERI MADIUN</td>
-                        <td> 14 Maret 2028</td>
-                        <td class="text-center"><span class="badge bg-success-subtle text-success py-2 px-3">Masuk</span></td>
-                        <td class="text-center"><span class="badge bg-warning-subtle text-warning py-2 px-3">08:03</span></td>
-                        <td class="text-center"><span class="badge bg-danger-subtle text-danger py-2 px-3">Tidak absen</span></td>
-                        <td class="text-center"><span class="badge bg-success-subtle text-success py-2 px-3">13:00</span></td>
-                        <td class="text-center"><span class="badge bg-success-subtle text-success py-2 px-3">16:00</span></td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
