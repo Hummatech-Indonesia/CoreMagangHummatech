@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
@@ -12,11 +13,13 @@ class StudentController extends Controller
 {
     private StudentInterface $student;
     private StudentService $servicestudent;
+    private MentorStudentInterface $mentorStudent;
 
-    public function __construct(StudentService $servicestudent, StudentInterface $student)
+    public function __construct(StudentService $servicestudent, StudentInterface $student, MentorStudentInterface $mentorStudent)
     {
         $this->student = $student;
         $this->servicestudent = $servicestudent;
+        $this->mentorStudent = $mentorStudent;
     }
     /**
      * Display a listing of the resource.
@@ -79,5 +82,11 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         //
+    }
+    public function mentorStudent(Student $student)
+    {
+        $mentorStudent = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
+
+        return view('mentor.student.index', compact('mentorStudent'));
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PicketingReportController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentOfline\CourseOfflineController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentOfline\PicketOfflineController;
 use App\Http\Controllers\SubCourseController;
 use App\Http\Controllers\SubCourseOfflineController;
@@ -50,11 +51,12 @@ Route::get('student/journal', function (){
     return view('mentor.journal.index');
 });
 
-Route::get('student', function (){
-    return view('mentor.student.index');
-});
+Route::get('student', [StudentController::class,'mentorStudent']);
 Route::get('mentor/challenge', function (){
     return view('mentor.challange.index');
+});
+Route::get('mentor/challenge/detail', function (){
+    return view('mentor.challange.detail');
 });
 Route::get('mentor/assessment', function (){
     return view('mentor.assessment.index');

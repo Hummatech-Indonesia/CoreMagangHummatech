@@ -10,4 +10,6 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 interface MentorStudentInterface extends GetInterface, StoreInterface, UpdateInterface, DeleteInterface
 {
     public function pluck($column);
+
+    public function whereMentorStudent(mixed $id):mixed;
 }
