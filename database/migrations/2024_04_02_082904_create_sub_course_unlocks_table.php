@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sub_course_unlocks', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('student_id')->constrained();
             $table->foreignId('course_id')->constrained();
             $table->foreignId('sub_course_id')->constrained();
             $table->boolean('unlock')->default(false);
