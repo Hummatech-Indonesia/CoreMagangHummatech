@@ -68,9 +68,9 @@
                                     <h5 class="col-sm-12 col-lg-12">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</h5>
                                 </div>
                                 <div class=" col-sm-4 col-lg-4 pt-4">
-                                    <button type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
+                                    <a href="{{ url('mentor/assessment/task-detail') }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
                                         Lihat Detail
-                                    </button>
+                                    </a>
                                 </div>
 
                             </div>
@@ -93,9 +93,9 @@
                                     <h5 class="col-sm-12 col-lg-12">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</h5>
                                 </div>
                                 <div class=" col-sm-4 col-lg-4 pt-4">
-                                    <button type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
+                                    <a href="{{ url('mentor/assessment/task-detail') }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
                                         Lihat Detail
-                                    </button>
+                                    </a>
                                 </div>
 
                             </div>
@@ -118,9 +118,9 @@
                                     <h5 class="col-sm-12 col-lg-12">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</h5>
                                 </div>
                                 <div class=" col-sm-4 col-lg-4 pt-4">
-                                    <button type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
+                                    <a href="{{ url('mentor/assessment/task-detail') }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
                                         Lihat Detail
-                                    </button>
+                                    </a>
                                 </div>
 
                             </div>
@@ -148,9 +148,9 @@
                                     <h5 class="col-sm-12 col-lg-12">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</h5>
                                 </div>
                                 <div class=" col-sm-4 col-lg-4 pt-4">
-                                    <button type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
+                                    <a href="{{ url('mentor/assessment/challange-detail') }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
                                         Lihat Detail
-                                    </button>
+                                    </a>
                                 </div>
 
                             </div>
@@ -173,9 +173,9 @@
                                     <h5 class="col-sm-12 col-lg-12">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</h5>
                                 </div>
                                 <div class=" col-sm-4 col-lg-4 pt-4">
-                                    <button type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
+                                    <a href="{{ url('mentor/assessment/challange-detail') }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
                                         Lihat Detail
-                                    </button>
+                                    </a>
                                 </div>
 
                             </div>
@@ -198,9 +198,9 @@
                                     <h5 class="col-sm-12 col-lg-12">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</h5>
                                 </div>
                                 <div class=" col-sm-4 col-lg-4 pt-4">
-                                    <button type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
+                                    <a href="{{ url('mentor/assessment/challange-detail') }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
                                         Lihat Detail
-                                    </button>
+                                    </a>
                                 </div>
 
                             </div>
