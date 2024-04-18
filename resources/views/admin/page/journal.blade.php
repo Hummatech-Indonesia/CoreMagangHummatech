@@ -149,7 +149,7 @@
                                                         </div>
                                                     </td>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td class="name">{{ $journal->user->name }}</td>
+                                                    <td class="name">{{ $journal->student->name }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($journal->tanggal)->locale('id')->isoFormat('dddd, D MMMM Y') }}
                                                     </td>
                                                     <td class="status">
@@ -267,7 +267,7 @@
                                                             </div>
                                                         </td>
                                                         <td class="number">{{ $loop->iteration }}</td>
-                                                        <td class="name">{{ $journal->user->name }}</td>
+                                                        <td class="name">{{ $journal->student->name }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($journal->tanggal)->locale('id')->isoFormat('dddd, D MMMM Y') }}
                                                         </td>
                                                         <td class="status">
@@ -488,7 +488,7 @@
                                                             </div>
                                                         </td>
                                                         <td class="number">{{ $index + 1 }}</td>
-                                                        <td class="name">{{ $journal->user->name }}</td>
+                                                        <td class="name">{{ $journal->student->name }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($journal->tanggal)->locale('id')->isoFormat('dddd, D MMMM Y') }}
                                                         </td>
                                                         <td class="status">
@@ -568,7 +568,7 @@
                     <div class="modal-body">
                         <div>
                             <h5 class="text-border">Nama :</h5>
-                            <p id="modalName">{{ $journal->user->name }}</p>
+                            <p id="modalName">{{ $journal->student->name }}</p>
                         </div>
                         <div>
                             <h5  class="text-border">Tanggal :</h5>
