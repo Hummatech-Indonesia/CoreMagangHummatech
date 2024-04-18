@@ -43,7 +43,7 @@
 
         <div class="col-lg-3 col-md-4 col-sm-12">
           <div class="card">
-            <img class="card-img-top img-responsive w-100" src="{{ asset('storage/' .$course->image) }}" style="object-fit: cover;" alt="Card image cap" />
+            <img class="card-img-top img-responsive w-100" src="{{ asset('storage/' .$course->image) }}" style="object-fit: cover;" alt="{{ $course->title }}" />
             <div class="d-flex justify-content-between px-3" style="margin-top: -27px">
                 <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" class="rounded-circle rounded" width="50px">
                 <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 12px;">{{$course->division->name}}</div>
