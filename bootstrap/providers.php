@@ -1,6 +1,8 @@
 <?php
 
 return [
-    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+    App\Providers\AliasProvider::class,
     App\Providers\AppServiceProvider::class,
+    Barryvdh\Debugbar\ServiceProvider::class,
+    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 ];

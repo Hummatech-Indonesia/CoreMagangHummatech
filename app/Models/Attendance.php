@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
+use App\Base\Interfaces\HasAttendanceDetails;
 use App\Base\Interfaces\HasStudent;
-use App\Contracts\Interfaces\HasAttendanceDetails;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int $student_id
@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Attendance whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Attendance whereStudentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Attendance whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AttendanceDetail> $attendanceDetails
+ * @property-read int|null $attendance_details_count
  * @mixin \Eloquent
  */
 class Attendance extends Model implements HasStudent, HasAttendanceDetails
