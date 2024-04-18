@@ -98,6 +98,9 @@
                     <thead class="text-dark fs-4">
                         <tr>
                             <th>
+                                <h6 class="fs-4 fw-semibold mb-0">No</h6>
+                            </th>
+                            <th>
                                 <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
                             </th>
                             <th>
@@ -117,6 +120,11 @@
                     <tbody>
                         @forelse($journals as $key => $journal)
                             <tr>
+                                <td>
+                                    <p class="text-dark mt-3" style="font-weight: 600">
+                                        {{ $loop->iteration }}
+                                    </p>
+                                </td>
                                 <td>
                                     <div class="ms-3">
                                         <h6 class="fs-4 fw-semibold mb-0">{{ $journal->student->name }}</h6>
