@@ -104,91 +104,10 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <button type="button" class="dropdown-item edit-item-btn btn-detail text-center" data-bs-toggle="modal" data-bs-target="#editModal">
-                                    Edit
-                                    </button>
+                                    <a href="{{ url('mentor/challenge/detail') }}" class="dropdown-item edit-item-btn text-primary btn-detail text-center">
+                                    Detail
+                                    </a>
                                 </li>
-                                <li>
-                                    <button type="button" class="dropdown-item edit-item-btn text-danger btn-detail text-center">
-                                    Hapus
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <h5>Lorem ipsum dolor sit, amet consectetur adipisicing.</h5>
-                <p class="text-mute">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda inventore molestias...
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="p-1 col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex flex-wrap gap-2 align-items-center">
-                    <p class="badge bg-primary-subtle text-primary" style="font-size: 12px">
-                        Batas: 29 oktober 2023 10:33
-                    </p>
-                    <p class="badge bg-warning-subtle text-warning" style="font-size: 12px">
-                        Sedang
-                    </p>
-                    <div class="flex-grow-1 mb-3 text-end">
-                        <div class="dropdown d-inline-block">
-                            <button class="bg-transparent border-0 dropdown text-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                    <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                    <path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                </svg>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <button type="button" class="dropdown-item edit-item-btn btn-detail text-center" data-bs-toggle="modal" data-bs-target="#editModal">
-                                    Edit
-                                    </button>
-                                </li>
-                                <li>
-                                    <button type="button" class="dropdown-item edit-item-btn text-danger btn-detail text-center">
-                                    Hapus
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <h5>Lorem ipsum dolor sit, amet consectetur adipisicing.</h5>
-                <p class="text-mute">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda inventore molestias...
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="p-1 col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex flex-wrap gap-2 align-items-center">
-                    <p class="badge bg-primary-subtle text-primary" style="font-size: 12px">
-                        Batas: 29 oktober 2023 10:33
-                    </p>
-                    <p class="badge bg-danger-subtle text-danger" style="font-size: 12px">
-                        Sulit
-                    </p>
-                    <div class="flex-grow-1 mb-3 text-end">
-                        <div class="dropdown d-inline-block">
-                            <button class="bg-transparent border-0 dropdown text-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                    <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                    <path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
-                                </svg>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <button type="button" class="dropdown-item edit-item-btn btn-detail text-center" data-bs-toggle="modal" data-bs-target="#editModal">
                                     Edit
