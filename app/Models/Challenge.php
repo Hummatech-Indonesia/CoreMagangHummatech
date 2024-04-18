@@ -12,6 +12,18 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Challenge newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Challenge newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Challenge query()
+ * @property int $id
+ * @property string $title
+ * @property string $description
+ * @property string $level
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Challenge whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Challenge whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Challenge whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Challenge whereLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Challenge whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Challenge whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Challenge extends Model
