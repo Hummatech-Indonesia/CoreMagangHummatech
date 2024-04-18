@@ -71,7 +71,10 @@
                             <span class="mb-1 badge font-medium bg-light-success text-success">Online</span>
                         </td>
                         <td>
-                            <span>07.39.10</span>
+                            <button type="button" class="justify-content-center w-75 btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center">
+                                <i class="ti ti-folder-down fs-4 me-2"></i>
+                                Download
+                            </button>
                         </td>
                         <td>
                             <span class="mb-1 badge font-medium text-dark">Belum di nilai</span>
@@ -96,7 +99,10 @@
                             <span class="mb-1 badge font-medium bg-light-primary text-primary">Offline</span>
                         </td>
                         <td>
-                            <span>07.39.10</span>
+                            <button type="button" class="justify-content-center w-75 btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center">
+                                <i class="ti ti-folder-down fs-4 me-2"></i>
+                                Download
+                            </button>
                         </td>
                         <td>
                             <span class="mb-1 badge font-medium bg-light-success text-success">90.3</span>
@@ -121,7 +127,10 @@
                             <span class="mb-1 badge font-medium bg-light-success text-success">Online</span>
                         </td>
                         <td>
-                            <span>07.39.10</span>
+                            <button type="button" class="justify-content-center w-75 btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center">
+                                <i class="ti ti-folder-down fs-4 me-2"></i>
+                                Download
+                            </button>
                         </td>
                         <td>
                             <span class="mb-1 badge font-medium bg-light-warning text-warning">70.4</span>
@@ -146,7 +155,10 @@
                             <span class="mb-1 badge font-medium bg-light-success text-success">Online</span>
                         </td>
                         <td>
-                            <span>07.39.10</span>
+                            <button type="button" class="justify-content-center w-75 btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center">
+                                <i class="ti ti-folder-down fs-4 me-2"></i>
+                                Download
+                            </button>
                         </td>
                         <td>
                             {{-- <span class="mb-1 badge font-medium bg-light-warning text-warning">70.4</span> --}}
@@ -174,7 +186,10 @@
                             <span class="mb-1 badge font-medium bg-light-success text-success">Online</span>
                         </td>
                         <td>
-                            <span>07.39.10</span>
+                            <button type="button" class="justify-content-center w-75 btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center">
+                                <i class="ti ti-folder-down fs-4 me-2"></i>
+                                Download
+                            </button>
                         </td>
                         <td>
                             <span class="mb-1 badge font-medium bg-light-info text-info">82.23</span>
