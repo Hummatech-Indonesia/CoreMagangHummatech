@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sub_course_unlocks', function (Blueprint $table) {
+        Schema::create('course_unlocks', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->foreignId('student_id')->constrained();
             $table->foreignId('course_id')->constrained();
-            $table->foreignId('sub_course_id')->constrained();
             $table->boolean('unlock')->default(false);
+            $table->timestamps();
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sub_course_unlocks');
+        Schema::dropIfExists('course_unlocks');
     }
 };

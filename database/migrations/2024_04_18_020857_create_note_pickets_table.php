@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sub_course_unlocks', function (Blueprint $table) {
+        Schema::create('note_pickets', function (Blueprint $table) {
             $table->id();
+            $table->longText('note_pickets');
             $table->timestamps();
-            $table->foreignId('student_id')->constrained();
-            $table->foreignId('course_id')->constrained();
-            $table->foreignId('sub_course_id')->constrained();
-            $table->boolean('unlock')->default(false);
         });
     }
 
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sub_course_unlocks');
+        Schema::dropIfExists('note_pickets');
     }
 };
