@@ -3,34 +3,16 @@
 namespace App\Services;
 
 use App\Enum\TypeEnum;
+use App\Http\Requests\CourseAddToCartRequest;
 use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\StoreJournalRequest;
-use App\Http\Requests\StoreLogoRequest;
 use App\Services\Traits\UploadTrait;
 use App\Http\Requests\StoreSaleRequest;
-use App\Http\Requests\StoreServiceRequest;
-use App\Http\Requests\StoreStructureRequest;
-use App\Http\Requests\StoreStudentRequest;
-use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateCourseRequest;
-use App\Http\Requests\UpdateJournalRequest;
-use App\Http\Requests\UpdateLogoRequest;
-use App\Http\Requests\UpdateProductRequest;
 use App\Http\Requests\UpdateSaleRequest;
-use App\Http\Requests\UpdateServiceRequest;
-use App\Http\Requests\UpdateStructureRequest;
-use App\Http\Requests\UpdateStudentRequest;
-use App\Http\Requests\UpdateTeamRequest;
 use App\Models\Course;
-use App\Models\Journal;
-use App\Models\Logo;
-use App\Models\Product;
 use App\Models\Sale;
-use App\Models\Service;
-use App\Models\Structure;
-use App\Models\Student;
-use App\Models\Team;
-use Illuminate\Support\Facades\Log;
+use Cart;
+use Str;
 
 class CourseService
 {
@@ -54,7 +36,7 @@ class CourseService
     /**
      * Handle store data event to models.
      *
-     * @param StoreSaleRequest $request
+     * @param StoreCourseRequest $request
      *
      * @return array|bool
      */
@@ -72,8 +54,8 @@ class CourseService
     /**
      * Handle update data event to models.
      *
-     * @param Sale $sale
-     * @param UpdateSaleRequest $request
+     * @param Course $sale
+     * @param UpdateCourseRequest $request
      *
      * @return array|bool
      */
@@ -89,6 +71,34 @@ class CourseService
         }
 
         return $data;
+    }
+
+    /**
+     * Add To Cart Action
+     *
+     * @param CourseAddToCartRequest $request
+     * @return void
+     */
+    public function addToCart(CourseAddToCartRequest $request): void
+    {
+        $course = Course::findOrFail($request->id);
+
+        $data = [
+            'id' => Str::random(16),
+            'name' => $course->title,
+            'price' => $course->price,
+            'amount' => 1,
+            'image' => asset("/storage/{$course->image}"),
+            'option' => [
+                'target_table' => 'courses',
+            ],
+        ];
+
+        if(Cart::isEmpty()) {
+            Cart::truncate();
+        }
+
+        Cart::add(false, $data);
     }
 
     public function delete(Course $course)

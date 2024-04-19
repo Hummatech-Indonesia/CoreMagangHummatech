@@ -21,6 +21,7 @@ class AliasProvider extends ServiceProvider
     public function boot(): void
     {
         AliasLoader::getInstance([
+            'Transaction' => \App\Helpers\TransactionHelper::class,
             'Cart' => \App\Helpers\CartHelper::class,
         ]);
     }

@@ -19,6 +19,11 @@ class CourseRepository extends BaseRepository implements CourseInterface
         return $this->model->query()->get();
     }
 
+    public function getUnpaidCourse()
+    {
+        return $this->model->query()->doesntHave('courseUnlock')->paginate(12);
+    }
+
     public function store(array $data): mixed
     {
         return $this->model->query()->create($data);

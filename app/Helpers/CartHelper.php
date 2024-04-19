@@ -21,6 +21,9 @@ use Illuminate\Support\Collection;
  * 9. ```CartHelper::total()```
  * 10. ```CartHelper::count()```
  * 11. ```CartHelper::get()```
+ * 12. ```CartHelper::isEmpty()```
+ * 13. ```CartHelper::isNotEmpty()```
+ * 14. ```CartHelper::truncate()```
  *
  * @package pkl-hummatech
  * @since 1.0.0
@@ -34,27 +37,38 @@ class CartHelper
      *
      * @var \Illuminate\Support\Collection $cart
      */
-    private Collection $cart;
+    private static Collection $cart;
 
     /**
      * Tax amount instance
      *
      * @var float $tax
      */
-    private float $tax;
+    private static float $tax;
 
     /**
      * Subtotal price instance
      *
      * @var float $subtotal
      */
-    private float $subtotal;
+    private static float $subtotal;
 
-    public function __construct()
+    public static function initialize(): void
     {
-        $this->tax = 0.11;
-        $this->cart = collect(session()->get('cart', []));
-        $this->subtotal = self::$cart->sum(fn (mixed $item) => $item['price'] * $item['amount']);
+        self::$tax = 0.11;
+        self::$cart = collect(session()->get('cart', []));
+        self::$subtotal = self::$cart->sum(fn (mixed $item) => $item['price'] * $item['amount']);
+    }
+
+    /**
+     * Check if multidimensional array
+     *
+     * @see https://stackoverflow.com/a/145348/17911271
+     * @return bool The result of checking
+     */
+    private static function isMultidimensionalArray(mixed $array): bool
+    {
+        return count($array) !== count($array, COUNT_RECURSIVE);
     }
 
     /**
@@ -64,10 +78,16 @@ class CartHelper
      * @param mixed ...$data The cart data
      * @return void The cart data
      */
-    public static function add(bool $withTax, mixed ...$data)
+    public static function add(bool $withTax, mixed ...$data): void
     {
-        if (is_array($data)) {
-            self::$cart->push($data);
+        self::initialize();
+
+        if (self::isMultidimensionalArray($data[0])) {
+            foreach($data as $value) {
+                self::$cart->push($value);
+            }
+        } else if(!self::isMultidimensionalArray($data[0])) {
+            self::$cart->push($data[0]);
         } else {
             self::$cart->push([
                 'id' => $data[0],
@@ -75,10 +95,11 @@ class CartHelper
                 'price' => $data[2],
                 'amount' => $data[3],
                 'image' => $data[4],
+                'option' => $data[5]
             ]);
         }
 
-        if($withTax) {
+        if ($withTax) {
             self::$cart->transform(function ($item) {
                 $item['tax'] = $item['price'] * self::$tax;
                 return $item;
@@ -89,12 +110,26 @@ class CartHelper
     }
 
     /**
+     * Truncating all session cart data
+     *
+     * @return void
+     */
+    public static function truncate()
+    {
+        self::initialize();
+
+        session()->put('', self::$cart->toArray());
+    }
+
+    /**
      * Get list of cart
      *
      * @return Collection The cart data
      */
     public static function get()
     {
+        self::initialize();
+        
         return self::$cart;
     }
 
@@ -105,8 +140,10 @@ class CartHelper
      * @param int $amount The new amount
      * @return void
      */
-    public function updateQty(string $id, int $amount)
+    public function updateQty(string $id, int $amount): void
     {
+        self::initialize();
+
         self::$cart->where('id', $id)->first()['amount'] = $amount;
         session()->put('cart', self::$cart->toArray());
     }
@@ -118,8 +155,10 @@ class CartHelper
      * @param int $price The new price
      * @return void
      */
-    public static function updatePrice(string $id, int $price)
+    public static function updatePrice(string $id, int $price): void
     {
+        self::initialize();
+
         self::$cart->where('id', $id)->first()['price'] = $price;
         session()->put('cart', self::$cart->toArray());
     }
@@ -129,19 +168,47 @@ class CartHelper
      *
      * @return float
      */
-    public static function subtotal()
+    public static function subtotal(): int|float
     {
+        self::initialize();
+
         return self::$subtotal;
     }
 
     /**
-     * Get count of cart item
+     * Count of cart item
      *
      * @return int
      */
-    public static function count()
+    public static function count(): int|float
     {
+        self::initialize();
+
         return self::$cart->count();
+    }
+
+    /**
+     * Check if is not empty
+     *
+     * @return bool
+     */
+    public static function isNotEmpty(): bool
+    {
+        self::initialize();
+
+        return self::$cart->count() > 0;
+    }
+
+    /**
+     * Check if is not empty
+     *
+     * @return bool
+     */
+    public static function isEmpty(): bool
+    {
+        self::initialize();
+
+        return self::$cart->count() === 0;
     }
 
     /**
@@ -149,8 +216,10 @@ class CartHelper
      *
      * @return float
      */
-    public static function total()
+    public static function total(): int|float
     {
+        self::initialize();
+
         return (self::$subtotal * self::$tax) + self::$subtotal;
     }
 
@@ -160,8 +229,10 @@ class CartHelper
      * @param mixed $id The cart data id
      * @return void
      */
-    public static function remove(string $id)
+    public static function remove(string $id): void
     {
+        self::initialize();
+
         self::$cart->forget($id);
 
         session()->put('cart', self::$cart->toArray());

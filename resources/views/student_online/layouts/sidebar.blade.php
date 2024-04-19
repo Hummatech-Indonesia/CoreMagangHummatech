@@ -134,7 +134,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ url('/siswa-online/berlangganan-materi') }}" aria-expanded="false">
+                        <a class="sidebar-link" href="{{ url('/courses') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-shopping-cart"></i>
                             </span>
