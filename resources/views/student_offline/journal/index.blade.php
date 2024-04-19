@@ -37,7 +37,7 @@
                     @method('POST')
                     <div class="modal-body">
                         <label for="" class="mt-2 mb-2">Judul</label>
-                        <input type="text" name="title" class="form-control">
+                        <input type="text" name="title" class="form-control" value="{{ old('title') }}">
                         @error('title')
                             <p class="text-danger">
                                 {{ $message }}

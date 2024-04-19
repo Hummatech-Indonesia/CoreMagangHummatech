@@ -21,7 +21,7 @@ class JournalRepository extends BaseRepository implements JournalInterface
 
     public function get(): mixed
     {
-        return $this->model->query()->where('student_id', auth()->user()->student->id)->get();
+        return $this->model->query()->where('student_id', auth()->user()->student->id)->latest()->get();
     }
 
     public function store(array $data): mixed
