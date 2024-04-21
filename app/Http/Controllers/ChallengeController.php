@@ -22,7 +22,7 @@ class ChallengeController extends Controller
     public function index()
     {
         $challenges = $this->challenge->get();
-        return view('' , compact('challenges'));
+        return view('mentor.challange.index' , compact('challenges'));
     }
 
     /**

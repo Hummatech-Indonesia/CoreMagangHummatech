@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('title');
             $table->longText('description');
             $table->enum('level', [ChallengeEnum::EASY->value , ChallengeEnum::NORMAL->value , ChallengeEnum::HARD->value]);
+            $table->date('start_date');
+            $table->date('deadline');
             $table->timestamps();
         });
     }
