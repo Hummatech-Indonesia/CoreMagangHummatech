@@ -279,4 +279,9 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->where('division_id', '!=', null)
             ->get();
     }
+
+    public function whereStudentDivision(mixed $id): mixed
+    {
+        return $this->model->query()->where('division_id', $id)->get();;
+    }
 }

@@ -86,5 +86,6 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
      * Get Edit Student Division Placement
      */
     public function getstudentdivisionplacementedit(): mixed;
+    public function whereStudentDivision(mixed $id):mixed;
 
 }
