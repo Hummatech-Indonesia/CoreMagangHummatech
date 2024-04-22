@@ -58,12 +58,12 @@
                         <div class="list-item list-group-flush">
                             @foreach ($cartData->get() as $cart)
                                 <div class="list-group-item">
-                                    <div class="row align-items-center">
-                                        <div class="col-4 col-lg-2 d-flex justify-content-center">
+                                    <div class="d-flex gap-3 align-items-center">
+                                        <div class="d-flex justify-content-center">
                                             <div class="image-cart-square"
                                                 style="background-image: url({{ $cart['image'] }})"></div>
                                         </div>
-                                        <div class="col-8 col-lg-6">
+                                        <div class="">
                                             <h3 class="fw-bolder">{{ $cart['name'] }}</h3>
                                             <div class="text-primary">@currency($cart['price'])</div>
                                         </div>
@@ -150,21 +150,23 @@
                     <form method="POST" action="{{ url('transaction/tripay') }}" class="card-body pt-0">
                         @csrf
 
-                        @if($voucherDetail)
-                        <input type="hidden" name="voucher_code" value="{{ $voucherDetail->code_voucher }}" />
+                        @if ($voucherDetail)
+                            <input type="hidden" name="voucher_code" value="{{ $voucherDetail->code_voucher }}" />
                         @endif
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}" id="user_id" />
-                        <input type="hidden" name="amount"
-                            value="{{ Transaction::discountSubtotal(Transaction::countTax($cartData->subtotal(), true), $voucherDetail ? $voucherDetail->presentase : 0) }}"
-                            id="subtotal" />
+                        <input type="hidden" name="tax" value="{{ Transaction::countTax($cartData->subtotal()) }}"
+                            id="tax" />
+                        <input type="hidden" name="subtotal" value="{{ $cartData->subtotal() }}" id="subtotal" />
+                        <input type="hidden" name="total" value="{{ $cartData->total() }}" id="total" />
                         <input type="hidden" name="payment_code" id="payment-code" />
                         <input type="hidden" name="payment_name" id="payment-name" />
+                        <input type="hidden" name="discount" value="{{ Transaction::discount($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0) }}" id="discount" />
 
                         <div class="pb-3 d-flex gap-2 flex-column mb-3">
                             <div class="d-flex justify-content-between">
                                 <span>Metode Pembayaran:</span>
                                 <a href="javascript:openModal('choose-payment')" id="payment-show"
-                                    class="fw-bolder text-primary">Pilih Metode Pembayaran</a>
+                                    class="fw-bolder text-primary text-end">Pilih</a>
                             </div>
 
                             @error('payment_code')
@@ -176,26 +178,30 @@
                                 <span>Subtotal:</span>
                                 <span id="subtotal-show" class="fw-bolder text-muted">
                                     @if ($voucherDetail)
-                                    <s>@currency($cartData->subtotal())</s>
+                                        <s>@currency($cartData->subtotal())</s>
                                     @else
-                                    <span>@currency($cartData->subtotal())</span>
+                                        <span>@currency($cartData->subtotal())</span>
                                     @endif
                                 </span>
                             </div>
                             <div class="fw-bolder mb-3 pb-3 border-bottom d-flex justify-content-between">
                                 <span>PPn 11%:</span>
-                                <span>@currency(Transaction::countTax($cartData->subtotal()))</span>
+                                <span class="fw-bolder text-muted">@currency(Transaction::countTax($cartData->subtotal()))</span>
                             </div>
-                            @if($voucherDetail)
-                            <div class="fw-bolder mb-3 pb-3 border-bottom d-flex justify-content-between">
-                                <span>Potongan Voucher:</span>
-                                <span id="voucher-show" class="fw-bolder text-primary">&minus;@currency(Transaction::discount($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0))</span>
-                            </div>
+                            @if ($voucherDetail)
+                                <div class="fw-bolder mb-3 pb-3 border-bottom d-flex justify-content-between">
+                                    <span>Potongan Harga:</span>
+                                    <span id="voucher-show" class="fw-bolder text-primary">
+                                        &minus;@currency(Transaction::discount($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0))
+                                    </span>
+                                </div>
                             @endif
                             <div id="additional-fee"></div>
                             <div class="fw-bolder d-flex justify-content-between">
                                 <span>Total:</span>
-                                <span id="total-show" class="fw-bolder text-primary">@currency(Transaction::discountSubtotal(Transaction::countTax($cartData->subtotal(), true), $voucherDetail ? $voucherDetail->presentase : 0))</span>
+                                <span id="total-show" class="fw-bolder text-primary">
+                                    @currency(Transaction::countTax(Transaction::discountSubtotal($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0), true))
+                                </span>
                             </div>
                         </div>
 
@@ -213,30 +219,8 @@
             </div>
         </div>
     @else
-        <div class="alert alert-danger">Keranjangmu masih kosong. Yuk belanja lagi <a
-                href="{{ route('subscription.index') }}">disini</a>.</div>
+        <div class="alert alert-danger">Keranjangmu masih kosong, yuk belanja lagi.</div>
     @endif
-
-    {{-- <div class="row">
-        <div class="col-md-7">
-            <div class="card">
-                <h4 class="card-header mb-0 py-4 bg-primary text-white">Paket</h4>
-                <div class="card-body border-bottom">
-                    <div class="d-flex justify-content-between">
-                        <h3>{{ $productDetail->name }}</h3>
-
-                        <a href="javascript:void()" class="text-danger" data-bs-toggle="modal"
-                            data-bs-target="#modalDelete"><i class="fas fa-trash"></i></a>
-                    </div>
-                    <p>{!! $productDetail->description !!}</p>
-                </div>
-                <div class="card-body d-flex justify-content-between flex-row">
-                    <h5 class="mb-0">Harga Paket:</h5>
-                    <h5 class="mb-0 text-primary fw-bolder">@currency($productDetail->price)</h5>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 @endsection
 
 @section('script')
@@ -252,7 +236,7 @@
                 <div class="modal-body">
                     <div class="row">
                         @foreach ($paymentChannel['data'] as $channel)
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-4 col-6 mb-3">
                                 <a href="javascript:choosePayment('{{ $channel['code'] }}')"
                                     data-fee="{{ $channel['fee_customer']['flat'] }}"
                                     data-id="payment-{{ $channel['code'] }}" data-name="{{ $channel['name'] }}"
@@ -299,8 +283,10 @@
             const paymentName = activeElement.data('name');
             const feeAmount = parseInt(activeElement.data('fee') ?? 0);
             const subtotal = parseInt($('#subtotal').val() ?? 0);
+            const tax = parseInt($('#tax').val() ?? 0);
+            const discount = parseInt($('#discount').val() ?? 0);
 
-            const countTotal = feeAmount + subtotal;
+            const countTotal = feeAmount + (subtotal - discount) + tax;
 
             // Show the additional fee
             $('#additional-fee').html(`
@@ -310,6 +296,7 @@
                 </div>
             `);
             $('#total-show').text(intToIdr(countTotal));
+            $('#total').val(countTotal - feeAmount);
 
             // Replace The Input Values
             $('#payment-code').val(activeElement.data('id').replace('payment-', ''));

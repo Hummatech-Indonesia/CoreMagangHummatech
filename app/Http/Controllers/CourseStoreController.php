@@ -6,7 +6,6 @@ use App\Contracts\Interfaces\CourseInterface;
 use App\Http\Requests\CourseAddToCartRequest;
 use App\Models\Course;
 use App\Services\CourseService;
-use Cart;
 
 class CourseStoreController extends Controller
 {

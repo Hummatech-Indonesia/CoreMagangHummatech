@@ -91,10 +91,11 @@ class CourseService
             'image' => asset("/storage/{$course->image}"),
             'option' => [
                 'target_table' => 'courses',
+                'id' => $course->id,
             ],
         ];
 
-        if(Cart::isEmpty()) {
+        if(Cart::isNotEmpty()) {
             Cart::truncate();
         }
 

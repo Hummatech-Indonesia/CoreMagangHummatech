@@ -23,7 +23,7 @@
 </div>
 
 <div class="row">
-    @forelse ($courses as $course)
+    @forelse ($courses as $index => $course)
     <div class="col-md-4 col-xxl-3">
         <div class="card card-body p-3">
             <img src="{{ url("/storage/{$course->image}") }}" alt="{{ $course->title }}" class="rounded-1 mb-3 w-100" />
@@ -36,9 +36,13 @@
 
             <p>{{ Str::limit(strip_tags($course->description), 100) }}</p>
 
+            <form action="{{ route('course-store.store') }}" method="POST" id="buynow-{{ $index }}">
+                @csrf
+                <input type="hidden" name="id" value="{{ $course->id }}" />
+            </form>
             <div class="d-flex flex-column flex-lg-row gap-2 w-100">
                 <a href="{{ route('course-store.detail', $course->id) }}" class="btn w-100 btn-lg btn-outline-primary">Detail</a>
-                <a href="{{ route('course-store.detail', $course->id) }}" class="btn w-100 btn-lg btn-primary">Beli</a>
+                <button type="button" class="btn btn-lg btn-primary w-100 btn-lg" onclick="$('#buynow-{{ $index }}').submit()">Beli</button>
             </div>
         </div>
     </div>

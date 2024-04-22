@@ -81,7 +81,7 @@ use App\Contracts\Repositories\StudentTaskRepository;
 use App\Contracts\Repositories\SubCourseUnlockRepository;
 use App\Contracts\Repositories\TaskSubmissionRepository;
 use App\Contracts\Repositories\TransactionHistoryRepository;
-use OrderRepository;
+use App\Contracts\Repositories\OrderRepository;
 
 class AppServiceProvider extends ServiceProvider
 {

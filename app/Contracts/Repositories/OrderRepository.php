@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Contracts\Repositories;
+
 use App\Contracts\Interfaces\OrderInterface;
 use App\Contracts\Repositories\BaseRepository;
 use App\Models\Order;

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('transaction_id');
             $table->string('reference');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('product_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedBigInteger('amount')->nullable()->default(0);
             $table->dateTime('issued_at')->useCurrent();
             $table->dateTime('expired_at')->useCurrent();

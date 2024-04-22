@@ -22,10 +22,11 @@ class TripayCheckoutRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'amount' => 'integer|required',
+            'total' => 'integer|required',
+            'tax' => 'nullable|integer',
             'payment_code' => 'required',
             'payment_name' => 'required',
-            'product_id' => 'required|exists:products,id',
+            'discount' => 'nullable|integer',
             'user_id' => 'required|exists:users,id',
             'voucher_code' => 'nullable|exists:vouchers,code_voucher',
         ];
@@ -38,8 +39,6 @@ class TripayCheckoutRequest extends FormRequest
             'amount.required' => 'Jumlah diperlukan',
             'payment_code.required' => 'Kode pembayaran diperlukan',
             'payment_name.required' => 'Nama pembayaran diperlukan',
-            'product_id.required' => 'ID produk diperlukan',
-            'product_id.exists' => 'ID produk tidak ada',
             'user_id.required' => 'ID pengguna diperlukan',
             'user_id.exists' => 'ID pengguna tidak ada',
         ];

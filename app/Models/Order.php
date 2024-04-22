@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -31,6 +32,33 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        '',
+        'user_id',
+        'transaction_histories_id',
+        'name',
+        'price',
+        'amount',
+        'products_id',
+        'courses_id',
+        'image',
     ];
+
+    /**
+     * Get the transaction into course data
+     *
+     * @return HasOne
+     */
+    public function course(): HasOne
+    {
+        return $this->hasOne(Course::class, 'id', 'courses_id');
+    }
+
+    /**
+     * Get the transaction into course subscribe data
+     *
+     * @return HasOne
+     */
+    public function subscribe(): HasOne
+    {
+        return $this->hasOne(Product::class);
+    }
 }

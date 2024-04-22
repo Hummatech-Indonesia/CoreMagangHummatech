@@ -14,11 +14,11 @@
                     <p class="text-dark fs-7 mb-0">Apakah anda yakin ingin menghapus data?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger text-white font-medium waves-effect"
+                    <button type="button"style="background-color: #1B3061" class="btn text-white btn-create waves-effect"
                         data-bs-dismiss="modal">
                         Tutup
                     </button>
-                    <button style="background-color: #1B3061" type="submit" class="btn text-white btn-create">
+                    <button type="submit" class="btn btn-danger text-white font-medium waves-effect">
                         Hapus
                     </button>
                 </div>

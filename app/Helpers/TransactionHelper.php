@@ -51,4 +51,15 @@ class TransactionHelper
 
         return $amount - ($amount * ($discount / 100));
     }
+
+    /**
+     * Change the amount to currency format
+     *
+     * @param int $amount the amount
+     * @return string
+     */
+    public static function currencyFormatter(int $amount)
+    {
+        return "Rp " . number_format($amount, 0,',','.');
+    }
 }

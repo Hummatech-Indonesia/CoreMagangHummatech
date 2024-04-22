@@ -118,7 +118,7 @@ class CartHelper
     {
         self::initialize();
 
-        session()->put('', self::$cart->toArray());
+        session()->forget('cart');
     }
 
     /**
@@ -129,7 +129,7 @@ class CartHelper
     public static function get()
     {
         self::initialize();
-        
+
         return self::$cart;
     }
 

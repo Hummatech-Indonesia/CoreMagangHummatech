@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Enum\TransactionStatusEnum;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
@@ -57,14 +58,14 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
         return $response->json();
     }
 
-    public function transaction($method, $totalAmount, $products): mixed
+    public function transaction(mixed $method, int $totalAmount, mixed $products): mixed
     {
         $apiKey       = $this->apiKey;
         $privateKey   = $this->privateKey;
         $merchantCode = $this->merchantCode;
         $merchantRef  = 'MAGANG-' . time();
 
-        $user = auth()->user();
+        $user = Auth::user();
 
         $data = [
             'method'         => $method,

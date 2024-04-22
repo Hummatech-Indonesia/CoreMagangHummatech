@@ -7,9 +7,10 @@ use App\Trait\HasUuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * 
+ * Class TransactionHistory to managing data history of transaction
  *
  * @property string $id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -81,13 +82,13 @@ class TransactionHistory extends Model
     public function getTransactionStatus(): TransactionStatusEnum
     {
         return match ($this->status) {
-            'pending' => \App\Enum\TransactionStatusEnum::PENDING,
-            'paid' => \App\Enum\TransactionStatusEnum::PAID,
-            'cancelled' => \App\Enum\TransactionStatusEnum::CANCELLED,
-            'expired' => \App\Enum\TransactionStatusEnum::EXPIRED,
-            'failed' => \App\Enum\TransactionStatusEnum::FAILED,
-            'refund' => \App\Enum\TransactionStatusEnum::REFUND,
-            'unpaid' => \App\Enum\TransactionStatusEnum::UNPAID,
+            'pending' => TransactionStatusEnum::PENDING,
+            'paid' => TransactionStatusEnum::PAID,
+            'cancelled' => TransactionStatusEnum::CANCELLED,
+            'expired' => TransactionStatusEnum::EXPIRED,
+            'failed' => TransactionStatusEnum::FAILED,
+            'refund' => TransactionStatusEnum::REFUND,
+            'unpaid' => TransactionStatusEnum::UNPAID,
         };
     }
 
@@ -99,6 +100,16 @@ class TransactionHistory extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the user that owns the TransactionHistory
+     *
+     * @return HasOne
+     */
+    public function order()
+    {
+        return $this->hasOne(Order::class, 'transaction_histories_id');
     }
 
     /**
