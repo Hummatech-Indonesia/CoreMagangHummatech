@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\PicketController;
 use App\Http\Controllers\Admin\AdminJournalController;
 use App\Http\Controllers\Admin\PicketingReportController;
+use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentOfline\CourseOfflineController;
 use App\Http\Controllers\ProductController;
@@ -52,9 +53,13 @@ Route::get('student/journal', function (){
 });
 
 Route::get('student', [StudentController::class,'mentorStudent']);
-Route::get('mentor/challenge', function (){
-    return view('mentor.challange.index');
-});
+
+Route::get('mentor/challenge', [ChallengeController::class,'index']);
+Route::post('mentor/challenge/store', [ChallengeController::class,'store'])->name('challenge.store');
+Route::put('mentor/challenge/{challenge}', [ChallengeController::class,'update'])->name('challenge.update');
+Route::delete('mentor/challenge/delete/{challenge}', [ChallengeController::class,'destroy'])->name('challenge.destroy');
+
+
 Route::get('mentor/challenge/detail', function (){
     return view('mentor.challange.detail');
 });
@@ -67,6 +72,20 @@ Route::get('mentor/assessment/task-detail', function (){
 Route::get('mentor/assessment/challange-detail', function (){
     return view('mentor.assessment.challange_detail');
 });
+
+//Admin
+Route::get('administrator/course',[CourseController::class,'index']);
+Route::post('administrator/course/store', [CourseController::class, 'store'])->name('course.store');
+Route::put('administrator/course/{course}', [CourseController::class, 'update'])->name('course.update');
+Route::delete('administrator/course/delete/{course}', [CourseController::class, 'destroy'])->name('course.destroy');
+
+
+Route::get('/administrator/course/detail/{course}', [CourseController::class, 'show'])->name('course.detail');
+Route::delete('administrator/subcourse/delete/{subCourse}', [SubCourseController::class, 'destroy'])->name('subCourse.destroy');
+Route::get('/administrator/subcourse/detail/{subCourse}', [SubCourseController::class, 'show'])->name('subCourse.detail');
+Route::put('/administrator/subcourse/edit/{subCourse}', [SubCourseController::class, 'update'])->name('subCourse.update');
+
+Route::post('administrator/task/store', [TaskController::class, 'store'])->name('task.store');
 
 
 // siswa offline
@@ -109,16 +128,3 @@ Route::get('siswa-offline/certificate', function (){
 
 
 
-//Admin
-Route::get('administrator/course',[CourseController::class,'index']);
-Route::post('administrator/course/store', [CourseController::class, 'store'])->name('course.store');
-Route::put('administrator/course/{course}', [CourseController::class, 'update'])->name('course.update');
-Route::delete('administrator/course/delete/{course}', [CourseController::class, 'destroy'])->name('course.destroy');
-
-
-Route::get('/administrator/course/detail/{course}', [CourseController::class, 'show'])->name('course.detail');
-Route::delete('administrator/subcourse/delete/{subCourse}', [SubCourseController::class, 'destroy'])->name('subCourse.destroy');
-Route::get('/administrator/subcourse/detail/{subCourse}', [SubCourseController::class, 'show'])->name('subCourse.detail');
-Route::put('/administrator/subcourse/edit/{subCourse}', [SubCourseController::class, 'update'])->name('subCourse.update');
-
-Route::post('administrator/task/store', [TaskController::class, 'store'])->name('task.store');

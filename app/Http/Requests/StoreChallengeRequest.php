@@ -24,7 +24,9 @@ class StoreChallengeRequest extends FormRequest
         return [
             'title' => 'required',
             'level' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'start_date' => 'required',
+            'deadline' => 'required'
         ];
     }
 
@@ -33,7 +35,10 @@ class StoreChallengeRequest extends FormRequest
         return [
             'title.required' => 'Title harus diisi',
             'level.required' => 'Level harus diisi',
-            'description.required' => 'Deskripsi harus diisi'
+            'description.required' => 'Deskripsi harus diisi',
+            'start_date.required' => 'Tanggal mulai harus diisi',
+            'deadline.required' => 'Batas pengumpulan harus diisi'
+
         ];
     }
 }

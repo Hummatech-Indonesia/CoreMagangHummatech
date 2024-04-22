@@ -231,8 +231,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="add" tabindex="-1" aria-labelledby="varyingcontentModalLabel"
-        aria-hidden="true">
+
+    <div class="modal fade" id="add" tabindex="-1" aria-labelledby="varyingcontentModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -308,6 +308,7 @@
     </div>
 @endsection
 @section('script')
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -326,14 +327,13 @@
 
         $('.btn-add').click(function() {
             var id = $(this).data('id');
-            var division = $(this).data('division').trigger('change');
             $('#form-update').attr('action', '/offline-students/division-placement/' + id);
             $('#add').modal('show');
         });
 
         $('.btn-edit').click(function() {
             var id = $(this).data('id');
-
+            // var division = $(this).data('division').trigger('change');
             $('#form-update-edit').attr('action', '/offline-students/division-placement/' + id);
             $('#edit').modal('show');
         })

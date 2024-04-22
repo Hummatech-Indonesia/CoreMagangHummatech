@@ -46,51 +46,67 @@
                 <h5 class="modal-title" id="addModalLabel">Tambah Tantangan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="dropdownMenu" class="form-label">Tingkat Kesulitan</label>
-                    <select class="form-select" id="dropdownMenu" aria-label="Pilih Opsi">
-                        <option selected>Pilih tingkat kesulitan</option>
-                        <option value="Biasa">Biasa</option>
-                        <option value="Sedang">Sedang</option>
-                        <option value="Sulit">Sulit</option>
-                    </select>
+            <form action="{{route('challenge.store')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('POST')
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="dropdownMenu" class="form-label">Tingkat Kesulitan</label>
+                        <select name="level" id="level" class="form-select">
+                            <option value="easy">Easy</option>
+                            <option value="normal">Normal</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputText" class="form-label">Judul</label>
+                        <input type="text" class="form-control" name="title" id="inputText" placeholder="Masukkan Judul Tantangan">
+                    </div>
+                    <div class="mb-3">
+                        <label for="textarea" class="form-label">Deskripsi</label>
+                        <textarea class="form-control" name="description" id="textarea" rows="3" placeholder="Masukkan Deskripsi Tantangan "></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="datePicker" class="form-label">Tanggal Mulai</label>
+                        <input type="date" class="form-control" name="start_date" id="datePicker">
+                    </div>
+                    <div class="mb-3">
+                        <label for="datePicker" class="form-label">Tenggat</label>
+                        <input type="date" class="form-control" name="deadline" id="datePicker">
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="inputText" class="form-label">Judul</label>
-                    <input type="text" class="form-control" id="inputText" placeholder="Masukkan Judul Tantangan">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
-                <div class="mb-3">
-                    <label for="textarea" class="form-label">Deskripsi</label>
-                    <textarea class="form-control" id="textarea" rows="3" placeholder="Masukkan Deskripsi Tantangan "></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="datePicker" class="form-label">Tanggal Mulai</label>
-                    <input type="date" class="form-control" id="datePicker">
-                </div>
-                <div class="mb-3">
-                    <label for="datePicker" class="form-label">Tenggat</label>
-                    <input type="date" class="form-control" id="datePicker">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary">Simpan</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
 
 <div class="d-flex flex-wrap  all-category note-important">
+    @forelse ($challenges as $challenge)
+
     <div class="p-1 col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-wrap gap-2 align-items-center">
                     <p class="badge bg-primary-subtle text-primary" style="font-size: 12px">
-                        Batas: 29 oktober 2023 10:33
+                        Batas: {{ \Carbon\Carbon::parse($challenge->deadline)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}
                     </p>
-                    <p class="badge bg-info-subtle text-info" style="font-size: 12px">
-                        Mudah
+                    @php
+                        $level = $challenge->level;
+                        $badgeClass = '';
+                        if ($level === 'easy') {
+                            $badgeClass = 'bg-info-subtle text-info';
+                        } elseif ($level === 'normal') {
+                            $badgeClass = 'bg-warning-subtle text-warning';
+                        } elseif ($level === 'hard') {
+                            $badgeClass = 'bg-danger-subtle text-danger';
+                        }
+                    @endphp
+                    <p class="badge {{$badgeClass}}" style="font-size: 12px">
+                        {{$level}}
                     </p>
                     <div class="flex-grow-1 mb-3 text-end">
                         <div class="dropdown d-inline-block">
@@ -109,12 +125,14 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <button type="button" class="dropdown-item edit-item-btn btn-detail text-center" data-bs-toggle="modal" data-bs-target="#editModal">
-                                    Edit
+                                    <button type="button" class="dropdown-item  text-center edit-button"
+                                    data-id="{{$challenge->id}}" data-title="{{$challenge->title}}" data-description="{{$challenge->description}}" data-start_date="{{$challenge->start_date}}" data-deadline="{{$challenge->deadline}}">
+                                        Edit
                                     </button>
+
                                 </li>
                                 <li>
-                                    <button type="button" class="dropdown-item edit-item-btn text-danger btn-detail text-center">
+                                    <button type="button" class="dropdown-item edit-item-btn text-danger btn-delete text-center" data-id="{{ $challenge->id }}">
                                     Hapus
                                     </button>
                                 </li>
@@ -122,13 +140,17 @@
                         </div>
                     </div>
                 </div>
-                <h5>Lorem ipsum dolor sit, amet consectetur adipisicing.</h5>
+                <h5>{{$challenge->title}}</h5>
                 <p class="text-mute">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda inventore molestias...
+                    {{ Str::limit($challenge->description, 150) }}
                 </p>
             </div>
         </div>
     </div>
+
+    @empty
+
+    @endforelse
 </div>
 
 <!-- Edit Modal -->
@@ -136,42 +158,81 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Tambah Tantangan</h5>
+                <h5 class="modal-title" id="addModalLabel">Edit Tantangan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="dropdownMenu" class="form-label">Tingkat Kesulitan</label>
-                    <select class="form-select" id="dropdownMenu" aria-label="Pilih Opsi">
-                        <option selected>Pilih tingkat kesulitan</option>
-                        <option value="Biasa">Biasa</option>
-                        <option value="Sedang">Sedang</option>
-                        <option value="Sulit">Sulit</option>
-                    </select>
+            <form method="post" enctype="multipart/form-data" id="form-update">
+                @csrf
+                @method('PUT')
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="dropdownMenu" class="form-label">Tingkat Kesulitan</label>
+                        <select name="level" id="level" class="form-select">
+                            <option value="easy">Easy</option>
+                            <option value="normal">Normal</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputText" class="form-label">Judul</label>
+                        <input type="text" class="form-control" id="title-edit" name="title" placeholder="Masukkan Judul Tantangan">
+                    </div>
+                    <div class="mb-3">
+                        <label for="textarea" class="form-label">Deskripsi</label>
+                        <textarea class="form-control" id="description-edit" name="description" rows="3" placeholder="Masukkan Deskripsi Tantangan "></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="datePicker" class="form-label">Tanggal Mulai</label>
+                        <input type="date" class="form-control" id="start_date-edit" name="start_date">
+                    </div>
+                    <div class="mb-3">
+                        <label for="datePicker" class="form-label">Tenggat</label>
+                        <input type="date" class="form-control" id="deadline-edit" name="deadline">
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="inputText" class="form-label">Judul</label>
-                    <input type="text" class="form-control" id="inputText" placeholder="Masukkan Judul Tantangan">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
-                <div class="mb-3">
-                    <label for="textarea" class="form-label">Deskripsi</label>
-                    <textarea class="form-control" id="textarea" rows="3" placeholder="Masukkan Deskripsi Tantangan "></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="datePicker" class="form-label">Tanggal Mulai</label>
-                    <input type="date" class="form-control" id="datePicker">
-                </div>
-                <div class="mb-3">
-                    <label for="datePicker" class="form-label">Tenggat</label>
-                    <input type="date" class="form-control" id="datePicker">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary">Simpan</button>
-            </div>
+
+            </form>
         </div>
     </div>
 </div>
+
+@include('admin.components.delete-modal-component')
+
+@endsection
+
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    $('.btn-delete').on('click', function() {
+        var id = $(this).data('id');
+        $('#form-delete').attr('action', '/mentor/challenge/delete/' + id);
+        $('#modal-delete').modal('show');
+    });
+    $('.edit-button').on('click', function() {
+        var id = $(this).data('id'); // Mengambil nilai id dari tombol yang diklik
+        var title = $(this).data('title'); // Mengambil nilai title dari tombol yang diklik
+        var description = $(this).data('description');
+        var start_date = $(this).data('start_date');
+        var deadline = $(this).data('deadline');
+
+
+        var collab_category_id = $(this).data('collab_category_id');
+
+        console.log(id);
+        $('#form-update').attr('action', '/mentor/challenge/' + id); // Mengubah nilai atribut action form
+        $('#title-edit').val(title);
+        $('#description-edit').val(description);
+        $('#start_date-edit').val(start_date);
+        $('#deadline-edit').val(deadline);
+        $('#category-edit').val(collab_category_id).trigger('change');
+        $('#editModal').modal('show');
+    });
+</script>
 
 @endsection

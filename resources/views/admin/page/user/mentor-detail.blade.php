@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <div class="card">
                         <div class="card-header align-items-center d-flex justify-content-between mx-3">
-                            <h5 class="card-title mb-0">SIswa</h5>
+                            <h5 class="card-title mb-0">Siswa</h5>
                         </div><!-- end card header -->
 
                         <div class="card-body mx-3">
@@ -53,15 +53,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($mentor->mentorstudent as $student)
+                                            @forelse ($studentDivisions as $student)
                                                 <tr>
                                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                                    <td class="text-center">{{ $student->student->name }}</td>
-                                                    <td class="text-center">{{ $student->student->email }}</td>
-                                                    <td class="text-center">{{ $student->student->school }}</td>
+                                                    <td class="text-center">{{ $student->name }}</td>
+                                                    <td class="text-center">{{ $student->email }}</td>
+                                                    <td class="text-center">{{ $student->school }}</td>
                                                     <td class="text-center">
                                                         <span class="badge bg-secondary-subtle text-secondary">
-                                                            {{ $student->student->internship_type }}
+                                                            {{ $student->internship_type }}
                                                         </span>
                                                     </td>
                                                 </tr>

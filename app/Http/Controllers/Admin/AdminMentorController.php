@@ -56,7 +56,8 @@ class AdminMentorController extends Controller
     public function show(Mentor $mentor)
     {
         $mentor = $this->mentor->show($mentor->id);
-        return view('admin.page.user.mentor-detail', compact('mentor'));
+        $studentDivisions = $this->student->whereStudentDivision($mentor->id);
+        return view('admin.page.user.mentor-detail', compact('mentor','studentDivisions'));
     }
 
     public function update(UpdateMentorRequest $request, Mentor $mentor)
