@@ -27,4 +27,13 @@ class StudentChallenge extends Model
             default => TaskStudentStatusEnum::PENDING
         };
     }
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+    public function challenge()
+    {
+        return $this->belongsTo(Challenge::class);
+    }
 }

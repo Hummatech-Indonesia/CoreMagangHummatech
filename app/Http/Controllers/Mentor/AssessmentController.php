@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Mentor;
 
 use App\Contracts\Interfaces\ChallengeInterface;
 use App\Contracts\Interfaces\CourseInterface;
+use App\Contracts\Interfaces\StudentChallengeInterface;
 use App\Contracts\Interfaces\StudentTaskInterface;
 use App\Contracts\Interfaces\SubCourseInterface;
 use App\Contracts\Interfaces\TaskInterface;
 use App\Http\Controllers\Controller;
+use App\Models\Challenge;
+use App\Models\StudentChallenge;
 use App\Models\StudentTask;
 use App\Models\Task;
 use App\Services\StudentTaskService;
@@ -21,8 +24,10 @@ class AssessmentController extends Controller
     private CourseInterface $course;
     private SubCourseInterface $subCourse;
     private ChallengeInterface $challenge;
+    private StudentChallengeInterface $studentChallenge;
 
-    public function __construct(StudentTaskInterface $studentTask, StudentTaskService $serviceStudentTask, TaskInterface $task, CourseInterface $course, SubCourseInterface $subCourse, ChallengeInterface $challenge)
+
+    public function __construct(StudentTaskInterface $studentTask, StudentTaskService $serviceStudentTask, TaskInterface $task, CourseInterface $course, SubCourseInterface $subCourse, ChallengeInterface $challenge, StudentChallengeInterface $studentChallenge)
     {
         $this->studentTask = $studentTask;
         $this->serviceStudentTask = $serviceStudentTask;
@@ -30,6 +35,7 @@ class AssessmentController extends Controller
         $this->course = $course;
         $this->subCourse = $subCourse;
         $this->challenge = $challenge;
+        $this->studentChallenge = $studentChallenge;
     }
     /**
      * Display a listing of the resource.
@@ -99,5 +105,15 @@ class AssessmentController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function showChallenge(Challenge $challenge)
+    {
+        $studentChallenges = $this->studentChallenge->whereChallenge($challenge->id);
+        return view('mentor.assessment.challange_detail', compact('studentChallenges', 'challenge'));
+    }
+    public function updateChallenge(Request $request, StudentChallenge $studentChallenge)
+    {
+        $this->studentChallenge->update($studentChallenge->id, $request->all());
+        return back()->with('success', 'Berhasil Memperbarui data');
     }
 }

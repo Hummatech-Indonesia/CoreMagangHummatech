@@ -6,8 +6,6 @@ use App\Models\Challenge;
 
 class ChallengeRepository extends BaseRepository implements ChallengeInterface
 {
-    private ChallengeInterface  $challenge;
-
     public function __construct(Challenge $challenge)
     {
         $this->model = $challenge;
@@ -40,9 +38,9 @@ class ChallengeRepository extends BaseRepository implements ChallengeInterface
 
     public function getUnsubmittedChallenges()
     {
-        return Challenge::leftJoin('student_challenges', 'challenges.id', '=', 'student_challenges.challenge_id')
-            ->whereNull('student_challenges.challenge_id')
-            ->get();
+        return $this->model->whereNotIn('id', function($query) {
+            $query->select('challenge_id')->from('student_challenges')->where('student_id', auth()->user()->student->id);
+        })->get();
     }
 
     public function whereMentor(mixed $id): mixed

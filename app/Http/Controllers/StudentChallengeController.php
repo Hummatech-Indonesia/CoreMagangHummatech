@@ -42,7 +42,9 @@ class StudentChallengeController extends Controller
      */
     public function store(StoreStudentChallengeRequest $request)
     {
-        //
+        $data = $this->serviceStudentChallenge->store($request);
+        $this->studentChallenge->store($data);
+        return back()->with('success' , 'Berhasil Mengumpulkan challenge');
     }
 
     /**

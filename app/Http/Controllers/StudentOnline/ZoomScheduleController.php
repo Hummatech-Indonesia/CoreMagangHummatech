@@ -53,7 +53,8 @@ class ZoomScheduleController extends Controller
      */
     public function show(ZoomSchedule $zoomSchedule)
     {
-        //
+        $zoomSchedules = $this->zoomSchedule->get();
+        return view('mentor.zoomschedule', compact('zoomSchedules'));
     }
 
     /**
