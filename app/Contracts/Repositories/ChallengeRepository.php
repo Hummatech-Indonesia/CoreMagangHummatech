@@ -21,6 +21,7 @@ class ChallengeRepository extends BaseRepository implements ChallengeInterface
 
     public function store(array $data): mixed
     {
+        $data['mentor_id'] = auth()->user()->mentor->id;
         return $this->model->query()
         ->create($data);
     }
@@ -35,6 +36,18 @@ class ChallengeRepository extends BaseRepository implements ChallengeInterface
         return $this->model->query()
         ->findOrFail($id)
         ->update($data);
+    }
+
+    public function getUnsubmittedChallenges()
+    {
+        return Challenge::leftJoin('student_challenges', 'challenges.id', '=', 'student_challenges.challenge_id')
+            ->whereNull('student_challenges.challenge_id')
+            ->get();
+    }
+
+    public function whereMentor(mixed $id): mixed
+    {
+        return $this->model->query()->where('mentor_id', $id)->get();
     }
 
 }

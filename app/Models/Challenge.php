@@ -30,4 +30,9 @@ class Challenge extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    public function mentor()
+    {
+        return $this->belongsTo(Mentor::class);
+    }
 }

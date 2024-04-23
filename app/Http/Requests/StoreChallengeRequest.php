@@ -22,6 +22,7 @@ class StoreChallengeRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'mentor_id' => 'exists:mentors,id|required',
             'title' => 'required',
             'level' => 'required',
             'description' => 'required',
@@ -33,6 +34,7 @@ class StoreChallengeRequest extends FormRequest
     public function messages()
     {
         return [
+            'mentor_id.required' => 'Mentor harus diisi',
             'title.required' => 'Title harus diisi',
             'level.required' => 'Level harus diisi',
             'description.required' => 'Deskripsi harus diisi',

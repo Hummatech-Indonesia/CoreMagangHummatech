@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('challenges', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('mentor_id')->constrained('mentors');
             $table->string('title');
             $table->longText('description');
             $table->enum('level', [ChallengeEnum::EASY->value , ChallengeEnum::NORMAL->value , ChallengeEnum::HARD->value]);
