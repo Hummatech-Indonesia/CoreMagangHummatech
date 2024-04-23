@@ -54,7 +54,6 @@ Route::get('student/absensi', function (){
 
 Route::get('student/journal', [JournalController::class,'index']);
 
-
 Route::get('student', [StudentController::class,'mentorStudent']);
 
 Route::get('mentor/challenge', [ChallengeController::class,'index']);
@@ -71,10 +70,13 @@ Route::get('mentor/assessment/task-detail/{task}', [AssessmentController::class,
 Route::patch('mentor/assessment/update/{studentTask}', [AssessmentController::class, 'update'])->name('task-offline.assessment');
 
 
-
 Route::get('mentor/assessment/challange-detail', function (){
     return view('mentor.assessment.challange_detail');
 });
+
+Route::get('timetable', [ZoomScheduleController::class,'show']);
+
+
 
 //Admin
 Route::get('administrator/course',[CourseController::class,'index']);
