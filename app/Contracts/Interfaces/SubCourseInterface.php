@@ -12,4 +12,6 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 use App\Contracts\Interfaces\Eloquent\Whereterface;
 
 interface SubCourseInterface extends GetInterface , StoreInterface , UpdateInterface , DeleteInterface , ShowInterface , CountInterface , Whereterface, GetWhereInterface
-{}
+{
+    public function whereCourse(mixed $id);
+}

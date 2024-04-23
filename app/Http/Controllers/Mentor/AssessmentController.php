@@ -37,6 +37,7 @@ class AssessmentController extends Controller
     public function index()
     {
         $courses = $this->course->whereDivision(auth()->user()->mentor->id);
+        $tasks = null;
         foreach ($courses as $course) {
             $subCourses = $this->subCourse->whereCourse($course->id);
             foreach ($subCourses as $subCourse) {

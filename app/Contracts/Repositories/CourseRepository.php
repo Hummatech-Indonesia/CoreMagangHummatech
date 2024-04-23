@@ -49,5 +49,8 @@ class CourseRepository extends BaseRepository implements CourseInterface
     {
         return $this->model->query()->where('status' , 'paid')->get();
     }
-
+    public function whereDivision(mixed $id): mixed
+    {
+        return $this->model->query()->where('division_id', $id)->get();
+    }
 }
