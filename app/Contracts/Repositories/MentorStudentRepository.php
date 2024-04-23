@@ -47,4 +47,5 @@ class MentorStudentRepository extends BaseRepository implements MentorStudentInt
     {
         return $this->model->query()->where('mentor_id',$id)->get();
     }
+    
 }

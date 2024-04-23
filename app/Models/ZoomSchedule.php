@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $title
@@ -35,4 +35,5 @@ use Illuminate\Database\Eloquent\Model;
 class ZoomSchedule extends Model
 {
     use HasFactory;
+     protected $guarded = ['id'];
 }

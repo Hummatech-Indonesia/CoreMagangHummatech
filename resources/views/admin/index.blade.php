@@ -104,11 +104,15 @@
                         <div class="card">
                             <div class="row align-items-end">
                                 <div class="card-body mx-3">
-                                    <label for="valueInput" class="form-label" style="font-size: 16px">Atur Maksimal Terlambat</label>
-                                    <input type="text" class="form-control" id="valueInput" value="">
-                                    <div class="mt-3 text-end">
-                                        <button type="button" class="btn btn-secondary waves-effect waves-light">Simpan</button>
-                                    </div>
+                                    <form action="{{ route('maxlate.store') }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <label for="valueInput" class="form-label" style="font-size: 16px">Atur Maksimal Terlambat</label>
+                                        <input type="number" name="minute" class="form-control" id="valueInput" value="{{ $maxLateMinute->minute ?? 0 }}">
+                                        <div class="mt-3 text-end">
+                                            <button type="submit" class="btn btn-secondary waves-effect waves-light">Simpan</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -194,9 +198,9 @@
                         <div class="card-body">
                             <label for="exampleInputtime" class="form-label">Masuk :</label>
                             <div class="d-flex">
-                                <input type="time" class="form-control" id="exampleInputtime" value="08:56 AM">
+                                <input type="time" class="form-control" id="exampleInputtime" value="{{ $monday->checkin_starts ?? '' }}">
                                 <h2 class="ms-2">-</h2>
-                                <input type="time" class="form-control ms-2" id="exampleInputtime" value="08:56 AM">
+                                <input type="time" class="form-control ms-2" id="exampleInputtime" value="{{ $monday->checkin_ends ?? '' }}">
                             </div>
 
                             <label for="exampleInputtime" class="form-label mt-3">Istirahat :</label>

@@ -86,9 +86,9 @@ Route::get('administrator/course/detail/sub-course', function() {
 
 Route::get('siswa-offline/task', [StudentTaskController::class, 'index']);
 
-Route::get('siswa-offline/challenge', function(){
-    return view('student_offline.challenge.index');
-});
+// Route::get('siswa-offline/challenge', function(){
+//     return view('student_offline.challenge.index');
+// });
 Route::get('siswa-offline/letter-head', [LetterheadController::class, 'indexOffline']);
 Route::post('letter-head', [LetterheadController::class, 'store'])->name('letterhead.store');
 Route::put('letter-head/{letterhead}', [LetterheadController::class, 'update'])->name('letterhead.update');

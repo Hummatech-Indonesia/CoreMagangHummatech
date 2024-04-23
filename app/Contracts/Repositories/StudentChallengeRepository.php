@@ -1,12 +1,12 @@
 <?php
 namespace App\Contracts\Repositories;
 
-use App\Contracts\Interfaces\StudentTaskInterface;
-use App\Models\StudentTask;
+use App\Contracts\Interfaces\StudentChallengeInterface;
+use App\Models\StudentChallenge;
 
-class StudentTaskRepository extends BaseRepository implements StudentTaskInterface
+class StudentChallengeRepository extends BaseRepository implements StudentChallengeInterface
 {
-    public function __construct(StudentTask $studentTask)
+    public function __construct(StudentChallenge $studentTask)
     {
         $this->model = $studentTask;
     }
@@ -31,8 +31,8 @@ class StudentTaskRepository extends BaseRepository implements StudentTaskInterfa
     {
         return $this->model->query()->where('status', $status)->get();
     }
-    public function whereTask(mixed $id) : mixed
+    public function whereChallenge(mixed $id) : mixed
     {
-        return $this->model->query()->where('task_id', $id)->get();
+        return $this->model->query()->where('challenge_id', $id)->get();
     }
 }

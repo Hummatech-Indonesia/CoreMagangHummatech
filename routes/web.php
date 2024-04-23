@@ -22,8 +22,10 @@ use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\MentorPlacementController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CourseStoreController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\Mentor\DashboardController;
 use App\Http\Controllers\StudentOnline\CourseController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
@@ -49,6 +51,8 @@ Route::get('statement-parent', [StatementController::class, 'parent'])->name('st
 Route::middleware(['roles:administrator', 'auth'])->group(function () {
     # Dashboard Home
     Route::get('administrator', [AdminController::class, 'index'])->name('.home');
+
+    Route::patch('max-late', [AttendanceController::class, 'storeMaxLate'])->name('maxlate.store');
 
     # Data Admin
     Route::post('data-admin/store', [DataAdminController::class, 'store'])->name('data-admin.store');
@@ -147,9 +151,11 @@ Route::get('journal', [JournalController::class, 'index'])->name('.journal.index
 
 #===================================================== Mentor =================================================================
 Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function () {
-    Route::get('/', function () {
-        return view('mentor.index');
-    });
+    // Route::get('/', function () {
+    //     return view('mentor.index');
+    // });
+    Route::get('/', [DashboardController::class, 'index'])->name('.home');
+
 });
 
 #================================================= End Mentor ====================================================================

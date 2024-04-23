@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('attendance_rules', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->enum('day', [DayEnum::MONDAY->value, DayEnum::TUESDAY->value, DayEnum::WEDNESDAY->value, DayEnum::THURSDAY->value, DayEnum::FRIDAY->value]);
             $table->time('checkin_starts');
             $table->time('checkin_ends');
             $table->time('break_starts');

@@ -50,6 +50,9 @@
                 @csrf
                 @method('POST')
                 <div class="modal-body">
+                    @error('mentor_id')
+                    <strong>{{ $message }}</strong>
+                    @enderror
                     <div class="mb-3">
                         <label for="dropdownMenu" class="form-label">Tingkat Kesulitan</label>
                         <select name="level" id="level" class="form-select">
@@ -57,6 +60,10 @@
                             <option value="normal">Normal</option>
                             <option value="hard">Hard</option>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="mentor_id" id="inputText" value="{{auth()->user()->mentor->id}}" hidden>
+
                     </div>
                     <div class="mb-3">
                         <label for="inputText" class="form-label">Judul</label>
@@ -149,6 +156,13 @@
     </div>
 
     @empty
+
+    <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+        <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+        <p class="fs-5 text-dark">
+            Belum Ada Tantangan
+        </p>
+    </div>
 
     @endforelse
 </div>

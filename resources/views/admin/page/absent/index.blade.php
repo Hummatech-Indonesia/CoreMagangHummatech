@@ -52,7 +52,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($attendances as $attendance)
+                    @foreach ($onlineAttendances as $attendance)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $attendance->name }}</td>
@@ -91,6 +91,58 @@
                         @if (isset($student->attendances[0]))
                             @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
                                 @if ($detailAttendance->status == 'return_break')
+                                    @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                            \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                        <span class="badge bg-success-subtle text-success py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @else
+                                        <span class="badge bg-danger-subtle text-danger py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endif
+                        </td>
+                        <td class="text-center">
+                        @if (isset($student->attendances[0]))
+                            @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                @if ($detailAttendance->status == 'return')
+                                    @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                            \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                        <span class="badge bg-success-subtle text-success py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @else
+                                        <span class="badge bg-danger-subtle text-danger py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endif
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <table class="table align-middle table-nowrap table-striped-columns mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" style="width: 1rem">No.</th>
+                        <th scope="col">Siswa</th>
+                        <th scope="col">Sekolah</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col" class="text-center">Keterangan</th>
+                        <th scope="col" class="text-center">Masuk</th>
+                        <th scope="col" class="text-center">Pulang</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($oflineAttendances as $attendance)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $attendance->name }}</td>
+                        <td>{{ $attendance->school }}</td>
+                        <td>P</td>
+                        <td class="text-center"><span class="badge bg-success-subtle text-success py-2 px-3">{{ $attendance->attendances[0]->status }}</span></td>
+                        <td class="text-center">
+                        @if (isset($student->attendances[0]))
+                            @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                @if ($detailAttendance->status == 'present')
                                     @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
                                             \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
                                         <span class="badge bg-success-subtle text-success py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>

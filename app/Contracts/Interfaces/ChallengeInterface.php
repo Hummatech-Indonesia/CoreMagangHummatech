@@ -9,4 +9,6 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface ChallengeInterface extends GetInterface, StoreInterface, DeleteInterface, UpdateInterface
 {
+    public function getUnsubmittedChallenges();
+    public function whereMentor(mixed $id);
 }

@@ -51,4 +51,8 @@ class TaskRepository extends BaseRepository implements TaskInterface
             ->whereNull('student_tasks.task_id')
             ->get();
     }
+    public function whereSubCourse(mixed $id): mixed
+    {
+        return $this->model->query()->where('sub_course_id', $id)->get();
+    }
 }

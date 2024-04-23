@@ -48,4 +48,8 @@ class JournalRepository extends BaseRepository implements JournalInterface
     {
         return $this->model->query()->findOrFail($id)->delete($id);
     }
+    public function whereStudent(mixed $id): mixed
+    {
+        return $this->model->query()->where('student_id', $id)->get();
+    }
 }
