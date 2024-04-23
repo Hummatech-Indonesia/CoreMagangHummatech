@@ -44,128 +44,40 @@
     </div>
 
     <div class="card shadow-none border">
-        <div class="card-body p-4 pt-2">
-            <ul class="nav nav-pills user-profile-tab border-bottom" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button
-                        class="nav-link position-relative rounded-0 active d-flex align-items-center justify-content-center bg-transparent fs-3 py-6"
-                        id="pills-description-tab" data-bs-toggle="pill" data-bs-target="#pills-description" type="button"
-                        role="tab" aria-controls="pills-description" aria-selected="true">
-                        Deskripsi
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button
-                        class="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-6"
-                        id="pills-course-tab" data-bs-toggle="pill" data-bs-target="#pills-course" type="button"
-                        role="tab" aria-controls="pills-course" aria-selected="false" tabindex="-1">
-                        Detail Materi
-                    </button>
-                </li>
-            </ul>
-            <div class="tab-content pt-4" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-description" role="tabpanel"
-                    aria-labelledby="pills-description-tab" tabindex="0">
+        <div class="card-body p-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="border-bottom border-light mb-4 d-block fw-bolder"><span
+                            class="border-bottom border-primary">Deskripsi</span></h4>
+
                     <h5 class="fs-5 mb-3">
                         {{ $course->title }}
                     </h5>
 
                     {{ $course->description }}
                 </div>
-                <div class="tab-pane fade" id="pills-course" role="tabpanel" aria-labelledby="pills-course-tab"
-                    tabindex="0">
-                    <div class="row">
-                        <div class="col-lg-4 d-flex align-items-stretch">
-                            <div class="card shadow-none border w-100 mb-7 mb-lg-0">
-                                <div class="card-body text-center p-4 d-flex flex-column justify-content-center">
-                                    <h6 class="mb-3">Average Rating</h6>
-                                    <h2 class="text-primary mb-3 fw-semibold fs-9">4/5</h2>
-                                    <ul class="list-unstyled d-flex align-items-center justify-content-center mb-0">
-                                        <li>
-                                            <a class="me-1" href="javascript:void(0)">
-                                                <i class="ti ti-star text-warning fs-6"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="me-1" href="javascript:void(0)">
-                                                <i class="ti ti-star text-warning fs-6"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="me-1" href="javascript:void(0)">
-                                                <i class="ti ti-star text-warning fs-6"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="me-1" href="javascript:void(0)">
-                                                <i class="ti ti-star text-warning fs-6"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)">
-                                                <i class="ti ti-star text-warning fs-6"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 d-flex align-items-stretch">
-                            <div class="card shadow-none border w-100 mb-7 mb-lg-0">
-                                <div class="card-body p-4 d-flex flex-column justify-content-center">
-                                    <div class="d-flex align-items-center gap-9 mb-3">
-                                        <span class="flex-shrink-0 fs-2">1 Stars</span>
-                                        <div class="progress bg-primary-subtle w-100 h-4">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="45"
-                                                aria-valuemin="0" aria-valuemax="100" style="width: 45%;"></div>
-                                        </div>
-                                        <h6 class="mb-0">(485)</h6>
+                <div class="col-md-6">
+                    <h4 class="border-bottom border-light mb-4 d-block fw-bolder"><span
+                            class="border-bottom border-primary">Materinya</span></h4>
+
+                    <div class="list-group list-group-flush">
+                        @forelse ($course->subCourse as $subCourse)
+                            <div class="list-group-item d-flex gap-2 align-items-center">
+                                <div class="row w-100 justify-content-between align-items-center">
+                                    <div class="col-md-3">
+                                        <img src="{{ asset("/storage/{$subCourse->image_course}") }}" alt="{{ $subCourse->title }}"  class="rounded-4 w-100" />
                                     </div>
-                                    <div class="d-flex align-items-center gap-9 mb-3">
-                                        <span class="flex-shrink-0 fs-2">2 Stars</span>
-                                        <div class="progress bg-primary-subtle w-100 h-4">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="25"
-                                                aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
-                                        </div>
-                                        <h6 class="mb-0">(215)</h6>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-9 mb-3">
-                                        <span class="flex-shrink-0 fs-2">3 Stars</span>
-                                        <div class="progress bg-primary-subtle w-100 h-4">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="20"
-                                                aria-valuemin="0" aria-valuemax="100" style="width: 20%;"></div>
-                                        </div>
-                                        <h6 class="mb-0">(110)</h6>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-9 mb-3">
-                                        <span class="flex-shrink-0 fs-2">4 Stars</span>
-                                        <div class="progress bg-primary-subtle w-100 h-4">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="80"
-                                                aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                                        </div>
-                                        <h6 class="mb-0">(620)</h6>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-9">
-                                        <span class="flex-shrink-0 fs-2">5 Stars</span>
-                                        <div class="progress bg-primary-subtle w-100 h-4">
-                                            <div class="progress-bar" role="progressbar" aria-valuenow="12"
-                                                aria-valuemin="0" aria-valuemax="100" style="width: 12%;"></div>
-                                        </div>
-                                        <h6 class="mb-0">(160)</h6>
+                                    <div class="col-md-9">
+                                        <h5 class="mb-2">{{ $subCourse->title }}</h5>
+                                        <p class="mb-1">{{ Str::limit($subCourse->description, 100) }}</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4 d-flex align-items-stretch">
-                            <div class="card shadow-none border w-100 mb-7 mb-lg-0">
-                                <div class="card-body p-4 d-flex flex-column justify-content-center">
-                                    <button type="button"
-                                        class="btn btn-outline-primary d-flex align-items-center gap-2 mx-auto">
-                                        <i class="ti ti-pencil fs-7"></i>Write an Review
-                                    </button>
-                                </div>
+                        @empty
+                            <div class="alert alert-warning">
+                                Materi belum tersedia
                             </div>
-                        </div>
+                        @endforelse
                     </div>
                 </div>
             </div>

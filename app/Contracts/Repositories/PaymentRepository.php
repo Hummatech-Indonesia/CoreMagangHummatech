@@ -10,10 +10,8 @@ use App\Contracts\Interfaces\UserInterface;
 use App\Enum\TransactionStatusEnum;
 use App\Models\CourseUnlock;
 use App\Models\SubCourseUnlock;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class PaymentRepository extends BaseRepository implements PaymentInterface
@@ -25,9 +23,12 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
     private TransactionHistoryInterface $transaction;
     private UserInterface $userInterface;
     private CourseInterface $courseInterface;
-    private SubCourseInterface $subCourseInterface;
 
-    public function __construct(TransactionHistoryInterface $transaction, UserInterface $userInterface, CourseInterface $courseInterface, SubCourseInterface $subCourseInterface)
+    public function __construct(
+        TransactionHistoryInterface $transaction,
+        UserInterface $userInterface,
+        CourseInterface $courseInterface,
+    )
     {
         $this->apiKey = config('tripay.api_key');
         $this->privateKey = config('tripay.private_key');
@@ -36,7 +37,6 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
         $this->transaction = $transaction;
         $this->userInterface = $userInterface;
         $this->courseInterface = $courseInterface;
-        $this->subCourseInterface = $subCourseInterface;
     }
 
     private function _buyCourseAction(mixed $courses, string $status, mixed $invoiceInstance)
