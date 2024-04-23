@@ -54,21 +54,22 @@
 
         <div class="tab-pane active" id="task" role="tabpanel">
             <div class="d-flex flex-wrap all-category note-important">
+                @forelse ($tasks as $task)
                 <div class="p-1 col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="card border-start border-info py-3 px-4">
                         <div class="d-flex align-items-center flex-wrap all-category note-important">
                             <div class="d-flex flex-wrap">
                                 <div class="col-lg-8 col-sm-12">
                                     <div class="d-flex align-items-start gap-3 col-sm-12">
-                                        <p>Nama Materi -> Nama Sub Materi</p>
+                                        <p>Nama Materi -> {{$task->subCourse->title}}</p>
                                         <p class="badge bg-light-success text-success" style="font-size: 12px">
-                                            Mudah
+                                            {{$task->level}}
                                         </p>
                                     </div>
-                                    <h5 class="col-sm-12 col-lg-12">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</h5>
+                                    <h5 class="col-sm-12 col-lg-12">{{ Str::limit($task->description, 120) }}</h5>
                                 </div>
                                 <div class=" col-sm-4 col-lg-4 pt-4">
-                                    <a href="{{ url('mentor/assessment/task-detail') }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
+                                    <a href="{{ route('task.detail', $task->id) }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
                                         Lihat Detail
                                     </a>
                                 </div>
@@ -79,73 +80,33 @@
                     </div>
                 </div>
 
-                <div class="p-1 col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                    <div class="card border-start border-info py-3 px-4">
-                        <div class="d-flex align-items-center flex-wrap all-category note-important">
-                            <div class="d-flex flex-wrap">
-                                <div class="col-lg-8 col-sm-12">
-                                    <div class="d-flex align-items-start gap-3 col-sm-12">
-                                        <p>Nama Materi -> Nama Sub Materi</p>
-                                        <p class="badge bg-light-warning text-warning" style="font-size: 12px">
-                                            Sedang
-                                        </p>
-                                    </div>
-                                    <h5 class="col-sm-12 col-lg-12">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</h5>
-                                </div>
-                                <div class=" col-sm-4 col-lg-4 pt-4">
-                                    <a href="{{ url('mentor/assessment/task-detail') }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
-                                        Lihat Detail
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
+                @empty
+                <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                    <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                    <p class="fs-5 text-dark">
+                        Belum Ada Tugas
+                    </p>
                 </div>
-
-                <div class="p-1 col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                    <div class="card border-start border-info py-3 px-4">
-                        <div class="d-flex align-items-center flex-wrap all-category note-important">
-                            <div class="d-flex flex-wrap">
-                                <div class="col-lg-8 col-sm-12">
-                                    <div class="d-flex align-items-start gap-3 col-sm-12">
-                                        <p>Nama Materi -> Nama Sub Materi</p>
-                                        <p class="badge bg-light-danger text-danger" style="font-size: 12px">
-                                            Sulit
-                                        </p>
-                                    </div>
-                                    <h5 class="col-sm-12 col-lg-12">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</h5>
-                                </div>
-                                <div class=" col-sm-4 col-lg-4 pt-4">
-                                    <a href="{{ url('mentor/assessment/task-detail') }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
-                                        Lihat Detail
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
+                @endforelse
             </div>
         </div>
 
         <div class="tab-pane" id="done" role="tabpanel">
             <div class="d-flex flex-wrap all-category note-important">
+                @forelse ($challenges as $challenge)
+
                 <div class="p-1 col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="card border-start border-info py-3 px-4">
                         <div class="d-flex align-items-center flex-wrap all-category note-important">
                             <div class="d-flex flex-wrap">
                                 <div class="col-lg-8 col-sm-12">
                                     <div class="d-flex align-items-start gap-3 col-sm-12">
-                                        <p>Nama Materi -> Nama Sub Materi</p>
+                                        <p>Nama Materi -> {{$challenge->title}}</p>
                                         <p class="badge bg-light-success text-success" style="font-size: 12px">
-                                            Mudah
+                                            {{$challenge->level}}
                                         </p>
                                     </div>
-                                    <h5 class="col-sm-12 col-lg-12">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</h5>
+                                    <h5 class="col-sm-12 col-lg-12">{{ Str::limit($challenge->description, 120) }}</h5>
                                 </div>
                                 <div class=" col-sm-4 col-lg-4 pt-4">
                                     <a href="{{ url('mentor/assessment/challange-detail') }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
@@ -159,56 +120,14 @@
                     </div>
                 </div>
 
-                <div class="p-1 col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                    <div class="card border-start border-info py-3 px-4">
-                        <div class="d-flex align-items-center flex-wrap all-category note-important">
-                            <div class="d-flex flex-wrap">
-                                <div class="col-lg-8 col-sm-12">
-                                    <div class="d-flex align-items-start gap-3 col-sm-12">
-                                        <p>Nama Materi -> Nama Sub Materi</p>
-                                        <p class="badge bg-light-warning text-warning" style="font-size: 12px">
-                                            Sedang
-                                        </p>
-                                    </div>
-                                    <h5 class="col-sm-12 col-lg-12">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</h5>
-                                </div>
-                                <div class=" col-sm-4 col-lg-4 pt-4">
-                                    <a href="{{ url('mentor/assessment/challange-detail') }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
-                                        Lihat Detail
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
+                @empty
+                <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                    <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                    <p class="fs-5 text-dark">
+                        Belum Ada Tantangan
+                    </p>
                 </div>
-
-                <div class="p-1 col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                    <div class="card border-start border-info py-3 px-4">
-                        <div class="d-flex align-items-center flex-wrap all-category note-important">
-                            <div class="d-flex flex-wrap">
-                                <div class="col-lg-8 col-sm-12">
-                                    <div class="d-flex align-items-start gap-3 col-sm-12">
-                                        <p>Nama Materi -> Nama Sub Materi</p>
-                                        <p class="badge bg-light-danger text-danger" style="font-size: 12px">
-                                            Sulit
-                                        </p>
-                                    </div>
-                                    <h5 class="col-sm-12 col-lg-12">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</h5>
-                                </div>
-                                <div class=" col-sm-4 col-lg-4 pt-4">
-                                    <a href="{{ url('mentor/assessment/challange-detail') }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
-                                        Lihat Detail
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
+                @endforelse
             </div>
         </div>
     </div>

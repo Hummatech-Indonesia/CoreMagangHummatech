@@ -7,8 +7,8 @@
         <a href="{{ url('mentor/assessment') }}" type="button" class="btn btn-light-primary text-primary">Kembali</a>
     </div>
     <div>
-        <span class="mb-1 badge font-medium bg-light-success text-success">Mudah</span>
-        <h2 class="mt-3">Tutorial Laravel SPA Menggunakan Blade Template Engine (Splade)</h2>
+        <span class="mb-1 badge font-medium bg-light-success text-success">{{$task->level}}</span>
+        <h2 class="mt-3">{{$task->title}}</h2>
     </div>
 </div>
 
@@ -52,138 +52,92 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse ($studentTasks as $studentTask)
+
                     <tr class="search-items">
-                        <td>1</td>
+                        <td>{{$loop->iteration}}</td>
                         <td class="d-flex">
                             <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt="avatar" class="rounded-circle" width="35">
+                                @if(Storage::disk('public')->exists($studentTask->student->avatar))
+                                    <img src="{{ asset('storage/' . $studentTask->student->avatar) }}" alt="avatar" class="rounded-circle" width="35">
+                                @else
+                                    <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle" width="35">
+                                @endif
                             </div>
+
+
                             <div class="ms-3">
                                 <div class="user-meta-info">
-                                    <h6 class="user-name mb-0 mt-2" data-name="Emma Adams">Emma Adams</h6>
+                                    <h6 class="user-name mb-0 mt-2" data-name="Emma Adams">{{$studentTask->student->name}}</h6>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <span class="usr-email-addr">Selasa 12 Februari 2024</span>
+                            <span class="usr-email-addr">
+                                {{ \Carbon\Carbon::parse($studentTask->updated_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}
+                            </span>
                         </td>
                         <td>
-                            <span class="mb-1 badge font-medium bg-light-success text-success">Online</span>
+                            <span class="mb-1 badge font-medium bg-light-success text-success">{{$studentTask->student->internship_type}}</span>
                         </td>
                         <td>
-                            <span>07.39.10</span>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium text-dark">Belum di nilai</span>
-                        </td>
-                    </tr>
-                    <tr class="search-items">
-                        <td>2</td>
-                        <td class="d-flex">
-                            <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}" alt="avatar" class="rounded-circle" width="35">
-                            </div>
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0 mt-2" data-name="Emma Adams">Emma Adams</h6>
+                            <button type="button" class="justify-content-center btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center download-btn" data-id="{{$studentTask->id}}">
+                                <div class="mx-1">
+                                    <i class="ti ti-folder-down fs-4 me-2"></i>
+                                    Download
                                 </div>
-                            </div>
+                            </button>
                         </td>
-                        <td>
-                            <span class="usr-email-addr">Selasa 12 Februari 2024</span>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium bg-light-primary text-primary">Offline</span>
-                        </td>
-                        <td>
-                            <span>07.39.10</span>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium bg-light-success text-success">90.3</span>
-                        </td>
-                    </tr>
-                    <tr class="search-items">
-                        <td>3</td>
-                        <td class="d-flex">
-                            <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/profile/user-3.jpg') }}" alt="avatar" class="rounded-circle" width="35">
-                            </div>
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0 mt-2" data-name="Emma Adams">Emma Adams</h6>
+                        <form action="{{ route('task-offline.assessment', ['studentTask' => $studentTask]) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <td class="d-flex justify-content-between">
+                                <div class="form-group col-md-3">
+                                    <input type="text" name="score" class="form-control" value="{{ $studentTask->score ?? '' }}" @if(isset($studentTask->score) && $studentTask->score !== 0) readonly @endif>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="usr-email-addr">Selasa 12 Februari 2024</span>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium bg-light-success text-success">Online</span>
-                        </td>
-                        <td>
-                            <span>07.39.10</span>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium bg-light-warning text-warning">70.4</span>
-                        </td>
+                                @if(!isset($studentTask->score) || $studentTask->score === 0)
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                @endif
+                            </td>
+                        </form>
                     </tr>
-                    <tr class="search-items">
-                        <td>3</td>
-                        <td class="d-flex">
-                            <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/profile/user-3.jpg') }}" alt="avatar" class="rounded-circle" width="35">
-                            </div>
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0 mt-2" data-name="Emma Adams">Emma Adams</h6>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="usr-email-addr">Selasa 12 Februari 2024</span>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium bg-light-success text-success">Online</span>
-                        </td>
-                        <td>
-                            <span>07.39.10</span>
-                        </td>
-                        <td>
-                            {{-- <span class="mb-1 badge font-medium bg-light-warning text-warning">70.4</span> --}}
-                            <div class="form-group col-md-3">
-                                <input type="text" class="form-control">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="search-items">
-                        <td>3</td>
-                        <td class="d-flex">
-                            <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/profile/user-3.jpg') }}" alt="avatar" class="rounded-circle" width="35">
-                            </div>
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0 mt-2" data-name="Emma Adams">Emma Adams</h6>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="usr-email-addr">Selasa 12 Februari 2024</span>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium bg-light-success text-success">Online</span>
-                        </td>
-                        <td>
-                            <span>07.39.10</span>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium bg-light-info text-info">82.23</span>
-                        </td>
-                    </tr>
+
+                    @empty
+
+                    <div class="d-flex justify-content-center mb-2 mt-5">
+                        <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                    </div>
+                        <p class="fs-5 text-dark text-center">
+                            Data Masih Kosong
+                        </p>
+
+                    @endforelse
+
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+@endsection
+
+@section('script')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const downloadButtons = document.querySelectorAll('.download-btn');
+
+        downloadButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const studentTaskId = this.getAttribute('data-id');
+                const url = `/download-file/${studentTaskId}`;
+                window.location.href = url;
+            });
+        });
+    });
+    </script>
 
 @endsection
