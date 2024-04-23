@@ -25,7 +25,8 @@ class AttendanceController extends Controller
      */
     public function index(): View
     {
-        $attendances = $this->student->listAttendance();
-        return view('admin.page.absent.index', compact('attendances'));
+        $onlineAttendances = $this->student->listAttendance();
+        $oflineAttendances = $this->student->listOflineAttendance();
+        return view('admin.page.absent.index', compact('onlineAttendances', 'oflineAttendances'));
     }
 }
