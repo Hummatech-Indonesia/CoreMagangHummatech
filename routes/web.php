@@ -194,7 +194,7 @@ Route::controller(TransactionController::class)->prefix('transaction')->name('tr
     Route::get('detail/{reference:transaction_id}', 'detail')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online'])->name('detail');
 });
 
-Route::get('my-order', [TransactionController::class, 'myOrder'])->name('my-order')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online']);
+Route::get('order', [OrderController::class, 'index'])->name('my-order')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online']);
 
 require_once __DIR__ . '/kader.php';
 require_once __DIR__ . '/farah.php';

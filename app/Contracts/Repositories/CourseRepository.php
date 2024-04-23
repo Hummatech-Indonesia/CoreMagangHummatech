@@ -55,4 +55,8 @@ class CourseRepository extends BaseRepository implements CourseInterface
         return $this->model->query()->where('status' , 'paid')->get();
     }
 
+    public function getCourseByStatus(mixed $status): mixed
+    {
+        return $this->model->query()->where('status' , $status)->get();
+    }
 }

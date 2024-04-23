@@ -24,6 +24,8 @@ class UserRepository extends BaseRepository implements UserInterface
         return $this->model->query()->create($data);
     }
 
-    
-
+    public function GetWhere(mixed $id): mixed
+    {
+        return $this->model->query()->find($id)->first();
+    }
 }

@@ -123,22 +123,22 @@ class TransactionController extends Controller
         }
     }
 
-    public function myOrder(Request $request)
-    {
-        $transactions = Auth::user()->transaction()
-            ->when($request->has('status'), function ($query) use ($request) {
-                return $query->where('status', $request->get('status'));
-            });
+    // public function myOrder(Request $request)
+    // {
+    //     $transactions = Auth::user()->transaction()
+    //         ->when($request->has('status'), function ($query) use ($request) {
+    //             return $query->where('status', $request->get('status'));
+    //         });
 
-        if (!$request->has('sort') || $request->get('sort') == 'latest') {
-            $transactions = $transactions->latest();
-        } else {
-            $transactions = $transactions->oldest();
-        }
+    //     if (!$request->has('sort') || $request->get('sort') == 'latest') {
+    //         $transactions = $transactions->latest();
+    //     } else {
+    //         $transactions = $transactions->oldest();
+    //     }
 
-        $transactions = $transactions->paginate(12);
-        return view('student_online_&_offline.transaction.my-order', compact('transactions'));
-    }
+    //     $transactions = $transactions->paginate(12);
+    //     return view('student_online_&_offline.transaction.my-order', compact('transactions'));
+    // }
 
     public function detail(TransactionHistory $reference)
     {

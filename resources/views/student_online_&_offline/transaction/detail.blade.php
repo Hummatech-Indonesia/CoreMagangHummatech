@@ -131,8 +131,8 @@
 
                                 <div>
                                     <button onclick="copyContent('paymentCode')"
-                                        class="btn btn-primary d-flex gap-2 align-items-center"><i
-                                            class="fas fa-copy"></i><span>Salin Kode</span></button>
+                                        class="btn btn-primary d-flex gap-2 align-items-center" style="height: 3rem;min-width: 3rem;"><i
+                                            class="fas fa-copy"></i><span class="d-none d-md-none d-lg-inline">Salin Kode</span></button>
                                 </div>
                             </div>
                         @elseif(isset($paymentDetail['data']['qr_url']) &&

@@ -13,4 +13,5 @@ interface CourseInterface extends GetInterface , StoreInterface , DeleteInterfac
 {
     public function getPaid();
     public function getUnpaidCourse();
+    public function getCourseByStatus(string $status): mixed;
 }

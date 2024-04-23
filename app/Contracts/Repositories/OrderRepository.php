@@ -13,6 +13,11 @@ class OrderRepository extends BaseRepository implements OrderInterface
         $this->model = $order;
     }
 
+    public function paginate($perPage = 15, $columns = ['*'], $pageName = 'page', $page = null): mixed
+    {
+        return $this->model->query()->paginate($perPage, $columns, $pageName, $page);
+    }
+
     public function get(): mixed
     {
         return $this->model->query()->get();
