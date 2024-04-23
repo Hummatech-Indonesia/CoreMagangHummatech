@@ -20,7 +20,7 @@ class AttendanceRuleRepository extends BaseRepository implements AttendanceRuleI
      */
     public function getByDay(string $day): mixed
     {
-        return $this->model->uery()
+        return $this->model->query()
             ->where('day', $day)
             ->first();
     }
