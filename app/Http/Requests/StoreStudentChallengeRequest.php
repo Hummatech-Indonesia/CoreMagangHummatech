@@ -11,7 +11,7 @@ class StoreStudentChallengeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,22 @@ class StoreStudentChallengeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'student_id' => 'required|exists:students,id',
+            'challenge_id' => 'required|exists:challenges,id',
+            'file' => 'required|mimes:zip|max:8196',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+           'student_id.required' => 'Siswa harus dipilih.',
+            'challenge_id.required' => 'Challenge harus dipilih.',
+            'file.required' => 'File harus dipilih.',
+           'student_id.exists' => 'Siswa tidak ditemukan.',
+           'challenge_id.exists' => 'Challenge tidak ditemukan.',
+            'file.mimes' => 'File harus berupa zip.',
+            'file.max' => 'File terlalu besar.',
         ];
     }
 }

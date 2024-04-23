@@ -7,6 +7,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LetterheadController;
 use App\Http\Controllers\ReportStudentController;
+use App\Http\Controllers\StudentChallengeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentOnlineController;
 use App\Http\Controllers\StudentTaskController;
@@ -104,3 +105,5 @@ Route::patch('siswa-offline/task/update/{studentTask}', [StudentTaskController::
 Route::post('picket-report', [PicketingReportController::class, 'store'])->name('picket-report.store');
 Route::put('picket-report/{picketingReport}', [PicketingReportController::class, 'update'])->name('picket-report.update');
 Route::delete('picket-report/{picketingReport}', [PicketingReportController::class, 'destroy'])->name('picket-report.delete');
+
+Route::post('siswa-offline/challenge',[StudentChallengeController::class,'store']);
