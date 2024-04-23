@@ -118,7 +118,7 @@
                                     <h5 class="col-sm-12 col-lg-12">{{ Str::limit($challenge->description, 120) }}</h5>
                                 </div>
                                 <div class=" col-sm-4 col-lg-4 pt-4">
-                                    <a href="{{ url('mentor/assessment/challange-detail') }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
+                                    <a href="{{ route('challenge.detail', $challenge->id) }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
                                         Lihat Detail
                                     </a>
                                 </div>

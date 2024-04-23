@@ -68,11 +68,13 @@ Route::get('mentor/challenge/detail', function (){
 Route::get('mentor/assessment', [AssessmentController::class,'index']);
 Route::get('mentor/assessment/task-detail/{task}', [AssessmentController::class,'show'])->name('task.detail');
 Route::patch('mentor/assessment/update/{studentTask}', [AssessmentController::class, 'update'])->name('task-offline.assessment');
+Route::get('mentor/assessment/challenge-detail/{challenge}', [AssessmentController::class,'showChallenge'])->name('challenge.detail');
+Route::patch('mentor/assessment/update/challenge/{studentChallenge}', [AssessmentController::class, 'updateChallenge'])->name('challenge.assessment');
 
 
-Route::get('mentor/assessment/challange-detail', function (){
-    return view('mentor.assessment.challange_detail');
-});
+// Route::get('mentor/assessment/challange-detail', function (){
+//     return view('mentor.assessment.challange_detail');
+// });
 
 Route::get('timetable', [ZoomScheduleController::class,'show']);
 
@@ -141,5 +143,5 @@ Route::get('siswa-offline/certificate', function (){
 
 
 //Student online
-Route::get('/siswa-online/challenge',[ChallengeController::class,'showOnline']);
+// Route::get('/siswa-online/challenge',[ChallengeController::class,'showOnline']);
 

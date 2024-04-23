@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  *
@@ -34,5 +35,9 @@ class Challenge extends Model
     public function mentor()
     {
         return $this->belongsTo(Mentor::class);
+    }
+    public function studentChallenge(): HasMany
+    {
+        return $this->hasMany(StudentChallenge::class);
     }
 }

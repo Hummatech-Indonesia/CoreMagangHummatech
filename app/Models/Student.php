@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Division;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
@@ -131,5 +131,9 @@ class Student extends Model implements HasAttendances
     public function studentTasks(): HasMany
     {
         return $this->hasMany(StudentTask::class);
+    }
+    public function studentChallenge(): HasMany
+    {
+        return $this->hasMany(StudentChallenge::class);
     }
 }
