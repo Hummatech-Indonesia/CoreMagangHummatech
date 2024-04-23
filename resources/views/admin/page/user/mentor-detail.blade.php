@@ -14,8 +14,11 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-center py-4">
                         <div class="">
-                            <img src="{{ asset('storage/' . $mentor->image) }}" alt=""
-                                class="rounded-circle img-thumbnail avatar-lg" style="object-fit: cover">
+                                @if(Storage::disk('public')->exists($mentor->image))
+                                    <img src="{{ asset('storage/' . $mentor->image) }}" alt="avatar" class="rounded-circle img-thumbnail avatar-lg" >
+                                @else
+                                    <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle img-thumbnail avatar-lg">
+                                @endif
                         </div>
                     </div>
                     <div class="text-center ">
