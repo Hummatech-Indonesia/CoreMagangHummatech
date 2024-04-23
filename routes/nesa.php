@@ -92,6 +92,10 @@ Route::post('administrator/task/store', [TaskController::class, 'store'])->name(
 
 Route::get('administrator/zoom-schedules',[ZoomScheduleController::class,'index']);
 Route::post('administrator/zoom-schedules/store', [ZoomScheduleController::class, 'store'])->name('zoom-schedule.store');
+Route::put('administrator/zoom-schedules/{zoomSchedule}', [ZoomScheduleController::class, 'update'])->name('zoom-schedule.update');
+Route::delete('administrator/zoom-schedules/{zoomSchedule}', [ZoomScheduleController::class, 'destroy'])->name('zoom-schedule.destroy');
+
+
 
 
 

@@ -38,6 +38,12 @@
                         <i class="mdi mdi-speedometer"></i> <span data-key="t-dashboards">Dashboards</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->is('administrator/zoom-schedules') ? 'active' : '' }}"
+                        href="{{ url('/administrator/zoom-schedules') }}">
+                        <i class=" ri-vidicon-line"></i> <span data-key="t-dashboards">Jadwal Zoom</span>
+                    </a>
+                </li>
                 <li class="menu-title"><span data-key="t-menu">Paket</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('administrator/course*') ? 'active' : '' }}"

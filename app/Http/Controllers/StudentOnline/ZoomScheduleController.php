@@ -22,7 +22,7 @@ class ZoomScheduleController extends Controller
     public function index()
     {
         $zoomSchedules = $this->zoomSchedule->paginate(24);
-        return view('' , compact('zoomSchedules'));
+        return view('admin.page.zoom-schedules.index' , compact('zoomSchedules'));
     }
 
     public function indexStudent()
