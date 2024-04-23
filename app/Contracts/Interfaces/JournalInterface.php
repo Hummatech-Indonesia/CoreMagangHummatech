@@ -11,5 +11,6 @@ use App\Contracts\Interfaces\Eloquent\WhereInterface;
 interface JournalInterface extends GetInterface , StoreInterface , UpdateInterface , DeleteInterface,WhereInterface
 {
     public function getjournal();
+    public function whereStudent(mixed $id) :mixed;
 
 }

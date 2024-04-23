@@ -3,12 +3,16 @@
 use App\Http\Controllers\Admin\PicketController;
 use App\Http\Controllers\Admin\AdminJournalController;
 use App\Http\Controllers\Admin\PicketingReportController;
+use App\Http\Controllers\Mentor\AssessmentController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\Mentor\JournalController;
 use App\Http\Controllers\StudentOfline\CourseOfflineController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StudentChallengeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentOfline\PicketOfflineController;
+use App\Http\Controllers\StudentOnline\ZoomScheduleController;
 use App\Http\Controllers\SubCourseController;
 use App\Http\Controllers\SubCourseOfflineController;
 use App\Http\Controllers\TaskController;
@@ -48,9 +52,8 @@ Route::get('student/absensi', function (){
     return view('mentor.absensi.index');
 });
 
-Route::get('student/journal', function (){
-    return view('mentor.journal.index');
-});
+Route::get('student/journal', [JournalController::class,'index']);
+
 
 Route::get('student', [StudentController::class,'mentorStudent']);
 
@@ -63,12 +66,12 @@ Route::delete('mentor/challenge/delete/{challenge}', [ChallengeController::class
 Route::get('mentor/challenge/detail', function (){
     return view('mentor.challange.detail');
 });
-Route::get('mentor/assessment', function (){
-    return view('mentor.assessment.index');
-});
-Route::get('mentor/assessment/task-detail', function (){
-    return view('mentor.assessment.task_detail');
-});
+Route::get('mentor/assessment', [AssessmentController::class,'index']);
+Route::get('mentor/assessment/task-detail/{task}', [AssessmentController::class,'show'])->name('task.detail');
+Route::patch('mentor/assessment/update/{studentTask}', [AssessmentController::class, 'update'])->name('task-offline.assessment');
+
+
+
 Route::get('mentor/assessment/challange-detail', function (){
     return view('mentor.assessment.challange_detail');
 });
@@ -87,6 +90,11 @@ Route::put('/administrator/subcourse/edit/{subCourse}', [SubCourseController::cl
 
 Route::post('administrator/task/store', [TaskController::class, 'store'])->name('task.store');
 
+Route::get('administrator/zoom-schedules',[ZoomScheduleController::class,'index']);
+Route::post('administrator/zoom-schedules/store', [ZoomScheduleController::class, 'store'])->name('zoom-schedule.store');
+
+
+
 
 // siswa offline
 Route::get('siswa-offline/absensi', function (){
@@ -96,6 +104,9 @@ Route::get('siswa-offline/absensi', function (){
 Route::get('/siswa-offline/course',[CourseOfflineController::class,'index']);
 Route::get('/siswa-offline/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('materi.detail');
 Route::get('/siswa-offline/course/detail/learn-more/{subCourse}', [CourseOfflineController::class, 'showSub'])->name('submateri.detail');
+
+
+Route::get('siswa-offline/challenge',[StudentChallengeController::class,'index']);
 
 Route::get('/siswa-offline/course/detail/answer-detail', function (){
     return view('student_offline.course.answer-detail');
@@ -111,11 +122,7 @@ Route::get('siswa-offline/others/rules', function (){
 });
 
 Route::get('siswa-offline/others/picket',[PicketOfflineController::class,'index']);
-// Route::post('report-picket/store', [PicketingReportController::class, 'store'])->name('report-picket.store');
 
-// Route::get('c', function (){
-//     return view('student_offline.others.student');
-// });
 Route::get('siswa-offline/purchase', function (){
     return view('student_offline.purchase.index');
 });
@@ -127,4 +134,6 @@ Route::get('siswa-offline/certificate', function (){
 });
 
 
+//Student online
+Route::get('/siswa-online/challenge',[ChallengeController::class,'showOnline']);
 
