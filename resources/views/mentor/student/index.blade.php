@@ -41,7 +41,14 @@
     <div class="col-md-4">
         <div class="card hover-img">
             <div class="card-body p-4 text-center border-bottom">
-                <img src="{{ asset('storage/' . $student->student->avatar) }}" class="rounded-circle mb-3" width="80" height="80" alt="">
+                {{-- <img src="{{ asset('storage/' . $student->student->avatar) }}" class="rounded-circle mb-3" width="80" height="80" alt=""> --}}
+
+                @if(Storage::disk('public')->exists($student->student->avatar))
+                    <img src="{{ asset('storage/' . $student->student->avatar) }}" alt="avatar" class="rounded-circle mb-3" width="80px" height="80px" >
+                @else
+                    <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle mb-3" width="80px" height="80px">
+                @endif
+
                 <h5 class="fw-semibold mb-0 fs-5">{{$student->student->name}}</h5>
                 <span class="text-dark fs-2">{{$student->student->school}}</span>
             </div>
