@@ -86,7 +86,24 @@
                             <div class="col-md-12 ">
                                 <div class="d-flex align-items-center mb-3 flex-column flex-sm-row">
                                     <div class="d-flex align-items-center justify-content-center overflow-hidden me-sm-6 mb-3 mb-sm-0" style="width: 40px; height: 40px;">
-                                        <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt="" class="img-fluid rounded-circle" style="object-fit: cover;">
+                                        {{-- <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt="" class="img-fluid rounded-circle" style="object-fit: cover;"> --}}
+                                        @if (auth()->user()->mentor && !empty(auth()->user()->mentor->mentor))
+                                            @php
+                                                $avatarPath = 'storage/' . auth()->user()->mentor->mentor;
+                                                $avatarExists = file_exists(public_path($avatarPath));
+                                            @endphp
+
+                                            @if ($avatarExists)
+                                                <img src="{{ asset($avatarPath) }}" class="rounded-circle" width="35"
+                                                    height="35" alt="" />
+                                            @else
+                                                <img src="{{ asset('user.webp') }}" class="rounded-circle" width="35"
+                                                    height="35" alt="" />
+                                            @endif
+                                        @else
+                                            <img src="{{ asset('user.webp') }}" class="rounded-circle" width="35"
+                                                height="35" alt="" />
+                                        @endif
                                     </div>
                                     <h5 class="fw-semibold mb-3 mb-sm-0 fs-5 text-center text-sm-start">Selamat Datang {{ auth()->user()->name }}!</h5>
                                 </div>
@@ -119,116 +136,40 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse ($mentorStudent as $student)
+
                             <tr class="search-items">
                                 <td class="d-flex">
                                     <div class="n-chk align-self-center text-center">
-                                        <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt="avatar" class="rounded-circle" width="35">
+                                        {{-- <img src="{{ asset('storage/' . $student->student->avatar) }}" alt="avatar" class="rounded-circle" width="35" height="35"> --}}
+                                        @if(Storage::disk('public')->exists($student->student->avatar))
+                                            <img src="{{ asset('storage/' . $student->student->avatar) }}" alt="avatar" class="rounded-circle" width="35" height="35" >
+                                        @else
+                                            <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle" width="35" height="35">
+                                        @endif
                                     </div>
                                     <div class="ms-3">
                                         <div class="user-meta-info">
-                                            <h6 class="user-name mb-0" data-name="Emma Adams">Emma Adams</h6>
-                                            <span class="user-work fs-3" data-occupation="Web Developer">Web Developer</span>
+                                            <h6 class="user-name mb-0" data-name="Emma Adams">{{ $student->student->name }}</h6>
+                                            <span class="user-work fs-3" data-occupation="Web Developer">{{ $student->student->division->name }}</span>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <h6 class="usr-email-addr">adams@mail.com</h6>
+                                    <h6 class="usr-email-addr">{{$student->student->email}}</h6>
                                 </td>
                                 <td>
-                                    <h6>Boston, USA</h6>
+                                    <h6>{{$student->student->school}}</h6>
                                 </td>
                                 <td>
-                                    <h6>+91 (070) 123-4567</h6>
+                                    <h6>{{$student->student->phone}}</h6>
                                 </td>
                             </tr>
-                            <tr class="search-items">
-                                <td class="d-flex">
-                                    <div class="n-chk align-self-center text-center">
-                                        <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}" alt="avatar" class="rounded-circle" width="35">
-                                    </div>
-                                    <div class="ms-3">
-                                        <div class="user-meta-info">
-                                            <h6 class="user-name mb-0" data-name="Emma Adams">Emma Adams</h6>
-                                            <span class="user-work fs-3" data-occupation="Web Developer">Web Developer</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h6 class="usr-email-addr">adams@mail.com</h6>
-                                </td>
-                                <td>
-                                    <h6>Boston, USA</h6>
-                                </td>
-                                <td>
-                                    <h6>+91 (070) 123-4567</h6>
-                                </td>
+                            @empty
+                            <tr>
+                                <td colspan="4" class="text-center">Belum ada siswa</td>
                             </tr>
-                            <tr class="search-items">
-                                <td class="d-flex">
-                                    <div class="n-chk align-self-center text-center">
-                                        <img src="{{ asset('assets-user/dist/images/profile/user-3.jpg') }}" alt="avatar" class="rounded-circle" width="35">
-                                    </div>
-                                    <div class="ms-3">
-                                        <div class="user-meta-info">
-                                            <h6 class="user-name mb-0" data-name="Emma Adams">Emma Adams</h6>
-                                            <span class="user-work fs-3" data-occupation="Web Developer">Web Developer</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h6 class="usr-email-addr">adams@mail.com</h6>
-                                </td>
-                                <td>
-                                    <h6>Boston, USA</h6>
-                                </td>
-                                <td>
-                                    <h6>+91 (070) 123-4567</h6>
-                                </td>
-                            </tr>
-                            <tr class="search-items">
-                                <td class="d-flex">
-                                    <div class="n-chk align-self-center text-center">
-                                        <img src="{{ asset('assets-user/dist/images/profile/user-4.jpg') }}" alt="avatar" class="rounded-circle" width="35">
-                                    </div>
-                                    <div class="ms-3">
-                                        <div class="user-meta-info">
-                                            <h6 class="user-name mb-0" data-name="Emma Adams">Emma Adams</h6>
-                                            <span class="user-work fs-3" data-occupation="Web Developer">Web Developer</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h6 class="usr-email-addr">adams@mail.com</h6>
-                                </td>
-                                <td>
-                                    <h6>Boston, USA</h6>
-                                </td>
-                                <td>
-                                    <h6>+91 (070) 123-4567</h6>
-                                </td>
-                            </tr>
-                            <tr class="search-items">
-                                <td class="d-flex">
-                                    <div class="n-chk align-self-center text-center">
-                                        <img src="{{ asset('assets-user/dist/images/profile/user-4.jpg') }}" alt="avatar" class="rounded-circle" width="35">
-                                    </div>
-                                    <div class="ms-3">
-                                        <div class="user-meta-info">
-                                            <h6 class="user-name mb-0" data-name="Emma Adams">Emma Adams</h6>
-                                            <span class="user-work fs-3" data-occupation="Web Developer">Web Developer</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h6 class="usr-email-addr">adams@mail.com</h6>
-                                </td>
-                                <td>
-                                    <h6>Boston, USA</h6>
-                                </td>
-                                <td>
-                                    <h6>+91 (070) 123-4567</h6>
-                                </td>
-                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -347,7 +288,7 @@
                                 <h6>08.00 - 09.00</h6>
                             </div>
                         </div>
-                        <div class="mx-3 mt-3">
+                        <div class="mx-3 mt-3   ">
                             <h6>Link Meet :</h6>
                             <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur ipsam fugiat tenetur.</a>
                         </div>
