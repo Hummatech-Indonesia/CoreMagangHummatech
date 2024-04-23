@@ -67,111 +67,88 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="search-items">
-                        <td class="d-flex">
-                            <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt="avatar" class="rounded-circle" width="35">
-                            </div>
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0" data-name="Emma Adams">Emma Adams</h6>
-                                    <span class="user-work fs-3" data-occupation="Web Developer">Web Developer</span>
+                    @if ($journals != null)
+
+                        @forelse ($journals as $journal)
+                        <tr class="search-items">
+                            <td class="d-flex">
+                                <div class="n-chk align-self-center text-center">
+                                    {{-- <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt="avatar" class="rounded-circle" width="35"> --}}
+                                    @if(Storage::disk('public')->exists($journal->student->avatar))
+                                    <img src="{{ asset('storage/' . $journal->student->avatar) }}" alt="avatar" class="rounded-circle" width="35">
+                                    @else
+                                        <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle" width="35">
+                                    @endif
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="usr-email-addr">12 Maret 2024</span>
-                        </td>
-                        <td>
-                            <span class="badge fw-semibold bg-light-success text-success">Mengisi</span>
-                        </td>
-                        <td class="text-break">
-                            <span>
-                                Hari ini saya membuat website crud laravel 11, dengan ketentuan <br>15 tabel dan 8 relasi,dengan tenggat waktu 2 minggu
-                            </span>
-                        </td>
-                        <td>
-                            <div class="action-btn">
-                                <a href="javascript:void(0)" class="text-info edit" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="search-items">
-                        <td class="d-flex">
-                            <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt="avatar" class="rounded-circle" width="35">
-                            </div>
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0" data-name="Emma Adams">Emma Adams</h6>
-                                    <span class="user-work fs-3" data-occupation="Web Developer">Web Developer</span>
+                                <div class="ms-3">
+                                    <div class="user-meta-info">
+                                        <h6 class="user-name mb-0" data-name="Emma Adams">{{$journal->student->name}}</h6>
+                                        <span class="user-work fs-3" data-occupation="Web Developer">{{$journal->student->division->name}}</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="usr-email-addr">12 Maret 2024</span>
-                        </td>
-                        <td>
-                            <span class="badge fw-semibold bg-light-danger text-danger">Tidak Mengisi</span>
-                        </td>
-                        <td class="text-break">
-                            <span>
-                                Hari ini saya membuat website crud laravel 11, dengan ketentuan <br>15 tabel dan 8 relasi,dengan tenggat waktu 2 minggu
-                            </span>
-                        </td>
-                        <td>
-                            <div class="action-btn">
-                                <a href="javascript:void(0)" class="text-info edit" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="search-items">
-                        <td class="d-flex">
-                            <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt="avatar" class="rounded-circle" width="35">
-                            </div>
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0" data-name="Emma Adams">Emma Adams</h6>
-                                    <span class="user-work fs-3" data-occupation="Web Developer">Web Developer</span>
+                            </td>
+                            <td>
+                                <span class="usr-email-addr"> {{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}</span>
+                            </td>
+                            <td>
+                                <span class="badge fw-semibold bg-light-success text-success">
+                                    <?php
+                                    if ($journal->status === 'fillin') {
+                                        echo '<span class="text-success text-uppercase">MENGISI</span>';
+                                    } else {
+                                        echo '<span class="text-danger text-uppercase">TIDAK MENGISI</span>';
+                                    }
+                                    ?>
+                                </span>
+                            </td>
+                            <td class="text-break">
+                                <span>
+                                    {{ Str::limit($journal->description, 100) }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="action-btn">
+                                    <a href="javascript:void(0)" class="text-info edit" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop_{{ $journal->id }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                            <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                        </svg>
+                                    </a>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="usr-email-addr">12 Maret 2024</span>
-                        </td>
-                        <td>
-                            <span class="badge fw-semibold bg-light-success text-success">Mengisi</span>
-                        </td>
-                        <td class="text-break">
-                            <span>
-                                Hari ini saya membuat website crud laravel 11, dengan ketentuan <br>15 tabel dan 8 relasi,dengan tenggat waktu 2 minggu
-                            </span>
-                        </td>
-                        <td>
-                            <div class="action-btn">
-                                <a href="javascript:void(0)" class="text-info edit" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+
+                        @empty
+
+                        <tr>
+                            <td colspan="8">
+                                <div class="d-flex justify-content-center mt-3">
+                                    <img src="{{ asset('no data.png') }}" width="200px"
+                                        alt="">
+                                </div>
+                                <h4 class="text-center mt-2 mb-4">
+                                    Data Masih kosong
+                                </h4>
+                            </td>
+                        </tr>
+
+                        @endforelse
+
+                    @else
+                        <tr>
+                            <td colspan="8">
+                                <div class="d-flex justify-content-center mt-3">
+                                    <img src="{{ asset('no data.png') }}" width="200px"
+                                        alt="">
+                                </div>
+                                <h4 class="text-center mt-2 mb-4">
+                                    Data Masih kosong
+                                </h4>
+                            </td>
+                        </tr>
+                    @endif
+
                 </tbody>
             </table>
         </div>
