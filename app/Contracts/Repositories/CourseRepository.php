@@ -19,6 +19,11 @@ class CourseRepository extends BaseRepository implements CourseInterface
         return $this->model->query()->get();
     }
 
+    public function getUnpaidCourse()
+    {
+        return $this->model->query()->doesntHave('courseUnlock')->paginate(12);
+    }
+
     public function store(array $data): mixed
     {
         return $this->model->query()->create($data);
@@ -49,6 +54,12 @@ class CourseRepository extends BaseRepository implements CourseInterface
     {
         return $this->model->query()->where('status' , 'paid')->get();
     }
+
+    public function getCourseByStatus(mixed $status): mixed
+    {
+        return $this->model->query()->where('status' , $status)->get();
+    }
+    
     public function whereDivision(mixed $id): mixed
     {
         return $this->model->query()->where('division_id', $id)->get();

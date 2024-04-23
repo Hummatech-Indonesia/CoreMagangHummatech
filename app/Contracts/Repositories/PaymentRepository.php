@@ -2,12 +2,16 @@
 
 namespace App\Contracts\Repositories;
 
+use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\PaymentInterface;
+use App\Contracts\Interfaces\SubCourseInterface;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
+use App\Contracts\Interfaces\UserInterface;
 use App\Enum\TransactionStatusEnum;
-use App\Models\User;
+use App\Models\CourseUnlock;
+use App\Models\SubCourseUnlock;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class PaymentRepository extends BaseRepository implements PaymentInterface
@@ -17,14 +21,66 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
     private string $merchantCode;
     private string $mode;
     private TransactionHistoryInterface $transaction;
+    private UserInterface $userInterface;
+    private CourseInterface $courseInterface;
 
-    public function __construct(TransactionHistoryInterface $transaction)
+    public function __construct(
+        TransactionHistoryInterface $transaction,
+        UserInterface $userInterface,
+        CourseInterface $courseInterface,
+    )
     {
         $this->apiKey = config('tripay.api_key');
         $this->privateKey = config('tripay.private_key');
         $this->merchantCode = config('tripay.merchant_code');
         $this->mode = config('tripay.mode') === 'sandbox' ? 'api-sandbox' : 'api'; // Sandbox | Production
         $this->transaction = $transaction;
+        $this->userInterface = $userInterface;
+        $this->courseInterface = $courseInterface;
+    }
+
+    private function _buyCourseAction(mixed $courses, string $status, mixed $invoiceInstance)
+    {
+        if ($status === TransactionStatusEnum::PAID->value) {
+            $courses->map(function($items) use ($invoiceInstance, $status) {
+                CourseUnlock::create([
+                    'student_id' => $invoiceInstance->user->student->id,
+                    'course_id' => $items->id,
+                ]);
+
+                $items->subCourse->map(function($subItem) use ($invoiceInstance, $items) {
+                    SubCourseUnlock::create([
+                        'student_id' => $invoiceInstance->user->student->id,
+                        'course_id' => $items->id,
+                        'sub_course_id' => $subItem->sub_course_id,
+                    ]);
+                });
+            });
+        }
+    }
+
+    private function _subscriptionAction(mixed $invoice, string $status, mixed $invoiceInstance)
+    {
+        if ($status === TransactionStatusEnum::PAID->value) {
+            $this->userInterface->GetWhere($invoice->user_id)->update(['feature' => true]);
+
+            $this->courseInterface->getCourseByStatus('subcribe')->map(function($item) use ($invoiceInstance) {
+                CourseUnlock::create([
+                    'student_id' => $invoiceInstance->user->student->id,
+                    'course_id' => $item->id,
+                ]);
+
+                $item->subCourse->map(function($subItem) use ($invoiceInstance, $item) {
+                    SubCourseUnlock::create([
+                        'student_id' => $invoiceInstance->user->student->id,
+                        'course_id' => $item->id,
+                        'sub_course_id' => $subItem->sub_course_id,
+                    ]);
+                });
+            });
+        } else {
+            $this->userInterface->GetWhere($invoice->user_id)->update(['feature' => false]);
+        }
     }
 
     public function getPaymentDetail(string $id): mixed
@@ -57,14 +113,14 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
         return $response->json();
     }
 
-    public function transaction($method, $totalAmount, $products): mixed
+    public function transaction(mixed $method, int $totalAmount, mixed $products): mixed
     {
         $apiKey       = $this->apiKey;
         $privateKey   = $this->privateKey;
         $merchantCode = $this->merchantCode;
         $merchantRef  = 'MAGANG-' . time();
 
-        $user = auth()->user();
+        $user = Auth::user();
 
         $data = [
             'method'         => $method,
@@ -145,10 +201,10 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
                 'paid_at' => $status == TransactionStatusEnum::PAID->value ? now() : null,
             ]);
 
-            if ($status === TransactionStatusEnum::PAID->value) {
-                User::where('id', $invoice->user_id)->update(['feature' => true]);
+            if($invoiceInstance->order->course) {
+                $this->_buyCourseAction($invoiceInstance->order->course, $status, $invoiceInstance);
             } else {
-                User::where('id', $invoice->user_id)->update(['feature' => false]);
+                $this->_subscriptionAction($invoice, $status, $invoiceInstance);
             }
 
             return response()->json(['success' => true]);

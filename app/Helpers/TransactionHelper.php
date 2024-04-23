@@ -4,16 +4,21 @@ namespace App\Helpers;
 
 class TransactionHelper
 {
-    private static float $taxRatio = 11 / 100;
+    private static float $taxRatio = 0.11;
 
     /**
      * Method to counting the tax
      *
      * @param float $amount the amount for which tax will be calculated
+     * @param bool $withTax true if tax will be added to the amount
      * @return float
      */
-    public static function countTax($amount): float
+    public static function countTax(float $amount, bool $withTax = false): float
     {
+        if(!$withTax) {
+            return ($amount * self::$taxRatio);
+        }
+
         return ($amount * self::$taxRatio) + $amount;
     }
 
@@ -45,5 +50,16 @@ class TransactionHelper
         }
 
         return $amount - ($amount * ($discount / 100));
+    }
+
+    /**
+     * Change the amount to currency format
+     *
+     * @param int $amount the amount
+     * @return string
+     */
+    public static function currencyFormatter(int $amount)
+    {
+        return "Rp " . number_format($amount, 0,',','.');
     }
 }

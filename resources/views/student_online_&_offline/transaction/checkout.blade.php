@@ -12,6 +12,15 @@
             --bs-card-border-color: transparent;
             --bs-card-border-width: 1px;
         }
+
+        .image-cart-square {
+            width: 5rem;
+            height: 5rem;
+            border-radius: var(--bs-border-radius);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
     </style>
 @endsection
 
@@ -20,12 +29,10 @@
         <div class="card-body px-4 py-3">
             <div class="row align-items-center">
                 <div class="col-9">
-                    <h4 class="fw-semibold mb-8">Langganan Untuk Membuka Kunci</h4>
+                    <h4 class="fw-semibold mb-8">Yuk Segera Selesaikan Pembayaran</h4>
                     <nav aria-label="breadcrumb mt-2">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a class="text-muted" href="{{ url('/login') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a class="text-muted"
-                                    href="{{ url('/subscription') }}">Berlangganan</a></li>
                             <li class="breadcrumb-item" aria-current="page">Checkout</li>
                         </ol>
                     </nav>
@@ -40,62 +47,35 @@
         </div>
     </div>
 
-    @if ($productDetail)
-        <div class="d-flex justify-content-end mb-3">
-            <a href="{{ url('/subscription') }}" class="btn btn-light d-flex gap-2 align-items-center"><i
-                    class="fas fa-arrow-left"></i> <span>Kembali</span></a>
-        </div>
-
-
-        <!-- Delete -->
-        <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Konfirmasi!</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Apakah anda yakin ingin menghapus langganan ini? Apabila anda menghapusnya, anda bisa
-                            menambahkannya lagi dari halaman daftar produk <a
-                                href="{{ route('subscription.index') }}">disini</a>.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <form action="{{ route('subscription.delete') }}" id="form-delete" method="post">
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $productDetail->id }}" />
-                        </form>
-
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
-                        <button type="button" onclick="$('#form-delete').submit()" class="btn btn-danger">Hapus
-                            Aja</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    @if ($cartData->isNotEmpty())
         <div class="row">
-            <div class="col-md-7">
-                <div class="card">
-                    <h4 class="card-header mb-0 py-4 bg-primary text-white">Paket</h4>
-                    <div class="card-body border-bottom">
-                        <div class="d-flex justify-content-between">
-                            <h3>{{ $productDetail->name }}</h3>
-
-                            <a href="javascript:void()" class="text-danger" data-bs-toggle="modal"
-                                data-bs-target="#modalDelete"><i class="fas fa-trash"></i></a>
-                        </div>
-                        <p>{!! $productDetail->description !!}</p>
+            <div class="col-md-8">
+                <div class="card shadow-none border">
+                    <div class="card-header bg-white pt-4">
+                        <h3>Detail Barang</h3>
                     </div>
-                    <div class="card-body d-flex justify-content-between flex-row">
-                        <h5 class="mb-0">Harga Paket:</h5>
-                        <h5 class="mb-0 text-primary fw-bolder">@currency($productDetail->price)</h5>
+                    <div class="card-body pt-2">
+                        <div class="list-item list-group-flush">
+                            @foreach ($cartData->get() as $cart)
+                                <div class="list-group-item">
+                                    <div class="d-flex gap-3 align-items-center">
+                                        <div class="d-flex justify-content-center">
+                                            <div class="image-cart-square"
+                                                style="background-image: url({{ $cart['image'] }})"></div>
+                                        </div>
+                                        <div class="">
+                                            <h3 class="fw-bolder">{{ $cart['name'] }}</h3>
+                                            <div class="text-primary">@currency($cart['price'])</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
-                <div class="card">
+            <div class="col-md-4">
+                <div class="card border shadow-none">
                     <h4 class="card-header mb-0 py-4 bg-primary text-white">Pembayaran</h4>
                     @if ($voucherDetail)
                         <form method="POST" action="{{ route('voucher.revoke') }}" class="card-body">
@@ -170,22 +150,23 @@
                     <form method="POST" action="{{ url('transaction/tripay') }}" class="card-body pt-0">
                         @csrf
 
-                        @if($voucherDetail)
-                        <input type="hidden" name="voucher_code" value="{{ $voucherDetail->code_voucher }}" />
+                        @if ($voucherDetail)
+                            <input type="hidden" name="voucher_code" value="{{ $voucherDetail->code_voucher }}" />
                         @endif
-                        <input type="hidden" name="product_id" value="{{ $productDetail->id }}" id="product_id" />
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}" id="user_id" />
-                        <input type="hidden" name="amount"
-                            value="{{ \App\Helpers\TransactionHelper::discountSubtotal($productDetail->price, $voucherDetail ? $voucherDetail->presentase : 0) }}"
-                            id="subtotal" />
+                        <input type="hidden" name="tax" value="{{ Transaction::countTax($cartData->subtotal()) }}"
+                            id="tax" />
+                        <input type="hidden" name="subtotal" value="{{ $cartData->subtotal() }}" id="subtotal" />
+                        <input type="hidden" name="total" value="{{ $cartData->total() }}" id="total" />
                         <input type="hidden" name="payment_code" id="payment-code" />
                         <input type="hidden" name="payment_name" id="payment-name" />
+                        <input type="hidden" name="discount" value="{{ Transaction::discount($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0) }}" id="discount" />
 
                         <div class="pb-3 d-flex gap-2 flex-column mb-3">
                             <div class="d-flex justify-content-between">
                                 <span>Metode Pembayaran:</span>
                                 <a href="javascript:openModal('choose-payment')" id="payment-show"
-                                    class="fw-bolder text-primary">Pilih Metode Pembayaran</a>
+                                    class="fw-bolder text-primary text-end">Pilih</a>
                             </div>
 
                             @error('payment_code')
@@ -197,22 +178,30 @@
                                 <span>Subtotal:</span>
                                 <span id="subtotal-show" class="fw-bolder text-muted">
                                     @if ($voucherDetail)
-                                    <s>@currency($productDetail->price)</s>
+                                        <s>@currency($cartData->subtotal())</s>
                                     @else
-                                    <span>@currency($productDetail->price)</span>
+                                        <span>@currency($cartData->subtotal())</span>
                                     @endif
                                 </span>
                             </div>
-                            @if($voucherDetail)
                             <div class="fw-bolder mb-3 pb-3 border-bottom d-flex justify-content-between">
-                                <span>Potongan Voucher:</span>
-                                <span id="voucher-show" class="fw-bolder text-primary">&minus;@currency(\App\Helpers\TransactionHelper::discount($productDetail->price, $voucherDetail ? $voucherDetail->presentase : 0))</span>
+                                <span>PPn 11%:</span>
+                                <span class="fw-bolder text-muted">@currency(Transaction::countTax($cartData->subtotal()))</span>
                             </div>
+                            @if ($voucherDetail)
+                                <div class="fw-bolder mb-3 pb-3 border-bottom d-flex justify-content-between">
+                                    <span>Potongan Harga:</span>
+                                    <span id="voucher-show" class="fw-bolder text-primary">
+                                        &minus;@currency(Transaction::discount($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0))
+                                    </span>
+                                </div>
                             @endif
                             <div id="additional-fee"></div>
                             <div class="fw-bolder d-flex justify-content-between">
                                 <span>Total:</span>
-                                <span id="total-show" class="fw-bolder text-primary">@currency(\App\Helpers\TransactionHelper::discountSubtotal($productDetail->price, $voucherDetail ? $voucherDetail->presentase : 0))</span>
+                                <span id="total-show" class="fw-bolder text-primary">
+                                    @currency(Transaction::countTax(Transaction::discountSubtotal($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0), true))
+                                </span>
                             </div>
                         </div>
 
@@ -230,8 +219,7 @@
             </div>
         </div>
     @else
-        <div class="alert alert-danger">Keranjangmu masih kosong. Yuk belanja lagi <a
-                href="{{ route('subscription.index') }}">disini</a>.</div>
+        <div class="alert alert-danger">Keranjangmu masih kosong, yuk belanja lagi.</div>
     @endif
 @endsection
 
@@ -248,7 +236,7 @@
                 <div class="modal-body">
                     <div class="row">
                         @foreach ($paymentChannel['data'] as $channel)
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-4 col-6 mb-3">
                                 <a href="javascript:choosePayment('{{ $channel['code'] }}')"
                                     data-fee="{{ $channel['fee_customer']['flat'] }}"
                                     data-id="payment-{{ $channel['code'] }}" data-name="{{ $channel['name'] }}"
@@ -274,7 +262,10 @@
             $(`#${target}`).modal('show');
         };
 
-        const intToIdr = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
+        const intToIdr = (number) => new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR'
+        }).format(number);
 
         const choosePayment = (target) => {
             $('.card-payment').each((a, b) => $(b).removeClass('card-active shadow-none'));
@@ -292,8 +283,10 @@
             const paymentName = activeElement.data('name');
             const feeAmount = parseInt(activeElement.data('fee') ?? 0);
             const subtotal = parseInt($('#subtotal').val() ?? 0);
+            const tax = parseInt($('#tax').val() ?? 0);
+            const discount = parseInt($('#discount').val() ?? 0);
 
-            const countTotal = feeAmount + subtotal;
+            const countTotal = feeAmount + (subtotal - discount) + tax;
 
             // Show the additional fee
             $('#additional-fee').html(`
@@ -303,6 +296,7 @@
                 </div>
             `);
             $('#total-show').text(intToIdr(countTotal));
+            $('#total').val(countTotal - feeAmount);
 
             // Replace The Input Values
             $('#payment-code').val(activeElement.data('id').replace('payment-', ''));

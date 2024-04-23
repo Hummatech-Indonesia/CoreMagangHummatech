@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class CourseUnlock extends Model
 {
     use HasFactory;
+
+    public function subCourse()
+    {
+        return $this->belongsTo(SubCourse::class);
+    }
 }

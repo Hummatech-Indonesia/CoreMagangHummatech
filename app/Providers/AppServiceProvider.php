@@ -83,7 +83,7 @@ use App\Contracts\Repositories\StudentTaskRepository;
 use App\Contracts\Repositories\SubCourseUnlockRepository;
 use App\Contracts\Repositories\TaskSubmissionRepository;
 use App\Contracts\Repositories\TransactionHistoryRepository;
-use OrderRepository;
+use App\Contracts\Repositories\OrderRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -155,7 +155,7 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo number_format($expression, 0,',','.'); ?>";
         });
         Blade::directive('currency', function ($expression) {
-            return "Rp<?php echo number_format($expression, 0,',','.'); ?>";
+            return "Rp <?php echo number_format($expression, 0,',','.'); ?>";
         });
 
         # Paginator change to bootstrap

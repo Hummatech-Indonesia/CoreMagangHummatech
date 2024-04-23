@@ -58,7 +58,7 @@
                         <div class="card ribbon-box border shadow-none mb-lg-0">
                             <div class="card-body">
                                 <span
-                                    class="ribbon-three {{ $course->price == null ? 'ribbon-three-success' : 'ribbon-three-secondary' }}  material-shadow"><span>{{ $course->status == 'subcribe' ? 'Berlangganan' : 'Rp.' . number_format($course->price, 0, ',', '.') }}</span></span>
+                                    class="ribbon-three {{ $course->price == null ? 'ribbon-three-success' : 'ribbon-three-secondary' }}  material-shadow"><span>{{ $course->status == 'subcribe' ? 'Berlangganan' : Transaction::currencyFormatter($course->price  ) }}</span></span>
                                 <img class="card-img-top img-responsive w-100"
                                     src="{{ asset('storage/' . $course->image) }}" style="object-fit: cover;" width="20em"
                                     height="170em" alt="Card image cap" />
@@ -72,8 +72,8 @@
                                 <p class="text-muted my-2">{{ Str::limit($course->description, 100) }}</p>
                                 <div class="d-flex pt-3 gap-2">
                                     <a href="/administrator/course/detail/{{ $course->id }}"
-                                        class="btn btn-secondary flex-fill">
-                                        Lihat detail
+                                        class="btn btn-secondary flex-fill d-flex align-items-center justify-content-center">
+                                        Lihat Detail
                                     </a>
                                     <button class="py-1 btn btn-soft-warning btn-edit" type="button"
                                         data-id="{{ $course->id }}" data-title="{{ $course->title }}"

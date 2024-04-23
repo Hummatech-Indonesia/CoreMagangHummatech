@@ -12,5 +12,7 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 interface CourseInterface extends GetInterface , StoreInterface , DeleteInterface , UpdateInterface ,ShowInterface ,CountInterface ,GetWhereInterface
 {
     public function getPaid();
+    public function getUnpaidCourse();
+    public function getCourseByStatus(string $status): mixed;
     public function whereDivision(mixed $id);
 }

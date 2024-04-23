@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $title
@@ -62,6 +62,11 @@ class Course extends Model
         return $this->subCourse->map(function($item) {
             return $item->task;
         })->flatten();
+    }
+
+    public function courseUnlock()
+    {
+        return $this->hasMany(CourseUnlock::class);
     }
 
     public function division()

@@ -16,7 +16,6 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\VoucherSubmitController;
-use App\Http\Middleware\SubscribeCheckMiddleware;
 use App\Http\Controllers\Admin\ApprovalController;
 use App\Http\Controllers\Admin\AdminMentorController;
 use App\Http\Controllers\Admin\AdminStudentController;
@@ -167,8 +166,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(SubscriptionController::class)->prefix('subscription')->name('subscription.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/process', 'subscribeAddCartProcess')->name('process');
-        Route::post('/remove', 'subscribeDeleteCartProcess')->name('delete');
-        Route::get('/checkout', 'checkout')->name('checkout');
+        // Route::post('/remove', 'subscribeDeleteCartProcess')->name('delete');
+        // Route::get('/checkout', 'checkout')->name('checkout');
     });
 
     # Voucher Subscription Apply
@@ -180,6 +179,8 @@ Route::middleware('auth')->group(function () {
     # Course Buy
     Route::controller(CourseStoreController::class)->name('course-store.')->prefix('courses')->group(function() {
         Route::get('/', 'index')->name('index');
+        Route::get('{course}/detail', 'detail')->name('detail');
+        Route::post('store', 'store')->name('store');
     });
 
     # Redirect based on roles
@@ -192,13 +193,13 @@ Route::middleware('auth')->group(function () {
 # Transaction and Payment Routing
 Route::controller(TransactionController::class)->prefix('transaction')->name('transaction-history.')->group(function() {
     Route::get('/', 'index')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online'])->name('index');
-    Route::get('/', 'index')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online'])->name('index');
-    Route::post('/tripay', 'store')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online'])->name('request-to-tripay');
-    Route::any('/callback', 'callback')->name('callback')->withoutMiddleware(VerifyCsrfToken::class);
-    Route::get('/detail/{reference:transaction_id}', 'detail')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online'])->name('detail');
+    Route::get('checkout', 'checkout')->middleware(['auth'])->name('checkout');
+    Route::post('tripay', 'store')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online'])->name('request-to-tripay');
+    Route::any('callback', 'callback')->name('callback')->withoutMiddleware(VerifyCsrfToken::class);
+    Route::get('detail/{reference:transaction_id}', 'detail')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online'])->name('detail');
 });
 
-Route::get('my-order', [TransactionController::class, 'myOrder'])->name('my-order')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online']);
+Route::get('order', [OrderController::class, 'index'])->name('my-order')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online']);
 
 require_once __DIR__ . '/kader.php';
 require_once __DIR__ . '/farah.php';

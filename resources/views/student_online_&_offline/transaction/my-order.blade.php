@@ -46,9 +46,9 @@
     </div>
 
     <div class="row">
-        @forelse ($transactions as $transaction)
+        @forelse ($orders as $order)
             @php
-                $refs = $transaction->getTransactionStatus();
+                $refs = $order->getTransactionStatus();
             @endphp
             <div class="col-xl-4 col-xxl-3">
                 <div class="card">
@@ -58,8 +58,8 @@
                                 <i class="fas fa-2x fa-box"></i>
                             </div>
                             <div>
-                                <h5>{{ $transaction->product->name }}</h5>
-                                <h3 class="text-primary fw-bolder mb-0">@currency($transaction->product->price)</h3>
+                                <h5>{{ $order->product->name }}</h5>
+                                <h3 class="text-primary fw-bolder mb-0">@currency($order->product->price)</h3>
                             </div>
                         </div>
 
@@ -69,15 +69,15 @@
                                 <p class="mb-0"><span
                                         class="fw-bolder badge bg-{{ $refs->color() }}">{{ $refs->label() }}</span></p>
                             </div>
-                            @if (in_array($transaction->status, ['pending', 'unpaid', 'paid']))
+                            @if (in_array($order->status, ['pending', 'unpaid', 'paid']))
                                 <div class="col-md-6 d-flex gap-1 align-items-center flex-column">
-                                    @if ($transaction->status !== 'paid')
+                                    @if ($order->status !== 'paid')
                                         <p class="mb-0 fw-bolder">Bayar Sebelum</p>
                                         <span
-                                            class="text-center">{{ $transaction->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}</span>
+                                            class="text-center">{{ $order->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}</span>
                                     @else
                                         @php
-                                            $nextMonth = $transaction->paid_at
+                                            $nextMonth = $order->paid_at
                                                 ->copy()
                                                 ->addMonths(1)
                                                 ->endOfMonth()
@@ -93,8 +93,8 @@
                             @endif
                         </div>
 
-                        @if (in_array($transaction->status, ['pending', 'unpaid']))
-                            <a href="{{ route('transaction-history.detail', $transaction->transaction_id) }}"
+                        @if (in_array($order->status, ['pending', 'unpaid']))
+                            <a href="{{ route('transaction-history.detail', $order->transaction_id) }}"
                                 class="btn btn-warning w-100 mt-3">Lihat Detail</a>
                         @endif
                     </div>
@@ -115,9 +115,9 @@
         @endforelse
     </div>
 
-    @if ($transactions->hasPages())
+    @if ($orders->hasPages())
         <div class="py-4">
-            {{ $transactions->links() }}
+            {{ $orders->links() }}
         </div>
     @endif
 @endsection

@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Contracts\Repositories;
+
 use App\Contracts\Interfaces\OrderInterface;
 use App\Contracts\Repositories\BaseRepository;
 use App\Models\Order;
@@ -8,6 +11,11 @@ class OrderRepository extends BaseRepository implements OrderInterface
     public function __construct(Order $order)
     {
         $this->model = $order;
+    }
+
+    public function paginate($perPage = 15, $columns = ['*'], $pageName = 'page', $page = null): mixed
+    {
+        return $this->model->query()->paginate($perPage, $columns, $pageName, $page);
     }
 
     public function get(): mixed
