@@ -61,7 +61,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-wrap gap-2">
-                                <p class="badge bg-primary-subtle text-primary" style="font-size: 12px">
+                                <p class="badge bg-primary-subtle text-primary" style="font-size: 12px">        
                                     Batas: {{ \Carbon\Carbon::parse($challenge->deadline)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}
                                 </p>
                                 <p class="badge bg-info-subtle text-info" style="font-size: 12px">
@@ -314,7 +314,7 @@
             var description = $(this).data('description');
             var file = $(this).data('file');
             var challenge = $(this).data('challenge');
-            var user = $(this).data('challenge');
+            var user = $(this).data('user');
 
             $('#detail-title').text(title);
             $('#detail-description').text(description);
