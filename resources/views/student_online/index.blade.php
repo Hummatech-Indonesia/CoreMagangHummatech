@@ -65,237 +65,73 @@
     </div>
 
     <div class="all-category note-important">
-        <div class="d-flex align-items-center mb-3 pt-3">
-            <h5 class="mb-0 ">Riwayat Transaksi</h5>
-        </div>
-
-        <div class="row">
-            <div class="card card-body">
-                <div class="table-responsive">
-                    <table class="table search-table align-middle text-nowrap">
-                        <thead class="header-item">
-                            <tr>
-                                <th>Metode Pembayaran</th>
-                                <th>Harga</th>
-                                <th>Tanggal</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="search-items">
-                                <td>
-                                    <div class="ms-3">
-                                        <div class="user-meta-info">
-                                            <h6 class="user-name mb-0 text-primary" data-name="Emma Adams">Bank Mandiri</h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="usr-email-addr">Rp.2.000.000</span>
-                                </td>
-                                <td>
-                                    <span class="usr-email-addr">12 Maret 2024</span>
-                                </td>
-                                <td>
-                                    <span class="mb-1 badge font-medium bg-light-warning text-warning ">Belum Bayar</span>
-
-                                </td>
-                                <td>
-                                    <div class="action-btn">
-                                        <a href="javascript:void(0)" class="text-info edit" type="button"
-                                            data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round"
-                                                class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                                <path
-                                                    d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                                            </svg>
-                                        </a>
-                                        <a href="" class="mx-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round"
-                                                class="icon icon-tabler icons-tabler-outline icon-tabler-trash"
-                                                style="color: red;">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M4 7l16 0" />
-                                                <path d="M10 11l0 6" />
-                                                <path d="M14 11l0 6" />
-                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr class="search-items">
-                                <td>
-                                    <div class="ms-3">
-                                        <div class="user-meta-info">
-                                            <h6 class="user-name mb-0 text-primary" data-name="Emma Adams">Bank Mandiri</h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="usr-email-addr">Rp.2.000.000</span>
-                                </td>
-                                <td>
-                                    <span class="usr-email-addr">12 Maret 2024</span>
-                                </td>
-                                <td>
-                                    <span class="mb-1 badge font-medium bg-light-success text-success ">Berhasil</span>
-
-                                </td>
-                                <td>
-                                    <div class="action-btn">
-                                        <a href="javascript:void(0)" class="text-info edit" type="button"
-                                            data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                                <path
-                                                    d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                                            </svg>
-                                        </a>
-                                        <a href="" class="mx-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="icon icon-tabler icons-tabler-outline icon-tabler-trash"
-                                                style="color: red;">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M4 7l16 0" />
-                                                <path d="M10 11l0 6" />
-                                                <path d="M14 11l0 6" />
-                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr class="search-items">
-                                <td>
-                                    <div class="ms-3">
-                                        <div class="user-meta-info">
-                                            <h6 class="user-name mb-0 text-primary" data-name="Emma Adams">Bank Mandiri
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="usr-email-addr">Rp.2.000.000</span>
-                                </td>
-                                <td>
-                                    <span class="usr-email-addr">12 Maret 2024</span>
-                                </td>
-                                <td>
-                                    <span class="mb-1 badge font-medium text-dark "
-                                        style="background-color: #4f4f4f1b;">Gagal</span>
-
-                                </td>
-                                <td>
-                                    <div class="action-btn">
-                                        <a href="javascript:void(0)" class="text-info edit" type="button"
-                                            data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                                <path
-                                                    d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                                            </svg>
-                                        </a>
-                                        <a href="" class="mx-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="icon icon-tabler icons-tabler-outline icon-tabler-trash"
-                                                style="color: red;">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M4 7l16 0" />
-                                                <path d="M10 11l0 6" />
-                                                <path d="M14 11l0 6" />
-                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr class="search-items">
-                                <td>
-                                    <div class="ms-3">
-                                        <div class="user-meta-info">
-                                            <h6 class="user-name mb-0 text-primary" data-name="Emma Adams">Bank Mandiri
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="usr-email-addr">Rp.2.000.000</span>
-                                </td>
-                                <td>
-                                    <span class="usr-email-addr">12 Maret 2024</span>
-                                </td>
-                                <td>
-                                    <span class="mb-1 badge font-medium bg-light-danger text-danger ">Kadaluarsa</span>
-
-                                </td>
-                                <td>
-                                    <div class="action-btn">
-                                        <a href="javascript:void(0)" class="text-info edit" type="button"
-                                            data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                                <path
-                                                    d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                                            </svg>
-                                        </a>
-                                        <a href="" class="mx-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="icon icon-tabler icons-tabler-outline icon-tabler-trash"
-                                                style="color: red;">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M4 7l16 0" />
-                                                <path d="M10 11l0 6" />
-                                                <path d="M14 11l0 6" />
-                                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
+        <div class="card card-body">
+            <div class="d-flex pb-4 justify-content-between align-items-center">
+                <div>
+                    <h5 class="mb-1">Riwayat Transaksi</h5>
+                    <p class="mb-0 text-muted">Semua riwayat transaksi ada disini.</p>
                 </div>
+                <a href="{{ route('transaction-history.index') }}" class="btn btn-primary">Lihat Semuanya</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table mb-0 search-table align-middle text-nowrap">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID Transaksi</th>
+                            <th scope="col">Tanggal Terbit</th>
+                            <th scope="col">Tenggat Waktu</th>
+                            <th scope="col">Nominal</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($transactions as $transaction)
+                            <tr>
+                                <th>
+                                    <a
+                                        href="{{ route('transaction-history.detail', $transaction->transaction_id) }}">#{{ $transaction->transaction_id }}</a>
+                                </th>
+                                <td>{{ $transaction->issued_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}
+                                </td>
+                                <td>{{ $transaction->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}
+                                </td>
+                                <td>@currency($transaction->amount)</td>
+                                <td>
+                                    @php
+                                        $status = strtoupper($transaction->status);
+                                        $refs = match ($status) {
+                                            'PENDING' => \App\Enum\TransactionStatusEnum::PENDING,
+                                            'PAID' => \App\Enum\TransactionStatusEnum::PAID,
+                                            'CANCELLED' => \App\Enum\TransactionStatusEnum::CANCELLED,
+                                            'EXPIRED' => \App\Enum\TransactionStatusEnum::EXPIRED,
+                                            'FAILED' => \App\Enum\TransactionStatusEnum::FAILED,
+                                            'REFUND' => \App\Enum\TransactionStatusEnum::REFUND,
+                                            'UNPAID' => \App\Enum\TransactionStatusEnum::UNPAID,
+                                            default => \App\Enum\TransactionStatusEnum::DEFAULT,
+                                        };
+                                    @endphp
+                                    <span class="badge bg-{{ $refs->color() }}">{{ $refs->label() }}</span>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5">
+                                    <div class="text-center">
+                                        <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
+                                            alt="No Data" height="150px" width="auto" />
+                                        <h3>Tidak Ada Data</h3>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

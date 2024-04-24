@@ -16,7 +16,7 @@ class StudentOnlineController extends Controller
 
     public function index()
     {
-        $transactions = $this->transaction->paginate($perPage = 5);
+        $transactions = $this->transaction->paginate($perPage = 10, $columns = ['*'], $pageName = 'transaction_page', $page = null);
 
         return view('student_online.index', compact('transactions'));
     }
