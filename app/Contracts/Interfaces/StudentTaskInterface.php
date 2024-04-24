@@ -11,4 +11,6 @@ interface StudentTaskInterface extends GetInterface, StoreInterface, UpdateInter
 {
     public function getByStatus(string $status) :mixed;
     public function whereTask(mixed $id) : mixed;
+    public function whereTaskPending(mixed $student):mixed;
+    public function whereTaskDone(mixed $student):mixed;
 }
