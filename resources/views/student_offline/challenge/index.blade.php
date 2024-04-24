@@ -44,7 +44,7 @@
             <form action="">
                 <div class="d-flex">
                     <div class="search-box mx-2">
-                        <input type="text" class="form-control search-chat py-2" id="text-srh" placeholder="Cari Materi">
+                        <input type="text" class="form-control search-chat py-2" id="text-srh" placeholder="Cari Tantangan">
                     </div>
                     <button class="btn btn-primary">
                         Cari
@@ -109,9 +109,10 @@
                                         data-id="{{ $challengePending->id }}"
                                         data-title="{{ $challengePending->challenge->title }}"
                                         data-description="{{ $challengePending->challenge->description }}"
-                                        data-file="{{ asset('storage/'.$challengePending->file) }}"
+                                        data-file="{{ asset('storage/' . $challengePending->file) }}"
                                         data-challenge="{{ $challengePending->challenge_id }}"
                                         data-user="{{ auth()->user()->student->id }}"
+                                        data-student="{{ auth()->user()->student->name }}"
                                         >
                                         <i class="ti ti-edit"></i>
                                     Edit jawaban
@@ -129,23 +130,28 @@
             </div>
             <div class="tab-pane" id="acc" role="tabpanel">
                 <div class="d-flex flex-wrap  all-category note-important">
-                    @foreach (range(1, 5) as $item)
+                    @forelse ($challengeDones as $challengeDone)
                     <div class="p-1 col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center gap-3">
-                                    <h3 class="col-sm-2 py-4 px-1 col-xl-4 bg-success-subtle text-success text-center rounded rounded-2" >87.9</h3>
-                                    <h5>Lorem ipsum dolor sit.</h5>
-                                </div>
-                                <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente est tenetur expedit...</p>
+                                    <h3 class="col-sm-2 py-4 px-1 col-xl-4 bg-success-subtle text-success text-center rounded rounded-2" >{{ $challengeDone->score }}</h3>
+                                    <h5>{{ $challengeDone->challenge->title }}</h5>
+                                </div>  
+                                <p class="text-muted">{{ $challengeDone->challenge->description }}</p>
                                 <div class="d-flex gap-2 flex-wrap">
-                                    <p class="badge bg-primary-subtle text-primary" style="font-size: 12px">Batas : 29 Oktober 2023 10:33</p>
-                                    <p class="badge bg-danger-subtle text-danger" style="font-size: 12px">Sulit</p>
+                                    <p class="badge bg-primary-subtle text-primary" style="font-size: 12px">Batas: {{ \Carbon\Carbon::parse($challengeDone->deadline)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}</p>
+                                    <p class="badge bg-danger-subtle text-danger" style="font-size: 12px">{{ $challengeDone->challenge->level }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                    @empty
+                    <div class="col-md-12 text-center pt-5">
+                        <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" alt="No Data" height="120px" />
+                        <h6 class="text-center">Belum Ada Tantangan Yang Dinilai</h6>
+                    </div>
+                    @endforelse
                 </div>
             </div>
         </div>
@@ -234,7 +240,7 @@
                       </div>
                       <div class="px-4 pt-2">
                         <h6>Jawaban</h6>
-                        <a id="answer-file" class="d-flex text-primary gap-2" download="">
+                        <a id="answer-file" class="d-flex text-primary gap-2 btn-download download-file">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M14 3V7C14 7.26522 14.1054 7.51957 14.2929 7.70711C14.4804 7.89464 14.7348 8 15 8H19M14 3H7C6.46957 3 5.96086 3.21071 5.58579 3.58579C5.21071 3.96086 5 4.46957 5 5V12M14 3L19 8M19 8V12M16 18H17.5C17.8978 18 18.2794 17.842 18.5607 17.5607C18.842 17.2794 19 16.8978 19 16.5C19 16.1022 18.842 15.7206 18.5607 15.4393C18.2794 15.158 17.8978 15 17.5 15H16V21M12 15V21M5 15H8L5 21H8" stroke="#5D87FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
@@ -319,12 +325,14 @@
             var title = $(this).data('title');
             var description = $(this).data('description');
             var file = $(this).data('file');
+            var fileName = $(this).data('student') + '.zip';
             var challenge = $(this).data('challenge');
             var user = $(this).data('user');
-
+            
+            $('.download-file').attr('href', file);
+            $('.download-file').attr('download', fileName);
             $('#detail-title').text(title);
             $('#detail-description').text(description);
-            $('#answer-file').attr('href', file);
             $('#userId-edit').val(user);
             $('#challengeId-edit').val(challenge);
             $('#form-update').attr('action', '/siswa-offline/challenge/' + id);
