@@ -214,7 +214,7 @@
                     </div>
                 </div>
             @else
-                <ul class="list-group">
+                <ul class="list-group list-group-flush">
                     @forelse ($zoomSchedule as $zoomData)
                         <li class="list-group-item d-flex gap-2 flex-column py-3">
                             <div class="row g-0 align-items-center gx-2">
@@ -241,7 +241,7 @@
                             </div>
                         </li>
                     @empty
-                        <div class="list-group-item">Tidak ada jadwal Zoom.</div>
+                        <div class="list-group-item d-flex gap-2 align-items-center"><i class="fas fa-info-circle"></i>Tidak ada jadwal Zoom.</div>
                     @endforelse
                 </ul>
             @endif

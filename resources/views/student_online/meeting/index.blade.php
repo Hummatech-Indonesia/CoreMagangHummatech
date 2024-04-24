@@ -18,7 +18,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between bg-white p-2 pb-0">
                     <div class="p-4 rounded bg-primary d-flex justify-content-between w-100">
-                        <h5 class="mb-0 text-white text-truncate">Judul Kegiatan</h5>
+                        <h5 class="mb-0 text-white text-truncate">{{ $zoom->title }}</h5>
                         <div>
                             <span class="p-2 px-3 bg-white rounded text-primary">Mendatang</span>
                         </div>
@@ -30,14 +30,14 @@
                             <span class="fw-bolder d-lg-none">Tanggal Kegiatan</span>
                             <span class="d-flex gap-2 align-items-center">
                                 <i class="fas fa-calendar"></i>
-                                12 Maret 2024
+                                {{ $zoom->start_date->locale('id_ID')->isoFormat('DD MMMM YYYY') }}
                             </span>
                         </div>
                         <div class="d-flex flex-column gap-1 mb-3 col-md-6">
-                            <span class="fw-bolder d-lg-none">Tanggal Kegiatan</span>
+                            <span class="fw-bolder d-lg-none">Waktu Kegiatan</span>
                             <span class="d-flex gap-2 align-items-center">
                                 <i class="fas fa-clock"></i>
-                                06.00 s/d 08.00
+                                {{ $zoom->start_date->locale('id_ID')->isoFormat('HH:mm \W\I\B') }} s/d {{ $zoom->end_date->locale('id_ID')->isoFormat('HH:mm \W\I\B') }}
                             </span>
                         </div>
                         <div class="d-flex flex-column gap-1 col-md-12">
@@ -45,7 +45,7 @@
                             <span class="d-flex gap-2 align-items-center">
                                 <i class="fas fa-link"></i>
                                 <a class="text-truncate" target="_blank"
-                                    href="https://us05web.zoom.us/j/6417801427?pwd=a2xjM09oWkFrOVZ6U0xLY2dveWZVQT09">https://us05web.zoom.us/j/6417801427?pwd=a2xjM09oWkFrOVZ6U0xLY2dveWZVQT09</a>
+                                    href="{{ $zoom->link }}">{{ $zoom->link }}</a>
                             </span>
                         </div>
                     </div>
