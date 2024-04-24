@@ -26,8 +26,8 @@
     </div>
 </div>
 
-<div class="card table-responsive">
-    <table class="table table-striped" aria-labelledby="title">
+<div class="card shadow-none border table-responsive">
+    <table class="table" aria-labelledby="title">
         <thead>
             <tr>
                 <th scope="col">ID Transaksi</th>

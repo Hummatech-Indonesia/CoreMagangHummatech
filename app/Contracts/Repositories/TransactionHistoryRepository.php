@@ -21,6 +21,11 @@ class TransactionHistoryRepository extends BaseRepository implements Transaction
         return $this->model->query()->get();
     }
 
+    public function paginate($perPage = 15, $columns = ['*'], $pageName = 'page', $page = null): mixed
+    {
+        return $this->model->query()->paginate($perPage, $columns, $pageName, $page);
+    }
+
     public function store(array $data): mixed
     {
         return $this->model->query()->create($data);

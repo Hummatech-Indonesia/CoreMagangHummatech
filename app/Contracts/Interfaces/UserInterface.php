@@ -9,4 +9,21 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 use App\Contracts\Interfaces\Eloquent\WhereInterface;
 
 interface UserInterface extends GetInterface, StoreInterface, GetWhereInterface
-{}
+{
+    /**
+     * Add course to subcribed user
+     *
+     * @param mixed $course
+     * @return mixed
+     */
+    public function addCourseToSubcribedUser(int $course): void;
+
+    /**
+     * Add course to subcribed user
+     *
+     * @param mixed $courseId
+     * @param mixed $subCourseId
+     * @return mixed
+     */
+    public function addSubCourseToSubcribedUser(int $courseId, int $subCourseId): void;
+}

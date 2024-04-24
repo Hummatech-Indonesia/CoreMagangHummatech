@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- *
+ * App\Models\Order
  *
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -60,5 +60,15 @@ class Order extends Model
     public function subscribe(): HasOne
     {
         return $this->hasOne(Product::class);
+    }
+
+    /**
+     * Get the transaction into course subscribe data
+     *
+     * @return HasOne
+     */
+    public function transaction(): HasOne
+    {
+        return $this->hasOne(TransactionHistory::class, 'id', 'transaction_histories_id');
     }
 }

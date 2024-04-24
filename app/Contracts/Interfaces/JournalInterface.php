@@ -12,5 +12,5 @@ interface JournalInterface extends GetInterface , StoreInterface , UpdateInterfa
 {
     public function getjournal();
     public function whereStudent(mixed $id) :mixed;
-
+    // public function getStats(): mixed;
 }
