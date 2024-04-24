@@ -107,6 +107,15 @@
                         <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
                             href="javascript:void(0)" aria-expanded="false">
                             <span>
+                                <i class="ti ti-chart-area-line"></i>
+                            </span>
+                            <span class="hide-menu">Tantangan <i class="fas fa-lock opacity-50 ms-2"></i></span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
+                            href="javascript:void(0)" aria-expanded="false">
+                            <span>
                                 <i class="ti ti-clock"></i>
                             </span>
                             <span class="hide-menu">Jadwal Mentor <i class="fas fa-lock opacity-50 ms-2"></i></span>
@@ -152,6 +161,14 @@
                                 <i class="ti ti-pencil"></i>
                             </span>
                             <span class="hide-menu">Tugas</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{url('/siswa-online/challenge')}}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-chart-area-line"></i>
+                            </span>
+                            <span class="hide-menu">Tantangan</span>
                         </a>
                     </li>
                     <li class="sidebar-item">

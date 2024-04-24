@@ -147,5 +147,5 @@ Route::get('siswa-offline/certificate', function (){
 
 
 //Student online
-// Route::get('/siswa-online/challenge',[ChallengeController::class,'showOnline']);
+Route::get('/siswa-online/challenge',[ChallengeController::class,'showOnline']);
 
