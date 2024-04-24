@@ -24,7 +24,7 @@ class UpdateStudentChallengeRequest extends FormRequest
         return [
             'student_id' => 'required|exists:students,id',
             'challenge_id' => 'required|exists:challenges,id',
-            'file' => 'nullable|mimes:zip|max:8196',
+            'file' => 'required|mimes:zip|max:8196',
         ];
     }
 

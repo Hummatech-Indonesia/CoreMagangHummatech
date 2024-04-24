@@ -38,8 +38,8 @@ class ChallengeRepository extends BaseRepository implements ChallengeInterface
 
     public function getUnsubmittedChallenges()
     {
-        return $this->model->whereNotIn('id', function($query) {
-            $query->select('challenge_id')->from('student_challenges')->where('student_id', auth()->user()->student->id);
+        return $this->model->query()->whereDoesntHave('studentChallenges', function($query) {
+            $query->where('student_id', '!=', auth()->user()->student->id);
         })->get();
     }
 

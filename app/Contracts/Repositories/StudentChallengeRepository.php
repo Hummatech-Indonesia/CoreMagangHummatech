@@ -6,9 +6,9 @@ use App\Models\StudentChallenge;
 
 class StudentChallengeRepository extends BaseRepository implements StudentChallengeInterface
 {
-    public function __construct(StudentChallenge $studentTask)
+    public function __construct(StudentChallenge $studentChallenge)
     {
-        $this->model = $studentTask;
+        $this->model = $studentChallenge;
     }
 
     public function get(): mixed
@@ -34,5 +34,9 @@ class StudentChallengeRepository extends BaseRepository implements StudentChalle
     public function whereChallenge(mixed $id) : mixed
     {
         return $this->model->query()->where('challenge_id', $id)->get();
+    }
+    public function whereStudentChallenge(mixed $challenge, mixed $student): mixed
+    {
+        return $this->model->query()->where('challenge_id', $challenge)->where('student_id', $student)->get();
     }
 }

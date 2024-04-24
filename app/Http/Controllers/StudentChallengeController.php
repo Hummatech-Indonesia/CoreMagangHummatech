@@ -26,7 +26,8 @@ class StudentChallengeController extends Controller
     public function index()
     {
         $challenges = $this->challenge->getUnsubmittedChallenges();
-        return view('student_offline.challenge.index', compact('challenges'));
+        $challengePendings = $this->studentChallenge->getByStatus('pending');
+        return view('student_offline.challenge.index', compact('challenges', 'challengePendings'));
     }
 
     /**
@@ -68,7 +69,9 @@ class StudentChallengeController extends Controller
      */
     public function update(UpdateStudentChallengeRequest $request, StudentChallenge $studentChallenge)
     {
-        //
+        $data = $this->serviceStudentChallenge->update($studentChallenge, $request);
+        $this->studentChallenge->update($studentChallenge->id, $data);
+        return back()->with('success' , 'Berhasi Memperbarui Jawaban');
     }
 
     /**

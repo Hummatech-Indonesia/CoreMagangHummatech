@@ -127,7 +127,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a href="{{ url('mentor/challenge/detail') }}" class="dropdown-item edit-item-btn text-primary btn-detail text-center">
+                                    <a href="{{ route('tantangan.detail', $challenge->id) }}" class="dropdown-item edit-item-btn text-primary btn-detail text-center">
                                     Detail
                                     </a>
                                 </li>
@@ -229,8 +229,8 @@
         $('#modal-delete').modal('show');
     });
     $('.edit-button').on('click', function() {
-        var id = $(this).data('id'); // Mengambil nilai id dari tombol yang diklik
-        var title = $(this).data('title'); // Mengambil nilai title dari tombol yang diklik
+        var id = $(this).data('id');
+        var title = $(this).data('title');
         var description = $(this).data('description');
         var start_date = $(this).data('start_date');
         var deadline = $(this).data('deadline');
@@ -239,7 +239,7 @@
         var collab_category_id = $(this).data('collab_category_id');
 
         console.log(id);
-        $('#form-update').attr('action', '/mentor/challenge/' + id); // Mengubah nilai atribut action form
+        $('#form-update').attr('action', '/mentor/challenge/' + id);
         $('#title-edit').val(title);
         $('#description-edit').val(description);
         $('#start_date-edit').val(start_date);

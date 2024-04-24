@@ -7,8 +7,8 @@
         <a href="{{ url('mentor/assessment') }}" type="button" class="btn btn-light-primary text-primary">Kembali</a>
     </div>
     <div>
-        <span class="mb-1 badge font-medium bg-light-success text-success">Mudah</span>
-        <h2 class="mt-3">Tutorial Laravel SPA Menggunakan Blade Template Engine (Splade)</h2>
+        <span class="mb-1 badge font-medium bg-light-success text-success">{{$challenge->level}}</span>
+        <h2 class="mt-3">{{$challenge->title}}</h2>
     </div>
 </div>
 
@@ -52,153 +52,74 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse ($studentChallenges as $studentChallenge)
+
                     <tr class="search-items">
-                        <td>1</td>
-                        <td class="d-flex">
-                            <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt="avatar" class="rounded-circle" width="35">
+                        <td>{{$loop->iteration}}</td>
+                        <td class="d-flex align-items-center">
+                            <div class="n-chk align-self-center text-center me-3">
+                                @if(Storage::disk('public')->exists($studentChallenge->student->avatar))
+                                    <img src="{{ asset('storage/' . $studentChallenge->student->avatar) }}" alt="avatar" class="rounded-circle" width="35">
+                                @else
+                                    <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle" width="35">
+                                @endif
                             </div>
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0 mt-2" data-name="Emma Adams">Emma Adams</h6>
+
+                            <div class="user-meta-info">
+                                <h6 class="user-name  mt-2" data-name="Emma Adams">{{$studentChallenge->student->name}}</h6>
+                            </div>
+                        </td>
+
+                        <td>
+                            <span class="usr-email-addr">
+                                {{ \Carbon\Carbon::parse($studentChallenge->updated_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="mb-1 badge font-medium bg-light-success text-success">{{$studentChallenge->student->internship_type}}</span>
+                        </td>
+                        <td>
+                            <a href="#" type="button" class="justify-content-center btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center btn-download" data-id="{{$studentChallenge->id}}"
+                                data-task="{{ file_exists(public_path('storage/' . $studentChallenge->file)) ? asset('storage/' . $studentChallenge->file) : asset('no data.png') }}"
+                                data-student-name="{{$studentChallenge->student->name}}">
+                                <div class="mx-1">
+                                    <i class="ti ti-folder-down fs-4 me-2"></i>
+                                    Download
                                 </div>
-                            </div>
+                            </a>
                         </td>
-                        <td>
-                            <span class="usr-email-addr">Selasa 12 Februari 2024</span>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium bg-light-success text-success">Online</span>
-                        </td>
-                        <td>
-                            <button type="button" class="justify-content-center w-75 btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center">
-                                <i class="ti ti-folder-down fs-4 me-2"></i>
-                                Download
-                            </button>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium text-dark">Belum di nilai</span>
-                        </td>
-                    </tr>
-                    <tr class="search-items">
-                        <td>2</td>
-                        <td class="d-flex">
-                            <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}" alt="avatar" class="rounded-circle" width="35">
-                            </div>
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0 mt-2" data-name="Emma Adams">Emma Adams</h6>
+
+                            <td class="d-flex justify-content-between">
+                                <div class="form-group col-md-3">
+                                    <input type="number" name="score" class="form-control" value="{{ $studentChallenge->score ?? '' }}" @if(isset($studentChallenge->score) && $studentChallenge->score !== 0) readonly @endif>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="usr-email-addr">Selasa 12 Februari 2024</span>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium bg-light-primary text-primary">Offline</span>
-                        </td>
-                        <td>
-                            <button type="button" class="justify-content-center w-75 btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center">
-                                <i class="ti ti-folder-down fs-4 me-2"></i>
-                                Download
-                            </button>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium bg-light-success text-success">90.3</span>
-                        </td>
+                            </td>
                     </tr>
-                    <tr class="search-items">
-                        <td>3</td>
-                        <td class="d-flex">
-                            <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/profile/user-3.jpg') }}" alt="avatar" class="rounded-circle" width="35">
-                            </div>
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0 mt-2" data-name="Emma Adams">Emma Adams</h6>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="usr-email-addr">Selasa 12 Februari 2024</span>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium bg-light-success text-success">Online</span>
-                        </td>
-                        <td>
-                            <button type="button" class="justify-content-center w-75 btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center">
-                                <i class="ti ti-folder-down fs-4 me-2"></i>
-                                Download
-                            </button>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium bg-light-warning text-warning">70.4</span>
-                        </td>
-                    </tr>
-                    <tr class="search-items">
-                        <td>3</td>
-                        <td class="d-flex">
-                            <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/profile/user-3.jpg') }}" alt="avatar" class="rounded-circle" width="35">
-                            </div>
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0 mt-2" data-name="Emma Adams">Emma Adams</h6>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="usr-email-addr">Selasa 12 Februari 2024</span>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium bg-light-success text-success">Online</span>
-                        </td>
-                        <td>
-                            <button type="button" class="justify-content-center w-75 btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center">
-                                <i class="ti ti-folder-down fs-4 me-2"></i>
-                                Download
-                            </button>
-                        </td>
-                        <td>
-                            {{-- <span class="mb-1 badge font-medium bg-light-warning text-warning">70.4</span> --}}
-                            <div class="form-group col-md-3">
-                                <input type="text" class="form-control">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="search-items">
-                        <td>3</td>
-                        <td class="d-flex">
-                            <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/profile/user-3.jpg') }}" alt="avatar" class="rounded-circle" width="35">
-                            </div>
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0 mt-2" data-name="Emma Adams">Emma Adams</h6>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="usr-email-addr">Selasa 12 Februari 2024</span>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium bg-light-success text-success">Online</span>
-                        </td>
-                        <td>
-                            <button type="button" class="justify-content-center w-75 btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center">
-                                <i class="ti ti-folder-down fs-4 me-2"></i>
-                                Download
-                            </button>
-                        </td>
-                        <td>
-                            <span class="mb-1 badge font-medium bg-light-info text-info">82.23</span>
-                        </td>
-                    </tr>
+
+
+                    @empty
+
+                    @endforelse
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
+@endsection
+
+@section('script')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<a href="#" class="download-file" style="display: none;"></a>
+<script>
+    $('.btn-download').click(function(e) {
+        e.preventDefault();
+        let file = $(this).data('task');
+        let fileName = $(this).data('student-name') + '.zip';
+        $('.download-file').attr('href', file);
+        $('.download-file').attr('download', fileName);
+        $('.download-file')[0].click();
+    });
+</script>
 @endsection
