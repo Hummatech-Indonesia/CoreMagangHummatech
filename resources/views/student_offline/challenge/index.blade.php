@@ -80,7 +80,10 @@
                     </div>
                 </div>
                 @empty
-
+                <div class="col-md-12 text-center pt-5">
+                    <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" alt="No Data" height="120px" />
+                    <h6 class="text-center">Belum Ada Tantangan Baru</h6>
+                </div>
                 @endforelse
                </div>
             </div>
@@ -117,7 +120,10 @@
                             </div>
                         </div>
                     @empty
-                        
+                    <div class="col-md-12 text-center pt-5">
+                        <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" alt="No Data" height="120px" />
+                        <h6 class="text-center">Belum Ada Tantangan yang sudah kamu kumpulkan</h6>
+                    </div>
                     @endforelse
                </div>
             </div>
