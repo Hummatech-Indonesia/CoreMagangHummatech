@@ -26,8 +26,8 @@ class StudentChallengeController extends Controller
     public function index()
     {
         $challenges = $this->challenge->getUnsubmittedChallenges();
-        $studentChallenges = $this->studentChallenge->getSubmittedChallenges();
-        return view('student_offline.challenge.index', compact('challenges', 'studentChallenges'));
+        $challengePendings = $this->studentChallenge->getByStatus('pending');
+        return view('student_offline.challenge.index', compact('challenges', 'challengePendings'));
     }
 
     /**
@@ -43,9 +43,15 @@ class StudentChallengeController extends Controller
      */
     public function store(StoreStudentChallengeRequest $request)
     {
-        $data = $this->serviceStudentChallenge->store($request);
-        $this->studentChallenge->store($data);
-        return back()->with('success' , 'Berhasil Mengumpulkan challenge');
+        $already = $this->studentChallenge->whereStudentChallenge($request->challenge_id, auth()->user()->student->id);
+
+        if(!$already){
+            $data = $this->serviceStudentChallenge->store($request);
+            $this->studentChallenge->store($data);
+            return back()->with('success' , 'Berhasil Mengumpulkan challenge');
+        } else {
+            return back()->with('warning', 'Kamu sudah mengumpulkan challenge');
+        }
     }
 
     /**
@@ -69,7 +75,9 @@ class StudentChallengeController extends Controller
      */
     public function update(UpdateStudentChallengeRequest $request, StudentChallenge $studentChallenge)
     {
-        //
+        $data = $this->serviceStudentChallenge->update($studentChallenge, $request);
+        $this->studentChallenge->update($studentChallenge->id, $data);
+        return back()->with('success' , 'Berhasi Memperbarui Jawaban');
     }
 
     /**

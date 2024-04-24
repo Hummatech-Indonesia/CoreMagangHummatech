@@ -36,7 +36,7 @@ class Challenge extends Model
     {
         return $this->belongsTo(Mentor::class);
     }
-    public function studentChallenge(): HasMany
+    public function studentChallenges(): HasMany
     {
         return $this->hasMany(StudentChallenge::class);
     }

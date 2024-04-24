@@ -73,7 +73,7 @@ class StudentTaskController extends Controller
     {
         $data = $this->servicestudentTask->update($studentTask, $request);
         $this->studentTask->update($studentTask->id, $data);
-        return back()->with('success' , 'Berhasi Memperbarui Data');
+        return back()->with('success' , 'Berhasi Memperbarui Jawaban');
     }
 
     /**

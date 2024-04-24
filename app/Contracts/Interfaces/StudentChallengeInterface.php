@@ -11,5 +11,5 @@ interface StudentChallengeInterface extends GetInterface, StoreInterface, Update
 {
     public function getByStatus(string $status) :mixed;
     public function whereChallenge(mixed $id) : mixed;
-    public function getSubmittedChallenges();
+    public function whereStudentChallenge(mixed $challenge, mixed $student): mixed;
 }

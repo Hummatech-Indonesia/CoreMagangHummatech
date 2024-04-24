@@ -107,3 +107,4 @@ Route::put('picket-report/{picketingReport}', [PicketingReportController::class,
 Route::delete('picket-report/{picketingReport}', [PicketingReportController::class, 'destroy'])->name('picket-report.delete');
 
 Route::post('siswa-offline/challenge',[StudentChallengeController::class,'store']);
+Route::put('siswa-offline/challenge/{studentChallenge}',[StudentChallengeController::class,'update']);

@@ -35,8 +35,8 @@ class StudentChallengeRepository extends BaseRepository implements StudentChalle
     {
         return $this->model->query()->where('challenge_id', $id)->get();
     }
-    public function getSubmittedChallenges()
+    public function whereStudentChallenge(mixed $challenge, mixed $student): mixed
     {
-        return $this->model->query()->where('student_id', auth()->user()->student->id)->get();
+        return $this->model->query()->where('challenge_id', $challenge)->where('student_id', $student)->get();
     }
 }
