@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\ChallengeInterface;
+use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\StudentChallengeInterface;
 use App\Models\StudentChallenge;
 use App\Http\Requests\StoreStudentChallengeRequest;
@@ -14,11 +15,13 @@ class StudentChallengeController extends Controller
     private StudentChallengeInterface $studentChallenge;
     private StudentChallengeService $serviceStudentChallenge;
     private ChallengeInterface $challenge;
-    public function __construct(StudentChallengeInterface $studentChallenge, StudentChallengeService $serviceStudentChallenge, ChallengeInterface $challenge)
+    private MentorStudentInterface $mentorStudent;
+    public function __construct(StudentChallengeInterface $studentChallenge, MentorStudentInterface $mentorStudent, StudentChallengeService $serviceStudentChallenge, ChallengeInterface $challenge)
     {
         $this->studentChallenge = $studentChallenge;
         $this->serviceStudentChallenge = $serviceStudentChallenge;
         $this->challenge = $challenge;
+        $this->mentorStudent = $mentorStudent;
     }
     /**
      * Display a listing of the resource.
@@ -26,8 +29,9 @@ class StudentChallengeController extends Controller
     public function index()
     {
         $challenges = $this->challenge->getUnsubmittedChallenges();
-        $challengePendings = $this->studentChallenge->getByStatus('pending');
-        return view('student_offline.challenge.index', compact('challenges', 'challengePendings'));
+        $challengePendings = $this->studentChallenge->whereChallengePending(auth()->user()->student->id);
+        $challengeDones = $this->studentChallenge->whereChallengeDone(auth()->user()->student->id);
+        return view('student_offline.challenge.index', compact('challenges', 'challengePendings', 'challengeDones'));
     }
 
     /**
