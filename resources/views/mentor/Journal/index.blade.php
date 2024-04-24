@@ -103,12 +103,19 @@
                             </td>
                             <td class="text-break">
                                 <span>
-                                    {{ Str::limit($journal->description, 100) }}
+                                    {{ Str::limit($journal->description, 80) }}
                                 </span>
                             </td>
                             <td>
                                 <div class="action-btn">
-                                    <a href="javascript:void(0)" class="text-info edit" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop_{{ $journal->id }}">
+                                    <a href="javascript:void(0)" class="text-info btn-edit" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop_{{ $journal->id }}"
+                                        data-id="{{ $journal->id }}"
+                                        data-name="{{ $journal->student->name }}"
+                                        data-created_at="{{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}"
+                                        data-school="{{ $journal->student->school }}"
+                                        data-description ="{{ $journal->description  }}"
+                                        data-image="{{ asset('storage/'.$journal->image) }}"
+                                        >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
@@ -196,23 +203,23 @@
         <div class="modal-body">
             <div>
                 <h6>Nama</h6>
-                <p>Bagas Ran</p>
+                <p id="name-detail"></p>
             </div>
             <div>
                 <h6>Tanggal</h6>
-                <p>12 Maret 2024</p>
+                <p id="created_at-detail"></p>
             </div>
             <div>
                 <h6>Sekolah</h6>
-                <p>SMK Negeri 1 Kepanjen</p>
+                <p id="school-detail"></p>
             </div>
             <div>
                 <h6>Kegiatan</h6>
-                <p>Hari ini saya membuat crud laravel </p>
+                <p id="description-detail"></p>
             </div>
             <div>
                 <h6>Bukti</h6>
-                <img src="{{ asset('assets-user/dist/images/blog/blog-img3.jpg') }}" alt="" style="max-width: 100%; height: auto; max-height: 150px; object-fit: cover;">
+                <img id="image-detail" alt="" style="max-width: 100%; height: auto; max-height: 150px; object-fit: cover;">
             </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
@@ -222,4 +229,50 @@
 </div>
 
 
+@endsection
+
+@section('script')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+
+        $('.btn-edit').click(function() {
+            var name = $(this).data('name');
+            var created_at = $(this).data('created_at');
+            var school = $(this).data('school');
+            var description = $(this).data('description');
+            var image = $(this).data('image');
+            var id = $(this).data('id');
+            $('#name-detail').text(name);
+            $('#created_at-detail').text(created_at);
+            $('#school-detail').text(school);
+            $('#description-detail').text(description);
+            $('#image-detail').attr('src', image);
+            $('#staticBackdrop').modal('show');
+        });
+
+        $('.btn-detail').click(function () {
+            var id = $(this).data('id');
+            $('#modal-detail').modal('show');
+        });
+
+        function preview(event) {
+            var input = event.target;
+            var previewImages = document.getElementsByClassName('image-preview');
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    Array.from(previewImages).forEach(function(previewImage) {
+                        previewImage.src = e.target.result;
+                        previewImage.style.display = 'block';
+                    });
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+    </script>
 @endsection
