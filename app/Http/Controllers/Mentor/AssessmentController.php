@@ -9,6 +9,9 @@ use App\Contracts\Interfaces\StudentTaskInterface;
 use App\Contracts\Interfaces\SubCourseInterface;
 use App\Contracts\Interfaces\TaskInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateAssessmentChallengekRequest;
+use App\Http\Requests\UpdateAssessmentChallengeRequest;
+use App\Http\Requests\UpdateAssessmentTaskRequest;
 use App\Models\Challenge;
 use App\Models\StudentChallenge;
 use App\Models\StudentTask;
@@ -93,7 +96,7 @@ class AssessmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, StudentTask $studentTask)
+    public function update(UpdateAssessmentTaskRequest $request, StudentTask $studentTask)
     {
         $this->studentTask->update($studentTask->id, $request->all());
         return back()->with('success' , 'Berhasi Memperbarui Data');
@@ -111,9 +114,15 @@ class AssessmentController extends Controller
         $studentChallenges = $this->studentChallenge->whereChallenge($challenge->id);
         return view('mentor.assessment.challange_detail', compact('studentChallenges', 'challenge'));
     }
-    public function updateChallenge(Request $request, StudentChallenge $studentChallenge)
+    public function updateChallenge(UpdateAssessmentChallengeRequest $request, StudentChallenge $studentChallenge)
     {
         $this->studentChallenge->update($studentChallenge->id, $request->all());
         return back()->with('success', 'Berhasil Memperbarui data');
+    }
+
+    public function showChallengeStudent(Challenge $challenge)
+    {
+        $studentChallenges = $this->studentChallenge->whereChallenge($challenge->id);
+        return view('mentor.challange.detail', compact('studentChallenges', 'challenge'));
     }
 }
