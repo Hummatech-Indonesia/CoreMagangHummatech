@@ -71,7 +71,7 @@
                         <h5>Detail Transaksi</h5>
 
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table mb-0">
                                 <thead>
                                     <tr>
                                         <th width="61.25%">Deskripsi</th>
@@ -176,8 +176,26 @@
                             @endforeach
                         </div>
                     </section>
-                    <section class="mb-3">
-                        <h5>Aksi</h5>
+                    <section id="transaction-detail" class="mb-3">
+                        <h5 class="mb-3">Detail Transaksi</h5>
+
+                        <div class="mb-3">
+                            <div class="border-bottom border-top p-3 px-0 px-md-3 flex-column flex-lg-row justify-content-between gap-2 d-flex align-items-start align-items-md-center">
+                                <strong>ID Transaksi</strong>
+                                <span>#{{ $reference->transaction_id }}</span>
+                            </div>
+                            <div class="border-bottom p-3 px-0 px-md-3 flex-column flex-lg-row justify-content-between gap-2 d-flex align-items-start align-items-md-center">
+                                <strong>Kode Referensi</strong>
+                                <span>{{ $reference->reference }}</span>
+                            </div>
+                            <div class="border-bottom p-3 px-0 px-md-3 flex-column flex-lg-row justify-content-between gap-2 d-flex align-items-start align-items-md-center">
+                                <strong>Kadaluarsa Pada</strong>
+                                <span>{{ $reference->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}</span>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <h5 class="mb-2">Aksi</h5>
 
                         <div class="list-group">
                             @if ($reference->status !== App\Enum\TransactionStatusEnum::PAID->value)

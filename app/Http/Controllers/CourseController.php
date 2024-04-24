@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\DivisionInterface;
 use App\Contracts\Interfaces\SubCourseInterface;
+use App\Contracts\Interfaces\UserInterface;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
@@ -16,12 +17,21 @@ class CourseController extends Controller
     private SubCourseInterface $subCourse;
     private CourseService $service;
     private DivisionInterface $division;
-    public function __construct(CourseInterface $course , CourseService $service , SubCourseInterface $subCourse, DivisionInterface $division)
+    private UserInterface $userInterface;
+
+    public function __construct(
+        CourseInterface $course ,
+        CourseService $service ,
+        SubCourseInterface $subCourse,
+        DivisionInterface $division,
+        UserInterface $userInterface
+    )
     {
         $this->division = $division;
         $this->course = $course;
         $this->service = $service;
         $this->subCourse = $subCourse;
+        $this->userInterface = $userInterface;
     }
     /**
      * Display a listing of the resource.
@@ -48,7 +58,9 @@ class CourseController extends Controller
     public function store(StoreCourseRequest $request)
     {
         $data = $this->service->store($request);
-        $this->course->store($data);
+        $courseData = $this->course->store($data);
+        $this->userInterface->addCourseToSubcribedUser($courseData->id);
+
         return back()->with('success' , 'Berhasil Menambahkan data');
     }
 

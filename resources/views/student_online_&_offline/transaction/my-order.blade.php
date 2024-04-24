@@ -48,36 +48,45 @@
     <div class="row">
         @forelse ($orders as $order)
             @php
-                $refs = $order->getTransactionStatus();
+                $refs = $order->transaction->getTransactionStatus();
             @endphp
             <div class="col-xl-4 col-xxl-3">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex gap-3 align-items-center">
                             <div class="bg-primary text-white p-4 rounded">
-                                <i class="fas fa-2x fa-box"></i>
+                                <i class="fas fa-2x {{ $order->course ? 'fa-book' : 'fa-box' }}"></i>
                             </div>
                             <div>
-                                <h5>{{ $order->product->name }}</h5>
-                                <h3 class="text-primary fw-bolder mb-0">@currency($order->product->price)</h3>
+                                @if ($order->course)
+                                    <h5>{{ $order->course->title }}</h5>
+                                    <h3 class="text-primary fw-bolder mb-0">@currency($order->course->price)</h3>
+                                @else
+                                    <h5>{{ $order->product->title }}</h5>
+                                    <h3 class="text-primary fw-bolder mb-0">@currency($order->product->price)</h3>
+                                @endif
                             </div>
                         </div>
 
-                        <div class="row justify-content-center mt-4 mb-3">
-                            <div class="col-md-6 d-flex gap-1 align-items-center flex-column">
-                                <p class="mb-0 fw-bolder">Status</p>
-                                <p class="mb-0"><span
-                                        class="fw-bolder badge bg-{{ $refs->color() }}">{{ $refs->label() }}</span></p>
+                        <div class="mt-3">
+                            <div
+                                class="d-flex gap-2 align-items-center w-100 py-3 justify-content-between">
+                                <div class="mb-0 fw-bolder">Status</div>
+                                <div class="mb-0"><span
+                                        class="fw-bolder badge bg-{{ $refs->color() }}">{{ $refs->label() }}</span>
+                                </div>
                             </div>
-                            @if (in_array($order->status, ['pending', 'unpaid', 'paid']))
-                                <div class="col-md-6 d-flex gap-1 align-items-center flex-column">
-                                    @if ($order->status !== 'paid')
-                                        <p class="mb-0 fw-bolder">Bayar Sebelum</p>
-                                        <span
-                                            class="text-center">{{ $order->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}</span>
+                            @if (!$order->course)
+                                <div
+                                    class="d-flex gap-2 align-items-center w-100 py-3 justify-content-between">
+                                    @if ($order->transaction->status !== 'paid')
+                                        <div class="mb-0 fw-bolder">Bayar Sebelum</div>
+                                        <div class="text-center">
+                                            {{ $order->transaction->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}
+                                        </div>
                                     @else
                                         @php
-                                            $nextMonth = $order->paid_at
+                                            $nextMonth = $order->transaction->paid_at
                                                 ->copy()
                                                 ->addMonths(1)
                                                 ->endOfMonth()
@@ -85,12 +94,24 @@
                                                 ->setMinute(59)
                                                 ->setSecond(59);
                                         @endphp
-                                        <p class="mb-0 fw-bolder">Berakhir Pada</p>
-                                        <span
-                                            class="text-center">{{ $nextMonth->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}</span>
+                                        <div class="mb-0 fw-bolder">Berakhir Pada</div>
+                                        <div class="text-center">
+                                            {{ $nextMonth->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}
+                                        </div>
                                     @endif
                                 </div>
                             @endif
+                            <div
+                                class="d-flex gap-2 align-items-center w-100 p-3 pt-3 border-top px-0 justify-content-between">
+                                <div class="mb-0 fw-bolder">Jenis Produk</div>
+                                <div class="mb-0">
+                                    @if ($order->course)
+                                        <h5 class="mb-0 fw-bolder">Materi</h5>
+                                    @else
+                                        <h5 class="mb-0 fw-bolder">Langganan</h5>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
 
                         @if (in_array($order->status, ['pending', 'unpaid']))
