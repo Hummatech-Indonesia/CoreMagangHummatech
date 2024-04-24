@@ -9,16 +9,21 @@
                             <div class="col-md-12 ">
                                 <div class="d-flex align-items-center mb-3 flex-column flex-sm-row">
                                     <div class="d-flex align-items-center justify-content-center overflow-hidden me-sm-6 mb-3 mb-sm-0"
-                                        style="width: 40px; height: 40px;">
+                                        style="width: 64px; height: 64px;">
                                         <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt=""
                                             class="img-fluid rounded-circle" style="object-fit: cover;">
                                     </div>
-                                    <h5 class="fw-semibold mb-3 mb-sm-0 fs-5 text-center text-sm-start">Selamat Datang
-                                        {{ auth()->user()->name }}!</h5>
+                                    <div class="d-flex flex-column gap-2">
+                                        <h5 class="fw-semibold mb-3 mb-sm-0 fs-5 text-center text-sm-start">
+                                            Selamat Datang
+                                            {{ auth()->user()->name }}!
+                                        </h5>
+                                        <h6 class="mb-0">Divisi {{ auth()->user()->student->division->name }}</h6>
+                                    </div>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <div class="border-end pe-4 border-muted border-opacity-10 mt-2">
-                                        <h4>Divisi {{ auth()->user()->student->division->name }}</h4>
+                                        <h3>Selamat Datang Kembali Dan Selamat Belajar.</h3>
                                     </div>
                                 </div>
                             </div>
@@ -223,15 +228,23 @@
     <script>
         var options = {
             series: [{
-                name: 'Mengisi',
-                data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-            }, {
-                name: 'Tidak Mengisi',
-                data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-            }],
+                    name: 'Mengisi',
+                    data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+                },
+                {
+                    name: 'Tidak Mengisi',
+                    data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+                }
+            ],
+            yaxis: {
+                labels: {
+                    show: false,
+                },
+            },
             chart: {
                 type: 'bar',
-                height: '248px',
+                height: '300px',
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
             },
             colors: ['#5D87FF', '#82D2FF'],
             plotOptions: {
@@ -244,13 +257,20 @@
             dataLabels: {
                 enabled: false
             },
-            stroke: {
-                show: true,
-                width: 2,
-                colors: ['transparent']
+            grid: {
+                borderColor: "rgba(0,0,0,0.1)",
+                strokeDashArray: 3,
+                xaxis: {
+                    lines: {
+                        show: false,
+                    },
+                },
             },
             xaxis: {
                 categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                axisBorder: {
+                    show: false,
+                },
             },
             fill: {
                 opacity: 1
@@ -258,7 +278,7 @@
             tooltip: {
                 y: {
                     formatter: function(val) {
-                        return "$ " + val + " thousands"
+                        return `${val} kali`
                     }
                 }
             }
