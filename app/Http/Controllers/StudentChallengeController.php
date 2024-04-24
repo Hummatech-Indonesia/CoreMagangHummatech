@@ -26,7 +26,8 @@ class StudentChallengeController extends Controller
     public function index()
     {
         $challenges = $this->challenge->getUnsubmittedChallenges();
-        return view('student_offline.challenge.index', compact('challenges'));
+        $studentChallenges = $this->studentChallenge->getSubmittedChallenges();
+        return view('student_offline.challenge.index', compact('challenges', 'studentChallenges'));
     }
 
     /**

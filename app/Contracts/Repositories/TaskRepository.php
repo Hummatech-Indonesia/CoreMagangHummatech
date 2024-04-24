@@ -48,7 +48,7 @@ class TaskRepository extends BaseRepository implements TaskInterface
     public function getUnsubmittedTasks()
     {
         return $this->model->whereNotIn('id', function($query) {
-            $query->select('task_id')->from('student_challenges')->where('student_id', auth()->user()->student->id);
+            $query->select('task_id')->from('student_tasks')->where('student_id', auth()->user()->student->id);
         })->get();
     }
     public function whereSubCourse(mixed $id): mixed
