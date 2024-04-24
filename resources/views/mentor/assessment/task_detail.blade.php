@@ -64,8 +64,6 @@
                                     <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle" width="35">
                                 @endif
                             </div>
-
-
                             <div class="ms-3">
                                 <div class="user-meta-info">
                                     <h6 class="user-name mb-0 mt-2" data-name="Emma Adams">{{$studentTask->student->name}}</h6>
@@ -81,35 +79,45 @@
                             <span class="mb-1 badge font-medium bg-light-success text-success">{{$studentTask->student->internship_type}}</span>
                         </td>
                         <td>
-                            <button type="button" class="justify-content-center btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center download-btn" data-id="{{$studentTask->id}}">
+                            <a href="#" type="button" class="justify-content-center btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center btn-download" data-id="{{$studentTask->id}}"
+                                data-task="{{ file_exists(public_path('storage/' . $studentTask->file)) ? asset('storage/' . $studentTask->file) : asset('no data.png') }}"
+                                data-student-name="{{$studentTask->student->name}}">
                                 <div class="mx-1">
                                     <i class="ti ti-folder-down fs-4 me-2"></i>
                                     Download
                                 </div>
-                            </button>
+                            </a>
                         </td>
-                        <form action="{{ route('task-offline.assessment', ['studentTask' => $studentTask]) }}" method="POST">
+
+
+                        <form id="assessmentForm" action="{{ route('task-offline.assessment', ['studentTask' => $studentTask]) }}" method="POST">
                             @csrf
                             @method('PATCH')
                             <td class="d-flex justify-content-between">
-                                <div class="form-group col-md-3">
-                                    <input type="text" name="score" class="form-control" value="{{ $studentTask->score ?? '' }}" @if(isset($studentTask->score) && $studentTask->score !== 0) readonly @endif>
+                                <div class="form-group col-md-4">
+                                    <input id="scoreInput" type="number" name="score" class="form-control" value="{{ $studentTask->score ?? '' }}">
+                                    @error('score')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                @if(!isset($studentTask->score) || $studentTask->score === 0)
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                @endif
                             </td>
                         </form>
+
                     </tr>
 
                     @empty
 
-                    <div class="d-flex justify-content-center mb-2 mt-5">
-                        <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
-                    </div>
-                        <p class="fs-5 text-dark text-center">
-                            Data Masih Kosong
-                        </p>
+                    <tr>
+                        <td colspan="8">
+                            <div class="d-flex justify-content-center mt-3">
+                                <img src="{{ asset('no data.png') }}" width="200px"
+                                    alt="">
+                            </div>
+                            <h4 class="text-center mt-2 mb-4">
+                                Data Masih kosong
+                            </h4>
+                        </td>
+                    </tr>
 
                     @endforelse
 
@@ -125,19 +133,27 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+<a href="#" class="download-file" style="display: none;"></a>
+<script>
+    $('.btn-download').click(function(e) {
+        e.preventDefault();
+        let file = $(this).data('task');
+        let fileName = $(this).data('student-name') + '.zip';
+        $('.download-file').attr('href', file);
+        $('.download-file').attr('download', fileName);
+        $('.download-file')[0].click();
+    });
+</script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const downloadButtons = document.querySelectorAll('.download-btn');
-
-        downloadButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const studentTaskId = this.getAttribute('data-id');
-                const url = `/download-file/${studentTaskId}`;
-                window.location.href = url;
-            });
-        });
+    document.getElementById("scoreInput").addEventListener("keypress", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("assessmentForm").submit();
+        }
     });
-    </script>
+</script>
+
+
 
 @endsection

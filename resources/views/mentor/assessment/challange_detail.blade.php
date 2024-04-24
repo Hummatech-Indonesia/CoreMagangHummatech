@@ -79,23 +79,28 @@
                             <span class="mb-1 badge font-medium bg-light-success text-success">{{$studentChallenge->student->internship_type}}</span>
                         </td>
                         <td>
-                            <button type="button" class="justify-content-center w-100 btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center">
-                                <i class="ti ti-folder-down fs-4 me-2"></i>
-                                Download
-                            </button>
+                            <a href="#" type="button" class="justify-content-center btn mb-1 btn-rounded btn-outline-primary d-flex align-items-center btn-download" data-id="{{$studentChallenge->id}}"
+                                data-task="{{ file_exists(public_path('storage/' . $studentChallenge->file)) ? asset('storage/' . $studentChallenge->file) : asset('no data.png') }}"
+                                data-student-name="{{$studentChallenge->student->name}}">
+                                <div class="mx-1">
+                                    <i class="ti ti-folder-down fs-4 me-2"></i>
+                                    Download
+                                </div>
+                            </a>
                         </td>
-                        <form action="{{ route('challenge.assessment', ['studentChallenge' => $studentChallenge]) }}" method="POST">
+                        <form id="assessmentForm" action="{{ route('challenge.assessment', ['studentChallenge' => $studentChallenge]) }}" method="POST">
                             @csrf
                             @method('PATCH')
                             <td class="d-flex justify-content-between">
-                                <div class="form-group col-md-3">
-                                    <input type="number" name="score" class="form-control" value="{{ $studentChallenge->score ?? '' }}" @if(isset($studentChallenge->score) && $studentChallenge->score !== 0) readonly @endif>
+                                <div class="form-group col-md-4">
+                                    <input id="scoreInput" type="number" name="score" class="form-control" value="{{ $studentChallenge->score ?? '' }}">
+                                    @error('score')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                @if(!isset($studentChallenge->score) || $studentChallenge->score === 0)
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                @endif
                             </td>
                         </form>
+
                     </tr>
 
 
@@ -112,17 +117,24 @@
 
 @section('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const downloadButtons = document.querySelectorAll('.download-btn');
 
-        downloadButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const studentTaskId = this.getAttribute('data-id');
-                const url = `/download-file/${studentTaskId}`;
-                window.location.href = url;
-            });
-        });
+<a href="#" class="download-file" style="display: none;"></a>
+<script>
+    $('.btn-download').click(function(e) {
+        e.preventDefault();
+        let file = $(this).data('task');
+        let fileName = $(this).data('student-name') + '.zip';
+        $('.download-file').attr('href', file);
+        $('.download-file').attr('download', fileName);
+        $('.download-file')[0].click();
+    });
+</script>
+<script>
+    document.getElementById("scoreInput").addEventListener("keypress", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("assessmentForm").submit();
+        }
     });
 </script>
 @endsection

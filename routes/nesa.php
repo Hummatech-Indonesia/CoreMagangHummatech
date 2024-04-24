@@ -72,6 +72,10 @@ Route::get('mentor/assessment/challenge-detail/{challenge}', [AssessmentControll
 Route::patch('mentor/assessment/update/challenge/{studentChallenge}', [AssessmentController::class, 'updateChallenge'])->name('challenge.assessment');
 
 
+
+Route::get('mentor/challenge/challenge-detail/{challenge}', [AssessmentController::class,'showChallengeStudent'])->name('tantangan.detail');
+
+
 // Route::get('mentor/assessment/challange-detail', function (){
 //     return view('mentor.assessment.challange_detail');
 // });
