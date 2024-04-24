@@ -43,12 +43,6 @@ class StudentChallengeController extends Controller
      */
     public function store(StoreStudentChallengeRequest $request)
     {
-        $already = $this->studentChallenge->whereStudentChallenge($request->challenge_id, auth()->user()->student->id);
-
-        if($already){
-            return back()->with('warning', 'Kamu sudah mengumpulkan challenge');
-        }
-        
         $data = $this->serviceStudentChallenge->store($request);
         $this->studentChallenge->store($data);
         return back()->with('success' , 'Berhasil Mengumpulkan challenge');
