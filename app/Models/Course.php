@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\StatusCourseEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -43,6 +44,14 @@ class Course extends Model
     public function subCourse()
     {
         return $this->hasMany(SubCourse::class);
+    }
+
+    public function getStatus(): StatusCourseEnum
+    {
+        return match($this->status) {
+            'paid' => StatusCourseEnum::PAID,
+            'unpaid' => StatusCourseEnum::SUBCRIBE
+        };
     }
 
     /**
