@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\SubCourseInterface;
 use App\Contracts\Interfaces\TaskInterface;
 use App\Contracts\Interfaces\UserInterface;
+use App\Enum\StatusCourseEnum;
 use App\Models\SubCourse;
 use App\Http\Requests\StoreSubCourseRequest;
 use App\Http\Requests\UpdateSubCourseRequest;
@@ -61,9 +62,7 @@ class SubCourseController extends Controller
         $data = $this->service->store($request);
         $course = $this->subCourse->store($data);
 
-        // dd($course);
-
-        if($course->course->status !== 'paid') {
+        if($course->course->getStatus()->value !== 'paid') {
             $this->userInterface->addSubCourseToSubcribedUser($course->course->id, $course->id);
         }
 
