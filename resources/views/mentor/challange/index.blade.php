@@ -56,9 +56,9 @@
                     <div class="mb-3">
                         <label for="dropdownMenu" class="form-label">Tingkat Kesulitan</label>
                         <select name="level" id="level" class="form-select">
-                            <option value="easy">Easy</option>
-                            <option value="normal">Normal</option>
-                            <option value="hard">Hard</option>
+                            <option value="easy">Mudah</option>
+                            <option value="normal">Biasa</option>
+                            <option value="hard">Sulit</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -183,9 +183,9 @@
                     <div class="mb-3">
                         <label for="dropdownMenu" class="form-label">Tingkat Kesulitan</label>
                         <select name="level" id="level" class="form-select">
-                            <option value="easy">Easy</option>
-                            <option value="normal">Normal</option>
-                            <option value="hard">Hard</option>
+                            <option value="easy">Mudah</option>
+                            <option value="normal">Biasa</option>
+                            <option value="hard">Sulit</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -229,7 +229,7 @@
         $('#modal-delete').modal('show');
     });
     $('.edit-button').on('click', function() {
-        var id = $(this).data('id'); 
+        var id = $(this).data('id');
         var title = $(this).data('title');
         var description = $(this).data('description');
         var start_date = $(this).data('start_date');
