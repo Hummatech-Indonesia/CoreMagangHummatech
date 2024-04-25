@@ -286,6 +286,7 @@
                                                     {{ old('internship_type') == 'offline' ? 'selected' : '' }}>
                                                     offline</option>
                                             </select>
+                                            
                                             @error('internship_type')
                                                 <p class="text-danger m-0">{{ $message }}</p>
                                             @enderror
