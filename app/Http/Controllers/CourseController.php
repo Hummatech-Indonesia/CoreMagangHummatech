@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\DivisionInterface;
 use App\Contracts\Interfaces\SubCourseInterface;
+use App\Contracts\Interfaces\SubCourseUnlockInterface;
 use App\Contracts\Interfaces\UserInterface;
 use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
@@ -18,17 +19,20 @@ class CourseController extends Controller
     private CourseService $service;
     private DivisionInterface $division;
     private UserInterface $userInterface;
+    private SubCourseUnlockInterface $subCourseUnlock;
 
     public function __construct(
         CourseInterface $course ,
         CourseService $service ,
         SubCourseInterface $subCourse,
         DivisionInterface $division,
-        UserInterface $userInterface
+        UserInterface $userInterface,
+        SubCourseUnlockInterface $subCourseUnlock
     )
     {
         $this->division = $division;
         $this->course = $course;
+        $this->subCourseUnlock = $subCourseUnlock;
         $this->service = $service;
         $this->subCourse = $subCourse;
         $this->userInterface = $userInterface;

@@ -1,4 +1,11 @@
 @extends('admin.layouts.app')
+
+@section('content')
+<style>
+.type-button . {}
+</style>
+@endsection
+
 @section('content')
     <div class="card">
         <div class="card-body">
@@ -254,8 +261,8 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label>Status</label>
-                            <div>
+                            <label>Jenis Materi</label>
+                            <div class="d-flex gap-2 type-button align-items-center">
                                 @foreach (\App\Enum\StatusCourseEnum::cases() as $status)
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" id="studentSelect" type="radio" name="status"
