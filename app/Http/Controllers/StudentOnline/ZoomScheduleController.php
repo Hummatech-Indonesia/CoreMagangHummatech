@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ZoomSchedule;
 use App\Http\Requests\StoreZoomScheduleRequest;
 use App\Http\Requests\UpdateZoomScheduleRequest;
+use Carbon\Carbon;
 
 class ZoomScheduleController extends Controller
 {
@@ -54,8 +55,31 @@ class ZoomScheduleController extends Controller
     public function show(ZoomSchedule $zoomSchedule)
     {
         $zoomSchedules = $this->zoomSchedule->get();
-        return view('mentor.zoomschedule', compact('zoomSchedules'));
+
+        // $processedSchedules = [];
+
+        foreach ($zoomSchedules as $schedule) {
+            $startDate = \Carbon\Carbon::parse($schedule->start_date);
+            $endDate = \Carbon\Carbon::parse($schedule->end_date);
+            $now = \Carbon\Carbon::now();
+            $status = '';
+
+            if ($now->lt($startDate)) {
+                $status = 'Mendatang';
+            } elseif ($now->gt($endDate)) {
+                $status = 'Berakhir';
+            } else {
+                $status = 'Berlangsung';
+            }
+
+            $schedule->status = $status;
+            $processedSchedules[] = $schedule;
+        }
+
+
+        return view('mentor.zoomschedule', compact('processedSchedules'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -82,4 +106,33 @@ class ZoomScheduleController extends Controller
         $this->zoomSchedule->delete($zoomSchedule->id);
         return back()->with('success' , 'Data Berhasil Dihapus');
     }
+
+//     private function processSchedules($schedules)
+// {
+//     $processedSchedules = [];
+
+//     foreach ($schedules as $schedule) {
+//         $startDate = Carbon::parse($schedule->start_date);
+//         $endDate = Carbon::parse($schedule->end_date);
+//         $now = Carbon::now();
+//         $status = '';
+
+//         if ($now->isSameDay($startDate)) {
+//             if ($now->lt($startDate)) {
+//                 $status = 'Mendatang';
+//             } elseif ($now->gt($endDate)) {
+//                 $status = 'Berakhir';
+//             } else {
+//                 $status = 'Berlangsung';
+//             }
+//         }
+
+//         if ($status) {
+//             $schedule->status = $status;
+//             $processedSchedules[] = $schedule;
+//         }
+//     }
+
+//     return $processedSchedules;
+// }
 }
