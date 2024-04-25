@@ -8,6 +8,8 @@ use App\Contracts\Interfaces\StudentChallengeInterface;
 use App\Contracts\Interfaces\StudentTaskInterface;
 use App\Contracts\Interfaces\SubCourseInterface;
 use App\Contracts\Interfaces\TaskInterface;
+use App\Enum\ChallengeStatusEnum;
+use App\Enum\TaskStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateAssessmentChallengekRequest;
 use App\Http\Requests\UpdateAssessmentChallengeRequest;
@@ -98,7 +100,9 @@ class AssessmentController extends Controller
      */
     public function update(UpdateAssessmentTaskRequest $request, StudentTask $studentTask)
     {
-        $this->studentTask->update($studentTask->id, $request->all());
+        $data = $request->all();
+        $data['status'] = TaskStatusEnum::COMPLETED->value;
+        $this->studentTask->update($studentTask->id, $data);
         return back()->with('success' , 'Berhasi Memperbarui Data');
     }
 
@@ -116,7 +120,9 @@ class AssessmentController extends Controller
     }
     public function updateChallenge(UpdateAssessmentChallengeRequest $request, StudentChallenge $studentChallenge)
     {
-        $this->studentChallenge->update($studentChallenge->id, $request->all());
+        $data = $request->all();
+        $data['status'] = ChallengeStatusEnum::COMPLETED->value;
+        $this->studentChallenge->update($studentChallenge->id, $data);
         return back()->with('success', 'Berhasil Memperbarui data');
     }
 

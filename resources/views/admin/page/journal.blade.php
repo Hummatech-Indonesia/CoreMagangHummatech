@@ -49,7 +49,7 @@
     <div class="card">
         <div class="card-body">
             <div class="row g-2 align-items-center">
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     <h3 class="mx-3">Data Jurnal</h3>
                     <div class="step-arrow-nav mb-4 pt-3 mx-3">
                         <ul class="nav nav-pills custom-nav nav-justified"role="tablist">

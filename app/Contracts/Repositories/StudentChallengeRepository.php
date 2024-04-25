@@ -2,6 +2,7 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\StudentChallengeInterface;
+use App\Enum\ChallengeStatusEnum;
 use App\Models\StudentChallenge;
 
 class StudentChallengeRepository extends BaseRepository implements StudentChallengeInterface
@@ -35,8 +36,16 @@ class StudentChallengeRepository extends BaseRepository implements StudentChalle
     {
         return $this->model->query()->where('challenge_id', $id)->get();
     }
-    public function whereStudentChallenge(mixed $challenge, mixed $student): mixed
+    public function whereStudentChallenge(mixed $mentor, mixed $challenge, mixed $student): mixed
     {
-        return $this->model->query()->where('challenge_id', $challenge)->where('student_id', $student)->get();
+        return $this->model->query()->where('mentor_id', $mentor)->where('challenge_id', $challenge)->where('student_id', $student)->get();
+    }
+    public function whereChallengePending(mixed $student):mixed 
+    {
+        return $this->model->query()->where('student_id', $student)->where('status', ChallengeStatusEnum::PENDING->value)->get();
+    }
+    public function whereChallengeDone(mixed $student):mixed 
+    {
+        return $this->model->query()->where('student_id', $student)->where('status', ChallengeStatusEnum::COMPLETED->value)->get();
     }
 }

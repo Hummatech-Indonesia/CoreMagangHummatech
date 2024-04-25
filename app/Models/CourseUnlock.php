@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class CourseUnlock extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
 
     protected $fillable = [
         'student_id',

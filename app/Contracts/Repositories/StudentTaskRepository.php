@@ -2,6 +2,7 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\StudentTaskInterface;
+use App\Enum\TaskStatusEnum;
 use App\Models\StudentTask;
 
 class StudentTaskRepository extends BaseRepository implements StudentTaskInterface
@@ -34,5 +35,13 @@ class StudentTaskRepository extends BaseRepository implements StudentTaskInterfa
     public function whereTask(mixed $id) : mixed
     {
         return $this->model->query()->where('task_id', $id)->get();
+    }
+    public function whereTaskPending(mixed $student):mixed 
+    {
+        return $this->model->query()->where('student_id', $student)->where('status', TaskStatusEnum::PENDING->value)->get();
+    }
+    public function whereTaskDone(mixed $student):mixed 
+    {
+        return $this->model->query()->where('student_id', $student)->where('status', TaskStatusEnum::COMPLETED->value)->get();
     }
 }

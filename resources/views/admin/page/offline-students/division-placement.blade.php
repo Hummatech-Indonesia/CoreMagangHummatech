@@ -11,7 +11,7 @@
                                     data-bs-target="#steparrow-gen-info" type="button" role="tab"
                                     aria-controls="steparrow-gen-info" aria-controls="steparrow-gen-info"
                                     aria-selected="true" data-position="0">
-                                    Tempatkan Mentor
+                                    Tempatkan Divisi
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
