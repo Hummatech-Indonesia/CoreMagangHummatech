@@ -4,6 +4,7 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\StudentInterface;
 use App\Enum\InternshipTypeEnum;
+use App\Enum\StudentStatusEnum;
 use App\Models\Student;
 
 class StudentRepository extends BaseRepository implements StudentInterface
@@ -225,10 +226,22 @@ class StudentRepository extends BaseRepository implements StudentInterface
      *
      * @return mixed
      */
+    public function getstudentdeclined(): mixed
+    {
+        return $this->model->query()
+        ->where('status', StudentStatusEnum::DECLINED->value)
+        ->get();
+    }
+
+    /**
+     * Get Student By Status Banned
+     *
+     * @return mixed
+     */
     public function getstudentbanned(): mixed
     {
         return $this->model->query()
-        ->where('status', 'banned')
+        ->where('status', StudentStatusEnum::DECLINED->value)
         ->get();
     }
 

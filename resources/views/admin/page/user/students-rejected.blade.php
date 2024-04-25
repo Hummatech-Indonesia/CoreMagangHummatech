@@ -40,27 +40,44 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td>FARAH AMALIA</td>
-                                <td>farah@gmail.com</td>
-                                <td>Rekayasa Perangkat Lunak</td>
-                                <td>11</td>
-                                <td>19 Maret 2024 - 19 Desember 2024</td>
-                                <td>SMKN 1 KEPANJEN</td>
-                                <td class="text-center">
-                                    <button class="btn btn-secondary shadow-none btn-detail" 
-                                    data-name="FARAH AMALIA" data-phone="0054157785"
-                                    data-address="Malang, Jawa Timur" data-birthdate="15-03-2008"
-                                    data-birthplace="Malang"
-                                    data-startdate="2024-07-16"
-                                    data-finishdate="2024-12-16" data-school="SMKN 1 KEPANJEN"
-                                    data-avatar="{{ asset('assets/images/users/avatar-6.jpg') }}" data-cv="{{ asset('assets/images/error400-cover.png') }}"
-                                    data-selfstatement="{{ asset('assets/images/error400-cover.png') }}"
-                                    data-parentsstatement="{{ asset('assets/images/error400-cover.png') }}">Detail</button>
-                                    <button class="btn btn-success shadow-none">Terima</button>
-                                </td>
-                            </tr>
+                            @forelse ($studentRejecteds as $student)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $student->name }}</td>
+                                    <td>{{ $student->email }}</td>
+                                    <td>{{ $student->major }}</td>
+                                    <td>{{ $student->class }}</td>
+                                    <td>{{  \Carbon\Carbon::parse($student->start_date)->locale('id')->isoFormat('D MMMM Y') }} - {{ \Carbon\Carbon::parse($student->finish_date)->locale('id')->isoFormat('D MMMM Y') }}</td>
+                                    <td>{{ $student->school }}</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-secondary shadow-none btn-detail" 
+                                        data-name="{{ $student->name }}" data-phone="{{ $student->phone }}"
+                                        data-address="{{ $student->address }}" data-birthdate="{{ $student->birth_date }}"
+                                        data-birthplace="{{ $student->birth_place }}"
+                                        data-startdate="{{ $student->start_date }}"
+                                        data-finishdate="{{ $student->finish_date }}" data-school="{{ $student->school }}"
+                                        data-avatar="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}"
+                                        data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
+                                        data-cv="{{ file_exists(public_path('storage/' . $student->cv)) ? asset('storage/' . $student->cv) : asset('no data.png') }}"
+                                        data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}">Detail</button>
+                                        <button class="btn btn-success shadow-none btn-accept" 
+                                            data-id="{{ $student->id }}"
+                                        >Terima</button> 
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="8">
+                                        <div class="d-flex justify-content-center mt-3">
+                                            <img src="{{ asset('no data.png') }}" width="200px"
+                                                alt="">
+                                        </div>
+                                        <h4 class="text-center mt-2 mb-4">
+                                            Data Masih kosong
+                                        </h4>
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -163,6 +180,30 @@
             </div>
         </div>
     </div>
+   <!-- Letter Number -->
+   <div class="modal fade bs-example-modal-center" tabindex="-1" aria-labelledby="mySmallModalLabel"
+   style="display: none;" aria-hidden="true">
+   <div class="modal-dialog">
+       <div class="modal-content">
+           <div class="modal-body p-2 text-center">
+               <div class="mt-3 mx-3">
+                   <h4>Nomor surat</h4>
+                   <form id="form-accepted" method="POST">
+                       @csrf
+                       @method('put')
+                       <label for="">Masukan Nomer Surat</label>
+                       <input type="number" class="form-control" name="letter_number" id="">
+                       <div class="mt-4 mb-3 d-flex justify-content-center gap-2">
+                           <button class="btn btn-success">Ya,terima</button>
+                           <button class="btn btn-light" type="button" data-bs-dismiss="modal">Batal</button>
+                       </div>
+                   </form>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+    
 @endsection
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -170,6 +211,12 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <script>
+            $('.btn-accept').click(function() {
+                let id = $(this).data('id');
+                $('#form-accepted').attr('action', '/students-rejected/' + id);
+                $('.bs-example-modal-center').modal('show');
+            });
+
             $('.btn-detail').click(function() {
                 let id = $(this).data('id');
                 let name = $(this).data('name');
