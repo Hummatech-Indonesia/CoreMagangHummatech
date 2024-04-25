@@ -64,6 +64,11 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
     public function getstudentbanned(): mixed;
 
     /**
+     * Get Student Banned
+     */
+    public function getstudentdeclined(): mixed;
+
+    /**
      * Get Student Mentor Placement
      */
 

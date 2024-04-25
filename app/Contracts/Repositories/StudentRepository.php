@@ -226,6 +226,18 @@ class StudentRepository extends BaseRepository implements StudentInterface
      *
      * @return mixed
      */
+    public function getstudentdeclined(): mixed
+    {
+        return $this->model->query()
+        ->where('status', StudentStatusEnum::DECLINED->value)
+        ->get();
+    }
+
+    /**
+     * Get Student By Status Banned
+     *
+     * @return mixed
+     */
     public function getstudentbanned(): mixed
     {
         return $this->model->query()

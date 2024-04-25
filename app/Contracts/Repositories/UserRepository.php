@@ -30,6 +30,10 @@ class UserRepository extends BaseRepository implements UserInterface
     {
         return $this->model->query()->find($id)->first();
     }
+    public function update(mixed $id, array $data): mixed
+    {
+        return $this->model->query()->findOrFail($id)->update($data);
+    }
 
     public function addCourseToSubcribedUser(int $courseId): void
     {

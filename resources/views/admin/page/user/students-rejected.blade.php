@@ -40,7 +40,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($studentBanneds as $student)
+                            @forelse ($studentRejecteds as $student)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $student->name }}</td>
@@ -60,7 +60,9 @@
                                         data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
                                         data-cv="{{ file_exists(public_path('storage/' . $student->cv)) ? asset('storage/' . $student->cv) : asset('no data.png') }}"
                                         data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}">Detail</button>
-                                        <button class="btn btn-success shadow-none">Terima</button> 
+                                        <button class="btn btn-success shadow-none btn-accept" 
+                                            data-id="{{ $student->id }}"
+                                        >Terima</button> 
                                     </td>
                                 </tr>
                             @empty
@@ -178,6 +180,30 @@
             </div>
         </div>
     </div>
+   <!-- Letter Number -->
+   <div class="modal fade bs-example-modal-center" tabindex="-1" aria-labelledby="mySmallModalLabel"
+   style="display: none;" aria-hidden="true">
+   <div class="modal-dialog">
+       <div class="modal-content">
+           <div class="modal-body p-2 text-center">
+               <div class="mt-3 mx-3">
+                   <h4>Nomor surat</h4>
+                   <form id="form-accepted" method="POST">
+                       @csrf
+                       @method('put')
+                       <label for="">Masukan Nomer Surat</label>
+                       <input type="number" class="form-control" name="letter_number" id="">
+                       <div class="mt-4 mb-3 d-flex justify-content-center gap-2">
+                           <button class="btn btn-success">Ya,terima</button>
+                           <button class="btn btn-light" type="button" data-bs-dismiss="modal">Batal</button>
+                       </div>
+                   </form>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+    
 @endsection
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -185,6 +211,12 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <script>
+            $('.btn-accept').click(function() {
+                let id = $(this).data('id');
+                $('#form-accepted').attr('action', '/students-rejected/' + id);
+                $('.bs-example-modal-center').modal('show');
+            });
+
             $('.btn-detail').click(function() {
                 let id = $(this).data('id');
                 let name = $(this).data('name');

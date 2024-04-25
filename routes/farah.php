@@ -61,7 +61,6 @@ Route::get('person-in-charge', function() {
 Route::get('person-in-charge/detail', function() {
     return view('admin.page.user.person-in-charge-detail');
 });
-Route::get('students-rejected', [StudentRejectedController::class, 'index']);
 Route::get('students-banned', [StudentController::class , 'index']);
 Route::get('offline-students/division-placement', [DivisionPlacementController::class, 'index']);
 Route::post('offline-students/division-placement/{student}', [DivisionPlacementController::class ,'divisionchange'])->name('division-placement');
@@ -107,3 +106,6 @@ Route::delete('picket-report/{picketingReport}', [PicketingReportController::cla
 
 Route::post('siswa-offline/challenge',[StudentChallengeController::class,'store']);
 Route::put('siswa-offline/challenge/{studentChallenge}',[StudentChallengeController::class,'update']);
+
+Route::get('students-rejected', [StudentRejectedController::class, 'index']);
+Route::put('students-rejected/{student}', [StudentRejectedController::class, 'accept']);
