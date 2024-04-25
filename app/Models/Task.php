@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $title
@@ -42,6 +42,10 @@ class Task extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $casts = [
+        'level' => TaskLevelEnum::class,
+    ];
+
 
     public function subCourse(): BelongsTo
     {

@@ -62,12 +62,13 @@
                                 <div class="d-flex flex-wrap">
                                     <div class="col-lg-8 col-sm-12">
                                         <div class="d-flex align-items-start gap-3 col-sm-12">
-                                            <p>Nama Materi -> {{$task->subCourse->title}}</p>
-                                            <p class="badge bg-light-success text-success" style="font-size: 12px">
-                                                {{$task->level}}
+                                            <h5 class="text-dark">Nama Materi -> {{$task->subCourse->title}}</h5>
+                                            <p class="badge bg-light-{{$task->level->color()}} text-{{$task->level->color()}}" style="font-size: 12px">
+                                                {{$task->level->label()}}
                                             </p>
+
                                         </div>
-                                        <h5 class="col-sm-12 col-lg-12">{{ Str::limit($task->description, 120) }}</h5>
+                                        <p class="col-sm-12 col-lg-12 text-muted">{{ Str::limit($task->description, 120) }}</->
                                     </div>
                                     <div class=" col-sm-4 col-lg-4 pt-4">
                                         <a href="{{ route('task.detail', $task->id) }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
@@ -110,12 +111,12 @@
                             <div class="d-flex flex-wrap">
                                 <div class="col-lg-8 col-sm-12">
                                     <div class="d-flex align-items-start gap-3 col-sm-12">
-                                        <p>Nama Materi -> {{$challenge->title}}</p>
-                                        <p class="badge bg-light-success text-success" style="font-size: 12px">
-                                            {{$challenge->level}}
+                                        <h5 class="text-dark">Nama Materi -> {{$challenge->title}}</h5>
+                                        <p class="badge bg-light-{{$challenge->level->color()}} text-{{$challenge->level->color()}}" style="font-size: 12px">
+                                            {{$challenge->level->label()}}
                                         </p>
                                     </div>
-                                    <h5 class="col-sm-12 col-lg-12">{{ Str::limit($challenge->description, 120) }}</h5>
+                                    <p class="col-sm-12 col-lg-12 text-muted">{{ Str::limit($challenge->description, 120) }}</p>
                                 </div>
                                 <div class=" col-sm-4 col-lg-4 pt-4">
                                     <a href="{{ route('challenge.detail', $challenge->id) }}" type="button" class="btn btn-light-primary text-primary dropdown ms-5 btn-edit">
