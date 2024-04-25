@@ -86,6 +86,10 @@
                     </div>
                     @endforelse
                 </div>
+
+
+                    </div>
+                </div>
             </div>
             <div class="tab-pane" id="done" role="tabpanel">
                 <div class="d-flex flex-wrap  all-category note-important">
@@ -105,8 +109,9 @@
                                     <div class="ms-auto col-sm-12">
                                             <button type="button" class="btn btn-light-success text-success dropdown text-center px-4 btn-edit"
                                             data-id="{{ $taskPending->id }}"
-                                            data-question="{{ $taskPending->task->title }}" data-description="{{ $taskPending->task->description }}" 
-                                            data-file="{{ asset('storage/'.$taskPending->file) }}">
+                                            data-question="{{ $taskPending->task->title }}" data-description="{{ $taskPending->task->description }}"
+                                            data-file="{{ asset('storage/'.$taskPending->file) }}"
+                                            data-student-name="{{ $taskPending->student->name }}">
 
                                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M7.8125 3.43732L10.3125 5.93732M2.8125 8.43732L5.3125 10.9373M1.875 11.8747H4.375L10.9375 5.3122C11.269 4.98068 11.4553 4.53104 11.4553 4.0622C11.4553 3.59336 11.269 3.14372 10.9375 2.8122C10.606 2.48068 10.1563 2.29443 9.6875 2.29443C9.21866 2.29443 8.76902 2.48068 8.4375 2.8122L1.875 9.3747V11.8747ZM13.125 9.37482V11.8748H8.125L10.625 9.37482H13.125Z" stroke="#5A6A85" stroke-linecap="round" stroke-linejoin="round"/>
@@ -255,7 +260,7 @@
                           <input type="text" id="taskId-edit" hidden name="task_id">
                           <input type="text" id="userId-edit" hidden name="student_id">
                           <label for="file" class="mt-2 mb-2">Jawaban</label>
-                          <a id="answer-file" class="d-flex text-primary gap-2" download="">
+                          <a id="answer-file" class="d-flex text-primary gap-2" download="" data-student-name="{{ $taskPending->student->name }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M14 3V7C14 7.26522 14.1054 7.51957 14.2929 7.70711C14.4804 7.89464 14.7348 8 15 8H19M14 3H7C6.46957 3 5.96086 3.21071 5.58579 3.58579C5.21071 3.96086 5 4.46957 5 5V12M14 3L19 8M19 8V12M16 18H17.5C17.8978 18 18.2794 17.842 18.5607 17.5607C18.842 17.2794 19 16.8978 19 16.5C19 16.1022 18.842 15.7206 18.5607 15.4393C18.2794 15.158 17.8978 15 17.5 15H16V21M12 15V21M5 15H8L5 21H8" stroke="#5D87FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
@@ -353,6 +358,7 @@
 
 
 @endsection
+
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -374,13 +380,17 @@
             var description = $(this).data('description');
             var file = $(this).data('file');
             var id = $(this).data('id');
+            var studentName = $(this).data('student-name'); // Mengambil nama siswa
+            var filename = studentName; // Membuat nama file baru
+
             $('#taskId-edit').val(id);
             $("#question-edit").text(question);
             $("#description-question-edit").text(description);
-            $('#answer-file').attr('href', file);
+            $('#answer-file').attr('href', file).attr('download', filename); // Mengatur nama file yang akan diunduh
             $('#form-update').attr('action', '/siswa-offline/task/update/' + id);
             $('#modal-edit').modal('show');
         });
+
 
         $('.btn-detail').click(function () {
             var id = $(this).data('id');
