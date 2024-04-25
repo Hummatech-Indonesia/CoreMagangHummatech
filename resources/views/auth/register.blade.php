@@ -294,11 +294,13 @@
                                             <label class="form-label" for="multiStepsAddress">Divisi</label>
                                             <select name="division_id" class="form-select" id="multiStepsAddress">
                                                 <option disabled selected>Pilih Divisi</option>
-                                                @foreach ($divisions as $division)
-                                                    <option value="{{ $division->id }}"
+                                                @forelse ($divisions as $division)
+                                                <option value="{{ $division->id }}"
                                                         {{ old('division_id') == $division->id ? 'selected' : '' }}>
                                                         {{ $division->name }}</option>
-                                                @endforeach
+                                                @empty
+                                                    <option>Belum ada divisi</option>
+                                                @endforelse
                                             </select>
                                             @error('division_id')
                                                 <p class="text-danger m-0">{{ $message }}</p>
