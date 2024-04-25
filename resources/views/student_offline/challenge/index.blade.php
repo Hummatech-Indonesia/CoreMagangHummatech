@@ -61,7 +61,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-wrap gap-2">
-                                <p class="badge bg-primary-subtle text-primary" style="font-size: 12px">        
+                                <p class="badge bg-primary-subtle text-primary" style="font-size: 12px">
                                     Batas: {{ \Carbon\Carbon::parse($challenge->deadline)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}
                                 </p>
                                 <p class="badge bg-info-subtle text-info" style="font-size: 12px">
@@ -105,7 +105,7 @@
                                     <p class="text-mute">
                                        {{$challengePending->challenge->description}}
                                     </p>
-                                    <button type="button" class="btn btn-success w-100 btn-detail" 
+                                    <button type="button" class="btn btn-success w-100 btn-detail"
                                         data-id="{{ $challengePending->id }}"
                                         data-title="{{ $challengePending->challenge->title }}"
                                         data-description="{{ $challengePending->challenge->description }}"
@@ -137,7 +137,7 @@
                                 <div class="d-flex align-items-center gap-3">
                                     <h3 class="col-sm-2 py-4 px-1 col-xl-4 bg-success-subtle text-success text-center rounded rounded-2" >{{ $challengeDone->score }}</h3>
                                     <h5>{{ $challengeDone->challenge->title }}</h5>
-                                </div>  
+                                </div>
                                 <p class="text-muted">{{ $challengeDone->challenge->description }}</p>
                                 <div class="d-flex gap-2 flex-wrap">
                                     <p class="badge bg-primary-subtle text-primary" style="font-size: 12px">Batas: {{ \Carbon\Carbon::parse($challengeDone->deadline)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}</p>
@@ -283,25 +283,6 @@
       </div>
     </div>
 
-    {{-- <div class="row g-2 mb-4">
-        <div class="col-sm-4">
-            <h4 class="mx-1">Tugas</h4>
-        </div>
-        <div class="col-sm-auto ms-auto">
-            <form action="">
-                <div class="d-flex">
-                    <div class="search-box mx-2">
-                        <input type="text" class="form-control search-chat py-2" id="text-srh" placeholder="Cari Materi">
-                    </div>
-                    <button class="btn btn-primary">
-                        Cari
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div> --}}
-
-
 
 @endsection
 @section('script')
@@ -319,7 +300,7 @@
             $("#description").text(description);
             $('#add').modal('show');
         });
-        
+
         $('.btn-detail').click(function () {
             var id = $(this).data('id');
             var title = $(this).data('title');
@@ -328,7 +309,7 @@
             var fileName = $(this).data('student') + '.zip';
             var challenge = $(this).data('challenge');
             var user = $(this).data('user');
-            
+
             $('.download-file').attr('href', file);
             $('.download-file').attr('download', fileName);
             $('#detail-title').text(title);
