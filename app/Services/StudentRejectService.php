@@ -83,6 +83,8 @@ class StudentRejectService
             'feature' => 0,
         ];
 
+        $this->user->update($student->id, $dataUser);
+        //Data For Update Status Students
         $data = ['status' => StudentStatusEnum::ACCEPTED->value];
 
         return $data;
