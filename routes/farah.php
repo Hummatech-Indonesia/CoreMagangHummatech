@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DivisionController;
 use App\Http\Controllers\Admin\DivisionPlacementController;
 use App\Http\Controllers\Admin\PicketingReportController;
+use App\Http\Controllers\Admin\StudentRejectedController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LetterheadController;
@@ -60,9 +61,7 @@ Route::get('person-in-charge', function() {
 Route::get('person-in-charge/detail', function() {
     return view('admin.page.user.person-in-charge-detail');
 });
-Route::get('students-rejected', function() {
-    return view('admin.page.user.students-rejected');
-});
+Route::get('students-rejected', [StudentRejectedController::class, 'index']);
 Route::get('students-banned', [StudentController::class , 'index']);
 Route::get('offline-students/division-placement', [DivisionPlacementController::class, 'index']);
 Route::post('offline-students/division-placement/{student}', [DivisionPlacementController::class ,'divisionchange'])->name('division-placement');
