@@ -121,7 +121,8 @@
                     {{ \Carbon\Carbon::parse($zoomSchedule->start_date)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}                </p>
                 <p class="text-muted ms-5">
                     <i class=" ri-compass-2-line"></i>
-                    {{ \Carbon\Carbon::parse($zoomSchedule->end_date)->format('H:i') }}
+                    {{ \Carbon\Carbon::parse($zoomSchedule->start_date)->format('H:i') }} - {{ \Carbon\Carbon::parse($zoomSchedule->end_date)->format('H:i') }}
+
                 </div>
 
             <a href="{{$zoomSchedule->link}}" target="_blank">
@@ -131,6 +132,13 @@
     </div>
 
     @empty
+
+    <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+        <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+        <p class="fs-5 text-dark">
+            Belum Ada Jadwal
+        </p>
+    </div>
 
     @endforelse
 

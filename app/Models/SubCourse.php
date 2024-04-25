@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $title
@@ -40,7 +40,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class SubCourse extends Model
 {
     use HasFactory;
-    protected $guarded = [];
 
     public function subCourseUnlock(): mixed
     {

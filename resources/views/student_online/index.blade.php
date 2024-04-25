@@ -186,7 +186,8 @@
             series: [44, 55, 41, 17],
             chart: {
                 type: 'donut',
-                height: 400
+                height: 400,
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
             },
             labels: ['Hadir', 'Telat', 'Izin', 'Alpha'],
             colors: ['#13DEB9', '#5D87FF', '#49BEFF', '#FFAE1F'],

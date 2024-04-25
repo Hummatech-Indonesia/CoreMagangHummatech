@@ -39,8 +39,9 @@ class UserRepository extends BaseRepository implements UserInterface
     {
         $this->model->query()->where('feature', 1)->get()->map(function($item) use ($courseId) {
             CourseUnlock::create([
-                'user_id' => $item->student->id,
-                'course_id' => $courseId
+                'student_id' => $item->student->id,
+                'course_id' => $courseId,
+                'unlock' => true
             ]);
         });
     }
@@ -49,9 +50,10 @@ class UserRepository extends BaseRepository implements UserInterface
     {
         $this->model->query()->where('feature', 1)->get()->map(function($item) use ($courseId, $subCourseId) {
             SubCourseUnlock::create([
-                'user_id' => $item->student->id,
+                'student_id' => $item->student->id,
                 'course_id' => $courseId,
                 'sub_course_id' => $subCourseId,
+                'unlock' => true
             ]);
         });
     }
