@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
         ]);
 
         # Create Some user profile
-        $student = Student::factory()->create([
+        $student[] = Student::factory()->create([
             'name' => 'ABDUL KADER',
             'email' => 'abdulkader0126@gmail.com',
             'address' => 'Alamat Dummy',
@@ -67,7 +67,7 @@ class UserSeeder extends Seeder
             'password' => 'password',
             'internship_type' => 'online'
         ]);
-        $student = Student::factory()->create([
+        $student[] = Student::factory()->create([
             'name' => 'NESA ATHUSSHOLEHA',
             'email' => 'nesa@gmail.com',
             'address' => 'Alamat Dummy',
@@ -149,13 +149,16 @@ class UserSeeder extends Seeder
         ]);
 
         # Create User data
-        User::factory()->create([
-            'name' => $student->name,
-            'email' => $student->email,
-            'password' => $student->password,
-            'feature' => 1,
-            'student_id' => $student->id
-        ])->assignRole(RolesEnum::ONLINE);
+        collect($student)->each(function ($student) {
+            User::factory()->create([
+                'name' => $student->name,
+                'email' => $student->email,
+                'password' => $student->password,
+                'feature' => 0,
+                'student_id' => $student->id
+            ])->assignRole(RolesEnum::ONLINE);
+        });
+
         User::factory()->create([
             'name' => $studentoffline->name,
             'email' => $studentoffline->email,

@@ -16,7 +16,7 @@ class SubscribeCheckMiddleware
     public function handle(Request $request, Closure $next, mixed ...$type): Response
     {
         if(!auth()->user()->feature && in_array(auth()->user()->student->internship_type, $type)) {
-            return abort(403, 'Maaf, anda belum berlangganan. Silahkan berlangganan dahulu!');
+            return abort(403, 'Anda Belum Berlangganan!');
         }
 
         return $next($request);

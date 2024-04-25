@@ -50,7 +50,7 @@ class Course extends Model
     {
         return match($this->status) {
             'paid' => StatusCourseEnum::PAID,
-            'unpaid' => StatusCourseEnum::SUBCRIBE
+            'subcribe' => StatusCourseEnum::SUBCRIBE
         };
     }
 

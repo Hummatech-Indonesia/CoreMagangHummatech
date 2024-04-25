@@ -69,7 +69,7 @@ class CourseController extends Controller
         $data = $this->service->store($request);
         $courseData = $this->course->store($data);
 
-        if($courseData->getStatus()->value !== StatusCourseEnum::PAID) {
+        if($courseData->getStatus()->value !== 'paid') {
             $this->userInterface->addCourseToSubcribedUser($courseData->id);
         }
 
@@ -86,6 +86,7 @@ class CourseController extends Controller
         $subCourses = $this->subCourse->where($course->id);
         $course = $this->course->show($course->id);
         return view('admin.page.course.detail' , compact('course' , 'subCourses' , 'countSub' , 'id'));
+        
     }
 
     /**

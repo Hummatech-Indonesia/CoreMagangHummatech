@@ -4,7 +4,6 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\PaymentInterface;
-use App\Contracts\Interfaces\SubCourseInterface;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Contracts\Interfaces\UserInterface;
 use App\Enum\TransactionStatusEnum;
@@ -28,8 +27,7 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
         TransactionHistoryInterface $transaction,
         UserInterface $userInterface,
         CourseInterface $courseInterface,
-    )
-    {
+    ) {
         $this->apiKey = config('tripay.api_key');
         $this->privateKey = config('tripay.private_key');
         $this->merchantCode = config('tripay.merchant_code');
@@ -39,42 +37,60 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
         $this->courseInterface = $courseInterface;
     }
 
+    /**
+     * Action to handle the payment for the Course Buy.
+     *
+     * @param mixed $courses
+     * @param string $status
+     * @param mixed $invoiceInstance
+     * @return void
+     */
     private function _buyCourseAction(mixed $courses, string $status, mixed $invoiceInstance)
     {
         if ($status === TransactionStatusEnum::PAID->value) {
-            $courses->map(function($items) use ($invoiceInstance, $status) {
-                CourseUnlock::create([
-                    'student_id' => $invoiceInstance->user->student->id,
-                    'course_id' => $items->id,
-                ]);
+            CourseUnlock::create([
+                'student_id' => $invoiceInstance->user->student->id,
+                'course_id' => $courses->id,
+                'unlock' => true,
+            ]);
 
-                $items->subCourse->map(function($subItem) use ($invoiceInstance, $items) {
-                    SubCourseUnlock::create([
-                        'student_id' => $invoiceInstance->user->student->id,
-                        'course_id' => $items->id,
-                        'sub_course_id' => $subItem->sub_course_id,
-                    ]);
-                });
+            $courses->subCourse?->map(function ($subItem) use ($invoiceInstance, $courses) {
+                SubCourseUnlock::create([
+                    'student_id' => $invoiceInstance->user->student->id,
+                    'course_id' => $courses->id,
+                    'sub_course_id' => $subItem->sub_course_id,
+                    'unlock' => true,
+                ]);
             });
         }
     }
 
+    /**
+     * Action to handle the payment for the Subscription.
+     *
+     * @param mixed $invoice
+     * @param string $status
+     * @param mixed $invoiceInstance
+     * @return void
+     */
     private function _subscriptionAction(mixed $invoice, string $status, mixed $invoiceInstance)
     {
         if ($status === TransactionStatusEnum::PAID->value) {
             $this->userInterface->GetWhere($invoice->user_id)->update(['feature' => true]);
 
-            $this->courseInterface->getCourseByStatus('subcribe')->map(function($item) use ($invoiceInstance) {
+            $this->courseInterface->getCourseByStatus('subcribe')->map(function ($item) use ($invoiceInstance) {
                 CourseUnlock::create([
                     'student_id' => $invoiceInstance->user->student->id,
                     'course_id' => $item->id,
+                    'unlock' => true,
                 ]);
 
-                $item->subCourse->map(function($subItem) use ($invoiceInstance, $item) {
+                $item->subCourse->map(function ($subItem) use ($invoiceInstance, $item) {
                     SubCourseUnlock::create([
                         'student_id' => $invoiceInstance->user->student->id,
                         'course_id' => $item->id,
                         'sub_course_id' => $subItem->sub_course_id,
+                        'unlock' => true,
                     ]);
                 });
             });
@@ -180,34 +196,48 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
             ], 400);
         }
 
-        $invoiceId = $data->merchant_ref;
-        $tripayReference = $data->reference;
-        $status = strtolower((string) $data->status);
+        try {
+            $invoiceId = $data->merchant_ref;
+            $tripayReference = $data->reference;
+            $status = strtolower((string) $data->status);
 
-        if ($data->is_closed_payment === 1) {
-            $invoiceInstance = $this->transaction->getId($tripayReference);
-            $invoice = $invoiceInstance->first();
+            if ($data->is_closed_payment === 1) {
+                $invoiceInstance = $this->transaction->getId($tripayReference);
+                $invoice = $invoiceInstance->first();
 
-            if ($invoiceInstance->count() === 0) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'No invoice found or already paid: ' . $invoiceId,
-                    'code' => 404
-                ], 404);
+                if ($invoiceInstance->count() === 0) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'No invoice found or already paid: ' . $invoiceId,
+                        'code' => 404
+                    ], 404);
+                }
+
+                $invoiceInstance->update([
+                    'status' => $status,
+                    'paid_at' => $status == TransactionStatusEnum::PAID->value ? now() : null,
+                ]);
+
+                $invoiceData = $invoice->order()->first();
+
+                if ($invoiceData) {
+                    $this->_buyCourseAction($invoiceData, $status, $invoiceData);
+                } else if (!$invoiceData) {
+                    $this->_subscriptionAction($invoice, $status, $invoiceData);
+                } else {
+                    throw new \Exception('No invoice found or already paid: ' . $invoiceId);
+                }
+
+                return response()->json(['success' => true]);
             }
-
-            $invoiceInstance->update([
-                'status' => $status,
-                'paid_at' => $status == TransactionStatusEnum::PAID->value ? now() : null,
-            ]);
-
-            if($invoiceInstance->order->course) {
-                $this->_buyCourseAction($invoiceInstance->order->course, $status, $invoiceInstance);
-            } else {
-                $this->_subscriptionAction($invoice, $status, $invoiceInstance);
-            }
-
-            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occured. Please try again later!',
+                'code' => 500,
+                'error' => env('APP_DEBUG') ? $e->getMessage() : null,
+                'debug' => env('APP_DEBUG') ? $e : null,
+            ], 500);
         }
     }
 }
