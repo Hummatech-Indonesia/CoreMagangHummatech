@@ -229,7 +229,7 @@
         $('#modal-delete').modal('show');
     });
     $('.edit-button').on('click', function() {
-        var id = $(this).data('id');
+        var id = $(this).data('id'); 
         var title = $(this).data('title');
         var description = $(this).data('description');
         var start_date = $(this).data('start_date');
