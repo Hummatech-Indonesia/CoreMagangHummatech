@@ -8,6 +8,7 @@ use App\Contracts\Interfaces\StudentChallengeInterface;
 use App\Models\StudentChallenge;
 use App\Http\Requests\StoreStudentChallengeRequest;
 use App\Http\Requests\UpdateStudentChallengeRequest;
+use App\Models\Challenge;
 use App\Services\StudentChallengeService;
 
 class StudentChallengeController extends Controller
@@ -84,5 +85,16 @@ class StudentChallengeController extends Controller
     public function destroy(StudentChallenge $studentChallenge)
     {
         //
+    }
+    public function showOnline(Challenge $challenge)
+    {
+        // $challenges = $this->challenge->get();
+        // return view('student_online.challenge.index', compact('challenges'));
+
+        $challenges = $this->challenge->getUnsubmittedChallenges();
+        $challengePendings = $this->studentChallenge->whereChallengePending(auth()->user()->student->id);
+        $challengeDones = $this->studentChallenge->whereChallengeDone(auth()->user()->student->id);
+        return view('student_online.challenge.index', compact('challenges', 'challengePendings', 'challengeDones'));
+
     }
 }

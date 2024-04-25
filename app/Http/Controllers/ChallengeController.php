@@ -77,11 +77,4 @@ class ChallengeController extends Controller
         $this->challenge->delete($challenge->id);
         return back()->with('success' , 'Data Berhasil Dihapus');
     }
-
-    public function showOnline(Challenge $challenge)
-    {
-        $challenges = $this->challenge->get();
-        return view('student_online.challenge.index', compact('challenges'));
-
-    }
 }
