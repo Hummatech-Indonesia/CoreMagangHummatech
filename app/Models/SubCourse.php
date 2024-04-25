@@ -41,6 +41,15 @@ class SubCourse extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'description',
+        'file_course',
+        'video_course',
+        'image_course',
+        'course_id',
+    ];
+
     public function subCourseUnlock(): mixed
     {
         return $this->hasOne(SubCourseUnlock::class);

@@ -1,12 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('content')
-<style>
-.type-button . {}
-</style>
-@endsection
-
-@section('content')
     <div class="card">
         <div class="card-body">
             <div class="row g-2 align-items-center">
@@ -65,7 +59,7 @@
                         <div class="card ribbon-box border shadow-none mb-lg-0">
                             <div class="card-body">
                                 <span
-                                    class="ribbon-three {{ $course->price == null ? 'ribbon-three-success' : 'ribbon-three-secondary' }}  material-shadow"><span>{{ $course->status == 'subcribe' ? 'Berlangganan' : Transaction::currencyFormatter($course->price  ) }}</span></span>
+                                    class="ribbon-three {{ $course->price == null ? 'ribbon-three-success' : 'ribbon-three-secondary' }}  material-shadow"><span>{{ $course->status == 'subcribe' ? 'Berlangganan' : Transaction::currencyFormatter($course->price) }}</span></span>
                                 <img class="card-img-top img-responsive w-100"
                                     src="{{ asset('storage/' . $course->image) }}" style="object-fit: cover;" width="20em"
                                     height="170em" alt="Card image cap" />
@@ -85,10 +79,12 @@
                                     <button class="py-1 btn btn-soft-warning btn-edit" type="button"
                                         data-id="{{ $course->id }}" data-title="{{ $course->title }}"
                                         data-description="{{ $course->description }}"
-                                        data-division="{{ $course->division_id }}" data-status="{{ $course->status }}" data-price="{{ $course->price }}" data-image="{{ $course->image }}">
+                                        data-division="{{ $course->division_id }}" data-status="{{ $course->status }}"
+                                        data-price="{{ $course->price }}" data-image="{{ $course->image }}">
                                         <i class="ri-pencil-line fs-3"></i>
                                     </button>
-                                    <button class="py-1 btn btn-soft-danger btn-delete" type="button" data-id="{{ $course->id }}">
+                                    <button class="py-1 btn btn-soft-danger btn-delete" type="button"
+                                        data-id="{{ $course->id }}">
                                         <i class=" ri-delete-bin-5-line fs-3"></i>
                                     </button>
                                 </div>
@@ -135,11 +131,11 @@
                                             data-title="{{ $course->title }}"
                                             data-description="{{ $course->description }}"
                                             data-division="{{ $course->division_id }}"
-                                            data-status="{{ $course->status }}"
-                                            data-image="{{ $course->image }}">
+                                            data-status="{{ $course->status }}" data-image="{{ $course->image }}">
                                             <i class="ri-pencil-line fs-3"></i>
                                         </button>
-                                        <button class="py-1 btn btn-soft-danger btn-delete" type="button" data-id="{{ $course->id }}">
+                                        <button class="py-1 btn btn-soft-danger btn-delete" type="button"
+                                            data-id="{{ $course->id }}">
                                             <i class=" ri-delete-bin-5-line fs-3"></i>
                                         </button>
                                     </div>
@@ -196,11 +192,11 @@
                                             data-id="{{ $course->id }}" data-title="{{ $course->title }}"
                                             data-description="{{ $course->description }}"
                                             data-division="{{ $course->division_id }}"
-                                            data-status="{{ $course->status }}"
-                                            data-image="{{ $course->image }}">
+                                            data-status="{{ $course->status }}" data-image="{{ $course->image }}">
                                             <i class="ri-pencil-line fs-3"></i>
                                         </button>
-                                        <button class="py-1 btn btn-soft-danger btn-delete" type="button" data-id="{{ $course->id }}">
+                                        <button class="py-1 btn btn-soft-danger btn-delete" type="button"
+                                            data-id="{{ $course->id }}">
                                             <i class=" ri-delete-bin-5-line fs-3"></i>
                                         </button>
                                     </div>
@@ -265,7 +261,7 @@
                             <div class="d-flex gap-2 type-button align-items-center">
                                 @foreach (\App\Enum\StatusCourseEnum::cases() as $status)
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" id="studentSelect" type="radio" name="status"
+                                        <input class="form-check-input" id="{{ $status->value }}" type="radio" name="status"
                                             id="{{ $status->value }}" value="{{ $status->value }}">
                                         <label class="form-check-label"
                                             for="{{ $status->value }}">{{ $status->label() }}</label>
@@ -473,7 +469,7 @@
             });
             $('#image-edit').attr('src', '/storage/' + image);
 
-            if(status === 'paid' || price > 0) {
+            if (status === 'paid' || price > 0) {
                 $('#price-edit').show();
                 $('#price-edit-input').val(price);
             } else {
@@ -489,6 +485,5 @@
             $('#form-delete').attr('action', '/administrator/course/delete/' + id);
             $('#modal-delete').modal('show');
         });
-
     </script>
 @endsection

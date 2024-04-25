@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\SubCourseInterface;
 use App\Contracts\Interfaces\TaskInterface;
+use App\Contracts\Interfaces\UserInterface;
 use App\Models\SubCourse;
 use App\Http\Requests\StoreSubCourseRequest;
 use App\Http\Requests\UpdateSubCourseRequest;
@@ -18,13 +19,21 @@ class SubCourseController extends Controller
     private SubCourseService $service;
     private CourseInterface $course;
     private TaskInterface $task;
+    private UserInterface $userInterface;
 
-    public function __construct(SubCourseInterface $subCourse ,SubCourseService $service, CourseInterface $course, TaskInterface $task)
+    public function __construct(
+        SubCourseInterface $subCourse,
+        SubCourseService $service,
+        CourseInterface $course,
+        TaskInterface $task,
+        UserInterface $userInterface
+    )
     {
         $this->task = $task;
         $this->subCourse = $subCourse;
         $this->course = $course;
         $this->service = $service;
+        $this->userInterface = $userInterface;
     }
     /**
      * Display a listing of the resource.
@@ -50,7 +59,14 @@ class SubCourseController extends Controller
     public function store(StoreSubCourseRequest $request)
     {
         $data = $this->service->store($request);
-        $this->subCourse->store($data);
+        $course = $this->subCourse->store($data);
+
+        // dd($course);
+
+        if($course->course->status !== 'paid') {
+            $this->userInterface->addSubCourseToSubcribedUser($course->course->id, $course->id);
+        }
+
         return back()->with('success' , 'Berhasil Menambahkan data');
     }
 
@@ -62,7 +78,6 @@ class SubCourseController extends Controller
         $subCourses = $this->subCourse->show($subCourse->id);
         $task = $this->task->get();
         $courses = $this->course->get();
-        // dd($courses);
 
         return view('admin.page.course.sub-course.index' , compact('subCourses','task','courses', 'subCourse'));
     }

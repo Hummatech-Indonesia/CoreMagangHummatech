@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\CourseInterface;
+use App\Contracts\Interfaces\CourseUnlockInterface;
 use App\Contracts\Interfaces\DivisionInterface;
 use App\Contracts\Interfaces\SubCourseInterface;
 use App\Contracts\Interfaces\SubCourseUnlockInterface;
@@ -19,6 +20,7 @@ class CourseController extends Controller
     private CourseService $service;
     private DivisionInterface $division;
     private UserInterface $userInterface;
+    private CourseUnlockInterface $courseUnlock;
     private SubCourseUnlockInterface $subCourseUnlock;
 
     public function __construct(
@@ -27,7 +29,8 @@ class CourseController extends Controller
         SubCourseInterface $subCourse,
         DivisionInterface $division,
         UserInterface $userInterface,
-        SubCourseUnlockInterface $subCourseUnlock
+        SubCourseUnlockInterface $subCourseUnlock,
+        CourseUnlockInterface $courseUnlock
     )
     {
         $this->division = $division;
@@ -36,6 +39,7 @@ class CourseController extends Controller
         $this->service = $service;
         $this->subCourse = $subCourse;
         $this->userInterface = $userInterface;
+        $this->courseUnlock = $courseUnlock;
     }
     /**
      * Display a listing of the resource.
@@ -63,7 +67,10 @@ class CourseController extends Controller
     {
         $data = $this->service->store($request);
         $courseData = $this->course->store($data);
-        $this->userInterface->addCourseToSubcribedUser($courseData->id);
+
+        if($data['status'] !== 'paid') {
+            $this->userInterface->addCourseToSubcribedUser($courseData->id);
+        }
 
         return back()->with('success' , 'Berhasil Menambahkan data');
     }

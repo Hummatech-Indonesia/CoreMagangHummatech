@@ -31,14 +31,14 @@
         <div class="p-3 py-2">
             <div class="d-flex g-2 align-items-center">
                 <div class="col-sm-4">
-                    <div class="btn btn-primary">
+                    <div class="p-3 d-flex gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="23" class="me-2" height="19"
                             viewBox="0 0 23 19" fill="none">
                             <path
                                 d="M11.5 18C9.9038 17.0547 8.09313 16.5571 6.25 16.5571C4.40686 16.5571 2.5962 17.0547 1 18V2.44294C2.5962 1.49765 4.40686 1 6.25 1C8.09313 1 9.9038 1.49765 11.5 2.44294M11.5 18C13.0962 17.0547 14.9069 16.5571 16.75 16.5571C18.5931 16.5571 20.4038 17.0547 22 18V2.44294C20.4038 1.49765 18.5931 1 16.75 1C14.9069 1 13.0962 1.49765 11.5 2.44294M11.5 18V2.44294"
-                                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-                        Sub Materi
+                        <span class="h4 mb-0">Sub Materi</span>
                     </div>
                 </div>
                 <div class="col-sm-auto col-xl-4 ms-auto d-flex gap-4 justify-content-end">
@@ -70,12 +70,12 @@
                         <div class="card border-start border-info py-3 px-4">
                             <div class="d-flex no-block align-items-start">
                                 <div class="col-lg-1 col-md-10 col-sm-1">
-                                    <img class="img-responsive w-100"
+                                    <img class="img-responsive w-100 rounded"
                                         src="{{ asset('storage/' . $subCourse->image_course) }}" />
                                 </div>
                                 <div class="col-lg-9 col-sm-12 px-4">
-                                    <h5>{{ $subCourse->title }}</h5>
-                                    <p>{{ $subCourse->description }}</p>
+                                    <h4>{{ $subCourse->title }}</h4>
+                                    <p class="mb-0">{{ Str::limit(strip_tags($subCourse->description), 200) }}</p>
                                 </div>
                                 <div class="ms-auto">
                                     <div class="dropdown d-inline-block">

@@ -39,7 +39,8 @@
 @endsection
 @section('content')
     <div class="text-end mb-4">
-        <a href="/administrator/course/detail/{{ $subCourse->course_id }}" class="btn text-white" style="background-color: #7E7E7E;">Kembali</a>
+        <a href="/administrator/course/detail/{{ $subCourse->course_id }}" class="btn text-white"
+            style="background-color: #7E7E7E;">Kembali</a>
     </div>
 
     <div class="row">
@@ -126,13 +127,20 @@
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end">
                                                 <li>
-                                                    <a type="button" class="dropdown-item btn-show btn-detail" data-id="{{ $task->id }}" data-title="{{ $task->title }}" data-level="{{ $task->level }}" data-description="{{ $task->description }}" data-level="{{ $task->level }}">
+                                                    <a type="button" class="dropdown-item btn-show btn-detail"
+                                                        data-id="{{ $task->id }}" data-title="{{ $task->title }}"
+                                                        data-level="{{ $task->level }}"
+                                                        data-description="{{ $task->description }}"
+                                                        data-level="{{ $task->level }}">
                                                         Detail Tugas
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <button type="button" class="dropdown-item edit-item-btn btn-edit"
-                                                        data-id="{{ $task->id }}" data-title="{{ $task->title }}" data-level="{{ $task->level }}" data-description="{{ $task->description }}" data-level="{{ $task->level }}">
+                                                        data-id="{{ $task->id }}" data-title="{{ $task->title }}"
+                                                        data-level="{{ $task->level }}"
+                                                        data-description="{{ $task->description }}"
+                                                        data-level="{{ $task->level }}">
                                                         Edit Tugas
                                                     </button>
                                                 </li>
@@ -268,7 +276,8 @@
                     </p>
                 </div>
                 <div class="modal-footer text-end">
-                    <button class="btn text-white" style="background-color: #7E7E7E;" data-bs-dismiss="modal">Kembali</button>
+                    <button class="btn text-white" style="background-color: #7E7E7E;"
+                        data-bs-dismiss="modal">Kembali</button>
                 </div>
             </div>
         </div>
@@ -296,12 +305,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Deskripsi</label>
-                            <textarea name="description" id="description-edit" class="form-control" rows="5" placeholder="Masukkan tugas"></textarea>
+                            <textarea name="description" id="description-edit" class="form-control" rows="5"
+                                placeholder="Masukkan tugas"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="">Level</label>
-                            <select class="tambah js-example-basic-single form-control" id="level-edit" aria-label=".form-select example"
-                                name="level">
+                            <select class="tambah js-example-basic-single form-control" id="level-edit"
+                                aria-label=".form-select example" name="level">
                                 <option value="">Pilih level materi</option>
                                 <option value="easy">Mudah</option>
                                 <option value="normal">Biasa</option>
