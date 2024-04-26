@@ -114,8 +114,8 @@
                             <div class="card border-start border-info py-3 px-4 m-2">
                                 <div class="d-flex no-block align-items-center">
                                     <div class="col-lg-9 px-3">
-                                        <div class="col-2 bg-light-success rounded w-25" style="background-color: #E6FFFA">
-                                            <p style="" class="text-success text-center ">{{ $task->level }}</p>
+                                        <div class="col-2 bg-{{ $task->level->color() }}-subtle rounded w-25">
+                                            <p style="" class="text-{{ $task->level->color() }} text-center ">{{ $task->level->label() }}</p>
                                         </div>
                                         <h6 class="m-0">{{ $task->title }}</h6>
                                     </div>
