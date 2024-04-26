@@ -24,7 +24,7 @@ class UpdateStudentChallengeRequest extends FormRequest
         return [
             'student_id' => 'required|exists:students,id',
             'challenge_id' => 'required|exists:challenges,id',
-            'file' => 'required|mimes:zip|max:8196',
+            'file' => 'required|mimes:zip',
         ];
     }
 
@@ -36,7 +36,6 @@ class UpdateStudentChallengeRequest extends FormRequest
            'student_id.exists' => 'Siswa tidak ditemukan.',
            'challenge_id.exists' => 'Challenge tidak ditemukan.',
             'file.mimes' => 'File harus berupa zip.',
-            'file.max' => 'File terlalu besar.',
         ];
     }
 }
