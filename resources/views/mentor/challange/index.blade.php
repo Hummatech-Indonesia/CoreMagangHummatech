@@ -68,18 +68,30 @@
                     <div class="mb-3">
                         <label for="inputText" class="form-label">Judul</label>
                         <input type="text" class="form-control" name="title" id="inputText" placeholder="Masukkan Judul Tantangan">
+                        @error('title')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="textarea" class="form-label">Deskripsi</label>
                         <textarea class="form-control" name="description" id="textarea" rows="3" placeholder="Masukkan Deskripsi Tantangan "></textarea>
+                        @error('description')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="datePicker" class="form-label">Tanggal Mulai</label>
                         <input type="date" class="form-control" name="start_date" id="datePicker">
+                        @error('start_date')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="datePicker" class="form-label">Tenggat</label>
                         <input type="date" class="form-control" name="deadline" id="datePicker">
+                        @error('deadline')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -98,22 +110,15 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-wrap gap-2 align-items-center">
-                    <p class="badge bg-primary-subtle text-primary" style="font-size: 12px">
-                        Batas: {{ \Carbon\Carbon::parse($challenge->deadline)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}
+                    <p class="badge {{ \Carbon\Carbon::parse($challenge->deadline)->isPast() ? 'bg-danger-subtle text-danger' : 'bg-primary-subtle text-primary' }}" style="font-size: 12px">
+                        @if(\Carbon\Carbon::parse($challenge->deadline)->isPast())
+                            Tenggat : {{ \Carbon\Carbon::parse($challenge->deadline)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}
+                        @else
+                            Batas: {{ \Carbon\Carbon::parse($challenge->deadline)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}
+                        @endif
                     </p>
-                    @php
-                        $level = $challenge->level;
-                        $badgeClass = '';
-                        if ($level === 'easy') {
-                            $badgeClass = 'bg-info-subtle text-info';
-                        } elseif ($level === 'normal') {
-                            $badgeClass = 'bg-warning-subtle text-warning';
-                        } elseif ($level === 'hard') {
-                            $badgeClass = 'bg-danger-subtle text-danger';
-                        }
-                    @endphp
-                    <p class="badge {{$badgeClass}}" style="font-size: 12px">
-                        {{$level}}
+                    <p class="badge bg-light-{{$challenge->level->color()}} text-{{$challenge->level->color()}}" style="font-size: 12px">
+                        {{$challenge->level->label()}}
                     </p>
                     <div class="flex-grow-1 mb-3 text-end">
                         <div class="dropdown d-inline-block">
@@ -187,22 +192,37 @@
                             <option value="normal">Biasa</option>
                             <option value="hard">Sulit</option>
                         </select>
+                        @error('level')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="inputText" class="form-label">Judul</label>
                         <input type="text" class="form-control" id="title-edit" name="title" placeholder="Masukkan Judul Tantangan">
+                        @error('title')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="textarea" class="form-label">Deskripsi</label>
                         <textarea class="form-control" id="description-edit" name="description" rows="3" placeholder="Masukkan Deskripsi Tantangan "></textarea>
+                        @error('description')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="datePicker" class="form-label">Tanggal Mulai</label>
                         <input type="date" class="form-control" id="start_date-edit" name="start_date">
+                        @error('start_date')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="datePicker" class="form-label">Tenggat</label>
                         <input type="date" class="form-control" id="deadline-edit" name="deadline">
+                        @error('deadline')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -234,6 +254,8 @@
         var description = $(this).data('description');
         var start_date = $(this).data('start_date');
         var deadline = $(this).data('deadline');
+        var level = $(this).data('level'); // Tambahkan ini untuk mengambil data tingkat kesulitan
+
 
 
         var collab_category_id = $(this).data('collab_category_id');

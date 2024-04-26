@@ -24,16 +24,20 @@ class UpdateChallengeRequest extends FormRequest
         return [
             'title' => 'required',
             'level' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'start_date' => 'required',
+            'deadline' => 'required'
         ];
     }
 
     public function messages()
     {
         return [
-            'title.required' => 'Title harus diisi',
+            'title.required' => 'Judul harus diisi',
             'level.required' => 'Level harus diisi',
-            'description.required' => 'Description harus diisi'
+            'description.required' => 'Description harus diisi',
+            'start_date.required' => 'Tanggal mulai harus diisi',
+            'deadline.required' => 'Batas pengumpulan harus diisi',
         ];
     }
 }
