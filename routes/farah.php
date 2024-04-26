@@ -63,7 +63,8 @@ Route::get('person-in-charge/detail', function() {
 });
 Route::get('students-banned', [StudentController::class , 'index']);
 Route::get('offline-students/division-placement', [DivisionPlacementController::class, 'index']);
-Route::post('offline-students/division-placement/{student}', [DivisionPlacementController::class ,'divisionchange'])->name('division-placement');
+Route::post('offline-students/division-placement/{student}', [DivisionPlacementController::class ,'divisionplacement'])->name('division-placement');
+Route::put('offline-students/division-placement/update/{student}', [DivisionPlacementController::class ,'divisionchange'])->name('division-placement.update');
 Route::get('offline-students/team', function() {
     return view('admin.page.offline-students.team.index');
 });

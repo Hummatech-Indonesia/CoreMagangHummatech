@@ -280,6 +280,7 @@
                 </div>
                 <form id="form-update-edit" method="POST">
                     @csrf
+                    @method('PUT')
                     <div class="modal-body">
                         <div class="mb-1">
                             <label for="divisi" class="col-form-label">Divisi</label>
@@ -334,7 +335,7 @@
         $('.btn-edit').click(function() {
             var id = $(this).data('id');
             // var division = $(this).data('division').trigger('change');
-            $('#form-update-edit').attr('action', '/offline-students/division-placement/' + id);
+            $('#form-update-edit').attr('action', '/offline-students/division-placement/update/' + id);
             $('#edit').modal('show');
         })
     </script>

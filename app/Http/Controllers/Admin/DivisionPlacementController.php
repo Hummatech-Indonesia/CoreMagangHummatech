@@ -41,13 +41,26 @@ class DivisionPlacementController extends Controller
         return view('admin.page.offline-students.division-placement', compact('studentOfflines', 'divisions', 'students'));
     }
 
-    public function divisionchange( UpdateStudentRequest $request, Student $student)
+    public function divisionplacement( UpdateStudentRequest $request, Student $student)
     {
         $mentorDivisions = $this->mentorDivision->whereMentorDivision($request->division_id);
         foreach ($mentorDivisions as $mentor) {
             $data['student_id'] = $student->id;
             $data['mentor_id'] = $mentor->id;
             $this->mentorStudent->store($data);
+        }
+        
+        $this->student->update($student->id, ['division_id' => $request->division_id]);
+        return redirect()->back()->with(['success' => 'Berhasil menetapkan divisi']);
+    }
+
+    public function divisionchange( UpdateStudentRequest $request, Student $student)
+    {
+        $mentorDivisions = $this->mentorDivision->whereMentorDivision($request->division_id);
+        foreach ($mentorDivisions as $mentor) {
+            $data['student_id'] = $student->id;
+            $data['mentor_id'] = $mentor->id;
+            $this->mentorStudent->update($student->id, $data);
         }
         
         $this->student->update($student->id, ['division_id' => $request->division_id]);
