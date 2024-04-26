@@ -53,11 +53,12 @@ class ZoomScheduleController extends Controller
      * Display the specified resource.
      */
     public function show(ZoomSchedule $zoomSchedule)
-    {
-        $zoomSchedules = $this->zoomSchedule->get();
+{
+    $zoomSchedules = $this->zoomSchedule->get();
 
-        // $processedSchedules = [];
+    $processedSchedules = [];
 
+    if ($zoomSchedules->isNotEmpty()) {
         foreach ($zoomSchedules as $schedule) {
             $startDate = \Carbon\Carbon::parse($schedule->start_date);
             $endDate = \Carbon\Carbon::parse($schedule->end_date);
@@ -75,10 +76,10 @@ class ZoomScheduleController extends Controller
             $schedule->status = $status;
             $processedSchedules[] = $schedule;
         }
-
-
-        return view('mentor.zoomschedule', compact('processedSchedules'));
     }
+
+    return view('mentor.zoomschedule', compact('processedSchedules'));
+}
 
 
     /**

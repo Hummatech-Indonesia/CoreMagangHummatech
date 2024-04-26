@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\ChallengeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -31,6 +32,10 @@ class Challenge extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $casts = [
+        'level' => ChallengeEnum::class,
+    ];
+
 
     public function mentor()
     {

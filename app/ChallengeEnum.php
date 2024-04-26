@@ -16,4 +16,12 @@ enum ChallengeEnum : string
             self::HARD => 'Sulit',
         };
     }
+    public function color(): string
+    {
+        return match ($this) {
+            self::EASY => 'success',
+            self::NORMAL => 'warning',
+            self::HARD => 'danger',
+        };
+    }
 }
