@@ -39,6 +39,7 @@ class UserSeeder extends Seeder
             'name' => 'UI/UX DESIGNER',
         ]);
 
+        # =========================== Komentar semua kode dibawah kalau udah mode production =========================== #
         # Create Some user profile
         $student[] = Student::factory()->create([
             'name' => 'ABDUL KADER',

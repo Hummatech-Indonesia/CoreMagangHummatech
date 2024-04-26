@@ -75,6 +75,8 @@ use App\Contracts\Repositories\AttendanceRuleRepository;
 use App\Contracts\Repositories\MentorDivisionRepository;
 use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
+use App\Contracts\Interfaces\VoucherUsageInterface;
+use App\Contracts\Interfaces\VoucherUsageRepository;
 use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\AttendanceDetailRepository;
 use App\Contracts\Repositories\ChallengeRepository;
@@ -129,7 +131,8 @@ class AppServiceProvider extends ServiceProvider
         OrderInterface::class => OrderRepository::class,
         HummataskTeamInterface::class => HummataskTeamRepository::class,
         StudentChallengeInterface::class => StudentChallengeRepository::class,
-        CourseUnlockInterface::class => CourseUnlockRepository::class
+        CourseUnlockInterface::class => CourseUnlockRepository::class,
+        VoucherUsageInterface::class => VoucherUsageRepository::class
     ];
 
     /**

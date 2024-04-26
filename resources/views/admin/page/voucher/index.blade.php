@@ -3,9 +3,9 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <div class="row g-2">
+            <div class="row g-2 align-items-center">
                 <div class="col-sm-4 align-items-center d-flex">
-                    <h5 class="mx-1 align-items-center">Kode Voucher</h5>
+                    <h5 class="mx-1 m-0 fw-bold h-4 align-items-center">Kode Voucher</h5>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
                     <div class="search-box mx-2">
