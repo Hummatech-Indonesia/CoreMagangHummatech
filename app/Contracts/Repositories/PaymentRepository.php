@@ -95,7 +95,7 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
                 });
             });
         } else {
-            $this->userInterface->GetWhere($invoice->user_id)->update(['feature' => false]);
+            $this->userInterface->GetWhere($invoiceInstance->user_id)->update(['feature' => false]);
         }
     }
 
@@ -146,8 +146,8 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
             'customer_email' => $user->email,
             'customer_phone' => $user->student->phone,
             'order_items'    => $products,
-            'callback_url'   => url('transaction/callback'),
-            'return_url'     => url('/'),
+            'return_url'     => route('transaction-history.index'),
+            'callback_url'   => route('transaction-history.callback'),
             'expired_time'   => (time() + (24 * 60 * 60)),
             'signature'      => hash_hmac('sha256', $merchantCode . $merchantRef . $totalAmount, $privateKey)
         ];
@@ -204,6 +204,7 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
             if ($data->is_closed_payment === 1) {
                 $invoiceInstance = $this->transaction->getId($tripayReference);
                 $invoice = $invoiceInstance->first();
+                $invoiceData = $invoice->order;
 
                 if ($invoiceInstance->count() === 0) {
                     return response()->json([
@@ -213,30 +214,34 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
                     ], 404);
                 }
 
-                $invoiceInstance->update([
-                    'status' => $status,
-                    'paid_at' => $status == TransactionStatusEnum::PAID->value ? now() : null,
-                ]);
-
-                $invoiceData = $invoice->order()->first();
-
-                if ($invoiceData) {
+                if ($invoiceData->course) {
                     $this->_buyCourseAction($invoiceData, $status, $invoiceData);
-                } else if (!$invoiceData) {
+                } else if (!$invoiceData->course) {
                     $this->_subscriptionAction($invoice, $status, $invoiceData);
                 } else {
                     throw new \Exception('No invoice found or already paid: ' . $invoiceId);
                 }
+
+                $invoiceInstance->update([
+                    'status' => $status,
+                    'paid_at' => $status == TransactionStatusEnum::PAID->value ? now() : null,
+                ]);
 
                 return response()->json(['success' => true]);
             }
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occured. Please try again later!',
+                'message' => 'An error occurred. Please try again later!',
                 'code' => 500,
                 'error' => env('APP_DEBUG') ? $e->getMessage() : null,
-                'debug' => env('APP_DEBUG') ? $e : null,
+                'debug' => env('APP_DEBUG') ? [
+                    'message' => $e->getMessage(),
+                    'code' => $e->getCode(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                    'trace' => $e->getTrace(),
+                ] : null,
             ], 500);
         }
     }

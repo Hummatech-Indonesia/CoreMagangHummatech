@@ -258,7 +258,11 @@
                             </div>
                         </li>
                     @empty
-                        <div class="list-group-item d-flex gap-2 align-items-center"><i class="fas fa-info-circle"></i>Tidak ada jadwal Zoom.</div>
+                        <div class="list-group-item p-0 d-flex gap-2 align-items-center">
+                            <div class="alert alert-info d-flex gap-3 align-items-center">
+                                <i class="fas fa-info-circle fa-2x"></i>Tidak ada jadwal Zoom.
+                            </div>
+                        </div>
                     @endforelse
                 </ul>
             @endif

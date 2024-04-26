@@ -50,6 +50,7 @@
             @php
                 $refs = $order->transaction->getTransactionStatus();
             @endphp
+
             <div class="col-xl-4 col-xxl-3">
                 <div class="card">
                     <div class="card-body">
@@ -62,7 +63,7 @@
                                     <h5>{{ $order->course->title }}</h5>
                                     <h3 class="text-primary fw-bolder mb-0">@currency($order->course->price)</h3>
                                 @else
-                                    <h5>{{ $order->product->title }}</h5>
+                                    <h5>{{ $order->product->name }}</h5>
                                     <h3 class="text-primary fw-bolder mb-0">@currency($order->product->price)</h3>
                                 @endif
                             </div>
@@ -78,11 +79,11 @@
                             </div>
                             @if (!$order->course)
                                 <div
-                                    class="d-flex gap-2 align-items-center w-100 py-3 justify-content-between">
+                                    class="d-flex gap-2 align-items-center border-top w-100 py-3 justify-content-between">
                                     @if ($order->transaction->status !== 'paid')
                                         <div class="mb-0 fw-bolder">Bayar Sebelum</div>
                                         <div class="text-center">
-                                            {{ $order->transaction->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}
+                                            {{ $order->transaction->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y') }}
                                         </div>
                                     @else
                                         @php
@@ -96,13 +97,13 @@
                                         @endphp
                                         <div class="mb-0 fw-bolder">Berakhir Pada</div>
                                         <div class="text-center">
-                                            {{ $nextMonth->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}
+                                            {{ $nextMonth->locale('id_ID')->isoFormat('dddd, D MMMM Y') }}
                                         </div>
                                     @endif
                                 </div>
                             @endif
                             <div
-                                class="d-flex gap-2 align-items-center w-100 p-3 pt-3 border-top px-0 justify-content-between">
+                                class="d-flex gap-2 align-items-center w-100 p-3 pt-3 pb-0 border-top px-0 justify-content-between">
                                 <div class="mb-0 fw-bolder">Jenis Produk</div>
                                 <div class="mb-0">
                                     @if ($order->course)

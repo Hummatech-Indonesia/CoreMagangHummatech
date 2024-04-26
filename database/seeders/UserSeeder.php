@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('magang2024')
         ])->assignRole(RolesEnum::ADMIN);
 
-        # Create Divisi
+        # Buat Data Divisi
         Division::factory()->create([
             'name' => 'Web Technology',
         ]);

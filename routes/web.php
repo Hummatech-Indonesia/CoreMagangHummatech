@@ -27,6 +27,7 @@ use App\Http\Controllers\CourseStoreController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Mentor\DashboardController;
 use App\Http\Controllers\StudentOnline\CourseController;
+use App\Http\Controllers\CourseController as AdminCourseController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
@@ -107,10 +108,10 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('online-student/menotor-placement/edit/{student}', [MentorPlacementController::class, 'update'])->name('placement.delete');
 
     # Courses
-    Route::get('administrator/course', [CourseController::class, 'index']);
-    Route::post('administrator/course/store', [CourseController::class, 'store'])->name('course.store');
-    Route::put('administrator/course/{course}', [CourseController::class, 'update'])->name('course.update');
-    Route::delete('administrator/course/delete/{course}', [CourseController::class, 'destroy'])->name('course.destroy');
+    Route::get('administrator/course', [AdminCourseController::class, 'index']);
+    Route::post('administrator/course/store', [AdminCourseController::class, 'store'])->name('course.store');
+    Route::put('administrator/course/{course}', [AdminCourseController::class, 'update'])->name('course.update');
+    Route::delete('administrator/course/delete/{course}', [AdminCourseController::class, 'destroy'])->name('course.destroy');
 
     # Course Details
     Route::get('/administrator/course/detail/{course}', [CourseController::class, 'show'])->name('course.detail');
@@ -141,7 +142,7 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
 Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(RolesEnum::ONLINE->value)->group(function () {
     Route::get('/', [StudentOnlineController::class, 'index'])->name('.home');
 
-    Route::controller(CourseController::class)->group(function () {
+    Route::controller(CourseController::class)->middleware('subsrcribed:online')->group(function () {
         Route::get('/materi', 'index')->name('.course');
         Route::get('/materi/{course}', 'detail')->name('.course.detail');
         Route::get('/materi/{course}/course/{subCourse}', 'subCourseDetail')->name('.course.subcourse');

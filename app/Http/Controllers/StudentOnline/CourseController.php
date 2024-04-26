@@ -19,7 +19,6 @@ class CourseController extends Controller
 
     public function __construct(CourseInterface $course, SubCourseUnlockInterface $subCourseStatus, TaskInterface $taskInterface)
     {
-        $this->middleware('subsrcribed');
         $this->course = $course;
         $this->subCourseStatus = $subCourseStatus;
         $this->taskInterface = $taskInterface;

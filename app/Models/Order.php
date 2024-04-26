@@ -56,11 +56,21 @@ class Order extends Model
     /**
      * Get the transaction into course data
      *
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function course(): HasOne
+    public function course(): BelongsTo
     {
-        return $this->hasOne(Course::class, 'id', 'courses_id');
+        return $this->belongsTo(Course::class, 'courses_id', 'id');
+    }
+
+    /**
+     * Get the products that owns the TransactionHistory
+     *
+     * @return BelongsTo
+     */
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class, 'products_id', 'id');
     }
 
     /**
@@ -70,7 +80,7 @@ class Order extends Model
      */
     public function subscribe(): HasOne
     {
-        return $this->hasOne(Product::class);
+        return $this->hasOne(Product::class, 'id', 'products_id');
     }
 
     /**

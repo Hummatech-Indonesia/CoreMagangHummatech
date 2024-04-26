@@ -1,6 +1,7 @@
 <?php
 
 use App\Console\Commands\JournalCommand;
+use App\Http\Middleware\MinifyHtmlMiddleware;
 use App\Http\Middleware\RoleUserMiddleware;
 use App\Http\Middleware\SubscribeCheckMiddleware;
 use Illuminate\Foundation\Application;
@@ -19,6 +20,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'roles' => RoleUserMiddleware::class,
             'subsrcribed' => SubscribeCheckMiddleware::class,
+        ]);
+        $middleware->use([
+            MinifyHtmlMiddleware::class,
         ]);
     })
     ->withCommands([
