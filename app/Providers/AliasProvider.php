@@ -23,6 +23,7 @@ class AliasProvider extends ServiceProvider
         AliasLoader::getInstance([
             'Transaction' => \App\Helpers\TransactionHelper::class,
             'Cart' => \App\Helpers\CartHelper::class,
+            'Carbon' => \Carbon\Carbon::class,
         ]);
     }
 }

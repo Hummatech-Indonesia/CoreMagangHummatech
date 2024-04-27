@@ -103,7 +103,7 @@ class AssessmentController extends Controller
         $data = $request->all();
         $data['status'] = TaskStatusEnum::COMPLETED->value;
         $this->studentTask->update($studentTask->id, $data);
-        return back()->with('success' , 'Berhasi Memperbarui Data');
+        return back()->with('success' , 'Berhasi Memperbarui Nilai');
     }
 
     /**
@@ -123,7 +123,7 @@ class AssessmentController extends Controller
         $data = $request->all();
         $data['status'] = ChallengeStatusEnum::COMPLETED->value;
         $this->studentChallenge->update($studentChallenge->id, $data);
-        return back()->with('success', 'Berhasil Memperbarui data');
+        return back()->with('success', 'Berhasil Memperbarui Nilai');
     }
 
     public function showChallengeStudent(Challenge $challenge)

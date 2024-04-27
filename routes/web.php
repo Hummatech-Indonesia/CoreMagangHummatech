@@ -27,15 +27,17 @@ use App\Http\Controllers\CourseStoreController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Mentor\DashboardController;
 use App\Http\Controllers\StudentOnline\CourseController;
+use App\Http\Controllers\CourseController as AdminCourseController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
 use App\Http\Controllers\StudentOnline\StudentOnlineController;
+use App\Http\Controllers\SubCourseController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskSubmissionController;
 
 # ==================================================== Homepage Group Route ===================================================
-Route::get('/', [LandingController::class , 'index'])->name('home');
+Route::get('/', [LandingController::class, 'index'])->name('home');
 
 # ================================================ Authentication Routes Group ================================================
 Auth::routes();
@@ -86,7 +88,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::delete('menu-mentor/delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('mentor.delete');
     Route::get('menu-mentor/detail/{mentor}', [AdminMentorController::class, 'show'])->name('mentor.show');
 
-    #student
+    # Student
     Route::get('menu-siswa', [AdminStudentController::class, 'index'])->name('student.index');
     Route::put('menu-siswa/reset-password/{student}', [AdminStudentController::class, 'reset'])->name('student.update');
     Route::put('menu-siswa/update/{student}', [AdminStudentController::class, 'update']);
@@ -96,7 +98,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('menu-siswa/division-change/{student}', [AdminStudentController::class, 'divisionchange'])->name('student.divisionchange');
     Route::put('students-banned/Open/{student}', [StudentController::class, 'Openbanned'])->name('students.banned.open');
 
-    #Limit
+    # Registration Limit
     Route::post('limit', [LimitsController::class, 'store'])->name('limit.store');
     Route::put('limit/update/{limits}', [LimitsController::class, 'update'])->name('limit.update');
 
@@ -105,6 +107,25 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::post('online-student/menotor-placement/post/{student}', [MentorPlacementController::class, 'store'])->name('placement.update');
     Route::put('online-student/menotor-placement/edit/{student}', [MentorPlacementController::class, 'update'])->name('placement.delete');
 
+    # Courses
+    Route::get('administrator/course', [AdminCourseController::class, 'index']);
+    Route::post('administrator/course/store', [AdminCourseController::class, 'store'])->name('course.store');
+    Route::put('administrator/course/{course}', [AdminCourseController::class, 'update'])->name('course.update');
+    Route::delete('administrator/course/delete/{course}', [AdminCourseController::class, 'destroy'])->name('course.destroy');
+
+    # Course Details
+    Route::get('/administrator/course/detail/{course}', [CourseController::class, 'show'])->name('course.detail');
+    Route::delete('administrator/subcourse/delete/{subCourse}', [SubCourseController::class, 'destroy'])->name('subCourse.destroy');
+    Route::get('/administrator/subcourse/detail/{subCourse}', [SubCourseController::class, 'show'])->name('subCourse.detail');
+    Route::put('/administrator/subcourse/edit/{subCourse}', [SubCourseController::class, 'update'])->name('subCourse.update');
+
+    Route::post('administrator/task/store', [TaskController::class, 'store'])->name('task.store');
+
+    # Zoom Schedule
+    Route::get('administrator/zoom-schedules', [ZoomScheduleController::class, 'index']);
+    Route::post('administrator/zoom-schedules/store', [ZoomScheduleController::class, 'store'])->name('zoom-schedule.store');
+    Route::put('administrator/zoom-schedules/{zoomSchedule}', [ZoomScheduleController::class, 'update'])->name('zoom-schedule.update');
+    Route::delete('administrator/zoom-schedules/{zoomSchedule}', [ZoomScheduleController::class, 'destroy'])->name('zoom-schedule.destroy');
 });
 
 # ================================================ Offline Student Route Group ================================================
@@ -121,13 +142,13 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
 Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(RolesEnum::ONLINE->value)->group(function () {
     Route::get('/', [StudentOnlineController::class, 'index'])->name('.home');
 
-    Route::controller(CourseController::class)->group(function() {
+    Route::controller(CourseController::class)->middleware('subsrcribed:online')->group(function () {
         Route::get('/materi', 'index')->name('.course');
         Route::get('/materi/{course}', 'detail')->name('.course.detail');
         Route::get('/materi/{course}/course/{subCourse}', 'subCourseDetail')->name('.course.subcourse');
     });
 
-    Route::controller(TaskSubmissionController::class)->name('.tasksubmit')->prefix('/tugas')->group(function() {
+    Route::controller(TaskSubmissionController::class)->name('.tasksubmit')->prefix('/tugas')->group(function () {
         Route::get('/', 'index')->name('.index');
         Route::get('/{task}', 'create')->name('.detail');
         Route::get('/{task}/download/{taskSubmission}', 'download')->name('.download');
@@ -155,7 +176,6 @@ Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function () {
     //     return view('mentor.index');
     // });
     Route::get('/', [DashboardController::class, 'index'])->name('.home');
-
 });
 
 #================================================= End Mentor ====================================================================
@@ -177,11 +197,15 @@ Route::middleware('auth')->group(function () {
     });
 
     # Course Buy
-    Route::controller(CourseStoreController::class)->name('course-store.')->prefix('courses')->group(function() {
-        Route::get('/', 'index')->name('index');
-        Route::get('{course}/detail', 'detail')->name('detail');
-        Route::post('store', 'store')->name('store');
-    });
+    Route::controller(CourseStoreController::class)
+        ->middleware(['subsrcribed:online'])
+        ->name('course-store.')
+        ->prefix('courses')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('{course}/detail', 'detail')->name('detail');
+            Route::post('store', 'store')->name('store');
+        });
 
     # Redirect based on roles
     Route::get('/home', function () {
@@ -191,7 +215,7 @@ Route::middleware('auth')->group(function () {
 });
 
 # Transaction and Payment Routing
-Route::controller(TransactionController::class)->prefix('transaction')->name('transaction-history.')->group(function() {
+Route::controller(TransactionController::class)->prefix('transaction')->name('transaction-history.')->group(function () {
     Route::get('/', 'index')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online'])->name('index');
     Route::get('checkout', 'checkout')->middleware(['auth'])->name('checkout');
     Route::post('tripay', 'store')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online'])->name('request-to-tripay');

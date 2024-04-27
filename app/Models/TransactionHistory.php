@@ -44,6 +44,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|TransactionHistory whereTransactionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TransactionHistory whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TransactionHistory whereUserId($value)
+ * @property-read \App\Models\Order|null $order
  * @mixin \Eloquent
  */
 class TransactionHistory extends Model

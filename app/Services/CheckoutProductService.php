@@ -2,6 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Product;
+use Cart;
+use Illuminate\Support\Str;
+
 class CheckoutProductService
 {
     /**
@@ -9,18 +13,26 @@ class CheckoutProductService
      *
      * @param int $id The target ID of the product
      */
-    public function add(int $id)
+    public function add(mixed $data)
     {
-        session()->push('cart-product', $id);
-    }
+        $subscribe = Product::findOrFail($data->id);
 
-    /**
-     * Removing the product from the cart based on ID
-     *
-     * @param int $id The target ID of the product
-     */
-    public function remove(int $id)
-    {
-        session()->pull('cart-product', $id);
+        $data = [
+            'id' => Str::random(16),
+            'name' => $subscribe->name,
+            'price' => $subscribe->price,
+            'amount' => 1,
+            'image' => asset("/storage/{$subscribe->image}"),
+            'option' => [
+                'target_table' => 'subscribe',
+                'id' => $subscribe->id,
+            ],
+        ];
+
+        if(Cart::isNotEmpty()) {
+            Cart::truncate();
+        }
+
+        Cart::add(false, $data);
     }
 }

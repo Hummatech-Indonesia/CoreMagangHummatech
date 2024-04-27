@@ -15,7 +15,7 @@ class VoucherRepository extends BaseRepository implements VoucherInterface
         $this->model = $voucher;
     }
 
-    public function getVoucherByCode(string $code): mixed
+    public function getVoucherByCode(string $code): Voucher
     {
         return $this->model->query()
             ->where('code_voucher', $code)

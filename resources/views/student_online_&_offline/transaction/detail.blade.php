@@ -54,8 +54,8 @@
                             <p class="mb-2 fw-bolder">PT Humma Teknologi Indonesia</p>
                             <p class="mb-2">Perum Permata Regency 1 Blok 10/28, Perun Gpa, Ngijo, Kec. Karang Ploso,
                                 Kabupaten Malang, Jawa Timur 65152.</p>
-                            <p class="mb-2">Email pkl@hummatech.com</p>
-                            <p class="mb-2">Tlp. 085176777785</p>
+                            <p class="mb-2">pkl@hummatech.com</p>
+                            <p class="mb-2">085176777785</p>
                         </div>
                         <div class="col-md-6 mb-3 mb-md-0 text-end">
                             <h5 class="mb-3">Ditagihkan Kepada</h5>
@@ -82,7 +82,8 @@
                                 <tbody>
                                     <tr>
                                         <td colspan="2">
-                                            @if($reference->order->course)
+                                            {{-- @dd($reference->order->course()) --}}
+                                            @if($reference->order->course())
                                             Pembelian Materi: <strong>{{ $reference->order->name }}</strong>
                                             @else
                                             Berlangganan: <strong>{{ $reference->order->name }}</strong>
@@ -148,7 +149,7 @@
                 </div>
                 <div class="col-md-4">
                     <section class="mb-3">
-                        <h5>Instruksi Pembayaran</h5>
+                        <h5 class="">Instruksi Pembayaran</h5>
                         <div class="accordion mt-3" id="instructionsAccordion">
                             @foreach ($paymentDetail['data']['instructions'] as $index => $instruction)
                                 <div class="accordion-item">
@@ -182,11 +183,17 @@
                         <div class="mb-3">
                             <div class="border-bottom border-top p-3 px-0 px-md-3 flex-column flex-lg-row justify-content-between gap-2 d-flex align-items-start align-items-md-center">
                                 <strong>ID Transaksi</strong>
-                                <span>#{{ $reference->transaction_id }}</span>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <a href="javascript:copyContent('id-transaction')" class="text-dark"><i class="fas fa-copy fa-fw"></i></a>
+                                    <span id="id-transaction">#{{ $reference->transaction_id }}</span>
+                                </div>
                             </div>
                             <div class="border-bottom p-3 px-0 px-md-3 flex-column flex-lg-row justify-content-between gap-2 d-flex align-items-start align-items-md-center">
                                 <strong>Kode Referensi</strong>
-                                <span>{{ $reference->reference }}</span>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <a href="javascript:copyContent('id-reference')" class="text-dark"><i class="fas fa-copy fa-fw"></i></a>
+                                    <span><span id="id-reference">{{ $reference->reference }}</span></span>
+                                </div>
                             </div>
                             <div class="border-bottom p-3 px-0 px-md-3 flex-column flex-lg-row justify-content-between gap-2 d-flex align-items-start align-items-md-center">
                                 <strong>Kadaluarsa Pada</strong>
@@ -197,17 +204,17 @@
                     <section>
                         <h5 class="mb-2">Aksi</h5>
 
-                        <div class="list-group">
+                        <div class="list-group list-group-flush">
                             @if ($reference->status !== App\Enum\TransactionStatusEnum::PAID->value)
                                 <a href="{{ route('transaction-history.detail', $reference->transaction_id) }}"
-                                    class="list-group-item list-group-action d-flex align-items-center gap-2">
+                                    class="list-group-item list-group-action p-3 d-flex align-items-center gap-2">
                                     <i class="fas fa-sync"></i>
                                     <span>Periksa</span>
                                 </a>
                             @endif
 
                             <a href="/pdf/tagihan/{{ $reference->transaction_id }}"
-                                class="list-group-item list-group-action d-flex gap-2 align-items-center">
+                                class="list-group-item list-group-action d-flex gap-2 p-3 align-items-center">
                                 <i class="fas fa-download"></i>
                                 Unduh Tagihan
                             </a>

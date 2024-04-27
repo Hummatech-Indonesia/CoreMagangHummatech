@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('challenge_id')->constrained()->cascadeOnDelete();
             $table->string('file');
             $table->enum('status', StudentChallenge::getStatuses()->toArray())->default(ChallengeStatusEnum::PENDING);
-            $table->integer('score')->default(0)->nullable();
+            $table->integer('score')->default(null)->nullable();
             $table->timestamps();
         });
     }

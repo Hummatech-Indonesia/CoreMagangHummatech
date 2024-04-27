@@ -105,7 +105,8 @@ class TransactionController extends Controller
                 $this->orderInterface->store([
                     'user_id' => auth()->id(),
                     'transaction_histories_id' => $transactionHistory->id,
-                    'courses_id' => (int) $item['option']['id'],
+                    'courses_id' => $item['option']['target_table'] !== 'subscribe' ? (int) $item['option']['id'] : null,
+                    'products_id' => $item['option']['target_table'] === 'subscribe' ? (int) $item['option']['id'] : null,
                     'name' => $item['name'],
                     'price' => (int) $item['price'],
                     'amount' => (int) $item['amount'],

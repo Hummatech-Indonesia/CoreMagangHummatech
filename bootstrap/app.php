@@ -1,12 +1,14 @@
 <?php
 
 use App\Console\Commands\JournalCommand;
+use App\Http\Middleware\MinifyHtmlMiddleware;
 use App\Http\Middleware\RoleUserMiddleware;
 use App\Http\Middleware\SubscribeCheckMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Support\Facades\Schedule;
+use Sentry\Laravel\Integration;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -20,12 +22,15 @@ return Application::configure(basePath: dirname(__DIR__))
             'roles' => RoleUserMiddleware::class,
             'subsrcribed' => SubscribeCheckMiddleware::class,
         ]);
+        $middleware->use([
+            MinifyHtmlMiddleware::class,
+        ]);
     })
     ->withCommands([
         JournalCommand::class,
     ])
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        Integration::handles($exceptions);
     })->create();
 
 

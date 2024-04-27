@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * 
+ * App\Models\Voucher
  *
  * @property int $id
  * @property string $code_voucher
@@ -30,6 +31,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Voucher whereStartDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Voucher whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Voucher whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\VoucherUsage> $voucherUsage
+ * @property-read int|null $voucher_usage_count
  * @mixin \Eloquent
  */
 class Voucher extends Model
@@ -37,4 +40,24 @@ class Voucher extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    /**
+     * Get relation to voucher usage
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function voucherUsage(): HasMany
+    {
+        return $this->hasMany(VoucherUsage::class, 'id', 'voucher_id');
+    }
+
+    /**
+     * Checking the availability of voucher
+     *
+     * @return bool true or false of availability
+     */
+    public function checkAbvability(): bool
+    {
+        return $this->voucherUsage()->count() >= $this->quota ? false : true;
+    }
 }

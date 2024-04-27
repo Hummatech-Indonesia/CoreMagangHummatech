@@ -169,7 +169,7 @@
                                             <tr>
                                                 <td>{{ str_pad(++$key, 2, '0', STR_PAD_LEFT) }}</td>
                                                 <td class="d-flex align-items-center">
-                                                    <img src="{{ asset('storage/' . $student->avatar) }}"
+                                                    <img src="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}"
                                                         alt="{{ $student->name }}" class="rounded-circle avatar-sm">
                                                     <div class="mt-3 ms-3">
                                                         <h5 class="m-0 p-0">{{ $student->name }}</h5>

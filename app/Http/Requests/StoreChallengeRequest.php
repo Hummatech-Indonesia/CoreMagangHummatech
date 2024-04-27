@@ -35,7 +35,7 @@ class StoreChallengeRequest extends FormRequest
     {
         return [
             'mentor_id.required' => 'Mentor harus diisi',
-            'title.required' => 'Title harus diisi',
+            'title.required' => 'Judul harus diisi',
             'level.required' => 'Level harus diisi',
             'description.required' => 'Deskripsi harus diisi',
             'start_date.required' => 'Tanggal mulai harus diisi',
