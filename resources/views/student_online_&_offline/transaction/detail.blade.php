@@ -103,10 +103,17 @@
                                         <td class="border-0 opacity-50 py-1">@currency(Transaction::countTax($reference->order->price))</td>
                                     </tr>
                                     <tr>
-                                        <td class="border-0 opacity-50 pt-1"></td>
-                                        <td class="border-0 opacity-50 pt-1">Biaya Administrasi</td>
-                                        <td class="border-0 opacity-50 pt-1">@currency((int) $paymentDetail['data']['total_fee'])</td>
+                                        <td class="border-0 opacity-50 py-1"></td>
+                                        <td class="border-0 opacity-50 py-1">Biaya Administrasi</td>
+                                        <td class="border-0 opacity-50 py-1">@currency((int) $paymentDetail['data']['total_fee'])</td>
                                     </tr>
+                                    @if($reference->amount < $reference->order->price)
+                                    <tr>
+                                        <td class="border-0 pt-1 fw-bolder text-primary"></td>
+                                        <td class="border-0 pt-1 fw-bolder text-primary">Diskon</td>
+                                        <td class="border-0 pt-1 fw-bolder text-primary">-@currency(($reference->order->price + Transaction::countTax($reference->order->price) + (int) $paymentDetail['data']['total_fee']) - $reference->amount)</td>
+                                    </tr>
+                                    @endif
 
                                     <tr>
                                         <td class="bg-primary-subtle fw-bolder"></td>
@@ -125,7 +132,7 @@
                                 $reference->status !== App\Enum\TransactionStatusEnum::PAID->value)
                             <div class="d-flex mt-4 justify-content-between align-items-center">
                                 <div class="d-flex gap-2 flex-column">
-                                    <span class="fw-bolder">Kode Pembayaran</span>
+                                    <span class="fw-bolder">Rekening</span>
                                     <h3 class="mb-0 fw-bolder text-primary" id="paymentCode">
                                         {{ $paymentDetail['data']['pay_code'] }}</h3>
                                 </div>
