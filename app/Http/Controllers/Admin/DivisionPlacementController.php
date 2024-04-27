@@ -49,7 +49,6 @@ class DivisionPlacementController extends Controller
             $data['mentor_id'] = $mentor->id;
             $this->mentorStudent->store($data);
         }
-        
         $this->student->update($student->id, ['division_id' => $request->division_id]);
         return redirect()->back()->with(['success' => 'Berhasil menetapkan divisi']);
     }
@@ -62,7 +61,6 @@ class DivisionPlacementController extends Controller
             $data['mentor_id'] = $mentor->id;
             $this->mentorStudent->update($student->id, $data);
         }
-        
         $this->student->update($student->id, ['division_id' => $request->division_id]);
         return redirect()->back()->with(['success' => 'Berhasil menetapkan divisi']);
     }

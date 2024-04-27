@@ -22,7 +22,7 @@ class UpdateAssessmentChallengeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'score' => 'required|integer|min:1|max:10',
+            'score' => 'required|integer|min:0|max:100',
         ];
     }
 
@@ -31,8 +31,8 @@ class UpdateAssessmentChallengeRequest extends FormRequest
         return [
             'score.required' => 'Score harus diisi.',
             'score.integer' => 'Score harus berupa angka.',
-            'score.min' => 'Score tidak boleh kurang dari 1.',
-            'score.max' => 'Score tidak boleh lebih dari 10.',
+            'score.min' => 'Score tidak boleh kurang dari 0.',
+            'score.max' => 'Score tidak boleh lebih dari 100.',
         ];
     }
 }
