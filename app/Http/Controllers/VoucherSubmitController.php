@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Interfaces\VoucherInterface;
 use App\Http\Requests\VoucherApplyRequest;
 use App\Http\Requests\VoucherRevokeRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\ValidationException;
 
 class VoucherSubmitController extends Controller
@@ -36,7 +37,12 @@ class VoucherSubmitController extends Controller
         return back()->with('success', 'Kode kupon berhasil diaplikasikan.');
     }
 
-    public function reset()
+    /**
+     * Reset the voucher code
+     *
+     * @return void
+     */
+    public function reset(): void
     {
         session()->forget('voucher');
     }
@@ -47,7 +53,7 @@ class VoucherSubmitController extends Controller
      * @param \App\Http\Requests\VoucherRevokeRequest $request The request for the code voucher
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function revoke(VoucherRevokeRequest $request)
+    public function revoke(VoucherRevokeRequest $request): RedirectResponse
     {
         session()->pull('voucher', $request->code);
         return back()->with('success', 'Kode kupon berhasil di hapus.');
