@@ -8,7 +8,7 @@
                 <h4 class="fw-semibold mb-8">Beli Materi</h4>
                 <nav aria-label="breadcrumb mt-2">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a class="text-muted " href="/siswa-offline">Dasbor</a></li>
+                        <li class="breadcrumb-item"><a class="text-muted " href="/siswa-offline">Dasborard</a></li>
                         <li class="breadcrumb-item" aria-current="page">Beli Materi</li>
                     </ol>
                 </nav>
@@ -49,8 +49,8 @@
     @empty
     <div class="col-md-4 mx-auto">
         <div class="text-center">
-            <img src="{{ asset('assetsLogin/img/no-data-presentasi.png') }}" width="400px"
-                alt="no-data">
+            <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" width="200px"
+            alt="no-data">
             <p class="text-center fw-border text-dark fs-5" style="font-weight: 600 ">Materi Belum
                 Tersedia</p>
         </div>
