@@ -8,7 +8,6 @@ use App\Models\Mentor;
 use App\Models\MentorDivision;
 use App\Models\Student;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder

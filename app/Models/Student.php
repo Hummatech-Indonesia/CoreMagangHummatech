@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Division;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property string $name
@@ -85,6 +85,8 @@ use App\Models\Division;
  * @method static \Illuminate\Database\Eloquent\Builder|Student whereStartDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Student whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Student whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\StudentChallenge> $studentChallenge
+ * @property-read int|null $student_challenge_count
  * @mixin \Eloquent
  */
 class Student extends Model implements HasAttendances

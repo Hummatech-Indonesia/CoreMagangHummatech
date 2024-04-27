@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\VoucherInterface;
 use App\Http\Requests\VoucherApplyRequest;
 use App\Http\Requests\VoucherRevokeRequest;
+use Illuminate\Validation\ValidationException;
 
 class VoucherSubmitController extends Controller
 {
+    private VoucherInterface $_voucherInterface;
+
+    public function __construct(VoucherInterface $voucherInterface)
+    {
+        $this->_voucherInterface = $voucherInterface;
+    }
+
     /**
      * Application of the voucher code
      *
@@ -15,6 +24,14 @@ class VoucherSubmitController extends Controller
      */
     public function apply(VoucherApplyRequest $request)
     {
+        $voucher = $this->_voucherInterface->getVoucherByCode($request->code);
+
+        if(!$voucher->checkAbvability()) {
+            ValidationException::withMessages([
+                'code' => 'Kode kupon tidak tersedia atau sudah habis.',
+            ]);
+        }
+
         session()->push('voucher', $request->code);
         return back()->with('success', 'Kode kupon berhasil diaplikasikan.');
     }

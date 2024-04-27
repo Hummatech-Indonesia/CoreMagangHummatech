@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property string $name
@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Mentor whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Mentor wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Mentor whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Challenge> $challenge
+ * @property-read int|null $challenge_count
  * @mixin \Eloquent
  */
 class Mentor extends Model

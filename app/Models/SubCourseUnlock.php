@@ -32,6 +32,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|SubCourseUnlock whereUnlock($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SubCourseUnlock whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SubCourseUnlock whereUserId($value)
+ * @property int $student_id
+ * @method static \Illuminate\Database\Eloquent\Builder|SubCourseUnlock whereStudentId($value)
  * @mixin \Eloquent
  */
 class SubCourseUnlock extends Model

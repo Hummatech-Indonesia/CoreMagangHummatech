@@ -26,6 +26,21 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereTransactionHistoriesId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
+ * @property string $name
+ * @property int $price
+ * @property int $amount
+ * @property int|null $courses_id
+ * @property string $image
+ * @property-read \App\Models\Course|null $course
+ * @property-read \App\Models\Product|null $product
+ * @property-read \App\Models\Product|null $subscribe
+ * @property-read \App\Models\TransactionHistory|null $transaction
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereCoursesId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order wherePrice($value)
  * @mixin \Eloquent
  */
 class Order extends Model

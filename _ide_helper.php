@@ -19905,7 +19905,7 @@ namespace Illuminate\Console\Scheduling {
                     /**
          * 
          *
-         * @see \Sentry\Laravel\Features\ConsoleSchedulingIntegration::onBootInactive()
+         * @see \Sentry\Laravel\Features\ConsoleSchedulingIntegration::onBoot()
          * @param string|null $monitorSlug
          * @param int|null $checkInMargin
          * @param int|null $maxRuntime
