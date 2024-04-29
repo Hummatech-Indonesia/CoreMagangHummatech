@@ -9,11 +9,13 @@ use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\DivisionInterface;
 use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
+use App\Contracts\Interfaces\UserInterface;
 use App\Http\Requests\StoreMentorRequest;
 use App\Http\Requests\UpdateMentorRequest;
 use App\Models\Mentor;
 use App\Services\MentorDivisionService;
 use App\Services\MentorService;
+use Hash;
 
 class AdminMentorController extends Controller
 {
@@ -24,7 +26,9 @@ class AdminMentorController extends Controller
     private MentorService $mentorservice;
     private MentorStudentInterface $mentorStudent;
     private MentorDivisionInterface $mentorDivision;
-    public function __construct(DivisionInterface $division, MentorDivisionService $mentorDivisionService, MentorInterface $mentor, StudentInterface $student, MentorService $mentorservice, MentorStudentInterface $mentorStudent, MentorDivisionInterface $mentorDivision)
+    private UserInterface $user;
+
+    public function __construct(UserInterface $user, DivisionInterface $division, MentorDivisionService $mentorDivisionService, MentorInterface $mentor, StudentInterface $student, MentorService $mentorservice, MentorStudentInterface $mentorStudent, MentorDivisionInterface $mentorDivision)
     {
         $this->division = $division;
         $this->mentorStudent = $mentorStudent;
@@ -33,6 +37,7 @@ class AdminMentorController extends Controller
         $this->student = $student;
         $this->mentorDivisionService = $mentorDivisionService;
         $this->mentorservice = $mentorservice;
+        $this->user = $user;
     }
     public function index()
     {
@@ -48,6 +53,14 @@ class AdminMentorController extends Controller
         $data = $this->mentorservice->store($request);
         $mentor = $this->mentor->store($data);
         $this->mentorDivisionService->store($request, $mentor);
+        $dataUser = [
+            'name' => $mentor->name,
+            'email' => $mentor->email,
+            'password' => Hash::make('password'),
+            'mentors_id' => $mentor->id,
+        ];
+
+        $this->user->store($dataUser);
 
         return back()->with('succes', 'Mentor Berhasil Ditambahkan');
     }
@@ -69,7 +82,6 @@ class AdminMentorController extends Controller
 
     public function destroy(Mentor $mentor)
     {
-
         $this->mentor->delete($mentor->id);
         return back()->with('succes', 'Mentor Berhasil Dihapus');
     }

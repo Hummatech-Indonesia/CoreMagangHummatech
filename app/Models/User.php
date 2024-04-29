@@ -71,6 +71,7 @@ class User extends Authenticatable
         'password',
         'feature',
         'student_id',
+        'mentors_id'
     ];
 
     /**
