@@ -2,14 +2,20 @@
 @section('content')
 
 <div class="row">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between mb-3">
         <h5>Detail Tantangan</h5>
         <a href="{{ url('mentor/assessment') }}" type="button" class="btn btn-light-primary text-primary">Kembali</a>
     </div>
-    <div>
-        <span class="mb-1 badge font-medium bg-light-success text-success">{{$challenge->level}}</span>
-        <h2 class="mt-3">{{$challenge->title}}</h2>
+    <div class="card bg-light-primary m-0 p-0">
+        <div class="card-body">
+            <div class="d-flex  align-items-center">
+                <h3 class="mt-2">{{$challenge->title}}</h3>
+                <span class="badge ms-3 font-medium bg-white text-{{$challenge->level->color()}}">{{$challenge->level->label()}}</span>
+            </div>
+            <p>{{$challenge->description}}</p>
+        </div>
     </div>
+
 </div>
 
 <div class="card card-body mt-3">
@@ -17,7 +23,7 @@
         <div class="col-md-4 col-xl-3">
             <h5>Jawaban yang Di Kumpulkan</h5>
         </div>
-        <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
+        <div class="col-md-8 col-xl-12 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
 
             <form class="position-relative">
                 <input type="text" class="form-control product-search ps-5" id="input-search" placeholder="Cari Siswa...">
@@ -25,7 +31,7 @@
             </form>
 
             <div class="col-md-4 col-lg-2 col-xl-2 mx-2">
-                <select class="form-select">
+                <select class="form-select select2">
                     <option selected>Semua</option>
                     <option value="1">Option 1</option>
                     <option value="2">Option 2</option>
@@ -98,7 +104,17 @@
 
 
                     @empty
-
+                    <tr>
+                        <td colspan="8">
+                            <div class="d-flex justify-content-center mt-3">
+                                <img src="{{ asset('no data.png') }}" width="200px"
+                                    alt="">
+                            </div>
+                            <h4 class="text-center mt-2 mb-4">
+                                Data Masih kosong
+                            </h4>
+                        </td>
+                    </tr>
                     @endforelse
                 </tbody>
             </table>
@@ -120,6 +136,11 @@
         $('.download-file').attr('href', file);
         $('.download-file').attr('download', fileName);
         $('.download-file')[0].click();
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.form-select select2').select2();
     });
 </script>
 @endsection
