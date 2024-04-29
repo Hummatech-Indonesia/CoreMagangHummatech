@@ -62,7 +62,7 @@
 
                     <div class="list-group list-group-flush">
                         @forelse ($course->subCourse as $subCourse)
-                            <div class="list-group-item d-flex gap-2 align-items-center">
+                            <div class="list-group-item py-4 d-flex gap-2 align-items-center">
                                 <div class="row w-100 justify-content-between align-items-center">
                                     <div class="col-md-3">
                                         <img src="{{ asset("/storage/{$subCourse->image_course}") }}" alt="{{ $subCourse->title }}"  class="rounded-4 w-100" />

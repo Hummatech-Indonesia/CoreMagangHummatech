@@ -24,7 +24,7 @@ class SubCourseUnlockRepository extends BaseRepository implements SubCourseUnloc
     {
         return $this->model->query()->where([
             ['course_id', $subCourse],
-            ['user_id', $userId],
+            ['student_id', $userId],
         ])->whereHas('subCourse', function ($query) use ($search) {
             $query->when($search, function ($query) use ($search) {
                 $query->where('title', 'LIKE', '%' . $search . '%');

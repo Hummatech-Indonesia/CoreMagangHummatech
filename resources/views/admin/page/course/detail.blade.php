@@ -68,7 +68,7 @@
                 @forelse ($subCourses as $subCourse)
                     <div class="col-12">
                         <div class="card border-start border-info py-3 px-4">
-                            <div class="d-flex no-block align-items-start">
+                            <div class="d-flex align-items-center no-block align-items-start">
                                 <div class="col-lg-1 col-md-10 col-sm-1">
                                     <img class="img-responsive w-100 rounded"
                                         src="{{ asset('storage/' . $subCourse->image_course) }}" />
