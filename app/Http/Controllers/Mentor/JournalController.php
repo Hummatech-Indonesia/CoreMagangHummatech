@@ -25,18 +25,13 @@ class JournalController extends Controller
      */
     public function index()
     {
-        // $courses = $this->course->whereDivision(auth()->user()->mentor->id);
-        // foreach ($courses as $course) {
-        //     $subCourses = $this->subCourse->whereCourse($course->id);
-        //     foreach ($subCourses as $subCourse) {
-        //         $tasks = $this->task->whereSubCourse($subCourse->id);
-        //     }
-        // }
         $mentorStudents = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
-        $journals = null;
+        $journals = [];
         foreach ($mentorStudents as $mentorStudent) {
-            $journals = $this->journal->whereStudent($mentorStudent->student_id);
+            $journals[] = $this->journal->whereStudent($mentorStudent->student_id);
         }
-        return view('mentor.Journal.index', compact('journals'));
+        $journalStudents = collect($journals)->flatten();
+        // dd($journalStudents);
+        return view('mentor.Journal.index', compact('journalStudents'));
     }
 }
