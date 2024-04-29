@@ -36,9 +36,20 @@ class ChallengeRepository extends BaseRepository implements ChallengeInterface
         ->update($data);
     }
 
-    public function getUnsubmittedChallenges()
+    public function getUnsubmittedChallenges($mentor)
     {
-        return $this->model->query()->whereDoesntHave('studentChallenges', function($query) {
+        // return $this->model->query()->where('mentor_id', $mentor)
+        // ->whereDoesntHave('studentChallenges', function($query) use ($mentor) {
+        //     $query->whereHas('student', function($q) use ($mentor) {
+        //         $q->whereHas('mentorStudents', function($s) use ($mentor) {
+        //             $s->where('mentor_id', $mentor);
+        //         });
+        //     });
+        // })->get();
+
+
+        return $this->model->query()->where('mentor_id', $mentor)
+        ->whereDoesntHave('studentChallenges', function($query) {
             $query->where('student_id', auth()->user()->student->id);
         })->get();
     }

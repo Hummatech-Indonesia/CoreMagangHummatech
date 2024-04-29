@@ -49,7 +49,6 @@ class AdminMentorController extends Controller
         $mentor = $this->mentor->store($data);
         $this->mentorDivisionService->store($request, $mentor);
 
-
         return back()->with('succes', 'Mentor Berhasil Ditambahkan');
     }
 
