@@ -92,7 +92,7 @@
                         <span class="hide-menu">Materi</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('/siswa-offline/task') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-clipboard-copy"></i>
@@ -107,7 +107,7 @@
                         </span>
                         <span class="hide-menu">Tantangan</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('siswa-offline/certificate') }}" aria-expanded="false">
                         <span>
