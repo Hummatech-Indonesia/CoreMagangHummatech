@@ -23,19 +23,23 @@ class StoreZoomScheduleRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'link' => 'required'
+            'start_date' => 'required|date|after_or_equal:today',
+            'end_date' => 'required|date|after_or_equal:today',
+            'link' => 'required|url'
         ];
     }
 
     public function messages()
     {
         return [
-            'title.required' => 'Judul tidak boleh kosong',
-           'start_date.required' => 'Tanggal mulai tidak boleh kosong',
-           'end_date.required' => 'Tanggal akhir tidak boleh kosong',
-           'link.required' => 'Link tidak boleh kosong',
+            'title.required' => 'Judul tidak boleh kosong.',
+            'start_date.required' => 'Tanggal mulai tidak boleh kosong.',
+            'start_date.after_or_equal' => 'Tanggal mulai tidak boleh kurang dari hari ini.',
+            'end_date.required' => 'Tanggal selesai tidak boleh kosong.',
+            'end_date.after_or_equal' => 'Tanggal selesai tidak boleh kurang dari hari ini.',
+            'link.required' => 'Link tidak boleh kosong.',
+            'link.url' => 'Link harus berupa URL.'
         ];
+
     }
 }
