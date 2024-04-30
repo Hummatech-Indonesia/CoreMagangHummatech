@@ -37,7 +37,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskSubmissionController;
 
 # ==================================================== Homepage Group Route ===================================================
-Route::get('/', [LandingController::class, 'index'])->name('home');
+Route::get('/', [LandingController::class, 'index']);
 
 # ================================================ Authentication Routes Group ================================================
 Auth::routes();
