@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hummatask_teams', function (Blueprint $table) {
+        Schema::create('category_boards', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('image');
-            $table->longText('description');
-            $table->string('status');
-            $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hummatask_teams');
+        Schema::dropIfExists('category_boards');
     }
 };
