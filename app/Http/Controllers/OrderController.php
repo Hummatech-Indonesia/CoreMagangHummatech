@@ -14,9 +14,19 @@ class OrderController extends Controller
         $this->orderInterface = $orderInterface;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $orders = $this->orderInterface->paginate();
+        $orders = $this->orderInterface
+        ->when($request->get('sort'), function($query) use($request) {
+            if($request->sort == 'latest') {
+                $query->latest();
+            }
+        })
+        ->whereHas('transaction', function($query) use($request) {
+            if($request->status) {
+                $query->where('status', $request->status);
+            }
+        })->paginate();
 
         return view('student_online_&_offline.transaction.my-order', compact('orders'));
     }
