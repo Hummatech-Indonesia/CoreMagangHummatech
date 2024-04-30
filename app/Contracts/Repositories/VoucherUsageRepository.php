@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Contracts\Interfaces;
+namespace App\Contracts\Repositories;
 
+use App\Contracts\Interfaces\VoucherUsageInterface;
 use App\Contracts\Repositories\BaseRepository;
 use App\Models\VoucherUsage;
 
@@ -10,6 +11,11 @@ class VoucherUsageRepository extends BaseRepository implements VoucherUsageInter
     public function __construct(VoucherUsage $voucherUsage)
     {
         $this->model = $voucherUsage;
+    }
+
+    public function GetWhere(mixed $id): mixed
+    {
+        return $this->model->query()->findOrFail($id);
     }
 
     public function get(): mixed

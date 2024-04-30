@@ -76,7 +76,6 @@ use App\Contracts\Repositories\MentorDivisionRepository;
 use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Contracts\Interfaces\VoucherUsageInterface;
-use App\Contracts\Interfaces\VoucherUsageRepository;
 use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\AttendanceDetailRepository;
 use App\Contracts\Repositories\ChallengeRepository;
@@ -88,6 +87,7 @@ use App\Contracts\Repositories\SubCourseUnlockRepository;
 use App\Contracts\Repositories\TaskSubmissionRepository;
 use App\Contracts\Repositories\TransactionHistoryRepository;
 use App\Contracts\Repositories\OrderRepository;
+use App\Contracts\Repositories\VoucherUsageRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -127,6 +127,7 @@ class AppServiceProvider extends ServiceProvider
         TaskSubmissionInterface::class => TaskSubmissionRepository::class,
         StudentTaskInterface::class => StudentTaskRepository::class,
         SubCourseUnlockInterface::class => SubCourseUnlockRepository::class,
+
         ChallengeInterface::class => ChallengeRepository::class,
         OrderInterface::class => OrderRepository::class,
         HummataskTeamInterface::class => HummataskTeamRepository::class,
@@ -158,10 +159,10 @@ class AppServiceProvider extends ServiceProvider
 
         # Adding custom directive
         Blade::directive('fcurrency', function ($expression) {
-            return "<?php echo number_format($expression, 0,',','.'); ?>";
+            return "<?php echo number_format((int) round($expression), 0,',','.'); ?>";
         });
         Blade::directive('currency', function ($expression) {
-            return "Rp <?php echo number_format($expression, 0,',','.'); ?>";
+            return "Rp <?php echo number_format((int) round($expression), 0,',','.'); ?>";
         });
 
         # Paginator change to bootstrap
