@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hummatask_teams', function (Blueprint $table) {
+        Schema::create('boards', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('image');
-            $table->longText('description');
-            $table->string('status');
-            $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('description')->nullable();
+            $table->foreignId('category_board_id')->constrained();
+            $table->foreignId('team_id')->constrained();
+            $table->string('start_date');
+            $table->string('end_date');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hummatask_teams');
+        Schema::dropIfExists('boards');
     }
 };
