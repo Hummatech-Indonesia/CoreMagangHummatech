@@ -61,7 +61,7 @@
     </div>
     <footer class="footer">
         {{-- <img style="margin: 0px; padding: 0px; width:100%" src="{{ asset('image/footer_pdf.png') }}" alt="" srcset=""> --}}
-        <img style="margin: 0px; padding: 0px; width:100%; object-fit:cover"  src="{{ storage_path('../public/berkas/header.png') }}" alt="" srcset="">
+        <img style="margin: 0px; padding: 0px; width:100%; object-fit:cover"  src="{{ storage_path('../public/berkas/footer_pdf.png') }}" alt="" srcset="">
     </footer>
 </body>
 
