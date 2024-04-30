@@ -152,15 +152,15 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Foto Sub Materi</label>
-                            <input type="file" name="image_course" class="form-control">
+                            <input type="file" name="image_course" class="form-control" accept="image/*" />
                         </div>
                         <div class="mb-3">
                             <label for="">Link video Sub Materi</label>
-                            <input type="url" name="video_course" class="form-control">
+                            <input type="url" name="video_course" class="form-control" />
                         </div>
                         <div class="mb-3">
                             <label for="">File Sub Materi</label>
-                            <input type="file" name="file_course" class="form-control">
+                            <input type="file" name="file_course" class="form-control" accept="application/pdf" />
                         </div>
                     </div>
                     <div class="modal-footer">

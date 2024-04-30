@@ -38,165 +38,61 @@
     </style>
 @endsection
 @section('content')
-    <div class="text-end mb-4">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h1 class="h5 mb-0">{{ $subCourse->title }}</h1>
         <a href="/administrator/course/detail/{{ $subCourse->course_id }}" class="btn text-white"
             style="background-color: #7E7E7E;">Kembali</a>
     </div>
 
-    <div class="row">
-        <div class="col-lg-12 col-xl-8 col-12 px-4">
-            <div class="card">
-                <div class="card-body">
-                    <div>
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-pills nav-justified" role="tablist">
-                            <li class="nav-item w-50 text-center">
-                                <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab">
-                                    <span>Materi</span>
-                                </a>
-                            </li>
-                            <li class="nav-item w-50 text-center">
-                                <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab">
-                                    <span>Video Tutorial</span>
-                                </a>
-                            </li>
-                        </ul>
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="home" role="tabpanel">
-                                <div class="p-3">
-                                    <main role="main">
-                                        <div id="carousel" class="carousel" data-ride="carousel">
-                                            <div class="carousel-inner">
-                                                <div class="carousel-item active">
-                                                    <canvas id="pdf-canvas" class="d-block w-100"
-                                                        data-file="{{ asset('storage/' . $subCourses->file_course) }}"></canvas>
-                                                    <div class="carousel-caption d-none d-md-block">
-                                                        <span>Page: <span id="page-num"></span> /
-                                                            <span id="page-count"></span></span>
-                                                    </div>
-                                                </div>
+    <div class="card">
+        <div class="card-body">
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-pills nav-justified" role="tablist">
+                    <li class="nav-item w-50 text-center">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab">
+                            <span>Materi</span>
+                        </a>
+                    </li>
+                    <li class="nav-item w-50 text-center">
+                        <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab">
+                            <span>Video Tutorial</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="home" role="tabpanel">
+                        <div class="p-3">
+                            <main role="main">
+                                <div id="carousel" class="carousel" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <canvas id="pdf-canvas" class="d-block w-100"
+                                                data-file="{{ asset('storage/' . $subCourses->file_course) }}"></canvas>
+                                            <div class="carousel-caption d-none d-md-block">
+                                                <span>Page: <span id="page-num"></span> /
+                                                    <span id="page-count"></span></span>
                                             </div>
-                                            <a class="carousel-control-prev" href="#" role="button"
-                                                data-slide="prev">
-                                                <i class="fas fa-chevron-left"></i>
-                                            </a>
-                                            <a class="carousel-control-next" href="#" role="button"
-                                                data-slide="next">
-                                                <i class="fas fa-chevron-right"></i>
-                                            </a>
                                         </div>
-                                    </main>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#" role="button" data-slide="prev">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                    <a class="carousel-control-next" href="#" role="button" data-slide="next">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
                                 </div>
-                            </div>
-                            <div class="tab-pane p-3" id="profile" role="tabpanel">
-                                <div>
-                                    <iframe width="560" height="315" src="{{ $subCourses->video_course }}"
-                                        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                                </div>
-                            </div>
+                            </main>
+                        </div>
+                    </div>
+                    <div class="tab-pane p-3" id="profile" role="tabpanel">
+                        <div>
+                            <iframe style="aspect-ratio: 16 / 9;width: 100%" src="{{ $subCourses->video_course }}" frameborder="0"
+                                allow="autoplay; encrypted-media" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-lg-12 col-xl-4 col-xs-12 col-12">
-            <div class="materi">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h5>Tugas</h5>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add">
-                        <i class=" ri-add-fill"></i>
-                    </button>
-                </div>
-                <div class="row mb-3">
-                    @forelse ($task->where('sub_course_id', $subCourse->id) as $task)
-                        <div class="col-lg-12 m-0 p-0">
-                            <div class="card border-start border-info py-3 px-4 m-2">
-                                <div class="d-flex no-block align-items-center">
-                                    <div class="col-lg-9 px-3">
-                                        <div class="col-2 bg-{{ $task->level->color() }}-subtle rounded w-25">
-                                            <p style="" class="text-{{ $task->level->color() }} text-center ">{{ $task->level->label() }}</p>
-                                        </div>
-                                        <h6 class="m-0">{{ $task->title }}</h6>
-                                    </div>
-                                    <div class="ms-auto">
-                                        <div class="dropdown d-inline-block">
-                                            <button class="bg-transparent border-0 fs-2 dropdown" style="margin-top: -20px"
-                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="ri-more-fill align-middle"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li>
-                                                    <a type="button" class="dropdown-item btn-show btn-detail"
-                                                        data-id="{{ $task->id }}" data-title="{{ $task->title }}"
-                                                        data-level="{{ $task->level }}"
-                                                        data-description="{{ $task->description }}"
-                                                        data-level="{{ $task->level }}">
-                                                        Detail Tugas
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <button type="button" class="dropdown-item edit-item-btn btn-edit"
-                                                        data-id="{{ $task->id }}" data-title="{{ $task->title }}"
-                                                        data-level="{{ $task->level }}"
-                                                        data-description="{{ $task->description }}"
-                                                        data-level="{{ $task->level }}">
-                                                        Edit Tugas
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button type="button" class="dropdown-item btn-delete text-danger"
-                                                        data-id="{{ $task->id }}">
-                                                        Hapus Tugas
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    @empty
-
-                        <div class="d-flex justify-content-center mb-2 mt-5">
-                            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
-                        </div>
-                        <p class="fs-5 text-dark text-center mb-5">
-                            Data Masih Kosong
-                        </p>
-                    @endforelse
-                </div>
-            </div>
-
-            <div class="d-flex justify-content-center mt-3">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">
-                                    <i class="ti ti-chevrons-left fs-4"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link link" href="#" aria-label="Next">
-                                <span aria-hidden="true">
-                                    <i class="ti ti-chevrons-right fs-4"></i>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </div>
     </div>

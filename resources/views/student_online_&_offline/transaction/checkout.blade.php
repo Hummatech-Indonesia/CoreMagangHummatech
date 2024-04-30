@@ -47,6 +47,15 @@
         </div>
     </div>
 
+    @if($errors->all())
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ $error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endforeach
+    @endif
+
     @if ($cartData->isNotEmpty())
         <div class="row">
             <div class="col-md-8">
@@ -156,11 +165,22 @@
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}" id="user_id" />
                         <input type="hidden" name="tax" value="{{ Transaction::countTax($cartData->subtotal()) }}"
                             id="tax" />
-                        <input type="hidden" name="subtotal" value="{{ $cartData->subtotal() }}" id="subtotal" />
-                        <input type="hidden" name="total" value="{{ $cartData->total() }}" id="total" />
+                        <input type="hidden" name="subtotal"
+                            value="{{ Transaction::countTax(
+                                Transaction::discountSubtotal($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0),
+                                true,
+                            ) }}"
+                            id="subtotal" />
+                        <input type="hidden" name="total"
+                        value="{{ Transaction::countTax(
+                            Transaction::discountSubtotal($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0),
+                            true,
+                        ) }}" id="total" />
                         <input type="hidden" name="payment_code" id="payment-code" />
                         <input type="hidden" name="payment_name" id="payment-name" />
-                        <input type="hidden" name="discount" value="{{ Transaction::discount($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0) }}" id="discount" />
+                        <input type="hidden" name="discount"
+                            value="{{ Transaction::discount($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0) }}"
+                            id="discount" />
 
                         <div class="pb-3 d-flex gap-2 flex-column mb-3">
                             <div class="d-flex justify-content-between">
@@ -174,19 +194,18 @@
                             @enderror
                         </div>
                         <div class="p-3 border rounded mb-1">
-                            <div class="fw-bolder mb-3 pb-3 border-bottom d-flex justify-content-between">
+                            <div
+                                class="fw-bolder mb-3 align-items-center pb-3 border-bottom d-flex justify-content-between">
                                 <span>Subtotal:</span>
                                 <span id="subtotal-show" class="fw-bolder text-muted">
-                                    @if ($voucherDetail)
-                                        <s>@currency($cartData->subtotal())</s>
-                                    @else
-                                        <span>@currency($cartData->subtotal())</span>
-                                    @endif
+                                    <span>@currency($cartData->subtotal())</span>
                                 </span>
                             </div>
                             <div class="fw-bolder mb-3 pb-3 border-bottom d-flex justify-content-between">
                                 <span>PPn 11%:</span>
-                                <span class="fw-bolder text-muted">@currency(Transaction::countTax($cartData->subtotal()))</span>
+                                <span class="fw-bolder text-muted">
+                                    @currency(Transaction::countTax($voucherDetail ? Transaction::discountSubtotal($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0) : $cartData->subtotal()))
+                                </span>
                             </div>
                             @if ($voucherDetail)
                                 <div class="fw-bolder mb-3 pb-3 border-bottom d-flex justify-content-between">
@@ -284,9 +303,10 @@
             const feeAmount = parseInt(activeElement.data('fee') ?? 0);
             const subtotal = parseInt($('#subtotal').val() ?? 0);
             const tax = parseInt($('#tax').val() ?? 0);
-            const discount = parseInt($('#discount').val() ?? 0);
 
-            const countTotal = feeAmount + (subtotal - discount) + tax;
+            const countTotal = feeAmount + subtotal;
+            console.log({countTotal, subtotal, feeAmount})
+            console.log(subtotal + tax + feeAmount)
 
             // Show the additional fee
             $('#additional-fee').html(`
@@ -296,7 +316,6 @@
                 </div>
             `);
             $('#total-show').text(intToIdr(countTotal));
-            $('#total').val(countTotal - feeAmount);
 
             // Replace The Input Values
             $('#payment-code').val(activeElement.data('id').replace('payment-', ''));

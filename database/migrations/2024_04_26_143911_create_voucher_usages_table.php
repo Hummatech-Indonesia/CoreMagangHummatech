@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('voucher_usages', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('vouchers_id')->references('id')->on('vouchers')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('students_id')->references('id')->on('students')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('vouchers_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('transaction_histories_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('students_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->dateTime('used_at');
         });
     }

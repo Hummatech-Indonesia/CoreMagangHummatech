@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Transaction;
 
 class TransactionController extends Controller
 {
@@ -33,8 +34,7 @@ class TransactionController extends Controller
         TransactionHistoryInterface $transactionHistory,
         OrderInterface $orderInterface,
         VoucherUsageInterface $voucherUsageInterface
-    )
-    {
+    ) {
         $this->payment = $payment;
         $this->orderInterface = $orderInterface;
         $this->cart = $cart;
@@ -65,32 +65,40 @@ class TransactionController extends Controller
         return view('student_online_&_offline.transaction.checkout', compact('paymentChannel', 'cartData', 'voucherDetail'));
     }
 
-    public function store(TripayCheckoutRequest $request)
+    public function store(Request $request)
     {
         $productDetail = $this->cart->get();
         $method = $request->input('payment_code');
         $totalAmount = (int) $request->input('total');
 
         try {
-            $response = $this->payment->transaction($method, $totalAmount, $productDetail->map(function ($item) {
-                return [
-                    'name'        => $item['name'],
-                    'price'       => (int) $item['price'],
-                    'quantity'    => 1,
-                    'product_url' => route('subscription.index'),
-                ];
-            })->push(...[
-                [
-                    'name' => 'Voucher',
-                    'price' => - ((int) $request->input('discount')) ?? 0,
-                    'quantity' => 1,
-                ],
-                [
-                    'name' => 'PPn 11%',
-                    'price' => (int) $request->input('tax') ?? 0,
-                    'quantity' => 1,
-                ]
-            ])->toArray());
+            $response = $this->payment->transaction(
+                $method,
+                $totalAmount,
+                $productDetail->map(function ($item) use ($request) {
+                    return [
+                        'name'        => $item['name'],
+                        'price'       => ceil(((int) $item['price']) - ((int) $request->input('discount'))),
+                        'quantity'    => 1,
+                        'product_url' => route('subscription.index'),
+                    ];
+                })
+                ->push(...[
+                    ...$productDetail->map(function ($item) use ($request) {
+                        return [
+                            'name'        => 'PPn 11%',
+                            'price'       => (int) ceil(Transaction::countTax(((int) $item['price']) - ((int) $request->input('discount')))),
+                            'quantity'    => 1,
+                            'product_url' => route('subscription.index'),
+                        ];
+                    })
+                ])
+                ->toArray()
+            );
+
+            if (!$response['success']) {
+                throw new \Exception("\"Gagal melakukan transaksi\", {$response['message']}");
+            }
 
             # Convert timestamp to date
             $dueDate = Carbon::createFromTimestamp($response['data']['expired_time'])->setTimezone('Asia/Jakarta');
@@ -108,7 +116,7 @@ class TransactionController extends Controller
             ]);
 
             # Store Order Data
-            $productDetail->map(function($item) use ($transactionHistory) {
+            $productDetail->map(function ($item) use ($transactionHistory) {
                 $this->orderInterface->store([
                     'user_id' => auth()->id(),
                     'transaction_histories_id' => $transactionHistory->id,
@@ -127,6 +135,7 @@ class TransactionController extends Controller
             $this->voucherUsageInterface->store([
                 'vouchers_id' => $voucherData->id,
                 'students_id' => auth()->id(),
+                'transaction_histories_id' => $transactionHistory->id,
                 'used_at' => now(),
             ]);
 

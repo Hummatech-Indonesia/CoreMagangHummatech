@@ -16,10 +16,10 @@ class TransactionHelper
     public static function countTax(float $amount, bool $withTax = false): float
     {
         if(!$withTax) {
-            return ($amount * self::$taxRatio);
+            return ceil($amount * self::$taxRatio);
         }
 
-        return ($amount * self::$taxRatio) + $amount;
+        return ceil(($amount * self::$taxRatio) + $amount);
     }
 
     /**

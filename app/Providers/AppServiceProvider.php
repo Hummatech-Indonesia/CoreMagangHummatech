@@ -127,7 +127,6 @@ class AppServiceProvider extends ServiceProvider
         TaskSubmissionInterface::class => TaskSubmissionRepository::class,
         StudentTaskInterface::class => StudentTaskRepository::class,
         SubCourseUnlockInterface::class => SubCourseUnlockRepository::class,
-
         ChallengeInterface::class => ChallengeRepository::class,
         OrderInterface::class => OrderRepository::class,
         HummataskTeamInterface::class => HummataskTeamRepository::class,

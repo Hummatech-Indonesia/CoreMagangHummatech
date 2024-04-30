@@ -70,16 +70,14 @@
                         </div>
 
                         <div class="mt-3">
-                            <div
-                                class="d-flex gap-2 align-items-center w-100 py-3 justify-content-between">
+                            <div class="d-flex gap-2 align-items-center w-100 py-3 justify-content-between">
                                 <div class="mb-0 fw-bolder">Status</div>
                                 <div class="mb-0"><span
                                         class="fw-bolder badge bg-{{ $refs->color() }}">{{ $refs->label() }}</span>
                                 </div>
                             </div>
                             @if (!$order->course)
-                                <div
-                                    class="d-flex gap-2 align-items-center border-top w-100 py-3 justify-content-between">
+                                <div class="d-flex gap-2 align-items-center border-top w-100 py-3 justify-content-between">
                                     @if ($order->transaction->status !== 'paid')
                                         <div class="mb-0 fw-bolder">Bayar Sebelum</div>
                                         <div class="text-center">
@@ -124,14 +122,10 @@
             </div>
         @empty
             <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
-                                alt="No Data" height="150px" width="auto" />
-                            <h3>Tidak Ada Data</h3>
-                        </div>
-                    </div>
+                <div class="text-center">
+                    <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" alt="No Data"
+                        height="150px" width="auto" />
+                    <h3>Tidak Ada Data</h3>
                 </div>
             </div>
         @endforelse
