@@ -7,6 +7,7 @@ use App\Http\Controllers\Mentor\AssessmentController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Mentor\JournalController;
+use App\Http\Controllers\NotePicketController;
 use App\Http\Controllers\StudentOfline\CourseOfflineController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StudentChallengeController;
@@ -21,7 +22,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('journal', [AdminJournalController::class, 'index']);
 
-
 Route::get('rfid', function () {
     return view('admin.page.user.rfid');
 });
@@ -30,11 +30,11 @@ Route::get('reject', function (){
     return view('admin.page.rejected.index');
 });
 
-
 Route::get('picket' , [PicketController::class , 'index']);
 Route::post('picket/store',[PicketController::class,'store'])->name('picket.store');
-Route::post('picket/{picket}',[PicketController::class,'update'])->name('picket.update');
-
+Route::put('picket/{picket}',[PicketController::class,'update'])->name('picket.update');
+Route::post('note-picket/store',[NotePicketController::class,'store'])->name('note.store');
+Route::put('note-picket/{notePicket}',[NotePicketController::class,'update'])->name('note.update');
 
 
 Route::get('report', function (){
@@ -70,7 +70,6 @@ Route::get('mentor/assessment/task-detail/{task}', [AssessmentController::class,
 Route::patch('mentor/assessment/update/{studentTask}', [AssessmentController::class, 'update'])->name('task-offline.assessment');
 Route::get('mentor/assessment/challenge-detail/{challenge}', [AssessmentController::class,'showChallenge'])->name('challenge.detail');
 Route::patch('mentor/assessment/update/challenge/{studentChallenge}', [AssessmentController::class, 'updateChallenge'])->name('challenge.assessment');
-
 
 
 Route::get('mentor/challenge/challenge-detail/{challenge}', [AssessmentController::class,'showChallengeStudent'])->name('tantangan.detail');

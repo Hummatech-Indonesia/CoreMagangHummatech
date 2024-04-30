@@ -341,12 +341,13 @@
             <div class="row align-items-center d-flex">
                 <div class="col">
                     <h6 class="ms-4">
-                        Lacinia sit tempor risus pretium aliquet semper a sagittis ultricagna quisque sed massa dictum quis porta lacinia sem. Sagittis augue varius nec morbi. Lectus venenatis arcu bibendum mattis sit
-                        Lacinia sit tempor risus pretium aliquet semper a sagittis ultricagna quisque sed massa dictum quis porta lacinia sem. Sagittis augue varius nec morbi. Lectus venenatis arcu bibendum mattis sit
-                        Lacinia sit tempor risus pretium aliquet semper a sagittis ultricagna quisque sed massa dictum quis porta lacinia sem. Sagittis augue varius nec morbi. Lectus venenatis arcu bibendum mattis sit
-
-
+                        @isset($notes->note_pickets)
+                            {{ $notes->note_pickets }}
+                        @else
+                            Belum ada catatan
+                        @endisset
                     </h6>
+
                 </div>
             </div>
         </div>

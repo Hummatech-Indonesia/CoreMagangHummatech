@@ -36,18 +36,17 @@
                 <div class="modal-body">
                     <div class="mb-1 m-2">
                         <label for="title" class="col-form-label">Judul</label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Masukkan Judul">
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Masukkan Judul" value="{{ old('title') }}">
                         @error('title')
                         <p class="text-danger">
                             {{$message}}
                         </p>
                         @enderror
-
                     </div>
                     <div class="d-flex justify-content-between">
                         <div class="mb-1 flex-grow-1 m-2">
                             <label for="tanggal" class="col-form-label">Tanggal Mulai</label>
-                            <input type="datetime-local" class="form-control" id="start_date" name="start_date" placeholder="Masukkan Tanggal Mulai">
+                            <input type="datetime-local" class="form-control" id="start_date" name="start_date" placeholder="Masukkan Tanggal Mulai" value="{{ old('start_date') }}">
                             @error('start_date')
                             <p class="text-danger">
                                 {{$message}}
@@ -60,7 +59,7 @@
                         </div> --}}
                         <div class="mb-1 flex-grow-1 m-2">
                             <label for="jam" class="col-form-label">Tanggal Berakhir</label>
-                            <input type="datetime-local" class="form-control" id="jam" name="end_date" placeholder="Masukkan tabggal berakhir">
+                            <input type="datetime-local" class="form-control" id="jam" name="end_date" placeholder="Masukkan tabggal berakhir" value="{{ old('end_date') }}">
                             @error('end_date')
                             <p class="text-danger">
                                 {{$message}}
@@ -71,7 +70,7 @@
 
                     <div class="mb-1 m-2">
                         <label for="name" class="col-form-label">Link</label>
-                        <input type="text" class="form-control" id="name" name="link" placeholder="Masukkan Judul">
+                        <input type="text" class="form-control" id="name" name="link" placeholder="Masukkan Judul" value="{{ old('link') }}">
                         @error('link')
                         <p class="text-danger">
                             {{$message}}

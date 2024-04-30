@@ -17,7 +17,7 @@ class NotePicketRepository extends BaseRepository implements NotePicketInterface
     public function get(): mixed
     {
         return $this->model->query()
-        ->get();
+        ->first();
     }
 
     public function store(array $data): mixed
@@ -32,7 +32,7 @@ class NotePicketRepository extends BaseRepository implements NotePicketInterface
         ->findOrFail($id)
         ->delete($id);
     }
-    
+
     public function update(mixed $id, array $data): mixed
     {
         return $this->model->query()

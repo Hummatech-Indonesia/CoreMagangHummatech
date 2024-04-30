@@ -224,9 +224,15 @@
                         </div>
                         <div class="col-sm-auto ms-auto d-flex">
                             <div class="list-grid-nav hstack gap-1">
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#notes">
-                                    Tambah Data
-                                  </button>
+                                @if($notes)
+                                    <button type="button" class="btn btn-warning btn-edit" data-id="{{$notes->id}}" data-note_pickets="{{$notes->note_pickets}}">
+                                        Edit
+                                    </button>
+                                @else
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#notes">
+                                        Tambah Data
+                                    </button>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -237,7 +243,11 @@
         <div class="row">
             <div class="card bg-white" style="height: 300px;">
                 <div class="card-body">
-                    <!-- Konten card Anda di sini -->
+                    @if($notes)
+                        <h5>{{ $notes->note_pickets }}</h5>
+                    @else
+                        <h4 class="text-center mt-5">Belum ada catatan</h4>
+                    @endif
                 </div>
             </div>
         </div>
@@ -391,9 +401,15 @@
                             </div>
                             <div class="col-sm-auto ms-auto d-flex">
                                 <div class="list-grid-nav hstack gap-1">
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#notes">
-                                        Tambah Data
-                                      </button>
+                                    @if($notes)
+                                        <button type="button" class="btn btn-warning btn-edit" data-id="{{$notes->id}}" data-note_pickets="{{$notes->note_pickets}}">
+                                            Edit
+                                        </button>
+                                    @else
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#notes">
+                                            Tambah Data
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -404,7 +420,11 @@
             <div class="row">
                 <div class="card bg-white" style="height: 300px;">
                     <div class="card-body">
-                        <!-- Konten card Anda di sini -->
+                        @if($notes)
+                            <h5>{{ $notes->note_pickets }}</h5>
+                        @else
+                            <h4 class="text-center mt-5">Belum ada catatan</h4>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -415,39 +435,6 @@
 
     <div id="pills-experience" class="tab-pane fade">
         <div class="row">
-            {{-- @forelse ($reports as $report)
-
-            <div class="col-xxl-6 d-flex">
-                <div class="card flex-fill">
-                    <div class="row g-0 align-items-stretch">
-                        <div class="col-md-4">
-                            <img src="assets/images/small/img-12.jpg" alt="My Image" style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Inspektur : {{$report->student->name}}</h5>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text mb-2">
-                                    {{$report->description}}
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-muted"> Jumat-Sore</small>
-                                </p>
-                                <div class="">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal" style="background-color: #695EEF;">Lihat Detail</button>
-                                    <button type="submit" class="btn btn-success">Terima</button>
-                                    <button type="submit" class="btn btn-danger" style="background-color: #DC3545;">Tolak</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @empty
-
-            @endforelse --}}
-
             <div class="col-xxl-6 d-flex">
                 <div class="card flex-fill">
                     <div class="row g-0 align-items-stretch">
@@ -587,7 +574,7 @@
     </div>
 </div> <!-- end modal -->
 
-<!-- Note Modal -->
+<!-- Add Notes -->
 <div class="modal fade" id="notes" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -596,20 +583,53 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form action="{{route('note.store')}}" method="POST">
+            @csrf
             <div class="form-group">
-              <label for="exampleFormControlTextarea1">Catatan</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <label for="noteText">Catatan</label>
+              <textarea class="form-control" id="noteText" name="note_pickets" rows="3">{{ old('note') }}</textarea>
+              @error('note')
+                <div class="text-danger">{{ $message }}</div>
+              @enderror
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Tutup</button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
           </form>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary ">Simpan</button>
-          <button type="button" class="btn btn-light " data-bs-dismiss="modal">Close</button>
-        </div>
       </div>
     </div>
-  </div>
+</div>
+
+
+<!-- Edit Note Modal -->
+<div class="modal fade" id="editNotes" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editLabel">Edit Catatan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                  <form action="" method="POST" id="form-update">
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group">
+                        <label for="noteEditTextarea">Catatan</label>
+                        <textarea class="form-control" name="note_pickets" id="note_pickets-edit" rows="4"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-warning">Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
   <!-- Detail Modal -->
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
@@ -677,6 +697,17 @@
 
         // Remove the selected option
         this.removeChild(selectedOption);
+    });
+</script>
+
+<script>
+    $('.btn-edit').click(function () {
+        var id = $(this).data('id');
+        var note_pickets = $(this).data('note_pickets');
+
+        $('#form-update').attr('action', 'note-picket/' + id);
+        $('#note_pickets-edit').val(note_pickets);
+        $('#editNotes').modal('show');
     });
 </script>
 
