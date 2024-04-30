@@ -61,6 +61,7 @@ use App\Contracts\Interfaces\AttendanceDetailInterface;
 use App\Contracts\Interfaces\ChallengeInterface;
 use App\Contracts\Interfaces\CourseUnlockInterface;
 use App\Contracts\Interfaces\HummataskTeamInterface;
+use App\Contracts\Interfaces\NotePicketInterface;
 use App\Contracts\Interfaces\OrderInterface;
 use App\Contracts\Interfaces\StudentChallengeInterface;
 use App\Contracts\Interfaces\StudentTaskInterface;
@@ -77,12 +78,12 @@ use App\Contracts\Repositories\MentorDivisionRepository;
 use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Contracts\Interfaces\VoucherUsageInterface;
-use App\Contracts\Interfaces\VoucherUsageRepository;
 use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\AttendanceDetailRepository;
 use App\Contracts\Repositories\ChallengeRepository;
 use App\Contracts\Repositories\CourseUnlockRepository;
 use App\Contracts\Repositories\HummataskTeamRepository;
+use App\Contracts\Repositories\NotePicketRepository;
 use App\Contracts\Repositories\StudentChallengeRepository;
 use App\Contracts\Repositories\StudentTaskRepository;
 use App\Contracts\Repositories\SubCourseUnlockRepository;
@@ -90,6 +91,7 @@ use App\Contracts\Repositories\TaskSubmissionRepository;
 use App\Contracts\Repositories\TransactionHistoryRepository;
 use App\Contracts\Repositories\OrderRepository;
 use App\Contracts\Repositories\ThesisRepository;
+use App\Contracts\Repositories\VoucherUsageRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -129,13 +131,15 @@ class AppServiceProvider extends ServiceProvider
         TaskSubmissionInterface::class => TaskSubmissionRepository::class,
         StudentTaskInterface::class => StudentTaskRepository::class,
         SubCourseUnlockInterface::class => SubCourseUnlockRepository::class,
+
         ChallengeInterface::class => ChallengeRepository::class,
         OrderInterface::class => OrderRepository::class,
         HummataskTeamInterface::class => HummataskTeamRepository::class,
         StudentChallengeInterface::class => StudentChallengeRepository::class,
         CourseUnlockInterface::class => CourseUnlockRepository::class,
         VoucherUsageInterface::class => VoucherUsageRepository::class,
-        ThesisInterface::class => ThesisRepository::class
+        ThesisInterface::class => ThesisRepository::class,
+        NotePicketInterface::class => NotePicketRepository::class
     ];
 
     /**
@@ -161,10 +165,10 @@ class AppServiceProvider extends ServiceProvider
 
         # Adding custom directive
         Blade::directive('fcurrency', function ($expression) {
-            return "<?php echo number_format($expression, 0,',','.'); ?>";
+            return "<?php echo number_format((int) round($expression), 0,',','.'); ?>";
         });
         Blade::directive('currency', function ($expression) {
-            return "Rp <?php echo number_format($expression, 0,',','.'); ?>";
+            return "Rp <?php echo number_format((int) round($expression), 0,',','.'); ?>";
         });
 
         # Paginator change to bootstrap

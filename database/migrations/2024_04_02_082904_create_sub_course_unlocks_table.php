@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('sub_course_unlocks', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('student_id')->constrained();
-            $table->foreignId('course_id')->constrained();
-            $table->foreignId('sub_course_id')->constrained();
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('sub_course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->boolean('unlock')->default(false);
         });
     }

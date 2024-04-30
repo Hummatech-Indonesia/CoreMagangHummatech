@@ -26,6 +26,7 @@ class StoreMentorRequest extends FormRequest
             'email' => 'required|email',
             'division_id' => 'required',
             'image' => 'required',
+            'mentors_id'  => 'nullable'
         ];
     }
 

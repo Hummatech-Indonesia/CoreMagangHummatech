@@ -61,7 +61,7 @@ class NotePicketController extends Controller
      */
     public function update(UpdateNotePicketRequest $request, NotePicket $notePicket)
     {
-        $this->notePicket->update($request->validated() , $notePicket->id);
+        $this->notePicket->update( $notePicket->id, $request->validated());
         return redirect()->back()->with('success', 'Data berhasil diperbaharui');
     }
 

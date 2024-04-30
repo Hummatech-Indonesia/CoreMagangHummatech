@@ -28,7 +28,6 @@
         <div class="card card-body p-3">
             <img src="{{ url("/storage/{$course->image}") }}" alt="{{ $course->title }}" class="rounded-1 mb-3 w-100" />
 
-            <p class="text-primary h4">@currency($course->price)</p>
 
             <a href="{{ route('course-store.detail', $course->id) }}">
                 <h1 class="h2 fw-bolder">{{ $course->title }}</h1>

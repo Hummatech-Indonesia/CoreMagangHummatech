@@ -28,8 +28,13 @@ class StudentChallengeController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $challenges = $this->challenge->getUnsubmittedChallenges();
+    { 
+        $mentors = $this->mentorStudent->whereStudent(auth()->user()->student->id);
+        $challengeStudents = [];
+        foreach ($mentors as $index => $mentor) {
+            $challengeStudents[] = $this->challenge->getUnsubmittedChallenges($mentor->id);
+        }
+        $challenges = collect($challengeStudents)->flatten();
         $challengePendings = $this->studentChallenge->whereChallengePending(auth()->user()->student->id);
         $challengeDones = $this->studentChallenge->whereChallengeDone(auth()->user()->student->id);
         return view('student_offline.challenge.index', compact('challenges', 'challengePendings', 'challengeDones'));
@@ -91,7 +96,12 @@ class StudentChallengeController extends Controller
         // $challenges = $this->challenge->get();
         // return view('student_online.challenge.index', compact('challenges'));
 
-        $challenges = $this->challenge->getUnsubmittedChallenges();
+        $mentors = $this->mentorStudent->whereStudent(auth()->user()->student->id);
+        $challengeStudents = [];
+        foreach ($mentors as $index => $mentor) {
+            $challengeStudents[] = $this->challenge->getUnsubmittedChallenges($mentor->id);
+        }
+        $challenges = collect($challengeStudents)->flatten();
         $challengePendings = $this->studentChallenge->whereChallengePending(auth()->user()->student->id);
         $challengeDones = $this->studentChallenge->whereChallengeDone(auth()->user()->student->id);
         return view('student_online.challenge.index', compact('challenges', 'challengePendings', 'challengeDones'));

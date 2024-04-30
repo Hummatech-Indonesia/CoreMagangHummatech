@@ -22,145 +22,234 @@
     </div>
 </div>
 
-
-    <div class="row mb-3">
-        <div class="col-md-4 col-xl-2">
-            <input type="date" class="form-control">
-        </div>
-        <div class="col-md-4 col-xl-2">
-            <form class="position-relative">
-                <input type="text" class="form-control product-search ps-5" id="input-search" placeholder="Search Contacts...">
-                <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
-            </form>
-        </div>
-        <div class="col-md-4 col-xl-1">
-            <select class="form-select">
-                <option selected>Semua</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-            </select>
-        </div>
-        <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
-            <div class="action-btn show-btn" style="display: none">
-                <a href="javascript:void(0)" class="delete-multiple btn-light-danger btn me-2 text-danger d-flex align-items-center font-medium">
-                    <i class="ti ti-trash text-danger me-1 fs-5"></i>
-                    Delete All Row
-
+    <div class="container-fluid note-has-grid">
+        <ul class="nav nav-pills p-3 mb-3 rounded align-items-center card flex-row">
+            <li class="nav-item">
+                <a data-bs-toggle="tab" href="#task" role="tab" class="nav-link note-link d-flex align-items-center justify-content-center active px-3 px-md-3 me-0 me-md-2 text-body-color" id="all-category">
+                    <i class="ti ti-book mx-2"></i>
+                    <span class="d-none d-md-block font-weight-medium">Offline</span>
                 </a>
+            </li>
+            <li class="nav-item">
+                <a data-bs-toggle="tab" href="#done" role="tab" class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color" id="note-business">
+                    <i class="ti ti-chart-area-line mx-2"></i>
+                    <span class="d-none d-md-block font-weight-medium">Online</span>
+                </a>
+            </li>
+            <li class="nav-item ms-auto">
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-4 col-xl-4">
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="col-md-4 col-xl-5">
+                        <form class="position-relative">
+                            <input type="text" class="form-control product-search ps-5" id="input-search" placeholder="Search Contacts...">
+                            <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
+                        </form>
+                    </div>
+                    <div class="col-md-4 col-xl-3">
+                        <select class="form-select">
+                            <option selected>Semua</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="task" role="tabpanel">
+                <div class="table-responsive">
+                    <table class="table search-table align-middle text-nowrap">
+                        <thead class="header-item">
+                            <tr>
+                                <th>Nama</th>
+                                <th>Tanggal</th>
+                                <th>Status</th>
+                                <th>Deskripsi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($journalStudents as $journal)
+                            @if ($journal->student->internship_type === 'offline')
+                            <tr class="search-items">
+                                <td class="d-flex">
+                                    <div class="n-chk align-self-center text-center">
+                                        @if(Storage::disk('public')->exists($journal->student->avatar))
+                                        <img src="{{ asset('storage/' . $journal->student->avatar) }}" alt="avatar" class="rounded-circle" width="35" height="35">
+                                        @else
+                                            <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle" width="35" height="35">
+                                        @endif
+                                    </div>
+                                    <div class="ms-3">
+                                        <div class="user-meta-info">
+                                            <h6 class="user-name mb-0" data-name="Emma Adams">{{$journal->student->name}}</h6>
+                                            <span class="user-work fs-3" data-occupation="Web Developer">{{$journal->student->division->name}}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="usr-email-addr"> {{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}</span>
+                                </td>
+                                <td>
+                                    <span class="badge fw-semibold bg-light-success text-success">
+                                        <?php
+                                        if ($journal->status === 'fillin') {
+                                            echo '<span class="text-success text-uppercase">MENGISI</span>';
+                                        } else {
+                                            echo '<span class="text-danger text-uppercase">TIDAK MENGISI</span>';
+                                        }
+                                        ?>
+                                    </span>
+                                </td>
+                                <td class="text-break">
+                                    <span>
+                                        {{ Str::limit($journal->description, 80) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="action-btn">
+                                        <a href="javascript:void(0)" class="text-info btn-edit" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop_{{ $journal->id }}"
+                                            data-id="{{ $journal->id }}"
+                                            data-name="{{ $journal->student->name }}"
+                                            data-created_at="{{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}"
+                                            data-school="{{ $journal->student->school }}"
+                                            data-description ="{{ $journal->description  }}"
+                                            data-image="{{ asset('storage/'.$journal->image) }}"
+                                            >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            @endif
+
+                            @empty
+
+                            <tr>
+                                <td colspan="8">
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <img src="{{ asset('no data.png') }}" width="200px"
+                                            alt="">
+                                    </div>
+                                    <h4 class="text-center mt-2 mb-4">
+                                        Data Masih kosong
+                                    </h4>
+                                </td>
+                            </tr>
+
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="done" role="tabpanel">
+                <div class="table-responsive">
+                    <table class="table search-table align-middle text-nowrap">
+                        <thead class="header-item">
+                            <tr>
+                                <th>Nama</th>
+                                <th>Tanggal</th>
+                                <th>Status</th>
+                                <th>Deskripsi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($journalStudents as $journal)
+                            @if ($journal->student->internship_type === 'online')
+                            <tr class="search-items">
+                                <td class="d-flex">
+                                    <div class="n-chk align-self-center text-center">
+                                        @if(Storage::disk('public')->exists($journal->student->avatar))
+                                        <img src="{{ asset('storage/' . $journal->student->avatar) }}" alt="avatar" class="rounded-circle" width="35" height="35">
+                                        @else
+                                            <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle" width="35" height="35">
+                                        @endif
+                                    </div>
+                                    <div class="ms-3">
+                                        <div class="user-meta-info">
+                                            <h6 class="user-name mb-0" data-name="Emma Adams">{{$journal->student->name}}</h6>
+                                            <span class="user-work fs-3" data-occupation="Web Developer">{{$journal->student->division->name}}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="usr-email-addr"> {{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}</span>
+                                </td>
+                                <td>
+                                    <span class="badge fw-semibold bg-light-success text-success">
+                                        <?php
+                                        if ($journal->status === 'fillin') {
+                                            echo '<span class="text-success text-uppercase">MENGISI</span>';
+                                        } else {
+                                            echo '<span class="text-danger text-uppercase">TIDAK MENGISI</span>';
+                                        }
+                                        ?>
+                                    </span>
+                                </td>
+                                <td class="text-break">
+                                    <span>
+                                        {{ Str::limit($journal->description, 80) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="action-btn">
+                                        <a href="javascript:void(0)" class="text-info btn-edit" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop_{{ $journal->id }}"
+                                            data-id="{{ $journal->id }}"
+                                            data-name="{{ $journal->student->name }}"
+                                            data-created_at="{{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}"
+                                            data-school="{{ $journal->student->school }}"
+                                            data-description ="{{ $journal->description  }}"
+                                            data-image="{{ asset('storage/'.$journal->image) }}"
+                                            >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            @endif
+
+                            @empty
+
+                            <tr>
+                                <td colspan="8">
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <img src="{{ asset('no data.png') }}" width="200px"
+                                            alt="">
+                                    </div>
+                                    <h4 class="text-center mt-2 mb-4">
+                                        Data Masih kosong
+                                    </h4>
+                                </td>
+                            </tr>
+
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+
+      </div>
+
     </div>
 
 
-<div class="row">
-    <div class="card card-body">
-        <div class="table-responsive">
-            <table class="table search-table align-middle text-nowrap">
-                <thead class="header-item">
-                    <tr>
-                        <th>Nama</th>
-                        <th>Tanggal</th>
-                        <th>Status</th>
-                        <th>Deskripsi</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if ($journals != null)
-
-                        @forelse ($journals as $journal)
-                        <tr class="search-items">
-                            <td class="d-flex">
-                                <div class="n-chk align-self-center text-center">
-                                    {{-- <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt="avatar" class="rounded-circle" width="35"> --}}
-                                    @if(Storage::disk('public')->exists($journal->student->avatar))
-                                    <img src="{{ asset('storage/' . $journal->student->avatar) }}" alt="avatar" class="rounded-circle" width="35">
-                                    @else
-                                        <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle" width="35">
-                                    @endif
-                                </div>
-                                <div class="ms-3">
-                                    <div class="user-meta-info">
-                                        <h6 class="user-name mb-0" data-name="Emma Adams">{{$journal->student->name}}</h6>
-                                        <span class="user-work fs-3" data-occupation="Web Developer">{{$journal->student->division->name}}</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="usr-email-addr"> {{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}</span>
-                            </td>
-                            <td>
-                                <span class="badge fw-semibold bg-light-success text-success">
-                                    <?php
-                                    if ($journal->status === 'fillin') {
-                                        echo '<span class="text-success text-uppercase">MENGISI</span>';
-                                    } else {
-                                        echo '<span class="text-danger text-uppercase">TIDAK MENGISI</span>';
-                                    }
-                                    ?>
-                                </span>
-                            </td>
-                            <td class="text-break">
-                                <span>
-                                    {{ Str::limit($journal->description, 80) }}
-                                </span>
-                            </td>
-                            <td>
-                                <div class="action-btn">
-                                    <a href="javascript:void(0)" class="text-info btn-edit" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop_{{ $journal->id }}"
-                                        data-id="{{ $journal->id }}"
-                                        data-name="{{ $journal->student->name }}"
-                                        data-created_at="{{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}"
-                                        data-school="{{ $journal->student->school }}"
-                                        data-description ="{{ $journal->description  }}"
-                                        data-image="{{ asset('storage/'.$journal->image) }}"
-                                        >
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                            <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                        @empty
-
-                        <tr>
-                            <td colspan="8">
-                                <div class="d-flex justify-content-center mt-3">
-                                    <img src="{{ asset('no data.png') }}" width="200px"
-                                        alt="">
-                                </div>
-                                <h4 class="text-center mt-2 mb-4">
-                                    Data Masih kosong
-                                </h4>
-                            </td>
-                        </tr>
-
-                        @endforelse
-
-                    @else
-                        <tr>
-                            <td colspan="8">
-                                <div class="d-flex justify-content-center mt-3">
-                                    <img src="{{ asset('no data.png') }}" width="200px"
-                                        alt="">
-                                </div>
-                                <h4 class="text-center mt-2 mb-4">
-                                    Data Masih kosong
-                                </h4>
-                            </td>
-                        </tr>
-                    @endif
-
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
 
 <nav aria-label="...">
     <ul class="pagination justify-content-center mb-0 mt-4">
@@ -276,3 +365,4 @@
 
     </script>
 @endsection
+

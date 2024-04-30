@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\OrderInterface;
 use App\Contracts\Interfaces\PaymentInterface;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Contracts\Interfaces\VoucherInterface;
+use App\Contracts\Interfaces\VoucherUsageInterface;
 use App\Enum\TransactionStatusEnum;
 use App\Http\Requests\TripayCheckoutRequest;
 use App\Models\TransactionHistory;
@@ -22,6 +23,7 @@ class TransactionController extends Controller
     private Cart $cart;
     private VoucherInterface $voucherInterface;
     private OrderInterface $orderInterface;
+    private VoucherUsageInterface $voucherUsageInterface;
 
     public function __construct(
         PaymentInterface $payment,
@@ -29,7 +31,8 @@ class TransactionController extends Controller
         VoucherInterface $voucherInterface,
         PaymentInterface $paymentInterface,
         TransactionHistoryInterface $transactionHistory,
-        OrderInterface $orderInterface
+        OrderInterface $orderInterface,
+        VoucherUsageInterface $voucherUsageInterface
     )
     {
         $this->payment = $payment;
@@ -38,6 +41,7 @@ class TransactionController extends Controller
         $this->voucherInterface = $voucherInterface;
         $this->paymentInterface = $paymentInterface;
         $this->transactionHistory = $transactionHistory;
+        $this->voucherUsageInterface = $voucherUsageInterface;
     }
 
     public function index()
@@ -88,8 +92,10 @@ class TransactionController extends Controller
                 ]
             ])->toArray());
 
+            # Convert timestamp to date
             $dueDate = Carbon::createFromTimestamp($response['data']['expired_time'])->setTimezone('Asia/Jakarta');
 
+            # Store Transaction Data
             $transactionHistory = $this->transactionHistory->store([
                 'transaction_id' => $response['data']['merchant_ref'],
                 'reference' => $response['data']['reference'],
@@ -101,6 +107,7 @@ class TransactionController extends Controller
                 'status' => TransactionStatusEnum::PENDING->value,
             ]);
 
+            # Store Order Data
             $productDetail->map(function($item) use ($transactionHistory) {
                 $this->orderInterface->store([
                     'user_id' => auth()->id(),
@@ -114,9 +121,20 @@ class TransactionController extends Controller
                 ]);
             });
 
+            # Store Voucher
+            $voucherData = $this->voucherInterface->getVoucherByCode(session('voucher')[0]);
+
+            $this->voucherUsageInterface->store([
+                'vouchers_id' => $voucherData->id,
+                'students_id' => auth()->id(),
+                'used_at' => now(),
+            ]);
+
+            # Delete session
             Cart::truncate();
             session()->forget('voucher');
 
+            # Redirect
             return redirect()->route('transaction-history.detail', $transactionHistory->transaction_id)
                 ->with('success', 'Metode pembayaran, berhasil diminta.');
         } catch (\Exception $e) {

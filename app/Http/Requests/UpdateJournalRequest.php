@@ -23,8 +23,8 @@ class UpdateJournalRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'description' => 'required',
-            'image' => 'mimes:png,jpg'
+            'description' => 'required|min:150',
+            'image' => 'mimes:png,jpg|max:500'
         ];
     }
 
@@ -34,7 +34,10 @@ class UpdateJournalRequest extends FormRequest
         return [
             'title.required' => 'Judul harus diisi',
             'description.required' => 'Deskripsi harus diisi',
-            'image.mimes' => 'Gambar harus berupa png, jpg atau jpeg'
+            'description.min' => 'Deskripsi harus minimal 150 karakter.',
+            'image.mimes' => 'Gambar harus berupa png, jpg atau jpeg',
+            'image.max' => 'Ukuran gambar tidak boleh lebih dari 500 KB.'
+
         ];
     }
 }

@@ -94,7 +94,7 @@
                             <span class="hide-menu">Materi <i class="fas fa-lock opacity-50 ms-2"></i></span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    {{-- <li class="sidebar-item">
                         <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
                             href="javascript:void(0)" aria-expanded="false">
                             <span>
@@ -111,7 +111,7 @@
                             </span>
                             <span class="hide-menu">Tantangan <i class="fas fa-lock opacity-50 ms-2"></i></span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="sidebar-item">
                         <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
                             href="javascript:void(0)" aria-expanded="false">
@@ -155,7 +155,7 @@
                             <span class="hide-menu">Beli Materi</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    {{-- <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ url('/siswa-online/tugas') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-pencil"></i>
@@ -170,7 +170,7 @@
                             </span>
                             <span class="hide-menu">Tantangan</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ url('/siswa-online/meeting') }}" aria-expanded="false">
                             <span>

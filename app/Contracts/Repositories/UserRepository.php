@@ -34,6 +34,10 @@ class UserRepository extends BaseRepository implements UserInterface
     {
         return $this->model->query()->findOrFail($id)->update($data);
     }
+    public function delete(mixed $id): mixed
+    {
+        return $this->model->query()->findOrFail($id)->delete($id);
+    }
 
     public function addCourseToSubcribedUser(int $courseId): void
     {
@@ -56,5 +60,10 @@ class UserRepository extends BaseRepository implements UserInterface
                 'unlock' => true
             ]);
         });
+    }
+
+    public function where(string $string, mixed $id): mixed
+    {
+        return $this->model->query()->where($string, $id)->first();
     }
 }

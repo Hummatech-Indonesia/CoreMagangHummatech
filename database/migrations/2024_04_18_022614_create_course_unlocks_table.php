@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('course_unlocks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained();
-            $table->foreignId('course_id')->constrained();
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->boolean('unlock')->default(false);
             $table->timestamps();
         });

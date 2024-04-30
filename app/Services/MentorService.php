@@ -7,8 +7,10 @@ use App\Services\Traits\UploadTrait;
 use App\Http\Requests\StoreMentorRequest;
 use App\Contracts\Interfaces\MentorInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
+use App\Contracts\Interfaces\UserInterface;
 use App\Http\Requests\UpdateMentorRequest;
 use App\Models\Mentor;
+use Hash;
 
 class MentorService
 {
@@ -16,11 +18,14 @@ class MentorService
 
     private MentorInterface $mentor;
     private MentorStudentInterface $mentorStudent;
+    private UserInterface $user;
 
-    public function __construct(MentorInterface $mentor, MentorStudentInterface $mentorStudent)
+
+    public function __construct(MentorInterface $mentor, MentorStudentInterface $mentorStudent, UserInterface $user)
     {
         $this->mentor = $mentor;
         $this->mentorStudent = $mentorStudent;
+        $this->user = $user;
     }
 
     use UploadTrait;
@@ -55,6 +60,9 @@ class MentorService
             $data['image'] = $request->file('image')->store(TypeEnum::MENTOR->value, 'public');
             return $data;
         }
+
+        
+
         return false;
     }
 
@@ -76,6 +84,15 @@ class MentorService
         } else {
             $data['image'] = $mentor->image;
         }
+
+        $dataUser = [
+            'name' => $data->name,
+            'email' => $data->email,
+            'password' => Hash::make('password'),
+            'mentors_id' => $mentor->id,
+        ];
+
+        $this->user->store($dataUser);
 
         return $data;
     }

@@ -281,7 +281,7 @@
 
                         <div class="mb-3">
                             <label for="image">Foto materi</label>
-                            <input type="file" name="image" id="imageInput" class="form-control">
+                            <input type="file" name="image" id="imageInput" class="form-control" accept="image/*" />
                             <div id="imagePreview" class="mt-2"></div>
                             @error('image')
                                 <small class="text-danger">{{ $message }}</small>

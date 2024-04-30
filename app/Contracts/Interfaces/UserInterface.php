@@ -8,7 +8,7 @@ use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 use App\Contracts\Interfaces\Eloquent\WhereInterface;
 
-interface UserInterface extends GetInterface, StoreInterface, GetWhereInterface, UpdateInterface
+interface UserInterface extends GetInterface, StoreInterface, GetWhereInterface, UpdateInterface, DeleteInterface
 {
     /**
      * Add course to subcribed user
@@ -26,5 +26,5 @@ interface UserInterface extends GetInterface, StoreInterface, GetWhereInterface,
      * @return mixed
      */
     public function addSubCourseToSubcribedUser(int $courseId, int $subCourseId): void;
-    
+    public function where(string $string, mixed $id): mixed;    
 }

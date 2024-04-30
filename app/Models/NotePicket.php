@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $note_pickets
@@ -25,4 +25,6 @@ use Illuminate\Database\Eloquent\Model;
 class NotePicket extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
 }
