@@ -3,17 +3,19 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\AttendanceInterface;
+use App\Contracts\Interfaces\BoardInterface;
 use App\Contracts\Interfaces\CategoryBoardInterface;
 use App\Contracts\Interfaces\CodeOfConductInterface;
 use App\Contracts\Interfaces\ThesisInterface;
+use App\Models\Board;
 use App\Models\CategoryBoard;
 use App\Models\Thesis;
 
-class CategoryBoardRepository extends BaseRepository implements CategoryBoardInterface
+class BoardRepository extends BaseRepository implements BoardInterface
 {
-    public function __construct(CategoryBoard $categoryBoard)
+    public function __construct(Board $board)
     {
-        $this->model = $categoryBoard;
+        $this->model = $board;
     }
 
     public function get(): mixed
