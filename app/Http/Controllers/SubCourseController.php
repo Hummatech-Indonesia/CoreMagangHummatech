@@ -62,6 +62,8 @@ class SubCourseController extends Controller
         $data = $this->service->store($request);
         $course = $this->subCourse->store($data);
 
+        $this->subCourse->addToBoughtCourse($course);
+
         if($course->course->getStatus()->value !== 'paid') {
             $this->userInterface->addSubCourseToSubcribedUser($course->course->id, $course->id);
         }

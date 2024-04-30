@@ -83,10 +83,11 @@ class CourseController extends Controller
     {
         $id  = $course->id;
         $countSub = $this->subCourse->count();
-        $subCourses = $this->subCourse->where($course->id);
+        $subCourses = $this->subCourse->GetWhere($course->id);
         $course = $this->course->show($course->id);
+
         return view('admin.page.course.detail' , compact('course' , 'subCourses' , 'countSub' , 'id'));
-        
+
     }
 
     /**
@@ -104,6 +105,7 @@ class CourseController extends Controller
     {
         $data = $this->service->update($course, $request);
         $this->course->update($course->id, $data);
+
         return back()->with('success' , 'Berhasi Memperbarui Data');
     }
 

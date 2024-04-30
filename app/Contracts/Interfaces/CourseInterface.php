@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Contracts\Interfaces;
 
 use App\Contracts\Interfaces\Eloquent\CountInterface;
@@ -9,7 +10,7 @@ use App\Contracts\Interfaces\Eloquent\ShowInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
-interface CourseInterface extends GetInterface , StoreInterface , DeleteInterface , UpdateInterface ,ShowInterface ,CountInterface ,GetWhereInterface
+interface CourseInterface extends GetInterface, StoreInterface, DeleteInterface, UpdateInterface, ShowInterface, CountInterface, GetWhereInterface
 {
     public function getPaid();
     public function getUnpaidCourse();
