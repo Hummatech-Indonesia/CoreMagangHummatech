@@ -83,20 +83,20 @@ class TransactionController extends Controller
                         'product_url' => route('subscription.index'),
                     ];
                 })
-                ->push(...[
-                    ...$productDetail->map(function ($item) use ($request) {
-                        return [
-                            'name'        => 'PPn 11%',
-                            'price'       => (int) ceil(Transaction::countTax(((int) $item['price']) - ((int) $request->input('discount')))),
-                            'quantity'    => 1,
-                            'product_url' => route('subscription.index'),
-                        ];
-                    })
-                ])
-                ->toArray()
+                    ->push(...[
+                        ...$productDetail->map(function ($item) use ($request) {
+                            return [
+                                'name'        => 'PPn 11%',
+                                'price'       => (int) ceil(Transaction::countTax(((int) $item['price']) - ((int) $request->input('discount')))),
+                                'quantity'    => 1,
+                                'product_url' => route('subscription.index'),
+                            ];
+                        })
+                    ])
+                    ->toArray()
             );
 
-            if (!$response['success']) {
+            if ($response && !$response['success']) {
                 throw new \Exception("\"Gagal melakukan transaksi\", {$response['message']}");
             }
 
@@ -130,14 +130,16 @@ class TransactionController extends Controller
             });
 
             # Store Voucher
-            $voucherData = $this->voucherInterface->getVoucherByCode(session('voucher')[0]);
+            if (session('voucher')) {
+                $voucherData = $this->voucherInterface->getVoucherByCode(session('voucher')[0]);
 
-            $this->voucherUsageInterface->store([
-                'vouchers_id' => $voucherData->id,
-                'students_id' => Auth::id(),
-                'transaction_histories_id' => $transactionHistory->id,
-                'used_at' => now(),
-            ]);
+                $this->voucherUsageInterface->store([
+                    'vouchers_id' => $voucherData->id,
+                    'students_id' => Auth::id(),
+                    'transaction_histories_id' => $transactionHistory->id,
+                    'used_at' => now(),
+                ]);
+            }
 
             # Delete session
             Cart::truncate();

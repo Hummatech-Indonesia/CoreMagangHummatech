@@ -13,6 +13,16 @@ class OrderRepository extends BaseRepository implements OrderInterface
         $this->model = $order;
     }
 
+    public function when(mixed ...$clause): mixed
+    {
+        return $this->model->query()->when(...$clause);
+    }
+
+    public function where(mixed ...$clause): mixed
+    {
+        return $this->model->query()->where(...$clause);
+    }
+
     public function paginate($perPage = 15, $columns = ['*'], $pageName = 'page', $page = null): mixed
     {
         return $this->model->query()->paginate($perPage, $columns, $pageName, $page);
