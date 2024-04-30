@@ -2,7 +2,11 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\SubCourseInterface;
+use App\Models\Course;
+use App\Models\CourseUnlock;
 use App\Models\SubCourse;
+use App\Models\SubCourseUnlock;
+use Auth;
 
 class SubCourseRepository extends BaseRepository implements SubCourseInterface
 {
@@ -22,7 +26,7 @@ class SubCourseRepository extends BaseRepository implements SubCourseInterface
 
     public function store(array $data): mixed
     {
-        return $this->model->query()->create($data);
+        return $this->model->query()->firstOrCreate($data);
     }
     public function update(mixed $id, array $data): mixed
     {
@@ -30,7 +34,7 @@ class SubCourseRepository extends BaseRepository implements SubCourseInterface
     }
     public function delete(mixed $id): mixed
     {
-        return $this->model->query()->findOrFail($id)->delete($id);
+        return $this->model->query()->findOrFail($id)->delete();
     }
 
     public function where(mixed $id): mixed
@@ -48,5 +52,17 @@ class SubCourseRepository extends BaseRepository implements SubCourseInterface
     public function whereCourse(mixed $id): mixed
     {
         return $this->model->query()->where('course_id', $id)->get();
+    }
+    public function addToBoughtCourse(mixed $subCourse): void
+    {
+        $courseUnlock = CourseUnlock::find($subCourse->course_id);
+        if ($courseUnlock) {
+            SubCourseUnlock::createOrFirst([
+                'sub_course_id' => $subCourse->id,
+                'course_id' => $subCourse->course_id,
+                'student_id' => $courseUnlock->id,
+                'unlock' => 1
+            ]);
+        }
     }
 }
