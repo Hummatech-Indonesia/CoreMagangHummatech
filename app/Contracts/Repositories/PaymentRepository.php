@@ -215,7 +215,7 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
                 }
 
                 if ($invoiceData->course) {
-                    $this->_buyCourseAction($invoiceData, $status, $invoiceData);
+                    $this->_buyCourseAction($invoice, $status, $invoiceData);
                 } else if (!$invoiceData->course) {
                     $this->_subscriptionAction($invoice, $status, $invoiceData);
                 } else {
