@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->foreignId('category_board_id')->constrained();
-            $table->foreignId('team_id')->constrained();
+            $table->foreignId('hummatask_team_id')->constrained();
             $table->string('start_date');
             $table->string('end_date');
             $table->timestamps();
