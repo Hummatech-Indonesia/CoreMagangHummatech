@@ -99,12 +99,18 @@
                                     <tr>
                                         <td class="border-0 opacity-50 py-1"></td>
                                         <td class="border-0 opacity-50 py-1">PPn 11%</td>
-                                        <td class="border-0 opacity-50 py-1">@currency(Transaction::countTax(Transaction::discountSubtotal($reference->order->price, (int) $reference->voucherUsage->voucher->presentase)))</td>
+                                        <td class="border-0 opacity-50 py-1">
+                                            @if($reference->voucherUsage)
+                                            @currency(Transaction::countTax(Transaction::discountSubtotal($reference->order->price, (int) $reference->voucherUsage->voucher->presentase)))
+                                            @else
+                                            @currency(Transaction::countTax($reference->order->price))
+                                            @endif
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="border-0 opacity-50 py-1"></td>
-                                        <td class="border-0 opacity-50 py-1">Biaya Administrasi</td>
-                                        <td class="border-0 opacity-50 py-1">@currency((int) $paymentDetail['data']['total_fee'])</td>
+                                        <td class="border-0 opacity-50 @if($reference->voucherUsage) py-1 @else pb-3 pt-1 @endif"></td>
+                                        <td class="border-0 opacity-50 @if($reference->voucherUsage) py-1 @else pb-3 pt-1 @endif">Biaya Administrasi</td>
+                                        <td class="border-0 opacity-50 @if($reference->voucherUsage) py-1 @else pb-3 pt-1 @endif">@currency((int) $paymentDetail['data']['total_fee'])</td>
                                     </tr>
                                     @if($reference->voucherUsage)
                                     <tr>
