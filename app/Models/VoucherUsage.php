@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -33,6 +34,17 @@ class VoucherUsage extends Model
     protected $fillable = [
         'vouchers_id',
         'students_id',
+        'transaction_histories_id',
         'used_at',
     ];
+
+    /**
+     * Connect to voucher
+     *
+     * @return BelongsTo
+     */
+    public function voucher(): BelongsTo
+    {
+        return $this->belongsTo(Voucher::class, 'vouchers_id');
+    }
 }

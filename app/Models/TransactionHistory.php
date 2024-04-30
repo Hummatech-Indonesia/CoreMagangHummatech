@@ -94,6 +94,16 @@ class TransactionHistory extends Model
     }
 
     /**
+     * Getting relation to voucher
+     *
+     * @return BelongsTo
+     */
+    public function voucherUsage(): BelongsTo
+    {
+        return $this->belongsTo(VoucherUsage::class, 'id', 'transaction_histories_id');
+    }
+
+    /**
      * Get the user that owns the TransactionHistory
      *
      * @return BelongsTo

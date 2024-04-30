@@ -134,7 +134,7 @@ class TransactionController extends Controller
 
             $this->voucherUsageInterface->store([
                 'vouchers_id' => $voucherData->id,
-                'students_id' => auth()->id(),
+                'students_id' => Auth::id(),
                 'transaction_histories_id' => $transactionHistory->id,
                 'used_at' => now(),
             ]);

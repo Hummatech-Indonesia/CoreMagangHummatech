@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use Artisan;
+use File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,6 +17,15 @@ class RemoveImage extends Seeder
     {
         $this->deleteDirectoryContents('public');
         $this->recreateDirectory('public');
+
+        // Delete the storage directory if it exists
+        $storagePath = public_path('storage');
+        if (File::isDirectory($storagePath)) {
+            File::deleteDirectory($storagePath);
+        }
+
+        // Recreate the symbolic link
+        Artisan::call('storage:link --force');
     }
 
     /**

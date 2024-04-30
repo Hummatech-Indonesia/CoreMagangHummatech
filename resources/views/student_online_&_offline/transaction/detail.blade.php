@@ -82,7 +82,6 @@
                                 <tbody>
                                     <tr>
                                         <td colspan="2">
-                                            {{-- @dd($reference->order->course()) --}}
                                             @if($reference->order->course())
                                             Pembelian Materi: <strong>{{ $reference->order->name }}</strong>
                                             @else
@@ -100,18 +99,18 @@
                                     <tr>
                                         <td class="border-0 opacity-50 py-1"></td>
                                         <td class="border-0 opacity-50 py-1">PPn 11%</td>
-                                        <td class="border-0 opacity-50 py-1">@currency(Transaction::countTax($reference->order->price))</td>
+                                        <td class="border-0 opacity-50 py-1">@currency(Transaction::countTax(Transaction::discountSubtotal($reference->order->price, (int) $reference->voucherUsage->voucher->presentase)))</td>
                                     </tr>
                                     <tr>
                                         <td class="border-0 opacity-50 py-1"></td>
                                         <td class="border-0 opacity-50 py-1">Biaya Administrasi</td>
                                         <td class="border-0 opacity-50 py-1">@currency((int) $paymentDetail['data']['total_fee'])</td>
                                     </tr>
-                                    @if($reference->amount < $reference->order->price)
+                                    @if($reference->voucherUsage)
                                     <tr>
                                         <td class="border-0 pt-1 fw-bolder text-primary"></td>
                                         <td class="border-0 pt-1 fw-bolder text-primary">Diskon</td>
-                                        <td class="border-0 pt-1 fw-bolder text-primary">-@currency(($reference->order->price + Transaction::countTax($reference->order->price) + (int) $paymentDetail['data']['total_fee']) - $reference->amount)</td>
+                                        <td class="border-0 pt-1 fw-bolder text-primary">-@currency(Transaction::discount($reference->order->price, (int) $reference->voucherUsage->voucher->presentase))</td>
                                     </tr>
                                     @endif
 
