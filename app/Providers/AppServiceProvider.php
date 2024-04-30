@@ -66,6 +66,7 @@ use App\Contracts\Interfaces\StudentChallengeInterface;
 use App\Contracts\Interfaces\StudentTaskInterface;
 use App\Contracts\Interfaces\SubCourseUnlockInterface;
 use App\Contracts\Interfaces\TaskSubmissionInterface;
+use App\Contracts\Interfaces\ThesisInterface;
 use App\Contracts\Repositories\CodeOfConductRepository;
 use App\Contracts\Repositories\MentorStudentRepository;
 use App\Contracts\Repositories\ReportStudentRepository;
@@ -88,6 +89,7 @@ use App\Contracts\Repositories\SubCourseUnlockRepository;
 use App\Contracts\Repositories\TaskSubmissionRepository;
 use App\Contracts\Repositories\TransactionHistoryRepository;
 use App\Contracts\Repositories\OrderRepository;
+use App\Contracts\Repositories\ThesisRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -132,7 +134,8 @@ class AppServiceProvider extends ServiceProvider
         HummataskTeamInterface::class => HummataskTeamRepository::class,
         StudentChallengeInterface::class => StudentChallengeRepository::class,
         CourseUnlockInterface::class => CourseUnlockRepository::class,
-        VoucherUsageInterface::class => VoucherUsageRepository::class
+        VoucherUsageInterface::class => VoucherUsageRepository::class,
+        ThesisInterface::class => ThesisRepository::class
     ];
 
     /**

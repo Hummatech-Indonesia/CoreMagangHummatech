@@ -4,12 +4,14 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\AttendanceInterface;
 use App\Contracts\Interfaces\CodeOfConductInterface;
-use App\Models\Attendance;
-class CodeOfConductRepository extends BaseRepository implements CodeOfConductInterface
+use App\Contracts\Interfaces\ThesisInterface;
+use App\Models\Thesis;
+
+class ThesisRepository extends BaseRepository implements ThesisInterface
 {
-    public function __construct(Attendance $attendance)
+    public function __construct(Thesis $thesis)
     {
-        $this->model = $attendance;
+        $this->model = $thesis;
     }
 
     public function get(): mixed
@@ -33,23 +35,17 @@ class CodeOfConductRepository extends BaseRepository implements CodeOfConductInt
      */
     public function store(array $data): mixed
     {
+        $data['student_id'] = auth()->user()->student->id;
         return $this->model->query()
             ->create($data);
     }
-
     /**
      * checkAttendanceStudent
      *
      * @param  mixed $studentId
      * @return void
      */
-    public function checkAttendanceStudent(mixed $studentId)
-    {
-        return $this->model->query()
-            ->where(['student_id' => $studentId])
-            ->whereDate('created_at', now()
-            ->format('Y-m-d'))->first();
-    }
+
 
     public function delete(mixed $id): mixed
     {
