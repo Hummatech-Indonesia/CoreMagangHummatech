@@ -401,9 +401,15 @@
                             </div>
                             <div class="col-sm-auto ms-auto d-flex">
                                 <div class="list-grid-nav hstack gap-1">
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#notes">
-                                        Tambah Data
-                                      </button>
+                                    @if($notes)
+                                        <button type="button" class="btn btn-warning btn-edit" data-id="{{$notes->id}}" data-note_pickets="{{$notes->note_pickets}}">
+                                            Edit
+                                        </button>
+                                    @else
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#notes">
+                                            Tambah Data
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -415,7 +421,7 @@
                 <div class="card bg-white" style="height: 300px;">
                     <div class="card-body">
                         @if($notes)
-                            <h5>{{ $notes }}</h5>
+                            <h5>{{ $notes->note_pickets }}</h5>
                         @else
                             <h4 class="text-center mt-5">Belum ada catatan</h4>
                         @endif
