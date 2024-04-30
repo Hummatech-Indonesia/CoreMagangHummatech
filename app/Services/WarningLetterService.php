@@ -88,7 +88,7 @@ class WarningLetterService
 
         $pdf = FacadePdf::loadView('desain_pdf.percobaan', ['data' => $dataForPdf]);
         $generatedPdfName = 'pdf_' . time() . '.pdf';
-        $pdfPath = 'public/' . TypeEnum::WARNING_LETTER->value . '/' . $generatedPdfName;
+        $pdfPath = TypeEnum::WARNING_LETTER->value . '/' . $generatedPdfName;
         Storage::put($pdfPath, $pdf->output());
         $nomor_surat = $request->reference_number . "/SP/PKL/I/" . Carbon::now()->format('Y');
 
