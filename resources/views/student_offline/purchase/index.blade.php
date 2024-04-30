@@ -14,7 +14,8 @@
                 </div>
                 <div class="col-3">
                     <div class="text-center mb-n5">
-                        <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt="" class="img-fluid mb-n4">
+                        <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt=""
+                            class="img-fluid mb-n4">
                     </div>
                 </div>
             </div>
@@ -22,30 +23,35 @@
     </div>
     <div class="container-fluid note-has-grid">
         <ul class="nav nav-pills p-3 mb-3 rounded align-items-center card flex-row">
-          <li class="nav-item">
-            <a data-bs-toggle="tab" href="#task" role="tab" class="nav-link note-link d-flex align-items-center justify-content-center active px-3 px-md-3 me-0 me-md-2 text-body-color" id="all-category">
-              <i class="ti ti-list fill-white me-0 me-md-1"></i>
-              <span class="d-none d-md-block font-weight-medium">List Pembelian</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a data-bs-toggle="tab" href="#done" role="tab" class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color " id="note-business">
-              <i class="ti ti-history fill-white me-0 me-md-1"></i>
-              <span class="d-none d-md-block font-weight-medium">Riwayat Pembelian</span>
-            </a>
-          </li>
-          <li class="nav-item ms-auto ">
-            <form action="">
-                <div class="d-flex">
-                    <div class="search-box mx-2">
-                        <input type="text" class="form-control search-chat py-2" id="text-srh" placeholder="Cari Materi">
+            <li class="nav-item">
+                <a data-bs-toggle="tab" href="#task" role="tab"
+                    class="nav-link note-link d-flex align-items-center justify-content-center active px-3 px-md-3 me-0 me-md-2 text-body-color"
+                    id="all-category">
+                    <i class="ti ti-list fill-white me-0 me-md-1"></i>
+                    <span class="d-none d-md-block font-weight-medium">List Pembelian</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a data-bs-toggle="tab" href="#done" role="tab"
+                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color "
+                    id="note-business">
+                    <i class="ti ti-history fill-white me-0 me-md-1"></i>
+                    <span class="d-none d-md-block font-weight-medium">Riwayat Pembelian</span>
+                </a>
+            </li>
+            <li class="nav-item ms-auto ">
+                <form action="">
+                    <div class="d-flex">
+                        <div class="search-box mx-2">
+                            <input type="text" class="form-control search-chat py-2" id="text-srh"
+                                placeholder="Cari Materi">
+                        </div>
+                        <button class="btn btn-primary">
+                            Cari
+                        </button>
                     </div>
-                    <button class="btn btn-primary">
-                        Cari
-                    </button>
-                </div>
-            </form>
-          </li>
+                </form>
+            </li>
         </ul>
 
         <div class="tab-content">
@@ -53,38 +59,43 @@
             <div class="tab-pane active" id="task" role="tabpanel">
                 <div class="all-category note-important">
                     <div class="d-flex align-items-center mb-3 pt-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-info-square text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="currentColor"
+                            class="icon icon-tabler icons-tabler-filled icon-tabler-info-square text-primary">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M19 2a3 3 0 0 1 2.995 2.824l.005 .176v14a3 3 0 0 1 -2.824 2.995l-.176 .005h-14a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-14a3 3 0 0 1 2.824 -2.995l.176 -.005h14zm-7 9h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" />
+                            <path
+                                d="M19 2a3 3 0 0 1 2.995 2.824l.005 .176v14a3 3 0 0 1 -2.824 2.995l-.176 .005h-14a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-14a3 3 0 0 1 2.824 -2.995l.176 -.005h14zm-7 9h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" />
                         </svg>
                         <h5 class="mb-0 ms-2">Rekomendasi</h5>
                     </div>
                     <div class="d-flex flex-wrap">
                         @foreach ($courses as $course)
-                        <div class="p-1 col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <img src="{{ asset('assets-user/dist/images/crypto/c2.jpg') }}" alt="Deskripsi Gambar" class="img-fluid mb-3 rounded-2">
-                                    <div class="d-flex flex-wrap gap-2">
-                                        <h6 class=" text-info" style="font-size: 18px">
-                                            Rp.299.999
-                                        </h6>
-                                    </div>
-                                    <h4>Lorem ipsum dolor sit, amet consectetur adipisicing.</h4>
-                                    <p class="text-mute">
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda inventore molestias necessitatibus nisi.
-                                    </p>
-                                    <div class="d-flex">
-                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-sm btn-rounded btn-outline-primary w-100">
-                                            Lihat Detail
-                                        </a>
-                                        <a href="javascript:void(0)" class="btn btn-sm btn-primary w-100 mx-2">
-                                            Beli Sekarang
-                                        </a>
+                            <div class="p-1 col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <img src="{{ asset('storage/' . $course->image) }}"
+                                            alt="Deskripsi Gambar" class="img-fluid mb-3 rounded-2">
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <h6 class=" text-info" style="font-size: 18px">
+                                                {{ 'Rp ' . number_format($course->price, 0, ',', '.') }}
+                                            </h6>
+                                        </div>
+                                        <h4>{{ $course->title }}</h4>
+                                        <p class="text-mute">
+                                            {{ \Illuminate\Support\Str::limit($course->description, 100) }}
+                                        </p>
+                                        <div class="d-flex">
+                                            <a href="{{ url('siswa-offline/purchase/detail') }}"
+                                                class="btn btn-sm btn-rounded btn-outline-primary w-100">
+                                                Lihat Detail
+                                            </a>
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-primary w-100 mx-2">
+                                                Beli Sekarang
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                 </div>
@@ -93,39 +104,45 @@
             <div class="tab-pane" id="done" role="tabpanel">
                 <div class="d-flex flex-wrap  all-category note-important">
                     @foreach (range(1, 4) as $item)
-                    <div class="p-1 col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <img src="{{ asset('assets-user/dist/images/crypto/c2.jpg') }}" alt="Deskripsi Gambar" class="img-fluid mb-3 rounded-2">
-                                <h4>Lorem ipsum dolor sit, amet consectetur adipisicing.</h4>
-                                <p class="text-mute">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda inventore molestias necessitatibus nisi.
-                                </p>
-                                <a href="" class="btn btn-primary w-100">Pelajari</a>
+                        <div class="p-1 col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <img src="{{ asset('assets-user/dist/images/crypto/c2.jpg') }}" alt="Deskripsi Gambar"
+                                        class="img-fluid mb-3 rounded-2">
+                                    <h4>Lorem ipsum dolor sit, amet consectetur adipisicing.</h4>
+                                    <p class="text-mute">
+                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda inventore
+                                        molestias necessitatibus nisi.
+                                    </p>
+                                    <a href="" class="btn btn-primary w-100">Pelajari</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
-               </div>
+                </div>
             </div>
             <div class="tab-pane" id="acc" role="tabpanel">
                 <div class="d-flex flex-wrap  all-category note-important">
                     @foreach (range(1, 5) as $item)
-                    <div class="p-1 col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center gap-3">
-                                    <h3 class="col-sm-2 py-4 px-1 col-xl-4 bg-success-subtle text-success text-center rounded rounded-2" >87.9</h3>
-                                    <h5>Lorem ipsum dolor sit.</h5>
-                                </div>
-                                <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente est tenetur expedit...</p>
-                                <div class="d-flex gap-2 flex-wrap">
-                                    <p class="badge bg-primary-subtle text-primary" style="font-size: 12px">Batas : 29 Oktober 2023 10:33</p>
-                                    <p class="badge bg-danger-subtle text-danger" style="font-size: 12px">Sulit</p>
+                        <div class="p-1 col-xxl-3 col-xl-4 col-lg-6 col-md-12 col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <h3
+                                            class="col-sm-2 py-4 px-1 col-xl-4 bg-success-subtle text-success text-center rounded rounded-2">
+                                            87.9</h3>
+                                        <h5>Lorem ipsum dolor sit.</h5>
+                                    </div>
+                                    <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
+                                        est tenetur expedit...</p>
+                                    <div class="d-flex gap-2 flex-wrap">
+                                        <p class="badge bg-primary-subtle text-primary" style="font-size: 12px">Batas : 29
+                                            Oktober 2023 10:33</p>
+                                        <p class="badge bg-danger-subtle text-danger" style="font-size: 12px">Sulit</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
             </div>
@@ -179,10 +196,10 @@
                 </div>
             </div>
         </div> --}}
-      </div>
+    </div>
 
-      <!-- Edit Modal -->
-      {{-- <div class="modal fade" id="modal-detail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- Edit Modal -->
+    {{-- <div class="modal fade" id="modal-detail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center">
@@ -224,22 +241,19 @@
             </div>
         </div>
       </div> --}}
-
-
-
-
-
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        $('.btn-edit').click(function () {
+        $('.btn-edit').click(function() {
             var id = $(this).data('id');
             $('#form-update').attr('action', '/material/' + id);
             $('#modal-edit').modal('show');
         });
-        $('.btn-detail').click(function () {
+        $('.btn-detail').click(function() {
             var id = $(this).data('id');
             $('#modal-detail').modal('show');
         });
@@ -251,7 +265,7 @@
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     Array.from(previewImages).forEach(function(previewImage) {
                         previewImage.src = e.target.result;
                         previewImage.style.display = 'block';
@@ -261,7 +275,7 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-        $('.btn-delete').click(function () {
+        $('.btn-delete').click(function() {
             var id = $(this).data('id');
             $('#form-delete').attr('action', '/division/' + id);
             $('#modal-delete').modal('show');
