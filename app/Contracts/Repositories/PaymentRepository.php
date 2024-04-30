@@ -45,19 +45,19 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
      * @param mixed $invoiceInstance
      * @return void
      */
-    private function _buyCourseAction(mixed $courses, string $status, mixed $invoiceInstance)
+    private function _buyCourseAction(mixed $invoice, string $status, mixed $invoiceInstance)
     {
         if ($status === TransactionStatusEnum::PAID->value) {
-            CourseUnlock::create([
+            CourseUnlock::firstOrCreate([
                 'student_id' => $invoiceInstance->user->student->id,
-                'course_id' => $courses->id,
+                'course_id' => $invoice?->order?->course?->id,
                 'unlock' => true,
             ]);
 
-            $courses->subCourse?->map(function ($subItem) use ($invoiceInstance, $courses) {
-                SubCourseUnlock::create([
+            $invoice->subCourse?->map(function ($subItem) use ($invoiceInstance, $invoice) {
+                SubCourseUnlock::firstOrCreate([
                     'student_id' => $invoiceInstance->user->student->id,
-                    'course_id' => $courses->id,
+                    'course_id' => $invoice->id,
                     'sub_course_id' => $subItem->sub_course_id,
                     'unlock' => true,
                 ]);
