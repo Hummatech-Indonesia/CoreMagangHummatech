@@ -60,7 +60,7 @@
                         <h5 class="mb-0 ms-2">Rekomendasi</h5>
                     </div>
                     <div class="d-flex flex-wrap">
-                        @foreach (range(1, 4) as $item)
+                        @foreach ($courses as $course)
                         <div class="p-1 col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
                             <div class="card">
                                 <div class="card-body">
@@ -79,43 +79,6 @@
                                             Lihat Detail
                                         </a>
                                         <a href="javascript:void(0)" class="btn btn-sm btn-primary w-100 mx-2">
-                                            Beli Sekarang
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="all-category note-important">
-                    <div class="d-flex align-items-center mb-3 pt-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-info-square text-primary">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M19 2a3 3 0 0 1 2.995 2.824l.005 .176v14a3 3 0 0 1 -2.824 2.995l-.176 .005h-14a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-14a3 3 0 0 1 2.824 -2.995l.176 -.005h14zm-7 9h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" />
-                        </svg>
-                        <h5 class="mb-0 ms-2">Lainnya</h5>
-                    </div>
-                    <div class="d-flex flex-wrap">
-                        @foreach (range(1, 4) as $item)
-                        <div class="p-1 col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <img src="{{ asset('assets-user/dist/images/crypto/c2.jpg') }}" alt="Deskripsi Gambar" class="img-fluid mb-3 rounded-2">
-                                    <div class="d-flex flex-wrap gap-2">
-                                        <h6 class=" text-info" style="font-size: 18px">
-                                            Rp.299.999
-                                        </h6>
-                                    </div>
-                                    <h4>Lorem ipsum dolor sit, amet consectetur adipisicing.</h4>
-                                    <p class="text-mute">
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda inventore molestias necessitatibus nisi.
-                                    </p>
-                                    <div class="d-flex">
-                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-sm btn-rounded btn-outline-primary w-100">
-                                            Lihat Detail
-                                        </a>
-                                        <a href="{{ url('siswa-offline/purchase/detail') }}" class="btn btn-sm btn-primary w-100 mx-2">
                                             Beli Sekarang
                                         </a>
                                     </div>

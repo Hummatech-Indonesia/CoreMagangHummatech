@@ -134,9 +134,7 @@ Route::get('siswa-offline/others/rules', function (){
 
 Route::get('siswa-offline/others/picket',[PicketOfflineController::class,'index']);
 
-Route::get('siswa-offline/purchase', function (){
-    return view('student_offline.purchase.index');
-});
+Route::get('siswa-offline/purchase', [CourseOfflineController::class , 'shopcourse']);
 Route::get('siswa-offline/purchase/detail', function (){
     return view('student_offline.purchase.detail');
 });
