@@ -22,7 +22,7 @@ class UpdateLetterheadRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'logo' => 'nullable|image|max:2048',
+            'logo' => 'nullable|image|max:500',
             'letterhead_top' => 'required',
             'letterhead_middle' => 'required',
             'letterhead_bottom' => 'required',
@@ -34,10 +34,11 @@ class UpdateLetterheadRequest extends FormRequest
     public function messages()
     {
         return [
-            'letterhead_top.required' => 'Top Letterhead tidak boleh kosong',
-            'letterhead_middle.required' => 'Middle Letterhead tidak boleh kosong',
-            'letterhead_bottom.required' => 'Bottom Letterhead tidak boleh kosong',
-            'footer.required' => 'Footer tidak boleh kosong'
+            'letterhead_top.required' => 'Kop Atas tidak boleh kosong',
+            'letterhead_middle.required' => 'Kop Tengah tidak boleh kosong',
+            'letterhead_bottom.required' => 'Kop Bawah Letterhead tidak boleh kosong',
+            'footer.required' => 'Footer tidak boleh kosong',
+            'logo.max' => 'Logo tidak boleh lebih dari 500kb'
         ];
     }
 }

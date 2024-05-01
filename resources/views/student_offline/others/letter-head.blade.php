@@ -29,35 +29,50 @@
                 @csrf
                 <div class="row">
                     <div class="col-6">
-                        <label for="" class="text-dark fw-bold">Kop Atas</label>
-                        <input type="text" class="form-control"  name="letterhead_top"
+                        <label for="" class="text-dark fw-bold mb-2">Kop Atas</label>
+                        <input type="text" class="form-control mb-2"  name="letterhead_top"
                             value="{{ $letterheads == null ? '' : $letterheads->letterhead_top }}"
                             placeholder="Masukkan kop surat">
+                            @error('letterhead_top')
+                                <div class="text-danger mb-3">{{ $message }}</div>
+                            @enderror
                     </div>
                     <div class="col-6">
-                        <label for="" class="text-dark fw-bold">Kop Tengah</label>
-                        <input type="text" class="form-control" name="letterhead_middle"
+                        <label for="" class="text-dark fw-bold mb-2">Kop Tengah</label>
+                        <input type="text" class="form-control mb-2" name="letterhead_middle"
                             value="{{ $letterheads == null ? '' : $letterheads->letterhead_middle }}"
                             placeholder="Masukkan kop tengah">
+                            @error('letterhead_middle')
+                                <div class="text-danger mb-3">{{ $message }}</div>
+                            @enderror
                     </div>
                     <div class="col-6">
-                        <label for="" class="text-dark fw-bold">Kop Bawah</label>
-                        <input type="text" class="form-control" name="letterhead_bottom"
+                        <label for="" class="text-dark fw-bold mb-2">Kop Bawah</label>
+                        <input type="text" class="form-control mb-2" name="letterhead_bottom"
                             value="{{ $letterheads == null ? '' : $letterheads->letterhead_bottom }}"
                             placeholder="Masukkan kop bawah">
+                            @error('letterhead_bottom')
+                                <div class="text-danger mb-3">{{ $message }}</div>
+                            @enderror
                     </div>
                     <div class="col-6">
-                        <label for="" class="text-dark fw-bold">Footer</label>
-                        <input type="text" class="form-control" name="footer"
+                        <label for="" class="text-dark fw-bold mb-2">Footer</label>
+                        <input type="text" class="form-control mb-2" name="footer"
                             value="{{ $letterheads == null ? '' : $letterheads->footer }}"
                             placeholder="Masukkan footer">
+                            @error('footer')
+                                <div class="text-danger mb-3">{{ $message }}</div>
+                            @enderror
                     </div>
                     <div class="col-12">
-                        <label for="" class="text-dark fw-bold">Logo</label>
-                        <input type="file" class="form-control" name="logo" id="" onchange="previewImage(event)">
+                        <label for="" class="text-dark fw-bold mb-2">Logo</label>
+                        <input type="file" class="form-control mb-2" name="logo" id="" onchange="previewImage(event)">
                         <div class="w-25 mt-3">
                             <img src="{{ $letterheads ? asset('storage/' . $letterheads->logo) : asset('') }}" class="w-50" alt="">
                         </div>
+                        @error('logo')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="d-flex justify-content-end gap-3">
@@ -69,41 +84,57 @@
                 </div>
             </form>
             @else
+            
             <form action="/letter-head/{{ $letterheads->id }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">
                     <div class="col-6">
-                        <label for="" class="text-dark fw-bold">Kop Atas</label>
-                        <input type="text" class="form-control"  name="letterhead_top"
+                        <label for="" class="text-dark fw-bold mb-2">Kop Atas</label>
+                        <input type="text" class="form-control mb-2"  name="letterhead_top"
                             value="{{ $letterheads == null ? '' : $letterheads->letterhead_top }}"
-                            placeholder="SMKS 2 HUMMATECH MALANG">
+                            placeholder="Masukkan Kop atas">
+                            @error('letterhead_top')
+                                <div class="text-danger mb-3">{{ $message }}</div>
+                            @enderror
                     </div>
                     <div class="col-6">
-                        <label for="" class="text-dark fw-bold">Kop Tengah</label>
-                        <input type="text" class="form-control" name="letterhead_middle"
+                        <label for="" class="text-dark fw-bold mb-2">Kop Tengah</label>
+                        <input type="text" class="form-control mb-2" name="letterhead_middle"
                             value="{{ $letterheads == null ? '' : $letterheads->letterhead_middle }}"
-                            placeholder="“SMKS 2 HUMMATECH ” MALANG">
+                            placeholder="Masukkan kop tengah">
+                            @error('letterhead_middle')
+                                <div class="text-danger mb-3">{{ $message }}</div>
+                            @enderror
                     </div>
                     <div class="col-6">
-                        <label for="" class="text-dark fw-bold">Kop Bawah</label>
-                        <input type="text" class="form-control" name="letterhead_bottom"
+                        <label for="" class="text-dark fw-bold mb-2">Kop Bawah</label>
+                        <input type="text" class="form-control mb-2" name="letterhead_bottom"
                             value="{{ $letterheads == null ? '' : $letterheads->letterhead_bottom }}"
-                            placeholder="SMKS 2 HUMMATECH MALANG AKREDITASI “A”">
+                            placeholder="Masukkan kop bawah">
+                            @error('letterhead_bottom')
+                                <div class="text-danger mb-3">{{ $message }}</div>
+                            @enderror
                     </div>
                     <div class="col-6">
-                        <label for="" class="text-dark fw-bold">Footer</label>
-                        <input type="text" class="form-control" name="footer"
+                        <label for="" class="text-dark fw-bold mb-2">Footer</label>
+                        <input type="text" class="form-control mb-2" name="footer"
                             value="{{ $letterheads == null ? '' : $letterheads->footer }}"
-                            placeholder="perum permatas regency blok 10 no 28 kec karangploso kab malang jawa timur">
+                            placeholder="Masukkan footer">
+                            @error('footer')
+                                <div class="text-danger mb-3">{{ $message }}</div>
+                            @enderror
                     </div>
                     <div class="col-12">
-                        <label for="" class="text-dark fw-bold">Logo</label>
+                        <label for="" class="text-dark fw-bold mb-2">Logo</label>
                         <input type="file" class="form-control" name="logo" id="">
                         <div class="w-25 pt-3">
                             <img src="{{ $letterheads == null ? asset('logopkldark.png') : asset('storage/' . $letterheads->logo) }}"
                                 class="w-50" alt="">
                         </div>
+                        @error('logo')
+                            <div class="text-danger mb-3">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="d-flex justify-content-end gap-3">
