@@ -27,10 +27,10 @@
             <h4 class="mx-1">Materi</h4>
         </div>
         <div class="col-sm-auto ms-auto">
-            <form action="">
+            <form action="{{ url()->current() }}">
                 <div class="d-flex">
                     <div class="search-box mx-2">
-                        <input type="text" class="form-control search-chat py-2" id="text-srh"
+                        <input type="text" name="search" value="{{ request()->get('search') }}" class="form-control search-chat py-2" id="text-srh"
                             placeholder="Cari Materi" />
                     </div>
                     <button class="btn btn-primary">
@@ -56,16 +56,6 @@
                             {{ $course->course->title }}
                         </a>
                         <div class="d-flex justify-content-between pt-3">
-                            <div class="gap-2 d-flex">
-                                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg" class="mt-1">
-                                    <path
-                                        d="M10.554 2.375H17.8013M10.554 5.875H15.0835M10.554 11.125H17.8013M10.554 14.625H15.0835M1.49487 2.375C1.49487 2.14294 1.59032 1.92038 1.76021 1.75628C1.9301 1.59219 2.16052 1.5 2.40078 1.5H6.02442C6.26469 1.5 6.49511 1.59219 6.665 1.75628C6.83489 1.92038 6.93033 2.14294 6.93033 2.375V5.875C6.93033 6.10706 6.83489 6.32962 6.665 6.49372C6.49511 6.65781 6.26469 6.75 6.02442 6.75H2.40078C2.16052 6.75 1.9301 6.65781 1.76021 6.49372C1.59032 6.32962 1.49487 6.10706 1.49487 5.875V2.375ZM1.49487 11.125C1.49487 10.8929 1.59032 10.6704 1.76021 10.5063C1.9301 10.3422 2.16052 10.25 2.40078 10.25H6.02442C6.26469 10.25 6.49511 10.3422 6.665 10.5063C6.83489 10.6704 6.93033 10.8929 6.93033 11.125V14.625C6.93033 14.8571 6.83489 15.0796 6.665 15.2437C6.49511 15.4078 6.26469 15.5 6.02442 15.5H2.40078C2.16052 15.5 1.9301 15.4078 1.76021 15.2437C1.59032 15.0796 1.49487 14.8571 1.49487 14.625V11.125Z"
-                                        stroke="#5D87FF" stroke-width="1.6" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                                <p class="text-muted">{{ $course->course->countTotalTask() ?? 0 }} Tugas</p>
-                            </div>
                             <div class="gap-2 d-flex">
                                 <svg width="20" height="16" viewBox="0 0 20 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg" class="mt-1">

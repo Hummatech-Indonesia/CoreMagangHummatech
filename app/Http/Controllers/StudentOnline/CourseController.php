@@ -20,8 +20,7 @@ class CourseController extends Controller
         SubCourseUnlockInterface $subCourseStatus,
         TaskInterface $taskInterface,
         CourseUnlockInterface $courseInterface
-    )
-    {
+    ) {
         $this->courseInterface = $courseInterface;
         $this->subCourseStatus = $subCourseStatus;
         $this->taskInterface = $taskInterface;
@@ -29,14 +28,20 @@ class CourseController extends Controller
 
     public function index(Request $request)
     {
-        $courses = $this->courseInterface->getCourseByUser(auth()->user()->student->id)->paginate(12);
-        return view('student_online.course.index' , compact('courses'));
+        $courses = $this->courseInterface->getCourseByUser(auth()->user()->student->id)
+            ->whereHas('course', function ($query) use ($request) {
+                if($request->get('search')) {
+                    $query->where('title', 'LIKE', '%' . $request->get('search') . '%');
+                }
+            })->paginate(12);
+
+        return view('student_online.course.index', compact('courses'));
     }
 
     public function detail(Course $course, Request $request)
     {
         $subCourses = $this->subCourseStatus->getCourseByUser($course->id, auth()->user()->student->id, $request->get('search'));
-        return view('student_online.course.detail' , compact('course', 'subCourses'));
+        return view('student_online.course.detail', compact('course', 'subCourses'));
     }
 
     public function subCourseDetail(Course $course, SubCourse $subCourse)
@@ -45,6 +50,6 @@ class CourseController extends Controller
         $totalSubCourses = $this->subCourseStatus->count();
         $subCourseMeta = $subCourse->subCourseUnlock;
         $taskData = $this->taskInterface->getTaskBySubcourse($subCourse->id);
-        return view('student_online.course.learn-more', compact('course' , 'subCourse', 'subCourses', 'totalSubCourses', 'subCourseMeta', 'taskData'));
+        return view('student_online.course.learn-more', compact('course', 'subCourse', 'subCourses', 'totalSubCourses', 'subCourseMeta', 'taskData'));
     }
 }
