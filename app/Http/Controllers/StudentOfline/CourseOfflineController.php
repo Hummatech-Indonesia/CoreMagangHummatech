@@ -54,6 +54,12 @@ class CourseOfflineController extends Controller
         return view('student_offline.purchase.index' , compact('courses'));
     }
 
+    public function shopCourseDetail()
+    {
+        $courses = $this->course->getPaid();
+        return view('student_offline.purchase.detail', compact('courses'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

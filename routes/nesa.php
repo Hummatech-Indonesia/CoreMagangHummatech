@@ -36,6 +36,8 @@ Route::put('picket/{picket}',[PicketController::class,'update'])->name('picket.u
 Route::post('note-picket/store',[NotePicketController::class,'store'])->name('note.store');
 Route::put('note-picket/{notePicket}',[NotePicketController::class,'update'])->name('note.update');
 
+Route::get('report' , [PicketingReportController::class , 'index']);
+
 
 Route::get('report', function (){
     return view('admin.page.picket.report');
@@ -135,9 +137,11 @@ Route::get('siswa-offline/others/rules', function (){
 Route::get('siswa-offline/others/picket',[PicketOfflineController::class,'index']);
 
 Route::get('siswa-offline/purchase', [CourseOfflineController::class , 'shopcourse']);
-Route::get('siswa-offline/purchase/detail', function (){
-    return view('student_offline.purchase.detail');
-});
+Route::get('siswa-offline/purchase/detail/{id}', [CourseOfflineController::class, 'shopCourseDetail'])->name('purchase.detail');
+
+// Route::get('siswa-offline/purchase/detail', function (){
+//     return view('student_offline.purchase.detail');
+// });
 Route::get('siswa-offline/certificate', function (){
     return view('student_offline.certificate.index');
 });
@@ -147,3 +151,7 @@ Route::get('siswa-offline/certificate', function (){
 Route::get('/siswa-online/challenge',[StudentChallengeController::class,'showOnline']);
 Route::post('/siswa-online/challenge/store',[StudentChallengeController::class,'store'])->name('challenge_online.store');
 Route::put('/siswa-online/challenge/update/{studentChallenge}',[StudentChallengeController::class,'update'])->name('challenge_online.update');
+
+
+
+//Hummatask

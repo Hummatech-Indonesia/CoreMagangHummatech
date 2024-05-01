@@ -85,7 +85,7 @@
                                             {{ \Illuminate\Support\Str::limit($course->description, 100) }}
                                         </p>
                                         <div class="d-flex">
-                                            <a href="{{ url('siswa-offline/purchase/detail') }}"
+                                            <a href="{{ url('siswa-offline/purchase/detail/' . $course->id) }}"
                                                 class="btn btn-sm btn-rounded btn-outline-primary w-100">
                                                 Lihat Detail
                                             </a>
