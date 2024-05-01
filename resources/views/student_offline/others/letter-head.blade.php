@@ -21,7 +21,7 @@
     <h5>Preview</h5>
     <div class="row pb-5">
         <div class="col-12 d-flex justify-content-center">
-            <img src="{{ asset('kop_example.png') }}" class="w-100" alt="">
+            <img src="{{ $letterheads ? asset('kop_example.png') : asset('kop_example.png') }}" class="w-100" alt="">
         </div>
         <div class="col-12">
             @if ($letterheads == null)
@@ -32,32 +32,31 @@
                         <label for="" class="text-dark fw-bold">Kop Atas</label>
                         <input type="text" class="form-control"  name="letterhead_top"
                             value="{{ $letterheads == null ? '' : $letterheads->letterhead_top }}"
-                            placeholder="SMKS 2 HUMMATECH MALANG">
+                            placeholder="Masukkan kop surat">
                     </div>
                     <div class="col-6">
                         <label for="" class="text-dark fw-bold">Kop Tengah</label>
                         <input type="text" class="form-control" name="letterhead_middle"
                             value="{{ $letterheads == null ? '' : $letterheads->letterhead_middle }}"
-                            placeholder="“SMKS 2 HUMMATECH ” MALANG">
+                            placeholder="Masukkan kop tengah">
                     </div>
                     <div class="col-6">
                         <label for="" class="text-dark fw-bold">Kop Bawah</label>
                         <input type="text" class="form-control" name="letterhead_bottom"
                             value="{{ $letterheads == null ? '' : $letterheads->letterhead_bottom }}"
-                            placeholder="SMKS 2 HUMMATECH MALANG AKREDITASI “A”">
+                            placeholder="Masukkan kop bawah">
                     </div>
                     <div class="col-6">
                         <label for="" class="text-dark fw-bold">Footer</label>
                         <input type="text" class="form-control" name="footer"
                             value="{{ $letterheads == null ? '' : $letterheads->footer }}"
-                            placeholder="perum permatas regency blok 10 no 28 kec karangploso kab malang jawa timur">
+                            placeholder="Masukkan footer">
                     </div>
                     <div class="col-12">
                         <label for="" class="text-dark fw-bold">Logo</label>
-                        <input type="file" class="form-control" name="logo" id="">
-                        <div class="w-25">
-                            <img src="{{ $letterheads == null ? asset('logopkldark.png') : asset('storage/' . $letterheads->logo) }}"
-                                class="w-50" alt="">
+                        <input type="file" class="form-control" name="logo" id="" onchange="previewImage(event)">
+                        <div class="w-25 mt-3">
+                            <img src="{{ $letterheads ? asset('storage/' . $letterheads->logo) : asset('') }}" class="w-50" alt="">
                         </div>
                     </div>
                 </div>
@@ -101,7 +100,7 @@
                     <div class="col-12">
                         <label for="" class="text-dark fw-bold">Logo</label>
                         <input type="file" class="form-control" name="logo" id="">
-                        <div class="w-25">
+                        <div class="w-25 pt-3">
                             <img src="{{ $letterheads == null ? asset('logopkldark.png') : asset('storage/' . $letterheads->logo) }}"
                                 class="w-50" alt="">
                         </div>
@@ -118,6 +117,7 @@
             @endif
         </div>
     </div>
+
 
     @if ($letterheads != null)
     <div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -173,4 +173,21 @@
         $('#modal-delete').modal('show');
     });
 </script>
+<script>
+    function previewImage(event) {
+        var input = event.target;
+        var previewImage = input.nextElementSibling.querySelector('img');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                previewImage.src = e.target.result;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
 @endsection

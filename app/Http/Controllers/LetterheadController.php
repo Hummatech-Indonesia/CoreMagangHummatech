@@ -49,9 +49,9 @@ class LetterheadController extends Controller
     public function store(StoreLetterheadRequest $request)
     {
         // dd($request->all());
-        $data =  $request->validated();
+        // $data =  $request->validated();
+        $data = $this->service->store($request);
         $data['user_id'] = auth()->user()->id;
-        $this->service->store($request);
         // dd($data);
         $this->letterhead->store($data);
         return back()->with('success' , 'Berhasil Menambahkan data');
