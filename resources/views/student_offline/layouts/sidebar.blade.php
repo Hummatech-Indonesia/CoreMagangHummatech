@@ -108,14 +108,14 @@
                         <span class="hide-menu">Tantangan</span>
                     </a>
                 </li> --}}
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('siswa-offline/certificate') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-file-certificate"></i>
                         </span>
                         <span class="hide-menu">Sertifikat</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('siswa-offline/purchase') }}" aria-expanded="false">
                         <span>
