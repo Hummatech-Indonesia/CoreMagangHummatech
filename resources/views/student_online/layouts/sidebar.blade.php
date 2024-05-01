@@ -85,6 +85,16 @@
                             <span class="hide-menu">Jurnal <i class="fas fa-lock opacity-50 ms-2"></i></span>
                         </a>
                     </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
+                            href="javascript:void(0)" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-presentation-analytics"></i>
+                            </span>
+                            <span class="hide-menu">Absensi <i class="fas fa-lock opacity-50 ms-2"></i></span>
+                        </a>
+                    </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
                             href="javascript:void(0)" aria-expanded="false">
@@ -104,7 +114,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
+                        <a class="sidebar-link" data-bbs-toggle="modal" data-bs-target="#login-modal"
                             href="javascript:void(0)" aria-expanded="false">
                             <span>
                                 <i class="ti ti-chart-area-line"></i>
@@ -137,6 +147,14 @@
                                 <i class="ti ti-pencil"></i>
                             </span>
                             <span class="hide-menu">Jurnal</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ url('/siswa-offline/absensi') }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-presentation-analytics"></i>
+                            </span>
+                            <span class="hide-menu">Absensi</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
