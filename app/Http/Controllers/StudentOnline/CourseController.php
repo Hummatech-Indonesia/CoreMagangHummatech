@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\StudentOnline;
 
-use App\Contracts\Interfaces\CourseInterface;
-use App\Contracts\Interfaces\SubCourseInterface;
+use App\Contracts\Interfaces\CourseUnlockInterface;
 use App\Contracts\Interfaces\SubCourseUnlockInterface;
 use App\Contracts\Interfaces\TaskInterface;
 use App\Http\Controllers\Controller;
@@ -13,26 +12,30 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    private CourseInterface $course;
     private SubCourseUnlockInterface $subCourseStatus;
     private TaskInterface $taskInterface;
+    private CourseUnlockInterface $courseInterface;
 
-    public function __construct(CourseInterface $course, SubCourseUnlockInterface $subCourseStatus, TaskInterface $taskInterface)
+    public function __construct(
+        SubCourseUnlockInterface $subCourseStatus,
+        TaskInterface $taskInterface,
+        CourseUnlockInterface $courseInterface
+    )
     {
-        $this->course = $course;
+        $this->courseInterface = $courseInterface;
         $this->subCourseStatus = $subCourseStatus;
         $this->taskInterface = $taskInterface;
     }
 
     public function index(Request $request)
     {
-        $courses = $this->course->GetWhere(auth()->user()->student->division_id);
+        $courses = $this->courseInterface->getCourseByUser(auth()->user()->student->id)->paginate(12);
         return view('student_online.course.index' , compact('courses'));
     }
 
     public function detail(Course $course, Request $request)
     {
-        $subCourses = $this->subCourseStatus->getCourseByUser($course->id, auth()->id(), $request->get('search'));
+        $subCourses = $this->subCourseStatus->getCourseByUser($course->id, auth()->user()->student->id, $request->get('search'));
         return view('student_online.course.detail' , compact('course', 'subCourses'));
     }
 

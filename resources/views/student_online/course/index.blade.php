@@ -44,16 +44,16 @@
         @forelse ($courses as $course)
             <div class="col-lg-6 col-md-4 col-sm-12 col-xl-3">
                 <div class="card">
-                    <img alt="{{ $course->name }}" class="card-img-top img-responsive w-100" src="{{ asset("storage/{$course->image}") }}"
+                    <img alt="{{ $course->course->name }}" class="card-img-top img-responsive w-100" src="{{ asset("storage/{$course->course->image}") }}"
                         style="object-fit: cover; min-height:20px; min-width:100px" alt="Card image cap" />
                     <div class="d-flex justify-content-between px-3" style="margin-top: -27px">
                         <img alt="Logo Hummatech" src="{{ asset('berkas/logo.png') }}" class="rounded-circle rounded" width="50px" />
                         <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 12px;">
-                            {{ $course->division->name }}</div>
+                            {{ $course->course->division->name }}</div>
                     </div>
                     <div class="card-body">
-                        <a href="{{ route('siswa-online.course.detail', $course->id) }}" class="h4 fw-bolder text-dark">
-                            {{ $course->title }}
+                        <a href="{{ route('siswa-online.course.detail', $course->course->id) }}" class="h4 fw-bolder text-dark">
+                            {{ $course->course->title }}
                         </a>
                         <div class="d-flex justify-content-between pt-3">
                             <div class="gap-2 d-flex">
@@ -64,7 +64,7 @@
                                         stroke="#5D87FF" stroke-width="1.6" stroke-linecap="round"
                                         stroke-linejoin="round" />
                                 </svg>
-                                <p class="text-muted">{{ $course->countTotalTask() ?? 0 }} Tugas</p>
+                                <p class="text-muted">{{ $course->course->countTotalTask() ?? 0 }} Tugas</p>
                             </div>
                             <div class="gap-2 d-flex">
                                 <svg width="20" height="16" viewBox="0 0 20 16" fill="none"
@@ -74,7 +74,7 @@
                                         stroke="#5D87FF" stroke-width="1.6" stroke-linecap="round"
                                         stroke-linejoin="round" />
                                 </svg>
-                                <p class="text-muted">{{ $course->subCourse?->count() ?? 0 }} Materi</p>
+                                <p class="text-muted">{{ $course->course->subCourse?->count() ?? 0 }} Materi</p>
                             </div>
                         </div>
                     </div>

@@ -33,6 +33,10 @@ class CourseUnlockRepository extends BaseRepository implements CourseUnlockInter
     }
     public function delete(mixed $id): mixed
     {
-        return $this->model->query()->findOrFail($id)->delete($id);
+        return $this->model->query()->findOrFail($id)->delete();
+    }
+    public function getCourseByUser(int $studentId): mixed
+    {
+        return $this->model->query()->where('student_id', $studentId);
     }
 }

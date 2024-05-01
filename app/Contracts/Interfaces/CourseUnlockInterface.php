@@ -8,4 +8,6 @@ use App\Contracts\Interfaces\Eloquent\GetWhereInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 
 interface CourseUnlockInterface extends GetInterface, GetWhereInterface, StoreInterface, DeleteInterface
-{}
+{
+    public function getCourseByUser(int $studentId): mixed;
+}

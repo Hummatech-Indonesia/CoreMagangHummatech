@@ -41,6 +41,16 @@ class CourseUnlock extends Model
     ];
 
     /**
+     * Get information of course
+     *
+     * @return BelongsTo
+     */
+    public function course(): BelongsTo
+    {
+        return $this->belongsTo(Course::class);
+    }
+
+    /**
      * Get the student that owns the CourseUnlock
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
