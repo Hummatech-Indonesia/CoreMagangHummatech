@@ -41,7 +41,11 @@
         <div class="col-lg-4 col-md-6">
             <div class="card text-center">
                 <div class="card-body">
-                    <img src="{{ asset('assets-user/dist/images/profile/user-6.jpg') }}" class="rounded-1 img-fluid" width="90" alt="">
+                    @if(Storage::disk('public')->exists($student->avatar))
+                        <img src="{{ asset('storage/' . $student->avatar) }}" alt="avatar" class="rounded-1 img-fluid" width="90px" height="90px" >
+                    @else
+                        <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-1 img-fluid" width="90px" height="90px">
+                    @endif
                     <div class="mt-n2">
                         <span class="badge bg-primary">{{ $student->major }}</span>
                         <h3 class="card-title mt-3">{{ $student->name }}</h3>
@@ -68,7 +72,7 @@
         @endforelse
     </div>
 
-    <nav aria-label="...">
+    {{-- <nav aria-label="...">
         <ul class="pagination justify-content-center mb-0">
             <li class="page-item">
                 <a class="page-link border-0 rounded-circle text-dark round-32 d-flex align-items-center justify-content-center" href="#">
@@ -96,7 +100,7 @@
                 </a>
             </li>
         </ul>
-    </nav>
+    </nav> --}}
 
 
  <!-- Modal -->
