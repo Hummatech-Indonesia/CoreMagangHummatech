@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->integer('price')->nullable();
+            $table->string('price')->nullable();
             $table->enum('status' , [StatusCourseEnum::PAID->value , StatusCourseEnum::SUBCRIBE->value]);
             $table->string('image');
             $table->longText('description');
