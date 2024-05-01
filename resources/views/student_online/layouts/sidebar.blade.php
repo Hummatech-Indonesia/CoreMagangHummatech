@@ -121,7 +121,7 @@
                             <span class="hide-menu">Jadwal Mentor <i class="fas fa-lock opacity-50 ms-2"></i></span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    {{-- <li class="sidebar-item">
                         <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
                             href="javascript:void(0)" aria-expanded="false">
                             <span>
@@ -129,7 +129,7 @@
                             </span>
                             <span class="hide-menu">Sertifikat <i class="fas fa-lock opacity-50 ms-2"></i></span>
                         </a>
-                    </li>
+                    </li> --}}
                 @else
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ url('/siswa-online/jurnal') }}" aria-expanded="false">
@@ -179,14 +179,14 @@
                             <span class="hide-menu">Jadwal Bimbingan</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    {{-- <li class="sidebar-item">
                         <a class="sidebar-link" href="#" aria-expanded="false">
                             <span>
                                 <i class="ti ti-medal"></i>
                             </span>
                             <span class="hide-menu">Sertifikat</span>
                         </a>
-                    </li>
+                    </li> --}}
                 @endif
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('my-order') }}" aria-expanded="false">
