@@ -84,7 +84,7 @@
             Data Jurnal
         </h4>
         <div class="gap-2 d-flex">
-            <a href="/siswa-online/jurnal/export/pdf" class="btn mb-1 btn-light-primary text-primary btn-lg px-4 fs-4 font-medium">Eksport PDF</a>
+            {{-- <a href="/siswa-online/jurnal/export/pdf" class="btn mb-1 btn-light-primary text-primary btn-lg px-4 fs-4 font-medium">Eksport PDF</a> --}}
             <button type="button" class="btn mb-1 btn-light-primary text-primary btn-lg px-4 fs-4 font-medium"
                 data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 Tambah
