@@ -152,6 +152,9 @@ Route::get('/siswa-online/challenge',[StudentChallengeController::class,'showOnl
 Route::post('/siswa-online/challenge/store',[StudentChallengeController::class,'store'])->name('challenge_online.store');
 Route::put('/siswa-online/challenge/update/{studentChallenge}',[StudentChallengeController::class,'update'])->name('challenge_online.update');
 
+Route::get('/siswa-online/absensi', function (){
+    return view('student_online.absensi.index');
+});
 
 
 //Hummatask
