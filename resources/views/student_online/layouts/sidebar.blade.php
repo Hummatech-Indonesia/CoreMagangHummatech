@@ -150,7 +150,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ url('/siswa-offline/absensi') }}" aria-expanded="false">
+                        <a class="sidebar-link" href="{{ url('/siswa-online/absensi') }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-presentation-analytics"></i>
                             </span>
