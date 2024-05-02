@@ -9,6 +9,7 @@ use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Mentor\JournalController;
 use App\Http\Controllers\NotePicketController;
+use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\StudentOfline\CourseOfflineController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StudentChallengeController;
@@ -77,6 +78,10 @@ Route::patch('mentor/assessment/update/challenge/{studentChallenge}', [Assessmen
 
 Route::get('mentor/challenge/challenge-detail/{challenge}', [AssessmentController::class,'showChallengeStudent'])->name('tantangan.detail');
 
+Route::get('mentor/presentation', [PresentationController::class,'mentorshow']);
+Route::post('mentor/presentation/store', [PresentationController::class,'store'])->name('presentation.store');
+
+
 
 // Route::get('mentor/assessment/challange-detail', function (){
 //     return view('mentor.assessment.challange_detail');
@@ -87,6 +92,11 @@ Route::get('timetable', [ZoomScheduleController::class,'show']);
 
 
 //Admin
+Route::get('administrator/presentation', [PresentationController::class,'show']);
+
+// Route::get('administrator/presentation', function (){
+//     return view('admin.page.presentation.index');
+// });
 // Route::get('administrator/course',[CourseController::class,'index']);
 // Route::post('administrator/course/store', [CourseController::class, 'store'])->name('course.store');
 // Route::put('administrator/course/{course}', [CourseController::class, 'update'])->name('course.update');
@@ -154,3 +164,6 @@ Route::get('/siswa-online/absensi', [AttendanceController::class, 'attendanceOnl
 
 
 //Hummatask
+Route::get('/hummateam/team/team', function (){
+    return view('Hummatask.team.team');
+});
