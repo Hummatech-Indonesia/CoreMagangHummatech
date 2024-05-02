@@ -47,16 +47,15 @@
         </div>
     </div>
 
-    @if($errors->all())
+    {{-- @if($errors->all())
         @foreach ($errors->all() as $error)
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ $error }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endforeach
-    @endif
+    @endif --}}
 
-    @if ($cartData->isNotEmpty())
         <div class="row">
             <div class="col-md-8">
                 <div class="card shadow-none border">
@@ -65,20 +64,18 @@
                     </div>
                     <div class="card-body pt-2">
                         <div class="list-item list-group-flush">
-                            @foreach ($cartData->get() as $cart)
                                 <div class="list-group-item">
                                     <div class="d-flex gap-3 align-items-center">
                                         <div class="d-flex justify-content-center">
                                             <div class="image-cart-square"
-                                                style="background-image: url({{ $cart['image'] }})"></div>
+                                                style="background-image: url({{ asset('assets-user/images/laravel-11.jpg') }})"></div>
                                         </div>
                                         <div class="">
-                                            <h3 class="fw-bolder">{{ $cart['name'] }}</h3>
-                                            <div class="text-primary">@currency($cart['price'])</div>
+                                            <h3 class="fw-bolder">Lravel 11</h3>
+                                            <div class="text-primary">100.000</div>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -86,8 +83,7 @@
             <div class="col-md-4">
                 <div class="card border shadow-none">
                     <h4 class="card-header mb-0 py-4 bg-primary text-white">Pembayaran</h4>
-                    @if ($voucherDetail)
-                        <form method="POST" action="{{ route('voucher.revoke') }}" class="card-body">
+                        {{-- <form method="POST" action="{{ route('voucher.revoke') }}" class="card-body">
                             @csrf
 
                             <div class="pb-4 border-bottom">
@@ -123,10 +119,8 @@
                                 </div>
                             </div>
                         </form>
-                    @else
-                        <form method="POST" action="{{ route('voucher.apply') }}" class="card-body">
-                            @csrf
-
+                    @else --}}
+                        <form method="" action="" class="card-body">
                             <div class="pb-4 border-bottom">
                                 <label for="code">Kode Kupon</label>
                                 <div class="form-group row mt-2">
@@ -154,12 +148,9 @@
                                 </div>
                             </div>
                         </form>
-                    @endif
 
-                    <form method="POST" action="{{ url('transaction/tripay') }}" class="card-body pt-0">
-                        @csrf
-
-                        @if ($voucherDetail)
+                    <form method="" action="" class="card-body pt-0">
+                        {{-- @if ($voucherDetail)
                             <input type="hidden" name="voucher_code" value="{{ $voucherDetail->code_voucher }}" />
                         @endif
                         <input type="hidden" name="user_id" value="{{ auth()->id() }}" id="user_id" />
@@ -180,7 +171,7 @@
                         <input type="hidden" name="payment_name" id="payment-name" />
                         <input type="hidden" name="discount"
                             value="{{ Transaction::discount($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0) }}"
-                            id="discount" />
+                            id="discount" /> --}}
 
                         <div class="pb-3 d-flex gap-2 flex-column mb-3">
                             <div class="d-flex justify-content-between">
@@ -198,28 +189,28 @@
                                 class="fw-bolder mb-3 align-items-center pb-3 border-bottom d-flex justify-content-between">
                                 <span>Subtotal:</span>
                                 <span id="subtotal-show" class="fw-bolder text-muted">
-                                    <span>@currency($cartData->subtotal())</span>
+                                    <span>100.0000</span>
                                 </span>
                             </div>
                             <div class="fw-bolder mb-3 pb-3 border-bottom d-flex justify-content-between">
                                 <span>PPn 11%:</span>
                                 <span class="fw-bolder text-muted">
-                                    @currency(Transaction::countTax($voucherDetail ? Transaction::discountSubtotal($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0) : $cartData->subtotal()))
+                                    10.000
                                 </span>
                             </div>
-                            @if ($voucherDetail)
+                            {{-- @if ($voucherDetail)
                                 <div class="fw-bolder mb-3 pb-3 border-bottom d-flex justify-content-between">
                                     <span>Potongan Harga:</span>
                                     <span id="voucher-show" class="fw-bolder text-primary">
-                                        &minus;@currency(Transaction::discount($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0))
+                                        &minus;2.000
                                     </span>
                                 </div>
-                            @endif
+                            @endif --}}
                             <div id="additional-fee"></div>
                             <div class="fw-bolder d-flex justify-content-between">
                                 <span>Total:</span>
                                 <span id="total-show" class="fw-bolder text-primary">
-                                    @currency(Transaction::countTax(Transaction::discountSubtotal($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0), true))
+                                    109.000
                                 </span>
                             </div>
                         </div>
@@ -237,14 +228,11 @@
                 </div>
             </div>
         </div>
-    @else
-        <div class="alert alert-danger">Keranjangmu masih kosong, yuk belanja lagi.</div>
-    @endif
 @endsection
 
 @section('script')
     <!-- Modal Payment Gateway -->
-    <div class="modal fade" id="choose-payment" tabindex="-1" role="dialog" aria-labelledby="choose-paymentLabel"
+    {{-- <div class="modal fade" id="choose-payment" tabindex="-1" role="dialog" aria-labelledby="choose-paymentLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -274,7 +262,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <script>
         const openModal = (target) => {

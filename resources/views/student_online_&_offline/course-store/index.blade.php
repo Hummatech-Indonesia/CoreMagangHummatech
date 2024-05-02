@@ -23,39 +23,26 @@
 </div>
 
 <div class="row">
-    @forelse ($courses as $index => $course)
     <div class="col-md-4 col-xxl-3">
         <div class="card card-body p-3">
-            <img src="{{ url("/storage/{$course->image}") }}" alt="{{ $course->title }}" class="rounded-1 mb-3 w-100" />
+            <img src="{{ asset('assets-user/images/laravel-11.jpg') }}" class="rounded-1 mb-3 w-100" />
 
 
-            <a href="{{ route('course-store.detail', $course->id) }}">
-                <h1 class="h2 fw-bolder">{{ $course->title }}</h1>
+            <a href="{{ url('/courses/detail') }}">
+                <h1 class="h2 fw-bolder">Laravel 11</h1>
             </a>
 
-            <p>{{ Str::limit(strip_tags($course->description), 100) }}</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias ducimus qui in ratione est eveniet.</p>
 
-            <form action="{{ route('course-store.store') }}" method="POST" id="buynow-{{ $index }}">
+            <form action="" method="POST">
                 @csrf
-                <input type="hidden" name="id" value="{{ $course->id }}" />
+                <input type="hidden" name="id" value="" />
             </form>
             <div class="d-flex flex-column flex-lg-row gap-2 w-100">
-                <a href="{{ route('course-store.detail', $course->id) }}" class="btn w-100 btn-lg btn-outline-primary">Detail</a>
-                <button type="button" class="btn btn-lg btn-primary w-100 btn-lg" onclick="$('#buynow-{{ $index }}').submit()">Beli</button>
+                <a href="{{ url('/courses/detail') }}" class="btn w-100 btn-lg btn-outline-primary">Detail</a>
+                <a href="{{ url('/transaction/checkout') }}" class="btn btn-lg btn-primary w-100 btn-lg">Beli</a>
             </div>
         </div>
     </div>
-    @empty
-    <div class="col-md-4 mx-auto">
-        <div class="text-center">
-            <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" width="200px"
-            alt="no-data">
-            <p class="text-center fw-border text-dark fs-5" style="font-weight: 600 ">Materi Belum
-                Tersedia</p>
-        </div>
-    </div>
-    @endforelse
-
-    {{ $courses->links() }}
 </div>
 @endsection

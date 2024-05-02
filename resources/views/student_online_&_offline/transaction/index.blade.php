@@ -38,16 +38,15 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($transactions as $transaction)
             <tr>
                 <th>
-                    <a href="{{ route('transaction-history.detail', $transaction->transaction_id) }}">#{{ $transaction->transaction_id }}</a>
+                    <a href="{{ route('transaction-history.detail') }}">MAGANG-1234</a>
                 </th>
-                <td>{{ $transaction->issued_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}</td>
-                <td>{{ $transaction->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y HH:mm \W\I\B') }}</td>
-                <td>@currency($transaction->amount)</td>
+                <td>2 Mei 2024 18.00</td>
+                <td>2 Mei 2024 18.00</td>
+                <td>100.000</td>
                 <td>
-                    @php
+                    {{-- @php
                         $status = strtoupper($transaction->status);
                         $refs = match ($status) {
                             'PENDING' => \App\Enum\TransactionStatusEnum::PENDING,
@@ -59,25 +58,15 @@
                             'UNPAID' => \App\Enum\TransactionStatusEnum::UNPAID,
                             default => \App\Enum\TransactionStatusEnum::DEFAULT
                         };
-                    @endphp
-                    <span class="badge bg-{{ $refs->color() }}">{{ $refs->label() }}</span>
+                    @endphp --}}
+                    <span class="badge bg-success">Lunas</span>
                 </td>
             </tr>
-            @empty
-            <tr>
-                <td colspan="5">
-                    <div class="text-center">
-                        <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" alt="No Data" height="150px" width="auto" />
-                        <h3>Tidak Ada Data</h3>
-                    </div>
-                </td>
-            </tr>
-            @endforelse
         </tbody>
     </table>
 
     <div class="px-4">
-        {!! $transactions->links() !!}
+        {{-- {!! $transactions->links() !!} --}}
     </div>
 </div>
 @endsection

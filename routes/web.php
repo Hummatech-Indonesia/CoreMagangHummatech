@@ -197,15 +197,21 @@ Route::middleware('auth')->group(function () {
     });
 
     # Course Buy
-    Route::controller(CourseStoreController::class)
-        ->middleware(['subsrcribed:online'])
-        ->name('course-store.')
-        ->prefix('courses')
-        ->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::get('{course}/detail', 'detail')->name('detail');
-            Route::post('store', 'store')->name('store');
-        });
+    Route::get('/courses', function() {
+        return view('student_online_&_offline.course-store.index');
+    });
+    Route::get('/courses/detail', function() {
+        return view('student_online_&_offline.course-store.details');
+    });
+    // Route::controller(CourseStoreController::class)
+    //     ->middleware(['subsrcribed:online'])
+    //     ->name('course-store.')
+    //     ->prefix('courses')
+    //     ->group(function () {
+    //         Route::get('/', 'index')->name('index');
+    //         Route::get('{course}/detail', 'detail')->name('detail');
+    //         Route::post('store', 'store')->name('store');
+    //     });
 
     # Redirect based on roles
     Route::get('/home', function () {
@@ -215,13 +221,22 @@ Route::middleware('auth')->group(function () {
 });
 
 # Transaction and Payment Routing
-Route::controller(TransactionController::class)->prefix('transaction')->name('transaction-history.')->group(function () {
-    Route::get('/', 'index')->middleware(['auth'])->name('index');
-    Route::get('checkout', 'checkout')->middleware(['auth'])->name('checkout');
-    Route::post('tripay', 'store')->middleware(['auth'])->name('request-to-tripay');
-    Route::any('callback', 'callback')->name('callback')->withoutMiddleware(VerifyCsrfToken::class);
-    Route::get('detail/{reference:transaction_id}', 'detail')->middleware(['auth'])->name('detail');
+Route::get('transaction/checkout', function() {
+    return view('student_online_&_offline.transaction.checkout');
 });
+Route::get('transaction', function() {
+    return view('student_online_&_offline.transaction.index');
+})->name('transaction-history.index');
+Route::get('transaction/detail', function() {
+    return view('student_online_&_offline.transaction.detail');
+})->name('transaction-history.detail');
+// Route::controller(TransactionController::class)->prefix('transaction')->name('transaction-history.')->group(function () {
+//     Route::get('/', 'index')->middleware(['auth'])->name('index');
+//     Route::get('checkout', 'checkout')->middleware(['auth'])->name('checkout');
+//     Route::post('tripay', 'store')->middleware(['auth'])->name('request-to-tripay');
+//     Route::any('callback', 'callback')->name('callback')->withoutMiddleware(VerifyCsrfToken::class);
+//     Route::get('detail/{reference:transaction_id}', 'detail')->middleware(['auth'])->name('detail');
+// });
 
 Route::get('order', [OrderController::class, 'index'])->name('my-order')->middleware(['auth']);
 

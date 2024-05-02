@@ -31,41 +31,29 @@
         <div class="status-wrapper">
             <select id="status" class="form-select">
                 <option @if (!request()->get('status')) selected @endif value="">Semua Status</option>
-                @foreach (App\Enum\TransactionStatusEnum::cases() as $status)
-                    <option @if (request()->get('status') === $status->value) selected @endif value="{{ $status->value }}">
-                        {{ $status->label() }}</option>
-                @endforeach
+                <option @if (request()->get('status') === 'Lunas') selected @endif value="Lunas">
+                    Lunas</option>
             </select>
         </div>
         <div class="sort-wrapper">
             <select id="sort" class="form-select">
-                <option @if (request()->get('sort') === 'latest' || !request()->get('sort')) selected @endif value="latest">Terbaru</option>
-                <option @if (request()->get('sort') === 'oldest') selected @endif value="oldest">Dari Lama</option>
+                <option>Terbaru</option>
+                <option>Dari Lama</option>
             </select>
         </div>
     </div>
 
     <div class="row">
-        @forelse ($orders as $order)
-            @php
-                $refs = $order->transaction->getTransactionStatus();
-            @endphp
-
             <div class="col-xl-4 col-xxl-3">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex gap-3 align-items-center">
                             <div class="bg-primary text-white p-4 rounded">
-                                <i class="fas fa-2x {{ $order->course ? 'fa-book' : 'fa-box' }}"></i>
+                                <i class="fas fa-2x fa-book"></i>
                             </div>
                             <div>
-                                @if ($order->course)
-                                    <h5>{{ $order->course->title }}</h5>
-                                    <h3 class="text-primary fw-bolder mb-0">@currency($order->course->price)</h3>
-                                @else
-                                    <h5>{{ $order->product->name }}</h5>
-                                    <h3 class="text-primary fw-bolder mb-0">@currency($order->product->price)</h3>
-                                @endif
+                                    <h5>Laravel 11</h5>
+                                    <h3 class="text-primary fw-bolder mb-0">100.000</h3>
                             </div>
                         </div>
 
@@ -73,69 +61,45 @@
                             <div class="d-flex gap-2 align-items-center w-100 py-3 justify-content-between">
                                 <div class="mb-0 fw-bolder">Status</div>
                                 <div class="mb-0"><span
-                                        class="fw-bolder badge bg-{{ $refs->color() }}">{{ $refs->label() }}</span>
+                                        class="fw-bolder badge bg-success">Lunas</span>
                                 </div>
                             </div>
-                            @if (!$order->course)
+                            {{-- @if (!$order->course) --}}
                                 <div class="d-flex gap-2 align-items-center border-top w-100 py-3 justify-content-between">
-                                    @if ($order->transaction->status !== 'paid')
+                                    {{-- @if ($order->transaction->status !== 'paid')
                                         <div class="mb-0 fw-bolder">Bayar Sebelum</div>
                                         <div class="text-center">
                                             {{ $order->transaction->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y') }}
                                         </div>
-                                    @else
-                                        @php
-                                            $nextMonth = $order->transaction->paid_at
-                                                ->copy()
-                                                ->addMonths(1)
-                                                ->endOfMonth()
-                                                ->setHour(23)
-                                                ->setMinute(59)
-                                                ->setSecond(59);
-                                        @endphp
+                                    @else --}}
                                         <div class="mb-0 fw-bolder">Berakhir Pada</div>
                                         <div class="text-center">
-                                            {{ $nextMonth->locale('id_ID')->isoFormat('dddd, D MMMM Y') }}
+                                            Senin, 31 Agustus 2024
                                         </div>
-                                    @endif
+                                    {{-- @endif --}}
                                 </div>
-                            @endif
+                            {{-- @endif --}}
                             <div
                                 class="d-flex gap-2 align-items-center w-100 p-3 pt-3 pb-0 border-top px-0 justify-content-between">
                                 <div class="mb-0 fw-bolder">Jenis Produk</div>
                                 <div class="mb-0">
-                                    @if ($order->course)
-                                        <h5 class="mb-0 fw-bolder">Materi</h5>
-                                    @else
-                                        <h5 class="mb-0 fw-bolder">Langganan</h5>
-                                    @endif
+                                    <h5 class="mb-0 fw-bolder">Materi</h5>
                                 </div>
                             </div>
                         </div>
 
-                        @if (in_array($order->status, ['pending', 'unpaid']))
-                            <a href="{{ route('transaction-history.detail', $order->transaction_id) }}"
+                            <a href="{{ route('transaction-history.detail') }}"
                                 class="btn btn-warning w-100 mt-3">Lihat Detail</a>
-                        @endif
                     </div>
                 </div>
             </div>
-        @empty
-            <div class="col-12">
-                <div class="text-center">
-                    <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" alt="No Data"
-                        height="150px" width="auto" />
-                    <h3>Tidak Ada Data</h3>
-                </div>
-            </div>
-        @endforelse
     </div>
-
+{{-- 
     @if ($orders->hasPages())
         <div class="py-4">
             {{ $orders->links() }}
         </div>
-    @endif
+    @endif --}}
 @endsection
 
 @section('script')
