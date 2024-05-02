@@ -63,6 +63,7 @@ use App\Contracts\Interfaces\CourseUnlockInterface;
 use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Contracts\Interfaces\NotePicketInterface;
 use App\Contracts\Interfaces\OrderInterface;
+use App\Contracts\Interfaces\PresentationInterface;
 use App\Contracts\Interfaces\StudentChallengeInterface;
 use App\Contracts\Interfaces\StudentTaskInterface;
 use App\Contracts\Interfaces\SubCourseUnlockInterface;
@@ -90,6 +91,7 @@ use App\Contracts\Repositories\SubCourseUnlockRepository;
 use App\Contracts\Repositories\TaskSubmissionRepository;
 use App\Contracts\Repositories\TransactionHistoryRepository;
 use App\Contracts\Repositories\OrderRepository;
+use App\Contracts\Repositories\PresentationRepository;
 use App\Contracts\Repositories\ThesisRepository;
 use App\Contracts\Repositories\VoucherUsageRepository;
 
@@ -138,7 +140,8 @@ class AppServiceProvider extends ServiceProvider
         CourseUnlockInterface::class => CourseUnlockRepository::class,
         VoucherUsageInterface::class => VoucherUsageRepository::class,
         ThesisInterface::class => ThesisRepository::class,
-        NotePicketInterface::class => NotePicketRepository::class
+        NotePicketInterface::class => NotePicketRepository::class,
+        PresentationInterface::class => PresentationRepository::class,
     ];
 
     /**

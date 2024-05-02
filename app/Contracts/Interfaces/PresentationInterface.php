@@ -8,4 +8,6 @@ use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface PresentationInterface extends GetInterface, StoreInterface, UpdateInterface, DeleteInterface
-{}
+{
+    public function whereStatus(mixed $status): mixed;
+}
