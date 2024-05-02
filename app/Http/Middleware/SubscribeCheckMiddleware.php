@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enum\InternshipTypeEnum;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,11 @@ class SubscribeCheckMiddleware
      */
     public function handle(Request $request, Closure $next, mixed ...$type): Response
     {
-        if(!auth()->user()->feature && in_array(auth()->user()->student->internship_type, $type)) {
+        if(
+            auth()->user()->student->internship_type === InternshipTypeEnum::ONLINE->value
+            && !auth()->user()->feature
+            && in_array(auth()->user()->student->internship_type, $type)
+        ) {
             return abort(403, 'Anda Belum Berlangganan!');
         }
 

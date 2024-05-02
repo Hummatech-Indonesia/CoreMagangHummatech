@@ -35,7 +35,7 @@
 
     <div class="row">
         <div class="col-lg-3">
-            <img alt="{{ $course->title }}" class="img-responsive w-100" src="{{ asset("storage/{$course->image}") }}" />
+            <img alt="{{ $course->title }}" class="img-responsive rounded-4 w-100" src="{{ asset("storage/{$course->image}") }}" />
         </div>
         <div class="col-lg-8 px-4">
             <div class="border-bottom mb-3">
