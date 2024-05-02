@@ -47,7 +47,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
      *
      * @return mixed
      */
-    public function listOflineAttendance(): mixed
+    public function listOfflineAttendance(): mixed
     {
         $date = now();
         return $this->model->query()
@@ -241,7 +241,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function getstudentbanned(): mixed
     {
         return $this->model->query()
-        ->where('status', StudentStatusEnum::DECLINED->value)
+        ->where('status', StudentStatusEnum::BANNED->value)
         ->get();
     }
 

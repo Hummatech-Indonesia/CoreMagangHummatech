@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\StudentRejectedController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LetterheadController;
+use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\ReportStudentController;
 use App\Http\Controllers\StudentChallengeController;
 use App\Http\Controllers\StudentController;
@@ -72,9 +73,7 @@ Route::get('offline-students/team', function() {
 Route::get('offline-students/team/detail', function() {
     return view('admin.page.offline-students.team.detail');
 });
-Route::get('offline-students/presentation', function() {
-    return view('admin.page.offline-students.presentation.index');
-});
+Route::get('offline-students/presentation', [PresentationController::class, 'index']);
 // Route::get('administrator/course', function() {
 //     return view('admin.page.course.index');
 // });

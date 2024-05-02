@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\PicketController;
 use App\Http\Controllers\Admin\AdminJournalController;
 use App\Http\Controllers\Admin\PicketingReportController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Mentor\AssessmentController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CourseController;
@@ -110,9 +111,7 @@ Route::get('timetable', [ZoomScheduleController::class,'show']);
 
 
 // siswa offline
-Route::get('siswa-offline/absensi', function (){
-    return view('student_offline.absensi.index');
-});
+Route::get('siswa-offline/absensi', [AttendanceController::class, 'attendanceOffline']);
 
 Route::get('/siswa-offline/course',[CourseOfflineController::class,'index']);
 Route::get('/siswa-offline/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('materi.detail');
@@ -146,15 +145,12 @@ Route::get('siswa-offline/certificate', function (){
     return view('student_offline.certificate.index');
 });
 
-
 //Student online
 Route::get('/siswa-online/challenge',[StudentChallengeController::class,'showOnline']);
 Route::post('/siswa-online/challenge/store',[StudentChallengeController::class,'store'])->name('challenge_online.store');
 Route::put('/siswa-online/challenge/update/{studentChallenge}',[StudentChallengeController::class,'update'])->name('challenge_online.update');
 
-Route::get('/siswa-online/absensi', function (){
-    return view('student_online.absensi.index');
-});
+Route::get('/siswa-online/absensi', [AttendanceController::class, 'attendanceOnline']);
 
 
 //Hummatask

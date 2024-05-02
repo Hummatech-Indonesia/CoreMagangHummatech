@@ -57,4 +57,11 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->where('id', $id)
             ->delete();
     }
+
+    public function whereStatus(mixed $status): mixed
+    {
+        return $this->model->query()
+            ->where('status_presentation', $status)
+            ->get();
+    }
 }

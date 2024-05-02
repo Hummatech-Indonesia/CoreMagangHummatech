@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\PresentationInterface;
+use App\Enum\StatusPresentationEnum;
 use App\Models\Presentation;
 use App\Http\Requests\StorePresentationRequest;
 use App\Http\Requests\UpdatePresentationRequest;
@@ -19,8 +20,10 @@ class PresentationController extends Controller
      */
     public function index()
     {
-        $presentations = $this->presentation->get();
-        return view('' , compact('presentations'));
+        $finisheds = $this->presentation->whereStatus(StatusPresentationEnum::FINISH->value);
+        $pendings = $this->presentation->whereStatus(StatusPresentationEnum::PENNDING->value);
+        $ongoings = $this->presentation->whereStatus(StatusPresentationEnum::ONGOING->value);
+        return view('admin.page.offline-students.presentation.index' , compact('finisheds','pendings','ongoings'));
     }
 
     /**

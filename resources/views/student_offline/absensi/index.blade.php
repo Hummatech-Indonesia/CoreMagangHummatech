@@ -57,7 +57,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="d-flex justify-content-between">
-                                <h3>56 Kali</h3>
+                                <h3>{{ $offlineAttendances->count() }} Kali</h3>
                                 <span class="ml-auto">Absensi</span>
                             </div>
                         </div>
@@ -221,89 +221,81 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="search-items">
-                        <td class="d-flex">
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0" data-name="Emma Adams">Emma Adams</h6>
-                                    <span class="user-work fs-3" data-occupation="Web Developer">Web Developer</span>
+                    @foreach ($offlineAttendances as $attendance)
+                        <tr class="search-items">
+                            <td class="d-flex">
+                                <div class="ms-3">
+                                    <div class="user-meta-info">
+                                        <h6 class="user-name mb-0" data-name="Emma Adams">{{ $attendance->name }}</h6>
+                                        <span class="user-work fs-3" data-occupation="Web Developer">Web Developer</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="usr-email-addr">12 Maret 2024</span>
-                        </td>
-                        <td>
-                            <span class="badge fw-semibold bg-light-success text-success">Masuk</span>
-                        </td>
-                        <td>
-                            <span>07.30</span>
-                        </td>
-                        <td>
-                            <span class="badge fw-semibold bg-light-danger text-danger">Tidak Absen</span>
-                        </td>
-                        <td>
-                            <span class="badge fw-semibold bg-light-warning text-warning">01.02</span>
-                        </td>
-                        <td>
-                            <span>04.01</span>
-                        </td>
-                    </tr>
-                    <tr class="search-items">
-                        <td class="d-flex">
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0" data-name="Emma Adams">Emma Adams</h6>
-                                    <span class="user-work fs-3" data-occupation="Web Developer">Web Developer</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="usr-email-addr">12 Maret 2024</span>
-                        </td>
-                        <td>
-                            <span class="badge fw-semibold bg-light-warning text-warning">Izin</span>
-                        </td>
-                        <td>
-                            <span>07.30</span>
-                        </td>
-                        <td>
-                            <span class="badge fw-semibold bg-light-danger text-danger">Tidak Absen</span>
-                        </td>
-                        <td>
-                            <span class="badge fw-semibold bg-light-warning text-warning">01.02</span>
-                        </td>
-                        <td>
-                            <span>04.01</span>
-                        </td>
-                    </tr>
-                    <tr class="search-items">
-                        <td class="d-flex">
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0" data-name="Emma Adams">Emma Adams</h6>
-                                    <span class="user-work fs-3" data-occupation="Web Developer">Web Developer</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="usr-email-addr">12 Maret 2024</span>
-                        </td>
-                        <td>
-                            <span class="badge fw-semibold bg-light-danger text-danger">Alpha</span>
-                        </td>
-                        <td>
-                            <span>07.30</span>
-                        </td>
-                        <td>
-                            <span class="badge fw-semibold bg-light-danger text-danger">Tidak Absen</span>
-                        </td>
-                        <td>
-                            <span class="badge fw-semibold bg-light-warning text-warning">01.02</span>
-                        </td>
-                        <td>
-                            <span>04.01</span>
-                        </td>
+                            </td>
+                            <td>
+                                <span class="usr-email-addr">12 Maret 2024</span>
+                            </td>
+                            <td>
+                                <span class="badge fw-semibold bg-light-success text-success">{{ $attendance->attendances[0]->status }}</span>
+                            </td>
+                            <td>
+                            @if (isset($student->attendances[0]))
+                                @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                    @if ($detailAttendance->status == 'present')
+                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                            <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                        @else
+                                            <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            @endif
+                            </td>
+                            <td>
+                            @if (isset($student->attendances[0]))
+                                @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                    @if ($detailAttendance->status == 'break')
+                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                            <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                        @else
+                                            <span class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            @endif
+                            </td>
+                            <td>
+                            @if (isset($student->attendances[0]))
+                                @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                    @if ($detailAttendance->status == 'return_break')
+                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                            <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                        @else
+                                            <span class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            @endif
+                            </td>
+                            <td>
+                            @if (isset($student->attendances[0]))
+                                @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                    @if ($detailAttendance->status == 'return')
+                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                            <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                        @else
+                                            <span class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            @endif
+                            </td>
+                        </tr>
+                    @endforeach
+
                 </tbody>
             </table>
         </div>

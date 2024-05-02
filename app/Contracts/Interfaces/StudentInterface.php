@@ -30,7 +30,7 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
      *
      * @return mixed
      */
-    public function listOflineAttendance(): mixed;
+    public function listOfflineAttendance(): mixed;
 
     /**
      * listStudent
