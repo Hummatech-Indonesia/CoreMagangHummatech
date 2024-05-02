@@ -22,9 +22,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('journal', [AdminJournalController::class, 'index']);
 
-Route::get('rfid', function () {
-    return view('admin.page.user.rfid');
-});
+// Route::get('rfid', function () {
+//     return view('admin.page.user.rfid');
+// });
 
 Route::get('reject', function (){
     return view('admin.page.rejected.index');

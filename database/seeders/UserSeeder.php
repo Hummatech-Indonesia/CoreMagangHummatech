@@ -132,7 +132,6 @@ class UserSeeder extends Seeder
             'phone' => '0812900685',
             'acepted' => '1',
             'status' => 'accepted',
-            'rfid' => '8827338788',
             'division_id' => null,
             'school' => 'SMKN 1 KEPANJEN',
             'parents_statement' => 'Pernyataan Orang Tua Dummy',

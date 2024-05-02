@@ -100,4 +100,7 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
     public function getstudentdivisionplacementedit(): mixed;
     public function whereStudentDivision(mixed $id):mixed;
 
+    public function whereRfidNull(): mixed;
+    public function listRfid(): mixed;
+
 }
