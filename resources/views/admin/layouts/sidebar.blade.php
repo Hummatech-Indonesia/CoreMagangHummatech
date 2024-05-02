@@ -46,10 +46,28 @@
                 </li>
                 <li class="menu-title"><span data-key="t-menu">Paket</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('administrator/course*') ? 'active' : '' }}"
-                        href="{{ url('/administrator/course') }}">
-                        <i class="ri-book-open-line"></i> <span data-key="t-dashboards">Materi</span>
+                    <a class="nav-link menu-link {{ request()->is('administrator/course*') ? 'active' : '' }}" href="#materi" data-bs-toggle="collapse" role="button"
+                        aria-expanded="{{ request()->is('approval*') ? 'true' : 'false' }}"
+                        aria-controls="sidebarApps">
+                        <i class="ri-book-open-line"></i> <span data-key="t-apps">Materi</span>
                     </a>
+                    <div class="collapse menu-dropdown {{ request()->is('approval*') ? 'show' : '' }}"
+                        id="materi">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ url('/administrator/course') }}"
+                                    class="nav-link {{ request()->is('administrator/course*') ? 'active' : '' }}"
+                                    data-key="t-chat">Materi
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#"
+                                    class="nav-link"
+                                    data-key="t-chat">Penetapan Mentor Materi
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('product*') ? 'active' : '' }}"
