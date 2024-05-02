@@ -223,7 +223,7 @@ Route::middleware('auth')->group(function () {
 # Transaction and Payment Routing
 Route::get('transaction/checkout', function() {
     return view('student_online_&_offline.transaction.checkout');
-});
+})->name('transaction-history.checkout');;
 Route::get('transaction', function() {
     return view('student_online_&_offline.transaction.index');
 })->name('transaction-history.index');
