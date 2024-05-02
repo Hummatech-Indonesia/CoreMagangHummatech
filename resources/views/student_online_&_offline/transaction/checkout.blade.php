@@ -232,7 +232,7 @@
 
 @section('script')
     <!-- Modal Payment Gateway -->
-    {{-- <div class="modal fade" id="choose-payment" tabindex="-1" role="dialog" aria-labelledby="choose-paymentLabel"
+    <div class="modal fade" id="choose-payment" tabindex="-1" role="dialog" aria-labelledby="choose-paymentLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -242,17 +242,17 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        @foreach ($paymentChannel['data'] as $channel)
+                        {{-- @foreach ($paymentChannel['data'] as $channel) --}}
                             <div class="col-md-4 col-6 mb-3">
-                                <a href="javascript:choosePayment('{{ $channel['code'] }}')"
-                                    data-fee="{{ $channel['fee_customer']['flat'] }}"
-                                    data-id="payment-{{ $channel['code'] }}" data-name="{{ $channel['name'] }}"
+                                <a href="javascript:choosePayment('Alfamart')"
+                                    {{-- data-fee="{{ $channel['fee_customer']['flat'] }}"
+                                    data-id="payment-{{ $channel['code'] }}" data-name="{{ $channel['name'] }}" --}}
                                     class="card-payment card d-flex align-items-center justify-content-center card-body h-100">
-                                    <img src="{{ $channel['icon_url'] }}" alt="{{ $channel['name'] }}" class="w-100"
+                                    <img src="{{ asset('assets-user/images/alfamart.png') }}" alt="Alfamart" class="w-100"
                                         style="height: auto" />
                                 </a>
                             </div>
-                        @endforeach
+                        {{-- @endforeach --}}
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -262,7 +262,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     <script>
         const openModal = (target) => {
