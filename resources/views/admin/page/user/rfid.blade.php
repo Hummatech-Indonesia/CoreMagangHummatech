@@ -84,34 +84,38 @@
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
-                                        <tr>
-                                            <td class="number">1</td>
-                                            <td class="name">Joseph Parker</td>
-                                            <td class="date">Post@gmail.com</td>
-                                            <td class="time">Joseph Parker</td>
-                                            <td class="description">SMKN</td>
-                                            <td>
-                                                <div class="view">
-                                                    <button class="btn btn-soft-success  edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">
-                                                        Daftarkan
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="number">2</td>
-                                            <td class="name">Joseph Parker</td>
-                                            <td class="date">Post@gmail.com</td>
-                                            <td class="time">Joseph Parker</td>
-                                            <td class="description">SMKN</td>
-                                            <td>
-                                                <div class="view">
-                                                    <button class="btn btn-soft-success  edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">
-                                                        Daftarkan
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @forelse ($students as $student)
+                                            <tr>
+                                                <td class="number">{{ $loop->iteration }}</td>
+                                                <td class="name">{{ $student->name }}</td>
+                                                <td class="date">{{ $student->email }}</td>
+                                                <td class="time">{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }} - 
+                                                                {{ \carbon\Carbon::parse($student->end_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}
+                                                </td>
+                                                <td class="description">{{ $student->school }}</td>
+                                                <td>
+                                                    <div class="view">
+                                                        <button class="btn btn-soft-success add-rfid-btn" 
+                                                        data-id="{{ $student->id }}"
+                                                        data-name="{{ $student->name }}">
+                                                            Daftarkan
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="8">
+                                                    <div class="d-flex justify-content-center mt-3">
+                                                        <img src="{{ asset('no data.png') }}" width="200px"
+                                                            alt="">
+                                                    </div>
+                                                    <h4 class="text-center mt-2 mb-4">
+                                                        Data Masih kosong
+                                                    </h4>
+                                                </td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -184,34 +188,39 @@
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
-                                        <tr>
-                                            <td class="number">1</td>
-                                            <td class="name">Joseph Parker</td>
-                                            <td class="date">Post@gmail.com</td>
-                                            <td class="time">Joseph Parker</td>
-                                            <td class="description">SMKN</td>
-                                            <td>
-                                                <div class="view">
-                                                    <button class="btn btn-soft-warning  edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">
-                                                        Ganti RFID
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="number">2</td>
-                                            <td class="name">Joseph Parker</td>
-                                            <td class="date">Post@gmail.com</td>
-                                            <td class="time">Joseph Parker</td>
-                                            <td class="description">SMKN</td>
-                                            <td>
-                                                <div class="view">
-                                                    <button class="btn btn-soft-warning  edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">
-                                                        Ganti RFID
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @forelse ($rfidStudents as $student)
+                                            <tr>
+                                                <td class="number">{{ $loop->iteration }}</td>
+                                                <td class="name">{{ $student->name }}</td>
+                                                <td class="date">{{ $student->email }}</td>
+                                                <td class="time">{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }} - 
+                                                                {{ \carbon\Carbon::parse($student->end_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}
+                                                </td>
+                                                <td class="description">{{ $student->school }}</td>
+                                                <td>
+                                                    <div class="view">
+                                                        <button class="btn btn-soft-warning  edit-rfid-btn"
+                                                        data-id="{{ $student->id }}"
+                                                        data-name="{{ $student->name }}"
+                                                        data-rfid="{{ $student->rfid }}">
+                                                            Ganti RFID
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="8">
+                                                    <div class="d-flex justify-content-center mt-3">
+                                                        <img src="{{ asset('no data.png') }}" width="200px"
+                                                            alt="">
+                                                    </div>
+                                                    <h4 class="text-center mt-2 mb-4">
+                                                        Data Masih kosong
+                                                    </h4>
+                                                </td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -245,46 +254,108 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="showModalLabel">Detail Jurnal</h5>
+                <h5 class="modal-title" id="showModalLabel">Daftar RFID Siswa</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div>
-                    <h6>Nama :</h6>
-                    <p id="modalName">Shobibun Niam</p>
+            <form id="form-add" method="post">
+                @csrf
+                @method('PATCH')
+                <div class="modal-body">
+                    <div class="mt-3">
+                        <h5>Nama: <span id="name"></span></h5>
+                    </div>
+                    <div class="my-3">
+                        <label for="rfid">RFID Siswa</label>
+                        <input type="text" class="form-control" name="rfid" id="rfid" placeholder="Masukkan RFID">
+                    </div>
                 </div>
-                <div>
-                    <h6>Sekolah :</h6>
-                    <p id="modalName">SMKN 1 TAMBAKBOYO</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
-                <div>
-                    <h6>Tanggal :</h6>
-                    <p id="modalName">2024-03-14</p>
-                </div>
-                <div>
-                    <h6>Jam :</h6>
-                    <p id="modalName">2024-03-14</p>
-                </div>
-                <div>
-                    <h6>Kegiatan :</h6>
-                    <p id="modalName">
-                        Lorem ipsum dolor sit amet consectetur. Viverra ornare ullamcorper mattis amet pretium. Morbi ac ipsum tellus dignissim sapien. Diam at enim semper pharetra ac libero a neque sit. Sit tristique fermentum ullamcorper leo mattis quis. Nisl eget viverra id imperdiet pharetra. Elit in pulvinar adipiscing diam adipiscing. Senectus cum in amet a congue. Amet etiam vitae fringilla adipiscing sit et lorem. Urna mi sed ac commodo. Ornare nulla sit sit porta. Varius commodo tortor odio aliquam consectetur.
-                    </p>
-                </div>
-                <div>
-                    <h6>Bukti :</h6>
-                    <p id="modalName">
-                        <img src="assets/images/galaxy/img-1.png" alt="My Image" style="width: 100%; height: auto;">
-                    </p>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showModalLabel">Daftar RFID Siswa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="form-edit" method="post">
+                @csrf
+                @method('PATCH')
+                <div class="modal-body">
+                    <div class="mt-3">
+                        <h5>Nama: <span id="name-edit"></span></h5>
+                    </div>
+                    <div class="my-3">
+                        <label for="rfid-edit">RFID Siswa</label>
+                        <input type="text" class="form-control" name="rfid" id="edit-rfid" placeholder="Masukkan RFID">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
+<div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showModalLabel">Daftar RFID Siswa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="form-add" method="post">
+                @csrf
+                @method('PATCH')
+                <div class="modal-body">
+                    <div class="mt-3">
+                        <h5>Nama: <span id="name"></span></h5>
+                    </div>
+                    <div class="my-3">
+                        <label for="rfid">RFID Siswa</label>
+                        <input type="text" class="form-control" name="rfid" id="rfid" placeholder="Masukkan RFID">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $('.add-rfid-btn').click(function() {
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+            $('#name').text(name);
+            $('#form-add').attr('action', '/rfid/add/' + id);
+            $('#showModal').modal('show');
+        });
+
+        $('.edit-rfid-btn').click(function() {
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+            let rfid = $(this).data('rfid');
+            $('#name-edit').text(name);
+            $('#edit-rfid').val(rfid);
+            $('#form-edit').attr('action', '/rfid/update/' + id);
+            $('#editModal').modal('show');
+        });
+    </script>
 @endsection

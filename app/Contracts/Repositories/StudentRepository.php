@@ -320,4 +320,14 @@ class StudentRepository extends BaseRepository implements StudentInterface
     {
         return $this->model->query()->where('division_id', $id)->get();;
     }
+
+    public function whereRfidNull(): mixed
+    {
+        return $this->model->query()->whereNull('rfid')->get();
+    }
+
+    public function listRfid(): mixed
+    {
+        return $this->model->query()->whereNotNull('rfid')->get();
+    }
 }

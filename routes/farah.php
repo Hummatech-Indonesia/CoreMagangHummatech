@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DivisionController;
 use App\Http\Controllers\Admin\DivisionPlacementController;
 use App\Http\Controllers\Admin\PicketingReportController;
+use App\Http\Controllers\Admin\RfidController;
 use App\Http\Controllers\Admin\StudentRejectedController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\JournalController;
@@ -110,3 +111,7 @@ Route::put('siswa-offline/challenge/{studentChallenge}',[StudentChallengeControl
 
 Route::get('students-rejected', [StudentRejectedController::class, 'index']);
 Route::put('students-rejected/{student}', [StudentRejectedController::class, 'accept']);
+
+Route::get('rfid', [RfidController::class, 'index']);
+Route::patch('rfid/add/{student}', [RfidController::class, 'store']);
+Route::patch('rfid/update/{student}', [RfidController::class, 'update']);
