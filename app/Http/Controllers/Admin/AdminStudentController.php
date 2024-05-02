@@ -76,6 +76,6 @@ class AdminStudentController extends Controller
     public function banned(Student $student)
     {
         $this->student->update($student->id, ['status' => StudentStatusEnum::BANNED->value]);
-        return redirect()->back()->with(['success' => 'Data Berhasil Telah Di Hapus']);
+        return redirect()->back()->with(['success' => 'Siswa Berhasil Dibanned']);
     }
 }
