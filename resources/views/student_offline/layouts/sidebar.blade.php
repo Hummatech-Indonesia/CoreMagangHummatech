@@ -20,7 +20,8 @@
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="init">
             <ul id="sidebarnav">
                 <li class="nav-item mb-0 mt-2">
-                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login-modal" aria-expanded="false">
+                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login-modal"
+                        aria-expanded="false">
                         <div class="myElement py-2 px-3 rounded gradient-bg">
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex  gap-2">
@@ -39,12 +40,16 @@
                                     </div>
                                 </div>
                                 <div class="mt-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-lock">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" />
+                                        <path
+                                            d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z" />
                                         <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
                                         <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
-                                      </svg>
+                                    </svg>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +90,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ url('/siswa-offline/course') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ url('/courses') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-backpack"></i>
                         </span>
@@ -117,11 +122,19 @@
                     </a>
                 </li> --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ url('siswa-offline/purchase') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('my-order') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-building-store"></i>
+                            <i class="ti ti-list"></i>
                         </span>
-                        <span class="hide-menu">Pembelian</span>
+                        <span class="hide-menu">Pesanan Saya</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('transaction-history.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-wallet"></i>
+                        </span>
+                        <span class="hide-menu">Riwayat Transaksi</span>
                     </a>
                 </li>
                 <li class="sidebar-item">

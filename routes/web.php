@@ -216,14 +216,14 @@ Route::middleware('auth')->group(function () {
 
 # Transaction and Payment Routing
 Route::controller(TransactionController::class)->prefix('transaction')->name('transaction-history.')->group(function () {
-    Route::get('/', 'index')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online'])->name('index');
+    Route::get('/', 'index')->middleware(['auth'])->name('index');
     Route::get('checkout', 'checkout')->middleware(['auth'])->name('checkout');
-    Route::post('tripay', 'store')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online'])->name('request-to-tripay');
+    Route::post('tripay', 'store')->middleware(['auth'])->name('request-to-tripay');
     Route::any('callback', 'callback')->name('callback')->withoutMiddleware(VerifyCsrfToken::class);
-    Route::get('detail/{reference:transaction_id}', 'detail')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online'])->name('detail');
+    Route::get('detail/{reference:transaction_id}', 'detail')->middleware(['auth'])->name('detail');
 });
 
-Route::get('order', [OrderController::class, 'index'])->name('my-order')->middleware(['auth', 'roles:roles:siswa-offline,siswa-online']);
+Route::get('order', [OrderController::class, 'index'])->name('my-order')->middleware(['auth']);
 
 require_once __DIR__ . '/kader.php';
 require_once __DIR__ . '/farah.php';
