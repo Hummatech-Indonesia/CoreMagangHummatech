@@ -241,7 +241,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function getstudentbanned(): mixed
     {
         return $this->model->query()
-        ->where('status', StudentStatusEnum::DECLINED->value)
+        ->where('status', StudentStatusEnum::BANNED->value)
         ->get();
     }
 
