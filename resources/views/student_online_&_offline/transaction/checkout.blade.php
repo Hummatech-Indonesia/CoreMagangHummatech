@@ -218,11 +218,11 @@
                         <div class="text-muted mb-3">*Semua sudah termasuk PPN.</div>
 
                         <div class="d-grid">
-                            <button type="submit"
+                            <a href="{{ url('/transaction/detail') }}"
                                 class="btn btn-rounded btn-lg bg-primary-subtle text-primary justify-content-between align-items-center d-flex gap-2">
                                 <span>Lanjutkan Ke Pembayaran</span>
                                 <i class="fas fa-arrow-right"></i>
-                            </button>
+                            </a>
                         </div>
                     </form>
                 </div>
