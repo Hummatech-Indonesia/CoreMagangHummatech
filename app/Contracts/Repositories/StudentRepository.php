@@ -47,7 +47,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
      *
      * @return mixed
      */
-    public function listOflineAttendance(): mixed
+    public function listOfflineAttendance(): mixed
     {
         $date = now();
         return $this->model->query()
