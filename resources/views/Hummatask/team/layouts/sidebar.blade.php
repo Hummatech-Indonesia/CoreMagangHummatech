@@ -32,13 +32,22 @@
                         </a>
                     </li>
                     <li class="sidebar-item px-2">
-                        <a class="sidebar-link " href="#" aria-expanded="false">
+                        <a class="sidebar-link " href="/hummateam/team/team" aria-expanded="false">
                             <span>
                                 <i class="ti ti-aperture"></i>
                             </span>
                             <span class="hide-menu">Catatan</span>
                         </a>
                     </li>
+                    <li class="nav-item ms-auto">
+                        <div class="row g-3 align-items-center">
+                            <a href="{{url('dashboard/task')}}" class="btn me-1 mb-1 btn-info text-light btn-lg px-4 fs-4 font-medium">
+                                <i class="ti ti-arrow-back fs-4"></i> Kembali
+                            </a>
+                        </div>
+
+                    </li>
+
                 </ul>
             </div>
         </nav>
