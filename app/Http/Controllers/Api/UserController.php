@@ -18,7 +18,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = $this->user->get();
+        $users = $this->user->get();    
         return ResponseHelper::success(UserResource::collection($users));
     }
 }
