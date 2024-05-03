@@ -68,25 +68,51 @@
                 </li>
                 @if (!auth()->user()->feature)
                     <li class="sidebar-item">
-                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
-                            href="javascript:void(0)" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-pencil"></i>
-                            </span>
-                            <span class="hide-menu">Jurnal <i class="fas fa-lock opacity-50 ms-2"></i></span>
-                        </a>
+                        @if (auth()->user()->student->activeFeature != null && auth()->user()->student->activeFeature->is_active == '1')
+                            <a class="sidebar-link" href="" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-pencil"></i>
+                                </span>
+                                <span class="hide-menu">Jurnal</span>
+                            </a>
+                        @else
+                            <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
+                                href="javascript:void(0)" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-pencil"></i>
+                                </span>
+                                <span class="hide-menu">Jurnal <i class="fas fa-lock opacity-50 ms-2"></i></span>
+                            </a>
+                        @endif
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
-                            href="javascript:void(0)" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-presentation-analytics"></i>
-                            </span>
-                            <span class="hide-menu">Absensi <i class="fas fa-lock opacity-50 ms-2"></i></span>
-                        </a>
+                        @if (auth()->user()->student->activeFeature != null && auth()->user()->student->activeFeature->is_active == '1')
+                            <a class="sidebar-link" href="" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-presentation-analytics"></i>
+                                </span>
+                                <span class="hide-menu">Absensi</span>
+                            </a>
+                        @else
+                            <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
+                                href="javascript:void(0)" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-presentation-analytics"></i>
+                                </span>
+                                <span class="hide-menu">Absensi <i class="fas fa-lock opacity-50 ms-2"></i></span>
+                            </a>
+                        @endif
                     </li>
                     <li class="sidebar-item">
+                        @if (auth()->user()->student->activeFeature != null && auth()->user()->student->activeFeature->is_active == '1')
+                            <a class="sidebar-link" href="" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-book"></i>
+                                </span>
+                                <span class="hide-menu">Materi</span>
+                            </a>
+                        @else
                         <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
                             href="javascript:void(0)" aria-expanded="false">
                             <span>
@@ -94,6 +120,7 @@
                             </span>
                             <span class="hide-menu">Materi <i class="fas fa-lock opacity-50 ms-2"></i></span>
                         </a>
+                        @endif
                     </li>
                     {{-- <li class="sidebar-item">
                         <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
@@ -114,13 +141,21 @@
                         </a>
                     </li> --}}
                     <li class="sidebar-item">
-                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
-                            href="javascript:void(0)" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-clock"></i>
-                            </span>
-                            <span class="hide-menu">Jadwal Mentor <i class="fas fa-lock opacity-50 ms-2"></i></span>
-                        </a>
+                        @if (auth()->user()->student->activeFeature != null && auth()->user()->student->activeFeature->is_active == '1')
+                            <a class="sidebar-link" href="">
+                                <span>
+                                    <i class="ti ti-clock"></i>
+                                </span>
+                                <span class="hide-menu">Jadwal Mentor</span>
+                            </a>
+                        @else
+                            <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal" href="javascript:void(0)" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-clock"></i>
+                                </span>
+                                <span class="hide-menu">Jadwal Mentor <i class="fas fa-lock opacity-50 ms-2"></i></span>
+                            </a>
+                        @endif
                     </li>
                     {{-- <li class="sidebar-item">
                         <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
@@ -226,19 +261,21 @@
             </ul>
 
             @if (!auth()->user()->feature)
-                <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
-                    <div class="d-flex">
-                        <div class="unlimited-access-title">
-                            <h6 class="fw-semibold fs-4 mb-6 text-dark w-85">Akses Lebih Banyak</h6>
-                            <a href="{{ route('subscription.index') }}"
-                                class="btn btn-primary fs-2 fw-semibold lh-sm">Berlangganan</a>
-                        </div>
-                        <div class="unlimited-access-img">
-                            <img src="{{ asset('assets-user/dist/images/backgrounds/rocket.png') }}" alt=""
-                                class="img-fluid">
+                @if (auth()->user()->student->activeFeature == null || auth()->user()->student->activeFeature->is_active == '0')
+                    <div class="unlimited-access hide-menu bg-light-primary position-relative my-7 rounded">
+                        <div class="d-flex">
+                            <div class="unlimited-access-title">
+                                <h6 class="fw-semibold fs-4 mb-6 text-dark w-85">Akses Lebih Banyak</h6>
+                                <a href="{{ route('subscription.index') }}"
+                                    class="btn btn-primary fs-2 fw-semibold lh-sm">Berlangganan</a>
+                            </div>
+                            <div class="unlimited-access-img">
+                                <img src="{{ asset('assets-user/dist/images/backgrounds/rocket.png') }}" alt=""
+                                    class="img-fluid">
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             @else
                 <ul class="list-group list-group-flush">
                     @forelse ($zoomSchedule as $zoomData)
