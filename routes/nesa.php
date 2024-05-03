@@ -7,6 +7,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Mentor\AssessmentController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LimitPresentationController;
 use App\Http\Controllers\Mentor\JournalController;
 use App\Http\Controllers\NotePicketController;
 use App\Http\Controllers\PresentationController;
@@ -80,6 +81,10 @@ Route::get('mentor/challenge/challenge-detail/{challenge}', [AssessmentControlle
 
 Route::get('mentor/presentation', [PresentationController::class,'mentorshow']);
 Route::post('mentor/presentation/store', [PresentationController::class,'store'])->name('presentation.store');
+Route::post('mentor/limit/presentation/store', [LimitPresentationController::class,'store'])->name('limitpresentation.store');
+Route::put('mentor/limit/presentation/{limitPresentation}', [LimitPresentationController::class,'update'])->name('limitpresentation.update');
+
+
 
 
 
