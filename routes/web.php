@@ -28,6 +28,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Mentor\DashboardController;
 use App\Http\Controllers\StudentOnline\CourseController;
 use App\Http\Controllers\CourseController as AdminCourseController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
@@ -38,6 +39,7 @@ use App\Http\Controllers\TaskSubmissionController;
 
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', [LandingController::class, 'index']);
+Route::get('/payment-method', [PaymentController::class, 'paymentMethod']);
 
 # ================================================ Authentication Routes Group ================================================
 Auth::routes();
