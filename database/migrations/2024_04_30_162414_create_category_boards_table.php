@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('category_boards', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('hummatask_team_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

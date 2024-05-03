@@ -7,9 +7,11 @@ use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\MentorInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Contracts\Interfaces\ZoomScheduleInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Division;
 use App\Models\MentorStudent;
+use App\Services\MentorService;
 use App\Services\StudentService;
 use Illuminate\Http\Request;
 
@@ -21,15 +23,19 @@ class DashboardController extends Controller
     private StudentService $studentService;
     private MentorStudentInterface $mentorStudent;
     private MentorDivisionInterface $mentorDivision;
+    private ZoomScheduleInterface $zoomSchedule;
+    private MentorService $mentorService;
 
-    public function __construct(DivisionInterface $division, MentorInterface $mentor, StudentInterface $student, StudentService $studentService, MentorStudentInterface $mentorStudent, MentorDivisionInterface $mentorDivision)
+    public function __construct(DivisionInterface $division, MentorInterface $mentor, StudentInterface $student, StudentService $studentService, MentorStudentInterface $mentorStudent, MentorDivisionInterface $mentorDivision, ZoomScheduleInterface $zoomSchedule, MentorService $mentorService)
     {
         $this->division = $division;
         $this->mentor = $mentor;
         $this->student = $student;
         $this->studentService = $studentService;
         $this->mentorStudent = $mentorStudent;
+        $this->mentorService = $mentorService;
         $this->mentorDivision = $mentorDivision;
+        $this->zoomSchedule = $zoomSchedule;
     }
     /**
      * Display a listing of the resource.
@@ -38,11 +44,17 @@ class DashboardController extends Controller
     {
         $division = $this->division->get();
         $mentor = $this->mentor->get();
+
         $mentorStudent = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
+        $jumlahSiswa = $mentorStudent->count();
+
         $mentorDivision = $this->mentorDivision->get();
         $check_id = $this->mentorStudent->pluck('student_id');
 
-        return view('mentor.index',compact('division','mentor', 'mentorStudent','mentorDivision'));
+        $zoomSchedule = $this->zoomSchedule->get();
+        $totalSchedule = $zoomSchedule->count();
+
+        return view('mentor.index',compact('division','mentor', 'mentorStudent','mentorDivision','jumlahSiswa','totalSchedule','zoomSchedule'));
     }
 
     /**

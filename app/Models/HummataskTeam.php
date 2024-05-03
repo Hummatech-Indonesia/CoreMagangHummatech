@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * 
+ *
  *
  * @method static \Database\Factories\HummataskTeamFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|HummataskTeam newModelQuery()
@@ -53,5 +53,9 @@ class HummataskTeam extends Model
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
+    }
+    public function categoryBoards()
+    {
+        return $this->hasMany(CategoryBoard::class);
     }
 }

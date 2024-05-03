@@ -180,7 +180,7 @@
                 </li> --}}
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="">
+                    <a class="nav-link {{ request()->is('administrator/presentation*') ? 'active' : '' }}" href="{{url('administrator/presentation')}}">
                         <i class="ri-slideshow-line"></i> <span data-key="t-dashboards">Presentasi</span>
                     </a>
                 </li>

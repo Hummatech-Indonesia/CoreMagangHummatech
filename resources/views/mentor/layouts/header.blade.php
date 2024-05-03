@@ -103,7 +103,24 @@
               <a class="nav-link pe-0" href="javascript:void(0)" id="drop1" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="d-flex align-items-center">
                   <div class="user-profile-img">
-                    <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" class="rounded-circle" width="35" height="35" alt="" />
+                    {{-- <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" class="rounded-circle" width="35" height="35" alt="" /> --}}
+                    @if (auth()->user()->mentor && !empty(auth()->user()->mentor->avatar))
+                        @php
+                            $avatarPath = 'storage/' . auth()->user()->mentor->avatar;
+                            $avatarExists = file_exists(public_path($avatarPath));
+                        @endphp
+
+                        @if ($avatarExists)
+                            <img src="{{ asset($avatarPath) }}" class="rounded-circle" width="35"
+                                height="35" alt="" />
+                        @else
+                            <img src="{{ asset('user.webp') }}" class="rounded-circle" width="35"
+                                height="35" alt="" />
+                        @endif
+                    @else
+                        <img src="{{ asset('user.webp') }}" class="rounded-circle" width="35"
+                            height="35" alt="" />
+                    @endif
                   </div>
                 </div>
               </a>
@@ -113,12 +130,28 @@
                     <h5 class="mb-0 fs-5 fw-semibold">User Profile</h5>
                   </div>
                   <div class="d-flex align-items-center py-9 mx-7 border-bottom">
-                    <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" class="rounded-circle" width="80" height="80" alt="" />
+                    @if (auth()->user()->mentor && !empty(auth()->user()->mentor->avatar))
+                        @php
+                            $avatarPath = 'storage/' . auth()->user()->mentor->avatar;
+                            $avatarExists = file_exists(public_path($avatarPath));
+                        @endphp
+
+                        @if ($avatarExists)
+                            <img src="{{ asset($avatarPath) }}" class="rounded-circle" width="80"
+                                height="80" alt="" />
+                        @else
+                            <img src="{{ asset('user.webp') }}" class="rounded-circle" width="80"
+                                height="80" alt="" />
+                        @endif
+                    @else
+                        <img src="{{ asset('user.webp') }}" class="rounded-circle" width="80"
+                            height="80" alt="" />
+                    @endif
                     <div class="ms-3">
-                      <h5 class="mb-1 fs-3">Mathew Anderson</h5>
+                      <h5 class="mb-1 fs-3">{{ auth()->user()->mentor->name }}</h5>
                       <span class="mb-1 d-block text-dark">Designer</span>
                       <p class="mb-0 d-flex text-dark align-items-center gap-2">
-                        <i class="ti ti-mail fs-4"></i> info@modernize.com
+                        <i class="ti ti-mail fs-4"></i> {{ auth()->user()->mentor->email }}
                       </p>
                     </div>
                   </div>
@@ -143,7 +176,7 @@
                     </a>
                   </div>
                   <div class="d-grid py-4 px-7 pt-8">
-                    <div class="upgrade-plan bg-light-primary position-relative overflow-hidden rounded-4 p-4 mb-9">
+                    {{-- <div class="upgrade-plan bg-light-primary position-relative overflow-hidden rounded-4 p-4 mb-9">
                       <div class="row">
                         <div class="col-6">
                           <h5 class="fs-4 mb-3 w-50 fw-semibold text-dark">Unlimited Access</h5>
@@ -155,7 +188,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> --}}
                     <a class="btn btn-outline-primary" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">

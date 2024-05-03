@@ -24,7 +24,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item px-2">
-                        <a class="sidebar-link " href="/hummateam/board" aria-expanded="false">
+                        <a class="sidebar-link " href="{{ url('/hummateam/board', $hummataskTeam->id) }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-aperture"></i>
                             </span>

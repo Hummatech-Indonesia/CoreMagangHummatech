@@ -3,24 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\CategoryBoardInterface;
+use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Models\CategoryBoard;
 use App\Http\Requests\StoreCategoryBoardRequest;
 use App\Http\Requests\UpdateCategoryBoardRequest;
+use App\Models\HummataskTeam;
 
 class CategoryBoardController extends Controller
 {
     private CategoryBoardInterface $categoryBoard;
-    public function __construct(CategoryBoardInterface $categoryBoard)
+    private HummataskTeamInterface $hummataskTeam;
+    public function __construct(CategoryBoardInterface $categoryBoard, HummataskTeamInterface $hummataskTeam)
     {
         $this->categoryBoard = $categoryBoard;
+        $this->hummataskTeam = $hummataskTeam;
     }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(HummataskTeam $hummataskTeam)
     {
         $categoryBoards = $this->categoryBoard->get();
-        return view('' , compact('categoryBoards'));
+        return view('Hummatask.team.board' , compact('categoryBoards', 'hummataskTeam'));
     }
 
     /**

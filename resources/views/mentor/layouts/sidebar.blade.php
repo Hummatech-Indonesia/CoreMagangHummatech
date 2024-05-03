@@ -33,6 +33,14 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="/mentor/presentation" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-calendar-event"></i>
+                        </span>
+                        <span class="hide-menu">Presentasi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="/timetable" aria-expanded="false">
                         <span>
                             <i class="ti ti-calendar-event"></i>

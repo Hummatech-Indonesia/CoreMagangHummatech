@@ -13,19 +13,26 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="{{route('list.store')}}" method="POST">
+                    @csrf
+                    @method('POST')
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="judul" placeholder="Masukkan judul disini">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="judul" name="hummatask_team_id" value="{{$hummataskTeam->id}}" placeholder="Masukkan judul disini" hidden>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="judul" name="name" placeholder="Masukkan judul disini">
+                        @error('name')
+                            <div class="invalid-feedback text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-success">Simpan</button>
                     </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-success">Simpan</button>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Edit List -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -36,27 +43,37 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="{{ route('list.update', $hummataskTeam->id) }}" method="post" id="editForm">
+                    @csrf
+                    @method('PUT')
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="judul" placeholder="Masukkan judul disini">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="judul" name="hummatask_team_id" value="{{$hummataskTeam->id}}" placeholder="Masukkan judul disini" hidden>
+                        <input type="text" class="form-control" id="judul" name="name" placeholder="Masukkan judul disini"
+                               value="">
+                               @error('name')
+                               <div class="invalid-feedback text-danger">{{ $message }}</div>
+                           @enderror
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-success">Simpan</button>
+                <button type="submit" form="editForm" class="btn btn-success">Simpan</button>
             </div>
         </div>
     </div>
 </div>
 
+
+
  <div class="row">
+    @forelse ($categoryBoards as $categoryBoard)
+
     <div class="col-md-6 col-lg-4">
         <div class="card" style="background-color: #EAEFF4; padding: 15px;">
-
             <div class="card-body rounded-2 mb-3" >
                 <div class="d-flex align-items-center mb-3">
-                    <h6 class="card-title pt-1" style="font-size: 14px;">Tugas Baru</h6>
+                    <h6 class="card-title pt-1" style="font-size: 14px;">{{$categoryBoard->name}}</h6>
                     <div class="bg-primary text-light d-inline-flex align-items-center justify-content-center rounded-circle ms-2" style="font-size: 14px; width: 25px; height: 25px;">5</div>
                     <div class="d-flex justify-content-end align-items-center ms-auto">
                         <div class="m3-3">
@@ -133,6 +150,9 @@
             </div>
         </div>
     </div>
+    @empty
+
+    @endforelse
 
     <!--  Edit Tugas -->
     <div class="modal fade" id="edittugas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -219,7 +239,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="px-5 pt-4">
+                                    <div class="px-5 pt-">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h6 class="p-0">Judul</h6>
                                             <h6>Memperbaik sidebar</h6>
@@ -265,148 +285,6 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                     <button type="button" class="btn btn-primary">Simpan</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <div class="col-md-6 col-lg-4">
-        <div class="card"  style="background-color: #EDF9FF; padding: 15px;">
-            <div class="card-body rounded-2 mb-3">
-                <div class="d-flex align-items-center mb-3">
-                    <h6 class="card-title pt-1" style="font-size: 14px;">Dikerjakan</h6>
-                    <div class="bg-primary text-light d-inline-flex align-items-center justify-content-center rounded-circle ms-2" style="font-size: 14px; width: 25px; height: 25px;">5</div>
-                    <div class="ms-auto rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 25px; height: 25px; background-color: #FFFFFF;">
-                        <div class="dropdown dropstart">
-                            <a href="#" class="link text-dark show" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="true">
-                                <i class="ti ti-dots-vertical fs-4"></i>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" data-popper-placement="left-start" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-24px, 4.8px, 0px);">
-                                <li>
-                                    <a href="#" class="dropdown-item">Edit</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="dropdown-item text-danger">Hapus</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    @foreach (range(1,3) as $item)
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body" style="padding: 15px;">
-                                <div class="dropdown dropstart text-end">
-                                    <a href="#" class="link text-dark show" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="true">
-                                        <i class="ti ti-dots-vertical fs-4"></i>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" data-popper-placement="left-start" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-24px, 4.8px, 0px);">
-                                        <li>
-                                            <a href="#" class="dropdown-item">
-                                                <i class="ti ti-pencil-plus fs-4"></i>
-                                                Edit</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="dropdown-item text-danger">
-                                                <i class="ti ti-trash fs-4"></i>
-                                                Hapus</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <h6 class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</h6>
-                                <span class="mb-1 badge rounded-pill font-medium bg-light-warning text-warning" style="font-size: 10px">Front End</span>
-                                <span class="mb-1 badge rounded-pill font-medium bg-light-danger text-danger" style="font-size: 10px">Mendesak</span>
-                                <span class="mb-1 badge rounded-pill font-medium bg-primary text-light" style="font-size: 10px">Di Revisi</span>
-
-                                <div class="d-flex align-items-center justify-content-between pt-8">
-                                    <h6 class="mb-0 text-primary">3 Hari lagi</h6>
-                                    <div class="d-flex align-items-end justify-content-end">
-                                        <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35" alt="">
-                                        <img src="{{ asset('assets/images/users/avatar-2.jpg') }}" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35" alt="">
-                                        <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35" alt="">
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-md-6 col-lg-4" >
-        <div class="card" style="background-color: #EBF3FE; padding: 15px;">
-            <div class="card-body rounded-2 mb-3" >
-                <div class="d-flex align-items-center mb-3">
-                    <h6 class="card-title pt-1" style="font-size: 14px;">Di revisi</h6>
-                    <div class="bg-primary text-light d-inline-flex align-items-center justify-content-center rounded-circle ms-2" style="font-size: 14px; width: 25px; height: 25px;">5</div>
-                    <div class="ms-auto rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 25px; height: 25px; background-color: #FFFFFF;">
-                        <div class="dropdown dropstart">
-                            <a href="#" class="link text-dark show" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="true">
-                                <i class="ti ti-dots-vertical fs-4"></i>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" data-popper-placement="left-start" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-24px, 4.8px, 0px);">
-                                <li>
-                                    <a href="#" class="dropdown-item">Edit</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="dropdown-item text-danger">Hapus</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    @foreach (range(1,3) as $item)
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body" style="padding: 15px;">
-                                <div class="dropdown dropstart text-end">
-                                    <a href="#" class="link text-dark show" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="true">
-                                        <i class="ti ti-dots-vertical fs-4"></i>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" data-popper-placement="left-start" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-24px, 4.8px, 0px);">
-                                        <li>
-                                            {{-- <a href="#" class="dropdown-item">
-                                                <i class="ti ti-pencil-plus fs-4"></i>
-                                                Edit</a> --}}
-                                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="ti ti-pencil-plus fs-4"></i>
-                                                    Buka Modal
-                                                  </button>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="dropdown-item text-danger">
-                                                <i class="ti ti-trash fs-4"></i>
-                                                Hapus</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <h6 class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</h6>
-                                <span class="mb-1 badge rounded-pill font-medium bg-light-warning text-warning" style="font-size: 10px">Front End</span>
-                                <span class="mb-1 badge rounded-pill font-medium bg-light-danger text-danger" style="font-size: 10px">Mendesak</span>
-                                <span class="mb-1 badge rounded-pill font-medium bg-primary text-light" style="font-size: 10px">Di Revisi</span>
-
-                                <div class="d-flex align-items-center justify-content-between pt-8">
-                                    <h6 class="mb-0 text-primary">3 Hari lagi</h6>
-                                    <div class="d-flex align-items-end justify-content-end">
-                                        <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35" alt="">
-                                        <img src="{{ asset('assets/images/users/avatar-2.jpg') }}" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35" alt="">
-                                        <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35" alt="">
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
                 </div>
             </div>
         </div>

@@ -3,24 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\BoardInterface;
+use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Models\Board;
 use App\Http\Requests\StoreBoardRequest;
 use App\Http\Requests\UpdateBoardRequest;
+use App\Models\HummataskTeam;
 
 class BoardController extends Controller
 {
     private BoardInterface $board;
-    public function __construct(BoardInterface $board)
+    private HummataskTeamInterface $team;
+    public function __construct(BoardInterface $board, HummataskTeamInterface $team)
     {
         $this->board = $board;
+        $this->team = $team;
     }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(HummataskTeam $hummataskTeam)
     {
         $boards = $this->board->get();
-        return view('' , compact('boards'));
+        return view('' , compact('boards','hummataskTeam'));
     }
 
     /**
@@ -36,7 +40,7 @@ class BoardController extends Controller
      */
     public function store(StoreBoardRequest $request)
     {
-        $this->store($request->validated());
+        $this->board->store($request->validated());
         return back()->with('success' , 'Data Berhasil Ditambahkan');
     }
 

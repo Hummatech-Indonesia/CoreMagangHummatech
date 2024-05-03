@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\PicketController;
 use App\Http\Controllers\Admin\AdminJournalController;
 use App\Http\Controllers\Admin\PicketingReportController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\BoardController;
+use App\Http\Controllers\CategoryBoardController;
 use App\Http\Controllers\Mentor\AssessmentController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CourseController;
@@ -172,3 +174,10 @@ Route::get('/siswa-online/absensi', [AttendanceController::class, 'attendanceOnl
 Route::get('/hummateam/team/team', function (){
     return view('Hummatask.team.team');
 });
+
+Route::get('hummateam/board/{hummataskTeam}',[CategoryBoardController::class,'index']);
+Route::post('hummateam/board/list/store',[CategoryBoardController::class,'store'])->name('list.store');
+Route::put('hummateam/board/list/update/{categoryBoard}',[CategoryBoardController::class,'update'])->name('list.update');
+
+
+

@@ -22,7 +22,8 @@ class StoreCategoryBoardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required'
+            'name' => 'required',
+            'hummatask_team_id' => 'required',
         ];
     }
 }
