@@ -22,10 +22,18 @@ class StorePresentationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'schedule_to' => 'required',
+            'schedule_to' => 'nullable',
             'start_date' => 'required',
             'end_date' => 'required',
             'callback' => 'nullable'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'start_date.required' => 'Waktu awal harus diisi',
+            'end_date.required' => 'Waktu akhir harus diisi',
+            
         ];
     }
 }
