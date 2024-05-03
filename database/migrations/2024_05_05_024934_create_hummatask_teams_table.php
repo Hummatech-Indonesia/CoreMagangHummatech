@@ -16,9 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('image');
             $table->longText('description');
-            $table->string('status');
-            $table->string('link')->nullable();
-            $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('category_project_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }
