@@ -16,7 +16,7 @@
                     <!-- Dashboard -->
                     <!-- =================== -->
                     <li class="sidebar-item px-2">
-                        <a class="sidebar-link " href="/hummateam/team" aria-expanded="false">
+                        <a class="sidebar-link " href="{{ url('/hummateam/team', $hummataskTeam->id) }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-aperture"></i>
                             </span>
