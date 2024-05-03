@@ -118,3 +118,4 @@ Route::patch('rfid/update/{student}', [RfidController::class, 'update']);
 
 Route::post('team/store', [HummataskTeamController::class, 'store'])->name('team.store');
 Route::get('dashboard/task', [HummataskTeamController::class, 'index']);
+Route::get('hummateam/team/{hummataskTeam}', [HummataskTeamController::class, 'show']);

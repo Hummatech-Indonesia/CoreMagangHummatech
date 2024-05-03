@@ -43,16 +43,16 @@
                 </li>
                 @forelse ($hummatask_teams as $team)
                 <li class="sidebar-item px-2">
-                    <a href="/hummateam/team" class="d-flex align-items-center">
+                    <a href="{{ url('/hummateam/team', $team->id) }}" class="d-flex align-items-center">
                         <div class="rounded-circle overflow-hidden me-6">
                             <img src="{{ asset('storage/'. $team->image) }}" alt="{{ $team->name }}" width="40"
                                 height="40">
                         </div>
                         <div class="d-inline-block">
                             <h6 class="mb-1 bg-hover-primary">{{ $team->name }}</h6>
-                            <div class="row">
+                            <div class="row gap-2">
                                 <div class="bg-{{ $team->status == 'active' ? 'success' : 'danger' }}-subtle text-{{ $team->status == 'active' ? 'success' : 'danger' }} col-lg-4 pb-1 rounded-2 text-center">{{ $team->status }}</div>
-                                <div class="bg-primary-subtle text-primary col-lg-4 pb-1 rounded-2 text-center">{{ $team->student->division->name }}</div>
+                                <div class="bg-primary-subtle text-primary col-lg-8 pb-1 rounded-2 text-center">{{ $team->student->division->name }}</div>
                             </div>
                         </div>
                     </a>

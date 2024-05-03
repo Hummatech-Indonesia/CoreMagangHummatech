@@ -51,7 +51,7 @@ class HummataskTeamController extends Controller
      */
     public function show(HummataskTeam $hummataskTeam)
     {
-        //
+        return view('Hummatask.team.index', compact('hummataskTeam'));
     }
 
     /**
