@@ -6,13 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreHummataskTeamRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -23,8 +16,8 @@ class StoreHummataskTeamRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255|unique:hummatask_teams',
-            'image' => 'required|mimes:png,jpg,webp',
-            'description' => 'required'
+            'description' => 'required',
+            'image' => 'nullable',
         ];
     }
     public function messages()
@@ -34,7 +27,7 @@ class StoreHummataskTeamRequest extends FormRequest
             'name.unique' => 'Nama sudah ada',
             'image.required' => 'Image Tidak boleh kosong',
             'description.required' => 'Deskripsi Tidak boleh kosong',
-            'image.mimes' => 'Image hanya di perbolehkan Exstensi png,jpg,webp'
+            'image.mimes' => 'Image hanya di perbolehkan Exstensi png,jpg'
         ];
     }
 }

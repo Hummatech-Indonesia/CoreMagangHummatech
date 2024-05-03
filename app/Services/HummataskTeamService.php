@@ -7,8 +7,11 @@ use App\Models\DataAdmin;
 use App\Models\Letterhead;
 use App\Services\Traits\UploadTrait;
 use App\Http\Requests\StoreDataAdminRequest;
+use App\Http\Requests\StoreHummataskTeamRequest;
 use App\Http\Requests\UpdateDataAdminRequest;
-
+use App\Http\Requests\UpdateHummataskTeamRequest;
+use App\Models\HummataskTeam;
+use Request;
 
 class HummataskTeamService
 {
@@ -36,12 +39,12 @@ class HummataskTeamService
      *
      * @return array|bool
      */
-    public function store(StoreDataAdminRequest $request): array|bool
+    public function store(StoreHummataskTeamRequest $request): array|bool
     {
         $data = $request->validated();
-
+        $data['status'] = 'active';
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $data['image'] = $request->file('image')->store(TypeEnum::LETTERHEAD->value, 'public');
+            $data['image'] = $request->file('image')->store(TypeEnum::HUMMATASKTEAM->value, 'public');
             return $data;
         }
         return false;
@@ -55,22 +58,22 @@ class HummataskTeamService
      *
      * @return array|bool
      */
-    public function update(DataAdmin $DataAdmin, UpdateDataAdminRequest $request): array|bool
+    public function update(HummataskTeam $hummataskTeam, UpdateHummataskTeamRequest $request): array|bool
     {
         $data = $request->validated();
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $this->remove($DataAdmin->image);
-            $data['image'] = $request->file('image')->store(TypeEnum::DATAADMIN->value, 'public');
+            $this->remove($hummataskTeam->image);
+            $data['image'] = $request->file('image')->store(TypeEnum::HUMMATASKTEAM->value, 'public');
         } else {
-            $data['image'] = $DataAdmin->image;
+            $data['image'] = $hummataskTeam->image;
         }
 
         return $data;
     }
 
-    public function delete(DataAdmin $dataAdmin)
+    public function delete(HummataskTeam $hummataskTeam)
     {
-        $this->remove($dataAdmin->image);
+        $this->remove($hummataskTeam->image);
     }
 }

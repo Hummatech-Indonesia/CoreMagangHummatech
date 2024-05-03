@@ -34,6 +34,6 @@ Route::get('student-offline/langganan', function () {return view('student_offlin
 // Route::get('student-online/langganan', function () {return view('student_online.langganan.index');});
 // end
 // Hummatask
-Route::get('dashboard/task', function () {return view('Hummatask.index');});
+// Route::get('dashboard/task', function () {return view('Hummatask.index');});
 Route::get('hummateam/team', function () {return view('Hummatask.team.index');});
 Route::get('hummateam/board', function () {return view('Hummatask.team.board');});

@@ -23,7 +23,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item px-2">
-                    <a class="sidebar-link " href="/team" aria-expanded="false">
+                    <button class="bg-transparent border-0 sidebar-link " type="button" aria-expanded="false" data-bs-toggle="modal" data-bs-target="#add-team">
                         <span>
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -39,20 +39,27 @@
                                     d="M11.5 16.5h1v-4h4v-1h-4v-4h-1v4h-4v1h4zm.503 4.5q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924q-1.216-1.214-1.925-2.856Q3 13.87 3 12.003q0-1.866.708-3.51q.709-1.643 1.924-2.859q1.214-1.216 2.856-1.925Q10.13 3 11.997 3q1.866 0 3.51.708q1.643.709 2.859 1.924q1.216 1.214 1.925 2.856Q21 10.13 21 11.997q0 1.866-.708 3.51q-.709 1.643-1.924 2.859q-1.214 1.216-2.856 1.925Q13.87 21 12.003 21" />
                             </svg>
                         </span>
-                    </a>
+                    </button>
                 </li>
+                @forelse ($hummatask_teams as $team)
                 <li class="sidebar-item px-2">
                     <a href="/hummateam/team" class="d-flex align-items-center">
                         <div class="rounded-circle overflow-hidden me-6">
-                            <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt="" width="40"
+                            <img src="{{ asset('storage/'. $team->image) }}" alt="{{ $team->name }}" width="40"
                                 height="40">
                         </div>
                         <div class="d-inline-block">
-                            <h6 class="mb-1 bg-hover-primary">Pkl Hummatech</h6>
-                            <span class="fs-2 d-block fw-normal text-muted">Team Unggulan...</span>
+                            <h6 class="mb-1 bg-hover-primary">{{ $team->name }}</h6>
+                            <div class="row">
+                                <div class="bg-{{ $team->status == 'active' ? 'success' : 'danger' }}-subtle text-{{ $team->status == 'active' ? 'success' : 'danger' }} col-lg-4 pb-1 rounded-2 text-center">{{ $team->status }}</div>
+                                <div class="bg-primary-subtle text-primary col-lg-4 pb-1 rounded-2 text-center">{{ $team->student->division->name }}</div>
+                            </div>
                         </div>
                     </a>
                 </li>
+                    @empty
+                        
+                    @endforelse
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

@@ -27,6 +27,6 @@ enum TypeEnum : string
     case TASKANSWER = 'task-answer';
     case PICKET = 'picket';
 
-    case HummataskTeam = 'hummatask_team';
+    case HUMMATASKTEAM = 'hummatask_team';
     case CHALLENGEANSWER = 'challenge_answer';
 }

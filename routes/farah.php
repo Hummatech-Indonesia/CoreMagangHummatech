@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PicketingReportController;
 use App\Http\Controllers\Admin\RfidController;
 use App\Http\Controllers\Admin\StudentRejectedController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\HummataskTeamController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LetterheadController;
 use App\Http\Controllers\PresentationController;
@@ -114,3 +115,6 @@ Route::put('students-rejected/{student}', [StudentRejectedController::class, 'ac
 Route::get('rfid', [RfidController::class, 'index']);
 Route::patch('rfid/add/{student}', [RfidController::class, 'store']);
 Route::patch('rfid/update/{student}', [RfidController::class, 'update']);
+
+Route::post('team/store', [HummataskTeamController::class, 'store'])->name('team.store');
+Route::get('dashboard/task', [HummataskTeamController::class, 'index']);

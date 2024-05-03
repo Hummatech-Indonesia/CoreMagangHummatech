@@ -38,4 +38,11 @@ class HummataskTeamRepository extends BaseRepository implements HummataskTeamInt
         ->update($data);
     }
 
+    public function where($parameter, $value): mixed
+    {
+        return $this->model->query()
+        ->where($parameter, $value)
+        ->get();
+    }
+
 }

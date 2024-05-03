@@ -7,6 +7,7 @@ use App\Models\HummataskTeam;
 use App\Http\Requests\StoreHummataskTeamRequest;
 use App\Http\Requests\UpdateHummataskTeamRequest;
 use App\Services\HummataskTeamService;
+use Request;
 
 class HummataskTeamController extends Controller
 {
@@ -16,6 +17,7 @@ class HummataskTeamController extends Controller
     public function __construct(HummataskTeamInterface $hummatask_team, HummataskTeamService $service)
     {
         $this->hummatask_team = $hummatask_team;
+        $this->service = $service;
     }
     /**
      * Display a listing of the resource.
@@ -23,7 +25,7 @@ class HummataskTeamController extends Controller
     public function index()
     {
         $hummatask_teams = $this->hummatask_team->get();
-        return view('', compact('hummatask_teams'));
+        return view('Hummatask.index', compact('hummatask_teams'));
     }
 
     /**
@@ -39,7 +41,7 @@ class HummataskTeamController extends Controller
      */
     public function store(StoreHummataskTeamRequest $request)
     {
-        $data = $this->service->store($request->validated());
+        $data = $this->service->store($request);
         $this->hummatask_team->store($data);
         return back()->with('success', 'Team baru berhasil ditambahkan');
     }
@@ -65,7 +67,7 @@ class HummataskTeamController extends Controller
      */
     public function update(UpdateHummataskTeamRequest $request, HummataskTeam $hummataskTeam)
     {
-        $data = $this->service->update($hummataskTeam->id, $request->validated());
+        $data = $this->service->update($hummataskTeam, $request->validated());
         $this->hummatask_team->update($hummataskTeam->id, $data);
         return back()->with('success', 'Berhasi Memperbarui Data');
     }
@@ -75,7 +77,7 @@ class HummataskTeamController extends Controller
      */
     public function destroy(HummataskTeam $hummataskTeam)
     {
-        $this->service->delete($hummataskTeam->id);
+        $this->service->delete($hummataskTeam);
         $this->hummatask_team->delete($hummataskTeam->id);
         return back()->with('success', 'Berhasi Menghapus Data');
     }
