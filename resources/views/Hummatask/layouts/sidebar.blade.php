@@ -50,9 +50,9 @@
                         </div>
                         <div class="d-inline-block">
                             <h6 class="mb-1 bg-hover-primary">{{ $team->name }}</h6>
-                            <div class="row gap-2">
-                                <div class="bg-{{ $team->status == 'active' ? 'success' : 'danger' }}-subtle text-{{ $team->status == 'active' ? 'success' : 'danger' }} col-lg-4 pb-1 rounded-2 text-center">{{ $team->status }}</div>
-                                <div class="bg-primary-subtle text-primary col-lg-8 pb-1 rounded-2 text-center">{{ $team->student->division->name }}</div>
+                            <div class="tb-section-2 mt-2">
+                                <span class="bg-primary px-2  text-bg-{{ $team->status == 'active' ? 'success' : 'danger' }} fs-2 text-capitalize rounded-1 pb-1">{{ $team->status }}</span>
+                                <span class="bg-warning px-2  text-bg-warning fs-2 rounded-1 pb-1">{{ $team->student->division->name }}</span>
                             </div>
                         </div>
                     </a>
