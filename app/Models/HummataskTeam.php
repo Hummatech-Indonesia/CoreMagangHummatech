@@ -46,13 +46,23 @@ class HummataskTeam extends Model
     }
 
     /**
+     * Get all of the projects for the HummataskTeam
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    /**
      * Get the user that owns the HummataskTeam
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function student(): BelongsTo
+    public function categoryProject(): BelongsTo
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(CategoryProject::class);
     }
     public function categoryBoards()
     {

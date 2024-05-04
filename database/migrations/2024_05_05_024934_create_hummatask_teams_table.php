@@ -16,11 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->text('image');
             $table->longText('description');
-            $table->foreignId('category_project_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('category_project_id')->default('1')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

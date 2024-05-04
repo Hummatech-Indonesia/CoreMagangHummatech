@@ -30,9 +30,9 @@
                 </div>
             </div>
             <div>
-                <h3 class="fw-semibold">Team ,<span class="text-dark">PKL HUMMATECH</span>
+                <h3 class="fw-semibold"><span class="text-dark">{{ $hummataskTeam->name }}</span>
                 </h3>
-                <span>Tanggal Mulai : Jumat, 26 Januari 2024  &nbsp; &nbsp;- &nbsp;  Tenggat : Jumat, 2 Februari 2024</span>
+                <span>Tanggal Mulai : {{ \Carbon\Carbon::parse($hummataskTeam->start_date)->locale('id')->isoFormat('dddd, D MMMM Y') }} &nbsp; &nbsp;- &nbsp;  Tenggat : {{ \Carbon\Carbon::parse($hummataskTeam->end_date)->locale('id')->isoFormat('dddd, D MMMM Y') }}</span>
                 <div class="tb-section-2 mt-2">
                     <span class="badge px-2  text-bg-success fs-1">Aktif</span>
                     <span class="badge px-2  text-bg-warning fs-1">Big Project</span>

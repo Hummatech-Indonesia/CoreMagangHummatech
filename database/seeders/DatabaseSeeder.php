@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
 
             RoleSeeder::class,
             UserSeeder::class,
+            CategoryProjectSeeder::class,
 
             # =========================== Hapus seeder dibawah kalau udah mode production =========================== #
             VoucherSeeder::class,

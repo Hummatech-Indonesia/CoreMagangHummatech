@@ -8,7 +8,7 @@
           <h5 class="modal-title" id="staticBackdropLabel">Buat Tim Solo Project</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{ route('team.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('soloTeam.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
         <div class="modal-body">
             <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
@@ -19,9 +19,6 @@
                         src="{{ asset('pen.png') }}"
                         alt="example placeholder" id="preview-image3" class="img-fluid rounded-circle col-lg-3" style="object-fit: cover">
                     </div>
-                    <div class="overlay">
-                      <i class="ti ti-pencil"></i>
-                    </div>
                   </div>
                   <input type="file" class="d-none" id="image-input3" name="image"
                     onchange="previewImage()" />
@@ -29,14 +26,22 @@
                 @error('image')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
-                <div class="mx-3 my-2">
-                    <label for="" class="mt-2 mb-2">Nama Tim</label>
+                <div class="mx-3">
+                    <label for="" class="mt-1 mb-2">Nama Tim</label>
                     <input type="text" name="name" class="form-control" placeholder="Masukkan nama tim" value="{{ old('name') }}">
                     @error('name')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                     <label for="" class="mt-4 mb-2">Tema</label>
-                    <textarea name="description" class="form-control" rows="5" placeholder="Masukkan deskripsi tema anda">{{ old('description') }}</textarea>
+                    <textarea name="description" class="form-control" rows="3" placeholder="Masukkan deskripsi tema anda">{{ old('description') }}</textarea>
+                    @error('description')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                    <label for="" class="mt-4 mb-2">Link repository (opsional)</label>
+                    <input type="text" name="link" class="form-control" placeholder="Masukkan link repositori projek" value="{{ old('link') }}">
+                    @error('link')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
         </div>

@@ -120,6 +120,7 @@ Route::patch('rfid/update/{student}', [RfidController::class, 'update']);
 Route::post('team/store', [HummataskTeamController::class, 'store'])->name('team.store');
 Route::get('dashboard/task', [HummataskTeamController::class, 'index']);
 Route::get('hummateam/team/{hummataskTeam}', [HummataskTeamController::class, 'show']);
+Route::post('solo-team/store', [HummataskTeamController::class, 'soloTeam'])->name('soloTeam.store');
 
 Route::get('administrator/category-project', [CategoryProjectController::class, 'index'])->name('category-project.index');
 Route::post('administrator/category-project/store', [CategoryProjectController::class, 'store'])->name('category-project.store');
