@@ -184,6 +184,11 @@
                         <i class="ri-slideshow-line"></i> <span data-key="t-dashboards">Presentasi</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('administrator/category-project*') ? 'active' : '' }}" href="{{url('administrator/category-project')}}">
+                        <i class="ri-apps-line"></i> <span data-key="t-dashboards">Kategori projek</span>
+                    </a>
+                </li>
                 <li class="menu-title"><span data-key="t-menu">Siswa</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarForms" data-bs-toggle="collapse" role="button"

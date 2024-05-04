@@ -21,7 +21,7 @@ class CategoryProjectController extends Controller
     public function index()
     {
         $categoryProjects = $this->categoryProject->get();
-        return view('' , compact('categoryProjects'));
+        return view('admin.page.category-project.index' , compact('categoryProjects'));
     }
 
     /**

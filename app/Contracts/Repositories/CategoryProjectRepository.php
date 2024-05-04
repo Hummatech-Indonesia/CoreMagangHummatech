@@ -2,15 +2,15 @@
 
 namespace App\Contracts\Repositories;
 
-use App\Contracts\Interfaces\AttendanceInterface;
-use App\Contracts\Interfaces\CodeOfConductInterface;
-use App\Models\Attendance;
-class CategoryProjectRepository extends BaseRepository implements CodeOfConductInterface
+use App\Contracts\Interfaces\CategoryProjectInterface;
+use App\Models\CategoryProject;
+
+class CategoryProjectRepository extends BaseRepository implements CategoryProjectInterface
 {
     
-    public function __construct(Attendance $attendance)
+    public function __construct(CategoryProject $categoryProject)
     {
-        $this->model = $attendance;
+        $this->model = $categoryProject;
     }
 
     public function get(): mixed
