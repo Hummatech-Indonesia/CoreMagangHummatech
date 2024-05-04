@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->date('start_date');
             $table->date('end_date');
-            $table->enum('status', [StatusProjectEnum::PENDING->value, StatusProjectEnum::ACCEPTED->value]);
+            $table->enum('status', [StatusProjectEnum::PENDING->value, StatusProjectEnum::ACCEPTED->value])->default(StatusProjectEnum::PENDING->value);
             $table->timestamps();
         });
     }

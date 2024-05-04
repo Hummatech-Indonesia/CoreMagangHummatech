@@ -11,7 +11,7 @@ use App\Http\Requests\StoreHummataskTeamRequest;
 use App\Http\Requests\UpdateDataAdminRequest;
 use App\Http\Requests\UpdateHummataskTeamRequest;
 use App\Models\HummataskTeam;
-use Request;
+use Illuminate\Http\Request;
 
 class HummataskTeamService
 {
@@ -39,10 +39,9 @@ class HummataskTeamService
      *
      * @return array|bool
      */
-    public function store(StoreHummataskTeamRequest $request): array|bool
+    public function store(Request $request): array|bool
     {
-        $data = $request->validated();
-        $data['status'] = 'active';
+        $data = $request->all();
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $data['image'] = $request->file('image')->store(TypeEnum::HUMMATASKTEAM->value, 'public');
             return $data;

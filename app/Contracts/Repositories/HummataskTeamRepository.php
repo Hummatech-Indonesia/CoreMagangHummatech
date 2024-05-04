@@ -21,7 +21,6 @@ class HummataskTeamRepository extends BaseRepository implements HummataskTeamInt
 
     public function store(array $data): mixed
     {
-        $data['student_id'] = auth()->user()->student->id;
         return $this->model->query()
         ->create($data);
     }

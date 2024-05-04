@@ -41,18 +41,18 @@
                         </span>
                     </button>
                 </li>
-                @forelse ($hummatask_teams as $team)
+                @forelse ($projects as $project)
                 <li class="sidebar-item px-2">
-                    <a href="{{ url('/hummateam/team', $team->id) }}" class="d-flex align-items-center">
+                    <a href="{{ url('/hummateam/team', $project->id) }}" class="d-flex align-items-center">
                         <div class="rounded-circle overflow-hidden me-6">
-                            <img src="{{ asset('storage/'. $team->image) }}" alt="{{ $team->name }}" width="40"
+                            <img src="{{ asset('storage/'. $project->project->hummataskTeam->image) }}" alt="{{ $project->project->title }}" width="40"
                                 height="40">
                         </div>
                         <div class="d-inline-block">
-                            <h6 class="mb-1 bg-hover-primary">{{ $team->name }}</h6>
+                            <h6 class="mb-1 bg-hover-primary">{{ $project->project->title }}</h6>
                             <div class="tb-section-2 mt-2">
-                                <span class="bg-primary px-2  text-bg-{{ $team->status == 'active' ? 'success' : 'danger' }} fs-2 text-capitalize rounded-1 pb-1">{{ $team->status }}</span>
-                                <span class="bg-warning px-2  text-bg-warning fs-2 rounded-1 pb-1">{{ $team->student->division->name }}</span>
+                                <span class="bg-primary px-2  text-bg-{{ $project->status == 'active' ? 'success' : 'danger' }} fs-2 text-capitalize rounded-1 pb-1">{{ $project->project->status }}</span>
+                                <span class="bg-warning px-2  text-bg-warning fs-2 rounded-1 pb-1">{{ $project->student->division->name }}</span>
                             </div>
                         </div>
                     </a>
