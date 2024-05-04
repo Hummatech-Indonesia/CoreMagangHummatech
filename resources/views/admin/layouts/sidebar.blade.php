@@ -61,7 +61,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#"
+                                <a href="/administrator/appointmentofmentor"
                                     class="nav-link"
                                     data-key="t-chat">Penetapan Mentor Materi
                                 </a>
