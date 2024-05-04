@@ -65,13 +65,14 @@
                     <h5 class="modal-title" id="varyingcontentModalLabel">Tambah Daftar Paket</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" enctype="multipart/form-data"  id="form-update">
+                <form method="POST" enctype="multipart/form-data" id="form-update">
                     @csrf
                     @method('PUT')
                     <div class="modal-body">
                         <div class="form-group mb-3 mt-3 col-md-12">
                             <label for="course_id">Materi</label>
-                            <select name="course_id" class="js-example-basic-single1 form-select name-title" id="name-title">
+                            <select name="course_id" class="js-example-basic-single1 form-select name-title"
+                                id="name-title">
                                 <option value="" disabled selected>Pilih Materi</option>
                                 @foreach ($courses as $course)
                                     <option value="{{ $course->id }}">{{ $course->title }}</option>
@@ -132,7 +133,7 @@
                                     {{ $appointmentOfAmentor->course->title }}
                                 </td>
                                 <td>
-                                    {{ $appointmentOfAmentor->course->price }}
+                                    {{ 'Rp ' . number_format($appointmentOfAmentor->course->price, 0, ',', '.') }}
                                 </td>
                                 <td>
                                     <div class="gap-2">
@@ -146,7 +147,9 @@
                                             </svg>
                                         </button>
                                         <button class="bg-transparent border-0 btn-edit"
-                                            data-id="{{ $appointmentOfAmentor->id }}" data-name="{{ $appointmentOfAmentor->mentors->id }}" data-course="{{ $appointmentOfAmentor->course->id }}">
+                                            data-id="{{ $appointmentOfAmentor->id }}"
+                                            data-name="{{ $appointmentOfAmentor->mentors->id }}"
+                                            data-course="{{ $appointmentOfAmentor->course->id }}">
                                             <svg width="19" height="19" viewBox="0 0 19 19" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -178,25 +181,25 @@
     @include('admin.components.delete-modal-component')
 @endsection
 @section('script')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
-<script>
-    $('.btn-edit').click(function() {
-        var id = $(this).data('id');
-        var name = $(this).data('name');
-        var nametitle = $(this).data('course');
-        $('#form-update').attr('action', '/administrator/appointmentofmentor/update/' + id);
-        $('.name-edit').val(name);
-        $('.name-title').val(nametitle);
-        $('#modal-edit').modal('show');
-    });
+    <script>
+        $('.btn-edit').click(function() {
+            var id = $(this).data('id');
+            var name = $(this).data('name');
+            var nametitle = $(this).data('course');
+            $('#form-update').attr('action', '/administrator/appointmentofmentor/update/' + id);
+            $('.name-edit').val(name);
+            $('.name-title').val(nametitle);
+            $('#modal-edit').modal('show');
+        });
 
-    $('.btn-delete').click(function() {
-        var id = $(this).data('id');
-        $('#form-delete').attr('action', '/administrator/appointmentofmentor/delete/' + id);
-        $('#modal-delete').modal('show');
-    });
-</script>
+        $('.btn-delete').click(function() {
+            var id = $(this).data('id');
+            $('#form-delete').attr('action', '/administrator/appointmentofmentor/delete/' + id);
+            $('#modal-delete').modal('show');
+        });
+    </script>
 @endsection

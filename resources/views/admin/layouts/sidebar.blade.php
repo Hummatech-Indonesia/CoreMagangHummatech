@@ -46,13 +46,12 @@
                 </li>
                 <li class="menu-title"><span data-key="t-menu">Paket</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('administrator/course*') ? 'active' : '' }}" href="#materi" data-bs-toggle="collapse" role="button"
-                        aria-expanded="{{ request()->is('approval*') ? 'true' : 'false' }}"
+                    <a class="nav-link menu-link {{ request()->is('administrator/course*') || request()->is('administrator/appointmentofmentor') ? 'active' : '' }}" href="#materi" data-bs-toggle="collapse" role="button"
+                        aria-expanded="{{ request()->is('administrator/course*') || request()->is('administrator/appointmentofmentor') ? 'true' : 'false' }}"
                         aria-controls="sidebarApps">
                         <i class="ri-book-open-line"></i> <span data-key="t-apps">Materi</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ request()->is('approval*') ? 'show' : '' }}"
-                        id="materi">
+                    <div class="collapse menu-dropdown {{ request()->is('administrator/course*') || request()->is('administrator/appointmentofmentor') ? 'show' : '' }}" id="materi">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ url('/administrator/course') }}"
@@ -62,13 +61,15 @@
                             </li>
                             <li class="nav-item">
                                 <a href="/administrator/appointmentofmentor"
-                                    class="nav-link"
+                                    class="nav-link {{ request()->is('administrator/appointmentofmentor') ? 'active' : '' }}"
                                     data-key="t-chat">Penetapan Mentor Materi
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
+
+
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('product*') ? 'active' : '' }}"
                         href="{{ url('/product') }}">
