@@ -8,7 +8,9 @@ use App\Enum\StatusPresentationEnum;
 use App\Models\Presentation;
 use App\Http\Requests\StorePresentationRequest;
 use App\Http\Requests\UpdatePresentationRequest;
+use App\Models\LimitPresentation;
 use App\Services\PresentationService;
+use Carbon;
 
 class PresentationController extends Controller
 {
@@ -33,7 +35,8 @@ class PresentationController extends Controller
     public function mentorshow()
     {
         $limits = $this->limits->first();
-        return view('mentor.presentation.index2',compact('limits'));
+        $presentations = $this->presentation->get();
+        return view('mentor.presentation.index2',compact('limits','presentations'));
     }
 
     /**
@@ -47,11 +50,26 @@ class PresentationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(StorePresentationRequest $request)
+    // {
+    //     $this->presentation->store($request->validated());
+    //     return back()->with('success' , 'Data Berhasil Ditambahkan');
+    // }
+
     public function store(StorePresentationRequest $request)
     {
-        $tab = $request->query('tab');
-        $this->presentation->store($request->validated());
-        return back()->with('success' , 'Data Berhasil Ditambahkan');
+        // Validasi input
+        $validatedData = $request->validated();
+
+        // Lakukan penyimpanan dengan SOLID Principle
+        $presentationService = new PresentationService();
+        $result = $presentationService->storePresentations($validatedData);
+
+        if ($result['success']) {
+            return back()->with('success', 'Data berhasil ditambahkan.');
+        } else {
+            return back()->with('error', 'Terjadi kesalahan. Silakan coba lagi.');
+        }
     }
 
     /**

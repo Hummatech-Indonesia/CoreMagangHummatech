@@ -83,8 +83,8 @@ Route::get('mentor/challenge/challenge-detail/{challenge}', [AssessmentControlle
 
 Route::get('mentor/presentation', [PresentationController::class,'mentorshow']);
 Route::post('mentor/presentation/store', [PresentationController::class,'store'])->name('presentation.store');
-Route::post('mentor/limit/presentation/store', [LimitPresentationController::class,'store'])->name('limitpresentation.store');
-Route::put('mentor/limit/presentation/{limitPresentation}', [LimitPresentationController::class,'update'])->name('limitpresentation.update');
+Route::post('mentor/limit/presentation/store', [LimitPresentationController::class,'storeOrUpdate'])->name('limitpresentation.store');
+// Route::put('mentor/limit/presentation/{limitPresentation}', [LimitPresentationController::class,'update'])->name('limitpresentation.update');
 
 
 
@@ -178,6 +178,7 @@ Route::get('/hummateam/team/team', function (){
 Route::get('hummateam/board/{hummataskTeam}',[CategoryBoardController::class,'index']);
 Route::post('hummateam/board/list/store',[CategoryBoardController::class,'store'])->name('list.store');
 Route::put('hummateam/board/list/update/{categoryBoard}',[CategoryBoardController::class,'update'])->name('list.update');
+Route::delete('hummateam/board/list/delete/{categoryBoard}', [CategoryBoardController::class,'destroy'])->name('list.destroy');
 
 
-
+Route::post('hummateam/board/store',[BoardController::class,'store'])->name('board.store');
