@@ -50,9 +50,9 @@
         <div class="card-body">
             <div class="row g-2 align-items-center">
                 <div class="col-sm-5">
-                    <h3 class="mx-3">Kategori Projek</h3>
+                    <h4 class="mx-3 mb-0">Kategori Projek</h4>
                 </div>
-                <div class="col-sm-auto ms-auto d-flex justify-content-between pt-4">
+                <div class="col-sm-auto ms-auto d-flex justify-content-between ">
                     <div class="search-box me-3">
                         <input type="text" class="form-control" id="searchMemberList"
                             placeholder="Cari kategori projek...">
