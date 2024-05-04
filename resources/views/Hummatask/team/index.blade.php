@@ -21,23 +21,27 @@
             </div>
         </div>
     </div>
+    @forelse ($studentProjects as $studentProject)
     <div class="col-12">
         <div class="d-flex align-items-center gap-4 mb-4">
             <div class="position-relative">
                 <div class="border border-2 border-primary rounded-circle">
-                    <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" class="rounded-circle m-1" alt="user1"
+                    <img src="{{ asset('storage/'.$studentProject->project->hummataskTeam->image) }}" style="width: 60px; height: 60px; object-fit: cover;" class="img-fluid rounded-circle m-1" alt="user1"
                         width="60" />
                 </div>
             </div>
             <div>
-                <h3 class="fw-semibold"><span class="text-dark">{{ $hummataskTeam->name }}</span>
+                <h3 class="fw-semibold"><span class="text-dark">{{ $studentProject->project->title }}</span>
                 </h3>
-                <span>Tanggal Mulai : {{ \Carbon\Carbon::parse($hummataskTeam->start_date)->locale('id')->isoFormat('dddd, D MMMM Y') }} &nbsp; &nbsp;- &nbsp;  Tenggat : {{ \Carbon\Carbon::parse($hummataskTeam->end_date)->locale('id')->isoFormat('dddd, D MMMM Y') }}</span>
+                <span>Tanggal  Mulai : {{ \Carbon\Carbon::parse($studentProject->project->start_date)->locale('id')->isoFormat('dddd, D MMMM Y') }} &nbsp; &nbsp;- &nbsp;  Tenggat : {{ \Carbon\Carbon::parse($studentProject->project->end_date)->locale('id')->isoFormat('dddd, D MMMM Y') }}</span>
                 <div class="tb-section-2 mt-2">
-                    <span class="badge px-2  text-bg-success fs-1">Aktif</span>
-                    <span class="badge px-2  text-bg-warning fs-1">Big Project</span>
+                    <span class="badge px-2  text-bg-{{ $studentProject->project->status->color() }} fs-1">{{ $studentProject->project->status->label() }}</span>
+                    <span class="badge px-2  text-bg-primary fs-1">{{ $studentProject->project->hummataskTeam->categoryProject->name }}</span>
                 </div>
             </div>
         </div>
     </div>
+    @empty
+        
+    @endforelse
 @endsection
