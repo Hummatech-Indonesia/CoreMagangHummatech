@@ -29,11 +29,11 @@
 <body>
     <!-- Preloader -->
     <div class="preloader">
-        <img src="{{ asset('preloader.png') }}" style="" alt="loader" class="lds-ripple" />
+        <img src="{{ asset('preloader.png') }}" style="width:150px" alt="loader" class="lds-ripple" />
     </div>
     <!-- Preloader -->
     <div class="preloader">
-        <img src="{{ asset('preloader.png') }}" style="" alt="loader" class="lds-ripple" />
+        <img src="{{ asset('preloader.png') }}" style="width:150px" alt="loader" class="lds-ripple" />
     </div>
     <!--  Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-theme="blue_theme" data-layout="vertical" data-sidebartype="full"
