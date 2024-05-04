@@ -11,7 +11,7 @@ enum StatusProjectEnum : string
     {
         return match ($this) {
             self::PENDING => 'menunggu',
-            self::ACCEPTED => 'disetujui',
+            self::ACCEPTED => 'aktif',
         };
     }
     public function color(): string

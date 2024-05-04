@@ -12,6 +12,7 @@ use App\Http\Requests\UpdateHummataskTeamRequest;
 use App\Services\HummataskTeamService;
 use App\Services\ProjectService;
 use App\Services\StudentProjectService;
+use App\StatusProjectEnum;
 use Carbon;
 use Illuminate\Http\Request;
 
@@ -108,6 +109,7 @@ class HummataskTeamController extends Controller
         $projectVar['hummatask_team_id'] = $team->id;
         $projectVar['title'] = $team->name;
         $projectVar['description'] = $team->description;
+        $projectVar['status'] = StatusProjectEnum::ACCEPTED->value;
         $projectVar['start_date'] = Carbon::now()->toDateString();
         $projectVar['end_date'] = Carbon::now()->addWeek()->toDateString();
         $project = $this->project->store($projectVar);
