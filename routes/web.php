@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\MentorPlacementController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
+use App\Http\Controllers\AppointmentOfAmentorController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CourseStoreController;
 use App\Http\Controllers\LandingController;
@@ -114,6 +115,14 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::post('administrator/course/store', [AdminCourseController::class, 'store'])->name('course.store');
     Route::put('administrator/course/{course}', [AdminCourseController::class, 'update'])->name('course.update');
     Route::delete('administrator/course/delete/{course}', [AdminCourseController::class, 'destroy'])->name('course.destroy');
+
+
+    // AppointmenOfAmentor
+    Route::get('administrator/appointmentofmentor', [AppointmentOfAmentorController::class, 'index']);
+    Route::post('administrator/appointmentofmentor/store', [AppointmentOfAmentorController::class, 'store']);
+    Route::delete('administrator/appointmentofmentor/delete/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'destroy']);
+    Route::delete('administrator/appointmentofmentor/delete/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'destroy']);
+    Route::put('administrator/appointmentofmentor/update/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'update']);
 
     # Course Details
     Route::get('/administrator/course/detail/{course}', [AdminCourseController::class, 'show'])->name('course.detail');
