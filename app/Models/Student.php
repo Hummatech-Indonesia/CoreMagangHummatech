@@ -82,4 +82,8 @@ class Student extends Model implements HasAttendances, HasOneActiveFeature
     {
         return $this->hasMany(StudentProject::class);
     }
+    public function faces(): HasMany
+    {
+        return $this->hasMany(Face::class);
+    }
 }

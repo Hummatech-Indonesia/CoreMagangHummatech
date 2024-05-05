@@ -29,6 +29,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Mentor\DashboardController;
 use App\Http\Controllers\StudentOnline\CourseController;
 use App\Http\Controllers\CourseController as AdminCourseController;
+use App\Http\Controllers\FaceController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
@@ -123,6 +124,10 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::delete('administrator/appointmentofmentor/delete/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'destroy']);
     Route::delete('administrator/appointmentofmentor/delete/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'destroy']);
     Route::put('administrator/appointmentofmentor/update/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'update']);
+
+    // faces
+    Route::get('faces', [FaceController::class, 'index']);
+
 
     # Course Details
     Route::get('/administrator/course/detail/{course}', [AdminCourseController::class, 'show'])->name('course.detail');

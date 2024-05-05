@@ -206,6 +206,11 @@
                                     data-key="t-basic-elements">Siswa</a>
                             </li>
                             <li class="nav-item">
+                                <a href="/faces"
+                                    class="nav-link {{ request()->is('faces*') ? 'active' : '' }}"
+                                    data-key="t-basic-elements">Data Wajah</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="/menu-mentor"
                                     class="nav-link {{ request()->is('menu-mentor*') ? 'active' : '' }}"
                                     data-key="t-form-select">Mentor</a>
