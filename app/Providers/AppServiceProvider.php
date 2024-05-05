@@ -64,6 +64,7 @@ use App\Contracts\Interfaces\CategoryBoardInterface;
 use App\Contracts\Interfaces\CategoryProjectInterface;
 use App\Contracts\Interfaces\ChallengeInterface;
 use App\Contracts\Interfaces\CourseUnlockInterface;
+use App\Contracts\Interfaces\FaceInterface;
 use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Contracts\Interfaces\LimitPresentationInterface;
 use App\Contracts\Interfaces\NotePicketInterface;
@@ -94,6 +95,7 @@ use App\Contracts\Repositories\CategoryBoardRepository;
 use App\Contracts\Repositories\CategoryProjectRepository;
 use App\Contracts\Repositories\ChallengeRepository;
 use App\Contracts\Repositories\CourseUnlockRepository;
+use App\Contracts\Repositories\FaceRepository;
 use App\Contracts\Repositories\HummataskTeamRepository;
 use App\Contracts\Repositories\LimitPresentationRepository;
 use App\Contracts\Repositories\NotePicketRepository;
@@ -163,6 +165,7 @@ class AppServiceProvider extends ServiceProvider
         AppointmentOfMentorInterface::class => AppointmentOfMentorRepository::class,
         ProjectInterface::class => ProjectRepository::class,
         StudentProjectInterface::class => StudentProjectRepository::class,
+        FaceInterface::class => FaceRepository::class
     ];
 
     /**

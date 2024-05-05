@@ -9,8 +9,10 @@ use App\Contracts\Interfaces\MaxLateInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AttendanceRuleResource;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
+use Request;
 
 class AttendanceController extends Controller
 {
@@ -26,6 +28,60 @@ class AttendanceController extends Controller
         $this->maxLate = $maxLateInterface;
         $this->attendanceRule = $attendanceRuleInterface;
         $this->student = $studentInterface;
+    }
+
+    /**
+     * entryTime
+     *
+     * @return JsonResponse
+     */
+    public function entryTime(): JsonResponse
+    {
+        $rule = $this->attendanceRule
+            ->get();
+
+        $attendanceCount = $rule
+            ->count();
+
+        $data['md5'] = md5($rule);
+        $data['result'] = AttendanceRuleResource::collection($rule);
+        $data['attendance_count'] = $attendanceCount;
+
+        return response()->json($data);
+    }
+
+    /**
+     * sync
+     *
+     * @param  mixed $request
+     * @return JsonResponse
+     */
+    public function sync(Request $request): JsonResponse
+    {
+        foreach ($request->data as $data) {
+            $attendanceData = [
+                'student_id' => $data['user_id'],
+                'status' => $data['status'],
+                'created_at' => $data['created_at'],
+                'updated_at' => $data['updated_at'],
+            ];
+
+            if (!$attendance = $this->attendance->checkAttendanceToday(['student_id' => $data['user_id'], 'created_at' => $data['created_at']])) {
+                $attendance = $this->attendance->store($attendanceData);
+            }
+
+            foreach ($data['detail_attendances'] as $detailAttendance) {
+                $dataAttendanceDetail['attendance_id'] = $attendance->id;
+                $dataAttendanceDetail['status'] = $detailAttendance['status'];
+                $dataAttendanceDetail['created_at'] = $detailAttendance['created_at'];
+                $dataAttendanceDetail['updated_at'] = $detailAttendance['updated_at'];
+                if (!$this->attendanceDetail->checkAttendanceToday(['status' => $detailAttendance['status'], 'attendance_id' => $attendance->id])) {
+                    $this->attendanceDetail->store($dataAttendanceDetail);
+                }
+            }
+        }
+
+        return response()->json(['message' => 'Sinkronisasi Presensi Berhasil', 'code' => 200]);
     }
 
     /**

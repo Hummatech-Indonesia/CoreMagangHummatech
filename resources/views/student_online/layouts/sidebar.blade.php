@@ -8,8 +8,25 @@
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="/siswa-offline" class="text-nowrap logo-img">
-                <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="180" alt="" />
-                <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="180" alt=""
+                <div id="logo-container" class="d-flex justify-content-center align-items-center">
+                    <img id="logo" src="{{ asset('animation1.gif') }}" class="dark-logo" width="110px" alt="" />
+                </div>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                    $(document).ready(function() {
+                        var logo = $('#logo');
+                        var newSrc = "{{ asset('logopkldark.png') }}";
+                        var newWidth = "180";
+
+                        setTimeout(function() {
+                            logo.fadeOut(1000, function() {
+                                logo.attr('src', newSrc);
+                                logo.attr('width', newWidth);
+                                logo.fadeIn(1000);
+                            });
+                        }, 2500);
+                    });
+                </script>                <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="180" alt=""
                     style="display: none;" />
             </a>
             <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">

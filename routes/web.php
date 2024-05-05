@@ -29,6 +29,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Mentor\DashboardController;
 use App\Http\Controllers\StudentOnline\CourseController;
 use App\Http\Controllers\CourseController as AdminCourseController;
+use App\Http\Controllers\FaceController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
@@ -124,6 +125,13 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::delete('administrator/appointmentofmentor/delete/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'destroy']);
     Route::put('administrator/appointmentofmentor/update/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'update']);
 
+    // faces
+    Route::get('faces', [FaceController::class, 'index']);
+    Route::get('faces/detail/{id}', [FaceController::class, 'show']);
+    Route::post('faces/create', [FaceController::class, 'store']);
+    Route::delete('faces/delete/{student}', [FaceController::class, 'destroy']);
+
+
     # Course Details
     Route::get('/administrator/course/detail/{course}', [AdminCourseController::class, 'show'])->name('course.detail');
     Route::delete('administrator/subcourse/delete/{subCourse}', [SubCourseController::class, 'destroy'])->name('subCourse.destroy');
@@ -153,7 +161,7 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
 Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(RolesEnum::ONLINE->value)->group(function () {
     Route::get('/', [StudentOnlineController::class, 'index'])->name('.home');
 
-    Route::controller(CourseController::class)->middleware('subsrcribed:online')->group(function () {
+    Route::controller(CourseController::class)->middleware('subsrcribed')->group(function () {
         Route::get('/materi', 'index')->name('.course');
         Route::get('/materi/{course}', 'detail')->name('.course.detail');
         Route::get('/materi/{course}/course/{subCourse}', 'subCourseDetail')->name('.course.subcourse');

@@ -136,7 +136,7 @@
                         <div class="widget footer-widget">
                             <div class="th-widget-about">
                                 <div class="about-logo"><a href="index.html"><img
-                                            src="assets_landing/img/logo-small.svg" alt="Webteck"></a></div>
+                                            src="{{ asset('animation1.gif') }}" alt="Webteck"></a></div>
                                 <p class="about-text">Professionally redefine transparent ROI through low-risk
                                     high-yield imperatives. Progressively create empowered. cost effective users via
                                     team driven.</p>

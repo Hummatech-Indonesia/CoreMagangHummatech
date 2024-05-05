@@ -7,7 +7,10 @@ use App\Contracts\Interfaces\StudentInterface;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Http\Resources\StudentResource;
 use App\Services\StudentService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class StudentController extends Controller
 {
@@ -20,6 +23,26 @@ class StudentController extends Controller
         $this->student = $student;
         $this->servicestudent = $servicestudent;
         $this->mentorStudent = $mentorStudent;
+    }
+
+    /**
+     * getStudents
+     *
+     * @return JsonResponse
+     */
+    public function getStudents(): JsonResponse
+    {
+        $students = $this->student->get();
+
+        $serializedData = serialize($students);
+        $md5 = md5($serializedData);
+
+        $response = [
+            'total' => count($students),
+            'md5' => $md5,
+            'result' => StudentResource::collection($students)
+        ];
+        return response()->json($response, 200);
     }
     /**
      * Display a listing of the resource.
