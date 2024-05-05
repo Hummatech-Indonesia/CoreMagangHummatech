@@ -58,8 +58,8 @@
         content="Hummatech adalah perusahaan software development terbaik di Malang. Kami menyediakan solusi perangkat lunak yang inovatif dan berkualitas tinggi." />
     <meta name="og:description"
         content="Hummatech adalah perusahaan software development terbaik di Malang. Kami menyediakan solusi perangkat lunak yang inovatif dan berkualitas tinggi." />
-    <meta name="og:image" content="{{ asset('animation1.gif') }}" />
-    <meta name="twitter:image" content="{{ asset('animation1.gif') }}" />
+    <meta name="og:image" content="{{ asset('mobilelogo.png') }}" />
+    <meta name="twitter:image" content="{{ asset('mobilelogo.png') }}" />
     <meta property="og:url" content="{{ url('/') }}" />
     <meta property="og:type" content="website" />
     <link rel="canonical" href="{{ url('/') }}" />
