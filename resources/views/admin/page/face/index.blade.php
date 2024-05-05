@@ -1,23 +1,10 @@
 @extends('admin.layouts.app')
 @section('content')
-    <div class="d-flex justify-content-end">
-        <a href="/menu-siswa" class="btn btn-primary mb-3 ">Kembali</a>
-    </div>
     <div class="card">
         <div class="card-body">
             <div class="row g-2 align-items-center">
-                <div class="col-sm-4">
-                    <h5 class="mx-3">Data Wajah</h5>
-                </div>
-                <div class="col-sm-auto ms-auto d-flex justify-content-between gap-2">
-                    <div class="list-grid-nav hstack gap-1 ">
-                        <button class="btn btn-danger btn-sm w-100">Hapus Data</button>
-                    </div>
-                    <div class="list-grid-nav hstack gap-1 ">
-                        <button class="btn btn-success btn-sm w-100" data-bs-toggle="modal"
-                            data-bs-target="#myModal">Tambah</button>
-
-                    </div>
+                <div class="col-sm-4 mb-0">
+                    <h5 class="mx-3 mb-0">Data Wajah</h5>
                 </div>
             </div>
         </div>
@@ -44,7 +31,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <a href="" class="btn btn-primary w-100">Lihat Wajah</a>
+                            <a href="/faces/detail/{{ $student->id }}" class="btn btn-primary w-100">Lihat Wajah</a>
                         </div>
                     </div>
                 </div>

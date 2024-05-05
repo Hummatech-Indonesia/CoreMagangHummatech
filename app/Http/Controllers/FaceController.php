@@ -55,7 +55,7 @@ class FaceController extends Controller
         foreach ($data['photo'] as $photo) {
             $this->face->store([
                 'student_id' => $data['student_id'],
-                'photo' => $photo,
+                'photo' => $photo
             ]);
         }
         return redirect()->back()->with('success', 'Berhasil menambah wajah');
@@ -69,8 +69,7 @@ class FaceController extends Controller
     {
         $students = $this->student->show($id);
         $faces = $this->face->show($id);
-        $count = Face::where('employee_id', $id)->count();
-        return view('menu.face.detail' , compact('students' ,'id' ,'faces' ,'count'));
+        return view('admin.page.face.detail' , compact('students' ,'id' ,'faces'));
     }
 
     /**

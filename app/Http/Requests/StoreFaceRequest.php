@@ -22,8 +22,9 @@ class StoreFaceRequest extends FormRequest
     public function rules(): array
     {
         return [
-        'student_id' => 'required',
-        'photo' => 'required'
+            'student_id' => 'required',
+            'photo' => 'required|array|min:1',
+            'photo.*' => 'required|image',
         ];
     }
 }

@@ -127,6 +127,9 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
 
     // faces
     Route::get('faces', [FaceController::class, 'index']);
+    Route::get('faces/detail/{id}', [FaceController::class, 'show']);
+    Route::post('faces/create', [FaceController::class, 'store']);
+    Route::delete('faces/delete/{student}', [FaceController::class, 'destroy']);
 
 
     # Course Details
