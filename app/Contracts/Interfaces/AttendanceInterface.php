@@ -13,4 +13,12 @@ interface AttendanceInterface extends StoreInterface
      * @return void
      */
     public function checkAttendanceStudent(mixed $studentId);
+
+    /**
+     * checkAttendanceToday
+     *
+     * @param  mixed $data
+     * @return mixed
+     */
+    public function checkAttendanceToday(array $data): mixed;
 }
