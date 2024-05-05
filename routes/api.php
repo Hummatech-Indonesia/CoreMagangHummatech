@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AttendanceController;
+use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\FaceController;
@@ -18,3 +19,4 @@ Route::post('sync', [AttendanceController::class, 'sync']);
 Route::get('student', [StudentController::class, 'getStudents']);
 Route::get('entry-time', [AttendanceController::class, 'entryTime']);
 Route::get('face', [FaceController::class, 'index']);
+Route::get('course' , [CourseController::class , 'index']);
