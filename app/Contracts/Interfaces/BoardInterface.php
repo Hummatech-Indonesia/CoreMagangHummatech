@@ -8,4 +8,7 @@ use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface BoardInterface extends GetInterface, StoreInterface, UpdateInterface, DeleteInterface
-{}
+{
+    public function where($parameter, $value): mixed;
+
+}
