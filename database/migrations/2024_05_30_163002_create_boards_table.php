@@ -15,10 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
+            $table->enum('label', ['frontend', 'backend', 'fullstack', 'ui/ux'])->nullable();
+            $table->enum('priority', ['biasa', 'penting', 'mendesak'])->nullable();
+            $table->enum('status', ['baru', 'dikerjakan', 'selesai'])->nullable();
+            $table->foreignId('student_project_id')->nullable()->constrained();
             $table->foreignId('category_board_id')->constrained();
-            $table->foreignId('hummatask_team_id')->constrained();
-            $table->string('start_date');
-            $table->string('end_date');
+            $table->string('start_date')->nullable();
+            $table->string('end_date')->nullable();
             $table->timestamps();
         });
     }

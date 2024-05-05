@@ -71,8 +71,8 @@
                                                 style="background-image: url({{ asset('assets-user/images/laravel-11.jpg') }})"></div>
                                         </div>
                                         <div class="">
-                                            <h3 class="fw-bolder">Lravel 11</h3>
-                                            <div class="text-primary">100.000</div>
+                                            <h3 class="fw-bolder">{{ $product->name }}</h3>
+                                            <div class="text-primary">{{$product->price}}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -189,13 +189,13 @@
                                 class="fw-bolder mb-3 align-items-center pb-3 border-bottom d-flex justify-content-between">
                                 <span>Subtotal:</span>
                                 <span id="subtotal-show" class="fw-bolder text-muted">
-                                    <span>100.0000</span>
+                                    <span>{{ $product->price }}</span>
                                 </span>
                             </div>
                             <div class="fw-bolder mb-3 pb-3 border-bottom d-flex justify-content-between">
                                 <span>PPn 11%:</span>
                                 <span class="fw-bolder text-muted">
-                                    10.000
+                                    {{ $product->price * (11/100) }}
                                 </span>
                             </div>
                             {{-- @if ($voucherDetail)
@@ -210,7 +210,7 @@
                             <div class="fw-bolder d-flex justify-content-between">
                                 <span>Total:</span>
                                 <span id="total-show" class="fw-bolder text-primary">
-                                    109.000
+                                    {{ $product->price + $product->price * (11/100) }}
                                 </span>
                             </div>
                         </div>
@@ -242,17 +242,17 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        {{-- @foreach ($paymentChannel['data'] as $channel) --}}
+                        @foreach ($paymentChannel['data'] as $channel)
                             <div class="col-md-4 col-6 mb-3">
-                                <a href="javascript:choosePayment('Alfamart')"
-                                    {{-- data-fee="{{ $channel['fee_customer']['flat'] }}"
-                                    data-id="payment-{{ $channel['code'] }}" data-name="{{ $channel['name'] }}" --}}
+                                <a href="javascript:choosePayment('$channel[code]')"
+                                    data-fee="{{ $channel['fee_customer']['flat'] }}"
+                                    data-id="payment-{{ $channel['code'] }}" data-name="{{ $channel['name'] }}"
                                     class="card-payment card d-flex align-items-center justify-content-center card-body h-100">
-                                    <img src="{{ asset('assets-user/images/alfamart.png') }}" alt="Alfamart" class="w-100"
+                                    <img src="{{ $channel['icon_url'] }}" alt="$channel['code']" class="w-100"
                                         style="height: auto" />
                                 </a>
                             </div>
-                        {{-- @endforeach --}}
+                        @endforeach
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -42,6 +42,7 @@ use App\Http\Controllers\TaskSubmissionController;
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', [LandingController::class, 'index']);
 Route::get('/payment-method', [PaymentController::class, 'paymentMethod']);
+// Route::get('/payment-instructions/{code}', [PaymentController::class, 'paymentInstructions']);
 
 # ================================================ Authentication Routes Group ================================================
 Auth::routes();
@@ -240,9 +241,7 @@ Route::middleware('auth')->group(function () {
 });
 
 # Transaction and Payment Routing
-Route::get('transaction/checkout', function() {
-    return view('student_online_&_offline.transaction.checkout');
-})->name('transaction-history.checkout');;
+Route::get('transaction/checkout/{product}', [TransactionController::class, 'checkout'])->name('transaction-history.checkout');;
 Route::get('transaction', function() {
     return view('student_online_&_offline.transaction.index');
 })->name('transaction-history.index');

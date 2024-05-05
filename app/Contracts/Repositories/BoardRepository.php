@@ -56,4 +56,8 @@ class BoardRepository extends BaseRepository implements BoardInterface
             ->where('id', $id)
             ->delete();
     }
+    public function where($parameter, $value): mixed
+    {
+        return $this->model->query()->where($parameter, $value)->get();
+    }
 }

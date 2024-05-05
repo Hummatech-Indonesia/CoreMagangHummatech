@@ -46,6 +46,6 @@ class SubscriptionController extends Controller
     {
         $this->checkout->add($request);
 
-        return redirect()->route('transaction-history.checkout')->with('success', 'Berhasil menambahkan data ke keranjang.');
+        return redirect()->route('transaction-history.checkout', $request->id)->with('success', 'Berhasil menambahkan data ke keranjang.');
     }
 }

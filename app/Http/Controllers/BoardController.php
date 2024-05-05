@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\BoardInterface;
+use App\Contracts\Interfaces\CategoryBoardInterface;
 use App\Contracts\Interfaces\HummataskTeamInterface;
+use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Models\Board;
 use App\Http\Requests\StoreBoardRequest;
 use App\Http\Requests\UpdateBoardRequest;
@@ -13,10 +15,14 @@ class BoardController extends Controller
 {
     private BoardInterface $board;
     private HummataskTeamInterface $team;
-    public function __construct(BoardInterface $board, HummataskTeamInterface $team)
+    private CategoryBoardInterface $categoryBoard;
+    private StudentProjectInterface $studentProject;
+    public function __construct(BoardInterface $board, HummataskTeamInterface $team, CategoryBoardInterface $categoryBoard, StudentProjectInterface $studentProject)
     {
         $this->board = $board;
         $this->team = $team;
+        $this->categoryBoard = $categoryBoard;
+        $this->studentProject = $studentProject;
     }
     /**
      * Display a listing of the resource.
@@ -24,7 +30,7 @@ class BoardController extends Controller
     public function index(HummataskTeam $hummataskTeam)
     {
         $boards = $this->board->get();
-        return view('' , compact('boards','hummataskTeam'));
+        return view('' , compact('boards','hummataskTeam','categoryBoard','studentProject'));
     }
 
     /**
