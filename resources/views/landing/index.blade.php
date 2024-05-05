@@ -245,7 +245,7 @@
             </div>
         </div>
     </section>
-    <section class="" id="team-sec">
+    {{-- <section class="" id="team-sec">
         <div class="container space">
             <div class="title-area text-center">
                 <div class="shadow-title">Team</div><span class="sub-title">
@@ -293,24 +293,6 @@
                                 <h3 class="box-title"><a href="javascript:void(0)">Femas Akbar Faturrohim</a></h3><span
                                     class="team-desig">Ketua Mobile Devloper</span>
                                 <div class="box-particle" id="team-p2"></div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="th-team team-grid">
-                                <div class="team-img"><img src="{{ asset('team/adi.png') }}" alt="Team">
-                                </div>
-                                <div class="team-social">
-                                    <div class="play-btn"><i class="far fa-plus"></i></div>
-                                    <div class="th-social"><a target="_blank" href="https://facebook.com/"><i
-                                                class="fab fa-facebook-f"></i></a> <a target="_blank"
-                                            href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a
-                                            target="_blank" href="https://instagram.com/"><i
-                                                class="fab fa-instagram"></i></a> <a target="_blank"
-                                            href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
-                                </div>
-                                <h3 class="box-title"><a href="javascript:void(0)">Amir Zuhdi Wibowo</a></h3><span
-                                    class="team-desig">Web Developer</span>
-                                <div class="box-particle" id="team-p3"></div>
                             </div>
                         </div>
                         <div class="swiper-slide">
@@ -397,7 +379,7 @@
         <div class="shape-mockup" data-top="0%" data-left="0%"><img src="assets_landing/img/shape/square_1.png"
                 alt="shape">
         </div>
-    </section>
+    </section> --}}
     <section class="space">
         <div class="container">
             <div class="title-area text-center"><span class="sub-title">

@@ -49,6 +49,7 @@ use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\WarningLetterInterface;
 use App\Contracts\Repositories\AttendanceRepository;
 use App\Contracts\Interfaces\AbsenteePermitInterface;
+use App\Contracts\Interfaces\AppointmentOfMentorInterface;
 use App\Contracts\Interfaces\AttendanceRuleInterface;
 use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\ReportStudenttInterface;
@@ -63,12 +64,15 @@ use App\Contracts\Interfaces\CategoryBoardInterface;
 use App\Contracts\Interfaces\CategoryProjectInterface;
 use App\Contracts\Interfaces\ChallengeInterface;
 use App\Contracts\Interfaces\CourseUnlockInterface;
+use App\Contracts\Interfaces\FaceInterface;
 use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Contracts\Interfaces\LimitPresentationInterface;
 use App\Contracts\Interfaces\NotePicketInterface;
 use App\Contracts\Interfaces\OrderInterface;
 use App\Contracts\Interfaces\PresentationInterface;
+use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\StudentChallengeInterface;
+use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Contracts\Interfaces\StudentTaskInterface;
 use App\Contracts\Interfaces\SubCourseUnlockInterface;
 use App\Contracts\Interfaces\TaskSubmissionInterface;
@@ -83,6 +87,7 @@ use App\Contracts\Repositories\MentorDivisionRepository;
 use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Contracts\Interfaces\VoucherUsageInterface;
+use App\Contracts\Repositories\AppointmentOfMentorRepository;
 use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\AttendanceDetailRepository;
 use App\Contracts\Repositories\BoardRepository;
@@ -90,6 +95,7 @@ use App\Contracts\Repositories\CategoryBoardRepository;
 use App\Contracts\Repositories\CategoryProjectRepository;
 use App\Contracts\Repositories\ChallengeRepository;
 use App\Contracts\Repositories\CourseUnlockRepository;
+use App\Contracts\Repositories\FaceRepository;
 use App\Contracts\Repositories\HummataskTeamRepository;
 use App\Contracts\Repositories\LimitPresentationRepository;
 use App\Contracts\Repositories\NotePicketRepository;
@@ -100,6 +106,8 @@ use App\Contracts\Repositories\TaskSubmissionRepository;
 use App\Contracts\Repositories\TransactionHistoryRepository;
 use App\Contracts\Repositories\OrderRepository;
 use App\Contracts\Repositories\PresentationRepository;
+use App\Contracts\Repositories\ProjectRepository;
+use App\Contracts\Repositories\StudentProjectRepository;
 use App\Contracts\Repositories\ThesisRepository;
 use App\Contracts\Repositories\VoucherUsageRepository;
 
@@ -153,7 +161,11 @@ class AppServiceProvider extends ServiceProvider
         LimitPresentationInterface::class => LimitPresentationRepository::class,
         BoardInterface::class => BoardRepository::class,
         CategoryBoardInterface::class => CategoryBoardRepository::class,
-        CategoryProjectInterface::class => CategoryProjectRepository::class
+        CategoryProjectInterface::class => CategoryProjectRepository::class,
+        AppointmentOfMentorInterface::class => AppointmentOfMentorRepository::class,
+        ProjectInterface::class => ProjectRepository::class,
+        StudentProjectInterface::class => StudentProjectRepository::class,
+        FaceInterface::class => FaceRepository::class
     ];
 
     /**

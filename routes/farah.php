@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PicketingReportController;
 use App\Http\Controllers\Admin\RfidController;
 use App\Http\Controllers\Admin\StudentRejectedController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\CategoryProjectController;
 use App\Http\Controllers\HummataskTeamController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LetterheadController;
@@ -119,3 +120,9 @@ Route::patch('rfid/update/{student}', [RfidController::class, 'update']);
 Route::post('team/store', [HummataskTeamController::class, 'store'])->name('team.store');
 Route::get('dashboard/task', [HummataskTeamController::class, 'index']);
 Route::get('hummateam/team/{hummataskTeam}', [HummataskTeamController::class, 'show']);
+Route::post('solo-team/store', [HummataskTeamController::class, 'soloTeam'])->name('soloTeam.store');
+
+Route::get('administrator/category-project', [CategoryProjectController::class, 'index'])->name('category-project.index');
+Route::post('administrator/category-project/store', [CategoryProjectController::class, 'store'])->name('category-project.store');
+Route::patch('administrator/category-project/{categoryProject}', [CategoryProjectController::class, 'update'])->name('category-project.update');
+Route::delete('administrator/category-project/{categoryProject}', [CategoryProjectController::class, 'destroy'])->name('category-project.destroy');

@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\LimitPresentationInterface;
 use App\Models\LimitPresentation;
 use App\Http\Requests\StoreLimitPresentationRequest;
 use App\Http\Requests\UpdateLimitPresentationRequest;
+use Carbon;
 
 class LimitPresentationController extends Controller
 {
@@ -42,6 +43,23 @@ class LimitPresentationController extends Controller
         } catch (\Throwable $e) {
             return back()->with('warning' , $e);
         }
+    }
+
+    public function storeOrUpdate(StoreLimitPresentationRequest $request)
+    {
+        $today = Carbon::now()->toDateString();
+        $limit = LimitPresentation::whereDate('created_at', $today)->first();
+
+        // Check if limit setting for today exists
+        if ($limit) {
+            // Update the existing limit setting
+            $limit->update($request->all());
+        } else {
+            // Create a new limit setting
+            LimitPresentation::create($request->all());
+        }
+
+        return redirect()->back()->with('success', 'Limit presentation setting updated.');
     }
 
     /**

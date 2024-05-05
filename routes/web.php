@@ -22,12 +22,14 @@ use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\MentorPlacementController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
+use App\Http\Controllers\AppointmentOfAmentorController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CourseStoreController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Mentor\DashboardController;
 use App\Http\Controllers\StudentOnline\CourseController;
 use App\Http\Controllers\CourseController as AdminCourseController;
+use App\Http\Controllers\FaceController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
@@ -114,6 +116,21 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::post('administrator/course/store', [AdminCourseController::class, 'store'])->name('course.store');
     Route::put('administrator/course/{course}', [AdminCourseController::class, 'update'])->name('course.update');
     Route::delete('administrator/course/delete/{course}', [AdminCourseController::class, 'destroy'])->name('course.destroy');
+
+
+    // AppointmenOfAmentor
+    Route::get('administrator/appointmentofmentor', [AppointmentOfAmentorController::class, 'index']);
+    Route::post('administrator/appointmentofmentor/store', [AppointmentOfAmentorController::class, 'store']);
+    Route::delete('administrator/appointmentofmentor/delete/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'destroy']);
+    Route::delete('administrator/appointmentofmentor/delete/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'destroy']);
+    Route::put('administrator/appointmentofmentor/update/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'update']);
+
+    // faces
+    Route::get('faces', [FaceController::class, 'index']);
+    Route::get('faces/detail/{id}', [FaceController::class, 'show']);
+    Route::post('faces/create', [FaceController::class, 'store']);
+    Route::delete('faces/delete/{student}', [FaceController::class, 'destroy']);
+
 
     # Course Details
     Route::get('/administrator/course/detail/{course}', [AdminCourseController::class, 'show'])->name('course.detail');

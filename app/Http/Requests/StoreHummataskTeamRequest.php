@@ -17,7 +17,7 @@ class StoreHummataskTeamRequest extends FormRequest
         return [
             'name' => 'required|max:255|unique:hummatask_teams',
             'description' => 'required',
-            'image' => 'nullable',
+            'image' => 'required',
         ];
     }
     public function messages()
