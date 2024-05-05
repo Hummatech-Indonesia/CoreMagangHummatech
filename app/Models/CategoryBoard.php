@@ -14,4 +14,8 @@ class CategoryBoard extends Model
     {
         return $this->belongsTo(HummataskTeam::class);
     }
+    public function boards()
+    {
+        return $this->hasMany(Board::class);
+    }
 }

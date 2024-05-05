@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\BoardInterface;
 use App\Contracts\Interfaces\CategoryBoardInterface;
 use App\Contracts\Interfaces\HummataskTeamInterface;
+use App\Contracts\Interfaces\ProjectInterface;
+use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Models\CategoryBoard;
 use App\Http\Requests\StoreCategoryBoardRequest;
 use App\Http\Requests\UpdateCategoryBoardRequest;
@@ -13,10 +16,16 @@ class CategoryBoardController extends Controller
 {
     private CategoryBoardInterface $categoryBoard;
     private HummataskTeamInterface $hummataskTeam;
-    public function __construct(CategoryBoardInterface $categoryBoard, HummataskTeamInterface $hummataskTeam)
+    private StudentProjectInterface $studentProject;
+    private ProjectInterface $Project;
+    private BoardInterface $board;
+    public function __construct(CategoryBoardInterface $categoryBoard, HummataskTeamInterface $hummataskTeam, BoardInterface $board, StudentProjectInterface $studentProject, ProjectInterface $Project)
     {
         $this->categoryBoard = $categoryBoard;
         $this->hummataskTeam = $hummataskTeam;
+        $this->board = $board;
+        $this->studentProject = $studentProject;
+        $this->Project = $Project;
     }
     /**
      * Display a listing of the resource.
@@ -24,7 +33,12 @@ class CategoryBoardController extends Controller
     public function index(HummataskTeam $hummataskTeam)
     {
         $categoryBoards = $this->categoryBoard->get();
-        return view('Hummatask.team.board' , compact('categoryBoards', 'hummataskTeam'));
+        $boards = $this->board->get();
+        $projects = $this->Project->where('hummatask_team_id', $hummataskTeam->id);
+        foreach ($projects as $project) {
+            $studentProjects = $this->studentProject->where('project_id', $project->id);
+        }
+        return view('Hummatask.team.board' , compact('categoryBoards', 'hummataskTeam', 'boards', 'studentProjects'));
     }
 
     /**

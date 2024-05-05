@@ -31,4 +31,8 @@ class StudentProject extends Model
     {
         return $this->belongsTo(Student::class);
     }
+    public function boards()
+    {
+        return $this->hasMany(Board::class);
+    }
 }

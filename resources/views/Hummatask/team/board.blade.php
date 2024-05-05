@@ -1,7 +1,60 @@
 @extends('Hummatask.team.layouts.app')
+
+@section('style')
+<style>
+.horizontal-scroll-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    gap: 30px;
+}
+
+.horizontal-scroll-container .card-container {
+    flex: 0 0 30%;
+    min-width: 250px;
+}
+
+/* Atur margin antar kartu */
+.horizontal-scroll-container .card-container {
+    margin-right: 15px;
+}
+
+
+@media (max-width: 600px) {
+    .horizontal-scroll-container .card-container {
+        flex-basis: 100%;
+    }
+}
+
+</style>
+@endsection
+
 @section('content')
-<div class="d-flex justify-content-between mb-3">
-    <h4>Board</h4>
+<div class="card bg-light-info shadow-none position-relative overflow-hidden">
+    <div class="card-body px-4 py-3">
+        <div class="row align-items-center">
+            <div class="col-9">
+                <h4 class="fw-semibold mb-8">Board</h4>
+                <nav aria-label="breadcrumb mt-2">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a class="text-muted " href="/siswa-offline">Board</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Board</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-3">
+                <div class="text-center mb-n5">
+                    <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt=""
+                        class="img-fluid mb-n4">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="text-end mb-3">
    <button class="btn btn-primary text-light btn-xs px-4 fs-3 font-medium" data-bs-toggle="modal" data-bs-target="#bs-example-modal-md">Tambah List</button>
 </div>
 <!-- Add List -->
@@ -33,126 +86,188 @@
     </div>
 </div>
 
-
-<!-- Edit List -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit List</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('list.update', $hummataskTeam->id) }}" method="post" id="editForm">
-                    @csrf
-                    @method('PUT')
-                    <div class="mb-3">
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="judul" name="hummatask_team_id" value="{{$hummataskTeam->id}}" placeholder="Masukkan judul disini" hidden>
-                        <input type="text" class="form-control" id="judul" name="name" placeholder="Masukkan judul disini"
-                               value="">
-                               @error('name')
-                               <div class="invalid-feedback text-danger">{{ $message }}</div>
-                           @enderror
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
-                <button type="submit" form="editForm" class="btn btn-success">Simpan</button>
+    <!-- Edit List -->
+    <div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit List</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" id="form-update">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-3">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="hummatask_team_id-edit" name="hummatask_team_id" value="" placeholder="Masukkan judul disini" hidden>
+                            <input type="text" class="form-control" id="name-edit" name="name" placeholder="Masukkan judul disini"
+                                value="">
+                                @error('name')
+                                <div class="invalid-feedback text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-success">Simpan</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-
-
- <div class="row">
+<div class="horizontal-scroll-container">
     @forelse ($categoryBoards as $categoryBoard)
-
-    <div class="col-md-6 col-lg-4">
-        <div class="card" style="background-color: #EAEFF4; padding: 15px;">
-            <div class="card-body rounded-2 mb-3" >
-                <div class="d-flex align-items-center mb-3">
-                    <h6 class="card-title pt-1" style="font-size: 14px;">{{$categoryBoard->name}}</h6>
-                    <div class="bg-primary text-light d-inline-flex align-items-center justify-content-center rounded-circle ms-2" style="font-size: 14px; width: 25px; height: 25px;">5</div>
-                    <div class="d-flex justify-content-end align-items-center ms-auto">
-                        <div class="m3-3">
-                            <i class="ti ti-plus fs-4"></i>
-                        </div>
-                        <div class="rounded-circle d-inline-flex align-items-center justify-content-center ms-2" style="width: 25px; height: 25px; background-color: #FFFFFF;">
-                            <div class="dropdown dropstart">
-                                <a href="#" class="link text-dark show" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="true">
-                                    <i class="ti ti-dots-vertical fs-4"></i>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" data-popper-placement="left-start" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-24px, 4.8px, 0px);">
-                                    <li>
-                                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            Edit
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="dropdown-item text-danger">Hapus</a>
-                                    </li>
-                                </ul>
+        <div class="card-container">
+            <div class="card" style="background-color: #EAEFF4; padding: 15px;">
+                <div class="card-body rounded-2 mb-3" >
+                    <div class="d-flex align-items-center mb-3">
+                        <h5 class="card-title pt-1" style="font-size: 18px;">{{$categoryBoard->name}}</h5>
+                        <div class="bg-primary text-light d-inline-flex align-items-center justify-content-center rounded-circle ms-2" style="font-size: 14px; width: 25px; height: 25px;">5</div>
+                        <div class="d-flex justify-content-end align-items-center ms-auto">
+                            <div class="m3-3">
+                                <button class="btn show-form" data-target="formContainer-{{ $categoryBoard->id }}">
+                                    <i class="ti ti-plus fs-4"></i>
+                                </button>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <form>
-                        <div class="form-group">
-                            <input type="text" class="form-control text-white bg-white mb-2" id="nametext" aria-describedby="judul tugas" placeholder="Name">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-sm mb-3 float-end">Tambah</button>
-                    </form>
-
-                    @foreach (range(1,3) as $item)
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body" style="padding: 15px;">
-                                <div class="dropdown dropstart text-end">
+                            <div class="rounded-circle d-inline-flex align-items-center justify-content-center ms-2" style="width: 25px; height: 25px; background-color: #FFFFFF;">
+                                <div class="dropdown dropstart">
                                     <a href="#" class="link text-dark show" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="true">
                                         <i class="ti ti-dots-vertical fs-4"></i>
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" data-popper-placement="left-start" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-24px, 4.8px, 0px);">
                                         <li>
-                                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#edittugas">
-                                                <i class="ti ti-pencil-plus fs-4"></i>
+                                            <button type="button" class="btn btn-edit"
+                                            data-id="{{ $categoryBoard->id }}"
+                                            data-name="{{ $categoryBoard->name }}"
+                                            data-hummatask_team_id="{{ $categoryBoard->hummatask_team_id }}"
+                                            >
                                                 Edit
-                                              </button>
+                                            </button>
                                         </li>
                                         <li>
-                                            <a href="#" class="dropdown-item text-danger">
-                                                <i class="ti ti-trash fs-4"></i>
-                                                Hapus</a>
+                                            <button class="dropdown-item text-danger btn-delete" data-id="{{ $categoryBoard->id }}">Hapus</button>
                                         </li>
                                     </ul>
                                 </div>
-                                <h6 class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</h6>
-                                <span class="mb-1 badge rounded-pill font-medium bg-light-warning text-warning" style="font-size: 10px">Front End</span>
-                                <span class="mb-1 badge rounded-pill font-medium bg-light-danger text-danger" style="font-size: 10px">Mendesak</span>
-                                <span class="mb-1 badge rounded-pill font-medium bg-primary text-light" style="font-size: 10px">Di Revisi</span>
-
-                                <div class="d-flex align-items-center justify-content-between pt-8">
-                                    <h6 class="mb-0 text-danger">Sudah melewati deadline</h6>
-                                    <div class="d-flex align-items-end justify-content-end">
-                                        <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35" alt="">
-                                        <img src="{{ asset('assets/images/users/avatar-2.jpg') }}" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35" alt="">
-                                        <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35" alt="">
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                    <div class="row">
+                        <div id="formContainer-{{ $categoryBoard->id }}" class="form-container" style="display: none;">
+                            <form class="myForm" method="POST" action="{{ route('board.store') }}">
+                                @csrf
+                                @method('POST')
+                                <div class="form-group">
+                                    @foreach ($studentProjects as $studentProject)
+                                        <input type="text" class="form-control" id="category" name="student_project_id" value="{{ $studentProject->id }}" placeholder="Masukkan judul disini" hidden>
+
+                                    @endforeach
+
+                                    <input type="text" class="form-control" id="category" name="category_board_id" value="{{ $categoryBoard->id }}" placeholder="Masukkan judul disini" hidden>
+                                    @error('category_board_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    <input type="text" class="form-control" id="tim" name="hummatask_team_id" value="{{ $categoryBoard->hummatask_team_id }}" placeholder="Masukkan judul disini" hidden>
+                                    @error('hummatask_team_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    <input type="text" class="form-control bg-white mb-2" id="nametext-{{ $categoryBoard->id }}" placeholder="Judul Tugas" name="name">
+                                    @error('name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-sm mb-3 float-end">Tambah</button>
+                            </form>
+
+                        </div>
+
+                            @forelse ($boards as $board)
+                                @if ($board->category_board_id == $categoryBoard->id)
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body" style="padding: 15px;">
+                                            <div class="dropdown dropstart text-end">
+                                                <a href="#" class="link text-dark show" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="true">
+                                                    <i class="ti ti-dots-vertical fs-4"></i>
+                                                </a>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" data-popper-placement="left-start" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-24px, 4.8px, 0px);">
+                                                    <li>
+                                                        <button type="button" class="btn border-0 w-100 text-start edit-board"
+                                                        data-id="{{ $board->id }}"
+                                                        data-judul="{{ $board->name }}"
+                                                        data-description="{{ $board->description }}"
+                                                        data-label="{{ $board->label }}"
+                                                        data-priority="{{ $board->priority }}"
+                                                        data-status="{{ $board->status }}"
+                                                        data-start_date="{{ $board->start_date }}"
+                                                        data-end_date="{{ $board->end_date }}"
+                                                        {{-- data-student_project_id="{{ $board->student_project_id }}"
+                                                        data-category_board_id="{{ $board->category_board_id }}" --}}
+                                                        >
+                                                            <i class="ti ti-pencil-plus fs-4"></i>
+                                                            Edit
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item text-danger border-0 w-100 text-start btn delete-board"
+                                                        data-id="{{ $board->id }}">
+                                                            <i class="ti ti-trash fs-4"></i>
+                                                            Hapus</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <h5 class="card-text">{{$board->name}}</h5>
+                                            <p class="card-text">{{$board->description}}</p>
+                                            <span class="mb-1 badge rounded-pill font-medium bg-light-warning text-warning" style="font-size: 10px">{{$board->label}}</span>
+                                            <span class="mb-1 badge rounded-pill font-medium bg-light-danger text-danger" style="font-size: 10px">{{$board->priority}}</span>
+                                            <span class="mb-1 badge rounded-pill font-medium bg-primary text-light" style="font-size: 10px">{{$board->status}}</span>
+
+                                            <div class="d-flex align-items-center justify-content-between pt-8">
+                                                <h6 class="mb-0 text-danger">{{ $board->countdown() }}</h6>
+                                                @foreach ($studentProjects as $student)
+
+                                                <div class="d-flex align-items-end justify-content-end">
+                                                    {{-- <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35" alt=""> --}}
+                                                    @if(Storage::disk('public')->exists($student->student->avatar))
+                                                        <img src="{{ asset('storage/' . $student->student->avatar) }}" alt="avatar" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35" >
+                                                    @else
+                                                        <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35">
+                                                    @endif
+                                                </div>
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @endif
+
+                            @empty
+                            <div class="mb-3 mt-5 text-center" style="margin: 0 auto;">
+                                <img src="{{ asset('empty-asset.png') }}" alt="" width="100px" srcset="">
+                                <p class="fs-3 text-dark">
+                                    Belum ada tugas
+                                </p>
+                            </div>
+                            @endforelse
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     @empty
-
+    <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+        <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+        <p class="fs-5 text-dark">
+            Belum Ada Board
+        </p>
+    </div>
     @endforelse
+</div>
+
+
 
     <!--  Edit Tugas -->
     <div class="modal fade" id="edittugas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -184,37 +299,59 @@
                             <!-- Tab content -->
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
-                                    <form>
+                                    <form id="form-update-board" method="post">
+                                        @csrf
+                                        @method('PUT')
                                         <div class="mb-3">
                                             <label for="judul" class="form-label">Judul</label>
-                                            <input type="text" class="form-control" id="judul" placeholder="Masukkan judul tugas">
+                                            <input type="text" class="form-control" id="judul-edit" name="name" placeholder="Masukkan judul tugas">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="tanggal" class="form-label">Deadline</label>
-                                            <input type="date" class="form-control" id="tanggal">
+                                            <label for="deskripsi" class="form-label">Deskripsi</label>
+                                            <textarea class="form-control" id="description-edit" name="description" rows="3" placeholder="Masukkan deskripsi tugas"></textarea>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="start_date" class="form-label">Tanggal Mulai</label>
+                                                    <input type="date" class="form-control" id="start_date-edit" name="start_date">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="end_date" class="form-label">Deadline</label>
+                                                    <input type="date" class="form-control" id="end_date-edit" name="end_date">
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="mb-3">
                                             <label for="status" class="form-label">Status</label>
-                                            <select class="form-select" id="status">
-                                                <option value="1">Selesai</option>
-                                                <option value="2">Belum Selesai</option>
+                                            <select class="form-select" id="status-edit" name="status">
+                                                <option value="baru">Baru</option>
+                                                <option value="dikerjakan">Dikerjakan</option>
+                                                <option value="selesai">Selesai</option>
                                             </select>
                                         </div>
                                         <div class="mb-3">
                                             <label for="prioritas" class="form-label">Prioritas</label>
-                                            <select class="form-select" id="prioritas">
-                                                <option value="1">Tinggi</option>
-                                                <option value="2">Sedang</option>
-                                                <option value="3">Rendah</option>
+                                            <select class="form-select" id="priority-edit" name="priority">
+                                                <option value="biasa">biasa</option>
+                                                <option value="penting">penting</option>
+                                                <option value="mendesak">mendesak</option>
                                             </select>
                                         </div>
                                         <div class="mb-3">
                                             <label for="assignee" class="form-label">Label</label>
-                                            <select class="form-select" id="assignee">
-                                                <option value="1">John Doe</option>
-                                                <option value="2">Jane Doe</option>
-                                                <option value="3">Alice Smith</option>
+                                            <select class="form-select" id="label" name="label">
+                                                <option value="frontend">Front End</option>
+                                                <option value="backend">Back End </option>
+                                                <option value="ui/ux">UI/UX</option>
                                             </select>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
                                         </div>
                                     </form>
                                 </div>
@@ -282,21 +419,103 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                {{-- <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                     <button type="button" class="btn btn-primary">Simpan</button>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
  </div>
+
+ @include('admin.components.delete-modal-component')
+
+
 @endsection
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script>
-    $(document).ready(function(){
-        $('#edittugas').on('shown.bs.modal', function (e) {
-            $('#tab1-tab').tab('show');
+    $('.btn-edit').click(function () {
+        var id = $(this).data('id');
+        var name = $(this).data('name');
+        var hummatask_team_id = $(this).data('hummatask_team_id');
+
+
+        $('#form-update').attr('action', '/hummateam/board/list/update/' + id);
+        $('#name-edit').val(name);
+        $('#hummatask_team_id-edit').val(hummatask_team_id);
+
+        $('#modal-edit').modal('show');
+    });
+
+    $('.btn-delete').click(function () {
+        var id = $(this).data('id');
+        $('#form-delete').attr('action', '/hummateam/board/list/delete/' + id);
+        $('#modal-delete').modal('show');
+    });
+
+    $('.edit-board').click(function () {
+        var id = $(this).data('id');
+        var judul = $(this).data('judul');
+        var description = $(this).data('description');
+        var label = $(this).data('label');
+        var priority = $(this).data('priority');
+        var status = $(this).data('status');
+        var start_date = $(this).data('start_date');
+        var end_date = $(this).data('end_date');
+        // var student_project_id = $(this).data('student_project_id');
+        // var category_project_id = $(this).data('category_project_id');
+
+
+        $('#judul-edit').val(judul);
+        $('#description-edit').val(description);
+        $('#label-edit').val(label);
+        $('#priority-edit').val(priority);
+        $('#status-edit').val(status);
+        $('#start_date-edit').val(start_date);
+        $('#end_date-edit').val(end_date);
+        // $('#student_project_id-edit').val(student_project_id);
+        // $('#category_board-edit').val(category_board);
+        $('#form-update-board').attr('action', '/hummateam/board/update/' + id);
+
+        $('#edittugas').modal('show');
+    });
+
+    $('.delete-board').click(function () {
+        var id = $(this).data('id');
+        $('#form-delete').attr('action', '/hummateam/board/delete/' + id);
+        $('#modal-delete').modal('show');
+    });
+</script>
+<script>
+$(document).ready(function() {
+    $('.show-form').on('click', function() {
+        var target = $(this).data('target');
+
+        $('#' + target).toggle();
+    });
+});
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var tabs = document.querySelectorAll('.nav-link');
+        tabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                var target = this.getAttribute('data-bs-target');
+                var activeTab = document.querySelector(target);
+                var activeTabs = document.querySelectorAll('.tab-pane.show');
+
+                // Menghapus kelas 'show' dari semua tab content yang aktif
+                activeTabs.forEach(function(tabContent) {
+                    tabContent.classList.remove('show');
+                });
+
+                // Menambahkan kelas 'show' ke tab content yang sesuai dengan tab yang dipilih
+                activeTab.classList.add('show');
+            });
         });
     });
 </script>
+
 @endsection
