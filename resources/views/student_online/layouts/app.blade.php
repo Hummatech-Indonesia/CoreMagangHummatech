@@ -24,6 +24,16 @@
 
     <!-- Core Css -->
     <link id="themeColors" rel="stylesheet" href="{{ asset('assets-user/dist/css/style.min.css') }}" />
+    <meta name="title" content="Hummatech - Perusahaan Software Terbaik di Malang" />
+    <meta name="description"
+        content="Hummatech adalah perusahaan software development terbaik di Malang. Kami menyediakan solusi perangkat lunak yang inovatif dan berkualitas tinggi." />
+    <meta name="og:description"
+        content="Hummatech adalah perusahaan software development terbaik di Malang. Kami menyediakan solusi perangkat lunak yang inovatif dan berkualitas tinggi." />
+    <meta name="og:image" content="{{ asset('animation1.gif') }}" />
+    <meta name="twitter:image" content="{{ asset('animation1.gif') }}" />
+    <meta property="og:url" content="{{ url('/') }}" />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="{{ url('/') }}" />
     @yield('style')
 </head>
 
