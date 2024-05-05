@@ -12,6 +12,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LimitPresentationController;
 use App\Http\Controllers\Mentor\JournalController;
 use App\Http\Controllers\NotePicketController;
+use App\Http\Controllers\NoteTeamController;
 use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\StudentOfline\CourseOfflineController;
 use App\Http\Controllers\ProductController;
@@ -171,9 +172,12 @@ Route::get('/siswa-online/absensi', [AttendanceController::class, 'attendanceOnl
 
 
 //Hummatask
-Route::get('/hummateam/team/team', function (){
-    return view('Hummatask.team.team');
-});
+// Route::get('hummateam/team/note', function (){
+//     return view('Hummatask.team.note');
+// });
+
+Route::get('hummateam/note/{hummataskTeam}',[NoteTeamController::class,'index']);
+
 
 Route::get('hummateam/board/{hummataskTeam}',[CategoryBoardController::class,'index']);
 Route::post('hummateam/board/list/store',[CategoryBoardController::class,'store'])->name('list.store');
@@ -182,3 +186,7 @@ Route::delete('hummateam/board/list/delete/{categoryBoard}', [CategoryBoardContr
 
 
 Route::post('hummateam/board/store',[BoardController::class,'store'])->name('board.store');
+Route::put('hummateam/board/update/{board}',[BoardController::class,'update'])->name('board.update');
+Route::delete('hummateam/board/delete/{board}',[BoardController::class,'destroy'])->name('board.destroy');
+
+

@@ -32,7 +32,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item px-2">
-                        <a class="sidebar-link " href="/hummateam/team/team" aria-expanded="false">
+                        <a class="sidebar-link " href="{{url('/hummateam/note', $hummataskTeam->id)}}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-aperture"></i>
                             </span>
