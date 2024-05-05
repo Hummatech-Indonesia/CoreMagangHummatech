@@ -44,4 +44,9 @@ class HummataskTeamRepository extends BaseRepository implements HummataskTeamInt
         ->get();
     }
 
+    public function slug(mixed $slug): mixed
+    {
+        return $this->model->query()->where('slug', $slug)->firstOrFail();
+    }
+
 }

@@ -36,6 +36,8 @@ class ZoomSchedule extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $table = 'zoom_schedules';
+
 
     protected $casts = [
         'start_date' => 'datetime',

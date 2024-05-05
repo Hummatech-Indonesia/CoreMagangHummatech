@@ -23,22 +23,24 @@
                             <span class="hide-menu">Project</span>
                         </a>
                     </li>
-                    <li class="sidebar-item px-2">
-                        <a class="sidebar-link " href="{{ url('/hummateam/board', $hummataskTeam->id) }}" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-aperture"></i>
-                            </span>
-                            <span class="hide-menu">Board</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item px-2">
-                        <a class="sidebar-link " href="{{url('/hummateam/note', $hummataskTeam->id)}}" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-aperture"></i>
-                            </span>
-                            <span class="hide-menu">Catatan</span>
-                        </a>
-                    </li>
+                    @if ($studentProject)
+                        <li class="sidebar-item px-2">
+                            <a class="sidebar-link " href="{{ url('/hummateam/board', $hummataskTeam->id) }}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-aperture"></i>
+                                </span>
+                                <span class="hide-menu">Board</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item px-2">
+                            <a class="sidebar-link " href="{{url('/hummateam/note', $hummataskTeam->id)}}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-aperture"></i>
+                                </span>
+                                <span class="hide-menu">Catatan</span>
+                            </a>
+                        </li>
+                    @endif
                     <li class="nav-item ms-auto">
                         <div class="row g-3 align-items-center">
                             <a href="{{url('dashboard/task')}}" class="btn me-1 mb-1 btn-info text-light btn-lg px-4 fs-4 font-medium">

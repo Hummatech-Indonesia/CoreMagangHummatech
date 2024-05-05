@@ -47,7 +47,7 @@
                 @endauth
                 @forelse ($projects as $project)
                 <li class="sidebar-item px-2">
-                    <a href="{{ url('/hummateam/team', $project->id) }}" class="d-flex align-items-center">
+                    <a href="{{ url('/hummateam/team', $project->slug) }}" class="d-flex align-items-center">
                         <div class="rounded-circle overflow-hidden me-6">
                             <img src="{{ asset('storage/'. $project->project->hummataskTeam->image) }}" alt="{{ $project->project->title }}" width="40"
                                 height="40">

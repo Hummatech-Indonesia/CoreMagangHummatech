@@ -75,8 +75,9 @@ class HummataskTeamController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(HummataskTeam $hummataskTeam)
+    public function show($slug, HummataskTeam $hummataskTeam)
     {
+        $slugs = $this->hummatask_team->slug($slug);
         $projects = $this->project->where('hummatask_team_id', $hummataskTeam->id);
 
         foreach ($projects as $project) {
@@ -115,6 +116,8 @@ class HummataskTeamController extends Controller
 
     public function soloTeam(Request $request){
         $data = $this->service->store($request);
+        $data['student_id'] = auth()->user()->student->id;
+        $data['slug'] = $request->name;
         $team = $this->hummatask_team->store($data);
 
         $projectVar['hummatask_team_id'] = $team->id;
