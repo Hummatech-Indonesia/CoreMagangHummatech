@@ -245,7 +245,7 @@
             </div>
         </div>
     </section>
-    <section class="" id="team-sec">
+    {{-- <section class="" id="team-sec">
         <div class="container space">
             <div class="title-area text-center">
                 <div class="shadow-title">Team</div><span class="sub-title">
@@ -379,7 +379,7 @@
         <div class="shape-mockup" data-top="0%" data-left="0%"><img src="assets_landing/img/shape/square_1.png"
                 alt="shape">
         </div>
-    </section>
+    </section> --}}
     <section class="space">
         <div class="container">
             <div class="title-area text-center"><span class="sub-title">

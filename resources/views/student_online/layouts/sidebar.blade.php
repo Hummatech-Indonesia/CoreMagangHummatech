@@ -5,10 +5,30 @@
         }
     </style>
     <!-- Sidebar scroll-->
-    <div>
-        <div class="brand-logo d-flex align-items-center justify-content-between">
-            <a href="/siswa-offline" class="text-nowrap logo-img">
-                <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="180" alt="" />
+    <div class="mt-3">
+        <div>
+            <a href="/siswa-offline">
+                <div id="logo-container" class="d-flex justify-content-center align-items-center">
+                    <img id="logo" src="{{ asset('animation1.gif') }}" class="dark-logo" width="110px"
+                        alt="" />
+                </div>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                    $(document).ready(function() {
+                        var logo = $('#logo');
+                        var newSrc = "{{ asset('logopkldark.png') }}";
+                        var newWidth = "190";
+
+                        setTimeout(function() {
+                            logo.fadeOut(1000, function() {
+                                logo.attr('src', newSrc);
+                                logo.attr('width', newWidth);
+                                logo.fadeIn(1000);
+                            });
+                        }, 2500);
+                    });
+                </script>
+
                 <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="180" alt=""
                     style="display: none;" />
             </a>
@@ -20,8 +40,7 @@
         <nav class="sidebar-nav scroll-sidebar" data-simplebar>
             <ul id="sidebarnav">
                 <li class="nav-item mb-0 mt-2">
-                    <a href="/dashboard/task"
-                        aria-expanded="false">
+                    <a href="/dashboard/task" aria-expanded="false">
                         <div class="myElement py-2 px-3 rounded">
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex  gap-2">
@@ -113,13 +132,13 @@
                                 <span class="hide-menu">Materi</span>
                             </a>
                         @else
-                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
-                            href="javascript:void(0)" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-book"></i>
-                            </span>
-                            <span class="hide-menu">Materi <i class="fas fa-lock opacity-50 ms-2"></i></span>
-                        </a>
+                            <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
+                                href="javascript:void(0)" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-book"></i>
+                                </span>
+                                <span class="hide-menu">Materi <i class="fas fa-lock opacity-50 ms-2"></i></span>
+                            </a>
                         @endif
                     </li>
                     {{-- <li class="sidebar-item">
@@ -149,11 +168,13 @@
                                 <span class="hide-menu">Jadwal Mentor</span>
                             </a>
                         @else
-                            <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal" href="javascript:void(0)" aria-expanded="false">
+                            <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
+                                href="javascript:void(0)" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-clock"></i>
                                 </span>
-                                <span class="hide-menu">Jadwal Mentor <i class="fas fa-lock opacity-50 ms-2"></i></span>
+                                <span class="hide-menu">Jadwal Mentor <i
+                                        class="fas fa-lock opacity-50 ms-2"></i></span>
                             </a>
                         @endif
                     </li>
@@ -270,8 +291,8 @@
                                     class="btn btn-primary fs-2 fw-semibold lh-sm">Berlangganan</a>
                             </div>
                             <div class="unlimited-access-img">
-                                <img src="{{ asset('assets-user/dist/images/backgrounds/rocket.png') }}" alt=""
-                                    class="img-fluid">
+                                <img src="{{ asset('assets-user/dist/images/backgrounds/rocket.png') }}"
+                                    alt="" class="img-fluid">
                             </div>
                         </div>
                     </div>
