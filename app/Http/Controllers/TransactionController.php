@@ -9,6 +9,7 @@ use App\Contracts\Interfaces\VoucherInterface;
 use App\Contracts\Interfaces\VoucherUsageInterface;
 use App\Enum\TransactionStatusEnum;
 use App\Http\Requests\TripayCheckoutRequest;
+use App\Models\Product;
 use App\Models\TransactionHistory;
 use Carbon\Carbon;
 use Cart;
@@ -54,15 +55,16 @@ class TransactionController extends Controller
         return view('student_online_&_offline.transaction.index', compact('transactions'));
     }
 
-    public function checkout()
+    public function checkout(Product $product)
     {
         $voucher = session()->get('voucher');
 
         $voucherDetail = $voucher ? $this->voucherInterface->getVoucherByCode($voucher[0]) : null;
         $paymentChannel = $this->paymentInterface->getPaymentChannel();
         $cartData = $this->cart;
+        // dd($paymentChannel);
 
-        return view('student_online_&_offline.transaction.checkout', compact('paymentChannel', 'cartData', 'voucherDetail'));
+        return view('student_online_&_offline.transaction.checkout', compact('product', 'paymentChannel', 'cartData', 'voucherDetail'));
     }
 
     public function store(Request $request)

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('hummatask_teams', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('image');
-            $table->longText('description');
+            $table->text('image')->nullable();
+            $table->longText('description')->nullable();
             $table->foreignId('category_project_id')->default('1')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

@@ -55,7 +55,7 @@
                                         </svg>
                                     </div>
                                     <div class="mt-2">
-                                        Presentasi
+                                        Board
                                     </div>
                                 </div>
                                 <div class="mt-2">
