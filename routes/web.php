@@ -161,7 +161,7 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
 Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(RolesEnum::ONLINE->value)->group(function () {
     Route::get('/', [StudentOnlineController::class, 'index'])->name('.home');
 
-    Route::controller(CourseController::class)->middleware('subsrcribed:online')->group(function () {
+    Route::controller(CourseController::class)->middleware('subsrcribed')->group(function () {
         Route::get('/materi', 'index')->name('.course');
         Route::get('/materi/{course}', 'detail')->name('.course.detail');
         Route::get('/materi/{course}/course/{subCourse}', 'subCourseDetail')->name('.course.subcourse');

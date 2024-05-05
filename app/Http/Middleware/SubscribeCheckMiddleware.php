@@ -14,13 +14,9 @@ class SubscribeCheckMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, mixed ...$type): Response
+    public function handle(Request $request, Closure $next): Response
     {
-        if(
-            auth()->user()->student->internship_type === InternshipTypeEnum::ONLINE->value
-            && !auth()->user()->feature
-            && in_array(auth()->user()->student->internship_type, $type)
-        ) {
+        if(auth()->user()->student->activeFeature == null || auth()->user()->student->activeFeature->is_active == '0') {
             return abort(403, 'Anda Belum Berlangganan!');
         }
 
