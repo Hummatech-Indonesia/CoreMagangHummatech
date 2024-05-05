@@ -126,3 +126,8 @@ Route::get('administrator/category-project', [CategoryProjectController::class, 
 Route::post('administrator/category-project/store', [CategoryProjectController::class, 'store'])->name('category-project.store');
 Route::patch('administrator/category-project/{categoryProject}', [CategoryProjectController::class, 'update'])->name('category-project.update');
 Route::delete('administrator/category-project/{categoryProject}', [CategoryProjectController::class, 'destroy'])->name('category-project.destroy');
+
+Route::get('mentor/team', [HummataskTeamController::class, 'mentor']);
+Route::get('mentor/team/detail', function() {
+    return view('mentor.team.detail');
+});

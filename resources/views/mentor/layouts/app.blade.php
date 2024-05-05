@@ -20,6 +20,7 @@
         href="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/favicon.ico" />
     <!-- Owl Carousel  -->
     <link rel="stylesheet" href="{{ asset('assets-user/dist/libs/owl.carousel/dist/assets/owl.carousel.min.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
     <!-- Core Css -->
     <link id="themeColors" rel="stylesheet" href="{{ asset('assets-user/dist/css/style.min.css') }}" />
