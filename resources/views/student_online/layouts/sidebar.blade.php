@@ -15,7 +15,7 @@
                 $(document).ready(function() {
                     var logo = $('#logo');
                     var newSrc = "{{ asset('logopkldark.png') }}";
-                    var newWidth = "190";
+                    var newWidth = "180";
 
                     setTimeout(function() {
                         logo.fadeOut(1000, function() {
