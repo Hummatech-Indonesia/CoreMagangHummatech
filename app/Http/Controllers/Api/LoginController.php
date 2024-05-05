@@ -1,74 +1,39 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Auth;
 
-use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
-use App\Models\User;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    /**
-     * login
-     *
-     * @param  mixed $request
-     * @return JsonResponse
-     */
-    public function login(Request $request): JsonResponse
-    {
-        if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
-            if (auth()->user()->role == 'Siswa' && auth()->user()->Siswa->status == null) {
-                if(auth()->user()->Siswa->magang_awal > now()){
-                    return ResponseHelper::error(null, "Belum mulai magang");
-                }
-                $data['token'] =  auth()->user()->createToken('auth_token')->plainTextToken;
-                $data['user'] = UserResource::make(auth()->user());
-                return ResponseHelper::success($data, "Berhasil login");
-            }
-            else {
-                return ResponseHelper::error(null, "Anda telah di blokir atau sudah lulus!");
-            }
-        }
-        else {
-            return ResponseHelper::error(null, "Username / password salah");
-        }
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
+    use AuthenticatesUsers;
 
     /**
-     * saveFCM
+     * Where to redirect users after login.
      *
-     * @param  mixed $request
-     * @return JsonResponse
+     * @var string
      */
-    public function saveFCM(Request $request): JsonResponse
-    {
-        User::findOrFail(auth()->user()->id)->update(['fcm_token' => $request->fcm_token]);
-        return ResponseHelper::success(null, "Berhasil menyimpan FCM");
-    }
+    protected $redirectTo = '/home';
 
     /**
-     * deleteFCM
+     * Create a new controller instance.
      *
-     * @return JsonResponse
+     * @return void
      */
-    public function deleteFCM(): JsonResponse
+    public function __construct()
     {
-        User::findOrFail(auth()->user()->id)->update(['fcm_token' => null]);
-        return ResponseHelper::success(null, "Berhasil menghapus FCM");
-    }
-
-    /**
-     * logout
-     *
-     * @param  mixed $request
-     * @return JsonResponse
-     */
-    public function logout(Request $request): JsonResponse
-    {
-        auth()->user()->currentAccessToken()->delete();
-        return ResponseHelper::success(auth()->user()->token, 'success logout');
+        $this->middleware('guest')->except('logout');
     }
 }
