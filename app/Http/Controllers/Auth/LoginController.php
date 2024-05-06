@@ -37,7 +37,9 @@ class LoginController extends Controller
 
         // Periksa apakah pengguna dengan email yang diberikan ditemukan dan password cocok
         if ($loggedInUser && password_verify($password, $loggedInUser->password)) {
-            // Tugaskan peran (role) pengguna berdasarkan email atau jenis pengguna
+
+            // Generate bearer token
+            $token = $loggedInUser->createToken('API')->accessToken;
 
             // Tampilkan data user
             $userData = [
@@ -54,7 +56,8 @@ class LoginController extends Controller
             $response = [
                 'status' => 'success',
                 'message' => 'Login berhasil. Selamat datang!',
-                'data' => $userData
+                'data' => $userData,
+                'token' => $token,
             ];
 
             // Kembalikan respons JSON
