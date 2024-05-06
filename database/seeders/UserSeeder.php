@@ -146,6 +146,7 @@ class UserSeeder extends Seeder
             'password' => 'password',
             'internship_type' => 'offline'
         ]);
+        
 
         # Create User data
         collect($student)->each(function ($student) {
