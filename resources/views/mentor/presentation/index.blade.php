@@ -69,14 +69,14 @@
                             </div>
                             <div class="col-md-5">
                                 <label for="start-time-{{ $i }}" class="form-label">Waktu Mulai:</label>
-                                <input type="time" class="form-control @error('start_date') is-invalid @enderror" id="start-time-{{ $i }}" name="start_date[]" value="">
+                                <input type="time" class="form-control @error('start_date') is-invalid @enderror" id="start-time-{{ $i }}" name="start_date[]" value="{{ old('start_date.'.$i) }}">
                                 @error('start_date')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-5">
                                 <label for="end-time-{{ $i }}" class="form-label">Waktu Selesai:</label>
-                                <input type="time" class="form-control @error('end_date') is-invalid @enderror" id="end-time-{{ $i }}" name="end_date[]" value="">
+                                <input type="time" class="form-control @error('end_date') is-invalid @enderror" id="end-time-{{ $i }}" name="end_date[]" value="{{ old('start_date.'.$i) }}">
                                 @error('end_date')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -100,7 +100,49 @@
         </div>
 
         <div class="tab-pane" id="tuesday" role="tabpanel">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingLimitModal">Setting Limit</button>
+                    </div>
+                </div>
+                <form action="{{ route('presentation.store') }}" method="POST" class="row g-3">
+                    @csrf
+                    @if($limits)
+                        @for($i = 1; $i <= $limits->limits; $i++)
+                            <div class="col-md-2 mb-4 pt-3">
+                                <h5>Jadwal Ke {{ $i }}</h5>
+                            </div>
+                            <div class="col-md-5">
+                                <label for="start-time-{{ $i }}" class="form-label">Waktu Mulai:</label>
+                                <input type="time" class="form-control @error('start_date') is-invalid @enderror" id="start-time-{{ $i }}" name="start_date[]" value="{{ old('start_date.'.$i) }}">
+                                @error('start_date')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-5">
+                                <label for="end-time-{{ $i }}" class="form-label">Waktu Selesai:</label>
+                                <input type="time" class="form-control @error('end_date') is-invalid @enderror" id="end-time-{{ $i }}" name="end_date[]" value="{{ old('end_date.'.$i) }}">
+                                @error('end_date')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <input type="hidden" name="schedule_to" value="{{ date('Y-m-d') }}">
+                        @endfor
+                    @else
+                        <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                            <p class="fs-5 text-dark">
+                                Belum Ada Jadwal
+                            </p>
+                        </div>
+                    @endif
 
+                    <div class="col-md-12 mt-3">
+                        <button type="submit" class="btn btn-primary float-end">Simpan</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
         <div class="tab-pane" id="wednesday" role="tabpanel">
