@@ -176,11 +176,12 @@ Route::get('/siswa-online/absensi', [AttendanceController::class, 'attendanceOnl
 //     return view('Hummatask.team.note');
 // });
 
-Route::get('hummateam/team/{slug}/note',[NoteTeamController::class,'index'])->name('team.note');
+Route::get('hummateam/team/{slug}/note',[BoardController::class,'show'])->name('team.note');
+Route::post('/hummateam/team/note/store', [CategoryBoardController::class, 'notestore'])->name('team.note.store');
 
 
 Route::get('hummateam/team/{slug}/board',[CategoryBoardController::class,'index'])->name('team.board');
-Route::post('hummateam/board/list/store',[CategoryBoardController::class,'store'])->name('list.store');
+Route::post('hummateam/team/{slug}/board/store',[CategoryBoardController::class,'store'])->name('list.store');
 Route::put('hummateam/board/list/update/{categoryBoard}',[CategoryBoardController::class,'update'])->name('list.update');
 Route::delete('hummateam/board/list/delete/{categoryBoard}', [CategoryBoardController::class,'destroy'])->name('list.destroy');
 

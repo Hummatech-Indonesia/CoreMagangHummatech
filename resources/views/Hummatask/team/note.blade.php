@@ -59,17 +59,18 @@
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="judulCatatan" placeholder="Judul" required>
+                        <input type="text" class="form-control" id="judulCatatan" name="title" placeholder="Judul">
                     </div>
+
                     <div class="mb-3">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="kategori" id="radio1" value="option1" checked>
+                            <input class="form-check-input" type="radio" name="status" id="radio1" value="team_note" checked>
                             <label class="form-check-label" for="radio1">
                                 Catatan Tim
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="kategori" id="radio2" value="option2">
+                            <input class="form-check-input" type="radio" name="status" id="radio2" value="revision_note">
                             <label class="form-check-label" for="radio2">
                                 Catatan Revisi
                             </label>
@@ -77,16 +78,12 @@
                     </div>
 
                     <div class="mb-3 mt-0 col-md-12">
-                        <input class="form-control" type="text" name="mission[]" required=""
-                            autocomplete="name" placeholder="Catatan" />
-                        @error('mission.*')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
-
-                        <div id="product-listing"></div>
-
+                        <div id="note-container">
+                            <!-- Kontainer untuk input catatan -->
+                        </div>
                         <button type="button" class="btn add-button-trigger btn-primary mt-3">Tambah</button>
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>
@@ -269,21 +266,41 @@
 
 @section('script')
 <script>
-    const deleteElement = (id) => $('#' + id).remove();
+    // Fungsi untuk menambahkan input catatan baru
+    const addNoteInput = () => {
+        let noteContainer = document.getElementById('note-container');
+        let newNoteInput = document.createElement('div');
+        newNoteInput.className = 'd-flex align-items-center mb-3'; // Class untuk mengatur tata letak input catatan dan tombol hapus
 
-    $('.add-button-trigger').click((e) => {
-        let idInput = 'input_' + Math.random().toString(36).substr(2, 9); // Generate random id
-        let target = $(e.target).parents('.modal').find('#product-listing');
-        target.append(`<div class="d-flex align-items-center mt-3 gap-2" id="${idInput}">
-            <input class="form-control" type="text" name="fiturs[]" autocomplete="name" placeholder="Jelaskan fitur produknya" />
-            <button onclick="deleteElement('${idInput}')" type="button" class="btn delete-trigger px-3 mt-0 btn-danger"><i
-                    class="fas fa-trash"></i></button>
-        </div>`);
-    });
+        // Input catatan
+        let noteInput = document.createElement('input');
+        noteInput.className = 'form-control';
+        noteInput.type = 'text';
+        noteInput.name = 'name[]';
+        noteInput.required = true;
+        noteInput.autocomplete = 'na,e';
+        noteInput.placeholder = 'Catatan';
+        newNoteInput.appendChild(noteInput);
 
-    $('.btn-close').click((e) => {
-        let target = $(e.target).parent('.modal').find('.delete-trigger');
-        target.each((i, el) => $(el).click());
+        // Tombol hapus dengan ikon sampah
+        let deleteButton = document.createElement('button');
+        deleteButton.className = 'btn btn-danger ms-2'; // Margin kiri agar terpisah dari input catatan
+        deleteButton.type = 'button';
+        deleteButton.innerHTML = '<i class="fas fa-trash"></i>'; // Ikon sampah
+        deleteButton.onclick = function() {
+            newNoteInput.remove(); // Menghapus input catatan beserta tombol hapusnya
+        };
+        newNoteInput.appendChild(deleteButton);
+
+        noteContainer.appendChild(newNoteInput); // Menambahkan input catatan beserta tombol hapus ke dalam kontainer
+    };
+
+    // Event listener untuk tombol "Tambah"
+    document.querySelector('.add-button-trigger').addEventListener('click', addNoteInput);
+
+    // Memanggil fungsi addNoteInput() sekali saat dokumen selesai dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+        addNoteInput();
     });
 </script>
 

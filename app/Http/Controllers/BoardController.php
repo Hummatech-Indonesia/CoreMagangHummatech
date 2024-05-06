@@ -14,13 +14,13 @@ use App\Models\HummataskTeam;
 class BoardController extends Controller
 {
     private BoardInterface $board;
-    private HummataskTeamInterface $team;
+    private HummataskTeamInterface $hummataskTeam;
     private CategoryBoardInterface $categoryBoard;
     private StudentProjectInterface $studentProject;
-    public function __construct(BoardInterface $board, HummataskTeamInterface $team, CategoryBoardInterface $categoryBoard, StudentProjectInterface $studentProject)
+    public function __construct(BoardInterface $board, HummataskTeamInterface $hummataskTeam, CategoryBoardInterface $categoryBoard, StudentProjectInterface $studentProject)
     {
         $this->board = $board;
-        $this->team = $team;
+        $this->hummataskTeam = $hummataskTeam;
         $this->categoryBoard = $categoryBoard;
         $this->studentProject = $studentProject;
     }
@@ -53,10 +53,10 @@ class BoardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Board $board)
+    public function show($slug, HummataskTeam $hummataskTeam)
     {
-        //
-    }
+        $slugs = $this->hummataskTeam->slug($slug);
+        return view('Hummatask.team.note', compact('hummataskTeam', 'slugs'));    }
 
     /**
      * Show the form for editing the specified resource.
@@ -83,4 +83,5 @@ class BoardController extends Controller
         $this->board->delete($board->id);
         return back()->with('success' , 'Data Berhasil Dihapus');
     }
+
 }

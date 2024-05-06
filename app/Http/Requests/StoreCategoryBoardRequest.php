@@ -26,4 +26,12 @@ class StoreCategoryBoardRequest extends FormRequest
             'hummatask_team_id' => 'required',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Nama harus dipilih',
+            'hummatask_team_id.required' => 'id team harus dipilih',
+        ];
+    }
 }
