@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enum\RolesEnum as EnumRolesEnum;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Spatie\Permission\Models\Role;
+use App\Enums\RolesEnum;
+use Illuminate\Support\Facades\Request;
 
 class LoginController extends Controller
 {
@@ -36,4 +40,12 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    /**
+     * The authenticated method is called when a user is logged in.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return \Illuminate\Http\Response
+     */
 }
