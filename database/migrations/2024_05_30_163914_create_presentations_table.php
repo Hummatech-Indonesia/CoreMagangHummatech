@@ -20,6 +20,8 @@ return new class extends Migration
             $table->foreignId('hummatask_team_id')->nullable()->constrained();
             $table->enum('status_presentation' , [StatusPresentationEnum::FINISH->value , StatusPresentationEnum::NOTFINISH->value , StatusPresentationEnum::ONGOING->value , StatusPresentationEnum::PENNDING->value])->nullable();
             $table->text('callback')->nullable();
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
