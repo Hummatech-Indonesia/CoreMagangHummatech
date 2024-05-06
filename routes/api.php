@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
@@ -11,8 +12,10 @@ use App\Http\Controllers\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-Route::post('/ApiLogin', [AuthLoginController::class, 'ApiLogin']);
 
+
+Route::post('/ApiLogin', [AuthLoginController::class, 'ApiLogin']);
+Route::get('zoom_schedule' , [DashboardController::class , 'index']);
 
 Route::middleware('auth')->group(function () {
     Route::get('users', [UserController::class, 'index']);

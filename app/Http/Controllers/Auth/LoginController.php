@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use App\Enums\RolesEnum;
 use App\Models\User;
+use Laravel\Sanctum\NewAccessToken;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -23,7 +25,6 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->user = $user;
     }
-
 
     public function ApiLogin(Request $request)
     {
@@ -38,23 +39,29 @@ class LoginController extends Controller
         // Periksa apakah pengguna dengan email yang diberikan ditemukan dan password cocok
         if ($loggedInUser && password_verify($password, $loggedInUser->password)) {
             // Tugaskan peran (role) pengguna berdasarkan email atau jenis pengguna
+            $accessToken = $loggedInUser->createToken('Token Name')->accessToken;
 
-            // Tampilkan data user
             $userData = [
                 'id' => $loggedInUser->id,
                 'name' => $loggedInUser->name,
                 'email' => $email,
+                'avatar' => asset('storage/' . $loggedInUser->student->avatar),
+                'division' => $loggedInUser->student->division->name,
+                'school' => $loggedInUser->school,
+                'phone_number' => $loggedInUser->phone
             ];
 
             // Buat respons JSON
             $response = [
                 'status' => 'success',
                 'message' => 'Login berhasil. Selamat datang!',
-                'data' => $userData
+                'data' => $userData,
+                'token_type' => 'Bearer',
+                'access_token' => $accessToken
             ];
 
             // Kembalikan respons JSON
-            return Response::json($response);
+            return response()->json($response);
         } else {
             // Jika email atau password tidak sesuai, kembalikan pesan error dalam respons JSON
             $response = [
@@ -63,7 +70,7 @@ class LoginController extends Controller
             ];
 
             // Kembalikan respons JSON
-            return Response::json($response);
+            return response()->json($response);
         }
     }
 }

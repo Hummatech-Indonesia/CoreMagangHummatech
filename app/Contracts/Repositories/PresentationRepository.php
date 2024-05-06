@@ -64,6 +64,6 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->where('status_presentation', $status)
             ->get();
     }
-    
+
 
 }
