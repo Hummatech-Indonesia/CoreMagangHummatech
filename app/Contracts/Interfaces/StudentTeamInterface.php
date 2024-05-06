@@ -9,4 +9,5 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 interface StudentTeamInterface extends GetInterface, StoreInterface, UpdateInterface, DeleteInterface
 {
     public function where($parameter, $value): mixed;
+    public function getTeamsByMentorId($mentor_id): mixed;
 }

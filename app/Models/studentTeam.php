@@ -26,8 +26,18 @@ class studentTeam extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function hummatask_team(): BelongsTo
+    public function hummataskTeam(): BelongsTo
     {
         return $this->belongsTo(HummataskTeam::class);
+    }
+
+    /**
+     * Get the project that owns the studentTeam
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
     }
 }

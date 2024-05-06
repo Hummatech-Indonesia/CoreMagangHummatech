@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Project extends Model
 {
@@ -35,5 +36,15 @@ class Project extends Model
     public function studentProjects(): HasMany
     {
         return $this->hasMany(StudentProject::class);
+    }
+
+    /**
+     * Get the studentTeam associated with the Project
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function studentTeam(): HasOne
+    {
+        return $this->hasOne(studentTeam::class);
     }
 }

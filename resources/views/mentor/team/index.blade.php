@@ -36,7 +36,27 @@
     <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12">
       <div class="card">
           <div class="card-img-top">
-              <img class=" img-responsive w-100" src="{{ asset('assets-user/images/laravel-11.jpg') }}" style="object-fit: cover; border-radius: 10px 10px 0px 0px" />
+            @if ($team->hummataskTeam != null && $team->hummataskTeam->image != null)
+                <img class="img-responsive w-100" src="{{ asset('storage/'. $team->hummataskTeam->image) }}" style="height: 100px; object-fit: cover; border-radius: 10px 10px 0px 0px" />
+            @else
+                {{-- @php
+                    $firstLetter = substr($team->hummataskTeam->name, 0, 1);
+                    $firstLetter = strtoupper($firstLetter);
+                    $backgroundColors = [
+                        '#ff5722', // Misalnya
+                        '#4caf50', // Misalnya
+                        '#2196f3', // Misalnya
+                        // Anda bisa menambahkan lebih banyak warna di sini sesuai kebutuhan
+                    ];
+                    // Ambil warna latar belakang berdasarkan indeks dari huruf pertama
+                    $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
+                @endphp
+                <div style="background-color: {{ $backgroundColor }}; height: 100px; display: flex; justify-content: center; align-items: center; border-radius: 10px 10px 0px 0px;"
+                class="w-100">
+                    <span style="color: white; font-size: 24px;">{{ $team->hummataskTeam->name }}</span>
+                </div> --}}
+                <img class="img-responsive w-100" src="{{ asset('bg-primary.png') }}" style="height: 100px; object-fit: cover; border-radius: 10px 10px 0px 0px" />
+            @endif        
               <button type="button" class="bg-info rounded-1 text-white py-1 px-2 border-0 mt-2 btn-delete" style="position: absolute; margin-left: -45px">
                   <i class="ti ti-trash fs-6"></i>
               </button>
@@ -48,11 +68,15 @@
                 <img src="{{ asset('assets/images/users/avatar-1.jpg') }}" class="rounded-circle me-n4 card-hover border border-white" width="40" height="40">
               </a>
           </div>
-          <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 12px;">sjgjf</div>
+          <div class="px-2 py-1 rounded-2 rounded text-capitalize" style="background: #fff; font-size: 12px;">{{ $team->hummataskTeam->categoryProject->name }}</div>
         </div>
         <div class="card-body px-3 mt-n3">
-            <h4>tim mini</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, quisquam!</p>
+            <h4 class="text-capitalize">{{ $team->project_id == null ? $team->hummataskTeam->name : $team->project->title }}</h4>
+            @if ($team->project_id != null)
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, quisquam!</p>
+            @else
+              <p class="text-muted">Tim ini belum mengerjakan sebuah project</p>
+            @endif
           <a href="/mentor/team/detail" class="btn btn-primary col-12">Lihat detail</a>
         </div>
       </div>

@@ -155,10 +155,7 @@ class HummataskTeamController extends Controller
     public  function mentor(){
         $categoryProjects = $this->categoryProject->get();
         $students = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
-        $teams = [];
-        foreach ($students as $key => $mentorStudent) {
-            $teams = $this->studentTeam->where('student_id', $mentorStudent->student_id);
-        }
+        $teams = $this->studentTeam->getTeamsByMentorId(auth()->user()->mentor->id);
         return view('mentor.team.index', compact('categoryProjects', 'students', 'teams'));
     }
 }

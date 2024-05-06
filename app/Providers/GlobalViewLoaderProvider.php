@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\HummataskTeam;
 use App\Models\ZoomSchedule;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -22,7 +21,7 @@ class GlobalViewLoaderProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $zoomData = ZoomSchedule::latest()->limit(5)->get();
-        View::share("zoomSchedule", $zoomData);
+        // $zoomData = ZoomSchedule::latest()->limit(5)->get();
+        // View::share("zoomSchedule", $zoomData);
     }
 }

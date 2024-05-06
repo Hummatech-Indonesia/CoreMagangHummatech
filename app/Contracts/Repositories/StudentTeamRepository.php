@@ -33,5 +33,12 @@ class StudentTeamRepository extends BaseRepository implements StudentTeamInterfa
     {
         return $this->model->query()->where($parameter, $value)->get();
     }
+    public function getTeamsByMentorId($mentor_id): mixed
+    {
+        return $this->model->select('hummatask_team_id')->distinct()
+        ->join('mentor_students', 'student_teams.student_id', '=', 'mentor_students.student_id')
+        ->where('mentor_students.mentor_id', $mentor_id)
+        ->get();
+    }
 }
 

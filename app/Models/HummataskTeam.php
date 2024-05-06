@@ -69,6 +69,16 @@ class HummataskTeam extends Model
         return $this->hasMany(CategoryBoard::class);
     }
 
+    /**
+     * Get the student that owns the HummataskTeam
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Student::class);
+    }
+
         /**
      * Get all of the studentTeams for the Student
      *
