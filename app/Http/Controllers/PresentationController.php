@@ -67,6 +67,7 @@ class PresentationController extends Controller
     {
 
         $i = 0;
+        $this->presentation->deleteAll();
         foreach ($request->start_date as $start) {
             $this->presentation->store([
                 'mentor_id' => $request['mentor_id'],

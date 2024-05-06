@@ -17,7 +17,10 @@ class LimitPresentationRepository extends BaseRepository implements LimitPresent
     }
     public function get(): mixed
     {
-        return $this->model->query()->whereYear('created_at', Carbon::now()->year)->first();
+        return $this->model->query()
+            ->whereDate('created_at', Carbon::today())
+            ->where('mentor_id' , auth()->user()->mentor->id)
+            ->first();
     }
     public function store(array $data): mixed
     {

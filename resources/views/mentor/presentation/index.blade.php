@@ -78,34 +78,32 @@
                     {{-- end modal  --}}
                     <form action="{{ route('presentation.store') }}" method="POST" class="row g-3">
                         @csrf
-                                <input type="hidden" name="mentor_id" value="{{ auth()->user()->mentor->id }}">
-                                @for ($i = 1; $i <= $limits->limits; $i++)
-                                    <div class="col-md-2 mb-4 pt-3">
-                                        <h5>Jadwal Ke {{ $i }}</h5>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <label for="start-time-{{ $i }}" class="form-label">Waktu
-                                            Mulai:</label>
-                                        <input type="time" class="form-control @error('start_date') is-invalid @enderror"
-                                            id="start-time-{{ $i }}" name="start_date[]"
-                                            value="{{ $presentations->start_date }}">
-                                        @error('start_date')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-5">
-                                        <label for="end-time-{{ $i }}" class="form-label">Waktu
-                                            Selesai:</label>
-                                        <input type="time" class="form-control @error('end_date') is-invalid @enderror"
-                                            id="end-time-{{ $i }}" name="end_date[]"
-                                            value="{{ $presentations->end_date }}">
-                                        @error('end_date')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <input type="hidden" name="schedule_to[]" value="Jadwal Ke {{ $i }}">
-                                @endfor
-
+                        <input type="hidden" name="mentor_id" value="{{ auth()->user()->mentor->id }}">
+                        @for ($i = 0; $i < $limits->limits; $i++)
+                            <div class="col-md-2 mb-4 pt-3">
+                                <h5>Jadwal Ke {{ $i + 1 }}</h5>
+                            </div>
+                            <div class="col-md-5">
+                                <label for="start-time-{{ $i }}" class="form-label">Waktu
+                                    Mulai:</label>
+                                <input type="time" class="form-control @error('start_date') is-invalid @enderror"
+                                    id="start-time-{{ $i }}" name="start_date[]"
+                                    value="{{ old('start_date.' . $i, $presentations[$i]->start_date ?? '') }}">
+                                @error('start_date')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-5">
+                                <label for="end-time-{{ $i }}" class="form-label">Waktu
+                                    Selesai:</label>
+                                <input type="time" class="form-control @error('end_date') is-invalid @enderror"
+                                    id="end-time-{{ $i }}" name="end_date[]" value="{{ old('end_date.' . $i, $presentations[$i]->end_date ?? '') }}">
+                                @error('end_date')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <input type="hidden" name="schedule_to[]" value="Jadwal Ke {{ $i + 1 }}">
+                        @endfor
                         <div class="col-md-12 mt-3">
                             <button type="submit" class="btn btn-primary float-end">Simpan</button>
                         </div>

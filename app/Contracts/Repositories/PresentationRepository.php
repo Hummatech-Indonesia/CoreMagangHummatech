@@ -22,14 +22,25 @@ class PresentationRepository extends BaseRepository implements PresentationInter
 
     public function GetToday(): mixed
     {
-        return $this->model->query()->whereYear('created_at', Carbon::now()->year)->first();
+        return $this->model->query()
+            ->whereDate('created_at', Carbon::today())
+            ->where('mentor_id' , auth()->user()->mentor->id)
+            ->get();
+    }
+
+    public function deleteAll(): mixed
+    {
+        return $this->model->query()
+            ->where('mentor_id', auth()->user()->mentor->id)
+            ->whereDate('created_at' , now())
+            ->delete();
     }
 
     public function get(): mixed
     {
         return $this->model->query()
-        ->where('created_at', now())
-        ->get();
+            ->where('created_at', now())
+            ->get();
     }
 
     public function update(mixed $id, array $data): mixed
@@ -71,6 +82,4 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->where('status_presentation', $status)
             ->get();
     }
-
-
 }
