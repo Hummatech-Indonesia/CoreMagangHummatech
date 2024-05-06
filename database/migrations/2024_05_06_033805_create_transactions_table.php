@@ -22,11 +22,12 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('callback_url');
             $table->string('return_url');
-            $table->string('pay_code');
+            $table->string('pay_code')->nullable();
             $table->string('pay_url')->nullable();
             $table->integer('amount');
             $table->integer('total_fee');
             $table->enum('status', [TransactionStatusEnum::PENDING->value, TransactionStatusEnum::PAID->value, TransactionStatusEnum::EXPIRED->value, TransactionStatusEnum::CANCELLED->value, TransactionStatusEnum::FAILED->value, TransactionStatusEnum::REFUND->value, TransactionStatusEnum::UNPAID->value]);
+            $table->dateTime('expired_time');
             $table->timestamps();
         });
     }
