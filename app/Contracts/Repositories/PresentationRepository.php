@@ -10,6 +10,7 @@ use App\Contracts\Interfaces\ThesisInterface;
 use App\Models\CategoryBoard;
 use App\Models\Presentation;
 use App\Models\Thesis;
+use Carbon;
 use Flasher\Prime\Response\Presenter\PresenterInterface;
 
 class PresentationRepository extends BaseRepository implements PresentationInterface
@@ -19,10 +20,16 @@ class PresentationRepository extends BaseRepository implements PresentationInter
         $this->model = $presentation;
     }
 
+    public function GetToday(): mixed
+    {
+        return $this->model->query()->whereYear('created_at', Carbon::now()->year)->first();
+    }
+
     public function get(): mixed
     {
         return $this->model->query()
-            ->get();
+        ->where('created_at', now())
+        ->get();
     }
 
     public function update(mixed $id, array $data): mixed
