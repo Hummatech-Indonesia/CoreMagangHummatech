@@ -241,6 +241,7 @@ Route::middleware('auth')->group(function () {
 });
 
 # Transaction and Payment Routing
+Route::post('transaction/save', [TransactionController::class, 'save'])->name('transaction.save');
 Route::get('transaction/checkout/{product}', [TransactionController::class, 'checkout'])->name('transaction-history.checkout');;
 Route::get('transaction', function() {
     return view('student_online_&_offline.transaction.index');

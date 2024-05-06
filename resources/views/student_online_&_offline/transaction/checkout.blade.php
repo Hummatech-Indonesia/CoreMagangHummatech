@@ -149,11 +149,11 @@
                             </div>
                         </form>
 
-                    <form method="" action="" class="card-body pt-0">
-                        {{-- @if ($voucherDetail)
+                    <form method="POST" action="{{ route('transaction.save') }}" class="card-body pt-0">
+                        @csrf
+                        <!-- @if ($voucherDetail)
                             <input type="hidden" name="voucher_code" value="{{ $voucherDetail->code_voucher }}" />
-                        @endif
-                        <input type="hidden" name="user_id" value="{{ auth()->id() }}" id="user_id" />
+                        @endif -->
                         <input type="hidden" name="tax" value="{{ Transaction::countTax($cartData->subtotal()) }}"
                             id="tax" />
                         <input type="hidden" name="subtotal"
@@ -171,7 +171,7 @@
                         <input type="hidden" name="payment_name" id="payment-name" />
                         <input type="hidden" name="discount"
                             value="{{ Transaction::discount($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0) }}"
-                            id="discount" /> --}}
+                            id="discount" />
 
                         <div class="pb-3 d-flex gap-2 flex-column mb-3">
                             <div class="d-flex justify-content-between">
@@ -218,11 +218,11 @@
                         <div class="text-muted mb-3">*Semua sudah termasuk PPN.</div>
 
                         <div class="d-grid">
-                            <a href="{{ url('/transaction/detail') }}"
+                            <button type="submit"
                                 class="btn btn-rounded btn-lg bg-primary-subtle text-primary justify-content-between align-items-center d-flex gap-2">
                                 <span>Lanjutkan Ke Pembayaran</span>
                                 <i class="fas fa-arrow-right"></i>
-                            </a>
+                            </button>
                         </div>
                     </form>
                 </div>

@@ -14,7 +14,6 @@ return new class extends Migration
     {
         Schema::create('transaction_histories', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->timestamps();
             $table->string('transaction_id');
             $table->string('reference');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
@@ -24,6 +23,7 @@ return new class extends Migration
             $table->text('checkout_url');
             $table->enum('status', [TransactionStatusEnum::PENDING->value, TransactionStatusEnum::PAID->value, TransactionStatusEnum::EXPIRED->value, TransactionStatusEnum::CANCELLED->value, TransactionStatusEnum::FAILED->value, TransactionStatusEnum::REFUND->value, TransactionStatusEnum::UNPAID->value])->nullable()->default(TransactionStatusEnum::PENDING->value);
             $table->dateTime('paid_at')->nullable()->useCurrent();
+            $table->timestamps();
         });
     }
 
