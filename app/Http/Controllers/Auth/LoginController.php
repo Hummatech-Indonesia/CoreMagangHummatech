@@ -44,6 +44,10 @@ class LoginController extends Controller
                 'id' => $loggedInUser->id,
                 'name' => $loggedInUser->name,
                 'email' => $email,
+                'avatar' => asset('storage/' . $loggedInUser->student->avatar),
+                'division' => $loggedInUser->student->division->name,
+                'school' => $loggedInUser->school,
+                'phone_number' => $loggedInUser->phone,
             ];
 
             // Buat respons JSON
