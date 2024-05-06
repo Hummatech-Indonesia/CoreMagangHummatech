@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\CategoryProjectInterface;
 use App\Contracts\Interfaces\HummataskTeamInterface;
+use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\StudentInterface;
@@ -28,10 +29,11 @@ class HummataskTeamController extends Controller
     private ProjectService $projectService;
     private ProjectInterface $project;
     private StudentProjectService $studentProjectService;
+    private MentorDivisionInterface $mentordivision;
     private StudentProjectInterface $studentProject;
     private CategoryProjectInterface $categoryProject;
     private StudentInterface $student;
-    private StudentTeamInterface $studentTeam; 
+    private StudentTeamInterface $studentTeam;
     private MentorStudentInterface $mentorStudent;
 
     public function __construct(
@@ -40,11 +42,14 @@ class HummataskTeamController extends Controller
         StudentProjectService $studentProjectService, StudentProjectInterface $studentProject,
         CategoryProjectInterface $categoryProject,
         StudentInterface $student,
+        MentorDivisionInterface $mentordivision,
         StudentTeamInterface $studentTeam,
-        MentorStudentInterface $mentorStudent)
+        MentorStudentInterface $mentorStudent
+        )
     {
         $this->hummatask_team = $hummatask_team;
         $this->service = $service;
+        $this->mentordivision = $mentordivision;
         $this->projectService = $projectService;
         $this->project = $project;
         $this->studentProjectService = $studentProjectService;
@@ -76,8 +81,9 @@ class HummataskTeamController extends Controller
      */
     public function store(StoreHummataskTeamRequest $request)
     {
-        // dd($request);
         $data = $this->service->storeTim($request);
+        $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
+        $data['division_id'] = $mentors[0]->division_id;
         $hummatask_team = $this->hummatask_team->store($data);
         foreach ($request->student_id as $student_id) {
             $this->studentTeam->store([
@@ -85,6 +91,7 @@ class HummataskTeamController extends Controller
                 'student_id' => $student_id,
             ]);
         }
+
         return back()->with('success', 'Team baru berhasil ditambahkan');
     }
 
@@ -96,7 +103,7 @@ class HummataskTeamController extends Controller
         $slugs = $this->hummatask_team->slug($slug);
         $projects = $this->project->where('title', $slugs->slug);
         $studentProjects = [];
-        
+
         foreach ($projects as $project) {
             $studentProjects = $this->studentProject->where('project_id', $project->id);
         }
@@ -155,7 +162,8 @@ class HummataskTeamController extends Controller
     public  function mentor(){
         $categoryProjects = $this->categoryProject->get();
         $students = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
-        $teams = $this->studentTeam->getTeamsByMentorId(auth()->user()->mentor->id);
-        return view('mentor.team.index', compact('categoryProjects', 'students', 'teams'));
+        $teams = $this->hummatask_team->WhereTeam();
+        $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
+        return view('mentor.team.index', compact('categoryProjects', 'students', 'teams' ,'mentors'));
     }
 }

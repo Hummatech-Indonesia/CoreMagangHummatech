@@ -62,7 +62,7 @@ class HummataskTeam extends Model
      */
     public function categoryProject(): BelongsTo
     {
-        return $this->belongsTo(CategoryProject::class);
+        return $this->belongsTo(CategoryProject::class , 'category_project_id');
     }
     public function categoryBoards()
     {

@@ -146,7 +146,7 @@ class UserSeeder extends Seeder
             'password' => 'password',
             'internship_type' => 'offline'
         ]);
-        
+
 
         # Create User data
         collect($student)->each(function ($student) {
@@ -176,6 +176,8 @@ class UserSeeder extends Seeder
         $mentor = Mentor::factory()->create([
             'name' => 'Test Mentor',
             'email' => 'mentor@example.com',
+            'division_id' => 1
+
         ]);
 
         MentorDivision::factory()->create([

@@ -13,6 +13,11 @@ class HummataskTeamRepository extends BaseRepository implements HummataskTeamInt
         $this->model = $hummatask_team;
     }
 
+    public function WhereTeam(): mixed
+    {
+        return $this->model->query()->where('division_id' , auth()->user()->mentor->division_id)->get();
+    }
+
     public function get(): mixed
     {
         return $this->model->query()
@@ -21,8 +26,7 @@ class HummataskTeamRepository extends BaseRepository implements HummataskTeamInt
 
     public function store(array $data): mixed
     {
-        return $this->model->query()
-        ->create($data);
+        return $this->model->query()->create($data);
     }
     public function delete(mixed $id): mixed
     {

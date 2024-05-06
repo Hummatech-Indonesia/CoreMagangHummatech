@@ -78,6 +78,7 @@
                     {{-- end modal  --}}
                     <form action="{{ route('presentation.store') }}" method="POST" class="row g-3">
                         @csrf
+                        @if ($limits)
                         <input type="hidden" name="mentor_id" value="{{ auth()->user()->mentor->id }}">
                         @for ($i = 0; $i < $limits->limits; $i++)
                             <div class="col-md-2 mb-4 pt-3">
@@ -97,13 +98,17 @@
                                 <label for="end-time-{{ $i }}" class="form-label">Waktu
                                     Selesai:</label>
                                 <input type="time" class="form-control @error('end_date') is-invalid @enderror"
-                                    id="end-time-{{ $i }}" name="end_date[]" value="{{ old('end_date.' . $i, $presentations[$i]->end_date ?? '') }}">
+                                    id="end-time-{{ $i }}" name="end_date[]"
+                                    value="{{ old('end_date.' . $i, $presentations[$i]->end_date ?? '') }}">
                                 @error('end_date')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <input type="hidden" name="schedule_to[]" value="Jadwal Ke {{ $i + 1 }}">
                         @endfor
+                        @else
+
+                        @endif
                         <div class="col-md-12 mt-3">
                             <button type="submit" class="btn btn-primary float-end">Simpan</button>
                         </div>

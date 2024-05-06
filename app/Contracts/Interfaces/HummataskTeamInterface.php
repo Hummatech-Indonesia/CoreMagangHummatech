@@ -11,4 +11,5 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 interface HummataskTeamInterface extends GetInterface, StoreInterface, DeleteInterface, UpdateInterface, SlugInterface
 {
     public function where($parameter, $value): mixed;
+    public function WhereTeam(): mixed;
 }
