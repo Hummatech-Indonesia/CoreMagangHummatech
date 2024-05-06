@@ -86,4 +86,14 @@ class Student extends Model implements HasAttendances, HasOneActiveFeature
     {
         return $this->hasMany(Face::class);
     }
+
+    /**
+     * Get all of the studentTeams for the Student
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function studentTeams(): HasMany
+    {
+        return $this->hasMany(studentTeam::class);
+    }
 }

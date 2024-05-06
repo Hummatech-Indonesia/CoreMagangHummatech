@@ -74,6 +74,7 @@ use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\StudentChallengeInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Contracts\Interfaces\StudentTaskInterface;
+use App\Contracts\Interfaces\StudentTeamInterface;
 use App\Contracts\Interfaces\SubCourseUnlockInterface;
 use App\Contracts\Interfaces\TaskSubmissionInterface;
 use App\Contracts\Interfaces\ThesisInterface;
@@ -108,6 +109,7 @@ use App\Contracts\Repositories\OrderRepository;
 use App\Contracts\Repositories\PresentationRepository;
 use App\Contracts\Repositories\ProjectRepository;
 use App\Contracts\Repositories\StudentProjectRepository;
+use App\Contracts\Repositories\StudentTeamRepository;
 use App\Contracts\Repositories\ThesisRepository;
 use App\Contracts\Repositories\VoucherUsageRepository;
 
@@ -165,7 +167,8 @@ class AppServiceProvider extends ServiceProvider
         AppointmentOfMentorInterface::class => AppointmentOfMentorRepository::class,
         ProjectInterface::class => ProjectRepository::class,
         StudentProjectInterface::class => StudentProjectRepository::class,
-        FaceInterface::class => FaceRepository::class
+        FaceInterface::class => FaceRepository::class,
+        StudentTeamInterface::class => StudentTeamRepository::class,
     ];
 
     /**

@@ -68,4 +68,14 @@ class HummataskTeam extends Model
     {
         return $this->hasMany(CategoryBoard::class);
     }
+
+        /**
+     * Get all of the studentTeams for the Student
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function studentTeams(): HasMany
+    {
+        return $this->hasMany(studentTeam::class);
+    }
 }

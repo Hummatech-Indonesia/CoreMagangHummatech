@@ -32,35 +32,39 @@
 </div>
 
 <div class="row  mt-5">
-      <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12">
-        <div class="card">
-            <div class="card-img-top">
-                <img class=" img-responsive w-100" src="{{ asset('assets-user/images/laravel-11.jpg') }}" style="object-fit: cover; border-radius: 10px 10px 0px 0px" />
-                <button type="button" class="bg-info rounded-1 text-white py-1 px-2 border-0 mt-2 btn-delete" style="position: absolute; margin-left: -45px">
-                    <i class="ti ti-trash fs-6"></i>
-                </button>
-            </div>
-          <div class="d-flex justify-content-between px-3" style="margin-top: -20px">
-            <div class="d-flex align-items-center">
-                <a href="#">
-                  <img src="{{ asset('assets/images/users/avatar-1.jpg') }}" class="rounded-circle me-n4 card-hover border border-white" width="40" height="40">
-                </a>
-                <a href="#">
-                  <img src="{{ asset('assets/images/users/avatar-2.jpg') }}" class="rounded-circle me-n4 card-hover border border-white" width="40" height="40">
-                </a>
-                <a href="#">
-                  <img src="{{ asset('assets/images/users/avatar-2.jpg') }}" class="rounded-circle me-n4 card-hover border border-white" width="40" height="40">
-                </a>
-            </div>
-            <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 12px;">sjgjf</div>
+  @forelse ($teams as $team)
+    <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12">
+      <div class="card">
+          <div class="card-img-top">
+              <img class=" img-responsive w-100" src="{{ asset('assets-user/images/laravel-11.jpg') }}" style="object-fit: cover; border-radius: 10px 10px 0px 0px" />
+              <button type="button" class="bg-info rounded-1 text-white py-1 px-2 border-0 mt-2 btn-delete" style="position: absolute; margin-left: -45px">
+                  <i class="ti ti-trash fs-6"></i>
+              </button>
           </div>
-          <div class="card-body px-3 mt-n3">
-              <h4>tim mini</h4>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, quisquam!</p>
-            <a href="/mentor/team/detail" class="btn btn-primary col-12">Lihat detail</a>
+        <div class="d-flex justify-content-between px-3" style="margin-top: -20px">
+          <div class="d-flex align-items-center">
+            
+              <a href="#">
+                <img src="{{ asset('assets/images/users/avatar-1.jpg') }}" class="rounded-circle me-n4 card-hover border border-white" width="40" height="40">
+              </a>
           </div>
+          <div class="px-2 py-1 rounded-2 rounded" style="background: #fff; font-size: 12px;">sjgjf</div>
+        </div>
+        <div class="card-body px-3 mt-n3">
+            <h4>tim mini</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, quisquam!</p>
+          <a href="/mentor/team/detail" class="btn btn-primary col-12">Lihat detail</a>
         </div>
       </div>
+    </div>
+  @empty
+  <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+    <img src="{{ asset('empty-asset.png') }}" alt="" width="200px" srcset="">
+    <p class="fs-5 text-dark">
+        Belum Ada Team
+    </p>
+  </div>
+  @endforelse
 </div>
 
 <div class="modal fade" id="add-team" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -70,7 +74,7 @@
         <h5 class="modal-title px-3" id="staticBackdropLabel">Buat Tim Baru</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="{{ route('soloTeam.store') }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('team.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
       <div class="modal-body">
           <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
@@ -93,37 +97,37 @@
                       <div class="text-danger">{{ $message }}</div>
                   @enderror
                   <label for="" class="mt-2 mb-1">Ketua tim</label>
-                  <select class="select2 form-control custom-select" style="width: 100%; height: 36px" name="student_id">
+                  <select class="select2 form-control custom-select" style="width: 100%; height: 36px" name="leader">
                       <option>Pilih ketua tim</option>
                       @forelse ($students as $student)
-                          <option value="{{ $student->id }}">{{ $student->name }}</option>
+                          <option value="{{ $student->id }}">{{ $student->student->name }}</option>
                       @empty
                           <option>Tidak ada siswa</option>
                       @endforelse
                   </select>
-                  @error('student_id')
+                  @error('leader')
                       <div class="text-danger">{{ $message }}</div>
                   @enderror
-                  <label for="" class="mt-2 mb-1">Anggota tim</label>
-                  <select
-                      class="select2-with-border form-control"
-                      id="border-multiple"
-                      multiple="multiple"
-                      data-border-color="info"
-                      data-border-variation="accent-2"
-                      data-text-color="white"
-                      name="student_id"
-                    >
-                      <option>Pilih anggota tim</option>
-                      @forelse ($students as $student)
-                          <option value="{{ $student->id }}">{{ $student->name }}</option>
-                      @empty
-                          <option>Tidak ada siswa</option>
-                      @endforelse
-                  </select>
-                  @error('student_id')
-                      <div class="text-danger">{{ $message }}</div>
-                  @enderror
+
+                  <div class="mb-3 mt-2 col-md-12">
+                      <label for="bm-title">Anggota tim</label>
+                      <select class="select2 form-control custom-select" style="width: 100%; height: 36px" name="student_id[]">
+                        <option>Pilih anggota tim</option>
+                        @forelse ($students as $student)
+                            <option value="{{ $student->id }}">{{ $student->student->name }}</option>
+                        @empty
+                            <option>Tidak ada siswa</option>
+                        @endforelse
+                      </select>
+                      @error('student_id.*')
+                          <p class="text-danger">{{ $message }}</p>
+                      @enderror
+
+                      <div id="member"></div>
+
+                      <button type="button" class="btn add-button-trigger btn-primary mt-3">Tambah
+                          anggota</button>
+                  </div>
               </div>
           </div>
       </div>
@@ -155,6 +159,31 @@
     $(document).ready(function() {
         $('.js-example-basic-multiple').select2();
     });
+
+    const deleteElement = (id) => $('#' + id).remove();
+
+        (() => {
+            $('.add-button-trigger').click((e) => {
+                let idInput = 'input_' + Math.random().toString(36).substr(2, 9); // Generate random id
+                let target = $(e.target).parent().find('#member');
+                target.append(`<div class="d-flex align-items-center mt-3 gap-2" id="${idInput}">
+                  <select class="select2 form-control custom-select" style="width: 100%; height: 36px" name="student_id[]">
+                    <option>Pilih anggota tim</option>
+                    @forelse ($students as $student)
+                        <option value="{{ $student->id }}">{{ $student->student->name }}</option>
+                    @empty
+                        <option>Tidak ada siswa</option>
+                    @endforelse
+                  </select>
+                <button onclick="deleteElement('${idInput}')" type="button" class="btn delete-trigger px-3 mt-0 btn-danger"><i class="fas fa-trash"></i></button>
+                </div>`);
+            });
+
+            $('.btn-close').click((e) => {
+                let target = $(e.target).parent('.modal').find('.delete-trigger');
+                target.each((i, el) => $(el).click());
+            });
+        })();
 </script>
 
 @endsection

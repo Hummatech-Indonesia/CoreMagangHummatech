@@ -42,8 +42,9 @@ class HummataskTeamService
     public function store(Request $request): array|bool
     {
         $data = $request->all();
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $data['image'] = $request->file('image')->store(TypeEnum::HUMMATASKTEAM->value, 'public');
+        if ($data) {
+            $data['student_id'] = $request->leader;
+            $data['slug'] = $request->name;
             return $data;
         }
         return false;
