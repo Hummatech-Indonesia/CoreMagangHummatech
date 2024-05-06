@@ -33,7 +33,7 @@
 
     <div class="card">
         <div class="card-header pt-4 bg-white d-flex justify-content-between flex-column flex-xl-row">
-            <h3 class="mb-0">Status Pembayaran: <strong class="text-success">Lunas</strong>
+            <h3 class="mb-0">Status Pembayaran: <strong class="text-success">{{ $transaction->status }}</strong>
             </h3>
 
             <div class="d-flex gap-2 align-items-center">
@@ -57,10 +57,10 @@
                         <div class="col-md-6 mb-3 mb-md-0 text-end">
                             <h5 class="mb-3">Ditagihkan Kepada</h5>
 
-                            <p class="mb-2">FARAH AMALIA</p>
-                            <p class="mb-2">MALANG</p>
-                            <p class="mb-2">farah@gmail.com</p>
-                            <p class="mb-2">08263268</p>
+                            <p class="mb-2">{{ $transaction->user->name }}</p>
+                            <p class="mb-2">{{ $transaction->user->student->address }}</p>
+                            <p class="mb-2">{{ $transaction->user->email }}</p>
+                            <p class="mb-2">{{ $transaction->user->student->phone }}</p>
                         </div>
                     </div>
 
@@ -84,32 +84,27 @@
                                             @else
                                             Berlangganan: <strong>{{ $reference->order->name }}</strong>
                                             @endif --}}
-                                            Berlangganan: <strong>Laravel 11</strong>
+                                            Berlangganan: <strong>{{ $transaction->product->name }}</strong>
                                         </td>
-                                        <td>100.000</td>
+                                        <td>{{ $transaction->product->price }}</td>
                                     </tr>
 
                                     <tr>
                                         <td class="border-0 pb-1"></td>
                                         <td class="border-0 pb-1">Subtotal</td>
-                                        <td class="border-0 pb-1">100.000</td>
+                                        <td class="border-0 pb-1">{{ $transaction->product->price }}</td>
                                     </tr>
                                     <tr>
                                         <td class="border-0 opacity-50 py-1"></td>
                                         <td class="border-0 opacity-50 py-1">PPn 11%</td>
                                         <td class="border-0 opacity-50 py-1">
-                                            {{-- @if($reference->voucherUsage)
-                                            @currency(Transaction::countTax(Transaction::discountSubtotal($reference->order->price, (int) $reference->voucherUsage->voucher->presentase)))
-                                            @else
-                                            @currency(Transaction::countTax($reference->order->price))
-                                            @endif --}}
-                                            11.000
+                                            {{ $transaction->product->price * (11/100) }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="border-0 opacity-50 pb-3 pt-1"></td>
-                                        <td class="border-0 opacity-50 pb-3 pt-1">Biaya Administrasi</td>
-                                        <td class="border-0 opacity-50 pb-3 pt-1">2.000</td>
+                                        <td class="border-0 opacity-50 pb-3 pt-1">Biaya Lainya</td>
+                                        <td class="border-0 opacity-50 pb-3 pt-1">{{ ($transaction->amount + $transaction->total_fee) - ($transaction->product->price + $transaction->product->price * (11/100)) }}</td>
                                     {{-- {{-- </tr> --}}
                                     {{-- @if($reference->voucherUsage)
                                     <tr>
@@ -122,7 +117,7 @@
                                     <tr>
                                         <td class="bg-primary-subtle fw-bolder"></td>
                                         <td class="bg-primary-subtle fw-bolder">Total Bayar</td>
-                                        <td class="bg-primary-subtle text-primary fw-bolder">100.000</td>
+                                        <td class="bg-primary-subtle text-primary fw-bolder">{{ $transaction->amount + $transaction->total_fee }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -134,7 +129,7 @@
                             <div class="d-flex gap-2 flex-column">
                                 <span class="fw-bolder">Rekening</span>
                                 <h3 class="mb-0 fw-bolder text-primary" id="paymentCode">
-                                    JSGHAUEW2</h3>
+                                    {{ $transaction->pay_code }}</h3>
                             </div>
 
                             <div>
@@ -174,46 +169,43 @@
                 <div class="col-md-4">
                     <section class="mb-3">
                         <h5 class="">Instruksi Pembayaran</h5>
+                        @foreach ($instructions as $instruction)
                         <div class="accordion mt-3" id="instructionsAccordion">
-                           
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="heading">
-                                        <button class="accordion-button"
-                                            type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapse" aria-expanded="false"
-                                            aria-controls="collapse">
-                                            pertama
-                                        </button>
-                                    </h2>
-                                    <div id="collapse"
-                                        class="accordion-collapse collapse"
-                                        aria-labelledby="heading"
-                                        data-bs-parent="#instructionsAccordion">
-                                        <div class="accordion-body">
-                                            <ol>
-                                                <li>Lorem, ipsum dolor.</li>
-                                            </ol>
-                                        </div>
-                                    </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading">
+                                <button class="accordion-button"
+                                    type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse" aria-expanded="false"
+                                    aria-controls="collapse">
+                                    {{ $instruction['title'] }}
+                                </button>
+                            </h2>
+                            <div id="collapse"
+                                class="accordion-collapse collapse"
+                                aria-labelledby="heading"
+                                data-bs-parent="#instructionsAccordion">
+                                <div class="accordion-body">
+                                    @foreach ($instruction['steps'] as $step)
+                                    <ol>
+                                        <li>{!! $step !!}</li>
+                                    </ol>
+
+                                    @endforeach
                                 </div>
+                            </div>
                         </div>
+                        </div>
+                        @endforeach
                     </section>
                     <section id="transaction-detail" class="mb-3">
                         <h5 class="mb-3">Detail Transaksi</h5>
 
                         <div class="mb-3">
-                            <div class="border-bottom border-top p-3 px-0 px-md-3 flex-column flex-lg-row justify-content-between gap-2 d-flex align-items-start align-items-md-center">
-                                <strong>ID Transaksi</strong>
-                                <div class="d-flex gap-2 align-items-center">
-                                    <a href="javascript:copyContent('id-transaction')" class="text-dark"><i class="fas fa-copy fa-fw"></i></a>
-                                    <span id="id-transaction">MAGANG-1234</span>
-                                </div>
-                            </div>
                             <div class="border-bottom p-3 px-0 px-md-3 flex-column flex-lg-row justify-content-between gap-2 d-flex align-items-start align-items-md-center">
                                 <strong>Kode Referensi</strong>
                                 <div class="d-flex gap-2 align-items-center">
                                     <a href="javascript:copyContent('id-reference')" class="text-dark"><i class="fas fa-copy fa-fw"></i></a>
-                                    <span><span id="id-reference">233455</span></span>
+                                    <span><span id="id-reference">{{ $transaction->reference }}</span></span>
                                 </div>
                             </div>
                             <div class="border-bottom p-3 px-0 px-md-3 flex-column flex-lg-row justify-content-between gap-2 d-flex align-items-start align-items-md-center">
@@ -226,7 +218,7 @@
                         <h5 class="mb-2">Aksi</h5>
 
                         <div class="list-group list-group-flush">
-                                <a href="{{ route('transaction-history.detail') }}"
+                                <a href="#"
                                     class="list-group-item list-group-action p-3 d-flex align-items-center gap-2">
                                     <i class="fas fa-sync"></i>
                                     <span>Periksa</span>
