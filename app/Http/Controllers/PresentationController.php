@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Contracts\Interfaces\LimitPresentationInterface;
 use App\Contracts\Interfaces\PresentationInterface;
 use App\Enum\StatusPresentationEnum;
 use App\Models\Presentation;
 use App\Http\Requests\StorePresentationRequest;
 use App\Http\Requests\UpdatePresentationRequest;
+use App\Models\HummataskTeam;
 use App\Models\LimitPresentation;
+use App\Models\Project;
 use App\Services\PresentationService;
 use Carbon;
 
@@ -16,10 +19,14 @@ class PresentationController extends Controller
 {
     private PresentationInterface $presentation;
     private LimitPresentationInterface $limits;
-    public function __construct(PresentationInterface $presentation, LimitPresentationInterface $limits, PresentationService $service)
+    private Project $project;
+    private HummataskTeamInterface $hummataskTeam;
+    public function __construct(PresentationInterface $presentation, LimitPresentationInterface $limits, PresentationService $service, Project $project, HummataskTeamInterface $hummataskTeam)
     {
         $this->presentation = $presentation;
         $this->limits = $limits;
+        $this->project = $project;
+        $this->hummataskTeam = $hummataskTeam;
     }
     /**
      * Display a listing of the resource.
@@ -34,9 +41,20 @@ class PresentationController extends Controller
     }
     public function mentorshow()
     {
+        $today = Carbon::now()->startOfWeek()->locale('id');
+        $tabs = [];
+
+        for ($i = 0; $i < 5; $i++) {
+            $tabDate = $today->copy()->addDays($i);
+            $tabName = $tabDate->translatedFormat('l');
+            $tabs[] = [
+                'date' => $tabDate->toDateString(),
+                'name' => $tabName
+            ];
+        }
         $limits = $this->limits->first();
         $presentations = $this->presentation->get();
-        return view('mentor.presentation.index2',compact('limits','presentations'));
+        return view('mentor.presentation.index',compact('limits','presentations'));
     }
 
     /**
@@ -58,10 +76,8 @@ class PresentationController extends Controller
 
     public function store(StorePresentationRequest $request)
     {
-        // Validasi input
         $validatedData = $request->validated();
 
-        // Lakukan penyimpanan dengan SOLID Principle
         $presentationService = new PresentationService();
         $result = $presentationService->storePresentations($validatedData);
 
@@ -107,5 +123,14 @@ class PresentationController extends Controller
     {
         $this->presentation->delete($presentation->id);
         return back()->with('success' , 'Data Berhasil Dihapus');
+    }
+
+    public function usershow($slug, HummataskTeam $hummataskTeam)
+    {
+        $slugs = $this->hummataskTeam->slug($slug);
+        $limits = $this->limits->first();
+        $presentations = $this->presentation->get();
+        return view('Hummatask.team.presentation', compact('hummataskTeam', 'presentations','limits', 'slugs'));
+
     }
 }

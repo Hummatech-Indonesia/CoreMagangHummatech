@@ -13,23 +13,24 @@ class Board extends Model
 
     public function countdown()
     {
-        $end = Carbon::parse($this->end_date);
-        $now = Carbon::now();
+        if (!empty($this->start_date) && !empty($this->end_date)) {
+            $start = Carbon::parse($this->start_date);
+            $end = Carbon::parse($this->end_date);
+            $now = Carbon::now();
 
-        // Hitung selisih hari
-        $diffInDays = $now->diffInDays($end);
+            $diffInDays = $start->diffInDays($end);
 
-        if ($diffInDays > 0) {
-            // Selisih hari masih positif, menampilkan waktu yang tersisa
-            return "Kurang {$diffInDays} hari";
-        } elseif ($diffInDays == 0) {
-            // Hari ini adalah deadline
-            return "Hari ini adalah deadline";
+            if ($now->greaterThan($end)) {
+                return 'Melebihi deadline';
+            } else {
+                return $diffInDays . ' hari lagi';
+            }
         } else {
-            // Deadline telah terlewati
-            return "Sudah melewati deadline";
+            return '';
         }
     }
+
+
     public function categoryBoard()
     {
         return $this->belongsTo(CategoryBoard::class);

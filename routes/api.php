@@ -11,7 +11,7 @@ use App\Http\Controllers\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-Route::post('/login', [AuthLoginController::class, 'ApiLogin']);
+Route::post('/ApiLogin', [AuthLoginController::class, 'ApiLogin']);
 
 
 Route::middleware('auth')->group(function () {

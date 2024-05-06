@@ -13,6 +13,7 @@ use App\Models\Product;
 use App\Models\TransactionHistory;
 use Carbon\Carbon;
 use Cart;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Transaction;
@@ -65,6 +66,22 @@ class TransactionController extends Controller
         // dd($paymentChannel);
 
         return view('student_online_&_offline.transaction.checkout', compact('product', 'paymentChannel', 'cartData', 'voucherDetail'));
+    }
+
+    public function save(Request $request): RedirectResponse
+    {
+        dd($request->all());
+        $data = [
+            'transaction_id' => $request->id,
+            'reference' => $request->reference,
+            'user_id' => auth()->user()->id,
+            'amount' => $request->amount,
+            'issued_at' => $request->issued_at,
+            'expired_at' => $request->expired_at,
+            'checkout_url' => $request->checkout_url,
+        ];
+        $this->transactionHistory->store($data);
+        return to_route('transaction-history.detail');
     }
 
     public function store(Request $request)

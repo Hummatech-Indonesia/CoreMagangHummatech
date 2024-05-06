@@ -16,7 +16,7 @@
                     <!-- Dashboard -->
                     <!-- =================== -->
                     <li class="sidebar-item px-2">
-                        <a class="sidebar-link " href="{{ url('/hummateam/team', $hummataskTeam->id) }}" aria-expanded="false">
+                        <a class="sidebar-link " href="{{ route('team.show', ['slug' => $slugs->slug]) }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-aperture"></i>
                             </span>
@@ -24,7 +24,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item px-2">
-                        <a class="sidebar-link " href="{{ url('/hummateam/board', $hummataskTeam->id) }}" aria-expanded="false">
+                        <a class="sidebar-link " href="{{ route('team.board', ['slug' => $slugs->slug]) }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-aperture"></i>
                             </span>
@@ -32,11 +32,19 @@
                         </a>
                     </li>
                     <li class="sidebar-item px-2">
-                        <a class="sidebar-link " href="{{url('/hummateam/note', $hummataskTeam->id)}}" aria-expanded="false">
+                        <a class="sidebar-link " href="{{ route('team.note', ['slug' => $slugs->slug]) }}" aria-expanded="false">
                             <span>
                                 <i class="ti ti-aperture"></i>
                             </span>
                             <span class="hide-menu">Catatan</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item px-2">
+                        <a class="sidebar-link " href="{{ route('team.presentation', ['slug' => $slugs->slug]) }}" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-aperture"></i>
+                            </span>
+                            <span class="hide-menu">Presentation</span>
                         </a>
                     </li>
                     <li class="nav-item ms-auto">

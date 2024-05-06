@@ -27,13 +27,13 @@ class HummataskTeamController extends Controller
     private StudentProjectService $studentProjectService;
     private StudentProjectInterface $studentProject;
     private CategoryProjectInterface $categoryProject;
-    private StudentInterface $student; 
+    private StudentInterface $student;
 
     public function __construct(
-        HummataskTeamInterface $hummatask_team, HummataskTeamService $service, 
-        ProjectService $projectService, ProjectInterface $project, 
-        StudentProjectService $studentProjectService, StudentProjectInterface $studentProject, 
-        CategoryProjectInterface $categoryProject, 
+        HummataskTeamInterface $hummatask_team, HummataskTeamService $service,
+        ProjectService $projectService, ProjectInterface $project,
+        StudentProjectService $studentProjectService, StudentProjectInterface $studentProject,
+        CategoryProjectInterface $categoryProject,
         StudentInterface $student)
     {
         $this->hummatask_team = $hummatask_team;
@@ -75,14 +75,16 @@ class HummataskTeamController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(HummataskTeam $hummataskTeam)
+    public function show($slug, HummataskTeam $hummataskTeam)
     {
-        $projects = $this->project->where('hummatask_team_id', $hummataskTeam->id);
-
+        $slugs = $this->hummatask_team->slug($slug);
+        $projects = $this->project->where('title', $slugs->slug);
+        $studentProjects = [];
+        
         foreach ($projects as $project) {
             $studentProjects = $this->studentProject->where('project_id', $project->id);
         }
-        return view('Hummatask.team.index', compact('hummataskTeam', 'studentProjects'));
+        return view('Hummatask.team.index', compact('hummataskTeam', 'studentProjects', 'slugs'));
     }
 
     /**
@@ -115,6 +117,8 @@ class HummataskTeamController extends Controller
 
     public function soloTeam(Request $request){
         $data = $this->service->store($request);
+        $data['student_id'] = auth()->user()->student->id;
+        $data['slug'] = $request->name;
         $team = $this->hummatask_team->store($data);
 
         $projectVar['hummatask_team_id'] = $team->id;

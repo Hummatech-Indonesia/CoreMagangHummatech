@@ -18,9 +18,10 @@ class NoteTeamController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(HummataskTeam $hummataskTeam)
+    public function index($slug, HummataskTeam $hummataskTeam)
     {
-        return view('Hummatask.team.note', compact('hummataskTeam'));
+        $slugs = $this->hummataskTeam->slug($slug);
+        return view('Hummatask.team.note', compact('hummataskTeam', 'slugs'));
 
     }
 
