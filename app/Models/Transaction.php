@@ -27,6 +27,7 @@ class Transaction extends Model implements HasUser, HasProduct
         'amount',
         'total_fee',
         'status',
+        'expired_time',
     ];
 
     protected $guarded = [];

@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\TransactionInterface;
 use App\Helpers\CurrencyHelper;
 use App\Http\Requests\TransactionRequest;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request as HttpRequest;
 use Request;
 
@@ -67,6 +68,8 @@ class TransactionService {
             'amount' => $createInvoice['data']['amount'],
             'total_fee' => $createInvoice['data']['total_fee'],
             'status' => $createInvoice['data']['status'],
+            'expired_time' => Carbon::createFromTimestamp($createInvoice['data']['expired_time'])->format('Y-m-d H:i:s'),
+
         ]);
 
         return $transaction;
