@@ -77,7 +77,7 @@ class HummataskTeamController extends Controller
     public function store(StoreHummataskTeamRequest $request)
     {
         // dd($request);
-        $data = $this->service->store($request);
+        $data = $this->service->storeTim($request);
         $hummatask_team = $this->hummatask_team->store($data);
         foreach ($request->student_id as $student_id) {
             $this->studentTeam->store([

@@ -49,6 +49,17 @@ class HummataskTeamService
         return false;
     }
 
+    public function storeTim(Request $request): array|bool
+    {
+        $data = $request->all();
+        if ($data) {
+            $data['student_id'] = $request->leader;
+            $data['slug'] = $request->name;
+            return $data;
+        }
+        return false;
+    }
+
     /**
      * Handle update data event to models.
      *
