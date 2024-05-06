@@ -37,24 +37,13 @@ class PresentationController extends Controller
         $pendings = $this->presentation->whereStatus(StatusPresentationEnum::PENNDING->value);
         $ongoings = $this->presentation->whereStatus(StatusPresentationEnum::ONGOING->value);
         $limits = $this->limits->first();
-        return view('admin.page.offline-students.presentation.index' , compact('finisheds','pendings','ongoings','limits'));
+        return view('admin.page.offline-students.presentation.index', compact('finisheds', 'pendings', 'ongoings', 'limits'));
     }
     public function mentorshow()
     {
-        $today = Carbon::now()->startOfWeek()->locale('id');
-        $tabs = [];
-
-        for ($i = 0; $i < 5; $i++) {
-            $tabDate = $today->copy()->addDays($i);
-            $tabName = $tabDate->translatedFormat('l');
-            $tabs[] = [
-                'date' => $tabDate->toDateString(),
-                'name' => $tabName
-            ];
-        }
-        $limits = $this->limits->first();
-        $presentations = $this->presentation->get();
-        return view('mentor.presentation.index',compact('limits','presentations'));
+        $limits = $this->limits->get();
+        $presentations = $this->presentation->GetToday();
+        return view('mentor.presentation.index', compact('limits', 'presentations'));
     }
 
     /**
@@ -76,16 +65,19 @@ class PresentationController extends Controller
 
     public function store(StorePresentationRequest $request)
     {
-        $validatedData = $request->validated();
 
-        $presentationService = new PresentationService();
-        $result = $presentationService->storePresentations($validatedData);
-
-        if ($result['success']) {
-            return back()->with('success', 'Data berhasil ditambahkan.');
-        } else {
-            return back()->with('error', 'Terjadi kesalahan. Silakan coba lagi.');
+        $i = 0;
+        $this->presentation->deleteAll();
+        foreach ($request->start_date as $start) {
+            $this->presentation->store([
+                'mentor_id' => $request['mentor_id'],
+                'schedule_to' => $request['schedule_to'][$i],
+                'start_date' => $start,
+                'end_date' => $request['end_date'][$i],
+            ]);
+            $i++;
         }
+        return redirect()->back()->with('success', 'Berhasil menambah wajah');
     }
 
     /**
@@ -96,7 +88,7 @@ class PresentationController extends Controller
         $finisheds = $this->presentation->whereStatus(StatusPresentationEnum::FINISH->value);
         $pendings = $this->presentation->whereStatus(StatusPresentationEnum::PENNDING->value);
         $ongoings = $this->presentation->whereStatus(StatusPresentationEnum::ONGOING->value);
-        return view('admin.page.presentation.index' , compact('finisheds','pendings','ongoings'));
+        return view('admin.page.presentation.index', compact('finisheds', 'pendings', 'ongoings'));
     }
 
     /**
@@ -112,8 +104,8 @@ class PresentationController extends Controller
      */
     public function update(UpdatePresentationRequest $request, Presentation $presentation)
     {
-        $this->presentation->update($presentation->id , $request->validated());
-        return back()->with('success' , 'Data Berhasil Diperbarui');
+        $this->presentation->update($presentation->id, $request->validated());
+        return back()->with('success', 'Data Berhasil Diperbarui');
     }
 
     /**
@@ -122,7 +114,7 @@ class PresentationController extends Controller
     public function destroy(Presentation $presentation)
     {
         $this->presentation->delete($presentation->id);
-        return back()->with('success' , 'Data Berhasil Dihapus');
+        return back()->with('success', 'Data Berhasil Dihapus');
     }
 
     public function usershow($slug, HummataskTeam $hummataskTeam)
@@ -130,7 +122,6 @@ class PresentationController extends Controller
         $slugs = $this->hummataskTeam->slug($slug);
         $limits = $this->limits->first();
         $presentations = $this->presentation->get();
-        return view('Hummatask.team.presentation', compact('hummataskTeam', 'presentations','limits', 'slugs'));
-
+        return view('Hummatask.team.presentation', compact('hummataskTeam', 'presentations', 'limits', 'slugs'));
     }
 }

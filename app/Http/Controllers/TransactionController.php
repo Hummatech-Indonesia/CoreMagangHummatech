@@ -2,21 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\ActiveFeatureInterface;
 use App\Contracts\Interfaces\OrderInterface;
 use App\Contracts\Interfaces\PaymentInterface;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
+use App\Contracts\Interfaces\TransactionInterface;
 use App\Contracts\Interfaces\VoucherInterface;
 use App\Contracts\Interfaces\VoucherUsageInterface;
 use App\Enum\TransactionStatusEnum;
+use App\Http\Requests\TransactionRequest;
 use App\Http\Requests\TripayCheckoutRequest;
 use App\Models\Product;
+use App\Models\Transaction;
 use App\Models\TransactionHistory;
+use App\Services\TransactionService;
+use App\Services\TripayService;
 use Carbon\Carbon;
 use Cart;
+use Illuminate\Contracts\View\View as ViewView;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Transaction;
+use View;
 
 class TransactionController extends Controller
 {
@@ -24,12 +31,20 @@ class TransactionController extends Controller
     private TransactionHistoryInterface $transactionHistory;
     private PaymentInterface $paymentInterface;
     private Cart $cart;
+    private ActiveFeatureInterface $activeFeature;
     private VoucherInterface $voucherInterface;
     private OrderInterface $orderInterface;
+    private TripayService $tripayService;
+    private TransactionService $service;
+    private TransactionInterface $transaction;
     private VoucherUsageInterface $voucherUsageInterface;
 
     public function __construct(
+        ActiveFeatureInterface $activeFeatureInterface,
+        TransactionService $service,
+        TransactionInterface $transactionInterface,
         PaymentInterface $payment,
+        TripayService $tripayService,
         Cart $cart,
         VoucherInterface $voucherInterface,
         PaymentInterface $paymentInterface,
@@ -37,6 +52,10 @@ class TransactionController extends Controller
         OrderInterface $orderInterface,
         VoucherUsageInterface $voucherUsageInterface
     ) {
+        $this->activeFeature = $activeFeatureInterface;
+        $this->service = $service;
+        $this->transaction = $transactionInterface;
+        $this->tripayService = $tripayService;
         $this->payment = $payment;
         $this->orderInterface = $orderInterface;
         $this->cart = $cart;
@@ -61,27 +80,29 @@ class TransactionController extends Controller
         $voucher = session()->get('voucher');
 
         $voucherDetail = $voucher ? $this->voucherInterface->getVoucherByCode($voucher[0]) : null;
-        $paymentChannel = $this->paymentInterface->getPaymentChannel();
+        $paymentChannel = $this->tripayService->handlePaymentChannels();
         $cartData = $this->cart;
-        // dd($paymentChannel);
 
         return view('student_online_&_offline.transaction.checkout', compact('product', 'paymentChannel', 'cartData', 'voucherDetail'));
     }
 
-    public function save(Request $request): RedirectResponse
+    public function save(TransactionRequest $request, Product $product): RedirectResponse
     {
-        dd($request->all());
-        $data = [
-            'transaction_id' => $request->id,
-            'reference' => $request->reference,
-            'user_id' => auth()->user()->id,
-            'amount' => $request->amount,
-            'issued_at' => $request->issued_at,
-            'expired_at' => $request->expired_at,
-            'checkout_url' => $request->checkout_url,
-        ];
-        $this->transactionHistory->store($data);
-        return to_route('transaction-history.detail');
+        $transaction = $this->service->handleCheckout($request, $product);
+        return to_route('transaction-history.detail', $transaction->id);
+    }
+
+    /**
+     * show
+     *
+     * @param  mixed $transaction
+     * @return View
+     */
+    public function show(Transaction $transaction)
+    {
+        $instructions = $this->tripayService->handlePaymentInstruction($transaction->payment_method, $transaction->pay_code, $transaction->amount + $transaction->total_fee);
+        // dd($instructions);
+        return view('student_online_&_offline.transaction.detail', compact('transaction', 'instructions'));
     }
 
     public function store(Request $request)
@@ -178,8 +199,42 @@ class TransactionController extends Controller
         return view('student_online_&_offline.transaction.detail', compact('reference', 'paymentDetail'));
     }
 
+    /**
+     * callback
+     *
+     * @param  mixed $request
+     * @return void
+     */
     public function callback(Request $request)
     {
-        return $this->payment->callback($request);
+        $data = $this->service->handleCallback($request);
+        $dataTransaction = $this->transaction->getByMerchantRef($data->merchant_ref);
+        $this->transaction->update($dataTransaction->id, [
+            'status' => strtolower((string) $data->status),
+        ]);
+
+        if ($this->transaction->show($dataTransaction->user->student->id)->exists()) {
+            $active = $this->transaction->show($dataTransaction->user->student->id)->first();
+            if ($active->is_active == '1') {
+                $end_date = Carbon::createFromFormat('Y-m-d', $active->end_date)->addDay(30);
+            }
+            else {
+                $end_date = now()->addDay(30)->format('Y-m-d');
+            }
+        }
+        else {
+            $end_date = now()->addDay(30)->format('Y-m-d');
+        }
+
+        $this->activeFeature->store([
+            'student_id' => $dataTransaction->user->student->id,
+            'is_active' => 1,
+            'end_date' => $end_date,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Berhasil menyimpan',
+        ], 200);
     }
 }

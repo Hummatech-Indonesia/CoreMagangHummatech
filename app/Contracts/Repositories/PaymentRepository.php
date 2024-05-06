@@ -192,7 +192,7 @@ class PaymentRepository extends BaseRepository implements PaymentInterface
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid data sent by tripay',
-                'code' => 400
+                'code' => 400,
             ], 400);
         }
 

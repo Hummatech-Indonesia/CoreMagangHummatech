@@ -6,6 +6,8 @@ use App\Contracts\Interfaces\AttendanceDetailInterface;
 use App\Contracts\Interfaces\LimitPresentationInterface;
 use App\Models\AttendanceDetail;
 use App\Models\LimitPresentation;
+use Carbon\Carbon;
+
 
 class LimitPresentationRepository extends BaseRepository implements LimitPresentationInterface
 {
@@ -13,7 +15,13 @@ class LimitPresentationRepository extends BaseRepository implements LimitPresent
     {
         $this->model = $limit;
     }
-
+    public function get(): mixed
+    {
+        return $this->model->query()
+            ->whereDate('created_at', Carbon::today())
+            ->where('mentor_id' , auth()->user()->mentor->id)
+            ->first();
+    }
     public function store(array $data): mixed
     {
         return $this->model->query()->create($data);

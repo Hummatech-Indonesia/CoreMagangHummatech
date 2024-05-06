@@ -10,4 +10,6 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 interface PresentationInterface extends GetInterface, StoreInterface, UpdateInterface, DeleteInterface
 {
     public function whereStatus(mixed $status): mixed;
+    public function GetToday(): mixed;
+    public function deleteAll(): mixed;
 }

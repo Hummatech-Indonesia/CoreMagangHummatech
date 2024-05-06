@@ -21,7 +21,5 @@ class GlobalViewLoaderProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // $zoomData = ZoomSchedule::latest()->limit(5)->get();
-        // View::share("zoomSchedule", $zoomData);
     }
 }

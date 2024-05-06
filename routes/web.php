@@ -241,14 +241,12 @@ Route::middleware('auth')->group(function () {
 });
 
 # Transaction and Payment Routing
-Route::post('transaction/save', [TransactionController::class, 'save'])->name('transaction.save');
+Route::post('transaction/save/{product}', [TransactionController::class, 'save'])->name('transaction.save');
 Route::get('transaction/checkout/{product}', [TransactionController::class, 'checkout'])->name('transaction-history.checkout');;
 Route::get('transaction', function() {
     return view('student_online_&_offline.transaction.index');
 })->name('transaction-history.index');
-Route::get('transaction/detail', function() {
-    return view('student_online_&_offline.transaction.detail');
-})->name('transaction-history.detail');
+Route::get('transaction/detail/{transaction}', [TransactionController::class, 'show'])->name('transaction-history.detail');
 // Route::controller(TransactionController::class)->prefix('transaction')->name('transaction-history.')->group(function () {
 //     Route::get('/', 'index')->middleware(['auth'])->name('index');
 //     Route::get('checkout', 'checkout')->middleware(['auth'])->name('checkout');
