@@ -4,12 +4,36 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\TransactionInterface;
 use App\Models\Transaction;
+use Illuminate\Http\Request;
 
 class TransactionRepository extends BaseRepository implements TransactionInterface
 {
     public function __construct(Transaction $transaction)
     {
         $this->model = $transaction;
+    }
+
+    /**
+     * search
+     *
+     * @param  mixed $request
+     * @return mixed
+     */
+    public function search(Request $request): mixed
+    {
+        return $this->model->query()
+            ->get();
+    }
+
+    /**
+     * get
+     *
+     * @return mixed
+     */
+    public function get(): mixed
+    {
+        return $this->model->query()
+            ->get();
     }
 
     /**

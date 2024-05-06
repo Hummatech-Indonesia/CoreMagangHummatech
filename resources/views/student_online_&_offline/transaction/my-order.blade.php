@@ -44,6 +44,7 @@
     </div>
 
     <div class="row">
+            @foreach ($transactions as $transaction)
             <div class="col-xl-4 col-xxl-3">
                 <div class="card">
                     <div class="card-body">
@@ -52,8 +53,8 @@
                                 <i class="fas fa-2x fa-book"></i>
                             </div>
                             <div>
-                                    <h5>Laravel 11</h5>
-                                    <h3 class="text-primary fw-bolder mb-0">100.000</h3>
+                                    <h5>{{ $transaction->product->name }}</h5>
+                                    <h3 class="text-primary fw-bolder mb-0">{{ $transaction->product->price }}</h3>
                             </div>
                         </div>
 
@@ -61,7 +62,7 @@
                             <div class="d-flex gap-2 align-items-center w-100 py-3 justify-content-between">
                                 <div class="mb-0 fw-bolder">Status</div>
                                 <div class="mb-0"><span
-                                        class="fw-bolder badge bg-success">Lunas</span>
+                                        class="fw-bolder badge bg-success">{{ $transaction->status }}</span>
                                 </div>
                             </div>
                             {{-- @if (!$order->course) --}}
@@ -88,13 +89,14 @@
                             </div>
                         </div>
 
-                            <a href="{{ route('transaction-history.detail') }}"
+                            <a href="{{ route('transaction-history.detail', $transaction->id) }}"
                                 class="btn btn-warning w-100 mt-3">Lihat Detail</a>
                     </div>
                 </div>
             </div>
+            @endforeach
     </div>
-{{-- 
+{{--
     @if ($orders->hasPages())
         <div class="py-4">
             {{ $orders->links() }}
