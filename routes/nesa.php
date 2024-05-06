@@ -176,10 +176,10 @@ Route::get('/siswa-online/absensi', [AttendanceController::class, 'attendanceOnl
 //     return view('Hummatask.team.note');
 // });
 
-Route::get('hummateam/note/{hummataskTeam}',[NoteTeamController::class,'index']);
+Route::get('hummateam/team/{slug}/note',[NoteTeamController::class,'index'])->name('team.note');
 
 
-Route::get('hummateam/board/{hummataskTeam}',[CategoryBoardController::class,'index']);
+Route::get('hummateam/team/{slug}/board',[CategoryBoardController::class,'index'])->name('team.board');
 Route::post('hummateam/board/list/store',[CategoryBoardController::class,'store'])->name('list.store');
 Route::put('hummateam/board/list/update/{categoryBoard}',[CategoryBoardController::class,'update'])->name('list.update');
 Route::delete('hummateam/board/list/delete/{categoryBoard}', [CategoryBoardController::class,'destroy'])->name('list.destroy');
@@ -190,3 +190,5 @@ Route::put('hummateam/board/update/{board}',[BoardController::class,'update'])->
 Route::delete('hummateam/board/delete/{board}',[BoardController::class,'destroy'])->name('board.destroy');
 
 
+Route::get('hummateam/team/{slug}/presentation',[PresentationController::class,'usershow'])->name('team.presentation');
+Route::put('hummateam/presentation/{presentation}',[PresentationController::class,'update'])->name('presentation.update');
