@@ -10,9 +10,7 @@ use App\Http\Controllers\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-Route::group(['middleware' => ['web']], function () {
-    Route::post('/login', [LoginController::class, 'login'])->name('custom.login');
-});
+Route::post('/login', [LoginController::class, 'login'])->name('custom.login');
 
 Route::middleware('auth')->group(function () {
     Route::get('users', [UserController::class, 'index']);
