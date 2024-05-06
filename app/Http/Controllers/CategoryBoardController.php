@@ -30,15 +30,16 @@ class CategoryBoardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(HummataskTeam $hummataskTeam)
+    public function index($slug, HummataskTeam $hummataskTeam)
     {
+        $slugs = $this->hummataskTeam->slug($slug);
         $categoryBoards = $this->categoryBoard->get();
         $boards = $this->board->get();
-        $projects = $this->Project->where('hummatask_team_id', $hummataskTeam->id);
+        $projects = $this->Project->where('title', $slugs->slug);
         foreach ($projects as $project) {
             $studentProjects = $this->studentProject->where('project_id', $project->id);
         }
-        return view('Hummatask.team.board' , compact('categoryBoards', 'hummataskTeam', 'boards', 'studentProjects'));
+        return view('Hummatask.team.board' , compact('categoryBoards', 'hummataskTeam', 'boards', 'studentProjects', 'slugs'));
     }
 
     /**
