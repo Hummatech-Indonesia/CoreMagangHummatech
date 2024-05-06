@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('hummatask_team_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->enum('status',['team_note','revision_note'])->nullable();
             $table->timestamps();
         });
     }
