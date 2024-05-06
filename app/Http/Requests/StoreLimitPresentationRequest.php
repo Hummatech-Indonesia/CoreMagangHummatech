@@ -22,7 +22,9 @@ class StoreLimitPresentationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'limits' => 'required'
+            'limits' => 'required',
+            'day' => 'required',
+            'mentor_id' => 'required',
 
         ];
     }

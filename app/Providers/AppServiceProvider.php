@@ -49,6 +49,7 @@ use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\WarningLetterInterface;
 use App\Contracts\Repositories\AttendanceRepository;
 use App\Contracts\Interfaces\AbsenteePermitInterface;
+use App\Contracts\Interfaces\ActiveFeatureInterface;
 use App\Contracts\Interfaces\AppointmentOfMentorInterface;
 use App\Contracts\Interfaces\AttendanceRuleInterface;
 use App\Contracts\Interfaces\MentorDivisionInterface;
@@ -87,7 +88,9 @@ use App\Contracts\Repositories\AttendanceRuleRepository;
 use App\Contracts\Repositories\MentorDivisionRepository;
 use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
+use App\Contracts\Interfaces\TransactionInterface;
 use App\Contracts\Interfaces\VoucherUsageInterface;
+use App\Contracts\Repositories\ActiveFeatureRepository;
 use App\Contracts\Repositories\AppointmentOfMentorRepository;
 use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\AttendanceDetailRepository;
@@ -111,6 +114,7 @@ use App\Contracts\Repositories\ProjectRepository;
 use App\Contracts\Repositories\StudentProjectRepository;
 use App\Contracts\Repositories\StudentTeamRepository;
 use App\Contracts\Repositories\ThesisRepository;
+use App\Contracts\Repositories\TransactionRepository;
 use App\Contracts\Repositories\VoucherUsageRepository;
 
 class AppServiceProvider extends ServiceProvider
@@ -169,6 +173,8 @@ class AppServiceProvider extends ServiceProvider
         StudentProjectInterface::class => StudentProjectRepository::class,
         FaceInterface::class => FaceRepository::class,
         StudentTeamInterface::class => StudentTeamRepository::class,
+        TransactionInterface::class => TransactionRepository::class,
+        ActiveFeatureInterface::class => ActiveFeatureRepository::class,
     ];
 
     /**

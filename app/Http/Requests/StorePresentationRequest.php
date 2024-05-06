@@ -22,10 +22,14 @@ class StorePresentationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'schedule_to' => 'nullable',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'callback' => 'nullable'
+            'start_date' => 'required|array|min:1',
+            'start_date.*' => 'required',
+            'schedule_to' => 'required|array|min:1',
+            'schedule_to.*' => 'required',
+            'end_date' => 'required|array|min:1',
+            'end_date.*' => 'required',
+            'callback' => 'nullable',
+            'mentor_id' => 'required',
         ];
     }
     public function messages()
@@ -33,7 +37,7 @@ class StorePresentationRequest extends FormRequest
         return [
             'start_date.required' => 'Waktu awal harus diisi',
             'end_date.required' => 'Waktu akhir harus diisi',
-            
+
         ];
     }
 }

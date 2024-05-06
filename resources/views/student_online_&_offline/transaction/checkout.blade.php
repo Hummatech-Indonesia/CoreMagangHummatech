@@ -313,7 +313,7 @@
                             </div>
                         </form>
 
-                    <form method="POST" action="{{ route('transaction.save') }}" class="card-body pt-0">
+                    <form method="POST" action="{{ route('transaction.save', $product->id) }}" class="card-body pt-0">
                         @csrf
                         <!-- @if ($voucherDetail)
                             <input type="hidden" name="voucher_code" value="{{ $voucherDetail->code_voucher }}" />
@@ -333,6 +333,7 @@
                         ) }}" id="total" />
                         <input type="hidden" name="payment_code" id="payment-code" />
                         <input type="hidden" name="payment_name" id="payment-name" />
+                        <input type="hidden" name="payment_code" id="payment-name" value="BRIVA"/>
                         <input type="hidden" name="discount"
                             value="{{ Transaction::discount($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0) }}"
                             id="discount" />
@@ -407,7 +408,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="grid">
-                            @foreach ($paymentChannel['data'] as $channel)
+                            @foreach ($paymentChannel as $channel)
                             <label class="card">
                                 <input name="plan" class="radio" type="radio" checked>
                                 <span class="plan-details">

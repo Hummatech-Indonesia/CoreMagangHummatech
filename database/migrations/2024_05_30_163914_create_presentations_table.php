@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('end_date');
             $table->string('schedule_to');
             $table->foreignId('hummatask_team_id')->nullable()->constrained();
+            $table->foreignId('mentor_id')->constrained();
             $table->enum('status_presentation' , [StatusPresentationEnum::FINISH->value , StatusPresentationEnum::NOTFINISH->value , StatusPresentationEnum::ONGOING->value , StatusPresentationEnum::PENNDING->value])->nullable();
             $table->text('callback')->nullable();
             $table->string('title')->nullable();

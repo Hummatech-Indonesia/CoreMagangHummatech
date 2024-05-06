@@ -5,4 +5,5 @@ return [
     'private_key' => env('TRIPAY_PRIVATE_KEY'),
     'merchant_code' => env('TRIPAY_MERCHANT_CODE'),
     'mode' => env('TRIPAY_MODE'),
+    'api_url' => env('TRIPAY_API_URL'),
 ];
