@@ -49,8 +49,8 @@
                     </li>
                     <li class="nav-item ms-auto">
                         <div class="row g-3 align-items-center">
-                            <a href="{{url('dashboard/task')}}" class="btn me-1 mb-1 btn-info text-light btn-lg px-4 fs-4 font-medium">
-                                <i class="ti ti-arrow-back fs-4"></i> Kembali
+                            <a href="{{url('dashboard/task')}}" class="btn me-1 mb-1 btn-info text-light btn-sm px-4 fs-4">
+                                <i class="ti ti-arrow-back fs-3"></i> Kembali
                             </a>
                         </div>
 
