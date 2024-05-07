@@ -318,7 +318,7 @@
                     @csrf
                     <!-- @if ($voucherDetail)
     <input type="hidden" name="voucher_code" value="{{ $voucherDetail->code_voucher }}" />
-    @endif -->
+                    @endif -->
                     <input type="hidden" name="tax" value="{{ Transaction::countTax($cartData->subtotal()) }}"
                         id="tax" />
                     <input type="hidden" name="subtotal"
@@ -343,7 +343,7 @@
                     <div class="pb-3 d-flex gap-2 flex-column mb-3">
                         <div class="d-flex justify-content-between">
                             <span>Metode Pembayaran:</span>
-                            <a href="javascript:openModal('choose-payment')" id="payment-show"
+                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#choose-payment" id="payment-show"
                                 class="fw-bolder text-primary text-end">Pilih</a>
                         </div>
 
@@ -394,8 +394,6 @@
             </div>
         </div>
     </div>
-@endsection
-@section('script')
     <!-- Modal Payment Gateway -->
     <div class="modal fade" id="choose-payment" tabindex="-1" role="dialog" aria-labelledby="choose-paymentLabel"
         aria-hidden="true">
@@ -428,4 +426,6 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
 @endsection
