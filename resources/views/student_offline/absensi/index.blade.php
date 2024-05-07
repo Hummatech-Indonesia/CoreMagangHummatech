@@ -299,11 +299,15 @@
                             </td>
                         </tr>
                     @empty
-                        <div class="col-md-12 text-center">
-                            <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
-                                alt="No Data" height="120px" />
-                            <h3 class="text-center">Data Masih Kosong</h3>
-                        </div>
+                        <tr>
+                            <td colspan="8" class="text-center">
+                                <div class="col-md-12 text-center">
+                                    <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
+                                        alt="No Data" height="120px" />
+                                    <h3 class="text-center">Data Masih Kosong</h3>
+                                </div>
+                            </td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>
