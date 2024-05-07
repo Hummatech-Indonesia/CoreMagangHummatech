@@ -123,7 +123,7 @@
                     </li>
                     <li class="sidebar-item">
                         @if (auth()->user()->student->activeFeature != null && auth()->user()->student->activeFeature->is_active == '1')
-                            <a class="sidebar-link" href="" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ route('student.course') }}" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-book"></i>
                                 </span>
@@ -131,11 +131,29 @@
                             </a>
                         @else
                         <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
-                            href="javascript:void(0)" aria-expanded="false">
+                            href="" aria-expanded="false">
                             <span>
                                 <i class="ti ti-book"></i>
                             </span>
                             <span class="hide-menu">Materi <i class="fas fa-lock opacity-50 ms-2"></i></span>
+                        </a>
+                        @endif
+                    </li>
+                    <li class="sidebar-item">
+                        @if (auth()->user()->student->activeFeature != null && auth()->user()->student->activeFeature->is_active == '1')
+                            <a class="sidebar-link" href="{{ route('student.active-course') }}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-book"></i>
+                                </span>
+                                <span class="hide-menu">Materi Saya</span>
+                            </a>
+                        @else
+                        <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
+                            href="" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-book"></i>
+                            </span>
+                            <span class="hide-menu">Materi Saya <i class="fas fa-lock opacity-50 ms-2"></i></span>
                         </a>
                         @endif
                     </li>

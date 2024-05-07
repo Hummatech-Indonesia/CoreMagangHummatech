@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('payment_method');
             $table->string('payment_name');
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('product_id')->nullable()->constrained('products')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('course_id')->nullable()->constrained('courses')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('callback_url');
             $table->string('return_url');
             $table->string('pay_code')->nullable();

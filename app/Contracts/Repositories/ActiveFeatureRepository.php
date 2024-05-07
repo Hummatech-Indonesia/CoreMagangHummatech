@@ -14,6 +14,19 @@ class ActiveFeatureRepository extends BaseRepository implements ActiveFeatureInt
     }
 
     /**
+     * getByStudent
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getByStudent(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('student_id', $id)
+            ->first();
+    }
+
+    /**
      * show
      *
      * @param  mixed $id

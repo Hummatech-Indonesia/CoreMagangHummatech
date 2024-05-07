@@ -64,4 +64,21 @@ class CourseRepository extends BaseRepository implements CourseInterface
     {
         return $this->model->query()->where('division_id', $id)->get();
     }
+
+    /**
+     * getNonactiveCourse
+     *
+     * @param  mixed $divisionId
+     * @param  mixed $studentId
+     * @return void
+     */
+    public function getNonactiveCourse(mixed $divisionId, mixed $studentId)
+    {
+        return $this->model->query()
+            ->where('division_id', $divisionId)
+            ->whereDoesntHave('activeCourses', function ($query) use ($studentId) {
+                $query->where('student_id', $studentId);
+            })
+            ->get();
+    }
 }

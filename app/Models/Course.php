@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Base\Interfaces\HasActiveCourses;
 use App\Enum\StatusCourseEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Course extends Model
+class Course extends Model implements HasActiveCourses
 {
     use HasFactory;
     protected $guarded = [];
@@ -14,6 +16,16 @@ class Course extends Model
     public function subCourse()
     {
         return $this->hasMany(SubCourse::class);
+    }
+
+    /**
+     * activeCourses
+     *
+     * @return HasMany
+     */
+    public function activeCourses(): HasMany
+    {
+        return $this->hasMany(ActiveCourse::class);
     }
 
     public function getStatus(): StatusCourseEnum
