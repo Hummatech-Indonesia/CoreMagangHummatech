@@ -91,6 +91,7 @@ use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Contracts\Interfaces\TransactionInterface;
 use App\Contracts\Interfaces\VoucherUsageInterface;
+use App\Contracts\Interfaces\WorkFromHomeInterface;
 use App\Contracts\Repositories\ActiveCourseRepository;
 use App\Contracts\Repositories\ActiveFeatureRepository;
 use App\Contracts\Repositories\AppointmentOfMentorRepository;
@@ -118,6 +119,7 @@ use App\Contracts\Repositories\StudentTeamRepository;
 use App\Contracts\Repositories\ThesisRepository;
 use App\Contracts\Repositories\TransactionRepository;
 use App\Contracts\Repositories\VoucherUsageRepository;
+use App\Contracts\Repositories\WorkFromHomeRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -178,6 +180,7 @@ class AppServiceProvider extends ServiceProvider
         TransactionInterface::class => TransactionRepository::class,
         ActiveFeatureInterface::class => ActiveFeatureRepository::class,
         ActiveCourseInterface::class => ActiveCourseRepository::class,
+        WorkFromHomeInterface::class => WorkFromHomeRepository::class,
     ];
 
     /**
