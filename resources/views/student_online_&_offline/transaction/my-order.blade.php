@@ -56,7 +56,7 @@
                                 <h5>{{ $transaction->product ? $transaction->product->name : $transaction->course->title }}
                                 </h5>
                                 <h3 class="text-primary fw-bolder mb-0">
-                                    {{ number_format( $transaction->product ? $transaction->product->price : $transaction->course->price, 0 ,',' ,'.') }}
+                                    Rp {{ number_format( $transaction->product ? $transaction->product->price : $transaction->course->price, 0 ,',' ,'.') }}
                                 </h3>
                             </div>
                         </div>
