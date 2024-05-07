@@ -264,7 +264,7 @@
                                 <span>Periksa</span>
                             </a>
 
-                            <a href="/pdf/tagihan"
+                            <a href="javascript:void(0)"
                                 class="list-group-item list-group-action d-flex gap-2 p-3 align-items-center">
                                 <i class="fas fa-download"></i>
                                 Unduh Tagihan
