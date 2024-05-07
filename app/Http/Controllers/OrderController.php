@@ -30,8 +30,7 @@ class OrderController extends Controller
             if($request->status) {
                 $query->where('status', $request->status);
             }
-        })
-        ->where('user_id' , auth()->user()->id)->paginate();
+        })->paginate();
 
         return view('student_online_&_offline.transaction.my-order', compact('transactions'));
     }
