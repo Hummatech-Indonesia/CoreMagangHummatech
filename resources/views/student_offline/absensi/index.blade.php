@@ -221,7 +221,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($offlineAttendances as $attendance)
+                    @forelse ($offlineAttendances as $attendance)
                         <tr class="search-items">
                             <td class="d-flex">
                                 <div class="ms-3">
@@ -235,67 +235,76 @@
                                 <span class="usr-email-addr">12 Maret 2024</span>
                             </td>
                             <td>
-                                <span class="badge fw-semibold bg-light-success text-success">{{ $attendance->attendances[0]->status }}</span>
+                                <span
+                                    class="badge fw-semibold bg-light-success text-success">{{ $attendance->attendances[0]->status }}</span>
                             </td>
                             <td>
-                            @if (isset($student->attendances[0]))
-                                @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
-                                    @if ($detailAttendance->status == 'present')
-                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                            <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
-                                        @else
-                                            <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                @if (isset($student->attendances[0]))
+                                    @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                        @if ($detailAttendance->status == 'present')
+                                            @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                    \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @else
+                                                <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @endif
                                         @endif
-                                    @endif
-                                @endforeach
-                            @endif
+                                    @endforeach
+                                @endif
                             </td>
                             <td>
-                            @if (isset($student->attendances[0]))
-                                @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
-                                    @if ($detailAttendance->status == 'break')
-                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                            <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
-                                        @else
-                                            <span class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                @if (isset($student->attendances[0]))
+                                    @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                        @if ($detailAttendance->status == 'break')
+                                            @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                    \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @else
+                                                <span
+                                                    class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @endif
                                         @endif
-                                    @endif
-                                @endforeach
-                            @endif
+                                    @endforeach
+                                @endif
                             </td>
                             <td>
-                            @if (isset($student->attendances[0]))
-                                @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
-                                    @if ($detailAttendance->status == 'return_break')
-                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                            <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
-                                        @else
-                                            <span class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                @if (isset($student->attendances[0]))
+                                    @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                        @if ($detailAttendance->status == 'return_break')
+                                            @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                    \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @else
+                                                <span
+                                                    class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @endif
                                         @endif
-                                    @endif
-                                @endforeach
-                            @endif
+                                    @endforeach
+                                @endif
                             </td>
                             <td>
-                            @if (isset($student->attendances[0]))
-                                @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
-                                    @if ($detailAttendance->status == 'return')
-                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                            <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
-                                        @else
-                                            <span class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                @if (isset($student->attendances[0]))
+                                    @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                        @if ($detailAttendance->status == 'return')
+                                            @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                    \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @else
+                                                <span
+                                                    class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @endif
                                         @endif
-                                    @endif
-                                @endforeach
-                            @endif
+                                    @endforeach
+                                @endif
                             </td>
                         </tr>
-                    @endforeach
-
+                    @empty
+                        <div class="col-md-12 text-center">
+                            <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
+                                alt="No Data" height="120px" />
+                            <h3 class="text-center">Data Masih Kosong</h3>
+                        </div>
+                    @endforelse
                 </tbody>
             </table>
         </div>
