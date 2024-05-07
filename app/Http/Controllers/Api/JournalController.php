@@ -15,16 +15,21 @@ use App\Contracts\Interfaces\DataAdminInterface;
 use App\Contracts\Interfaces\LetterheadsInterface;
 use App\Contracts\Interfaces\SignatureInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use Exception;
+use Illuminate\Support\Facades\Request;
 
 class JournalController extends Controller
 {
-    private JournalInterface $journal;
 
-    public function __construct(JournalInterface $journal)
+    private JournalInterface $journal;
+    private JournalService $service;
+
+    public function __construct(JournalInterface $journal ,JournalService $service)
     {
         $this->journal = $journal;
+        $this->service = $service;
     }
 
     /**
@@ -34,6 +39,26 @@ class JournalController extends Controller
     {
         $journals = $this->journal->get();
         return response()->json($journals);
+    }
+
+    public function store(StoreJournalRequest $request)
+    {
+        $currentDate = Carbon::now()->locale('id_ID')->setTimezone('Asia/Jakarta')->isoFormat('HH:mm:ss');
+        if ($currentDate < '14:00:00' || $currentDate > '23:59:00') {
+            return ResponseHelper::error(null, "Waktu pengumpulan adalah jam 4 sore sampai 12 malam.");
+        } else {
+            $existingData = $this->journal->where('created_at', '>=', now()->startOfDay());
+            if ($existingData) {
+                return ResponseHelper::error(null, "Anda Telah Mengisi Jurnal Hari ini.");
+            }
+
+            if (now()->isWeekend()) {
+                return ResponseHelper::error(null, "Hari Ini Libur");
+            }
+            $data = $this->service->store($request);
+            $this->journal->store($data);
+            return ResponseHelper::success($data);
+        }
     }
 
 }

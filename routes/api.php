@@ -19,6 +19,7 @@ Route::post('callback', [TransactionController::class, 'callback']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('users', [UserController::class, 'index']);
     Route::get('journals' , [JournalController::class , 'index']);
+    Route::post('journal' , [JournalController::class , 'store']);
     Route::get('profile' , [ProfileController::class , 'index']);
 });
 Route::post('sync', [AttendanceController::class, 'sync']);
