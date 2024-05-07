@@ -13,16 +13,16 @@
                                     <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt="" class="img-fluid rounded-circle" style="object-fit: cover;">
                                 </div>
                                 <h5 class="fw-semibold mb-3 mb-sm-0 fs-5 text-center text-sm-start">Selamat Datang {{ auth()->user()->name }}!</h5>
-                                <button class="btn btn-primary btn-sm mt-3 w-80 mt-sm-0 ms-sm-3">Isi Saldo</button>
+                                {{-- <button class="btn btn-primary btn-sm mt-3 w-80 mt-sm-0 ms-sm-3">Isi Saldo</button> --}}
                             </div>
                             <div class="d-flex align-items-center">
-                                <div class="border-end pe-4 border-muted border-opacity-10">
+                                {{-- <div class="border-end pe-4 border-muted border-opacity-10">
                                     <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center mb-3">
                                         Rp.1200.500.00
                                         <i class="ti ti-trending-up fs-6 mt-1 mx-2 text-success"></i>
                                     </h3>
                                     <h6>Saldo anda saat ini</h6>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="col-sm-5">
