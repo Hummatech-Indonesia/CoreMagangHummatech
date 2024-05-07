@@ -26,7 +26,7 @@ class JournalController extends Controller
     private JournalInterface $journal;
     private JournalService $service;
 
-    public function __construct(JournalInterface $journal ,JournalService $service)
+    public function __construct(JournalInterface $journal, JournalService $service)
     {
         $this->journal = $journal;
         $this->service = $service;
@@ -44,7 +44,7 @@ class JournalController extends Controller
     public function store(StoreJournalRequest $request)
     {
         $currentDate = Carbon::now()->locale('id_ID')->setTimezone('Asia/Jakarta')->isoFormat('HH:mm:ss');
-        if ($currentDate < '14:00:00' || $currentDate > '23:59:00') {
+        if ($currentDate < '16:00:00' || $currentDate > '23:59:00') {
             return ResponseHelper::error(null, "Waktu pengumpulan adalah jam 4 sore sampai 12 malam.");
         } else {
             $existingData = $this->journal->where('created_at', '>=', now()->startOfDay());
@@ -61,4 +61,9 @@ class JournalController extends Controller
         }
     }
 
+    public function update(UpdateJournalRequest $request, Journal $journal)
+    {
+        $this->journal->update($journal->id, $request->validated());
+        return ResponseHelper::success(null, 'berhasil');
+    }
 }
