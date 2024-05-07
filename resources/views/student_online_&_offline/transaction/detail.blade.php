@@ -169,7 +169,7 @@
                 </div>
                 <div class="col-md-4">
                     <section class="mb-3">
-                        <h5 class="">Instruksi Pembayaran</h5>
+                        <h5 class="">Instruksi Pembayaran 1</h5>
                         <div class="accordion mt-3" id="instructionsAccordion">
                             @foreach ($instructions as $index => $instruction)
                                 <div class="accordion-item">
