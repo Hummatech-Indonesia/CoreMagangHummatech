@@ -53,24 +53,28 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Buat Catatan Baru</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Update Catatan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="{{ route('presentation.update', ['slug' => $slugs->slug]) }}" method="post">
+                    @csrf
+                    @method('PUT')
+                    {{-- <input type="hidden" name="note_id" value="{{ $board->id }}"> --}}
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="judulCatatan" name="title" placeholder="Judul">
+                        <input type="text" class="form-control" id="tim" name="hummatask_team_id" value="{{ $slugs->id }}" placeholder="Masukkan judul disini" hidden>
+                        <input type="text" class="form-control" id="judulCatatan" name="title" value="{{ old('title', $categoryBoard->title) }}" placeholder="Judul">
                     </div>
 
                     <div class="mb-3">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="radio1" value="team_note" checked>
+                            <input class="form-check-input" type="radio" name="status" id="radio1" value="team_note" {{ $categoryBoard->status == 'team_note' ? 'checked' : '' }}>
                             <label class="form-check-label" for="radio1">
                                 Catatan Tim
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="radio2" value="revision_note">
+                            <input class="form-check-input" type="radio" name="status" id="radio2" value="revision_note" {{ $categoryBoard->status == 'revision_note' ? 'checked' : '' }}>
                             <label class="form-check-label" for="radio2">
                                 Catatan Revisi
                             </label>
@@ -96,111 +100,142 @@
 
 
 
-    <div class="tab-content">
-        <div class="tab-pane active" id="task" role="tabpanel">
-            <div class="row">
-                @foreach (range(1,4) as $item)
-
-                <div class="col-md-4 single-note-item all-category" style>
-                    <div class="card card-body">
-                        <span class="side-stick"></span>
-                        <h6 class="note-title text-truncate w-75 mb-0" data-noteheading="Book a Ticket for Movie">
-                            Book a Ticket for Movie
-                        </h6>
-                        <p class="note-date fs-2">11 March 2009</p>
-                        <div class="note-content">
-                            <h6>Catatan 1</h6>
-                            <p class="note-inner-content" data-notecontent="Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis." >
-                                Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis.....
-                            </p>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <a href="#" class="link me-1" data-bs-toggle="modal" data-bs-target="#editNoteModal">
-                                <i class="ti ti-pencil fs-5 favourite-note text-warning"></i>
-                            </a>
-
-                            <a href="" class="link text-danger ms-2">
-                                <i class="ti ti-trash fs-5 remove-note"></i>
-                            </a>
-                            <div class="ms-auto">
-                                <div class="category-selector btn-group">
-                                    <button type="button" class="btn mb-1 waves-effect waves-light btn-rounded btn-light-primary text-primary" data-bs-toggle="modal" data-bs-target="#detailModal">
-                                        <i class="ti ti-eye fs-5"></i>
-                                    </button>
-
+<div class="tab-content">
+    <div class="tab-pane active" id="task" role="tabpanel">
+        <div class="row">
+            @forelse ($categoryBoards as $categoryBoard)
+                @if ($categoryBoard->status == 'team_note')
+                    <div class="col-md-4 single-note-item all-category">
+                        <div class="card card-body">
+                            <span class="side-stick"></span>
+                            <h6 class="note-title text-truncate w-75 mb-0" >
+                                {{ $categoryBoard->title }}
+                            </h6>
+                            <p class="note-date fs-2">{{ \Carbon\Carbon::parse($categoryBoard->created_at)->translatedFormat('d F Y') }}</p>
+                            <div class="note-content">
+                                <h6>{{ $categoryBoard->category }}</h6>
+                                <p class="note-inner-content" >
+                                    Catatan  <br>
+                                </p>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <a href="#" class="link me-1" data-bs-toggle="modal" data-bs-target="#editNoteModal"
+                                data-id="{{$categoryBoard->id}}"
+                                data-title="{{$categoryBoard->title}}"
+                                data-note="{{$categoryBoard->note}}"
+                                >
+                                    <i class="ti ti-pencil fs-5 favourite-note text-warning"></i>
+                                </a>
+                                <button type="button" class="link text-danger bg-transparent border-0 ms-2 btn-delete"
+                                data-id="{{ $categoryBoard->id }}">
+                                    <i class="ti ti-trash fs-5 remove-note"></i>
+                                </button>
+                                <div class="ms-auto">
+                                    <div class="category-selector btn-group">
+                                        <button type="button" class="btn mb-1 waves-effect waves-light btn-rounded btn-light-primary text-primary" data-bs-toggle="modal" data-bs-target="#detailModal">
+                                            <i class="ti ti-eye fs-5"></i>
+                                        </button>
+                                    </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-                </div>
-                @endforeach
+                @endif
+            @empty
+            <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                <p class="fs-5 text-dark">
+                    Belum Ada catatan
+                </p>
             </div>
-        </div>
-
-        <div class="tab-pane" id="done" role="tabpanel">
-            <div class="row">
-                @foreach (range(1,4) as $item)
-
-                <div class="col-md-4 single-note-item all-category" style>
-                    <div class="card card-body">
-                        <span class="side-stick"></span>
-                        <h6 class="note-title text-truncate w-75 mb-0" data-noteheading="Book a Ticket for Movie">
-                            Book a Ticket for Movie
-                        </h6>
-                        <p class="note-date fs-2">11 March 2009</p>
-                        <div class="note-content">
-                            <h6>Catatan 1</h6>
-                            <p class="note-inner-content" data-notecontent="Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis." >
-                                Blandit tempus porttitor aasfs. Integer posuere erat a ante venenatis.....
-                            </p>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <a href="#" class="link me-1" data-bs-toggle="modal" data-bs-target="#editNoteModal">
-                                <i class="ti ti-pencil fs-5 favourite-note text-warning"></i>
-                            </a>
-                            <a href="" class="link text-danger ms-2">
-                                <i class="ti ti-trash fs-5 remove-note"></i>
-                            </a>
-                            <div class="ms-auto">
-                                <div class="category-selector btn-group">
-                                    <button type="button" class="btn mb-1 waves-effect waves-light btn-rounded btn-light-primary text-primary" data-bs-toggle="modal" data-bs-target="#detailModal">
-                                        <i class="ti ti-eye fs-5"></i>
-                                    </button>
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
+            @endforelse
         </div>
     </div>
 
+    <div class="tab-pane" id="done" role="tabpanel">
+        <div class="row">
+            @forelse ($categoryBoards as $categoryBoard)
+                @if ($categoryBoard->status == 'revision_note')
+
+                <div class="col-md-4 single-note-item all-category" style>
+                    <div class="card card-body">
+                        <span class="side-stick"></span>
+                        <h6 class="note-title text-truncate w-75 mb-0" >
+                            {{ $categoryBoard->title }}
+                        </h6>
+                        <p class="note-date fs-2">{{ \Carbon\Carbon::parse($categoryBoard->created_at)->translatedFormat('d F Y') }}</p>
+                        <div class="note-content">
+                            <h6>{{ $categoryBoard->category }}</h6>
+                            <p class="note-inner-content" >
+                                Catatan <br>
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="link me-1 btn-edit"
+                            data-id="{{$categoryBoard->id}}"
+                            data-title="{{$categoryBoard->title}}"
+
+                            >
+                                <i class="ti ti-pencil fs-5 favourite-note text-warning"></i>
+                            </button>
+                            <button type="button" class="link text-danger bg-transparent border-0 ms-2 btn-delete"
+                            data-id="{{ $categoryBoard->id }}">
+                                <i class="ti ti-trash fs-5 remove-note"></i>
+                            </button>
+                            <div class="ms-auto">
+                                <div class="category-selector btn-group">
+                                    <button type="button" class="btn mb-1 waves-effect waves-light btn-rounded btn-light-primary text-primary view-detail" data-bs-toggle="modal" data-bs-target="#detailModal" data-id="1">
+                                        <i class="ti ti-eye fs-5"></i>
+                                    </button>
+                                    <!-- Tambahkan tombol lain dengan ID yang berbeda jika perlu -->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @endif
+
+            @empty
+            <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                <p class="fs-5 text-dark">
+                    Belum Ada Catatan
+                </p>
+            </div>
+            @endforelse
+        </div>
+    </div>
+</div>
+
     <!-- Edit Modal -->
-    <div class="modal fade" id="editNoteModal" tabindex="-1" aria-labelledby="editNoteModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+    <div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editNoteModalLabel">Edit Catatan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Update Catatan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form action="{{ route('presentation.update', ['slug' => $slugs->slug]) }}" method="post">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="note_id" value="{{ $note->id }}">
                         <div class="mb-3">
-                            <input type="text" class="form-control" id="judulCatatan" placeholder="Judul" required>
+                            <input type="text" class="form-control" id="tim" name="hummatask_team_id" value="{{ $slugs->id }}" placeholder="Masukkan judul disini" hidden>
+                            <input type="text" class="form-control" id="judulCatatan" name="title" value="{{ old('title', $note->title) }}" placeholder="Judul">
                         </div>
+
                         <div class="mb-3">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="kategori" id="radio1" value="option1" checked>
+                                <input class="form-check-input" type="radio" name="status" id="radio1" value="team_note" {{ $note->status == 'team_note' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="radio1">
                                     Catatan Tim
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="kategori" id="radio2" value="option2">
+                                <input class="form-check-input" type="radio" name="status" id="radio2" value="revision_note" {{ $note->status == 'revision_note' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="radio2">
                                     Catatan Revisi
                                 </label>
@@ -208,16 +243,12 @@
                         </div>
 
                         <div class="mb-3 mt-0 col-md-12">
-                            <input class="form-control" type="text" name="mission[]" required=""
-                                autocomplete="name" placeholder="Catatan" />
-                            @error('mission.*')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-
-                            <div id="product-listing"></div>
-
+                            <div id="note-container">
+                                <!-- Kontainer untuk input catatan -->
+                            </div>
                             <button type="button" class="btn add-button-trigger btn-primary mt-3">Tambah</button>
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                             <button type="submit" class="btn btn-primary">Simpan</button>
@@ -228,43 +259,36 @@
         </div>
     </div>
 
+
     <!-- Detail Modal -->
     <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="detailModalLabel">Detail Catatan</h5>
+                    <h5 class="modal-title" id="detailModalLabel">Detail</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h6 class="text-center">Judul</h6>
-                    <h4 class="text-center">P Balap Keong</h4>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Catatan 1</h5>
-                            <p>Lorem ipsum dolor sit amet consectetur. A consectetur imperdiet ipsum volutpat arcu sit. Consequat in imperdiet eu ac dignissim arcu non ut mattis nunc urna posuere dignissim nulla.</p>
-                        </div>
-                    </div>
+                    <!-- Tempat untuk menampilkan data dari database -->
+                    <div id="modal-content"></div>
                 </div>
-
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
-
-
   </div>
-
 </div>
 
+@include('admin.components.delete-modal-component')
 
 
 @endsection
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script>
     // Fungsi untuk menambahkan input catatan baru
     const addNoteInput = () => {
@@ -301,6 +325,31 @@
     // Memanggil fungsi addNoteInput() sekali saat dokumen selesai dimuat
     document.addEventListener('DOMContentLoaded', function() {
         addNoteInput();
+    });
+</script>
+
+<script>
+    $('.btn-edit').click(function () {
+        var id = $(this).data('id');
+        var title = $(this).data('title');
+        var status = $(this).data('status');
+        var note = $(this).data('note');
+
+
+
+        $('#form-update').attr('action', '/hummateam/board/list/update/' + id);
+        $('#title-edit').val(title);
+        $('#note-edit').val(note);
+        $('#status-edit').val(status);
+
+
+        $('#modal-edit').modal('show');
+    });
+
+    $('.btn-delete').click(function () {
+        var id = $(this).data('id');
+        $('#form-delete').attr('action', '/hummateam/team/note/delete/' + id);
+        $('#modal-delete').modal('show');
     });
 </script>
 

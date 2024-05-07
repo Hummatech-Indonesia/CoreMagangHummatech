@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('priority', ['biasa', 'penting', 'mendesak'])->nullable();
             $table->enum('status', ['baru', 'dikerjakan', 'selesai'])->nullable();
             $table->foreignId('student_project_id')->nullable()->constrained();
-            $table->foreignId('category_board_id')->constrained();
+            $table->foreignId('category_board_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
             $table->timestamps();

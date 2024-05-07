@@ -22,7 +22,7 @@ class StoreCategoryBoardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'title' => 'required',
             'hummatask_team_id' => 'required',
         ];
     }
@@ -30,7 +30,7 @@ class StoreCategoryBoardRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Nama harus dipilih',
+            'title.required' => 'title harus diisi',
             'hummatask_team_id.required' => 'id team harus dipilih',
         ];
     }
