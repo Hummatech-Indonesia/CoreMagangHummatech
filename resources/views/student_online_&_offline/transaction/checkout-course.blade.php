@@ -407,7 +407,7 @@
                         <div class="grid">
                             @foreach ($paymentChannel as $channel)
                                 <label class="card card-payment">
-                                    <input name="plan" class="radio" data-code="{{ $channel['code'] }}" data-name="{{ $channel['name'] }}"
+                                    <input name="plan" class="radio" data-code="{{ $channel['code'] }}" data-show="{{ $channel['name'] }}" data-name="{{ $channel['name'] }}"
                                         data-id="payment-{{ $channel['code'] }}" data-name="{{ $channel['name'] }}"
                                         type="radio">
                                     <span class="plan-details">
@@ -432,11 +432,19 @@
         var choosePaymentButton = document.querySelector('[data-bs-toggle="choose-payment"]');
         choosePaymentButton.addEventListener('click', function() {
             var selectedRadioButton = document.querySelector('input[type="radio"]:checked');
-            var paymentCode = selectedRadioButton.getAttribute('data-code');
-            var paymentName = selectedRadioButton.getAttribute('data-name');
-            document.getElementById('payment-code').value = paymentCode;
-            document.getElementById('payment-name').value = paymentName;
-            document.getElementById('payment-show').value = paymentName;
+
+            if (selectedRadioButton) {
+                var paymentCode = selectedRadioButton.getAttribute('data-code');
+                var paymentName = selectedRadioButton.getAttribute('data-name');
+                var paymentShow = selectedRadioButton.getAttribute('data-show');
+
+                document.getElementById('payment-code').value = paymentCode;
+                document.getElementById('payment-name').value = paymentName;
+                document.getElementById('payment-show').innerText = paymentShow;
+            } else {
+                // Menampilkan alert peringatan jika tidak ada yang dipilih
+                alert('Mohon pilih metode pembayaran.');
+            }
         });
     </script>
 @endsection
