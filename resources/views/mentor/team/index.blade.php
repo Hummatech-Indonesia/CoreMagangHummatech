@@ -62,7 +62,7 @@
                                         $firstLetter = substr($team->student->name, 0, 1);
                                         $firstLetter = strtoupper($firstLetter);
                                         $backgroundColors = [
-                                            '#ff5722',
+                                             '#ff5722',
                                             '#4caf50',
                                             '#2196f3',
                                         ];

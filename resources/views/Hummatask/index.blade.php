@@ -32,7 +32,7 @@
                     @error('name')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
-                    <label for="" class="mt-4 mb-2">Tema</label>
+                    <label for="" class="mt-4 mb-2">Deskripsi Tema</label>
                     <textarea name="description" class="form-control" rows="3" placeholder="Masukkan deskripsi tema anda">{{ old('description') }}</textarea>
                     @error('description')
                         <div class="text-danger">{{ $message }}</div>

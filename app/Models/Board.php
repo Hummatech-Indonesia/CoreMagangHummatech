@@ -35,8 +35,8 @@ class Board extends Model
     {
         return $this->belongsTo(CategoryBoard::class);
     }
-    public function studentProject()
+    public function studentTeams()
     {
-        return $this->belongsTo(StudentProject::class);
+        return $this->belongsTo(StudentTeam::class);
     }
 }

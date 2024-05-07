@@ -40,4 +40,8 @@ class StudentTeam extends Model
     {
         return $this->belongsTo(Project::class);
     }
+    public function boards()
+    {
+        return $this->hasMany(Board::class);
+    }
 }
