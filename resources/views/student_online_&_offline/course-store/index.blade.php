@@ -26,7 +26,7 @@
     @foreach ($courses as $course)
         <div class="col-md-4 col-xxl-3">
             <div class="card card-body p-3">
-                <img src="{{ asset('assets-user/images/laravel-11.jpg') }}" class="rounded-1 mb-3 w-100" />
+                <img src="{{ asset('storage/' . $course->image) }}" class="rounded-1 mb-3 w-100" />
 
 
                 <a href="{{ url('/courses/detail') }}">
