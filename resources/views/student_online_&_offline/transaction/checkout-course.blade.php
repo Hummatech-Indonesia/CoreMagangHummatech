@@ -335,7 +335,6 @@
                         id="total" />
                     <input type="hidden" name="payment_code" id="payment-code" />
                     <input type="hidden" name="payment_name" id="payment-name" />
-                    <input type="hidden" name="payment_code" id="payment-name" />
                     <input type="hidden" name="discount"
                         value="{{ Transaction::discount($cartData->subtotal(), $voucherDetail ? $voucherDetail->presentase : 0) }}"
                         id="discount" />
@@ -408,7 +407,7 @@
                         <div class="grid">
                             @foreach ($paymentChannel as $channel)
                                 <label class="card card-payment">
-                                    <input name="plan" class="radio" data-code="{{ $channel['code'] }}"
+                                    <input name="plan" class="radio" data-code="{{ $channel['code'] }}" data-name="{{ $channel['name'] }}"
                                         data-id="payment-{{ $channel['code'] }}" data-name="{{ $channel['name'] }}"
                                         type="radio">
                                     <span class="plan-details">
@@ -436,9 +435,11 @@
             // Mendapatkan kode pembayaran dari input radio yang dipilih
             var selectedRadioButton = document.querySelector('input[type="radio"]:checked');
             var paymentCode = selectedRadioButton.getAttribute('data-code');
+            var paymentName = selectedRadioButton.getAttribute('data-name');
 
             // Menambahkan kode pembayaran ke value input
-            document.getElementById('payment-name').value = paymentCode;
+            document.getElementById('payment-code').value = paymentCode;
+            document.getElementById('payment-name').value = paymentName;
         });
     </script>
 @endsection
