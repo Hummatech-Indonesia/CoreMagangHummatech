@@ -11,6 +11,7 @@ use App\Http\Controllers\HummataskTeamController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LetterheadController;
 use App\Http\Controllers\PresentationController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReportStudentController;
 use App\Http\Controllers\StudentChallengeController;
 use App\Http\Controllers\StudentController;
@@ -120,6 +121,7 @@ Route::patch('rfid/update/{student}', [RfidController::class, 'update']);
 Route::post('team/store', [HummataskTeamController::class, 'store'])->name('team.store');
 Route::get('dashboard/task', [HummataskTeamController::class, 'index']);
 Route::get('hummateam/team/{slug}', [HummataskTeamController::class, 'show'])->name('team.show');
+Route::delete('hummateam/team/{hummataskTeam}', [HummataskTeamController::class, 'destroy'])->name('team.delete');
 Route::post('solo-team/store', [HummataskTeamController::class, 'soloTeam'])->name('soloTeam.store');
 
 Route::get('administrator/category-project', [CategoryProjectController::class, 'index'])->name('category-project.index');
@@ -128,6 +130,9 @@ Route::patch('administrator/category-project/{categoryProject}', [CategoryProjec
 Route::delete('administrator/category-project/{categoryProject}', [CategoryProjectController::class, 'destroy'])->name('category-project.destroy');
 
 Route::get('mentor/team', [HummataskTeamController::class, 'mentor']);
-Route::get('mentor/team/detail', function() {
-    return view('mentor.team.detail');
-});
+Route::get('mentor/team/{slug}', [HummataskTeamController::class, 'mentorShow'])->name('mentor.team-detail');
+
+Route::get('hummateam/team/{slug}/submit-project', [ProjectController::class, 'index'])->name('project.index');
+Route::post('hummateam/team/{slug}/submit-project', [ProjectController::class, 'store'])->name('project.store');
+
+Route::get('mentor/project-submission', [ProjectController::class, 'mentor'])->name('project-submission.index');

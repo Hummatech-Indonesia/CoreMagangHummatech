@@ -12,6 +12,7 @@ use App\Http\Requests\UpdateDataAdminRequest;
 use App\Http\Requests\UpdateHummataskTeamRequest;
 use App\Models\HummataskTeam;
 use Illuminate\Http\Request;
+use Str;
 
 class HummataskTeamService
 {
@@ -54,7 +55,7 @@ class HummataskTeamService
         $data = $request->all();
         if ($data) {
             $data['student_id'] = $request->leader;
-            $data['slug'] = $request->name;
+            $data['slug'] = Str::slug($request->name);
             return $data;
         }
         return false;

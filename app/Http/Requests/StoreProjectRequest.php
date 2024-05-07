@@ -11,7 +11,7 @@ class StoreProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,20 @@ class StoreProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required',
+            'description' => 'required',
+            'title*' => 'required',
+            'description*' => 'required'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'title.required' => 'Tema harus diisi',
+            'description.required' => 'Deskripsi tema harus diisi',
+            'title*.required' => 'Tema harus diisi',
+            'description*.required' => 'Deskripsi tema harus diisi',
         ];
     }
 }
