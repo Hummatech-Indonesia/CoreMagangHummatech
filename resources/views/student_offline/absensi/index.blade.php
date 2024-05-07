@@ -314,43 +314,6 @@
         </div>
     </div>
 
-    <nav aria-label="...">
-        <ul class="pagination justify-content-end mb-0 mt-3">
-            <li class="page-item">
-                <a class="page-link border-0 rounded-circle text-dark round-32 d-flex align-items-center justify-content-center"
-                    href="#">
-                    <i class="ti ti-chevron-left"></i>
-                </a>
-            </li>
-            <li class="page-item active">
-                <a href="#"
-                    class="page-link border-0 rounded-circle round-32 mx-1 d-flex align-items-center justify-content-center">1</a>
-            </li>
-            <li class="page-item">
-                <a href="#"
-                    class="page-link border-0 rounded-circle round-32 mx-1 d-flex align-items-center justify-content-center">2</a>
-            </li>
-            <li class="page-item">
-                <a href="#"
-                    class="page-link border-0 rounded-circle round-32 mx-1 d-flex align-items-center justify-content-center">3</a>
-            </li>
-            <li class="page-item">
-                <a href="#"
-                    class="page-link border-0 rounded-circle round-32 mx-1 d-flex align-items-center justify-content-center">...</a>
-            </li>
-            <li class="page-item">
-                <a href="#"
-                    class="page-link border-0 rounded-circle round-32 mx-1 d-flex align-items-center justify-content-center">5</a>
-            </li>
-            <li class="page-item">
-                <a href="#"
-                    class="page-link border-0 rounded-circle text-dark round-32 mx-1 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-chevron-right"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
-
     <!-- Izin Modal -->
     <div class="modal fade" id="izinModal" tabindex="-1" aria-labelledby="izinModalLabel" aria-hidden="true">
         <div class="modal-dialog">
