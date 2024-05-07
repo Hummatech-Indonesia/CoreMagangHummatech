@@ -33,7 +33,7 @@
 
     <div class="card">
         <div class="card-header pt-4 bg-white d-flex justify-content-between flex-column flex-xl-row">
-            <h3 class="mb-0">Status Pembayaran: <strong class="text-success">{{ $transaction->status }}</strong>
+            <h3 class="mb-0">Status Pembayaran: <strong class="text-success">{{ $transaction->status->label() }}</strong>
             </h3>
 
             <div class="d-flex gap-2 align-items-center">
