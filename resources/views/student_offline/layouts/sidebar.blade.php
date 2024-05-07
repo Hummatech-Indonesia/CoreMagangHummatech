@@ -145,7 +145,7 @@
                         <span class="hide-menu">Riwayat Transaksi</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                <!-- <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="#">
                         <span class="d-flex">
                             <i class="ti ti-credit-card"></i>
@@ -170,7 +170,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <li class="sidebar-item">
                     <a href="{{ url('/siswa-offline/letter-head') }}" class="sidebar-link">
                         <div class="round-16 d-flex align-items-center justify-content-center">
@@ -188,14 +188,14 @@
                         <span class="hide-menu">Lainnya</span>
                     </a>
                     <ul class="collapse first-level">
-                        <li class="sidebar-item">
+                        <!-- <li class="sidebar-item">
                             <a href="{{ url('siswa-offline/others/rules') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
                                 <span class="hide-menu">Tata Tertib</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="sidebar-item">
                             <a href="{{ url('siswa-offline/others/picket') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
