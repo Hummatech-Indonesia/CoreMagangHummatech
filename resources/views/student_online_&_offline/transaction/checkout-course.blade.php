@@ -318,7 +318,7 @@
                     @csrf
                     <!-- @if ($voucherDetail)
     <input type="hidden" name="voucher_code" value="{{ $voucherDetail->code_voucher }}" />
-                    @endif -->
+    @endif -->
                     <input type="hidden" name="tax" value="{{ Transaction::countTax($cartData->subtotal()) }}"
                         id="tax" />
                     <input type="hidden" name="subtotal"
@@ -343,8 +343,8 @@
                     <div class="pb-3 d-flex gap-2 flex-column mb-3">
                         <div class="d-flex justify-content-between">
                             <span>Metode Pembayaran:</span>
-                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#choose-payment" id="payment-show"
-                                class="fw-bolder text-primary text-end">Pilih</a>
+                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#choose-payment"
+                                id="payment-show" class="fw-bolder text-primary text-end">Pilih</a>
                         </div>
 
                         @error('payment_code')
@@ -407,9 +407,10 @@
                     <div class="row">
                         <div class="grid">
                             @foreach ($paymentChannel as $channel)
-                                <label class="card card-payment" data-code="{{ $channel['code'] }}"
-                                    data-id="payment-{{ $channel['code'] }}" data-name="{{ $channel['name'] }}">
-                                    <input name="plan" class="radio" type="radio" checked>
+                                <label class="card card-payment">
+                                    <input name="plan" class="radio" data-code="{{ $channel['code'] }}"
+                                        data-id="payment-{{ $channel['code'] }}" data-name="{{ $channel['name'] }}"
+                                        type="radio">
                                     <span class="plan-details">
                                         <img src="{{ $channel['icon_url'] }}" alt="">
                                     </span>
@@ -428,4 +429,16 @@
     </div>
 @endsection
 @section('script')
+    <script>
+        // Menangkap peristiwa klik pada tombol "Pilih Pembayarannya"
+        var choosePaymentButton = document.querySelector('[data-bs-toggle="choose-payment"]');
+        choosePaymentButton.addEventListener('click', function() {
+            // Mendapatkan kode pembayaran dari input radio yang dipilih
+            var selectedRadioButton = document.querySelector('input[type="radio"]:checked');
+            var paymentCode = selectedRadioButton.getAttribute('data-code');
+
+            // Menambahkan kode pembayaran ke value input
+            document.getElementById('payment-name').value = paymentCode;
+        });
+    </script>
 @endsection
