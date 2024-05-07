@@ -94,7 +94,7 @@
                             </a>
                         @else
                             <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
-                                href="{{ url('/siswa-online/jurnal') }}" aria-expanded="false">
+                                href="/student/data/journal" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-pencil"></i>
                                 </span>

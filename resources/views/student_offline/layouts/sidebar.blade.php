@@ -82,7 +82,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ url('/siswa-offline/journal') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="/student/data/journal" aria-expanded="false">
                         <span>
                             <i class="ti ti-calendar"></i>
                         </span>

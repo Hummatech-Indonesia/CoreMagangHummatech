@@ -154,8 +154,8 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
         return view('student_offline.division.index');
     })->name('.class.division');
 
-    Route::get('journal', [JournalController::class, 'index'])->name('.journal.index');
 })->middleware(["roles:siswa-offline", 'auth']);
+Route::get('student/data/journal', [JournalController::class, 'index'])->name('journal.index');
 
 # ================================================ Online Student Route Group =================================================
 Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(RolesEnum::ONLINE->value)->group(function () {
