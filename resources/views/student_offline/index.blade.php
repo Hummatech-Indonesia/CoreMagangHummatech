@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="row gap-2 flex-wrap">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
         <div class=" d-flex align-items-stretch">
             <div class="card w-100 bg-light-info overflow-hidden shadow-none" >
                 <div class="card-body position-relative">
@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="card w-100">
+        {{-- <div class="card w-100">
             <div class="card-body">
                 <div>
                     <div>
@@ -45,10 +45,10 @@
                 </div>
                 <div id="chart-journal"></div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
-
+{{--
     <div class="row align-items-stretch col-lg-4">
         <div class="card">
             <div class="card-body">
@@ -103,7 +103,7 @@
           </div>
         @endforeach
     </div>
-</div>
+</div> --}}
 
 @endsection
 
