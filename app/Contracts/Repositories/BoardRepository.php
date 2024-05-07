@@ -60,4 +60,9 @@ class BoardRepository extends BaseRepository implements BoardInterface
     {
         return $this->model->query()->where($parameter, $value)->get();
     }
+    public function whereCategory(mixed $id):mixed
+    {
+        return $this->model->query()->where('category_board_id', $id)->get();
+
+    }
 }

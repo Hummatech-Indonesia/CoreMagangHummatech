@@ -11,6 +11,8 @@ use App\Models\CategoryBoard;
 use App\Http\Requests\StoreCategoryBoardRequest;
 use App\Http\Requests\UpdateCategoryBoardRequest;
 use App\Models\HummataskTeam;
+use App\Services\NoteService;
+use Illuminate\Http\Request;
 
 class CategoryBoardController extends Controller
 {
@@ -19,13 +21,15 @@ class CategoryBoardController extends Controller
     private StudentProjectInterface $studentProject;
     private ProjectInterface $Project;
     private BoardInterface $board;
-    public function __construct(CategoryBoardInterface $categoryBoard, HummataskTeamInterface $hummataskTeam, BoardInterface $board, StudentProjectInterface $studentProject, ProjectInterface $Project)
+    private NoteService $noteservice;
+    public function __construct(CategoryBoardInterface $categoryBoard, HummataskTeamInterface $hummataskTeam, BoardInterface $board, StudentProjectInterface $studentProject, ProjectInterface $Project, NoteService $noteService)
     {
         $this->categoryBoard = $categoryBoard;
         $this->hummataskTeam = $hummataskTeam;
         $this->board = $board;
         $this->studentProject = $studentProject;
         $this->Project = $Project;
+        $this->noteservice = $noteService;
     }
     /**
      * Display a listing of the resource.
@@ -91,5 +95,23 @@ class CategoryBoardController extends Controller
     {
         $this->categoryBoard->delete($categoryBoard->id);
         return back()->with('success' , 'Data Berhasil Dihapus');
+    }
+    public function savenote(Request $request)
+    {
+        $this->noteservice->simpanCatatan($request);
+
+        return redirect()->back()->with('success', 'Catatan berhasil disimpan.');
+    }
+
+    public function shownote($slug, HummataskTeam $hummataskTeam)
+    {
+        $categoryBoards = $this->categoryBoard->get();
+        $board = [];
+
+        foreach ($categoryBoards as $key => $categoryBoard) {
+            $board = $this->board->whereCategory($categoryBoard->id);
+        }
+        $slugs = $this->hummataskTeam->slug($slug);
+        return view('Hummatask.team.note', compact('hummataskTeam', 'slugs','categoryBoards','board'));
     }
 }

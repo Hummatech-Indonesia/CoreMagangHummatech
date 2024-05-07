@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('category_boards', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
             $table->foreignId('hummatask_team_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('status',['team_note','revision_note'])->nullable();
             $table->timestamps();

@@ -42,6 +42,12 @@
         </div>
     </div>
     @empty
-        
+
+    <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+        <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+        <p class="fs-5 text-dark">
+            Belum Ada data
+        </p>
+    </div>
     @endforelse
 @endsection

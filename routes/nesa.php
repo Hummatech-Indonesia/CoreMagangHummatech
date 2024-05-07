@@ -176,8 +176,10 @@ Route::get('/siswa-online/absensi', [AttendanceController::class, 'attendanceOnl
 //     return view('Hummatask.team.note');
 // });
 
-Route::get('hummateam/team/{slug}/note',[BoardController::class,'show'])->name('team.note');
-Route::post('/hummateam/team/note/store', [CategoryBoardController::class, 'notestore'])->name('team.note.store');
+Route::get('hummateam/team/{slug}/note',[CategoryBoardController::class,'shownote'])->name('team.note');
+Route::post('/hummateam/team/note/store', [CategoryBoardController::class, 'savenote'])->name('team.note.store');
+Route::delete('/hummateam/team/note/delete/{categoryBoard}', [CategoryBoardController::class, 'destroy'])->name('team.note.destroy');
+
 
 
 Route::get('hummateam/team/{slug}/board',[CategoryBoardController::class,'index'])->name('team.board');
@@ -192,4 +194,4 @@ Route::delete('hummateam/board/delete/{board}',[BoardController::class,'destroy'
 
 
 Route::get('hummateam/team/{slug}/presentation',[PresentationController::class,'usershow'])->name('team.presentation');
-Route::put('hummateam/team/{slug}/presentation', [PresentationController::class, 'update'])->name('presentation.update');
+Route::put('hummateam/team/presentation/update', [PresentationController::class, 'update'])->name('presentation.update');
