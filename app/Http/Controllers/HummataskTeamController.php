@@ -161,19 +161,19 @@ class HummataskTeamController extends Controller
 
     public  function mentor(){
         $categoryProjects = $this->categoryProject->get();
-        $students = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
+        $mentorStudents = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
         $teams = $this->hummatask_team->WhereTeam();
         $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
         // dd($mentorStudents);
-        return view('mentor.team.index', compact('categoryProjects', 'students', 'teams' ,'mentors'));
+        return view('mentor.team.index', compact('categoryProjects', 'mentorStudents', 'teams' ,'mentors'));
     }
 
     public function mentorShow($slug){
         $team = $this->hummatask_team->slug($slug);
         $projects = $this->project->where('hummatask_team_id', $team->id);
         $categoryProjects = $this->categoryProject->get();
-        $students = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
+        $mentorStudents = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
         $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
-        return view('mentor.team.detail', compact('team', 'projects', 'categoryProjects', 'students', 'mentors'));
+        return view('mentor.team.detail', compact('team', 'projects', 'categoryProjects', 'mentorStudents', 'mentors'));
     }
 }
