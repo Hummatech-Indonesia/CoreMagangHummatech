@@ -169,7 +169,7 @@
                 </div>
                 <div class="col-md-4">
                     <section class="mb-3">
-                        <h5 class="">Instruksi Pembayaran 1</h5>
+                        <h5 class="">Instruksi Pembayaran</h5>
                         <div class="accordion mt-3" id="instructionsAccordion">
                             @foreach ($instructions as $index => $instruction)
                                 <div class="accordion-item">
@@ -180,8 +180,7 @@
                                             {{ $instruction['title'] }}
                                         </button>
                                     </h2>
-                                    <div id="collapse{{ $index }}" class="accordion-collapse collapse"
-                                        aria-labelledby="heading{{ $index }}"
+                                    <div id="collapse{{ $index }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $index }}"
                                         data-bs-parent="#instructionsAccordion">
                                         <div class="accordion-body">
                                             <ol>

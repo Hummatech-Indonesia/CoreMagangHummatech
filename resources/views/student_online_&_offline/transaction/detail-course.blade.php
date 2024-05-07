@@ -207,23 +207,23 @@
                 <div class="col-md-4">
                     <section class="mb-3">
                         <h5 class="">Instruksi Pembayaran</h5>
-                        @foreach ($instructions as $instruction)
+                        @foreach ($instructions as $index => $instruction)
                             <div class="accordion mt-3" id="instructionsAccordion">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="heading">
                                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapse" aria-expanded="false" aria-controls="collapse">
+                                            data-bs-target="#collapse{{ $index }}" aria-expanded="false" aria-controls="collapse">
                                             {{ $instruction['title'] }}
                                         </button>
                                     </h2>
-                                    <div id="collapse" class="accordion-collapse collapse" aria-labelledby="heading"
+                                    <div id="collapse{{ $index }}" class="accordion-collapse collapse" aria-labelledby="heading"
                                         data-bs-parent="#instructionsAccordion">
                                         <div class="accordion-body">
-                                            @foreach ($instruction['steps'] as $step)
-                                                <ol>
+                                            <ol>
+                                                @foreach ($instruction['steps'] as $step)
                                                     <li>{!! $step !!}</li>
-                                                </ol>
-                                            @endforeach
+                                                @endforeach
+                                            </ol>
                                         </div>
                                     </div>
                                 </div>
