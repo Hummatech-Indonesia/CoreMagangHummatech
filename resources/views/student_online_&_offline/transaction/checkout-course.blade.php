@@ -394,6 +394,7 @@
             </div>
         </div>
 @endsection
+
 @section('script')
     <!-- Modal Payment Gateway -->
     <div class="modal fade" id="choose-payment" tabindex="-1" role="dialog" aria-labelledby="choose-paymentLabel"
@@ -408,20 +409,21 @@
                     <div class="row">
                         <div class="grid">
                             @foreach ($paymentChannel as $channel)
-                                <label class="card card-payment" data-id="payment-{{ $channel['id'] }}"
-                                    data-name="{{ $channel['name'] }}" data-fee="{{ $channel['fee'] }}">
-                                    <input name="plan" class="radio" type="radio" checked>
-                                    <span class="plan-details">
-                                        <img src="{{ $channel['icon_url'] }}" alt="">
-                                    </span>
-                                </label>
+                            @dd($channel)
+                            <label class="card">
+                                <input name="plan" class="radio" type="radio" checked>
+                                <span class="plan-details">
+                                <img src="{{ $channel['icon_url'] }}" alt="">
+                                </span>
+                            </label>
                             @endforeach
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" data-bs-toggle="choose-payment" class="btn btn-primary">Pilih Pembayarannya</button>
+                    <button type="button" data-bs-toggle="choose-payment" class="btn btn-primary">Pilih
+                        Pembayarannya</button>
                 </div>
             </div>
         </div>
@@ -456,6 +458,8 @@
             const tax = parseInt($('#tax').val() ?? 0);
 
             const countTotal = feeAmount + subtotal;
+            console.log({countTotal, subtotal, feeAmount})
+            console.log(subtotal + tax + feeAmount)
 
             // Show the additional fee
             $('#additional-fee').html(`
