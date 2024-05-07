@@ -13,6 +13,7 @@ use App\Contracts\Interfaces\StudentTeamInterface;
 use App\Models\HummataskTeam;
 use App\Http\Requests;
 use App\Http\Requests\StoreHummataskTeamRequest;
+use App\Http\Requests\StoreSoloProjectRequest;
 use App\Http\Requests\UpdateHummataskTeamRequest;
 use App\Models\MentorStudent;
 use App\Services\HummataskTeamService;
@@ -21,6 +22,7 @@ use App\Services\StudentProjectService;
 use App\StatusProjectEnum;
 use Carbon;
 use Illuminate\Http\Request;
+use Str;
 
 class HummataskTeamController extends Controller
 {
@@ -137,11 +139,11 @@ class HummataskTeamController extends Controller
         return back()->with('success', 'Berhasi Menghapus Data');
     }
 
-    public function soloTeam(Request $request){
+    public function soloTeam(StoreSoloProjectRequest $request){
         $data = $this->service->store($request);
         $data['student_id'] = auth()->user()->student->id;
         $data['division_id'] = auth()->user()->student->division_id;
-        $data['slug'] = $request->name;
+        $data['slug'] = Str::slug($request->name);
         $team = $this->hummatask_team->store($data);
 
         $projectVar['hummatask_team_id'] = $team->id;
@@ -152,9 +154,10 @@ class HummataskTeamController extends Controller
         $projectVar['end_date'] = Carbon::now()->addWeek()->toDateString();
         $project = $this->project->store($projectVar);
 
-        $studentProjectVar['project_id'] = $project->id;
-        $studentProjectVar['student_id'] = auth()->user()->student->id;
-        $this->studentProject->store($studentProjectVar);
+        $studentTeamVar['project_id'] = $project->id;
+        $studentTeamVar['hummatask_team_id'] = $team->id;
+        $studentTeamVar['student_id'] = auth()->user()->student->id;
+        $this->studentTeam->store($studentTeamVar);
 
         return back()->with('success', 'Team solo project berhasil ditambahkan');
     }
