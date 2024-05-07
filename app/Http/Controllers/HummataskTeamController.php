@@ -64,7 +64,7 @@ class HummataskTeamController extends Controller
      */
     public function index()
     {
-        $projects = $this->studentTeam->get();   
+        $projects = $this->studentTeam->get();
         // dd($projects);
         return view('Hummatask.index', compact('projects'));
     }
@@ -167,13 +167,13 @@ class HummataskTeamController extends Controller
         // dd($mentorStudents);
         return view('mentor.team.index', compact('categoryProjects', 'mentorStudents', 'teams' ,'mentors'));
     }
-    
+
     public function mentorShow($slug){
         $team = $this->hummatask_team->slug($slug);
         $projects = $this->project->where('hummatask_team_id', $team->id);
         $categoryProjects = $this->categoryProject->get();
-        $mentorStudents = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
+        $students = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
         $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
-        return view('mentor.team.detail', compact('team', 'projects', 'categoryProjects', 'mentorStudents', 'mentors'));
+        return view('mentor.team.detail', compact('team', 'projects', 'categoryProjects', 'students', 'mentors'));
     }
 }
