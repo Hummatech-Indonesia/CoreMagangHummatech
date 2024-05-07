@@ -116,34 +116,34 @@
                                 <tbody>
                                     <tr>
                                         <td colspan="2">
-                                            {{-- @if ($reference->order->course())
+                                            {{-- @if ($reference->order->product())
                                             Pembelian Materi: <strong>{{ $reference->order->name }}</strong>
                                             @else
                                             Berlangganan: <strong>{{ $reference->order->name }}</strong>
                                             @endif --}}
-                                            Berlangganan: <strong>{{ $transaction->course->title }}</strong>
+                                            Berlangganan: <strong>{{ $transaction->product->name }}</strong>
                                         </td>
-                                        <td>Rp {{ number_format($transaction->course->price, 0, ',', '.') }}</td>
+                                        <td>Rp {{ number_format($transaction->product->price, 0, ',', '.') }}</td>
                                     </tr>
 
                                     <tr>
                                         <td class="border-0 pb-1"></td>
                                         <td class="border-0 pb-1">Subtotal</td>
                                         <td class="border-0 pb-1">Rp
-                                            {{ number_format($transaction->course->price, 0, ',', '.') }}</td>
+                                            {{ number_format($transaction->product->price, 0, ',', '.') }}</td>
                                     </tr>
                                     <tr>
                                         <td class="border-0 opacity-50 py-1"></td>
                                         <td class="border-0 opacity-50 py-1">PPn 11%</td>
                                         <td class="border-0 opacity-50 py-1">
-                                            {{ 'Rp ' . number_format($transaction->course->price * (11 / 100), 0, ',', '.') }}
+                                            {{ 'Rp ' . number_format($transaction->product->price * (11 / 100), 0, ',', '.') }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="border-0 opacity-50 pb-3 pt-1"></td>
                                         <td class="border-0 opacity-50 pb-3 pt-1">Biaya Lainya</td>
                                         <td class="border-0 opacity-50 pb-3 pt-1">
-                                            {{ 'Rp ' . number_format($transaction->amount + $transaction->total_fee - ($transaction->course->price + $transaction->course->price * (11 / 100)), 0, ',', '.') }}
+                                            {{ 'Rp ' . number_format($transaction->amount + $transaction->total_fee - ($transaction->product->price + $transaction->product->price * (11 / 100)), 0, ',', '.') }}
                                         </td>
                                         {{-- {{-- </tr> --}}
                                         {{-- @if ($reference->voucherUsage)
