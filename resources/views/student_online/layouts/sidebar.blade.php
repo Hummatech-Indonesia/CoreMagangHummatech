@@ -86,7 +86,7 @@
                 @if (!auth()->user()->feature)
                     <li class="sidebar-item">
                         @if (auth()->user()->student->activeFeature != null && auth()->user()->student->activeFeature->is_active == '1')
-                            <a class="sidebar-link" href="" aria-expanded="false">
+                            <a class="sidebar-link" href="/student/data/journal" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-pencil"></i>
                                 </span>
@@ -94,7 +94,7 @@
                             </a>
                         @else
                             <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
-                                href="/student/data/journal" aria-expanded="false">
+                                href="javascript:void(0)" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-pencil"></i>
                                 </span>
