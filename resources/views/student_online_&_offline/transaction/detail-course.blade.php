@@ -33,7 +33,20 @@
 
     <div class="card">
         <div class="card-header pt-4 bg-white d-flex justify-content-between flex-column flex-xl-row">
-            <h3 class="mb-0">Status Pembayaran: <strong class="text-success">{{ $transaction->status->label() }}</strong>
+            <h3 class="mb-0">Status Pembayaran: <strong class="text-success">
+                    @php
+                        $statusLabels = [
+                            'pending' => 'Belum Dibayar',
+                            'paid' => 'Lunas',
+                            'cancelled' => 'Batal',
+                            'expired' => 'Kadaluarsa',
+                            'failed' => 'Gagal',
+                            'refund' => 'Dikembalikan',
+                            'unpaid' => 'Belum Lunas',
+                        ];
+                    @endphp
+
+                    {{ $statusLabels[$transaction->status] ?? 'Status Tidak Diketahui' }}</strong>
             </h3>
 
             <div class="d-flex gap-2 align-items-center">
@@ -86,7 +99,7 @@
                                             @endif --}}
                                             Berlangganan: <strong>{{ $transaction->course->title }}</strong>
                                         </td>
-                                        <td>Rp {{ number_format($transaction->course->price ,0 ,',' , '.') }}</td>
+                                        <td>Rp {{ number_format($transaction->course->price, 0, ',', '.') }}</td>
                                     </tr>
 
                                     <tr>
