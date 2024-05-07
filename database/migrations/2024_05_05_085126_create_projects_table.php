@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->longText('description');
             $table->string('link')->nullable();
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->enum('status', [StatusProjectEnum::PENDING->value, StatusProjectEnum::ACCEPTED->value])->default(StatusProjectEnum::PENDING->value);
             $table->timestamps();
         });

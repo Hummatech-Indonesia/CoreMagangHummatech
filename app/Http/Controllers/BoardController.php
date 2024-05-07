@@ -55,8 +55,8 @@ class BoardController extends Controller
      */
     public function show($slug, HummataskTeam $hummataskTeam)
     {
-        $slugs = $this->hummataskTeam->slug($slug);
-        return view('Hummatask.team.note', compact('hummataskTeam', 'slugs'));    }
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.

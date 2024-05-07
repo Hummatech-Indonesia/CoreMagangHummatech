@@ -46,24 +46,25 @@
                     @endif
                 @endauth
                 @forelse ($projects as $project)
-                <li class="sidebar-item px-2">
-                    <a href="{{ route('team.show', ['slug' => $project->project->hummataskTeam->slug]) }}" class="d-flex align-items-center">
-                        <div class="rounded-circle overflow-hidden me-6">
-                            <img src="{{ asset('storage/'. $project->project->hummataskTeam->image) }}" alt="{{ $project->project->title }}" width="40"
-                                height="40">
-                        </div>
-                        <div class="d-inline-block">
-                            <h6 class="mb-1 bg-hover-primary">{{ $project->project->title }}</h6>
-                            <div class="tb-section-2 mt-2">
-                                <span class="bg-{{ $project->project->status->color() }} px-2  text-bg-{{ $project->project->status->color() }} fs-2 text-capitalize rounded-1 pb-1">{{ $project->project->status->label() }}</span>
-                                <span class="bg-primary px-2  text-bg-primary fs-2 rounded-1 pb-1">{{ $project->project->hummataskTeam->categoryProject->name }}</span>
+                    <li class="sidebar-item px-2">
+                        <a href="{{ route('team.show', ['slug' => $project->hummataskTeam->slug]) }}" class="d-flex align-items-center">
+                            <div class="rounded-circle overflow-hidden me-6">
+                                <img src="{{ asset('storage/'. $project->hummataskTeam->image) }}" alt="{{ $project->hummataskTeam->name }}" width="40"
+                                    height="40">
                             </div>
-                        </div>
-                    </a>
-                </li>
-                    @empty
+                            <div class="d-inline-block">
+                                <h6 class="mb-1 bg-hover-primary">{{ $project->hummataskTeam->name }}</h6>
+                                <div class="tb-section-2 mt-2">
+                                    <span class="bg-warning px-2  text-bg-warning fs-2 text-capitalize rounded-1 pb-1">leum</span>
+                                    {{-- <span class="bg-{{ $project->status->color() }} px-2  text-bg-{{ $project->status->color() }} fs-2 text-capitalize rounded-1 pb-1">{{ $project->status->label() }}</span> --}}
+                                    <span class="bg-primary px-2  text-bg-primary fs-2 rounded-1 pb-1">{{ $project->hummataskTeam->categoryProject->name }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                @empty
 
-                    @endforelse
+                @endforelse
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

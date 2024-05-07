@@ -17,4 +17,12 @@ interface TransactionInterface extends GetInterface, ShowInterface, StoreInterfa
      * @return mixed
      */
     public function getByMerchantRef(string $merchantRef): mixed;
+
+    /**
+     * getByUser
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getByUser(mixed $id): mixed;
 }

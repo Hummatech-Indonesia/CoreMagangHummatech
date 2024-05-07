@@ -64,7 +64,8 @@ class HummataskTeamController extends Controller
      */
     public function index()
     {
-        $projects = $this->studentProject->where('student_id', auth()->user()->student->id);
+        $projects = $this->studentTeam->get();   
+        // dd($projects);
         return view('Hummatask.index', compact('projects'));
     }
 
@@ -82,8 +83,8 @@ class HummataskTeamController extends Controller
     public function store(StoreHummataskTeamRequest $request)
     {
         $data = $this->service->storeTim($request);
-        $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
-        $data['division_id'] = $mentors[0]->division_id;
+        $data['division_id'] = auth()->user()->mentor->division_id;
+        // dd($data);
         $hummatask_team = $this->hummatask_team->store($data);
         foreach ($request->student_id as $student_id) {
             $this->studentTeam->store([
@@ -101,13 +102,12 @@ class HummataskTeamController extends Controller
     public function show($slug, HummataskTeam $hummataskTeam)
     {
         $slugs = $this->hummatask_team->slug($slug);
-        $projects = $this->project->where('title', $slugs->slug);
-        $studentProjects = [];
-
-        foreach ($projects as $project) {
-            $studentProjects = $this->studentProject->where('project_id', $project->id);
-        }
-        return view('Hummatask.team.index', compact('hummataskTeam', 'studentProjects', 'slugs'));
+        $projects = $this->project->where('hummatask_team_id', $slugs->id);
+        // $studentProjects = [];
+        // foreach ($projects as $project) {
+        //     $studentProjects = $this->studentProject->where('project_id', $project->id);
+        // }
+        return view('Hummatask.team.index', compact('hummataskTeam', 'slugs', 'projects'));
     }
 
     /**
@@ -161,9 +161,19 @@ class HummataskTeamController extends Controller
 
     public  function mentor(){
         $categoryProjects = $this->categoryProject->get();
-        $students = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
+        $mentorStudents = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
         $teams = $this->hummatask_team->WhereTeam();
         $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
-        return view('mentor.team.index', compact('categoryProjects', 'students', 'teams' ,'mentors'));
+        // dd($mentorStudents);
+        return view('mentor.team.index', compact('categoryProjects', 'mentorStudents', 'teams' ,'mentors'));
+    }
+    
+    public function mentorShow($slug){
+        $team = $this->hummatask_team->slug($slug);
+        $projects = $this->project->where('hummatask_team_id', $team->id);
+        $categoryProjects = $this->categoryProject->get();
+        $mentorStudents = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
+        $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
+        return view('mentor.team.detail', compact('team', 'projects', 'categoryProjects', 'mentorStudents', 'mentors'));
     }
 }

@@ -88,4 +88,9 @@ class HummataskTeam extends Model
     {
         return $this->hasMany(studentTeam::class);
     }
+
+    public function mentor()
+{
+    return $this->belongsTo(Mentor::class, 'mentor_id');
+}
 }

@@ -53,8 +53,8 @@
                                 <i class="fas fa-2x fa-book"></i>
                             </div>
                             <div>
-                                    <h5>{{ $transaction->product->name }}</h5>
-                                    <h3 class="text-primary fw-bolder mb-0">{{ $transaction->product->price }}</h3>
+                                    <h5>{{ $transaction->product ? $transaction->product->name : $transaction->course->title }}</h5>
+                                    <h3 class="text-primary fw-bolder mb-0">{{ $transaction->product ? $transaction->product->price : $transaction->course->price }}</h3>
                             </div>
                         </div>
 
@@ -84,12 +84,12 @@
                                 class="d-flex gap-2 align-items-center w-100 p-3 pt-3 pb-0 border-top px-0 justify-content-between">
                                 <div class="mb-0 fw-bolder">Jenis Produk</div>
                                 <div class="mb-0">
-                                    <h5 class="mb-0 fw-bolder">Materi</h5>
+                                    <h5 class="mb-0 fw-bolder">{{ $transaction->product ? 'Produk' : 'Materi' }}</h5>
                                 </div>
                             </div>
                         </div>
 
-                            <a href="{{ route('transaction-history.detail', $transaction->id) }}"
+                            <a href="{{ $transaction->product ? route('transaction-history.detail', $transaction->id) : route('transaction-history.course.detail', $transaction->id)}}"
                                 class="btn btn-warning w-100 mt-3">Lihat Detail</a>
                     </div>
                 </div>

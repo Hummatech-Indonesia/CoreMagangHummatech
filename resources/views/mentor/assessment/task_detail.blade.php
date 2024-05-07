@@ -9,6 +9,7 @@
     <div>
         <span class="mb-1 badge font-medium bg-light-success text-success">{{$task->level}}</span>
         <h2 class="mt-3">{{$task->title}}</h2>
+        <p>{{$task->description}}</p>
     </div>
 </div>
 

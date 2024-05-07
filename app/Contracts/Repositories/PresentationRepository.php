@@ -82,4 +82,12 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->where('status_presentation', $status)
             ->get();
     }
+
+    public function GetPresentations(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->whereDate('created_at', Carbon::today())
+            ->where('mentor_id' , $id)
+            ->get();
+    }
 }
