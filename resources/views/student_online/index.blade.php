@@ -10,8 +10,23 @@
                                 <div class="d-flex align-items-center mb-3 flex-column flex-sm-row">
                                     <div class="d-flex align-items-center justify-content-center overflow-hidden me-sm-6 mb-3 mb-sm-0"
                                         style="width: 64px; height: 64px;">
-                                        <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt=""
-                                            class="img-fluid rounded-circle" style="object-fit: cover;">
+                                        @if (auth()->user()->student && !empty(auth()->user()->student->avatar))
+                                            @php
+                                                $avatarPath = 'storage/' . auth()->user()->student->avatar;
+                                                $avatarExists = file_exists(public_path($avatarPath));
+                                            @endphp
+
+                                            @if ($avatarExists)
+                                                <img src="{{ asset($avatarPath) }}"class="img-fluid rounded-circle"
+                                                    style="object-fit: cover;" />
+                                            @else
+                                                <img src="{{ asset('user.webp') }}"class="img-fluid rounded-circle"
+                                                    style="object-fit: cover;" />
+                                            @endif
+                                        @else
+                                            <img src="{{ asset('user.webp') }}" class="img-fluid rounded-circle"
+                                                style="object-fit: cover;" />
+                                        @endif
                                     </div>
                                     <div class="d-flex flex-column gap-2">
                                         <h5 class="fw-semibold mb-3 mb-sm-0 fs-5 text-center text-sm-start">
