@@ -83,7 +83,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query()->where('id' , auth()->user()->student->id)->get();
     }
 
-    /**
+    /** 
      * Get Data
      *
      * @return mixed
