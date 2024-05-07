@@ -94,6 +94,6 @@ class AttendanceController extends Controller
     public function attendanceOnline(Request $request): View
     {
         $onlineAttendances = $this->student->listAttendance();
-        return view('student_online.absensi.index',compact('onlineAttendnaces'));
+        return view('student_online.absensi.index',compact('onlineAttendances'));
     }
 }
