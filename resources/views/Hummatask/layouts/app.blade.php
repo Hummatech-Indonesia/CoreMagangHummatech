@@ -351,7 +351,7 @@
             <div class="theme-direction pb-4">
                 <h6 class="fw-semibold fs-4 mb-1">Theme Direction</h6>
                 <div class="d-flex align-items-center gap-3 my-3">
-                    <a href="index.html"
+                    <a href="javascript:void(0)"
                         class="rounded-2 p-9 customizer-box hover-img d-flex align-items-center gap-2">
                         <i class="ti ti-text-direction-ltr fs-6 text-primary"></i>
                         <span class="text-dark">LTR</span>

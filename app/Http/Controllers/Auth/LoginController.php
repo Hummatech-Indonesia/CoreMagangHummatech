@@ -39,7 +39,7 @@ class LoginController extends Controller
         // Periksa apakah pengguna dengan email yang diberikan ditemukan dan password cocok
         if ($loggedInUser && password_verify($password, $loggedInUser->password)) {
             // Tugaskan peran (role) pengguna berdasarkan email atau jenis pengguna
-            $accessToken = $loggedInUser->createToken('Token Name')->accessToken;
+            $accessToken = $loggedInUser->createToken('BearerToken')->accessToken;
 
             $userData = [
                 'id' => $loggedInUser->id,

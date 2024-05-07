@@ -7,14 +7,14 @@
                 </a>
             </li>
             <li class="nav-item d-none d-xl-block">
-                <a href="index.html" class="text-nowrap nav-link">
+                <a href="javascript:void(0)" class="text-nowrap nav-link">
                     <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="200" alt="" />
                     <img src="{{ asset('logopkldark.png') }}" class="light-logo" width="200" alt="" />
                 </a>
             </li>
         </ul>
         <div class="d-block d-xl-none">
-            <a href="index.html" class="text-nowrap nav-link">
+            <a href="javascript:void(0)" class="text-nowrap nav-link">
                 <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/dark-logo.svg"
                     width="180" alt="" />
             </a>
