@@ -53,28 +53,27 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Catatan</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Buat Catatan Baru</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('presentation.update', ['slug' => $slugs->slug]) }}" method="post">
+                <form action="{{route('team.note.store', ['slug' => $slugs->slug])}}" method="post">
                     @csrf
-                    @method('PUT')
-                    {{-- <input type="hidden" name="note_id" value="{{ $board->id }}"> --}}
+                    @method('POST')
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="tim" name="hummatask_team_id" value="{{ $slugs->id }}" placeholder="Masukkan judul disini" hidden>
-                        <input type="text" class="form-control" id="judulCatatan" name="title" value="{{ old('title', $categoryBoard->title) }}" placeholder="Judul">
+                        <input type="text" class="form-control" id="tim" name="hummatask_team_id" value="{{$slugs->id}}" placeholder="Masukkan judul disini" hidden>
+                        <input type="text" class="form-control" id="judulCatatan" name="title" placeholder="Judul">
                     </div>
 
                     <div class="mb-3">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="radio1" value="team_note" {{ $categoryBoard->status == 'team_note' ? 'checked' : '' }}>
+                            <input class="form-check-input" type="radio" name="status" id="radio1" value="team_note" checked>
                             <label class="form-check-label" for="radio1">
                                 Catatan Tim
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="radio2" value="revision_note" {{ $categoryBoard->status == 'revision_note' ? 'checked' : '' }}>
+                            <input class="form-check-input" type="radio" name="status" id="radio2" value="revision_note">
                             <label class="form-check-label" for="radio2">
                                 Catatan Revisi
                             </label>
@@ -97,7 +96,6 @@
         </div>
     </div>
 </div>
-
 
 
 <div class="tab-content">
@@ -210,32 +208,27 @@
 </div>
 
     <!-- Edit Modal -->
-    <div class="modal fade" id="bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade" id="editNoteModal" tabindex="-1" aria-labelledby="editNoteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Update Catatan</h5>
+                    <h5 class="modal-title" id="editNoteModalLabel">Edit Catatan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('presentation.update', ['slug' => $slugs->slug]) }}" method="post">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="note_id" value="{{ $note->id }}">
+                    <form action="" method="POST">
                         <div class="mb-3">
-                            <input type="text" class="form-control" id="tim" name="hummatask_team_id" value="{{ $slugs->id }}" placeholder="Masukkan judul disini" hidden>
-                            <input type="text" class="form-control" id="judulCatatan" name="title" value="{{ old('title', $note->title) }}" placeholder="Judul">
+                            <input type="text" class="form-control" id="name-edit" name="title" placeholder="Judul" value="{{ old('title', $categoryBoard->title) }}" required>
                         </div>
-
                         <div class="mb-3">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status" id="radio1" value="team_note" {{ $note->status == 'team_note' ? 'checked' : '' }}>
+                                <input class="form-check-input" type="radio" name="status" id="status-edit" value="team_note" checked>
                                 <label class="form-check-label" for="radio1">
                                     Catatan Tim
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status" id="radio2" value="revision_note" {{ $note->status == 'revision_note' ? 'checked' : '' }}>
+                                <input class="form-check-input" type="radio" name="status" id="status-edit" value="revision_note">
                                 <label class="form-check-label" for="radio2">
                                     Catatan Revisi
                                 </label>
@@ -246,9 +239,8 @@
                             <div id="note-container">
                                 <!-- Kontainer untuk input catatan -->
                             </div>
-                            <button type="button" class="btn add-button-trigger btn-primary mt-3">Tambah</button>
+                            <button type="button" class="btn add-button-trigger2 btn-primary mt-3">Tambah</button>
                         </div>
-
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                             <button type="submit" class="btn btn-primary">Simpan</button>
@@ -258,7 +250,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- Detail Modal -->
     <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
