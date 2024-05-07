@@ -33,22 +33,44 @@
 
     <div class="card">
         <div class="card-header pt-4 bg-white d-flex justify-content-between flex-column flex-xl-row">
-            <h3 class="mb-0">Status Pembayaran: <strong class="text-success">
-                    @php
-                        $statusLabels = [
-                            'pending' => 'Belum Dibayar',
-                            'paid' => 'Lunas',
-                            'cancelled' => 'Batal',
-                            'expired' => 'Kadaluarsa',
-                            'failed' => 'Gagal',
-                            'refund' => 'Dikembalikan',
-                            'unpaid' => 'Belum Lunas',
-                        ];
-                    @endphp
+            @php
+                $statusLabels = [
+                    'pending' => [
+                        'label' => 'Belum Dibayar',
+                        'class' => 'text-warning',
+                    ],
+                    'paid' => [
+                        'label' => 'Lunas',
+                        'class' => 'text-success',
+                    ],
+                    'cancelled' => [
+                        'label' => 'Batal',
+                        'class' => 'text-danger',
+                    ],
+                    'expired' => [
+                        'label' => 'Kadaluarsa',
+                        'class' => 'text-danger',
+                    ],
+                    'failed' => [
+                        'label' => 'Gagal',
+                        'class' => 'text-danger',
+                    ],
+                    'refund' => [
+                        'label' => 'Dikembalikan',
+                        'class' => 'text-info',
+                    ],
+                    'unpaid' => [
+                        'label' => 'Belum Lunas',
+                        'class' => 'text-warning',
+                    ],
+                ];
+            @endphp
 
-                    {{ $statusLabels[$transaction->status] ?? 'Status Tidak Diketahui' }}</strong>
+            <h3 class="mb-0">Status Pembayaran: <strong
+                    class="{{ $statusLabels[$transaction->status]['class'] ?? 'text-muted' }}">
+                    {{ $statusLabels[$transaction->status]['label'] ?? 'Status Tidak Diketahui' }}
+                </strong>
             </h3>
-
             <div class="d-flex gap-2 align-items-center">
                 <a href="{{ route('transaction-history.index') }}" class="btn btn-light d-flex align-items-center gap-2"><i
                         class="fas fa-arrow-left"></i><span>Kembali</span></a>
