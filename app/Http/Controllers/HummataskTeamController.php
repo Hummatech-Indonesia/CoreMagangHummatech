@@ -141,6 +141,7 @@ class HummataskTeamController extends Controller
     public function soloTeam(Request $request){
         $data = $this->service->store($request);
         $data['student_id'] = auth()->user()->student->id;
+        $data['division_id'] = auth()->user()->student->division_id;
         $data['slug'] = $request->name;
         $team = $this->hummatask_team->store($data);
 
