@@ -44,7 +44,7 @@
     </div>
 
     <div class="row">
-            @foreach ($transactions as $transaction)
+        @foreach ($transactions as $transaction)
             <div class="col-xl-4 col-xxl-3">
                 <div class="card">
                     <div class="card-body">
@@ -53,32 +53,48 @@
                                 <i class="fas fa-2x fa-book"></i>
                             </div>
                             <div>
-                                    <h5>{{ $transaction->product ? $transaction->product->name : $transaction->course->title }}</h5>
-                                    <h3 class="text-primary fw-bolder mb-0">{{ $transaction->product ? $transaction->product->price : $transaction->course->price }}</h3>
+                                <h5>{{ $transaction->product ? $transaction->product->name : $transaction->course->title }}
+                                </h5>
+                                <h3 class="text-primary fw-bolder mb-0">
+                                    {{ $transaction->product ? $transaction->product->price : $transaction->course->price }}
+                                </h3>
                             </div>
                         </div>
 
                         <div class="mt-3">
                             <div class="d-flex gap-2 align-items-center w-100 py-3 justify-content-between">
                                 <div class="mb-0 fw-bolder">Status</div>
+                                @php
+                                    $statusClasses = [
+                                        'pending' => 'bg-warning',
+                                        'paid' => 'bg-success',
+                                        'cancelled' => 'bg-danger',
+                                        'expired' => 'bg-danger',
+                                        'failed' => 'bg-danger',
+                                        'refund' => 'bg-info',
+                                        'unpaid' => 'bg-warning',
+                                    ];
+                                @endphp
+
                                 <div class="mb-0"><span
-                                        class="fw-bolder badge bg-success">{{ $transaction->status }}</span>
-                                </div>
+                                        class="fw-bolder badge {{ $statusClasses[$transaction->status] ?? 'bg-secondary' }}">
+                                        {{ $transaction->status }}
+                                    </span></div>
                             </div>
                             {{-- @if (!$order->course) --}}
-                                <div class="d-flex gap-2 align-items-center border-top w-100 py-3 justify-content-between">
-                                    {{-- @if ($order->transaction->status !== 'paid')
+                            <div class="d-flex gap-2 align-items-center border-top w-100 py-3 justify-content-between">
+                                {{-- @if ($order->transaction->status !== 'paid')
                                         <div class="mb-0 fw-bolder">Bayar Sebelum</div>
                                         <div class="text-center">
                                             {{ $order->transaction->expired_at->locale('id_ID')->isoFormat('dddd, D MMMM Y') }}
                                         </div>
                                     @else --}}
-                                        <div class="mb-0 fw-bolder">Berakhir Pada</div>
-                                        <div class="text-center">
-                                            Senin, 31 Agustus 2024
-                                        </div>
-                                    {{-- @endif --}}
+                                <div class="mb-0 fw-bolder">Berakhir Pada</div>
+                                <div class="text-center">
+                                    Senin, 31 Agustus 2024
                                 </div>
+                                {{-- @endif --}}
+                            </div>
                             {{-- @endif --}}
                             <div
                                 class="d-flex gap-2 align-items-center w-100 p-3 pt-3 pb-0 border-top px-0 justify-content-between">
@@ -89,14 +105,14 @@
                             </div>
                         </div>
 
-                            <a href="{{ $transaction->product ? route('transaction-history.detail', $transaction->id) : route('transaction-history.course.detail', $transaction->id)}}"
-                                class="btn btn-warning w-100 mt-3">Lihat Detail</a>
+                        <a href="{{ $transaction->product ? route('transaction-history.detail', $transaction->id) : route('transaction-history.course.detail', $transaction->id) }}"
+                            class="btn btn-warning w-100 mt-3">Lihat Detail</a>
                     </div>
                 </div>
             </div>
-            @endforeach
+        @endforeach
     </div>
-{{--
+    {{--
     @if ($orders->hasPages())
         <div class="py-4">
             {{ $orders->links() }}
