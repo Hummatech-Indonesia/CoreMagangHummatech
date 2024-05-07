@@ -22,9 +22,9 @@ class UpdatePresentationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'schedule_to' => 'nullable',
-            'start_date' => 'nullable',
-            'end_date' => 'nullable',
+            'schedule_to' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
             'callback' => 'nullable',
             'hummatask_team_id' => 'required',
             'status_presentation' => 'nullable',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Contracts\Interfaces\LimitPresentationInterface;
+use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\PresentationInterface;
 use App\Enum\StatusPresentationEnum;
 use App\Models\Presentation;
@@ -11,6 +12,7 @@ use App\Http\Requests\StorePresentationRequest;
 use App\Http\Requests\UpdatePresentationRequest;
 use App\Models\HummataskTeam;
 use App\Models\LimitPresentation;
+use App\Models\Mentor;
 use App\Models\Project;
 use App\Services\PresentationService;
 use Carbon;
@@ -21,12 +23,14 @@ class PresentationController extends Controller
     private LimitPresentationInterface $limits;
     private Project $project;
     private HummataskTeamInterface $hummataskTeam;
-    public function __construct(PresentationInterface $presentation, LimitPresentationInterface $limits, PresentationService $service, Project $project, HummataskTeamInterface $hummataskTeam)
+    private MentorDivisionInterface $mentorDivision;
+    public function __construct(MentorDivisionInterface $mentorDivision, PresentationInterface $presentation, LimitPresentationInterface $limits, PresentationService $service, Project $project, HummataskTeamInterface $hummataskTeam)
     {
         $this->presentation = $presentation;
         $this->limits = $limits;
         $this->project = $project;
         $this->hummataskTeam = $hummataskTeam;
+        $this->mentorDivision = $mentorDivision;
     }
     /**
      * Display a listing of the resource.
@@ -77,7 +81,7 @@ class PresentationController extends Controller
             ]);
             $i++;
         }
-        return redirect()->back()->with('success', 'Berhasil menambah wajah');
+        return redirect()->back()->with('success', 'Berhasil menambahkan jadwal presentasi');
     }
 
     /**
@@ -102,7 +106,7 @@ class PresentationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePresentationRequest $request, Presentation $presentation)
+    public function update($slug, UpdatePresentationRequest $request, Presentation $presentation)
     {
         $this->presentation->update($presentation->id, $request->validated());
         return back()->with('success', 'Data Berhasil Diperbarui');
@@ -121,7 +125,14 @@ class PresentationController extends Controller
     {
         $slugs = $this->hummataskTeam->slug($slug);
         $limits = $this->limits->first();
-        $presentations = $this->presentation->get();
+        $presentations = [];
+        $division = $slugs->student->division_id;
+
+        $mentors = $this->mentorDivision->whereMentorDivision($division);
+        foreach ($mentors as $mentor) {
+            $presentations = $this->presentation->GetPresentations($mentor->mentor_id);
+            // dd($mentor);
+        }
         return view('Hummatask.team.presentation', compact('hummataskTeam', 'presentations', 'limits', 'slugs'));
     }
 }
