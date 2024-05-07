@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-3">
                     <div class="text-center mb-n5">
-                        <img src="https://pkl-hummatech.dev.id/assets-user/dist/images/breadcrumb/ChatBc.png" alt="Image"
+                        <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt="Image"
                             class="img-fluid mb-n4" />
                     </div>
                 </div>
