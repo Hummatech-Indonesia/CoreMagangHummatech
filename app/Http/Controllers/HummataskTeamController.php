@@ -133,7 +133,6 @@ class HummataskTeamController extends Controller
      */
     public function destroy(HummataskTeam $hummataskTeam)
     {
-        $this->service->delete($hummataskTeam);
         $this->hummatask_team->delete($hummataskTeam->id);
         return back()->with('success', 'Berhasi Menghapus Data');
     }

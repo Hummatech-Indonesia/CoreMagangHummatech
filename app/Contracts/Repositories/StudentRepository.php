@@ -78,6 +78,11 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->firstOrFail();
     }
 
+    public function getApiStudent(): mixed
+    {
+        return $this->model->query()->where('id' , auth()->user()->id)->get();
+    }
+
     /**
      * Get Data
      *

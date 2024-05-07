@@ -120,7 +120,7 @@ class UserSeeder extends Seeder
             'internship_type' => 'offline'
         ]);
 
-        $offline = Student::factory()->create([
+        $offline1 = Student::factory()->create([
             'name' => 'FARAH AMALIA',
             'email' => 'farah@gmail.com',
             'address' => 'Alamat Dummy',
@@ -146,32 +146,32 @@ class UserSeeder extends Seeder
             'password' => 'password',
             'internship_type' => 'offline'
         ]);
-
-
-        # Create User data
-        collect($student)->each(function ($student) {
-            User::factory()->create([
-                'name' => $student->name,
-                'email' => $student->email,
-                'password' => $student->password,
-                'feature' => 0,
-                'student_id' => $student->id
-            ])->assignRole(RolesEnum::ONLINE);
-        });
-
-        User::factory()->create([
-            'name' => $studentoffline->name,
-            'email' => $studentoffline->email,
-            'password' => $studentoffline->password,
-            'student_id' => $studentoffline->id
-        ])->assignRole(RolesEnum::OFFLINE);
-        User::factory()->create([
-            'name' => $offline->name,
-            'email' => $offline->email,
-            'password' => $offline->password,
-            'student_id' => $offline->id
-        ])->assignRole(RolesEnum::OFFLINE);
-
+        $offline = Student::factory()->create([
+            'name' => 'Abdul kader',
+            'email' => 'kader@gmail.com',
+            'address' => 'Alamat Dummy',
+            'avatar' => 'avatar.jpg',
+            'birth_date' => '2000-01-01',
+            'birth_place' => 'Tempat Lahir Dummy',
+            'major' => 'rpl',
+            'identify_number' => '1234552970',
+            'phone' => '0812900685',
+            'acepted' => '1',
+            'status' => 'accepted',
+            'division_id' => null,
+            'school' => 'SMKN 1 KEPANJEN',
+            'parents_statement' => 'Pernyataan Orang Tua Dummy',
+            'self_statement' => 'Pernyataan Diri Dummy',
+            'school_address' => 'Alamat Sekolah Dummy',
+            'school_phone' => '02112345678',
+            'gender' => 'female',
+            'start_date' => '2024-01-01',
+            'finish_date' => '2024-12-31',
+            'class' => '11',
+            'cv' => 'cv.jpg',
+            'password' => 'password',
+            'internship_type' => 'offline'
+        ]);
         # Create Mentor Data
         $mentor = Mentor::factory()->create([
             'name' => 'Test Mentor',
@@ -193,5 +193,40 @@ class UserSeeder extends Seeder
 
         # Assign Mentor Role
         $user->assignRole(RolesEnum::MENTOR);
+
+
+        # Create User data
+        collect($student)->each(function ($student) {
+            User::factory()->create([
+                'name' => $student->name,
+                'email' => $student->email,
+                'password' => $student->password,
+                'feature' => 0,
+                'student_id' => $student->id
+            ])->assignRole(RolesEnum::ONLINE);
+        });
+
+        User::factory()->create([
+            'name' => $studentoffline->name,
+            'email' => $studentoffline->email,
+            'password' => $studentoffline->password,
+            'student_id' => $studentoffline->id
+        ])->assignRole(RolesEnum::OFFLINE);
+
+        User::factory()->create([
+            'name' => $offline->name,
+            'email' => $offline->email,
+            'password' => $offline->password,
+            'student_id' => $offline->id,
+            'mentors_id' => '1'
+        ])->assignRole(RolesEnum::OFFLINE);
+        User::factory()->create([
+            'name' => $offline1->name,
+            'email' => $offline1->email,
+            'password' => $offline1->password,
+            'student_id' => $offline1->id,
+            'mentors_id' => '1'
+        ])->assignRole(RolesEnum::OFFLINE);
+
     }
 }

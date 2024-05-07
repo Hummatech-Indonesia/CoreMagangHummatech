@@ -18,6 +18,8 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
      */
     public function getByRfid(mixed $cardId);
 
+    public function getApiStudent() :mixed;
+
     /**
      * listAttendance
      *

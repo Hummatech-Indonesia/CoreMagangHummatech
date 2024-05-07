@@ -48,7 +48,7 @@
                     <img class="img-responsive w-100" src="{{ asset('bg-primary.png') }}"
                         style="height: 100px; object-fit: cover; border-radius: 10px 10px 0px 0px" />
                 @endif
-                <button type="button" class="bg-info rounded-1 text-white py-1 px-2 border-0 mt-2 btn-delete"
+                <button type="button" id="{{ $team->id }}" data-id="{{ $team->id }}" class="bg-info rounded-1 text-white py-1 px-2 border-0 mt-2 btn-delete"
                     style="position: absolute; margin-left: -45px">
                     <i class="ti ti-trash fs-6"></i>
                 </button>
@@ -131,7 +131,7 @@
                                     name="leader">
                                     <option>Pilih ketua tim</option>
                                     @forelse ($students as $student)
-                                        <option value="{{ $student->id }}">{{ $student->student->name }}</option>
+                                        <option value="{{ $student->student->id }}">{{ $student->student->name }}</option>
                                     @empty
                                         <option>Tidak ada siswa</option>
                                     @endforelse
@@ -146,7 +146,7 @@
                                         name="student_id[]">
                                         <option>Pilih anggota tim</option>
                                         @forelse ($students as $student)
-                                            <option value="{{ $student->id }}">{{ $student->student->name }}</option>
+                                            <option value="{{ $student->student->id }}">{{ $student->student->name }}</option>
                                         @empty
                                             <option>Tidak ada siswa</option>
                                         @endforelse
@@ -185,7 +185,7 @@
     <script>
         $('.btn-delete').on('click', function() {
             var id = $(this).data('id');
-            $('#form-delete').attr('action', '/mentor/challenge/delete/' + id);
+            $('#form-delete').attr('action', '/mentor/team/delete/' + id);
             $('#modal-delete').modal('show');
         });
 
