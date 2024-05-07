@@ -76,10 +76,12 @@
                                     ];
                                 @endphp
 
-                                <div class="mb-0"><span
+                                <div class="mb-0">
+                                    <span
                                         class="fw-bolder badge {{ $statusClasses[$transaction->status] ?? 'bg-secondary' }}">
                                         {{ $transaction->status }}
-                                    </span></div>
+                                    </span>
+                                </div>
                             </div>
                             {{-- @if (!$order->course) --}}
                             <div class="d-flex gap-2 align-items-center border-top w-100 py-3 justify-content-between">
