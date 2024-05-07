@@ -80,7 +80,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
 
     public function getApiStudent(): mixed
     {
-        return $this->model->query()->where('id' , auth()->user()->id)->get();
+        return $this->model->query()->where('id' , auth()->user()->student->id)->get();
     }
 
     /**
