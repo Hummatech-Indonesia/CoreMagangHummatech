@@ -342,8 +342,8 @@
                     <div class="pb-3 d-flex gap-2 flex-column mb-3">
                         <div class="d-flex justify-content-between">
                             <span>Metode Pembayaran:</span>
-                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#choose-payment" id="payment-show"
-                                class="fw-bolder text-primary text-end">Pilih</a>
+                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#choose-payment"
+                                id="payment-show" class="fw-bolder text-primary text-end">Pilih</a>
                         </div>
 
                         @error('payment_code')

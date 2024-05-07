@@ -33,7 +33,44 @@
 
     <div class="card">
         <div class="card-header pt-4 bg-white d-flex justify-content-between flex-column flex-xl-row">
-            <h3 class="mb-0">Status Pembayaran: <strong class="text-success">{{ $transaction->status }}</strong>
+            @php
+                $statusLabels = [
+                    'pending' => [
+                        'label' => 'Belum Dibayar',
+                        'class' => 'text-warning',
+                    ],
+                    'paid' => [
+                        'label' => 'Lunas',
+                        'class' => 'text-success',
+                    ],
+                    'cancelled' => [
+                        'label' => 'Batal',
+                        'class' => 'text-danger',
+                    ],
+                    'expired' => [
+                        'label' => 'Kadaluarsa',
+                        'class' => 'text-danger',
+                    ],
+                    'failed' => [
+                        'label' => 'Gagal',
+                        'class' => 'text-danger',
+                    ],
+                    'refund' => [
+                        'label' => 'Dikembalikan',
+                        'class' => 'text-info',
+                    ],
+                    'unpaid' => [
+                        'label' => 'Belum Lunas',
+                        'class' => 'text-warning',
+                    ],
+                ];
+            @endphp
+
+            <h3 class="mb-0">Status Pembayaran: <strong
+                    class="{{ $statusLabels[$transaction->status]['class'] ?? 'text-muted' }}">
+                    {{ $statusLabels[$transaction->status]['label'] ?? 'Status Tidak Diketahui' }}
+                </strong>
+            </h3>
             </h3>
 
             <div class="d-flex gap-2 align-items-center">
@@ -84,28 +121,29 @@
                                             @else
                                             Berlangganan: <strong>{{ $reference->order->name }}</strong>
                                             @endif --}}
-                                            Berlangganan: <strong>{{ $transaction->product->name }}</strong>
+                                            Berlangganan: <strong>{{ $transaction->course->title }}</strong>
                                         </td>
-                                        <td>{{ $transaction->product->price }}</td>
+                                        <td>Rp {{ number_format($transaction->course->price, 0, ',', '.') }}</td>
                                     </tr>
 
                                     <tr>
                                         <td class="border-0 pb-1"></td>
                                         <td class="border-0 pb-1">Subtotal</td>
-                                        <td class="border-0 pb-1">{{ $transaction->product->price }}</td>
+                                        <td class="border-0 pb-1">Rp
+                                            {{ number_format($transaction->course->price, 0, ',', '.') }}</td>
                                     </tr>
                                     <tr>
                                         <td class="border-0 opacity-50 py-1"></td>
                                         <td class="border-0 opacity-50 py-1">PPn 11%</td>
                                         <td class="border-0 opacity-50 py-1">
-                                            {{ $transaction->product->price * (11 / 100) }}
+                                            {{ 'Rp ' . number_format($transaction->course->price * (11 / 100), 0, ',', '.') }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="border-0 opacity-50 pb-3 pt-1"></td>
                                         <td class="border-0 opacity-50 pb-3 pt-1">Biaya Lainya</td>
                                         <td class="border-0 opacity-50 pb-3 pt-1">
-                                            {{ $transaction->amount + $transaction->total_fee - ($transaction->product->price + $transaction->product->price * (11 / 100)) }}
+                                            {{ 'Rp ' . number_format($transaction->amount + $transaction->total_fee - ($transaction->course->price + $transaction->course->price * (11 / 100)), 0, ',', '.') }}
                                         </td>
                                         {{-- {{-- </tr> --}}
                                         {{-- @if ($reference->voucherUsage)
@@ -120,7 +158,8 @@
                                         <td class="bg-primary-subtle fw-bolder"></td>
                                         <td class="bg-primary-subtle fw-bolder">Total Bayar</td>
                                         <td class="bg-primary-subtle text-primary fw-bolder">
-                                            {{ $transaction->amount + $transaction->total_fee }}</td>
+                                            {{ 'Rp ' . number_format($transaction->amount + $transaction->total_fee, 0, ',', '.') }}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -180,7 +219,8 @@
                                             {{ $instruction['title'] }}
                                         </button>
                                     </h2>
-                                    <div id="collapse{{ $index }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $index }}"
+                                    <div id="collapse{{ $index }}" class="accordion-collapse collapse"
+                                        aria-labelledby="heading{{ $index }}"
                                         data-bs-parent="#instructionsAccordion">
                                         <div class="accordion-body">
                                             <ol>
