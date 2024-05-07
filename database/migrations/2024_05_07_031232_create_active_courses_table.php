@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_boards', function (Blueprint $table) {
+        Schema::create('active_courses', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->foreignId('hummatask_team_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->enum('status',['team_note','revision_note'])->nullable();
+            $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category_boards');
+        Schema::dropIfExists('active_courses');
     }
 };

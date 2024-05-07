@@ -71,8 +71,8 @@
                     @method('POST')
                     <div class="mb-3">
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="judul" name="hummatask_team_id" value="{{$slugs->id}}" placeholder="Masukkan judul disini" hidden>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="judul" name="name" placeholder="Masukkan judul disini">
-                        @error('name')
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="judul" name="title" placeholder="Masukkan judul disini">
+                        @error('title')
                             <div class="invalid-feedback text-danger">{{ $message }}</div>
                         @enderror
                     </div>
@@ -99,10 +99,10 @@
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="hummatask_team_id-edit" name="hummatask_team_id" value="" placeholder="Masukkan judul disini" hidden>
-                            <input type="text" class="form-control" id="name-edit" name="name" placeholder="Masukkan judul disini"
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" id="hummatask_team_id-edit" name="hummatask_team_id" value="" placeholder="Masukkan judul disini" hidden>
+                            <input type="text" class="form-control" id="title-edit" name="title" placeholder="Masukkan judul disini"
                                 value="">
-                                @error('name')
+                                @error('title')
                                 <div class="invalid-feedback text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -119,10 +119,10 @@
 <div class="horizontal-scroll-container">
     @forelse ($categoryBoards as $categoryBoard)
         <div class="card-container">
-            <div class="card" style="background-color: #EAEFF4; padding: 15px;">
+            <div class="card" style="background-color: #EAEFF4; padding: 0px;">
                 <div class="card-body rounded-2 mb-3" >
                     <div class="d-flex align-items-center mb-3">
-                        <h5 class="card-title pt-1" style="font-size: 18px;">{{$categoryBoard->name}}</h5>
+                        <h5 class="card-title pt-1" style="font-size: 18px;">{{$categoryBoard->title}}</h5>
                         <div class="bg-primary text-light d-inline-flex align-items-center justify-content-center rounded-circle ms-2" style="font-size: 14px; width: 25px; height: 25px;">5</div>
                         <div class="d-flex justify-content-end align-items-center ms-auto">
                             <div class="m3-3">
@@ -139,7 +139,7 @@
                                         <li>
                                             <button type="button" class="btn btn-edit"
                                             data-id="{{ $categoryBoard->id }}"
-                                            data-name="{{ $categoryBoard->name }}"
+                                            data-title="{{ $categoryBoard->title }}"
                                             data-hummatask_team_id="{{ $categoryBoard->hummatask_team_id }}"
                                             >
                                                 Edit
@@ -187,7 +187,7 @@
                                 @if ($board->category_board_id == $categoryBoard->id)
                                 <div class="col-lg-12">
                                     <div class="card">
-                                        <div class="card-body" style="padding: 15px;">
+                                        <div class="card-body" style="padding: 13px;">
                                             <div class="dropdown dropstart text-end">
                                                 <a href="#" class="link text-dark show" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="true">
                                                     <i class="ti ti-dots-vertical fs-4"></i>
@@ -438,12 +438,12 @@
 <script>
     $('.btn-edit').click(function () {
         var id = $(this).data('id');
-        var name = $(this).data('name');
+        var title = $(this).data('title');
         var hummatask_team_id = $(this).data('hummatask_team_id');
 
 
         $('#form-update').attr('action', '/hummateam/board/list/update/' + id);
-        $('#name-edit').val(name);
+        $('#title-edit').val(title);
         $('#hummatask_team_id-edit').val(hummatask_team_id);
 
         $('#modal-edit').modal('show');

@@ -3,11 +3,11 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\StudentTeamInterface;
-use App\Models\StudentTeam;
+use App\Models\studentTeam;
 
 class StudentTeamRepository extends BaseRepository implements StudentTeamInterface
 {
-    public function __construct(StudentTeam $studentTeam)
+    public function __construct(studentTeam $studentTeam)
     {
         $this->model = $studentTeam;
     }

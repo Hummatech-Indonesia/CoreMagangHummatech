@@ -11,7 +11,7 @@
                             <li class="breadcrumb-item"><a class="text-muted " href="/siswa-offline">Dasbor</a></li>
                             <li class="breadcrumb-item"><a class="text-muted " href="#">Beli
                                     Materi</a></li>
-                            <li class="breadcrumb-item" aria-current="page">Laravel 11</li>
+                            <li class="breadcrumb-item" aria-current="page">{{ $course->title }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -30,8 +30,8 @@
             <img src="{{ asset('assets-user/images/laravel-11.jpg') }}" class="w-100 rounded-2">
         </div>
         <div class="col-md-7">
-            <h1 class="fw-bolder">Laravel 11</h1>
-            <h2 class="h4 text-primary mb-3">100.000</h2>
+            <h1 class="fw-bolder">{{ $course->title }}</h1>
+            <h2 class="h4 text-primary mb-3">{{ $course->price }}</h2>
 
             <div class="d-flex flex-column flex-lg-row gap-2">
                 <form action="{{ url('/transaction/checkout') }}" method="">
@@ -50,10 +50,9 @@
                             class="border-bottom border-primary">Deskripsi</span></h4>
 
                     <h5 class="fs-5 mb-3">
-                        Laravel 11
+                       {{ $course->title }}
                     </h5>
-
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias ducimus qui in ratione est eveniet.
+                    {{ $course->description }}
                 </div>
                 <div class="col-md-6">
                     <h4 class="border-bottom border-light mb-4 d-block fw-bolder"><span

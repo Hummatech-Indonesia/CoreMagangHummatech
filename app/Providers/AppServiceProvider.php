@@ -49,6 +49,7 @@ use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\WarningLetterInterface;
 use App\Contracts\Repositories\AttendanceRepository;
 use App\Contracts\Interfaces\AbsenteePermitInterface;
+use App\Contracts\Interfaces\ActiveCourseInterface;
 use App\Contracts\Interfaces\ActiveFeatureInterface;
 use App\Contracts\Interfaces\AppointmentOfMentorInterface;
 use App\Contracts\Interfaces\AttendanceRuleInterface;
@@ -90,6 +91,7 @@ use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Contracts\Interfaces\TransactionInterface;
 use App\Contracts\Interfaces\VoucherUsageInterface;
+use App\Contracts\Repositories\ActiveCourseRepository;
 use App\Contracts\Repositories\ActiveFeatureRepository;
 use App\Contracts\Repositories\AppointmentOfMentorRepository;
 use App\Contracts\Repositories\PicketingReportRepository;
@@ -175,6 +177,7 @@ class AppServiceProvider extends ServiceProvider
         StudentTeamInterface::class => StudentTeamRepository::class,
         TransactionInterface::class => TransactionRepository::class,
         ActiveFeatureInterface::class => ActiveFeatureRepository::class,
+        ActiveCourseInterface::class => ActiveCourseRepository::class,
     ];
 
     /**

@@ -16,4 +16,13 @@ interface CourseInterface extends GetInterface, StoreInterface, DeleteInterface,
     public function getUnpaidCourse();
     public function getCourseByStatus(string $status): mixed;
     public function whereDivision(mixed $id);
+
+    /**
+     * getNonactiveCourse
+     *
+     * @param  mixed $divisionId
+     * @param  mixed $studentId
+     * @return void
+     */
+    public function getNonactiveCourse(mixed $divisionId, mixed $studentId);
 }

@@ -26,6 +26,18 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
     }
 
     /**
+     * getByUser
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getByUser(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('user_id', $id);
+    }
+
+    /**
      * get
      *
      * @return mixed

@@ -64,46 +64,4 @@
             </div>
         @endforelse
     </div>
-
-    <div class="modal fade" id="add-team" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title px-3" id="staticBackdropLabel">Projek yang akan anda ajukan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ route('team.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-body">
-                    @foreach (range(0, 9) as $key => $item)
-                        <div class="row col-12">
-                            <div class="col-4">
-                                <label for="" class="mt-1 mb-1">Tema ke-{{ ++$key }}</label>
-                                <input type="text" name="title" class="form-control" placeholder="Masukkan Tema"
-                                    value="{{ old('title') }}">
-                                @error('title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-8">
-                                <label for="" class="mt-1 mb-1">Deskripsi Tema</label>
-                                <input type="text" name="description" class="form-control" placeholder="Masukkan Deskripsi Tema"
-                                    value="{{ old('description') }}">
-                                @error('description')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light-danger text-danger"
-                        data-bs-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 @endsection

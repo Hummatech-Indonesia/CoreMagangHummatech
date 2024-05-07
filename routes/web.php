@@ -30,6 +30,7 @@ use App\Http\Controllers\Mentor\DashboardController;
 use App\Http\Controllers\StudentOnline\CourseController;
 use App\Http\Controllers\CourseController as AdminCourseController;
 use App\Http\Controllers\FaceController;
+use App\Http\Controllers\StudentCourseController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
@@ -215,12 +216,9 @@ Route::middleware('auth')->group(function () {
     });
 
     # Course Buy
-    Route::get('/courses', function() {
-        return view('student_online_&_offline.course-store.index');
-    });
-    Route::get('/courses/detail', function() {
-        return view('student_online_&_offline.course-store.details');
-    });
+    Route::get('courses', [StudentCourseController::class, 'index'])->name('student.course');
+    Route::get('active-courses', [StudentCourseController::class, 'activeCourses'])->name('student.active-course');
+    Route::get('courses/detail/{course}', [StudentCourseController::class, 'show'])->name('student.course.show');
     // Route::controller(CourseStoreController::class)
     //     ->middleware(['subsrcribed:online'])
     //     ->name('course-store.')
@@ -240,11 +238,14 @@ Route::middleware('auth')->group(function () {
 
 # Transaction and Payment Routing
 Route::post('transaction/save/{product}', [TransactionController::class, 'save'])->name('transaction.save');
+Route::post('transaction/save-course/{course}', [TransactionController::class, 'saveCourse'])->name('transaction.save-course');
 Route::get('transaction/checkout/{product}', [TransactionController::class, 'checkout'])->name('transaction-history.checkout');;
+Route::get('transaction/checkout-course/{course}', [TransactionController::class, 'checkoutCourse'])->name('transaction.checkout-course');
 Route::get('transaction', function() {
     return view('student_online_&_offline.transaction.index');
 })->name('transaction-history.index');
 Route::get('transaction/detail/{transaction}', [TransactionController::class, 'show'])->name('transaction-history.detail');
+Route::get('transaction/detail-course/{transaction}', [TransactionController::class, 'showCourse'])->name('transaction-history.course.detail');
 // Route::controller(TransactionController::class)->prefix('transaction')->name('transaction-history.')->group(function () {
 //     Route::get('/', 'index')->middleware(['auth'])->name('index');
 //     Route::get('checkout', 'checkout')->middleware(['auth'])->name('checkout');

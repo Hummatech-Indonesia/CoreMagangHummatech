@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Base\Interfaces\HasActiveCourses;
 use App\Models\Attendance;
 use App\Models\WarningLetter;
 use App\Models\ResponseLetter;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Division;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Student extends Model implements HasAttendances, HasOneActiveFeature
+class Student extends Model implements HasAttendances, HasOneActiveFeature, HasActiveCourses
 {
     use HasFactory;
 
@@ -37,6 +38,16 @@ class Student extends Model implements HasAttendances, HasOneActiveFeature
     public function attendances(): HasMany
     {
         return $this->hasMany(Attendance::class);
+    }
+
+    /**
+     * activeCourses
+     *
+     * @return HasMany
+     */
+    public function activeCourses(): HasMany
+    {
+        return $this->hasMany(ActiveCourse::class);
     }
 
     public function warningLetters(): HasMany
