@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!--  Favicon -->
     <link rel="shortcut icon" type="image/png"
-        href="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/favicon.ico" />
+        href="{{ asset('mobilelogo.png') }}" />
     <!-- Owl Carousel  -->
     <link rel="stylesheet" href="{{ asset('assets-user/dist/libs/owl.carousel/dist/assets/owl.carousel.min.css') }}">
 
