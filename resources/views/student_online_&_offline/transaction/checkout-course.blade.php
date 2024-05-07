@@ -429,17 +429,14 @@
 @endsection
 @section('script')
     <script>
-        // Menangkap peristiwa klik pada tombol "Pilih Pembayarannya"
         var choosePaymentButton = document.querySelector('[data-bs-toggle="choose-payment"]');
         choosePaymentButton.addEventListener('click', function() {
-            // Mendapatkan kode pembayaran dari input radio yang dipilih
             var selectedRadioButton = document.querySelector('input[type="radio"]:checked');
             var paymentCode = selectedRadioButton.getAttribute('data-code');
             var paymentName = selectedRadioButton.getAttribute('data-name');
-
-            // Menambahkan kode pembayaran ke value input
             document.getElementById('payment-code').value = paymentCode;
             document.getElementById('payment-name').value = paymentName;
+            document.getElementById('payment-show').value = paymentName;
         });
     </script>
 @endsection
