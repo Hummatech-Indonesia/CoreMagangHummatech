@@ -7,10 +7,10 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\FaceController;
-
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
+
 Route::post('/ApiLogin', [AuthLoginController::class, 'ApiLogin']);
 Route::get('zoom_schedule' , [DashboardController::class , 'index']);
 Route::post('callback', [TransactionController::class, 'callback']);
