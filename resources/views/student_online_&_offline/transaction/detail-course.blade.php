@@ -86,7 +86,7 @@
                                             @endif --}}
                                             Berlangganan: <strong>{{ $transaction->course->title }}</strong>
                                         </td>
-                                        <td>{{ $transaction->course->price }}</td>
+                                        <td>{{ number_format($transaction->course->price ,0 ',' , '.') }}</td>
                                     </tr>
 
                                     <tr>
