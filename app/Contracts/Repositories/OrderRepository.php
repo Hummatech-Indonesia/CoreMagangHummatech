@@ -15,7 +15,7 @@ class OrderRepository extends BaseRepository implements OrderInterface
 
     public function when(mixed ...$clause): mixed
     {
-        return $this->model->query()->when(...$clause);
+        return $this->model->query()->where('userr_id' , auth()->user()->id)->when(...$clause);
     }
 
     public function where(mixed ...$clause): mixed
