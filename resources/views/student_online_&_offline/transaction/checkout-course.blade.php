@@ -408,7 +408,7 @@
                     <div class="row">
                         <div class="grid">
                             @foreach ($paymentChannel as $channel)
-                                <label class="card card-payment" data-id="payment-{{ $channel['code'] }}"
+                                <label class="card card-payment" data-code="{{ $channel['code'] }}}" data-id="payment-{{ $channel['code'] }}"
                                     data-name="{{ $channel['name'] }}" data-fee="{{ $channel['fee'] }}">
                                     <input name="plan" class="radio" type="radio" checked>
                                     <span class="plan-details">
