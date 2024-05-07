@@ -248,7 +248,7 @@
                     <select class="select2 form-control custom-select" style="width: 100%; height: 36px"
                         name="student_id[]">
                         <option>Pilih anggota tim</option>
-                        @forelse ($mentorStudents as $mentorStudent)
+                        @forelse ($students as $mentorStudent)
                             <option value="{{ $mentorStudent->student->id }}">{{ $mentorStudent->student->name }}</option>
                         @empty
                             <option>Tidak ada siswa</option>
