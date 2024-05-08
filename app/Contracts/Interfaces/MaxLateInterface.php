@@ -19,4 +19,5 @@ interface MaxLateInterface extends GetInterface, StoreInterface
      * @return mixed
      */
     public function GetCount(): mixed;
+    public function GetData(): mixed;
 }

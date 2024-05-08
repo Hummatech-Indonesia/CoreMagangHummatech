@@ -53,7 +53,7 @@ class AttendanceController extends Controller
 
     public function maxlate()
     {
-        $maxLate =  $this->maxLate->get();
+        $maxLate =  $this->maxLate->GetData();
         $data['md5'] = md5($maxLate);
         $data['result'] = MaxLateResource::collection($maxLate);
         $data['total'] = $this->maxLate->GetCount();

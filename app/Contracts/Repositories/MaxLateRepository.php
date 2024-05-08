@@ -29,6 +29,11 @@ class MaxLateRepository extends BaseRepository implements MaxLateInterface {
             ->latest()
             ->first();
     }
+    public function GetData(): mixed
+    {
+        return $this->model->query()
+        ->get();
+    }
 
     /**
      * store
