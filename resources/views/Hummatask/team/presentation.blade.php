@@ -131,13 +131,28 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="">
+                <form method="POST" action="{{route('presentation.update')}}">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
                         <label for="judul" class="mb-2">Judul Presentasi</label>
                         <input type="text" class="form-control mb-2" id="title" name="title" placeholder="Masukkan judul">
                         <input type="hidden" name="hummatask_team_id" value="{{ $slugs->id }}">
+                        @error('title')
+                            <div class="invalid-feedback text-danger">{{ $message }}</div>
+                        @enderror
+                        @error('hummatask_team_id')
+                            <div class="invalid-feedback text-danger">{{ $message }}</div>
+                        @enderror
+                        @error('schedule_to')
+                        <div class="invalid-feedback text-danger">{{ $message }}</div>
+                        @enderror
+                        @error('start_date')
+                        <div class="invalid-feedback text-danger">{{ $message }}</div>
+                        @enderror
+                        @error('end_date')
+                        <div class="invalid-feedback text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label class="mb-3">Pilih Jadwal</label>
@@ -146,11 +161,9 @@
                             <div class="col-md-6">
                                 <div class="card mb-3">
                                     <div class="card-body">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="presentation_id" id="pilihan1" value="{{ $presentation->id }}">
-                                            <label class="form-check-label" for="pilihan1">Jadwal Ke-{{++$key}}</label>
-                                            <p>{{$presentation->start_date}} - {{$presentation->end_date}}</p>
-                                        </div>
+                                        <input class="form-check-input date_range" type="radio" name="date_range" id="date_range_{{$presentation->id}}" value="{{ $presentation->start_date }}" data-team-id="{{ $presentation->hummatask_team_id }}">
+                                        <label class="form-check-label" for="date_range_{{$presentation->id}}">{{ $presentation->start_date }} - {{ $presentation->end_date }}</label>
+                                        <input type="hidden" name="hummatask_team_id" id="team_id_{{$presentation->id}}" value="{{ $presentation->hummatask_team_id }}">
                                     </div>
                                 </div>
                             </div>
@@ -184,7 +197,7 @@
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script>
+{{-- <script>
     $(document).ready(function(){
         var selectedId = $('input[name="presentation_id"]:checked').val();
         console.log(selectedId);
@@ -198,8 +211,17 @@
             }
         });
     });
+</script> --}}
+
+<script>
+    document.querySelectorAll('.date_range').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            document.querySelectorAll('.date_range').forEach(function(r) {
+                r.checked = false;
+            });
+            this.checked = true;
+        });
+    });
 </script>
-
-
 @endsection
     `
