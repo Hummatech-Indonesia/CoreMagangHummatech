@@ -24,7 +24,6 @@ enum TypeEnum : string
     case DATAADMIN = 'data_admin';
     case DATACO = 'data_co';
     case PERMISSION = 'permission';
-
     case TASKSUBMISSION = 'task_submission';
     case TASKANSWER = 'task-answer';
     case PICKET = 'picket';
