@@ -93,7 +93,7 @@ class UserSeeder extends Seeder
             'cv' => 'cv.jpg',
             'password' => 'password',
             'internship_type' => 'online'
-        ]);
+        ]); 
         $studentoffline = Student::factory()->create([
             'name' => 'AHMAD JAILANI',
             'email' => 'ahmad@gmail.com',
