@@ -51,4 +51,13 @@ class AttendanceRepository extends BaseRepository implements AttendanceInterface
             ->whereDate('created_at', now()
             ->format('Y-m-d'))->first();
     }
+
+    public function count($status): mixed
+    {
+        return $this->model->query()
+        ->where('student_id', auth()->user()->student->id)
+        ->where('status', $status)
+        ->count();
+    }
+
 }
