@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 Route::post('sync', [AttendanceController::class, 'sync']);
 Route::get('students', [StudentController::class, 'getStudents']);
+Route::get('/limit', [AttendanceController::class, 'maxlate']);
 Route::get('entry-time', [AttendanceController::class, 'entryTime']);
 Route::get('face', [FaceController::class, 'index']);
 Route::get('course' , [CourseController::class , 'index']);

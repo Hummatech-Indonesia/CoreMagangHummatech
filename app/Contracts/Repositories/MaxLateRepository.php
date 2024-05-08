@@ -12,6 +12,12 @@ class MaxLateRepository extends BaseRepository implements MaxLateInterface {
         $this->model = $maxLate;
     }
 
+    public function GetCount(): mixed
+    {
+        return $this->model->query()
+        ->count();
+    }
+
     /**
      * get
      *
