@@ -151,7 +151,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="responsive-table">
+                            <div id="responsive-table-2">
                                 <table class="align-middle table table-nowrap table-bordered table-striped"
                                     style="width:100%">
                                     <thead>
@@ -345,6 +345,23 @@
             function toggleTableResponsive() {
                 var screenWidth = $(window).width();
                 var $table = $('#responsive-table');
+                if (screenWidth <= 880) {
+                    $table.addClass('table-responsive');
+                } else {
+                    $table.removeClass('table-responsive');
+                }
+            }
+
+            toggleTableResponsive();
+
+            $(window).resize(function() {
+                toggleTableResponsive();
+            });
+        });
+        $(document).ready(function() {
+            function toggleTableResponsive() {
+                var screenWidth = $(window).width();
+                var $table = $('#responsive-table-2');
                 if (screenWidth <= 880) {
                     $table.addClass('table-responsive');
                 } else {
