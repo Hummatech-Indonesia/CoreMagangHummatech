@@ -2,21 +2,12 @@
 
 namespace App\Rules;
 
-use App\Enum\DayEnum;
+use App\Enum\StatusApprovalPermissionEnum;
+use Closure;
 use Illuminate\Contracts\Validation\Rule;
 
-class DayRule implements Rule
+class StatusApprovalRule implements Rule
 {
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Determine if the validation rule passes.
      *
@@ -26,7 +17,7 @@ class DayRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return in_array($value, [DayEnum::MONDAY->value, DayEnum::TUESDAY->value, DayEnum::WEDNESDAY->value, DayEnum::THURSDAY->value, DayEnum::FRIDAY->value]);
+        return in_array($value, [StatusApprovalPermissionEnum::PENDING->value, StatusApprovalPermissionEnum::AGREE->value, StatusApprovalPermissionEnum::REJECT->value]);
     }
 
     /**
@@ -36,6 +27,6 @@ class DayRule implements Rule
      */
     public function message()
     {
-        return 'Hari tidak valid.';
+        return 'Status tidak valid.';
     }
 }

@@ -71,6 +71,7 @@ use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Contracts\Interfaces\LimitPresentationInterface;
 use App\Contracts\Interfaces\NotePicketInterface;
 use App\Contracts\Interfaces\OrderInterface;
+use App\Contracts\Interfaces\PermissionInterface;
 use App\Contracts\Interfaces\PresentationInterface;
 use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\StudentChallengeInterface;
@@ -112,6 +113,7 @@ use App\Contracts\Repositories\SubCourseUnlockRepository;
 use App\Contracts\Repositories\TaskSubmissionRepository;
 use App\Contracts\Repositories\TransactionHistoryRepository;
 use App\Contracts\Repositories\OrderRepository;
+use App\Contracts\Repositories\PermissionRepository;
 use App\Contracts\Repositories\PresentationRepository;
 use App\Contracts\Repositories\ProjectRepository;
 use App\Contracts\Repositories\StudentProjectRepository;
@@ -181,6 +183,7 @@ class AppServiceProvider extends ServiceProvider
         ActiveFeatureInterface::class => ActiveFeatureRepository::class,
         ActiveCourseInterface::class => ActiveCourseRepository::class,
         WorkFromHomeInterface::class => WorkFromHomeRepository::class,
+        PermissionInterface::class => PermissionRepository::class,
     ];
 
     /**

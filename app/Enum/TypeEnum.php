@@ -22,6 +22,7 @@ enum TypeEnum : string
     case VIDEO_COURSE = 'video_course';
     case MENTOR = 'mentor';
     case DATAADMIN = 'data_admin';
+    case PERMISSION = 'permission';
 
     case TASKSUBMISSION = 'task_submission';
     case TASKANSWER = 'task-answer';
