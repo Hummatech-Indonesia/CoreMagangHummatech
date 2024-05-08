@@ -18,7 +18,7 @@ class FaceController extends Controller
 
     public function index(): JsonResponse
     {
-        $students = $this->student->get();
+        $students = $this->student->getStudentAccepted();
         $response = [
             'result' => StudentFaceResource::collection($students)
         ];
