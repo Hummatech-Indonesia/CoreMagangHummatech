@@ -41,9 +41,8 @@ class DataCOService
     public function store(StoreDataCORequest $request): array|bool
     {
         $data = $request->validated();
-
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $data['image'] = $request->file('image')->store(TypeEnum::LETTERHEAD->value, 'public');
+            $data['image'] = $request->file('image')->store(TypeEnum::DATACO->value, 'public');
             return $data;
         }
         return false;
