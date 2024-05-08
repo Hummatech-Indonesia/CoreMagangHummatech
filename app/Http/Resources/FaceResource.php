@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class FaceResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -14,6 +15,9 @@ class FaceResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->photo,
+            'photo' => asset('storage/'. $this->photo),
+        ];
     }
 }
