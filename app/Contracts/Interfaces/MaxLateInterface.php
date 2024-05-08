@@ -13,4 +13,10 @@ interface MaxLateInterface extends GetInterface, StoreInterface
      * @return mixed
      */
     public function deleteAll(): mixed;
+    /**
+     * deleteAll
+     *
+     * @return mixed
+     */
+    public function GetCount(): mixed;
 }

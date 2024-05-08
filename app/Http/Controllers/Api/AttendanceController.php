@@ -10,6 +10,7 @@ use App\Contracts\Interfaces\StudentInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AttendanceRuleResource;
+use App\Http\Resources\MaxLateResource;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -46,6 +47,16 @@ class AttendanceController extends Controller
         $data['md5'] = md5($rule);
         $data['result'] = AttendanceRuleResource::collection($rule);
         $data['total'] = $attendanceCount;
+
+        return response()->json($data);
+    }
+
+    public function maxlate()
+    {
+        $maxLate =  $this->maxLate->get();
+        $data['md5'] = md5($maxLate);
+        $data['result'] = MaxLateResource::collection($maxLate);
+        $data['total'] = $this->maxLate->GetCount();
 
         return response()->json($data);
     }
@@ -189,4 +200,5 @@ class AttendanceController extends Controller
         if (!$doAttendance->wasRecentlyCreated) return ResponseHelper::error(null, "Anda telah absensi pada jam ini");
         return ResponseHelper::success($this->getStudentByRfid($rfid), "Berhasil absensi");
     }
+
 }
