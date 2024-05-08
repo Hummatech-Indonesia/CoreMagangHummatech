@@ -182,30 +182,6 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="message-body">
-                                    <a href="page-user-profile.html" class="py-8 px-7 mt-8 d-flex align-items-center">
-                                        <span
-                                            class="d-flex align-items-center justify-content-center bg-light rounded-1 p-6">
-                                            <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/svgs/icon-account.svg"
-                                                alt="" width="24" height="24">
-                                        </span>
-                                        <div class="w-75 d-inline-block v-middle ps-3">
-                                            <h6 class="mb-1 bg-hover-primary fw-semibold"> My Profile </h6>
-                                            <span class="d-block text-dark">Account Settings</span>
-                                        </div>
-                                    </a>
-                                    <a href="app-notes.html" class="py-8 px-7 d-flex align-items-center">
-                                        <span
-                                            class="d-flex align-items-center justify-content-center bg-light rounded-1 p-6">
-                                            <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/svgs/icon-tasks.svg"
-                                                alt="" width="24" height="24">
-                                        </span>
-                                        <div class="w-75 d-inline-block v-middle ps-3">
-                                            <h6 class="mb-1 bg-hover-primary fw-semibold">My Task</h6>
-                                            <span class="d-block text-dark">To-do and Daily Tasks</span>
-                                        </div>
-                                    </a>
-                                </div>
                                 <div class="d-grid py-4 px-7 pt-8">
                                     <a class="btn btn-outline-primary" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();

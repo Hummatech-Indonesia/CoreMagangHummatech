@@ -13,6 +13,7 @@ use App\Http\Controllers\DataAdminController;
 use App\Http\Controllers\StatementController;
 use App\Http\Controllers\LetterheadController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminJournalController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\VoucherSubmitController;
@@ -57,41 +58,33 @@ Route::get('statement-parent', [StatementController::class, 'parent'])->name('st
 Route::middleware(['roles:administrator', 'auth'])->group(function () {
     # Dashboard Home
     Route::get('administrator', [AdminController::class, 'index'])->name('.home');
-
     Route::patch('max-late', [AttendanceController::class, 'storeMaxLate'])->name('maxlate.store');
-
     # Data Admin
     Route::post('data-admin/store', [DataAdminController::class, 'store'])->name('data-admin.store');
     Route::put('data-admin/update/{dataAdmin}', [DataAdminController::class, 'update'])->name('data-admin.update');
-
     # Approval
     Route::get('approval', [ApprovalController::class, 'index'])->name('.approval.index');
     Route::put('approval/accept/{student}', [ApprovalController::class, 'accept'])->name('approval.accept');
     Route::put('approval/decline/{student}', [ApprovalController::class, 'decline'])->name('approval.decline');
     Route::delete('approval/delete/{student}', [ApprovalController::class, 'destroy'])->name('approval.delete');
-
     # Warning letter
     Route::get('warning-letter', [WarningLetterController::class, 'index'])->name('warning-letter.index');
     Route::post('warning-letter/store', [WarningLetterController::class, 'store'])->name('warning-letter.store');
     Route::get('warning-letter/show/{WarningLetter}', [WarningLetterController::class, 'show'])->name('warning-letter.show');
     Route::delete('warning-letter/delete/{WarningLetter}', [WarningLetterController::class, 'destroy'])->name('warning-letter.delete');
-
     # Response letter
     Route::get('response-letter', [ResponseLetterController::class, 'index'])->name('response-letter.index');
     Route::get('show/student/{responseLetter}', [ResponseLetterController::class, 'show'])->name('response-letter.show');
-
     # Voucher
     Route::get('voucher', [VoucherController::class, 'index'])->name('voucher.index');
     Route::post('voucher/store', [VoucherController::class, 'store'])->name('voucher.store');
     Route::delete('voucher/delete/{voucher}', [VoucherController::class, 'destroy'])->name('voucher.delete');
-
     # Mentor
     Route::get('menu-mentor', [AdminMentorController::class, 'index'])->name('mentor.index');
     Route::post('menu-mentor/store', [AdminMentorController::class, 'store'])->name('mentor.store');
     Route::put('menu-mentor/update/{mentor}', [AdminMentorController::class, 'update'])->name('mentor.update');
     Route::delete('menu-mentor/delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('mentor.delete');
     Route::get('menu-mentor/detail/{mentor}', [AdminMentorController::class, 'show'])->name('mentor.show');
-
     # Student
     Route::get('menu-siswa', [AdminStudentController::class, 'index'])->name('student.index');
     Route::put('menu-siswa/reset-password/{student}', [AdminStudentController::class, 'reset'])->name('student.update');
@@ -101,50 +94,42 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('menu-siswa/banned/{student}', [AdminStudentController::class, 'banned'])->name('student.banned');
     Route::put('menu-siswa/division-change/{student}', [AdminStudentController::class, 'divisionchange'])->name('student.divisionchange');
     Route::put('students-banned/Open/{student}', [StudentController::class, 'Openbanned'])->name('students.banned.open');
-
     # Registration Limit
     Route::post('limit', [LimitsController::class, 'store'])->name('limit.store');
     Route::put('limit/update/{limits}', [LimitsController::class, 'update'])->name('limit.update');
-
     # Mentor Placement
     Route::get('online-student/menotor-placement', [MentorPlacementController::class, 'index'])->name('placement.index');
     Route::post('online-student/menotor-placement/post/{student}', [MentorPlacementController::class, 'store'])->name('placement.update');
     Route::put('online-student/menotor-placement/edit/{student}', [MentorPlacementController::class, 'update'])->name('placement.delete');
-
     # Courses
     Route::get('administrator/course', [AdminCourseController::class, 'index']);
     Route::post('administrator/course/store', [AdminCourseController::class, 'store'])->name('course.store');
     Route::put('administrator/course/{course}', [AdminCourseController::class, 'update'])->name('course.update');
     Route::delete('administrator/course/delete/{course}', [AdminCourseController::class, 'destroy'])->name('course.destroy');
-
-
     // AppointmenOfAmentor
     Route::get('administrator/appointmentofmentor', [AppointmentOfAmentorController::class, 'index']);
     Route::post('administrator/appointmentofmentor/store', [AppointmentOfAmentorController::class, 'store']);
     Route::delete('administrator/appointmentofmentor/delete/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'destroy']);
     Route::delete('administrator/appointmentofmentor/delete/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'destroy']);
     Route::put('administrator/appointmentofmentor/update/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'update']);
-
     // faces
     Route::get('faces', [FaceController::class, 'index']);
     Route::get('faces/detail/{id}', [FaceController::class, 'show']);
     Route::post('faces/create', [FaceController::class, 'store']);
     Route::delete('faces/delete/{student}', [FaceController::class, 'destroy']);
-
-
     # Course Details
     Route::get('/administrator/course/detail/{course}', [AdminCourseController::class, 'show'])->name('course.detail');
     Route::delete('administrator/subcourse/delete/{subCourse}', [SubCourseController::class, 'destroy'])->name('subCourse.destroy');
     Route::get('/administrator/subcourse/detail/{subCourse}', [SubCourseController::class, 'show'])->name('subCourse.detail');
     Route::put('/administrator/subcourse/edit/{subCourse}', [SubCourseController::class, 'update'])->name('subCourse.update');
-
     Route::post('administrator/task/store', [TaskController::class, 'store'])->name('task.store');
-
     # Zoom Schedule
     Route::get('administrator/zoom-schedules', [ZoomScheduleController::class, 'index']);
     Route::post('administrator/zoom-schedules/store', [ZoomScheduleController::class, 'store'])->name('zoom-schedule.store');
     Route::put('administrator/zoom-schedules/{zoomSchedule}', [ZoomScheduleController::class, 'update'])->name('zoom-schedule.update');
     Route::delete('administrator/zoom-schedules/{zoomSchedule}', [ZoomScheduleController::class, 'destroy'])->name('zoom-schedule.destroy');
+    // journal
+    Route::get('journal', [AdminJournalController::class, 'index']);
 });
 
 # ================================================ Offline Student Route Group ================================================
@@ -156,26 +141,21 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
 
 })->middleware(["roles:siswa-offline", 'auth']);
 Route::get('student/data/journal', [JournalController::class, 'index'])->name('journal.index');
-
 # ================================================ Online Student Route Group =================================================
 Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(RolesEnum::ONLINE->value)->group(function () {
     Route::get('/', [StudentOnlineController::class, 'index'])->name('.home');
-
     Route::controller(CourseController::class)->middleware('subsrcribed')->group(function () {
         Route::get('/materi', 'index')->name('.course');
         Route::get('/materi/{course}', 'detail')->name('.course.detail');
         Route::get('/materi/{course}/course/{subCourse}', 'subCourseDetail')->name('.course.subcourse');
     });
-
     Route::controller(TaskSubmissionController::class)->name('.tasksubmit')->prefix('/tugas')->group(function () {
         Route::get('/', 'index')->name('.index');
         Route::get('/{task}', 'create')->name('.detail');
         Route::get('/{task}/download/{taskSubmission}', 'download')->name('.download');
         Route::post('/submit', 'store')->name('.submit');
     });
-
     # Jurnal
-
     # LetterHead
     Route::get('letterhead', [LetterheadController::class, 'index'])->name('.letterhead');
     Route::post('letterhead/store', [LetterheadController::class, 'store'])->name('.letterhead.store');
