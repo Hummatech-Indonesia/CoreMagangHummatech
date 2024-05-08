@@ -208,10 +208,10 @@
                                                 data-finishdate="{{ \carbon\Carbon::parse($studentoffline->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                 data-school="{{ $studentoffline->school }}"
                                                 data-email="{{ $studentoffline->email }}"
-                                                data-avatar="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}"
-                                                data-cv="{{ file_exists(public_path('storage/' . $student->cv)) ? asset('storage/' . $student->cv) : asset('no data.png') }}"
-                                                data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
-                                                data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
+                                                data-avatar="{{ file_exists(public_path('storage/' . $studentoffline->avatar)) ? asset('storage/' . $studentoffline->avatar) : asset('user.webp') }}"
+                                                data-cv="{{ file_exists(public_path('storage/' . $studentoffline->cv)) ? asset('storage/' . $studentoffline->cv) : asset('no data.png') }}"
+                                                data-selfstatement="{{ file_exists(public_path('storage/' . $studentoffline->self_statement)) ? asset('storage/' . $studentoffline->self_statement) : asset('no data.png') }}"
+                                                data-parentsstatement="{{ file_exists(public_path('storage/' . $studentoffline->parents_statement)) ? asset('storage/' . $studentoffline->parents_statement) : asset('no data.png') }}"
                                                 data-identify_number="{{ $studentoffline->identify_number }}">Detail</button>
                                             <button class="dropdown-item btn-delete text-danger"
                                                 id="{{ $studentoffline->id }}"
@@ -276,7 +276,7 @@
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $studentonline->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $studentonline->id }}"
-                                                data-image="{{ $student->avatar }}">Ganti
+                                                data-image="{{ $studentonline->avatar }}">Ganti
                                                 Profile</button>
                                             <button class="dropdown-item btn-detail"
                                                 data-name="{{ $studentonline->name }}"
@@ -290,10 +290,10 @@
                                                 data-finishdate="{{ \carbon\Carbon::parse($studentonline->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                 data-school="{{ $studentonline->school }}"
                                                 data-email="{{ $studentonline->email }}"
-                                                data-avatar="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}"
-                                                data-cv="{{ file_exists(public_path('storage/' . $student->cv)) ? asset('storage/' . $student->cv) : asset('no data.png') }}"
-                                                data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
-                                                data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
+                                                data-avatar="{{ file_exists(public_path('storage/' . $studentonline->avatar)) ? asset('storage/' . $studentonline->avatar) : asset('user.webp') }}"
+                                                data-cv="{{ file_exists(public_path('storage/' . $studentonline->cv)) ? asset('storage/' . $studentonline->cv) : asset('no data.png') }}"
+                                                data-selfstatement="{{ file_exists(public_path('storage/' . $studentonline->self_statement)) ? asset('storage/' . $studentonline->self_statement) : asset('no data.png') }}"
+                                                data-parentsstatement="{{ file_exists(public_path('storage/' . $studentonline->parents_statement)) ? asset('storage/' . $studentonline->parents_statement) : asset('no data.png') }}"
                                                 data-identify_number="{{ $studentonline->identify_number }}">Detail</button>
                                             <button class="dropdown-item btn-delete text-danger"
                                                 id="{{ $studentonline->id }}"

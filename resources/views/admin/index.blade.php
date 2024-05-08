@@ -163,7 +163,7 @@
                         <div class="modal-body">
                             <div class="d-flex justify-content-center">
                                 <label class="form-label text-white" for="image-input1">
-                                    <img id="preview-image1" src="{{ asset('storage/' . $dataadmin->image) }}"
+                                    <img id="preview-image1" src="{{ asset('storage/' . $dataceo->image) }}"
                                         alt="example placeholder"
                                         style="width: 150px; height: 150px; border-radius: 10px; cursor: pointer;object-fit: cover"
                                         class="rounded-circle">
@@ -178,18 +178,18 @@
                             </div>
                             <div class="mb-2">
                                 <label for="">Nama</label>
-                                <input type="text" class="form-control" value="{{ $dataadmin->name }}" id=""
+                                <input type="text" class="form-control" value="{{ $dataceo->name }}" id=""
                                     name="name" placeholder="Masukkan Nama">
                             </div>
                             <div class="mb-2">
                                 <label for="">PT</label>
                                 <input type="text" class="form-control" id=""
-                                    value="{{ $dataadmin->company }}" name="company" placeholder="Masukkan PT">
+                                    value="{{ $dataceo->company }}" name="company" placeholder="Masukkan PT">
                             </div>
                             <div class="mb-2">
                                 <label for="">Jabatan</label>
                                 <input type="text" class="form-control" id=""
-                                    value="{{ $dataadmin->field }}" name="field" placeholder="Masukkan Jabatan">
+                                    value="{{ $dataceo->field }}" name="field" placeholder="Masukkan Jabatan">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -309,13 +309,11 @@
 
                                         // Array yang berisi nama hari dalam bahasa Indonesia
                                         $daysInIndonesian = [
-                                            'Sunday' => 'Minggu',
                                             'Monday' => 'Senin',
                                             'Tuesday' => 'Selasa',
                                             'Wednesday' => 'Rabu',
                                             'Thursday' => 'Kamis',
                                             'Friday' => 'Jumat',
-                                            'Saturday' => 'Sabtu',
                                         ];
                                     @endphp
 
