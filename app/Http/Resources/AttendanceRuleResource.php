@@ -14,8 +14,6 @@ class AttendanceRuleResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'minute' => $this->minute
-        ];
+        return parent::toArray($request);
     }
 }
