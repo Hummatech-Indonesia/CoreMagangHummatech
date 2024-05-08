@@ -106,9 +106,10 @@ class PresentationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePresentationRequest $request, Presentation $presentation)
+    public function update(UpdatePresentationRequest $request,string $id, Presentation $presentation)
     {
         $data=$request->validated();
+        $data['hummatask_team_id']=$id;
         $data['status_presentation']=StatusPresentationEnum::PENNDING->value;
         $this->presentation->update($presentation->id, $data);
         return back()->with('success', 'Data Berhasil Diperbarui');
