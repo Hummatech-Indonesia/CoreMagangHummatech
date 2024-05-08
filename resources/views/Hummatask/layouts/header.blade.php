@@ -118,13 +118,15 @@
                                             height="80" alt="" />
                                     @endif
                                     <div class="ms-3">
-                                        <span cla <div class="ms-3">
+                                        <span class="ms-3">
                                             <h5 class="mb-1 fs-3">{{ auth()->user()->student->name }}</h5>
                                             <span
-                                                class="mb-1 d-block text-dark">{{ auth()->user()->student->division->name }}</span>
+                                                class="mb-1 d-block text-dark">{{ auth()->user()->student->division_id != null ? auth()->user()->student->division->name : 'Anda belum ditempatkan divisi
+                                                ' }}</span>
                                             <p class="mb-0 d-flex text-dark align-items-center gap-2">
                                                 <i class="ti ti-mail fs-4"></i> {{ auth()->user()->student->email }}
                                             </p>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="d-grid py-4 px-7 pt-8">
