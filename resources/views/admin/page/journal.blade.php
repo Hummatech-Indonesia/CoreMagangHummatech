@@ -82,19 +82,22 @@
                 <div class="col-sm-auto ms-auto d-flex justify-content-between pt-4">
                     <form action="/journal">
                         <div class="search-box">
-                            <input type="text" class="form-control" name="name" value="{{ request()->student_id }}" id="searchMemberList" placeholder="Cari Siswa...">
+                            <input type="text" class="form-control" name="name" value="{{ request()->name }}" id="searchMemberList" placeholder="Cari Siswa...">
                             <i class="ri-search-line search-icon"></i>
                         </div>
                     </form>
-                    <div class="mx-3">
-                        <input type="date" class="form-control"id="exampleInputdate">
-                    </div>
-                    <div class="list-grid-nav hstack gap-1">
-                        <button class="btn btn-primary addMembers-modal" data-bs-toggle="modal"
-                            data-bs-target="#addmemberModal">
-                            Cari
-                        </button>
-                    </div>
+
+                    <form action="/journal">
+                        <div class="mx-3">
+                            <input type="date" name="created_at" value="{{ request()->created_at }}" class="form-control" id="exampleInputdate">
+                        </div>
+                        {{-- <div class="list-grid-nav hstack gap-1">
+                            <button class="btn btn-primary addMembers-modal" type="submit">
+                                Cari
+                            </button>
+                        </div> --}}
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -152,7 +155,7 @@
                                                     </td>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td class="name">{{ $journal->student->name }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($journal->tanggal)->locale('id')->isoFormat('dddd, D MMMM Y') }}
+                                                    <td>{{ \Carbon\Carbon::parse($journal->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
                                                     </td>
                                                     <td class="status">
                                                         <?php
