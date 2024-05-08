@@ -141,26 +141,21 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
 
 })->middleware(["roles:siswa-offline", 'auth']);
 Route::get('student/data/journal', [JournalController::class, 'index'])->name('journal.index');
-
 # ================================================ Online Student Route Group =================================================
 Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(RolesEnum::ONLINE->value)->group(function () {
     Route::get('/', [StudentOnlineController::class, 'index'])->name('.home');
-
     Route::controller(CourseController::class)->middleware('subsrcribed')->group(function () {
         Route::get('/materi', 'index')->name('.course');
         Route::get('/materi/{course}', 'detail')->name('.course.detail');
         Route::get('/materi/{course}/course/{subCourse}', 'subCourseDetail')->name('.course.subcourse');
     });
-
     Route::controller(TaskSubmissionController::class)->name('.tasksubmit')->prefix('/tugas')->group(function () {
         Route::get('/', 'index')->name('.index');
         Route::get('/{task}', 'create')->name('.detail');
         Route::get('/{task}/download/{taskSubmission}', 'download')->name('.download');
         Route::post('/submit', 'store')->name('.submit');
     });
-
     # Jurnal
-
     # LetterHead
     Route::get('letterhead', [LetterheadController::class, 'index'])->name('.letterhead');
     Route::post('letterhead/store', [LetterheadController::class, 'store'])->name('.letterhead.store');
