@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AttendanceRuleResource;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
-use Request;
+use Illuminate\Support\Facades\Request;
 
 class AttendanceController extends Controller
 {
