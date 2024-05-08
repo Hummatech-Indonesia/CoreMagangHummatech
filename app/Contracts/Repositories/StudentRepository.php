@@ -117,6 +117,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     {
         return $this->model->query()
             ->where('status', StudentStatusEnum::ACCEPTED->value)
+            ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
             ->get();
     }
 
