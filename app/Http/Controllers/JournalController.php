@@ -16,6 +16,7 @@ use App\Contracts\Interfaces\LetterheadsInterface;
 use App\Contracts\Interfaces\SignatureInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use Exception;
+use Illuminate\Http\Request;
 
 class JournalController extends Controller
 {
@@ -63,7 +64,7 @@ class JournalController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreJournalRequest $request)
+    public function store(Request $request)
     {
         $currentDate = Carbon::now()->locale('id_ID')->setTimezone('Asia/Jakarta')->isoFormat('HH:mm:ss');
         if ($currentDate < '16:00:00' || $currentDate > '23:59:00') {
