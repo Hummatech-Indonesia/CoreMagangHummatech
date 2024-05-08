@@ -305,19 +305,19 @@
                                     role="tablist">
 
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-bs-toggle="tab" href="#monday" role="tab" aria-selected="true">Senin</a>
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#Monday" role="tab" aria-selected="true">Senin</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="tab" href="#tuesday" role="tab" aria-selected="false">Selasa</a>
+                                        <a class="nav-link" data-bs-toggle="tab" href="#Tuesday" role="tab" aria-selected="false">Selasa</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="tab" href="#wednesday" role="tab" aria-selected="false">Rabu</a>
+                                        <a class="nav-link" data-bs-toggle="tab" href="#Wednesday" role="tab" aria-selected="false">Rabu</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="tab" href="#thursday" role="tab" aria-selected="false">Kamis</a>
+                                        <a class="nav-link" data-bs-toggle="tab" href="#Thursday" role="tab" aria-selected="false">Kamis</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="tab" href="#friday" role="tab" aria-selected="false">Jumat</a>
+                                        <a class="nav-link" data-bs-toggle="tab" href="#Friday" role="tab" aria-selected="false">Jumat</a>
                                     </li>
                                 </ul>
 
@@ -459,7 +459,7 @@
                                             class="btn btn-secondary w-100 mt-3 waves-effect waves-light">Simpan</button>
                                     </form>
                                 </div>
-                                <div class="tab-pane" id="wednesday" role="tabpanel">
+                                <div class="tab-pane" id="Wednesday" role="tabpanel">
                                     <form action="{{ route('attendance-rule.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="day" value="wednesday">
