@@ -176,7 +176,7 @@
                         <div class="round-16 d-flex align-items-center justify-content-center">
                             <i class="ti ti-notes"></i>
                         </div>
-                        <span class="hide-menu">Kop Surat</span>
+                        <span class="hide-menu ms-1">Kop Surat</span>
                     </a>
                 </li>
 
