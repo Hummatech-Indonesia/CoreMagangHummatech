@@ -303,41 +303,29 @@
                             <div class="">
                                 <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0 d-flex"
                                     role="tablist">
-                                    @php
-                                        // Mendapatkan hari ini dalam format yang diinginkan (misalnya: "Monday")
-                                        $today = now()->format('l');
 
-                                        // Array yang berisi nama hari dalam bahasa Indonesia
-                                        $daysInIndonesian = [
-                                            'Monday' => 'Senin',
-                                            'Tuesday' => 'Selasa',
-                                            'Wednesday' => 'Rabu',
-                                            'Thursday' => 'Kamis',
-                                            'Friday' => 'Jumat',
-                                        ];
-                                    @endphp
-
-                                    @foreach ($daysInIndonesian as $englishDay => $indonesianDay)
-                                        @php
-                                            // Tentukan apakah ini adalah hari yang sama dengan hari ini
-                                            $isActive = $englishDay === $today ? 'active' : '';
-                                        @endphp
-
-                                        <li class="nav-item">
-                                            <a class="nav-link {{ $isActive }}" data-bs-toggle="tab"
-                                                href="#{{ strtolower($englishDay) }}" role="tab"
-                                                aria-selected="{{ $isActive ? 'true' : 'false' }}">
-                                                {{ $indonesianDay }}
-                                            </a>
-                                        </li>
-                                    @endforeach
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#monday" role="tab" aria-selected="true">Senin</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#tuesday" role="tab" aria-selected="false">Selasa</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#wednesday" role="tab" aria-selected="false">Rabu</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#thursday" role="tab" aria-selected="false">Kamis</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#friday" role="tab" aria-selected="false">Jumat</a>
+                                    </li>
                                 </ul>
 
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="tab-content p-0">
-                                <div class="tab-pane active" id="monday" role="tabpanel">
+                                <div class="tab-pane active" id="Monday" role="tabpanel">
                                     <form action="{{ route('attendance-rule.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="day" value="monday">
@@ -404,7 +392,7 @@
                                             class="btn btn-secondary w-100 mt-3 waves-effect waves-light">Simpan</button>
                                     </form>
                                 </div>
-                                <div class="tab-pane" id="tuesday" role="tabpanel">
+                                <div class="tab-pane" id="Tuesday" role="tabpanel">
                                     <form action="{{ route('attendance-rule.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="day" value="tuesday">
@@ -538,7 +526,7 @@
                                             class="btn btn-secondary w-100 mt-3 waves-effect waves-light">Simpan</button>
                                     </form>
                                 </div>
-                                <div class="tab-pane" id="thursday" role="tabpanel">
+                                <div class="tab-pane" id="Thursday" role="tabpanel">
                                     <form action="{{ route('attendance-rule.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="day" value="thursday">
@@ -605,7 +593,7 @@
                                             class="btn btn-secondary w-100 mt-3 waves-effect waves-light">Simpan</button>
                                     </form>
                                 </div>
-                                <div class="tab-pane" id="friday" role="tabpanel">
+                                <div class="tab-pane" id="Friday" role="tabpanel">
                                     <form action="{{ route('attendance-rule.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="day" value="friday">
