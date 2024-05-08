@@ -11,12 +11,12 @@ use App\Services\DataCOService;
 class DataCOController extends Controller
 {
     private DataCOInterface $dataCO;
-    private DataCOService $dataAdminService;
+    private DataCOService $service;
 
-    public function __construct(DataCOInterface $dataCO, DataCOService $dataAdminService)
+    public function __construct(DataCOInterface $dataCO, DataCOService $service)
     {
         $this->dataCO = $dataCO;
-        $this->dataAdminService = $dataAdminService;
+        $this->service = $service;
     }
     /**
      * Display a listing of the resource.
@@ -39,7 +39,7 @@ class DataCOController extends Controller
      */
     public function store(StoreDataCORequest $request)
     {
-        $data = $this->dataAdminService->store($request->validated());
+        $data = $this->service->store($request);
         $this->dataCO->store($data);
 
         return back()->with('success', 'Data CO Berhasil ditambahkan');

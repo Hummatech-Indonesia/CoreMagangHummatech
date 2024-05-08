@@ -70,24 +70,28 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     // data ceo
     Route::post('dataceo/store', [DataCOController::class, 'store']);
     Route::put('dataceo/update/{dataAdmin}', [DataCOController::class, 'update']);
-    
+
     # Approval
     Route::get('approval', [ApprovalController::class, 'index'])->name('.approval.index');
     Route::put('approval/accept/{student}', [ApprovalController::class, 'accept'])->name('approval.accept');
     Route::put('approval/decline/{student}', [ApprovalController::class, 'decline'])->name('approval.decline');
     Route::delete('approval/delete/{student}', [ApprovalController::class, 'destroy'])->name('approval.delete');
+
     # Warning letter
     Route::get('warning-letter', [WarningLetterController::class, 'index'])->name('warning-letter.index');
     Route::post('warning-letter/store', [WarningLetterController::class, 'store'])->name('warning-letter.store');
     Route::get('warning-letter/show/{WarningLetter}', [WarningLetterController::class, 'show'])->name('warning-letter.show');
     Route::delete('warning-letter/delete/{WarningLetter}', [WarningLetterController::class, 'destroy'])->name('warning-letter.delete');
+
     # Response letter
     Route::get('response-letter', [ResponseLetterController::class, 'index'])->name('response-letter.index');
     Route::get('show/student/{responseLetter}', [ResponseLetterController::class, 'show'])->name('response-letter.show');
+
     # Voucher
     Route::get('voucher', [VoucherController::class, 'index'])->name('voucher.index');
     Route::post('voucher/store', [VoucherController::class, 'store'])->name('voucher.store');
     Route::delete('voucher/delete/{voucher}', [VoucherController::class, 'destroy'])->name('voucher.delete');
+    
     # Mentor
     Route::get('menu-mentor', [AdminMentorController::class, 'index'])->name('mentor.index');
     Route::post('menu-mentor/store', [AdminMentorController::class, 'store'])->name('mentor.store');
