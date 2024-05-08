@@ -77,7 +77,7 @@ class AttendanceController extends Controller
                 'updated_at' => $data['updated_at'],
             ];
 
-            if (!$attendance = $this->attendance->checkAttendanceToday(['student_id' => $data['user_id'], 'created_at' => $data['created_at']])) {
+            if (!$attendance = $this->attendance->checkAttendanceToday(['student_id' => $data['user_id'], 'created_at' => Carbon::parse($data['created_at'])->format('Y-m-d')])) {
                 $attendance = $this->attendance->store($attendanceData);
             }
 
