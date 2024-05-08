@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\StudentInterface;
 use App\Enum\InternshipTypeEnum;
 use App\Enum\StudentStatusEnum;
 use App\Models\Student;
+use Illuminate\Http\Request;
 
 class StudentRepository extends BaseRepository implements StudentInterface
 {
@@ -23,17 +24,24 @@ class StudentRepository extends BaseRepository implements StudentInterface
     /**
      * listAttendance
      *
+     * @param  mixed $request
      * @return mixed
      */
-    public function listAttendance(): mixed
+    public function listAttendance(Request $request): mixed
     {
         $date = now();
+        if ($request->has('date')) {
+            $date = $request->date;
+        }
         return $this->model->query()
             ->whereNotNull('rfid')
             ->where('internship_type', InternshipTypeEnum::ONLINE->value)
             ->withCount(['attendances' => function ($query) {
                 $query->whereDate('created_at', now());
             }])
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%'. $request->name .'%');
+            })
             ->with(['attendances' => function ($query) use ($date) {
                 $query->whereDate('created_at', $date);
             }])
@@ -43,15 +51,22 @@ class StudentRepository extends BaseRepository implements StudentInterface
     }
 
     /**
-     * listOflineAttendance
+     * listOfflineAttendance
      *
+     * @param  mixed $request
      * @return mixed
      */
-    public function listOfflineAttendance(): mixed
+    public function listOfflineAttendance(Request $request): mixed
     {
         $date = now();
+        if ($request->has('date')) {
+            $date = $request->date;
+        }
         return $this->model->query()
             ->whereNotNull('rfid')
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%'. $request->name .'%');
+            })
             ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
             ->withCount(['attendances' => function ($query) {
                 $query->whereDate('created_at', now());
@@ -83,7 +98,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query()->where('id' , auth()->user()->student->id)->get();
     }
 
-    /** 
+    /**
      * Get Data
      *
      * @return mixed

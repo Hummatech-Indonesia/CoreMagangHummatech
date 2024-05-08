@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\Eloquent\ShowInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 use App\Contracts\Interfaces\Eloquent\WhereInterface;
+use Illuminate\Http\Request;
 
 interface StudentInterface extends GetInterface , StoreInterface , DeleteInterface , UpdateInterface, WhereInterface, ShowInterface
 {
@@ -23,16 +24,18 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
     /**
      * listAttendance
      *
+     * @param  mixed $request
      * @return mixed
      */
-    public function listAttendance(): mixed;
+    public function listAttendance(Request $request): mixed;
 
     /**
-     * listOflineAttendance
+     * listOfflineAttendance
      *
+     * @param  mixed $request
      * @return mixed
      */
-    public function listOfflineAttendance(): mixed;
+    public function listOfflineAttendance(Request $request): mixed;
 
     /**
      * listStudent

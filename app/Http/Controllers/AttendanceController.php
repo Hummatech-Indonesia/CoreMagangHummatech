@@ -91,24 +91,25 @@ class AttendanceController extends Controller
     /**
      * index
      *
+     * @param  mixed $request
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $onlineAttendances = $this->student->listAttendance();
-        $oflineAttendances = $this->student->listOfflineAttendance();
+        $onlineAttendances = $this->student->listAttendance($request);
+        $oflineAttendances = $this->student->listOfflineAttendance($request);
         return view('admin.page.absent.index', compact('onlineAttendances', 'oflineAttendances'));
     }
 
     public function attendanceOffline(Request $request): View
     {
-        $offlineAttendances = $this->student->listOfflineAttendance();
+        $offlineAttendances = $this->student->listOfflineAttendance($request);
         return view('student_offline.absensi.index', compact('offlineAttendances'));
     }
 
     public function attendanceOnline(Request $request): View
     {
-        $onlineAttendances = $this->student->listAttendance();
+        $onlineAttendances = $this->student->listAttendance($request);
         return view('student_online.absensi.index',compact('onlineAttendances'));
     }
 }
