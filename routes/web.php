@@ -167,7 +167,6 @@ Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(
 });
 
 Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('.journal.download');
-Route::get('journal', [JournalController::class, 'index'])->name('.journal.index');
 # ================================================ School/Instance Route Group ================================================
 
 # ==================================================== Another Route Group ====================================================
