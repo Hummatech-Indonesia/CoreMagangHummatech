@@ -30,6 +30,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Mentor\DashboardController;
 use App\Http\Controllers\StudentOnline\CourseController;
 use App\Http\Controllers\CourseController as AdminCourseController;
+use App\Http\Controllers\DataCOController;
 use App\Http\Controllers\FaceController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SignatureCOController;
@@ -65,6 +66,11 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     # Data Admin
     Route::post('data-admin/store', [DataAdminController::class, 'store'])->name('data-admin.store');
     Route::put('data-admin/update/{dataAdmin}', [DataAdminController::class, 'update'])->name('data-admin.update');
+
+    // data ceo
+    Route::post('dataceo/store', [DataCOController::class, 'store']);
+    Route::put('dataceo/update/{dataAdmin}', [DataCOController::class, 'update']);
+    
     # Approval
     Route::get('approval', [ApprovalController::class, 'index'])->name('.approval.index');
     Route::put('approval/accept/{student}', [ApprovalController::class, 'accept'])->name('approval.accept');

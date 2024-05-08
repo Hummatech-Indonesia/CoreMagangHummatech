@@ -7,12 +7,13 @@
         </div>
         <div class="col-12 col-md-8">
             <div class="d-flex justify-content-end">
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">Ubah Data Admin</button>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target=".myModal">Ubah Data Admin</button>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target=".myModal">Ubah Data CEO</button>
             </div>
         </div>
     </div>
 
-    <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
+    <div id="myModal" class="modal fade myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true"
         style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -57,6 +58,78 @@
                     </form>
                 @else
                     <form action="/data-admin/update/{{ $dataadmin->id }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <div class="d-flex justify-content-center">
+                                <label class="form-label text-white" for="image-input1">
+                                    <img id="preview-image1" src="{{ asset('storage/' . $dataadmin->image) }}"
+                                        alt="example placeholder"
+                                        style="width: 150px; height: 150px; border-radius: 10px; cursor: pointer;object-fit: cover"
+                                        class="rounded-circle">
+                                    <input type="file" class="form-control d-none" id="image-input1" name="image"
+                                        accept="image/*">
+                                </label>
+                            </div>
+                            <div class="mb-2">
+                                <label for="">Nama</label>
+                                <input type="text" class="form-control" value="{{ $dataadmin->name }}" id="" name="name"
+                                    placeholder="Masukkan Nama">
+                            </div>
+                            <div class="mb-2">
+                                <label for="">PT</label>
+                                <input type="text" class="form-control" id="" value="{{ $dataadmin->company }}" name="company"
+                                    placeholder="Masukkan PT">
+                            </div>
+                            <div class="mb-2">
+                                <label for="">Jabatan</label>
+                                <input type="text" class="form-control" id="" value="{{ $dataadmin->field }}" name="field"
+                                    placeholder="Masukkan Jabatan">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary ">Save Changes</button>
+                        </div>
+                    </form>
+                @endif
+                @if ($dataceo == null)
+                    <form action="/dataceo/store" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="d-flex justify-content-center">
+                                <label class="form-label text-white" for="image-input1">
+                                    <img id="preview-image1" src="https://task.hummatech.com/assets/img/avatars/pen.png"
+                                        alt="example placeholder"
+                                        style="width: 150px; height: 150px; border-radius: 10px; cursor: pointer;object-fit: cover"
+                                        class="rounded-circle">
+                                    <input type="file" class="form-control d-none" id="image-input1" name="image"
+                                        accept="image/*">
+                                </label>
+                            </div>
+                            <div class="mb-2">
+                                <label for="">Nama</label>
+                                <input type="text" class="form-control" id="" name="name"
+                                    placeholder="Masukkan Nama">
+                            </div>
+                            <div class="mb-2">
+                                <label for="">PT</label>
+                                <input type="text" class="form-control" id="" name="company"
+                                    placeholder="Masukkan PT">
+                            </div>
+                            <div class="mb-2">
+                                <label for="">Jabatan</label>
+                                <input type="text" class="form-control" id="" name="field"
+                                    placeholder="Masukkan Jabatan">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary ">Save Changes</button>
+                        </div>
+                    </form>
+                @else
+                    <form action="/dataceo/update/{{ $dataceo->id }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="modal-body">
@@ -192,7 +265,7 @@
                                     @php
                                         // Mendapatkan hari ini dalam format yang diinginkan (misalnya: "Monday")
                                         $today = now()->format('l');
-                                
+
                                         // Array yang berisi nama hari dalam bahasa Indonesia
                                         $daysInIndonesian = [
                                             'Sunday' => 'Minggu',
@@ -204,13 +277,13 @@
                                             'Saturday' => 'Sabtu'
                                         ];
                                     @endphp
-                                
+
                                     @foreach ($daysInIndonesian as $englishDay => $indonesianDay)
                                         @php
                                             // Tentukan apakah ini adalah hari yang sama dengan hari ini
                                             $isActive = ($englishDay === $today) ? 'active' : '';
                                         @endphp
-                                
+
                                         <li class="nav-item">
                                             <a class="nav-link {{ $isActive }}" data-bs-toggle="tab" href="#{{ strtolower($englishDay) }}" role="tab" aria-selected="{{ $isActive ? 'true' : 'false' }}">
                                                 {{ $indonesianDay }}
@@ -218,7 +291,7 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                                
+
                             </div>
                         </div>
                         <div class="card-body">
