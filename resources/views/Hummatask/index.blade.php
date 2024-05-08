@@ -83,7 +83,13 @@
     <h5 class="fs-5  mb-4" style="font-weight: 600">
         Tugas terbaru
     </h5>
-    <div class="row mt-2">
+    <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+        <img src="{{ asset('empty-asset.png') }}" alt="" width="100px" srcset="">
+        <p class="fs-5 text-dark">
+            Belum ada tugas
+        </p>
+    </div>
+    {{-- <div class="row mt-2">
         <div class="col-12 col-xl-4">
             <div class="card">
                 <div class="card-body">
@@ -177,7 +183,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 @section('script')
 <script>
