@@ -66,17 +66,31 @@ class AttendanceController extends Controller
                 'updated_at' => $data['updated_at'],
             ];
 
-            if (!$attendance = $this->attendance->checkAttendanceToday(['student_id' => $data['user_id'], 'created_at' => $data['created_at']])) {
+            // Cek apakah data presensi untuk mahasiswa ini sudah ada
+            $existingAttendance = $this->attendance->checkAttendanceToday(['student_id' => $data['user_id'], 'created_at' => $data['created_at']]);
+            if ($existingAttendance) {
+                // Jika data presensi sudah ada, lanjutkan ke data detail presensi
+                foreach ($data['detail_attendances'] as $detailAttendance) {
+                    $dataAttendanceDetail['attendance_id'] = $existingAttendance->id;
+                    $dataAttendanceDetail['status'] = $detailAttendance['status'];
+                    $dataAttendanceDetail['created_at'] = $detailAttendance['created_at'];
+                    $dataAttendanceDetail['updated_at'] = $detailAttendance['updated_at'];
+                    if (!$this->attendanceDetail->checkAttendanceToday(['status' => $detailAttendance['status'], 'attendance_id' => $existingAttendance->id])) {
+                        $this->attendanceDetail->store($dataAttendanceDetail);
+                    }
+                }
+            } else {
+                // Jika data presensi belum ada, buat entri baru
                 $attendance = $this->attendance->store($attendanceData);
-            }
 
-            foreach ($data['detail_attendances'] as $detailAttendance) {
-                $dataAttendanceDetail['attendance_id'] = $attendance->id;
-                $dataAttendanceDetail['status'] = $detailAttendance['status'];
-                $dataAttendanceDetail['created_at'] = $detailAttendance['created_at'];
-                $dataAttendanceDetail['updated_at'] = $detailAttendance['updated_at'];
-                if (!$this->attendanceDetail->checkAttendanceToday(['status' => $detailAttendance['status'], 'attendance_id' => $attendance->id])) {
-                    $this->attendanceDetail->store($dataAttendanceDetail);
+                foreach ($data['detail_attendances'] as $detailAttendance) {
+                    $dataAttendanceDetail['attendance_id'] = $attendance->id;
+                    $dataAttendanceDetail['status'] = $detailAttendance['status'];
+                    $dataAttendanceDetail['created_at'] = $detailAttendance['created_at'];
+                    $dataAttendanceDetail['updated_at'] = $detailAttendance['updated_at'];
+                    if (!$this->attendanceDetail->checkAttendanceToday(['status' => $detailAttendance['status'], 'attendance_id' => $attendance->id])) {
+                        $this->attendanceDetail->store($dataAttendanceDetail);
+                    }
                 }
             }
         }
