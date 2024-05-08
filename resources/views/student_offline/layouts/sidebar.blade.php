@@ -137,14 +137,14 @@
                         <span class="hide-menu">Pesanan Saya</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('transaction-history.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-wallet"></i>
                         </span>
                         <span class="hide-menu">Riwayat Transaksi</span>
                     </a>
-                </li>
+                </li> --}}
                 <!-- <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="#">
                         <span class="d-flex">

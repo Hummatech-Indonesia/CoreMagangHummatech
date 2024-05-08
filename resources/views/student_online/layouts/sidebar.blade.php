@@ -276,14 +276,14 @@
                         <span class="hide-menu">Pesanan Saya</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('transaction-history.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-wallet"></i>
                         </span>
                         <span class="hide-menu">Riwayat Transaksi</span>
                     </a>
-                </li>
+                </li> --}}
 
                 @if (auth()->user()->feature)
                     <!-- ============================= -->
