@@ -189,22 +189,36 @@
                             <h4 class="card-title mb-3 flex-grow-1">Atur Jam Masuk Kantor</h4>
                             <div class="">
                                 <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0 d-flex" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-bs-toggle="tab" href="#monday" role="tab" aria-selected="true">Senin</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="tab" href="#tuesday" role="tab" aria-selected="false">Selasa</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="tab" href="#wednesday" role="tab" aria-selected="false">Rabu</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="tab" href="#thursday" role="tab" aria-selected="false">Kamis</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="tab" href="#friday" role="tab" aria-selected="false">Jumat</a>
-                                    </li>
+                                    @php
+                                        // Mendapatkan hari ini dalam format yang diinginkan (misalnya: "Monday")
+                                        $today = now()->format('l');
+                                
+                                        // Array yang berisi nama hari dalam bahasa Indonesia
+                                        $daysInIndonesian = [
+                                            'Sunday' => 'Minggu',
+                                            'Monday' => 'Senin',
+                                            'Tuesday' => 'Selasa',
+                                            'Wednesday' => 'Rabu',
+                                            'Thursday' => 'Kamis',
+                                            'Friday' => 'Jumat',
+                                            'Saturday' => 'Sabtu'
+                                        ];
+                                    @endphp
+                                
+                                    @foreach ($daysInIndonesian as $englishDay => $indonesianDay)
+                                        @php
+                                            // Tentukan apakah ini adalah hari yang sama dengan hari ini
+                                            $isActive = ($englishDay === $today) ? 'active' : '';
+                                        @endphp
+                                
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ $isActive }}" data-bs-toggle="tab" href="#{{ strtolower($englishDay) }}" role="tab" aria-selected="{{ $isActive ? 'true' : 'false' }}">
+                                                {{ $indonesianDay }}
+                                            </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
+                                
                             </div>
                         </div>
                         <div class="card-body">

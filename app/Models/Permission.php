@@ -11,7 +11,7 @@ class Permission extends Model implements HasStudent
 {
     use HasFactory;
 
-    protected $table = 'permissions';
+    protected $table = 'student_permissions';
     protected $primaryKey = 'id';
 
     protected $fillable = [

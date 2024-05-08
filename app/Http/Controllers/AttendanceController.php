@@ -112,6 +112,7 @@ class AttendanceController extends Controller
         $workFromHomes = $this->workFromHome->getToday();
         $offlineAttendances = $this->student->listOfflineAttendance($request);
         return view('student_offline.absensi.index', compact('offlineAttendances','attends','permissions','absent', 'total', 'workFromHomes'));
+
     }
 
     public function attendanceOnline(Request $request): View

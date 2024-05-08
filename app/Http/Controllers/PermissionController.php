@@ -22,7 +22,7 @@ class PermissionController extends Controller
     public function __construct(PermissionInterface $permissionInterface, PermissionService $permissionService, AttendanceInterface $attendanceInterface)
     {
         $this->attendance = $attendanceInterface;
-        $this->permission = $permissionService;
+        $this->service = $permissionService;
         $this->permission = $permissionInterface;
     }
 
@@ -47,6 +47,7 @@ class PermissionController extends Controller
     public function store(PermissionRequest $request): RedirectResponse
     {
         $data = $this->service->store($request);
+        $data['student_id'] = auth()->user()->student->id;
         $this->permission->store($data);
         return redirect()->back()->with('success', 'Berhasil menyimpan');
     }
