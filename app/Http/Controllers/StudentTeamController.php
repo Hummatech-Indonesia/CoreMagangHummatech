@@ -37,7 +37,7 @@ class StudentTeamController extends Controller
      */
     public function show(studentTeam $studentTeam)
     {
-        //
+        
     }
 
     /**

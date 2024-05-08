@@ -35,9 +35,9 @@
         </div>
         <div class="description">
           <h3 class="text-primary text-capitalize" style="font-weight: 700">{{ $team->name }}</h3>
-          <p class="text-muted m-0">Pembuatan webite dg laravel</p>
+          <p class="text-muted m-0">{{ ($team->project_id != null) ? $team->project->description : ($team->hummataskTeam->description ?? '') }}</p>
           <p class="m-0">Mentor: {{ auth()->user()->mentor->name }}</p>
-          <p class="text-danger m-0">Deadline: senin, 6 april 2023</p>
+          <p class="text-danger m-0">Deadline: {{ $team->project_id != null ? $team->project->end_date  : '-' }}</p>
         </div>
       </div>
     </div>
@@ -222,8 +222,9 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <h5 class="modal-title px-3" id="staticBackdropLabel">Edit Tim</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{ route('team.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('team.update', $team->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="modal-body">
                 <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
                     <div class="mx-3">
@@ -264,7 +265,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="mb-3 mt-2 col-md-12">
                             <label for="bm-title" class="mb-1">Anggota tim</label>
                             @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $key => $member)
-                              <select class="select2 form-control custom-select" style="width: 100%; height: 36px"
+                              <select class="select2 form-control custom-select mb-3"
                                   name="student_id[]">
                                   <option disabled>Pilih anggota tim</option>
                                   @forelse ($students as $student)
@@ -273,6 +274,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                       <option disabled>Tidak ada siswa</option>
                                   @endforelse
                               </select>
+                              
                               @error('student_id.*')
                                   <p class="text-danger">{{ $message }}</p>
                               @enderror

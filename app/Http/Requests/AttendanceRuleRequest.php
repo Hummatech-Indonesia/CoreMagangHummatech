@@ -10,7 +10,7 @@ class AttendanceRuleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'day' => ['required', new DayRule],
+            // 'day' => ['required', new DayRule],
             'checkin_starts' => 'required',
             'checkin_ends' => 'required',
             'break_starts' => 'required',

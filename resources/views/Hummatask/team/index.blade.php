@@ -22,35 +22,35 @@
         </div>
     </div>
     <div class="col-12">
-        @forelse ($studentProjects as $studentProject)
+        @forelse ($projects as $project)
         <div class="d-flex align-items-center gap-4 mb-4 ">
             <div class="position-relative">
-                @if ($studentProject->hummataskTeam->image != null)
+                @if ($project->hummataskTeam->image != null)
                     <div class="border border-2 border-primary rounded-circle">
-                        <img src="{{ asset('storage/'.$studentProject->hummataskTeam->image) }}" style="width: 60px; height: 60px; object-fit: cover;" class="img-fluid rounded-circle m-1" alt="user1"
+                        <img src="{{ asset('storage/'.$project->hummataskTeam->image) }}" style="width: 60px; height: 60px; object-fit: cover;" class="img-fluid rounded-circle m-1" alt="user1"
                         width="60" />
                     </div>
                 @else
                     <div class="text-center align-content-center ">
                         <div class="bg-primary rounded rounded-circle text-white d-flex align-items-center justify-content-center text-uppercase fs-1" style="width: 4pc; height: 4pc;">
                         <p class="m-0 p-0">
-                            {{ $studentProject->hummataskTeam->categoryProject->name }}
+                            {{ $project->hummataskTeam->categoryProject->name }}
                         </p>
                         </div>
                     </div>
                 @endif
             </div>
             <div>
-                <h3 class="fw-semibold"><span class="text-dark">{{ $studentProject->project_id != null ? $studentProject->project->title : $studentProject->hummataskTeam->title }}</span>
+                <h3 class="fw-semibold"><span class="text-dark">{{ $project->title }}</span>
                 </h3>
-                @if ($studentProject->project_id != null && $studentProject->project->start_date != null)
-                    <span>Tanggal  Mulai : {{ \Carbon\Carbon::parse($studentProject->project->start_date)->locale('id')->isoFormat('dddd, D MMMM Y') }} &nbsp; &nbsp;- &nbsp;  Tenggat : {{ \Carbon\Carbon::parse($studentProject->project->end_date)->locale('id')->isoFormat('dddd, D MMMM Y') }}</span>
+                @if ( $project->start_date != null)
+                    <span>Tanggal  Mulai : {{ \Carbon\Carbon::parse($project->start_date)->locale('id')->isoFormat('dddd, D MMMM Y') }} &nbsp; &nbsp;- &nbsp;  Tenggat : {{ \Carbon\Carbon::parse($project->end_date)->locale('id')->isoFormat('dddd, D MMMM Y') }}</span>
                 @else
-                    <p class="text-muted">{{ $studentProject->project_id != null ? $studentProject->project->description : $studentProject->hummataskTeam->description }}</p>
+                    <p class="text-muted">{{ $project->description }}</p>
                 @endif
                 <div class="tb-section-2 mt-2">
-                    <span class="badge px-2  text-bg-{{ $studentProject->project_id != null ? $studentProject->project->status->color()  : 'success' }} fs-1">{{ $studentProject->project_id != null ? $studentProject->project->status->label()  : 'success' }}</span>
-                    <span class="badge px-2  text-bg-primary fs-1">{{ $studentProject->hummataskTeam->categoryProject->name }}</span>
+                    <span class="badge px-2  text-bg-{{ $project->status->color() }} fs-1">{{ $project->status->label() }}</span>
+                    <span class="badge px-2  text-bg-primary fs-1">{{ $project->hummataskTeam->categoryProject->name }}</span>
                 </div>
             </div>
         </div>

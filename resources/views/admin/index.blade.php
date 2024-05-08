@@ -183,53 +183,327 @@
         </div>
         <div class="col-xxl-8">
             <div class="row h-100">
-                <div class="col-xl-6">
+                <div class="col-xl-12">
                     <div class="card card-height-100">
-                        <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Atur Jam Masuk Kantor</h4>
-                            <div class="flex-shrink-0 col-lg-4">
-                                <select class="form-select mb-3" aria-label="Default select example">
-                                    <option value="1">Senin</option>
-                                    <option value="2">Selasa</option>
-                                    <option value="3">Rabu</option>
-                                </select>
+                        <div class="card-header border-0">
+                            <h4 class="card-title mb-3 flex-grow-1">Atur Jam Masuk Kantor</h4>
+                            <div class="">
+                                <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0 d-flex" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#monday" role="tab" aria-selected="true">Senin</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#tuesday" role="tab" aria-selected="false">Selasa</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#wednesday" role="tab" aria-selected="false">Rabu</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#thursday" role="tab" aria-selected="false">Kamis</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#friday" role="tab" aria-selected="false">Jumat</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <div class="card-body">
-                            <label for="exampleInputtime" class="form-label">Masuk :</label>
-                            <div class="d-flex">
-                                <input type="time" class="form-control" id="exampleInputtime" value="{{ $monday->checkin_starts ?? '' }}">
-                                <h2 class="ms-2">-</h2>
-                                <input type="time" class="form-control ms-2" id="exampleInputtime" value="{{ $monday->checkin_ends ?? '' }}">
+                            <div class="tab-content p-0">
+                                    <div class="tab-pane active" id="monday" role="tabpanel">
+                                        <form action="{{ route('attendance-rule.store') }}" method="post">
+                                            @csrf
+                                        <input type="hidden" name="day" value="monday" >
+                                        <label for="exampleInputtime" class="form-label">Masuk :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="checkin_starts" value="{{ $monday->checkin_starts ?? '' }}">
+                                            @error('checkin_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="checkin_ends" value="{{ $monday->checkin_ends ?? '' }}">
+                                            @error('checkin_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <label for="exampleInputtime" class="form-label mt-3">Istirahat :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="break_starts" value="{{ $monday->break_starts ?? '' }}">
+                                            @error('break_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="break_ends" value="{{ $monday->break_ends ?? '' }}">
+                                            @error('break_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <label for="exampleInputtime" class="form-label mt-3">Kembali :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="return_starts" value="{{ $monday->return_starts ?? '' }}">
+                                            @error('return_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="return_ends" value="{{ $monday->return_ends ?? '' }}">
+                                            @error('return_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <label for="exampleInputtime" class="form-label mt-3">Pulang :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="checkout_starts" value="{{ $monday->checkout_starts ?? '' }}">
+                                            @error('checkout_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="checkout_ends" value="{{ $monday->checkout_ends ?? '' }}">
+                                            @error('checkout_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                        <button type="submit" class="btn btn-secondary w-100 mt-3 waves-effect waves-light">Simpan</button>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane" id="tuesday" role="tabpanel">
+                                        <form action="{{ route('attendance-rule.store') }}" method="post">
+                                            @csrf
+                                        <input type="hidden" name="day" value="tuesday" >
+                                        <label for="exampleInputtime" class="form-label">Masuk :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="checkin_starts" value="{{ $tuesday->checkin_starts ?? '' }}">
+                                            @error('checkin_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="checkin_ends" value="{{ $tuesday->checkin_ends ?? '' }}">
+                                            @error('checkin_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <label for="exampleInputtime" class="form-label mt-3">Istirahat :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="break_starts" value="{{ $tuesday->break_starts ?? '' }}">
+                                            @error('break_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="break_ends" value="{{ $tuesday->break_ends ?? '' }}">
+                                            @error('break_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <label for="exampleInputtime" class="form-label mt-3">Kembali :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="return_starts" value="{{ $tuesday->return_starts ?? '' }}">
+                                            @error('return_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="return_ends" value="{{ $tuesday->return_ends ?? '' }}">
+                                            @error('return_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <label for="exampleInputtime" class="form-label mt-3">Pulang :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="checkout_starts" value="{{ $tuesday->checkout_starts ?? '' }}">
+                                            @error('checkout_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="checkout_ends" value="{{ $tuesday->checkout_ends ?? '' }}">
+                                            @error('checkout_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                        <button type="submit" class="btn btn-secondary w-100 mt-3 waves-effect waves-light">Simpan</button>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane" id="wednesday" role="tabpanel">
+                                        <form action="{{ route('attendance-rule.store') }}" method="post">
+                                            @csrf
+                                        <input type="hidden" name="day" value="wednesday" >
+                                        <label for="exampleInputtime" class="form-label">Masuk :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="checkin_starts" value="{{ $wednesday->checkin_starts ?? '' }}">
+                                            @error('checkin_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="checkin_ends" value="{{ $wednesday->checkin_ends ?? '' }}">
+                                            @error('checkin_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <label for="exampleInputtime" class="form-label mt-3">Istirahat :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="break_starts" value="{{ $wednesday->break_starts ?? '' }}">
+                                            @error('break_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="break_ends" value="{{ $wednesday->break_ends ?? '' }}">
+                                            @error('break_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <label for="exampleInputtime" class="form-label mt-3">Kembali :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="return_starts" value="{{ $wednesday->return_starts ?? '' }}">
+                                            @error('return_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="return_ends" value="{{ $wednesday->return_ends ?? '' }}">
+                                            @error('return_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <label for="exampleInputtime" class="form-label mt-3">Pulang :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="checkout_starts" value="{{ $wednesday->checkout_starts ?? '' }}">
+                                            @error('checkout_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="checkout_ends" value="{{ $wednesday->checkout_ends ?? '' }}">
+                                            @error('checkout_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                        <button type="submit" class="btn btn-secondary w-100 mt-3 waves-effect waves-light">Simpan</button>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane" id="thursday" role="tabpanel">
+                                        <form action="{{ route('attendance-rule.store') }}" method="post">
+                                            @csrf
+                                        <input type="hidden" name="day" value="thursday" >
+                                        <label for="exampleInputtime" class="form-label">Masuk :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="checkin_starts" value="{{ $thursday->checkin_starts ?? '' }}">
+                                            @error('checkin_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="checkin_ends" value="{{ $thursday->checkin_ends ?? '' }}">
+                                            @error('checkin_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <label for="exampleInputtime" class="form-label mt-3">Istirahat :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="break_starts" value="{{ $thursday->break_starts ?? '' }}">
+                                            @error('break_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="break_ends" value="{{ $thursday->break_ends ?? '' }}">
+                                            @error('break_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <label for="exampleInputtime" class="form-label mt-3">Kembali :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="return_starts" value="{{ $thursday->return_starts ?? '' }}">
+                                            @error('return_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="return_ends" value="{{ $thursday->return_ends ?? '' }}">
+                                            @error('return_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <label for="exampleInputtime" class="form-label mt-3">Pulang :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="checkout_starts" value="{{ $thursday->checkout_starts ?? '' }}">
+                                            @error('checkout_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="checkout_ends" value="{{ $thursday->checkout_ends ?? '' }}">
+                                            @error('checkout_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                        <button type="submit" class="btn btn-secondary w-100 mt-3 waves-effect waves-light">Simpan</button>
+                                    </form>
+                                    </div>
+                                    <div class="tab-pane" id="friday" role="tabpanel">
+                                    <form action="{{ route('attendance-rule.store') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="day" value="friday" >
+                                        <label for="exampleInputtime" class="form-label">Masuk :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="checkin_starts" value="{{ $friday->checkin_starts ?? '' }}">
+                                            @error('checkin_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="checkin_ends" value="{{ $friday->checkin_ends ?? '' }}">
+                                            @error('checkin_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <label for="exampleInputtime" class="form-label mt-3">Istirahat :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="break_starts" value="{{ $friday->break_starts ?? '' }}">
+                                            @error('break_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="break_ends" value="{{ $friday->break_ends ?? '' }}">
+                                            @error('break_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <label for="exampleInputtime" class="form-label mt-3">Kembali :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="return_starts" value="{{ $friday->return_starts ?? '' }}">
+                                            @error('return_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="return_ends" value="{{ $friday->return_ends ?? '' }}">
+                                            @error('return_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+
+                                        <label for="exampleInputtime" class="form-label mt-3">Pulang :</label>
+                                        <div class="d-flex">
+                                            <input type="time" class="form-control" id="exampleInputtime" name="checkout_starts" value="{{ $friday->checkout_starts ?? '' }}">
+                                            @error('checkout_starts')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                            <h2 class="ms-2">-</h2>
+                                            <input type="time" class="form-control ms-2" id="exampleInputtime" name="checkout_ends" value="{{ $friday->checkout_ends ?? '' }}">
+                                            @error('checkout_ends')
+                                                <strong class="text-danger">{{ $message }}</strong>
+                                            @enderror
+                                        </div>
+                                        <button type="submit" class="btn btn-secondary w-100 mt-3 waves-effect waves-light">Simpan</button>
+                                    </form>
+                                    </div>
                             </div>
-
-                            <label for="exampleInputtime" class="form-label mt-3">Istirahat :</label>
-                            <div class="d-flex">
-                                <input type="time" class="form-control" id="exampleInputtime" value="08:56 AM">
-                                <h2 class="ms-2">-</h2>
-                                <input type="time" class="form-control ms-2" id="exampleInputtime" value="08:56 AM">
-                            </div>
-
-                            <label for="exampleInputtime" class="form-label mt-3">Kembali :</label>
-                            <div class="d-flex">
-                                <input type="time" class="form-control" id="exampleInputtime" value="08:56 AM">
-                                <h2 class="ms-2">-</h2>
-                                <input type="time" class="form-control ms-2" id="exampleInputtime" value="08:56 AM">
-                            </div>
-
-                            <label for="exampleInputtime" class="form-label mt-3">Pulang :</label>
-                            <div class="d-flex">
-                                <input type="time" class="form-control" id="exampleInputtime" value="08:56 AM">
-                                <h2 class="ms-2">-</h2>
-                                <input type="time" class="form-control ms-2" id="exampleInputtime" value="08:56 AM">
-                            </div>
-
-                            <button type="button" class="btn btn-secondary w-100 mt-3 waves-effect waves-light">Simpan</button>
-
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6">
+                {{-- <div class="col-xl-6">
                     <div class="card card-height-100">
                         <div class="card-header align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1 ms-3">
@@ -274,12 +548,12 @@
                             @endforeach
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-xl-8 d-flex">
             <div class="card flex-grow-1">
                 <div class="card-header border-0 align-items-center d-flex">
@@ -329,9 +603,9 @@
                 @endforeach
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-xl-12">
             <div class="card card-height-100">
                 <div class="card-header align-items-center d-flex">
@@ -382,7 +656,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
 @endsection
