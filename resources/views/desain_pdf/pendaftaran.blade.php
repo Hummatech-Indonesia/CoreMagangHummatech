@@ -115,22 +115,16 @@
                     margin-bottom: 40px;
                     text-decoration: underline;
                 }
+
                 .right-left-margin {
                     margin-left: 35px;
                     margin-right: 20px;
                 }
             </style>
-            <p style="font-family: 'Times New Roman', Times, serif; font-size: 15px;  line-height: 1.5; margin-bottom: 40px;"
-                class="mb-2">Malang, {{ $data['date'] }}</p>
+            <p style="font-family: 'Times New Roman', Times, serif; font-size: 15px;">
+                PT HUMMA TEKNOLOGI INDONESIA</p>
             <div style="position: relative;">
-                <img style="margin: 0px; padding: 0px; width:70%; position: absolute; top: 0; left: 0; z-index: 1;"
-                    src="{{ storage_path('../public/berkas/tdd_Af_Rizal_Himawan.png') }}" alt=""
-                    srcset="">
-                <p
-                    style="font-family: 'Times New Roman', Times, serif; font-size: 15px; position: relative; z-index: 2; margin-top: -20px;">
-                    PT HUMMA TEKNOLOGI INDONESIA</p>
-                <p style="font-family: 'Times New Roman', Times, serif; font-size: 15px; position: relative; z-index: 2; margin-top: 70px;"
-                    class="underline-text">Afrizal Himawan S.Kom</p>
+                <img src="{{ $qrCodeImage }}" alt="QR Code">
             </div>
             <p
                 style="font-family: 'Times New Roman', Times, serif; font-size: 15px; line-height: 0; margin-top: -20px;"class="right-left-margin">

@@ -32,6 +32,7 @@ use App\Http\Controllers\StudentOnline\CourseController;
 use App\Http\Controllers\CourseController as AdminCourseController;
 use App\Http\Controllers\FaceController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\SignatureCOController;
 use App\Http\Controllers\StudentCourseController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
@@ -43,6 +44,7 @@ use App\Http\Controllers\TaskSubmissionController;
 
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', [LandingController::class, 'index']);
+Route::get('/hummatech/{id}' , [SignatureCOController::class , 'index']);
 // Route::get('/payment-instructions/{code}', [PaymentController::class, 'paymentInstructions']);
 
 # ================================================ Authentication Routes Group ================================================
@@ -167,7 +169,6 @@ Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(
 });
 
 Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('.journal.download');
-Route::get('journal', [JournalController::class, 'index'])->name('.journal.index');
 # ================================================ School/Instance Route Group ================================================
 
 # ==================================================== Another Route Group ====================================================

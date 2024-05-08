@@ -103,11 +103,11 @@
                                 </div>
                                 <div class="d-flex justify-content-end w-100">
                                     <div class="dropdown card-header-dropdown">
-                                        <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
+                                        {{-- <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false">
                                             <span class="text-muted fs-16"><i
                                                     class="mdi mdi-dots-vertical align-center"></i></span>
-                                        </a>
+                                        </a> --}}
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item"
                                                 href="/menu-siswa/face/{{ $student->id }}">Wajah</a>
