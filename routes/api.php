@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('users', [UserController::class, 'index']);
     Route::get('profile' , [ProfileController::class , 'index']);
     Route::get('journals' , [JournalController::class , 'index']);
+    Route::get('journals/detail/{id}' , [JournalController::class , 'show']);
     Route::post('journal' , [JournalController::class , 'store']);
     Route::put('journal/update/{journal}' , [JournalController::class , 'update']);
     Route::get('mentorStudent',[DashboardController::class, 'mentorStudent']);

@@ -51,7 +51,6 @@ class JournalController extends Controller
             if ($existingData) {
                 return ResponseHelper::error(null, "Anda Telah Mengisi Jurnal Hari ini.");
             }
-
             if (now()->isWeekend()) {
                 return ResponseHelper::error(null, "Hari Ini Libur");
             }
@@ -65,5 +64,11 @@ class JournalController extends Controller
     {
         $this->journal->update($journal->id, $request->validated());
         return ResponseHelper::success(null, 'berhasil');
+    }
+
+    public function show($id)
+    {
+        $journal = $this->journal->show($id);
+        return ResponseHelper::success($journal);
     }
 }
