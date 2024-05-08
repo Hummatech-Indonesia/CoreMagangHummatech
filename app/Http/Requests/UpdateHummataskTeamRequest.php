@@ -22,19 +22,19 @@ class UpdateHummataskTeamRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|max:255|unique:hummatask_teams',
-            'image' => 'required|mimes:png,jpg,webp',
-            'description' => 'required'
+            'name' => 'required|max:255',
+            'description' => 'nullable',
+            'image' => 'nullable|mimes:png,jpg',
+            'student_id.*' => 'required',
         ];
     }
     public function messages()
     {
         return [
             'name.required' => 'Nama Tidak boleh kosong',
-            'name.unique' => 'Nama sudah ada',
             'image.required' => 'Image Tidak boleh kosong',
             'description.required' => 'Deskripsi Tidak boleh kosong',
-            'image.mimes' => 'Image hanya di perbolehkan Exstensi png,jpg,webp'
+            'image.mimes' => 'Image hanya di perbolehkan Exstensi png,jpg'
         ];
     }
 }

@@ -31,7 +31,16 @@
             </a>
             <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8 text-muted text-primary"></i>
-            </div>
+                    </div>
+                    <script>
+                        $(document).ready(function() {
+                            // Fungsi untuk menutup sidebar saat tombol close di-klik
+                            $('#sidebarCollapse').on('click', function() {
+                                $('#sidebar').toggleClass('active');
+                            });
+                        });
+                    </script>
+
         </div>
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar>
@@ -86,7 +95,7 @@
                 @if (!auth()->user()->feature)
                     <li class="sidebar-item">
                         @if (auth()->user()->student->activeFeature != null && auth()->user()->student->activeFeature->is_active == '1')
-                            <a class="sidebar-link" href="" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ url('/siswa-online/jurnal') }}" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-pencil"></i>
                                 </span>
@@ -312,7 +321,7 @@
                     </div>
                 @endif
             @else
-                <ul class="list-group list-group-flush">
+                {{-- <ul class="list-group list-group-flush">
                     @forelse ($zoomSchedule as $zoomData)
                         <li class="list-group-item d-flex gap-2 flex-column py-3">
                             <div class="row g-0 align-items-center gx-2">
@@ -345,7 +354,7 @@
                             </div>
                         </div>
                     @endforelse
-                </ul>
+                </ul> --}}
             @endif
         </nav>
         <div class="fixed-profile p-3 bg-light-secondary rounded sidebar-ad mt-3">

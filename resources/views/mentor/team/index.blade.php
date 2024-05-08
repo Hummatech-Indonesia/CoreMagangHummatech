@@ -35,9 +35,9 @@
         </div>
     </div>
 
-    <div class="row  mt-5">
+    <div class="row mt-5">
         @forelse ($teams as $team)
-        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12">
+        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12" style="height: 20pc">
             <div class="card">
                 <div class="card-body py-1 px-2">
                     <div class="d-flex justify-content-end">
@@ -73,40 +73,44 @@
                                     </div>
                                 @endif
                             </a>
-                            @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $student)
-                                <a href="#{{ $student->student->name }}" title="{{ $student->student->name }}">
-                                    @if(Storage::disk('public')->exists($student->student->avatar))
-                                        <img src="{{ asset('storage/' . $student->student->avatar) }}"
-                                            class="rounded-circle me-n4 card-hover border border-white" width="32"
-                                            height="32">
-                                    @else
-                                        @php
-                                            $firstLetter = substr($student->student->name, 0, 1);
-                                            $firstLetter = strtoupper($firstLetter);
-                                            $backgroundColors = [
-                                                '#ff5722',
-                                                '#4caf50',
-                                                '#2196f3',
-                                            ];
-                                            $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
-                                        @endphp
-                                        <div style="background-color: {{ $backgroundColor }}; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center;" class="me-n3">
-                                            <span style="color: white; font-size: 15px;">{{ $firstLetter }}</span>
-                                        </div>
-                                    @endif
-                                </a>
-                            @endforeach
+                            @if ($team->categoryProject->name == 'solo project')
+                                
+                            @else
+                                @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $student)
+                                    <a href="#{{ $student->student->name }}" title="{{ $student->student->name }}">
+                                        @if(Storage::disk('public')->exists($student->student->avatar))
+                                            <img src="{{ asset('storage/' . $student->student->avatar) }}"
+                                                class="rounded-circle me-n4 card-hover border border-white" width="32"
+                                                height="32">
+                                        @else
+                                            @php
+                                                $firstLetter = substr($student->student->name, 0, 1);
+                                                $firstLetter = strtoupper($firstLetter);
+                                                $backgroundColors = [
+                                                    '#ff5722',
+                                                    '#4caf50',
+                                                    '#2196f3',
+                                                ];
+                                                $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
+                                            @endphp
+                                            <div style="background-color: {{ $backgroundColor }}; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center;" class="me-n3">
+                                                <span style="color: white; font-size: 15px;">{{ $firstLetter }}</span>
+                                            </div>
+                                        @endif
+                                    </a>
+                                @endforeach
+                            @endif
                         </div>
                         <h5 style="font-weight: 700" class="text-capitalize">{{ $team->name }}</h5>
-                        <p>Lorem ipsum dolor sit.</p>
+                        <p>{{ Str::limit($team->description, 40) }}</p>
                         <div class="px-3 pb-3">
                             <div class="d-flex justify-content-between">
                                 <h6>Kondisi Tim</h6>
-                                <span class="mb-1 badge font-medium bg-light-success text-success">Aktif</span>
+                                <span class="mb-1 badge font-medium bg-light-{{ $team->project_id != null ? $team->project->status->color()  : 'warning' }} text-{{ $team->project_id != null ? $team->project->status->color()  : 'warning' }}">{{  $team->project_id != null ? $team->project->status->label()  : 'Belum Aktif' }}</span>
                             </div>
                             <div class="d-flex justify-content-between py-1">
                                 <h6>Deadline:</h6>
-                                <p class="text-danger">Senin, 6 Mei 2024</p>
+                                <p class="text-danger">{{ $team->project_id != null ? $team->project->end_date  : '-' }}</p>
                             </div>
                             <a href="{{ route('mentor.team-detail', ['slug' => $team->slug]) }}" class="btn btn-primary col-12">Lihat detail</a>
                         </div>
@@ -114,73 +118,14 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12">
-            <div class="card">
-                <div class="card-img-top">
-                    @if ($team->hummataskTeam != null && $team->hummataskTeam->image != null)
-                        <img class="img-responsive w-100"
-                            src="{{ asset('storage/' . $team->hummataskTeam->image) }}"
-                            style="height: 100px; object-fit: cover; border-radius: 10px 10px 0px 0px" />
-                    @else
-                        <img class="img-responsive w-100" src="{{ asset('bg-primary.png') }}"
-                            style="height: 100px; object-fit: cover; border-radius: 10px 10px 0px 0px" />
-                    @endif
-                    <button type="button" class="bg-info rounded-1 text-white py-1 px-2 border-0 mt-2 btn-delete"
-                        style="position: absolute; margin-left: -45px">
-                        <i class="ti ti-trash fs-6"></i>
-                    </button>
-                </div>
-                <div class="d-flex justify-content-between px-3" style="margin-top: -20px">
-                    <div class="d-flex align-items-center">
-                        @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $student)
-                            <a href="{{ $student->student->name }}">
-                                @if(Storage::disk('public')->exists($team->student->avatar))
-                                    <img src="{{ asset('storage/' . $team->student->avatar) }}" alt="avatar" class="rounded-circle mb-3" width="40px" height="40px" >
-                                    <img src="{{ asset('storage/' . $team->student->avatar) }}"
-                                        class="rounded-circle me-n4 card-hover border border-white" width="40"
-                                        height="40">
-                                @else
-                                    @php
-                                        $firstLetter = substr($student->student->name, 0, 1);
-                                        $firstLetter = strtoupper($firstLetter);
-                                        $backgroundColors = [
-                                            '#ff5722',
-                                            '#4caf50',
-                                            '#2196f3',
-                                        ];
-                                        $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
-                                    @endphp
-                                    <div style="background-color: {{ $backgroundColor }}; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center;" class="me-n3">
-                                        <span style="color: white; font-size: 22px;">{{ $firstLetter }}</span>
-                                    </div>
-                                @endif
-                            </a>
-                        @endforeach
-                    </div>
-                    <div class="px-2 py-1 rounded-2 rounded text-capitalize"
-                        style="background: #fff; font-size: 12px;">
-                        {{ $team->categoryProject->name }}</div>
-                </div>
-                <div class="card-body px-3 mt-n3">
-                    <h4 class="text-capitalize">
-                        {{ $team->project_id == null ? $team->name : $team->title }}</h4>
-                    @if ($team->project_id != null)
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, quisquam!</p>
-                    @else
-                        <p class="text-muted">Tim ini belum mengerjakan sebuah project</p>
-                    @endif
-                    <a href="{{ route('mentor.team-detail', ['slug' => $team->slug]) }}" class="btn btn-primary col-12">Lihat detail</a>
-                </div>
+        @empty
+            <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                <img src="{{ asset('empty-asset.png') }}" alt="" width="200px" srcset="">
+                <p class="fs-5 text-dark">
+                    Belum Ada Team
+                </p>
             </div>
-        </div> --}}
-@empty
-    <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
-        <img src="{{ asset('empty-asset.png') }}" alt="" width="200px" srcset="">
-        <p class="fs-5 text-dark">
-            Belum Ada Team
-        </p>
-    </div>
-@endforelse
+        @endforelse
     </div>
 
     <div class="modal fade" id="add-team" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

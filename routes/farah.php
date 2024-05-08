@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PicketingReportController;
 use App\Http\Controllers\Admin\RfidController;
 use App\Http\Controllers\Admin\StudentRejectedController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AttendanceRuleController;
 use App\Http\Controllers\CategoryProjectController;
 use App\Http\Controllers\HummataskTeamController;
 use App\Http\Controllers\JournalController;
@@ -119,6 +120,7 @@ Route::patch('rfid/add/{student}', [RfidController::class, 'store']);
 Route::patch('rfid/update/{student}', [RfidController::class, 'update']);
 
 Route::post('team/store', [HummataskTeamController::class, 'store'])->name('team.store');
+Route::put('team/update/{hummataskTeam}', [HummataskTeamController::class, 'update'])->name('team.update');
 Route::get('dashboard/task', [HummataskTeamController::class, 'index']);
 Route::get('hummateam/team/{slug}', [HummataskTeamController::class, 'show'])->name('team.show');
 Route::delete('hummateam/team/{hummataskTeam}', [HummataskTeamController::class, 'destroy'])->name('team.delete');
@@ -136,3 +138,6 @@ Route::get('hummateam/team/{slug}/submit-project', [ProjectController::class, 'i
 Route::post('hummateam/team/{slug}/submit-project', [ProjectController::class, 'store'])->name('project.store');
 
 Route::get('mentor/project-submission', [ProjectController::class, 'mentor'])->name('project-submission.index');
+Route::get('mentor/project-submission/{slug}', [ProjectController::class, 'showProjectSubmission'])->name('project-submission.detail');
+
+Route::post('attendance-rule/store', [AttendanceRuleController::class, 'store'])->name('attendance-rule.store');

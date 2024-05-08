@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Enums\DayEnum;
+use App\Enum\DayEnum;
 use Illuminate\Contracts\Validation\Rule;
 
 class DayRule implements Rule

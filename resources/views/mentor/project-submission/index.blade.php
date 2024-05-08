@@ -1,250 +1,147 @@
 @extends('mentor.layouts.app')
+@section('style')
+    <style>
+        @media (max-width: 767px) {
+            #offcanvasRight {
+                width: 100%;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            #offcanvasRight {
+                width: 50%;
+            }
+        }
+
+        @media (min-width: 992px) {
+            #offcanvasRight {
+                width: 25%;
+            }
+        }
+    </style>
+@endsection
 @section('content')
-    <div class="row flex-wrap">
-        <div class="col-lg-8">
-            <div class=" d-flex align-items-stretch">
-                <div class="card w-100 bg-light-info overflow-hidden shadow-none">
-                    <div class="card-body position-relative">
-                        <div class="row">
-                            <div class="col-md-12 ">
-                                <div class="d-flex align-items-center mb-3 flex-column flex-sm-row">
-                                    <div class="d-flex align-items-center justify-content-center overflow-hidden me-sm-6 mb-3 mb-sm-0"
-                                        style="width: 40px; height: 40px;">
-                                        {{-- <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt="" class="img-fluid rounded-circle" style="object-fit: cover;"> --}}
-                                        @if (auth()->user()->mentor && !empty(auth()->user()->mentor->mentor))
-                                            @php
-                                                $avatarPath = 'storage/' . auth()->user()->mentor->mentor;
-                                                $avatarExists = file_exists(public_path($avatarPath));
-                                            @endphp
-
-                                            @if ($avatarExists)
-                                                <img src="{{ asset($avatarPath) }}" class="rounded-circle" width="35"
-                                                    height="35" alt="" />
-                                            @else
-                                                <img src="{{ asset('user.webp') }}" class="rounded-circle" width="35"
-                                                    height="35" alt="" />
-                                            @endif
-                                        @else
-                                            <img src="{{ asset('user.webp') }}" class="rounded-circle" width="35"
-                                                height="35" alt="" />
-                                        @endif
-                                    </div>
-                                    <h5 class="fw-semibold mb-3 mb-sm-0 fs-5 text-center text-sm-start">Selamat Datang
-                                        {{ auth()->user()->name }}!</h5>
-                                </div>
-                                <div class="d-flex align-items-center mt-4">
-                                    <div class="border-end pe-4 border-muted border-opacity-10">
-                                        <h4>Mentor Website</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="welcome-bg-img mb-n7 text-end">
-                                    <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/backgrounds/welcome-bg.svg"
-                                        alt="" class="img-fluid" style="width: 300px; height: auto;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card card-body">
-                <h4>Siswa</h4>
-                <div class="table-responsive">
-                    <table class="table search-table align-middle text-nowrap">
-                        <thead class="header-item">
-                            <tr>
-                                <th>Siswa</th>
-                                <th>Email</th>
-                                <th>Sekolah</th>
-                                <th>No. Hp</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($mentorStudent as $student)
-                                <tr class="search-items">
-                                    <td class="d-flex">
-                                        <div class="n-chk align-self-center text-center">
-                                            {{-- <img src="{{ asset('storage/' . $student->student->avatar) }}" alt="avatar" class="rounded-circle" width="35" height="35"> --}}
-                                            @if (Storage::disk('public')->exists($student->student->avatar))
-                                                <img src="{{ asset('storage/' . $student->student->avatar) }}"
-                                                    alt="avatar" class="rounded-circle" width="35" height="35">
-                                            @else
-                                                <img src="{{ asset('user.webp') }}" alt="default avatar"
-                                                    class="rounded-circle" width="35" height="35">
-                                            @endif
-                                        </div>
-                                        <div class="ms-3">
-                                            <div class="user-meta-info">
-                                                <h6 class="user-name mb-0" data-name="Emma Adams">
-                                                    {{ $student->student->name }}</h6>
-                                                <span class="user-work fs-3"
-                                                    data-occupation="Web Developer">{{ $student->student->division->name }}</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <h6 class="usr-email-addr">{{ $student->student->email }}</h6>
-                                    </td>
-                                    <td>
-                                        <h6>{{ $student->student->school }}</h6>
-                                    </td>
-                                    <td>
-                                        <h6>{{ $student->student->phone }}</h6>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="4" class="text-center">Belum ada siswa</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <div class="row mb-3">
+        <div class="col-md-4 col-xl-2 col-sm-4">
+            <form class="position-relative">
+                <input type="text" class="form-control product-search ps-5" id="input-search" placeholder="Cari tim...">
+                <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
+            </form>
         </div>
-
-
-        <div class="col-lg-4">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="card bg-light-warning shadow-none">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="round rounded bg-warning d-flex align-items-center justify-content-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-backpack"
-                                        style="color: white">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path
-                                            d="M5 18v-6a6 6 0 0 1 6 -6h2a6 6 0 0 1 6 6v6a3 3 0 0 1 -3 3h-8a3 3 0 0 1 -3 -3z" />
-                                        <path d="M10 6v-1a2 2 0 1 1 4 0v1" />
-                                        <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
-                                        <path d="M11 10h2" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between mt-4">
-                                <h3 class="mb-0 fw-semibold fs-5">10 materi</h3>
-                                <span class="fw-bold">materi</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card bg-light-danger shadow-none">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="round rounded bg-danger d-flex align-items-center justify-content-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-month"
-                                        style="color: white">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path
-                                            d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
-                                        <path d="M16 3v4" />
-                                        <path d="M8 3v4" />
-                                        <path d="M4 11h16" />
-                                        <path d="M7 14h.013" />
-                                        <path d="M10.01 14h.005" />
-                                        <path d="M13.01 14h.005" />
-                                        <path d="M16.015 14h.005" />
-                                        <path d="M13.015 17h.005" />
-                                        <path d="M7.01 17h.005" />
-                                        <path d="M10.01 17h.005" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between mt-4">
-                                <h3 class="mb-0 fw-semibold fs-5">4 jadwal</h3>
-                                <span class="fw-bold">jadwal</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card bg-light-primary shadow-none">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="round rounded bg-primary d-flex align-items-center justify-content-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard-copy"
-                                        style="color: white">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h3m9 -9v-5a2 2 0 0 0 -2 -2h-2" />
-                                        <path
-                                            d="M13 17v-1a1 1 0 0 1 1 -1h1m3 0h1a1 1 0 0 1 1 1v1m0 3v1a1 1 0 0 1 -1 1h-1m-3 0h-1a1 1 0 0 1 -1 -1v-1" />
-                                        <path
-                                            d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between mt-4">
-                                <h3 class="mb-0 fw-semibold fs-5">10 materi</h3>
-                                <span class="fw-bold">materi</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="card bg-light-success shadow-none">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="round rounded bg-success d-flex align-items-center justify-content-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="currentColor"
-                                        class="icon icon-tabler icons-tabler-filled icon-tabler-user"
-                                        style="color: white">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
-                                        <path
-                                            d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between mt-4">
-                                <h3 class="mb-0 fw-semibold fs-5">200 siswa</h3>
-                                <span class="fw-bold">siswa</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-12 col-md-6 col-sm-12 mb-4">
-                <h5 class="mb-3">Jadwal Hari Ini</h5>
-                <div class="card h-100">
-                    <div class="card-header text-bg-primary d-flex align-items-center rounded-top-4">
-                        <h4 class="card-title text-white mb-0">Belajar Laravel 11</h4>
-                        <div class="ms-auto d-flex">
-                            <span class="mb-1 badge bg-light text-dark">Mendatang</span>
-                        </div>
-                    </div>
-                    <div class="card-body collapse show">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h6>12 Maret 2024</h6>
-                            </div>
-                            <div>
-                                <h6>08.00 - 09.00</h6>
-                            </div>
-                        </div>
-                        <div class="mx-3 mt-3   ">
-                            <h6>Link Meet :</h6>
-                            <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur ipsam
-                                fugiat tenetur.</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="ms-auto text-end" style="margin-top: -38px">
+            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#add-team">
+                Buat Tim
+            </button>
         </div>
     </div>
 
+    <div class="row  mt-5">
+        @forelse ($teams as $team)
+        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-body py-1 px-2">
+                    <div class="d-flex justify-content-end">
+                    <button type="button" class="bg-info rounded-1 text-white py-1 px-2 border-0 mt-2 btn-delete" data-id="{{ $team->id }}">
+                        <i class="ti ti-trash fs-6"></i>
+                    </button>
+                    </div>
+                    <div class="text-center row justify-content-center align-items-center">
+                        <div class="bg-primary rounded rounded-2 text-white d-flex align-items-center justify-content-center text-uppercase" style="width: 5pc; height: 5pc; position: relative;">
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" class="fs-2">
+                                {{ $team->categoryProject->name }}
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center p-3">
+                            <a href="#{{ $team->student->name }}" title="{{ $team->student->name }}">
+                                @if(Storage::disk('public')->exists($team->student->avatar))
+                                    <img src="{{ asset('storage/' . $team->student->avatar) }}"
+                                        class="rounded-circle me-n3 card-hover border border-white" width="32"
+                                        height="32">
+                                @else
+                                    @php
+                                        $firstLetter = substr($team->student->name, 0, 1);
+                                        $firstLetter = strtoupper($firstLetter);
+                                        $backgroundColors = [
+                                             '#ff5722',
+                                            '#4caf50',
+                                            '#2196f3',
+                                        ];
+                                        $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
+                                    @endphp
+                                    <div style="background-color: {{ $backgroundColor }}; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center;" class="me-n3">
+                                        <span style="color: white; font-size: 15px;">{{ $firstLetter }}</span>
+                                    </div>
+                                @endif
+                            </a>
+                            @if ($team->categoryProject->name == 'solo project')
+                                
+                            @else
+                                @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $student)
+                                    <a href="#{{ $student->student->name }}" title="{{ $student->student->name }}">
+                                        @if(Storage::disk('public')->exists($student->student->avatar))
+                                            <img src="{{ asset('storage/' . $student->student->avatar) }}"
+                                                class="rounded-circle me-n4 card-hover border border-white" width="32"
+                                                height="32">
+                                        @else
+                                            @php
+                                                $firstLetter = substr($student->student->name, 0, 1);
+                                                $firstLetter = strtoupper($firstLetter);
+                                                $backgroundColors = [
+                                                    '#ff5722',
+                                                    '#4caf50',
+                                                    '#2196f3',
+                                                ];
+                                                $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
+                                            @endphp
+                                            <div style="background-color: {{ $backgroundColor }}; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center;" class="me-n3">
+                                                <span style="color: white; font-size: 15px;">{{ $firstLetter }}</span>
+                                            </div>
+                                        @endif
+                                    </a>
+                                @endforeach
+                            @endif
+                        </div>
+                        <h5 style="font-weight: 700" class="text-capitalize">{{ $team->name }}</h5>
+                        <p>{{ $team->description }}</p>
+                        <div class="px-3 pb-3">
+                            <div class="d-flex justify-content-between">
+                                <h6>Kondisi Tim</h6>
+                                <span class="mb-1 badge font-medium bg-light-{{ $team->project_id != null ? $team->project->status->color()  : 'warning' }} text-{{ $team->project_id != null ? $team->project->status->color()  : 'warning' }}">{{  $team->project_id != null ? $team->project->status->label()  : 'Belum Aktif' }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between py-1">
+                                <h6>Deadline:</h6>
+                                <p class="text-danger">{{ $team->project_id != null ? $team->project->end_date  : '-' }}</p>
+                            </div>
+                            <a href="{{ route('project-submission.detail', ['slug' => $team->slug]) }}" class="btn btn-primary col-12">Lihat detail</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @empty
+        <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+            <img src="{{ asset('empty-asset.png') }}" alt="" width="200px" srcset="">
+            <p class="fs-5 text-dark">
+                Belum Ada Team
+            </p>
+        </div>
+    @endforelse
+    </div>
+
+    @include('admin.components.delete-modal-component')
+@endsection
+
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $('.btn-delete').on('click', function() {
+            var id = $(this).data('id');
+            $('#form-delete').attr('action', '/hummateam/team/' + id);
+            $('#modal-delete').modal('show');
+        });
+    </script>
 @endsection
