@@ -6,7 +6,7 @@
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. .</p>
         </div>
         <div class="col-12 col-md-8">
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end gap-2">
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target=".myModal">Ubah Data Admin</button>
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target=".myModal1">Ubah Data CEO</button>
             </div>
