@@ -309,13 +309,11 @@
 
                                         // Array yang berisi nama hari dalam bahasa Indonesia
                                         $daysInIndonesian = [
-                                            'Sunday' => 'Minggu',
                                             'Monday' => 'Senin',
                                             'Tuesday' => 'Selasa',
                                             'Wednesday' => 'Rabu',
                                             'Thursday' => 'Kamis',
                                             'Friday' => 'Jumat',
-                                            'Saturday' => 'Sabtu',
                                         ];
                                     @endphp
 
