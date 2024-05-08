@@ -10,14 +10,10 @@ use Illuminate\Http\Request;
 
 class AdminJournalController extends Controller
 {
-    private JournalInterface $journal;
-    private JournalService $service;
     private AdminJournalInterface $adminJournal;
 
-    public function __construct(JournalInterface $journal, JournalService $service, AdminJournalInterface $adminJournal)
+    public function __construct( AdminJournalInterface $adminJournal)
     {
-        $this->journal = $journal;
-        $this->service = $service;
         $this->adminJournal = $adminJournal;
     }
     /**
