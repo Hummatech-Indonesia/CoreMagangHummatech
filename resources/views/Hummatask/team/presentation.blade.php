@@ -152,9 +152,10 @@
                                                     data-id="{{ $presentation->id }}"
                                                     data-start-date="{{ $presentation->start_date }}"
                                                     data-schedule-to="{{ $presentation->schedule_to }}"
-                                                    data-end-date="{{ $presentation->end_date }}">
-                                                <input type="hidden" name="hummatask_team_id"
-                                                    value="{{ $slugs->id }}">
+                                                    data-end-date="{{ $presentation->end_date }}"
+                                                    data-hummatask-team-id="{{ $slugs->id }}">
+                                                {{-- <input type="hidden" name="hummatask_team_id"
+                                                    value="{{ $slugs->id }}"> --}}
                                                 <label class="form-check-label"
                                                     for="date_range_{{ $presentation->id }}">{{ $presentation->start_date }}
                                                     -
@@ -223,11 +224,14 @@
             const scheduleTo = $(this).data('schedule-to');
             const startDate = $(this).data('start-date');
             const endDate = $(this).data('end-date');
+            const hummataskTeamId = $(this).data('hummatask-team-id');
             console.log(scheduleTo);
             console.log(id);
             console.log(startDate);
             console.log(endDate);
-            let url = `{{ route('presentation.update', ':id') }}`.replace(':id', id);
+            console.log(hummataskTeamId);
+            let url = `{{ route('presentation.update', ['slug' => ':slug', 'presentation' => ':presentation']) }}`;
+            url = url.replace(':slug', hummataskTeamId).replace(':presentation', id);
             $('#addPresentationForm').attr('action', url);
 
 
