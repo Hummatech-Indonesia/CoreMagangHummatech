@@ -19,9 +19,9 @@ class AdminJournalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $adminJournal = $this->adminJournal->get();
+        $adminJournal = $this->adminJournal->search($request);
         return view('admin.page.journal', compact('adminJournal'));
     }
 
