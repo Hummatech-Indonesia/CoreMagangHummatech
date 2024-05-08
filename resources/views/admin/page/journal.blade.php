@@ -80,10 +80,12 @@
                     </div>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex justify-content-between pt-4">
-                    <div class="search-box">
-                        <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa...">
-                        <i class="ri-search-line search-icon"></i>
-                    </div>
+                    <form action="/journal">
+                        <div class="search-box">
+                            <input type="text" class="form-control" name="name" value="{{ request()->student_id }}" id="searchMemberList" placeholder="Cari Siswa...">
+                            <i class="ri-search-line search-icon"></i>
+                        </div>
+                    </form>
                     <div class="mx-3">
                         <input type="date" class="form-control"id="exampleInputdate">
                     </div>
