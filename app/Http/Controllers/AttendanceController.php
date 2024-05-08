@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\AttendanceDetailInterface;
 use App\Contracts\Interfaces\AttendanceInterface;
+use App\Contracts\Interfaces\AttendanceRuleInterface;
 use App\Contracts\Interfaces\MaxLateInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\WorkFromHomeInterface;
 use App\Http\Requests\MaxLateRequest;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,8 +22,11 @@ class AttendanceController extends Controller
     private MaxLateInterface $maxLate;
     private WorkFromHomeInterface $workFromHome;
     private AttendanceDetailInterface $attendanceDetail;
-    public function __construct(AttendanceInterface $attendanceInterface, StudentInterface $studentInterface, MaxLateInterface $maxLateInterface, WorkFromHomeInterface $workFromHomeInterface, AttendanceDetailInterface $attendanceDetailInterface)
+    private AttendanceRuleInterface $attendanceRule;
+    public function __construct(AttendanceInterface $attendanceInterface, StudentInterface $studentInterface, MaxLateInterface $maxLateInterface, WorkFromHomeInterface $workFromHomeInterface, AttendanceDetailInterface $attendanceDetailInterface, AttendanceRuleInterface $attendanceRuleInterface, )
     {
+        $this->attendanceRule = $attendanceRuleInterface;
+        $this->maxLate = $maxLateInterface;
         $this->attendanceDetail = $attendanceDetailInterface;
         $this->workFromHome = $workFromHomeInterface;
         $this->maxLate = $maxLateInterface;
@@ -49,13 +54,23 @@ class AttendanceController extends Controller
      */
     public function absentOnline(): RedirectResponse
     {
+        $time = now()->format('H:i:s');
         $attendanceData = [
             'student_id' => auth()->user()->student->id,
         ];
+        $max = $this->maxLate->get();
+        $ruleToday = $this->attendanceRule->getByDay(Carbon::now()->format('l'));
+        if (!$ruleToday) {
+            return back()->with('error', 'Tidak ada jam absen hari ini');
+        }
         if (!$attendance = $this->attendance->checkAttendanceToday(['student_id' => auth()->user()->student->id, 'created_at' => now()])) {
             $attendance = $this->attendance->store($attendanceData);
         }
-        $this->attendanceDetail->store(['status' => 'present', 'attendance_id' => $attendance->id]);
+        if ($time >= $ruleToday->checkin_starts && $time <= Carbon::createFromFormat('H:i:s', $ruleToday->checkin_ends)->addMinutes($max ? (int) $max->minute : 15)->format('H:i:s')) {
+            return $this->attendanceDetail->store(['status' => 'present', 'attendance_id' => $attendance->id]);
+        } else if ($time >= $ruleToday->checkout_starts && $time <= $ruleToday->checkout_ends) {
+            $this->attendanceDetail->store(['status' => 'return', 'attendance_id' => $attendance->id]);
+        }
         return redirect()->back()->with('success', "Berhasil absen");
     }
 

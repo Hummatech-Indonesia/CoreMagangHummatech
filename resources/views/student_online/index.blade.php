@@ -75,7 +75,11 @@
                             <p class="card-subtitle mb-5">Tahun ini</p>
                         </div>
                         <div>
-                            <button class="btn btn-success">Absen</button>
+                            <form action="{{ route('attendance.online.store') }}" method="post">
+                                @csrf
+                                @method('POST')
+                                <button class="btn btn-success" type="submit">Absen</button>
+                            </form>
                         </div>
                     </div>
                     <div id="chart-absen" class="pt-4"></div>

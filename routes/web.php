@@ -236,6 +236,8 @@ Route::middleware('auth')->group(function () {
     })->name('authenticated');
 });
 
+Route::post('store-absent', [AttendanceController::class, 'absentOnline'])->name('attendance.online.store');
+
 # Transaction and Payment Routing
 Route::post('transaction/save/{product}', [TransactionController::class, 'save'])->name('transaction.save');
 Route::post('transaction/save-course/{course}', [TransactionController::class, 'saveCourse'])->name('transaction.save-course');
