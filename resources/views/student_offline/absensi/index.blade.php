@@ -57,7 +57,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="d-flex justify-content-between">
-                                <h3>{{ $offlineAttendances->count() }} Kali</h3>
+                                <h3>{{ $total }} Kali</h3>
                                 <span class="ml-auto">Absensi</span>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="d-flex justify-content-between">
-                                <h3>56 Kali</h3>
+                                <h3>{{$attends}} Kali</h3>
                                 <span class="ml-auto">Absensi</span>
                             </div>
                         </div>
@@ -127,7 +127,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="d-flex justify-content-between">
-                                <h3>56 Kali</h3>
+                                <h3>{{$permissions}} Kali</h3>
                                 <span class="ml-auto">Absensi</span>
                             </div>
                         </div>
@@ -168,7 +168,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="d-flex justify-content-between">
-                                <h3>56 Kali</h3>
+                                <h3>{{$absent}} Kali</h3>
                                 <span class="ml-auto">Absensi</span>
                             </div>
                         </div>
