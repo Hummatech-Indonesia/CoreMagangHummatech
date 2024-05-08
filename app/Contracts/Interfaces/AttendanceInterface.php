@@ -2,6 +2,7 @@
 
 namespace App\Contracts\Interfaces;
 
+use App\Contracts\Interfaces\Eloquent\CountInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 
 interface AttendanceInterface extends StoreInterface
@@ -21,4 +22,5 @@ interface AttendanceInterface extends StoreInterface
      * @return mixed
      */
     public function checkAttendanceToday(array $data): mixed;
+    public function count($status):mixed;
 }

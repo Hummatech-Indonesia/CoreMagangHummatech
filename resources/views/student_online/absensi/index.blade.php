@@ -40,6 +40,7 @@
                 <nav aria-label="breadcrumb mt-2">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a class="text-muted " href="/siswa-offline">Dashboard</a></li>
+
                         <li class="breadcrumb-item" aria-current="page">Absensi</li>
                     </ol>
                 </nav>
@@ -185,8 +186,12 @@
 
 <div class="row mb-3">
     <div class="col text-end">
-        <button class="btn btn-success me-2">Absen</button>
-        <button class="btn btn-danger me-2">
+        <form action="{{ route('attendance.online.store') }}" method="post">
+            @csrf
+            @method('POST')
+            <button class="btn btn-success me-2" type="submit">Absen</button>
+        </form>
+        {{-- <button class="btn btn-danger me-2">
             Ekspor PDF
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-type-pdf">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -197,7 +202,7 @@
                 <path d="M20 15h-3v6" />
                 <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z" />
               </svg>
-        </button>
+        </button> --}}
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#izinModal">
             Buat Izin
         </button>

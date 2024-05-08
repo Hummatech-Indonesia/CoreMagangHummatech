@@ -38,10 +38,8 @@ class UpdatePresentationRequest extends FormRequest
             'start_date.required' => 'Waktu awal harus diisi',
             'end_date.required' => 'Waktu akhir harus diisi',
             'schedule_to.required' => 'schedule_to harus diisi',
-            'callback.required' => 'callback harus diisi',
             'hummatask_team_id.required' => 'hummatask_team_id harus diisi',
-            'status_presentation.required' => 'status_presentation harus diisi',
-            'description.required' => 'description harus diisi',
+            'title.required' => 'Judul harus di isi'
         ];
     }
 }

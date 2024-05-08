@@ -82,7 +82,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ url('/siswa-offline/journal') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="/student/data/journal" aria-expanded="false">
                         <span>
                             <i class="ti ti-calendar"></i>
                         </span>
@@ -137,15 +137,15 @@
                         <span class="hide-menu">Pesanan Saya</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('transaction-history.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-wallet"></i>
                         </span>
                         <span class="hide-menu">Riwayat Transaksi</span>
                     </a>
-                </li>
-                <li class="sidebar-item">
+                </li> --}}
+                <!-- <li class="sidebar-item">
                     <a class="sidebar-link has-arrow" href="#">
                         <span class="d-flex">
                             <i class="ti ti-credit-card"></i>
@@ -170,13 +170,13 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <li class="sidebar-item">
                     <a href="{{ url('/siswa-offline/letter-head') }}" class="sidebar-link">
                         <div class="round-16 d-flex align-items-center justify-content-center">
                             <i class="ti ti-notes"></i>
                         </div>
-                        <span class="hide-menu">Kop Surat</span>
+                        <span class="hide-menu ms-1">Kop Surat</span>
                     </a>
                 </li>
 
@@ -188,14 +188,14 @@
                         <span class="hide-menu">Lainnya</span>
                     </a>
                     <ul class="collapse first-level">
-                        <li class="sidebar-item">
+                        <!-- <li class="sidebar-item">
                             <a href="{{ url('siswa-offline/others/rules') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
                                 <span class="hide-menu">Tata Tertib</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="sidebar-item">
                             <a href="{{ url('siswa-offline/others/picket') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">

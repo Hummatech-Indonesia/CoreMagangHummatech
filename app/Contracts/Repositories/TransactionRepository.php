@@ -22,6 +22,7 @@ class TransactionRepository extends BaseRepository implements TransactionInterfa
     public function search(Request $request): mixed
     {
         return $this->model->query()
+        ->where('user_id' , auth()->user()->id)
             ->get();
     }
 

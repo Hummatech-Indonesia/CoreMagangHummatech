@@ -185,8 +185,11 @@
 
     <div class="row mb-3">
         <div class="col text-end">
-            <button class="btn btn-success me-2">Absen</button>
-            <button class="btn btn-danger me-2">
+            <form action="{{ route('attendance.online.store') }}" method="post">
+                @csrf
+                @method('POST')
+                <button class="btn btn-success me-2" type="submit">Absen</button>
+            </form> {{-- <button class="btn btn-danger me-2">
                 Ekspor PDF
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -199,7 +202,7 @@
                     <path d="M20 15h-3v6" />
                     <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z" />
                 </svg>
-            </button>
+            </button> --}}
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#izinModal">
                 Buat Izin
             </button>
@@ -221,7 +224,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($offlineAttendances as $attendance)
+                    @forelse ($offlineAttendances as $attendance)
                         <tr class="search-items">
                             <td class="d-flex">
                                 <div class="ms-3">
@@ -235,108 +238,84 @@
                                 <span class="usr-email-addr">12 Maret 2024</span>
                             </td>
                             <td>
-                                <span class="badge fw-semibold bg-light-success text-success">{{ $attendance->attendances[0]->status }}</span>
+                                <span
+                                    class="badge fw-semibold bg-light-success text-success">{{ $attendance->attendances[0]->status }}</span>
                             </td>
                             <td>
-                            @if (isset($student->attendances[0]))
-                                @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
-                                    @if ($detailAttendance->status == 'present')
-                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                            <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
-                                        @else
-                                            <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                @if (isset($student->attendances[0]))
+                                    @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                        @if ($detailAttendance->status == 'present')
+                                            @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                    \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @else
+                                                <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @endif
                                         @endif
-                                    @endif
-                                @endforeach
-                            @endif
+                                    @endforeach
+                                @endif
                             </td>
                             <td>
-                            @if (isset($student->attendances[0]))
-                                @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
-                                    @if ($detailAttendance->status == 'break')
-                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                            <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
-                                        @else
-                                            <span class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                @if (isset($student->attendances[0]))
+                                    @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                        @if ($detailAttendance->status == 'break')
+                                            @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                    \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @else
+                                                <span
+                                                    class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @endif
                                         @endif
-                                    @endif
-                                @endforeach
-                            @endif
+                                    @endforeach
+                                @endif
                             </td>
                             <td>
-                            @if (isset($student->attendances[0]))
-                                @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
-                                    @if ($detailAttendance->status == 'return_break')
-                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                            <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
-                                        @else
-                                            <span class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                @if (isset($student->attendances[0]))
+                                    @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                        @if ($detailAttendance->status == 'return_break')
+                                            @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                    \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @else
+                                                <span
+                                                    class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @endif
                                         @endif
-                                    @endif
-                                @endforeach
-                            @endif
+                                    @endforeach
+                                @endif
                             </td>
                             <td>
-                            @if (isset($student->attendances[0]))
-                                @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
-                                    @if ($detailAttendance->status == 'return')
-                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                            <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
-                                        @else
-                                            <span class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                @if (isset($student->attendances[0]))
+                                    @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
+                                        @if ($detailAttendance->status == 'return')
+                                            @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                    \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                <span>{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @else
+                                                <span
+                                                    class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                            @endif
                                         @endif
-                                    @endif
-                                @endforeach
-                            @endif
+                                    @endforeach
+                                @endif
                             </td>
                         </tr>
-                    @endforeach
-
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center">
+                                <div class="col-md-12 text-center">
+                                    <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
+                                        alt="No Data" height="120px" />
+                                    <h3 class="text-center">Data Masih Kosong</h3>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
     </div>
-
-    <nav aria-label="...">
-        <ul class="pagination justify-content-end mb-0 mt-3">
-            <li class="page-item">
-                <a class="page-link border-0 rounded-circle text-dark round-32 d-flex align-items-center justify-content-center"
-                    href="#">
-                    <i class="ti ti-chevron-left"></i>
-                </a>
-            </li>
-            <li class="page-item active">
-                <a href="#"
-                    class="page-link border-0 rounded-circle round-32 mx-1 d-flex align-items-center justify-content-center">1</a>
-            </li>
-            <li class="page-item">
-                <a href="#"
-                    class="page-link border-0 rounded-circle round-32 mx-1 d-flex align-items-center justify-content-center">2</a>
-            </li>
-            <li class="page-item">
-                <a href="#"
-                    class="page-link border-0 rounded-circle round-32 mx-1 d-flex align-items-center justify-content-center">3</a>
-            </li>
-            <li class="page-item">
-                <a href="#"
-                    class="page-link border-0 rounded-circle round-32 mx-1 d-flex align-items-center justify-content-center">...</a>
-            </li>
-            <li class="page-item">
-                <a href="#"
-                    class="page-link border-0 rounded-circle round-32 mx-1 d-flex align-items-center justify-content-center">5</a>
-            </li>
-            <li class="page-item">
-                <a href="#"
-                    class="page-link border-0 rounded-circle text-dark round-32 mx-1 d-flex align-items-center justify-content-center">
-                    <i class="ti ti-chevron-right"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
 
     <!-- Izin Modal -->
     <div class="modal fade" id="izinModal" tabindex="-1" aria-labelledby="izinModalLabel" aria-hidden="true">

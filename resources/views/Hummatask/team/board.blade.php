@@ -159,11 +159,9 @@
                                 @csrf
                                 @method('POST')
                                 <div class="form-group">
-                                    @foreach ($studentProjects as $studentProject)
+                                    @foreach ($studentTeams as $studentProject)
                                         <input type="text" class="form-control" id="category" name="student_project_id" value="{{ $studentProject->id }}" placeholder="Masukkan judul disini" hidden>
-
                                     @endforeach
-
                                     <input type="text" class="form-control" id="category" name="category_board_id" value="{{ $categoryBoard->id }}" placeholder="Masukkan judul disini" hidden>
                                     @error('category_board_id')
                                         <span class="text-danger">{{ $message }}</span>
@@ -226,7 +224,7 @@
 
                                             <div class="d-flex align-items-center justify-content-between pt-8">
                                                 <h6 class="mb-0 text-danger">{{ $board->countdown() }}</h6>
-                                                @foreach ($studentProjects as $student)
+                                                @foreach ($studentTeams as $student)
 
                                                 <div class="d-flex align-items-end justify-content-end">
                                                     {{-- <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35" alt=""> --}}
@@ -324,21 +322,35 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="status" class="form-label">Status</label>
+                                                    <select class="form-select" id="status-edit" name="status">
+                                                        <option value="baru">Baru</option>
+                                                        <option value="dikerjakan">Dikerjakan</option>
+                                                        <option value="selesai">Selesai</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="prioritas" class="form-label">Prioritas</label>
+                                                    <select class="form-select" id="priority-edit" name="priority">
+                                                        <option value="biasa">Biasa</option>
+                                                        <option value="penting">Penting</option>
+                                                        <option value="mendesak">Mendesak</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <div class="mb-3">
-                                            <label for="status" class="form-label">Status</label>
-                                            <select class="form-select" id="status-edit" name="status">
-                                                <option value="baru">Baru</option>
-                                                <option value="dikerjakan">Dikerjakan</option>
-                                                <option value="selesai">Selesai</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="prioritas" class="form-label">Prioritas</label>
-                                            <select class="form-select" id="priority-edit" name="priority">
-                                                <option value="biasa">biasa</option>
-                                                <option value="penting">penting</option>
-                                                <option value="mendesak">mendesak</option>
+                                            <label for="prioritas" class="form-label">Board</label>
+                                            <select class="form-select" id="priority-edit" name="category_board_id">
+                                                @foreach ($categoryBoards as $categoryBoard)
+                                                <option value="{{$categoryBoard->id}}">{{$categoryBoard->title}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="mb-3">

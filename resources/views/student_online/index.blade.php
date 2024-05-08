@@ -1,7 +1,7 @@
 @extends('student_online.layouts.app')
 @section('content')
     <div class="row gap-2 flex-wrap">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <div class=" d-flex align-items-stretch">
                 <div class="card w-100 bg-light-info overflow-hidden shadow-none">
                     <div class="card-body position-relative">
@@ -10,8 +10,23 @@
                                 <div class="d-flex align-items-center mb-3 flex-column flex-sm-row">
                                     <div class="d-flex align-items-center justify-content-center overflow-hidden me-sm-6 mb-3 mb-sm-0"
                                         style="width: 64px; height: 64px;">
-                                        <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt=""
-                                            class="img-fluid rounded-circle" style="object-fit: cover;">
+                                        @if (auth()->user()->student && !empty(auth()->user()->student->avatar))
+                                            @php
+                                                $avatarPath = 'storage/' . auth()->user()->student->avatar;
+                                                $avatarExists = file_exists(public_path($avatarPath));
+                                            @endphp
+
+                                            @if ($avatarExists)
+                                                <img src="{{ asset($avatarPath) }}"class="img-fluid rounded-circle"
+                                                    style="object-fit: cover;" />
+                                            @else
+                                                <img src="{{ asset('user.webp') }}"class="img-fluid rounded-circle"
+                                                    style="object-fit: cover;" />
+                                            @endif
+                                        @else
+                                            <img src="{{ asset('user.webp') }}" class="img-fluid rounded-circle"
+                                                style="object-fit: cover;" />
+                                        @endif
                                     </div>
                                     <div class="d-flex flex-column gap-2">
                                         <h5 class="fw-semibold mb-3 mb-sm-0 fs-5 text-center text-sm-start">
@@ -37,7 +52,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card w-100">
+            {{-- <div class="card w-100">
                 <div class="card-body">
                     <div>
                         <div>
@@ -47,11 +62,11 @@
                     </div>
                     <div id="chart-journal"></div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
 
-        <div class="row align-items-stretch col-lg-4">
+        {{-- <div class="row align-items-stretch col-lg-4">
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
@@ -60,15 +75,19 @@
                             <p class="card-subtitle mb-5">Tahun ini</p>
                         </div>
                         <div>
-                            <button class="btn btn-success">Absen</button>
+                            <form action="{{ route('attendance.online.store') }}" method="post">
+                                @csrf
+                                @method('POST')
+                                <button class="btn btn-success" type="submit">Absen</button>
+                            </form>
                         </div>
                     </div>
                     <div id="chart-absen" class="pt-4"></div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
-
+    {{--
     <div class="all-category note-important">
         <div class="card card-body">
             <div class="d-flex pb-4 justify-content-between align-items-center">
@@ -170,7 +189,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @section('script')

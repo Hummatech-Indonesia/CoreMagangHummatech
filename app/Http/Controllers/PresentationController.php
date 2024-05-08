@@ -106,7 +106,7 @@ class PresentationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update($slug, UpdatePresentationRequest $request, Presentation $presentation)
+    public function update(UpdatePresentationRequest $request, Presentation $presentation)
     {
         $this->presentation->update($presentation->id, $request->validated());
         return back()->with('success', 'Data Berhasil Diperbarui');

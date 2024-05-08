@@ -46,7 +46,8 @@
         <nav class="sidebar-nav scroll-sidebar" data-simplebar>
             <ul id="sidebarnav">
                 <li class="nav-item mb-0 mt-2">
-                    <a href="/dashboard/task"
+                    <!-- <a href="/dashboard/task" -->
+                    <a href="#"
                         aria-expanded="false">
                         <div class="myElement py-2 px-3 rounded">
                             <div class="d-flex justify-content-between">
@@ -64,7 +65,7 @@
                                         </svg>
                                     </div>
                                     <div class="mt-2">
-                                        Board
+                                        Board  <i class="fas fa-lock opacity-50 ms-2"></i>
                                     </div>
                                 </div>
                                 <div class="mt-2">
@@ -103,7 +104,7 @@
                             </a>
                         @else
                             <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
-                                href="{{ url('/siswa-online/jurnal') }}" aria-expanded="false">
+                                href="javascript:void(0)" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-pencil"></i>
                                 </span>
@@ -184,7 +185,7 @@
                             <span class="hide-menu">Tantangan <i class="fas fa-lock opacity-50 ms-2"></i></span>
                         </a>
                     </li> --}}
-                    <li class="sidebar-item">
+                    {{-- <li class="sidebar-item">
                         @if (auth()->user()->student->activeFeature != null && auth()->user()->student->activeFeature->is_active == '1')
                             <a class="sidebar-link" href="">
                                 <span>
@@ -200,7 +201,7 @@
                                 <span class="hide-menu">Jadwal Mentor <i class="fas fa-lock opacity-50 ms-2"></i></span>
                             </a>
                         @endif
-                    </li>
+                    </li> --}}
                     {{-- <li class="sidebar-item">
                         <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#login-modal"
                             href="javascript:void(0)" aria-expanded="false">
@@ -284,14 +285,14 @@
                         <span class="hide-menu">Pesanan Saya</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('transaction-history.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-wallet"></i>
                         </span>
                         <span class="hide-menu">Riwayat Transaksi</span>
                     </a>
-                </li>
+                </li> --}}
 
                 @if (auth()->user()->feature)
                     <!-- ============================= -->

@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\CategoryBoardInterface;
 use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
+use App\Contracts\Interfaces\StudentTeamInterface;
 use App\Models\CategoryBoard;
 use App\Http\Requests\StoreCategoryBoardRequest;
 use App\Http\Requests\UpdateCategoryBoardRequest;
@@ -22,7 +23,8 @@ class CategoryBoardController extends Controller
     private ProjectInterface $Project;
     private BoardInterface $board;
     private NoteService $noteservice;
-    public function __construct(CategoryBoardInterface $categoryBoard, HummataskTeamInterface $hummataskTeam, BoardInterface $board, StudentProjectInterface $studentProject, ProjectInterface $Project, NoteService $noteService)
+    private StudentTeamInterface $studentTeam;
+    public function __construct(CategoryBoardInterface $categoryBoard, HummataskTeamInterface $hummataskTeam, BoardInterface $board, StudentProjectInterface $studentProject, ProjectInterface $Project, NoteService $noteService, StudentTeamInterface $studentTeam)
     {
         $this->categoryBoard = $categoryBoard;
         $this->hummataskTeam = $hummataskTeam;
@@ -30,6 +32,7 @@ class CategoryBoardController extends Controller
         $this->studentProject = $studentProject;
         $this->Project = $Project;
         $this->noteservice = $noteService;
+        $this->studentTeam = $studentTeam;
     }
     /**
      * Display a listing of the resource.
@@ -40,10 +43,11 @@ class CategoryBoardController extends Controller
         $categoryBoards = $this->categoryBoard->get();
         $boards = $this->board->get();
         $projects = $this->Project->where('title', $slugs->slug);
+        $studentTeams = $this->studentTeam->get();
         foreach ($projects as $project) {
-            $studentProjects = $this->studentProject->where('project_id', $project->id);
+            $studentTeams = $this->studentTeam->where('project_id', $project->id);
         }
-        return view('Hummatask.team.board' , compact('categoryBoards', 'hummataskTeam', 'boards', 'studentProjects', 'slugs'));
+        return view('Hummatask.team.board' , compact('categoryBoards', 'hummataskTeam', 'boards', 'slugs', 'studentTeams'));
     }
 
     /**

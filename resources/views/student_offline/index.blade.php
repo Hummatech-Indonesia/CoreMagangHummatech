@@ -1,41 +1,59 @@
 @extends('student_offline.layouts.app')
 @section('content')
 
-<div class="row gap-2 flex-wrap">
-    <div class="col-lg-8">
-        <div class=" d-flex align-items-stretch">
-            <div class="card w-100 bg-light-info overflow-hidden shadow-none" >
-                <div class="card-body position-relative">
-                    <div class="row">
-                        <div class="col-md-12 ">
-                            <div class="d-flex align-items-center mb-3 flex-column flex-sm-row">
-                                <div class="d-flex align-items-center justify-content-center overflow-hidden me-sm-6 mb-3 mb-sm-0" style="width: 40px; height: 40px;">
-                                    <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt="" class="img-fluid rounded-circle" style="object-fit: cover;">
+    <div class="row gap-2 flex-wrap">
+        <div class="col-lg-12">
+            <div class=" d-flex align-items-stretch">
+                <div class="card w-100 bg-light-info overflow-hidden shadow-none">
+                    <div class="card-body position-relative">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="d-flex align-items-center mb-3 flex-column flex-sm-row">
+                                    <div class="d-flex align-items-center justify-content-center overflow-hidden me-sm-6 mb-3 mb-sm-0"
+                                        style="width: 40px; height: 40px;">
+                                        @if (auth()->user()->student && !empty(auth()->user()->student->avatar))
+                                            @php
+                                                $avatarPath = 'storage/' . auth()->user()->student->avatar;
+                                                $avatarExists = file_exists(public_path($avatarPath));
+                                            @endphp
+
+                                            @if ($avatarExists)
+                                                <img src="{{ asset($avatarPath) }}"class="img-fluid rounded-circle"
+                                                    style="object-fit: cover;" />
+                                            @else
+                                                <img src="{{ asset('user.webp') }}"class="img-fluid rounded-circle"
+                                                    style="object-fit: cover;" />
+                                            @endif
+                                        @else
+                                            <img src="{{ asset('user.webp') }}" class="img-fluid rounded-circle"
+                                                style="object-fit: cover;" />
+                                        @endif
+                                    </div>
+                                    <h5 class="fw-semibold mb-3 mb-sm-0 fs-5 text-center text-sm-start">Selamat Datang
+                                        {{ auth()->user()->name }}!</h5>
+                                    {{-- <button class="btn btn-primary btn-sm mt-3 w-80 mt-sm-0 ms-sm-3">Isi Saldo</button> --}}
                                 </div>
-                                <h5 class="fw-semibold mb-3 mb-sm-0 fs-5 text-center text-sm-start">Selamat Datang {{ auth()->user()->name }}!</h5>
-                                <button class="btn btn-primary btn-sm mt-3 w-80 mt-sm-0 ms-sm-3">Isi Saldo</button>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="border-end pe-4 border-muted border-opacity-10">
+                                <div class="d-flex align-items-center">
+                                    {{-- <div class="border-end pe-4 border-muted border-opacity-10">
                                     <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center mb-3">
                                         Rp.1200.500.00
                                         <i class="ti ti-trending-up fs-6 mt-1 mx-2 text-success"></i>
                                     </h3>
                                     <h6>Saldo anda saat ini</h6>
+                                </div> --}}
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-5">
-                            <div class="welcome-bg-img mb-n7 text-end">
-                                <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/backgrounds/welcome-bg.svg"
-                                    alt="" class="img-fluid" style="width: 300px; height: auto;">
+                            <div class="col-sm-5">
+                                <div class="welcome-bg-img mb-n7 text-end">
+                                    <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/backgrounds/welcome-bg.svg"
+                                        alt="" class="img-fluid" style="width: 300px; height: auto;">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="card w-100">
+            {{-- <div class="card w-100">
             <div class="card-body">
                 <div>
                     <div>
@@ -45,10 +63,10 @@
                 </div>
                 <div id="chart-journal"></div>
             </div>
+        </div> --}}
         </div>
-    </div>
 
-
+        {{--
     <div class="row align-items-stretch col-lg-4">
         <div class="card">
             <div class="card-body">
@@ -103,105 +121,107 @@
           </div>
         @endforeach
     </div>
-</div>
+</div> --}}
 
-@endsection
+    @endsection
 
-@section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.48.0/apexcharts.min.js" integrity="sha512-wqcdhB5VcHuNzKcjnxN9wI5tB3nNorVX7Zz9NtKBxmofNskRC29uaQDnv71I/zhCDLZsNrg75oG8cJHuBvKWGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.48.0/apexcharts.min.css" integrity="sha512-qc0GepkUB5ugt8LevOF/K2h2lLGIloDBcWX8yawu/5V8FXSxZLn3NVMZskeEyOhlc6RxKiEj6QpSrlAoL1D3TA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    @section('script')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.48.0/apexcharts.min.js"
+            integrity="sha512-wqcdhB5VcHuNzKcjnxN9wI5tB3nNorVX7Zz9NtKBxmofNskRC29uaQDnv71I/zhCDLZsNrg75oG8cJHuBvKWGw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.48.0/apexcharts.min.css"
+            integrity="sha512-qc0GepkUB5ugt8LevOF/K2h2lLGIloDBcWX8yawu/5V8FXSxZLn3NVMZskeEyOhlc6RxKiEj6QpSrlAoL1D3TA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<script>
-    var options = {
-        series: [44, 55, 41, 17],
-        chart: {
-            type: 'donut',
-            height: 400
-        },
-        labels: ['Hadir', 'Telat', 'Izin', 'Alpha'],
-        colors: ['#13DEB9', '#5D87FF', '#49BEFF', '#FFAE1F'],
-        dataLabels: {
-            enabled: false
-        },
-        plotOptions: {
-            pie: {
-                donut: {
-                    labels: {
+        <script>
+            var options = {
+                series: [44, 55, 41, 17],
+                chart: {
+                    type: 'donut',
+                    height: 400
+                },
+                labels: ['Hadir', 'Telat', 'Izin', 'Alpha'],
+                colors: ['#13DEB9', '#5D87FF', '#49BEFF', '#FFAE1F'],
+                dataLabels: {
+                    enabled: false
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            labels: {
+                                show: false
+                            }
+                        }
+                    },
+                    stroke: {
                         show: false
                     }
-                }
-            },
-            stroke: {
-                show: false
-            }
-        },
-        legend: {
-            position: 'bottom'
-        },
-        responsive: [{
-            breakpoint: 480,
-            options: {
-                chart: {
-                    height: 900,
                 },
                 legend: {
                     position: 'bottom'
+                },
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            height: 900,
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart-absen"), options);
+            chart.render();
+        </script>
+
+        <script>
+            var options = {
+                series: [{
+                    name: 'Mengisi',
+                    data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+                }, {
+                    name: 'Tidak Mengisi',
+                    data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+                }],
+                chart: {
+                    type: 'bar',
+                    height: '230px',
+                },
+                colors: ['#5D87FF', '#82D2FF'],
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '30%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                },
+                xaxis: {
+                    categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return "$ " + val + " thousands"
+                        }
+                    }
                 }
-            }
-        }]
-    };
+            };
 
-    var chart = new ApexCharts(document.querySelector("#chart-absen"), options);
-    chart.render();
-</script>
-
-<script>
-        var options = {
-        series: [{
-            name: 'Mengisi',
-            data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-        }, {
-            name: 'Tidak Mengisi',
-            data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-        }],
-        chart: {
-            type: 'bar',
-            height: '230px',
-        },
-        colors: ['#5D87FF', '#82D2FF'],
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '30%',
-                endingShape: 'rounded'
-            },
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            show: true,
-            width: 2,
-            colors: ['transparent']
-        },
-        xaxis: {
-            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-        },
-        fill: {
-            opacity: 1
-        },
-        tooltip: {
-            y: {
-                formatter: function (val) {
-                    return "$ " + val + " thousands"
-                }
-            }
-        }
-    };
-
-    var chart = new ApexCharts(document.querySelector("#chart-journal"), options);
-    chart.render();
-</script>
-
-
-@endsection
+            var chart = new ApexCharts(document.querySelector("#chart-journal"), options);
+            chart.render();
+        </script>
+    @endsection

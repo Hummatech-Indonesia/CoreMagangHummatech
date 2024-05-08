@@ -71,6 +71,7 @@ use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Contracts\Interfaces\LimitPresentationInterface;
 use App\Contracts\Interfaces\NotePicketInterface;
 use App\Contracts\Interfaces\OrderInterface;
+use App\Contracts\Interfaces\PermissionInterface;
 use App\Contracts\Interfaces\PresentationInterface;
 use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\StudentChallengeInterface;
@@ -91,6 +92,7 @@ use App\Contracts\Repositories\ResponseLetterRepository;
 use App\Contracts\Interfaces\TransactionHistoryInterface;
 use App\Contracts\Interfaces\TransactionInterface;
 use App\Contracts\Interfaces\VoucherUsageInterface;
+use App\Contracts\Interfaces\WorkFromHomeInterface;
 use App\Contracts\Repositories\ActiveCourseRepository;
 use App\Contracts\Repositories\ActiveFeatureRepository;
 use App\Contracts\Repositories\AppointmentOfMentorRepository;
@@ -111,6 +113,7 @@ use App\Contracts\Repositories\SubCourseUnlockRepository;
 use App\Contracts\Repositories\TaskSubmissionRepository;
 use App\Contracts\Repositories\TransactionHistoryRepository;
 use App\Contracts\Repositories\OrderRepository;
+use App\Contracts\Repositories\PermissionRepository;
 use App\Contracts\Repositories\PresentationRepository;
 use App\Contracts\Repositories\ProjectRepository;
 use App\Contracts\Repositories\StudentProjectRepository;
@@ -118,6 +121,7 @@ use App\Contracts\Repositories\StudentTeamRepository;
 use App\Contracts\Repositories\ThesisRepository;
 use App\Contracts\Repositories\TransactionRepository;
 use App\Contracts\Repositories\VoucherUsageRepository;
+use App\Contracts\Repositories\WorkFromHomeRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -178,6 +182,8 @@ class AppServiceProvider extends ServiceProvider
         TransactionInterface::class => TransactionRepository::class,
         ActiveFeatureInterface::class => ActiveFeatureRepository::class,
         ActiveCourseInterface::class => ActiveCourseRepository::class,
+        WorkFromHomeInterface::class => WorkFromHomeRepository::class,
+        PermissionInterface::class => PermissionRepository::class,
     ];
 
     /**

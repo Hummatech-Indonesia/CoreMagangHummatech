@@ -8,17 +8,28 @@ use App\Models\WarningLetter;
 use App\Models\ResponseLetter;
 use App\Base\Interfaces\HasAttendances;
 use App\Base\Interfaces\HasOneActiveFeature;
+use App\Base\Interfaces\HasOneUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Division;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Student extends Model implements HasAttendances, HasOneActiveFeature, HasActiveCourses
+class Student extends Model implements HasAttendances, HasOneActiveFeature, HasActiveCourses, HasOneUser
 {
     use HasFactory;
 
     protected $guarded = [];
+
+    /**
+     * hasOneUser
+     *
+     * @return HasOne
+     */
+    public function hasOneUser(): HasOne
+    {
+        return $this->hasOne(User::class);
+    }
 
     /**
      * activeFeature
