@@ -325,7 +325,7 @@
                         </div>
                         <div class="card-body">
                             <div class="tab-content p-0">
-                                <div class="tab-pane " id="Monday" role="tabpanel">
+                                <div class="tab-pane " id="monday" role="tabpanel">
                                     <form action="{{ route('attendance-rule.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="day" value="monday">
@@ -392,7 +392,7 @@
                                             class="btn btn-secondary w-100 mt-3 waves-effect waves-light">Simpan</button>
                                     </form>
                                 </div>
-                                <div class="tab-pane" id="Tuesday" role="tabpanel">
+                                <div class="tab-pane" id="tuesday" role="tabpanel">
                                     <form action="{{ route('attendance-rule.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="day" value="tuesday">
@@ -526,7 +526,7 @@
                                             class="btn btn-secondary w-100 mt-3 waves-effect waves-light">Simpan</button>
                                     </form>
                                 </div>
-                                <div class="tab-pane" id="Thursday" role="tabpanel">
+                                <div class="tab-pane" id="thursday" role="tabpanel">
                                     <form action="{{ route('attendance-rule.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="day" value="thursday">
@@ -593,7 +593,7 @@
                                             class="btn btn-secondary w-100 mt-3 waves-effect waves-light">Simpan</button>
                                     </form>
                                 </div>
-                                <div class="tab-pane" id="Friday" role="tabpanel">
+                                <div class="tab-pane" id="friday" role="tabpanel">
                                     <form action="{{ route('attendance-rule.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="day" value="friday">
