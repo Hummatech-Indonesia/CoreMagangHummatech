@@ -74,7 +74,7 @@
             </h3>
 
             <div class="d-flex gap-2 align-items-center">
-                <a href="{{ route('transaction-history.index') }}" class="btn btn-light d-flex align-items-center gap-2"><i
+                <a href="/courses" class="btn btn-light d-flex align-items-center gap-2"><i
                         class="fas fa-arrow-left"></i><span>Kembali</span></a>
             </div>
         </div>
