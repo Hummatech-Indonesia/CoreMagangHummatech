@@ -33,7 +33,6 @@ class AdminController extends Controller
         $wednesday = $this->attendanceRule->getByDay(DayEnum::WEDNESDAY->value);
         $thursday = $this->attendanceRule->getByDay(DayEnum::THURSDAY->value);
         $friday = $this->attendanceRule->getByDay(DayEnum::FRIDAY->value);
-
         $dataadmin = $this->dataadmin->get();
         $dataceo = $this->dataCo->get();
         $maxLateMinute = $this->maxLate->get();
