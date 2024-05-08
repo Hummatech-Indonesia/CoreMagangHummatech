@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('attendance_rules', function (Blueprint $table) {
-            $table->id()->primary();
+            $table->id();
             $table->enum('day', [DayEnum::MONDAY->value, DayEnum::TUESDAY->value, DayEnum::WEDNESDAY->value, DayEnum::THURSDAY->value, DayEnum::FRIDAY->value]);
             $table->time('checkin_starts');
             $table->time('checkin_ends');
