@@ -273,7 +273,7 @@
                                                         </td>
                                                         <td class="number">{{ $loop->iteration }}</td>
                                                         <td class="name">{{ $journal->student->name }}</td>
-                                                        <td>{{ \Carbon\Carbon::parse($journal->tanggal)->locale('id')->isoFormat('dddd, D MMMM Y') }}
+                                                        <td>{{ \Carbon\Carbon::parse($journal->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
                                                         </td>
                                                         <td class="status">
                                                             <?php
@@ -494,7 +494,7 @@
                                                         </td>
                                                         <td class="number">{{ $index + 1 }}</td>
                                                         <td class="name">{{ $journal->student->name }}</td>
-                                                        <td>{{ \Carbon\Carbon::parse($journal->tanggal)->locale('id')->isoFormat('dddd, D MMMM Y') }}
+                                                        <td>{{ \Carbon\Carbon::parse($journal->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
                                                         </td>
                                                         <td class="status">
                                                             <?php
