@@ -64,7 +64,7 @@ class JournalController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreJournalRequest $request)
     {
         $currentDate = Carbon::now()->locale('id_ID')->setTimezone('Asia/Jakarta')->isoFormat('HH:mm:ss');
         if ($currentDate < '16:00:00' || $currentDate > '23:59:00') {
