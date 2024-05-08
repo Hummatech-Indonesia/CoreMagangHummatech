@@ -29,9 +29,12 @@ class AdminJournalRepository extends BaseRepository implements AdminJournalInter
     public function search(Request $request): mixed
     {
         return $this->model->query()
-            ->when($request->name, function ($query) use ($request) {
-                $query->whereRelation('student', 'name', 'LIKE', '%' . $request->name . '%');
-            })
-            ->get();
+        ->when($request->name, function ($query) use ($request) {
+            $query->whereRelation('student', 'name', 'LIKE', '%' . $request->name . '%');
+        })
+        ->when($request->created_at, function ($query) use ($request) {
+            $query->whereDate('created_at', $request->created_at);
+        })
+        ->get();
     }
 }
