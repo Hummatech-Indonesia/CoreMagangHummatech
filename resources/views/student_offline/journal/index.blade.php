@@ -154,7 +154,6 @@
                                             data-name="{{ $journal->student->name }}"
                                             data-date="{{ $journal->created_at }}"
                                             data-school="{{ $journal->student->school }}"
-                                            {{-- data-school="{{ $journal->student->school }}" --}}
                                             data-description="{{ nl2br($journal->description) }}"
                                             data-image="{{ asset('storage/'. $journal->image) }}">
                                             <svg width="29" height="32" viewBox="0 0 29 32" fill="none"
