@@ -108,11 +108,14 @@ class PresentationController extends Controller
      */
     public function update(UpdatePresentationRequest $request, Presentation $presentation)
     {
-        $this->presentation->update($presentation->id, $request->validated());
+        $data=$request->validated();
+        $data['status_presentation']=StatusPresentationEnum::PENNDING->value;
+        $this->presentation->update($presentation->id, $data);
         return back()->with('success', 'Data Berhasil Diperbarui');
     }
 
     /**
+     *
      * Remove the specified resource from storage.
      */
     public function destroy(Presentation $presentation)

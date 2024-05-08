@@ -193,4 +193,5 @@ Route::delete('hummateam/board/delete/{board}',[BoardController::class,'destroy'
 
 
 Route::get('hummateam/team/{slug}/presentation',[PresentationController::class,'usershow'])->name('team.presentation');
-Route::put('hummateam/team/presentation/update', [PresentationController::class, 'update'])->name('presentation.update');
+Route::patch('hummateam/team/presentation/{presentation}',[PresentationController::class,'update'])->name('presentation.update');
+// Route::put('hummateam/team/presentation/update', [PresentationController::class, 'update'])->name('presentation.update');
