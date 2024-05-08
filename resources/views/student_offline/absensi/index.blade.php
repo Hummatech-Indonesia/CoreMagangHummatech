@@ -185,14 +185,20 @@
 
     <div class="row mb-3">
         <div class="col text-end">
-            <form action="{{ route('attendance.online.store') }}" method="post">
-                @csrf
-                @method('POST')
-                <button class="btn btn-success me-2" type="submit">Absen</button>
+            <div class="d-flex gap-2 justify-content-end">
+                @if ($workFromHomes)
+                <form action="{{ route('attendance.online.store') }}" method="post">
+                    @csrf
+                    @method('POST')
+                    <button class="btn btn-success me-2" type="submit">Absen</button>
+                </form>
+                @else
+
+                @endif
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#izinModal">
                     Buat Izin
                 </button>
-            </form>
+            </div>
             {{-- <button class="btn btn-danger me-2">
                 Ekspor PDF
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -326,44 +332,50 @@
                     <h5 class="modal-title" id="izinModalLabel">Tambah Izin</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form action="">
+                <form action="/permission" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
                         <div class="mb-3">
                             <label for="izinStartDate" class="form-label">Dari Tanggal</label>
-                            <input type="date" class="form-control" id="izinStartDate">
+                            <input type="date" class="form-control" id="izinStartDate" name="start">
                         </div>
                         <div class="mb-3">
                             <label for="izinEndDate" class="form-label">Sampai Tanggal</label>
-                            <input type="date" class="form-control" id="izinEndDate">
+                            <input type="date" class="form-control" id="izinEndDate" name="end">
+                        </div>
+                        <div class="mb-3">
+                            <label for="izinEndDate" class="form-label">Bukti</label>
+                            <input type="file" class="form-control" id="izinEndDate" name="proof">
                         </div>
                         <div class="mb-3">
                             <label for="keteranganTextarea" class="form-label">Deskripsi</label>
-                            <textarea class="form-control" id="keteranganTextarea" rows="3" placeholder="Masukkan deskripsi"></textarea>
+                            <textarea class="form-control" id="keteranganTextarea" name="description" rows="3"
+                                placeholder="Masukkan deskripsi"></textarea>
                         </div>
                         <div class="mb-3">
                             <div>
                                 <label for="statusIzin" class="form-label">Status Izin</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="statusIzin" id="izinDiterima"
-                                    value="Diterima">
+                                <input class="form-check-input" type="radio" name="status" id="izinDiterima" status
+                                    value="permission">
                                 <label class="form-check-label" for="izinDiterima">
                                     Izin
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="statusIzin" id="izinDitolak"
-                                    value="Ditolak">
+                                <input class="form-check-input" type="radio" name="status" id="izinDitolak"
+                                    value="sick">
                                 <label class="form-check-label" for="izinDitolak">
                                     Sakit
                                 </label>
                             </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary">Simpan</button>
-                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                </form>
             </div>
         </div>
     </div>

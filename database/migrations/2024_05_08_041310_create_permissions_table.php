@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('student_permissions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('status', [PermissionEnum::PERMISSION->value, PermissionEnum::SICK->value]);
-            $table->string('description');
+            $table->text('description');
             $table->string('proof');
             $table->enum('status_approval', [StatusApprovalPermissionEnum::AGREE->value, StatusApprovalPermissionEnum::REJECT->value, StatusApprovalPermissionEnum::PENDING->value])->default(StatusApprovalPermissionEnum::PENDING->value);
             $table->date('start');

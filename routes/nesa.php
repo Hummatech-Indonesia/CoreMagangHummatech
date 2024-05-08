@@ -128,7 +128,7 @@ Route::get('administrator/presentation', [PresentationController::class,'show'])
 
 
 // siswa offline
-Route::get('siswa-offline/absensi', [AttendanceController::class, 'attendanceOffline']);
+Route::get('siswa-offline/absensi', [AttendanceController::class, 'attendanceOffline'])->middleware(['roles:siswa-offline', 'auth']);
 
 Route::get('/siswa-offline/course',[CourseOfflineController::class,'index']);
 Route::get('/siswa-offline/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('materi.detail');
