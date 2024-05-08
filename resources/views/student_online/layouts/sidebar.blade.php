@@ -37,7 +37,8 @@
         <nav class="sidebar-nav scroll-sidebar" data-simplebar>
             <ul id="sidebarnav">
                 <li class="nav-item mb-0 mt-2">
-                    <a href="/dashboard/task"
+                    <!-- <a href="/dashboard/task" -->
+                    <a href="#"
                         aria-expanded="false">
                         <div class="myElement py-2 px-3 rounded">
                             <div class="d-flex justify-content-between">
@@ -55,7 +56,7 @@
                                         </svg>
                                     </div>
                                     <div class="mt-2">
-                                        Board
+                                        Board  <i class="fas fa-lock opacity-50 ms-2"></i>
                                     </div>
                                 </div>
                                 <div class="mt-2">
