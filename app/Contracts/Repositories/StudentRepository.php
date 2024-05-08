@@ -109,6 +109,18 @@ class StudentRepository extends BaseRepository implements StudentInterface
     }
 
     /**
+     * getStudentAccepted
+     *
+     * @return mixed
+     */
+    public function getStudentAccepted(): mixed
+    {
+        return $this->model->query()
+            ->where('status', StudentStatusEnum::ACCEPTED->value)
+            ->get();
+    }
+
+    /**
      * Store data to database
      *
      * @param  array $data

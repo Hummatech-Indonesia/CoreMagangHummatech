@@ -108,4 +108,11 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
     public function whereRfidNull(): mixed;
     public function listRfid(): mixed;
 
+    /**
+     * getStudentAccepted
+     *
+     * @return mixed
+     */
+    public function getStudentAccepted(): mixed;
+
 }

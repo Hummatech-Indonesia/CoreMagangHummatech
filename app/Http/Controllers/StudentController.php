@@ -32,7 +32,7 @@ class StudentController extends Controller
      */
     public function getStudents(): JsonResponse
     {
-        $students = $this->student->get();
+        $students = $this->student->getStudentAccepted();
 
         $serializedData = serialize($students);
         $md5 = md5($serializedData);
