@@ -31,6 +31,7 @@ use App\Http\Controllers\Mentor\DashboardController;
 use App\Http\Controllers\StudentOnline\CourseController;
 use App\Http\Controllers\CourseController as AdminCourseController;
 use App\Http\Controllers\FaceController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\StudentCourseController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
@@ -138,8 +139,11 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
     Route::get('division', function () {
         return view('student_offline.division.index');
     })->name('.class.division');
-
 })->middleware(["roles:siswa-offline", 'auth']);
+
+Route::middleware(["roles:siswa-offline", "roles:siswa-online"])->group(function () {
+    Route::post('permission', [PermissionController::class, 'store'])->name('permission.store');
+});
 Route::get('student/data/journal', [JournalController::class, 'index'])->name('journal.index');
 # ================================================ Online Student Route Group =================================================
 Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(RolesEnum::ONLINE->value)->group(function () {
