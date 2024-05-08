@@ -63,7 +63,7 @@
                             <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt="" width="40"
                                 height="40">
                         </div>
-                        <h5 class="fw-semibold mb-0 fs-5 mt-1">Rabu, 20 Maret 2024</h5>
+                        <h5 class="fw-semibold mb-0 fs-5 mt-1">Selamat datang!</h5>
                     </div>
                     <div class="d-flex align-items-center">
                         <div class="border-end pe-4 border-opacity-10">
