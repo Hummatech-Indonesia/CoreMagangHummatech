@@ -31,11 +31,7 @@
                 </a>
                 <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-center">
                     <li class="nav-item dropdown">
-                        <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="ti ti-bell-ringing"></i>
-                            <div class="notification bg-primary rounded-circle"></div>
-                        </a>
+                        
                         <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up"
                             aria-labelledby="drop2">
                             <div class="d-flex align-items-center justify-content-between py-3 px-7">
