@@ -45,7 +45,7 @@ class AttendanceController extends Controller
 
         $data['md5'] = md5($rule);
         $data['result'] = AttendanceRuleResource::collection($rule);
-        $data['attendance_count'] = $attendanceCount;
+        $data['total'] = $attendanceCount;
 
         return response()->json($data);
     }
