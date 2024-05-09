@@ -91,7 +91,7 @@
                         <div class="counter-card">
                             <div class="icon"><img src="assets_landing/img/icon/counter_2_2.png" alt="Icon"></div>
                             <div class="media-body">
-                                <h2 class="counter-card_number text-title"><span class="counter-number">896</span></h2>
+                                <h2 class="counter-card_number text-title"><span class="counter-number">{{$deactiveStudents}}</span></h2>
                                 <p class="counter-card_text text-body">Alumni</p>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                         <div class="counter-card">
                             <div class="icon"><img src="assets_landing/img/icon/counter_2_3.png" alt="Icon"></div>
                             <div class="media-body">
-                                <h2 class="counter-card_number text-title"><span class="counter-number">396</span></h2>
+                                <h2 class="counter-card_number text-title"><span class="counter-number">{{$activeStudents}}</span></h2>
                                 <p class="counter-card_text text-body">Anak Magang</p>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                         <div class="counter-card">
                             <div class="icon"><img src="assets_landing/img/icon/counter_2_4.png" alt="Icon"></div>
                             <div class="media-body">
-                                <h2 class="counter-card_number text-title"><span class="counter-number">496</span></h2>
+                                <h2 class="counter-card_number text-title"><span class="counter-number">{{$products}}</span></h2>
                                 <p class="counter-card_text text-body">Produk Yang Di Hasilkan</p>
                             </div>
                         </div>

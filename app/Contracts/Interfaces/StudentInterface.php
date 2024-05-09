@@ -12,6 +12,20 @@ use Illuminate\Http\Request;
 interface StudentInterface extends GetInterface , StoreInterface , DeleteInterface , UpdateInterface, WhereInterface, ShowInterface
 {
     /**
+     * Method countActiceStudents
+     *
+     * @return mixed
+     */
+    public function countActiceStudents():mixed;
+    /**
+     * Method countDeactiveStudents
+     *
+     * @return mixed
+     */
+    public function countDeactiveStudents():mixed;
+
+
+    /**
      * getByRfid
      *
      * @param  mixed $cardId

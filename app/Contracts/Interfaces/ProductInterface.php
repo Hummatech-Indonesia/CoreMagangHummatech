@@ -9,6 +9,7 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface ProductInterface extends GetInterface, StoreInterface, DeleteInterface, UpdateInterface, WhereSingleInterface
 {
+    
     /**
      * Get Products Based on Division
      *

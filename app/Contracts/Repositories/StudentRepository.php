@@ -20,7 +20,24 @@ class StudentRepository extends BaseRepository implements StudentInterface
     {
         $this->model = $student;
     }
-
+    /**
+     * Method countActiceStudents
+     *
+     * @return mixed
+     */
+    public function countActiceStudents(): mixed
+    {
+        return $this->model->where('finish_date', '>', now())->count();
+    }
+    /**
+     * Method countDeactiveStudents
+     *
+     * @return mixed
+     */
+    public function countDeactiveStudents(): mixed
+    {
+        return $this->model->where('finish_date', '<', now())->count();
+    }
     /**
      * listAttendance
      *
@@ -36,15 +53,19 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query()
             ->whereNotNull('rfid')
             ->where('internship_type', InternshipTypeEnum::ONLINE->value)
-            ->withCount(['attendances' => function ($query) {
-                $query->whereDate('created_at', now());
-            }])
+            ->withCount([
+                'attendances' => function ($query) {
+                    $query->whereDate('created_at', now());
+                }
+            ])
             ->when($request->name, function ($query) use ($request) {
-                $query->where('name', 'LIKE', '%'. $request->name .'%');
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
             })
-            ->with(['attendances' => function ($query) use ($date) {
-                $query->whereDate('created_at', $date);
-            }])
+            ->with([
+                'attendances' => function ($query) use ($date) {
+                    $query->whereDate('created_at', $date);
+                }
+            ])
             ->where('status', StudentStatusEnum::ACCEPTED->value)
             ->orderByDesc('attendances_count')
             ->get();
@@ -65,15 +86,19 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query()
             ->whereNotNull('rfid')
             ->when($request->name, function ($query) use ($request) {
-                $query->where('name', 'LIKE', '%'. $request->name .'%');
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
             })
             ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
-            ->withCount(['attendances' => function ($query) {
-                $query->whereDate('created_at', now());
-            }])
-            ->with(['attendances' => function ($query) use ($date) {
-                $query->whereDate('created_at', $date);
-            }])
+            ->withCount([
+                'attendances' => function ($query) {
+                    $query->whereDate('created_at', now());
+                }
+            ])
+            ->with([
+                'attendances' => function ($query) use ($date) {
+                    $query->whereDate('created_at', $date);
+                }
+            ])
             ->where('status', StudentStatusEnum::ACCEPTED->value)
             ->orderByDesc('attendances_count')
             ->get();
@@ -95,7 +120,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
 
     public function getApiStudent(): mixed
     {
-        return $this->model->query()->where('id' , auth()->user()->student->id)->get();
+        return $this->model->query()->where('id', auth()->user()->student->id)->get();
     }
 
     /**
@@ -185,7 +210,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
      * @param  mixed $column
      * @return mixed
      */
-    public function  pluck(mixed $column): mixed
+    public function pluck(mixed $column): mixed
     {
         return $this->model->query()->pluck($column);
     }
@@ -211,8 +236,8 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function sp(mixed $id): mixed
     {
         return $this->model->query()
-        ->where('id', $id)
-        ->firstOrFail();
+            ->where('id', $id)
+            ->firstOrFail();
     }
 
     /**
@@ -223,9 +248,9 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function countStudentOffline(): mixed
     {
         return $this->model->query()
-        ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
-        ->where('status', 'accepted')
-        ->count();
+            ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
+            ->where('status', 'accepted')
+            ->count();
     }
 
     /**
@@ -236,9 +261,9 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function listStudentOffline(): mixed
     {
         return $this->model->query()
-        ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
-        ->where('status', 'accepted')
-        ->get();
+            ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
+            ->where('status', 'accepted')
+            ->get();
     }
 
     /**
@@ -249,9 +274,9 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function listStudentOnline(): mixed
     {
         return $this->model->query()
-        ->where('internship_type', InternshipTypeEnum::ONLINE->value)
-        ->where('status', 'accepted')
-        ->get();
+            ->where('internship_type', InternshipTypeEnum::ONLINE->value)
+            ->where('status', 'accepted')
+            ->get();
     }
 
     /**
@@ -262,8 +287,8 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function getstudentdeclined(): mixed
     {
         return $this->model->query()
-        ->where('status', StudentStatusEnum::DECLINED->value)
-        ->get();
+            ->where('status', StudentStatusEnum::DECLINED->value)
+            ->get();
     }
 
     /**
@@ -274,8 +299,8 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function getstudentbanned(): mixed
     {
         return $this->model->query()
-        ->where('status', StudentStatusEnum::BANNED->value)
-        ->get();
+            ->where('status', StudentStatusEnum::BANNED->value)
+            ->get();
     }
 
     /**
@@ -287,10 +312,10 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function getstudentmentorplacement(mixed $id): mixed
     {
         return $this->model->query()
-        ->where('internship_type', InternshipTypeEnum::ONLINE->value)
-        ->where('status', 'accepted')
-        ->whereNotIn('id', $id)
-        ->get();
+            ->where('internship_type', InternshipTypeEnum::ONLINE->value)
+            ->where('status', 'accepted')
+            ->whereNotIn('id', $id)
+            ->get();
     }
 
     /**
@@ -301,9 +326,9 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function getstudentoffexceptauth(mixed $id): mixed
     {
         return $this->model->query()
-        ->where('internship_type', 'offline')
-        ->where('id', '!=', $id)
-        ->get();
+            ->where('internship_type', 'offline')
+            ->where('id', '!=', $id)
+            ->get();
     }
 
     /**
@@ -314,10 +339,10 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function getstudentdivisionplacement(): mixed
     {
         return $this->model->query()
-        ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
-        ->where('status', 'accepted')
-        ->where('division_id', null)
-        ->get();
+            ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
+            ->where('status', 'accepted')
+            ->where('division_id', null)
+            ->get();
     }
 
     /**
@@ -329,10 +354,10 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function geteditstudentmentorplacement(mixed $id): mixed
     {
         return $this->model->query()
-        ->where('internship_type', InternshipTypeEnum::ONLINE->value)
-        ->where('status', 'accepted')
-        ->whereIn('id', $id)
-        ->get();
+            ->where('internship_type', InternshipTypeEnum::ONLINE->value)
+            ->where('status', 'accepted')
+            ->whereIn('id', $id)
+            ->get();
     }
 
     /**
@@ -351,7 +376,8 @@ class StudentRepository extends BaseRepository implements StudentInterface
 
     public function whereStudentDivision(mixed $id): mixed
     {
-        return $this->model->query()->where('division_id', $id)->get();;
+        return $this->model->query()->where('division_id', $id)->get();
+        ;
     }
 
     public function whereRfidNull(): mixed
