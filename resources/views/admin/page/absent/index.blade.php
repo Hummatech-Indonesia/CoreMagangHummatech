@@ -57,8 +57,8 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $attendance->name }}</td>
                         <td>{{ $attendance->school }}</td>
-                        <td>P</td>
-                        <td class="text-center"><span class="badge bg-success-subtle text-success py-2 px-3">{{ $attendance->attendances[0]->status }}</span></td>
+                        <td>{{ request('date') ?? \Carbon\Carbon::now()->format('Y-m-d') }}</td>
+                        <td class="text-center"><span class="badge bg-success-subtle text-success py-2 px-3">{{ count($attendance->attendances) == 0 ? "" : $attendance->attendances[0]->status }}</span></td>
                         <td class="text-center">
                         @if (isset($student->attendances[0]))
                             @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
@@ -137,8 +137,8 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $attendance->name }}</td>
                         <td>{{ $attendance->school }}</td>
-                        <td>P</td>
-                        <td class="text-center"><span class="badge bg-success-subtle text-success py-2 px-3">{{ $attendance->attendances[0]->status }}</span></td>
+                        <td>{{ request('date') ?? \Carbon\Carbon::now()->format('Y-m-d') }}</td>
+                        <td class="text-center"><span class="badge bg-success-subtle text-success py-2 px-3">{{ count($attendance->attendances) == 0 ? "" : $attendance->attendances[0]->status }}</span></td>
                         <td class="text-center">
                         @if (isset($student->attendances[0]))
                             @foreach ($student->attendances[0]->attendanceDetails as $detailAttendance)
