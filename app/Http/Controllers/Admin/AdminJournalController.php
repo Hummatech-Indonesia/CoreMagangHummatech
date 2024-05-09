@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Contracts\Interfaces\AdminJournalInterface;
+use App\Contracts\Interfaces\Eloquent\PaginationInterface;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Http\Controllers\Controller;
+use App\Models\Journal;
 use App\Services\JournalService;
 use Illuminate\Http\Request;
 
@@ -21,7 +23,9 @@ class AdminJournalController extends Controller
      */
     public function index(Request $request)
     {
-        $adminJournal = $this->adminJournal->search($request);
+        $adminJournalQuery = $this->adminJournal->search($request);
+        $adminJournal = $adminJournalQuery->paginate(10);
+
         return view('admin.page.journal', compact('adminJournal'));
     }
 

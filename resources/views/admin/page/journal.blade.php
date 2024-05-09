@@ -87,16 +87,17 @@
                         </div>
                     </form>
 
-                    <form action="/journal">
-                        <div class="mx-3">
+                    <form action="/journal" class="d-flex align-items-center">
+                        <div class="mx-2">
                             <input type="date" name="created_at" value="{{ request()->created_at }}" class="form-control" id="exampleInputdate">
                         </div>
-                        {{-- <div class="list-grid-nav hstack gap-1">
+                        <div class="">
                             <button class="btn btn-primary addMembers-modal" type="submit">
                                 Cari
                             </button>
-                        </div> --}}
+                        </div>
                     </form>
+
 
                 </div>
             </div>
@@ -195,22 +196,29 @@
                                         </tbody>
                                     </table>
                                     <div class="d-flex justify-content-between px-3 pt-3">
-                                        <p>Showing 1 to 10 of 14 entries</p>
+                                        <p>Showing {{ $adminJournal->firstItem() }} to {{ $adminJournal->lastItem() }} of {{ $adminJournal->total() }} entries</p>
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination justify-content-end">
-                                                <li class="page-item disabled">
-                                                    <a class="page-link" href="#" tabindex="-1"
-                                                        aria-disabled="true">Previous</a>
+                                                {{-- Tombol Previous --}}
+                                                <li class="page-item {{ $adminJournal->previousPageUrl() ? '' : 'disabled' }}">
+                                                    <a class="page-link" href="{{ $adminJournal->previousPageUrl() }}" tabindex="-1" aria-disabled="true">Previous</a>
                                                 </li>
-                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#">Next</a>
+
+                                                {{-- Link Halaman --}}
+                                                @for ($i = 1; $i <= $adminJournal->lastPage(); $i++)
+                                                    <li class="page-item {{ $i == $adminJournal->currentPage() ? 'active' : '' }}">
+                                                        <a class="page-link" href="{{ $adminJournal->url($i) }}">{{ $i }}</a>
+                                                    </li>
+                                                @endfor
+
+                                                {{-- Tombol Next --}}
+                                                <li class="page-item {{ $adminJournal->nextPageUrl() ? '' : 'disabled' }}">
+                                                    <a class="page-link" href="{{ $adminJournal->nextPageUrl() }}">Next</a>
                                                 </li>
                                             </ul>
                                         </nav>
                                     </div>
+
                                 </div>
                             </div>
                         </div><!-- end card-body -->
@@ -314,18 +322,24 @@
                                         </tbody>
                                     </table>
                                     <div class="d-flex justify-content-between px-3 pt-3">
-                                        <p>Showing 1 to 10 of 14 entries</p>
+                                        <p>Showing {{ $adminJournal->firstItem() }} to {{ $adminJournal->lastItem() }} of {{ $adminJournal->total() }} entries</p>
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination justify-content-end">
-                                                <li class="page-item disabled">
-                                                    <a class="page-link" href="#" tabindex="-1"
-                                                        aria-disabled="true">Previous</a>
+                                                {{-- Tombol Previous --}}
+                                                <li class="page-item {{ $adminJournal->previousPageUrl() ? '' : 'disabled' }}">
+                                                    <a class="page-link" href="{{ $adminJournal->previousPageUrl() }}" tabindex="-1" aria-disabled="true">Previous</a>
                                                 </li>
-                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#">Next</a>
+
+                                                {{-- Link Halaman --}}
+                                                @for ($i = 1; $i <= $adminJournal->lastPage(); $i++)
+                                                    <li class="page-item {{ $i == $adminJournal->currentPage() ? 'active' : '' }}">
+                                                        <a class="page-link" href="{{ $adminJournal->url($i) }}">{{ $i }}</a>
+                                                    </li>
+                                                @endfor
+
+                                                {{-- Tombol Next --}}
+                                                <li class="page-item {{ $adminJournal->nextPageUrl() ? '' : 'disabled' }}">
+                                                    <a class="page-link" href="{{ $adminJournal->nextPageUrl() }}">Next</a>
                                                 </li>
                                             </ul>
                                         </nav>
@@ -535,18 +549,24 @@
                                         </tbody>
                                     </table>
                                     <div class="d-flex justify-content-between px-3 pt-3">
-                                        <p>Showing 1 to 10 of 14 entries</p>
+                                        <p>Showing {{ $adminJournal->firstItem() }} to {{ $adminJournal->lastItem() }} of {{ $adminJournal->total() }} entries</p>
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination justify-content-end">
-                                                <li class="page-item disabled">
-                                                    <a class="page-link" href="#" tabindex="-1"
-                                                        aria-disabled="true">Previous</a>
+                                                {{-- Tombol Previous --}}
+                                                <li class="page-item {{ $adminJournal->previousPageUrl() ? '' : 'disabled' }}">
+                                                    <a class="page-link" href="{{ $adminJournal->previousPageUrl() }}" tabindex="-1" aria-disabled="true">Previous</a>
                                                 </li>
-                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#">Next</a>
+
+                                                {{-- Link Halaman --}}
+                                                @for ($i = 1; $i <= $adminJournal->lastPage(); $i++)
+                                                    <li class="page-item {{ $i == $adminJournal->currentPage() ? 'active' : '' }}">
+                                                        <a class="page-link" href="{{ $adminJournal->url($i) }}">{{ $i }}</a>
+                                                    </li>
+                                                @endfor
+
+                                                {{-- Tombol Next --}}
+                                                <li class="page-item {{ $adminJournal->nextPageUrl() ? '' : 'disabled' }}">
+                                                    <a class="page-link" href="{{ $adminJournal->nextPageUrl() }}">Next</a>
                                                 </li>
                                             </ul>
                                         </nav>
