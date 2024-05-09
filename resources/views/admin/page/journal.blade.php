@@ -127,13 +127,6 @@
                                     <table class="table align-middle table-nowrap table-striped-columns mb-0">
                                         <thead class="table-light">
                                             <tr>
-                                                <th scope="col" style="width: 46px;">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="cardtableCheck">
-                                                        <label class="form-check-label" for="cardtableCheck"></label>
-                                                    </div>
-                                                </th>
                                                 <th scope="col">No</th>
                                                 <th scope="col">Nama</th>
                                                 <th scope="col">Tanggal</th>
@@ -145,14 +138,6 @@
                                         <tbody>
                                             @forelse ($adminJournal as $journal)
                                                 <tr>
-                                                    <td>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value=""
-                                                                id="cardtableCheck01">
-                                                            <label class="form-check-label"
-                                                                for="cardtableCheck01"></label>
-                                                        </div>
-                                                    </td>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td class="name">{{ $journal->student->name }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($journal->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
@@ -251,13 +236,7 @@
                                     <table class="table align-middle table-nowrap table-striped-columns mb-0">
                                         <thead class="table-light">
                                             <tr>
-                                                <th scope="col" style="width: 46px;">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="cardtableCheck">
-                                                        <label class="form-check-label" for="cardtableCheck"></label>
-                                                    </div>
-                                                </th>
+
                                                 <th scope="col">No</th>
                                                 <th scope="col">Nama</th>
                                                 <th scope="col">Tanggal</th>
@@ -270,14 +249,7 @@
                                             @forelse ($adminJournal as $journal)
                                                 @if ($journal->status === 'fillin')
                                                     <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="" id="cardtableCheck01">
-                                                                <label class="form-check-label"
-                                                                    for="cardtableCheck01"></label>
-                                                            </div>
-                                                        </td>
+
                                                         <td class="number">{{ $loop->iteration }}</td>
                                                         <td class="name">{{ $journal->student->name }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($journal->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
@@ -478,13 +450,7 @@
                                     <table class="table align-middle table-nowrap table-striped-columns mb-0">
                                         <thead class="table-light">
                                             <tr>
-                                                <th scope="col" style="width: 46px;">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="cardtableCheck">
-                                                        <label class="form-check-label" for="cardtableCheck"></label>
-                                                    </div>
-                                                </th>
+
                                                 <th scope="col">No</th>
                                                 <th scope="col">Nama</th>
                                                 <th scope="col">Tanggal</th>
@@ -497,14 +463,7 @@
                                             @forelse ($adminJournal as $index => $journal)
                                                 @if ($journal->status === 'notfilling')
                                                     <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="" id="cardtableCheck01">
-                                                                <label class="form-check-label"
-                                                                    for="cardtableCheck01"></label>
-                                                            </div>
-                                                        </td>
+                                                        
                                                         <td class="number">{{ $index + 1 }}</td>
                                                         <td class="name">{{ $journal->student->name }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($journal->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
