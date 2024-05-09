@@ -123,29 +123,81 @@
                             <div class="th-widget-about">
                                 <div class="about-logo"><a href="index.html"><img src="{{ asset('animation1.gif') }}"
                                             alt="Webteck"></a></div>
-                                <p class="about-text">Professionally redefine transparent ROI through low-risk
-                                    high-yield imperatives. Progressively create empowered. cost effective users via
-                                    team driven.</p>
-                                <div class="th-social"><a href="https://www.facebook.com/"><i
+                                <p class="about-text">HUMMATECH merupakan perusahaan yang bergerak di bidang teknologi
+                                    informasi yang berdiri sejak 21 Mei 2013. Hummatech dinaungi oleh badan hukum PT.
+                                    HUMMA TEKNOLOGI INDONESIA dan telah disahkan oleh KEME...</p>
+                                <a href="https://hummatech.com/about/profile">Lihat Selengkapnya</a>
+
+                                {{-- <div class="th-social"><a href="https://www.facebook.com/"><i
                                             class="fab fa-facebook-f"></i></a> <a href="https://www.twitter.com/"><i
                                             class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/"><i
                                             class="fab fa-linkedin-in"></i></a> <a href="https://www.whatsapp.com/"><i
-                                            class="fab fa-whatsapp"></i></a></div>
+                                            class="fab fa-whatsapp"></i></a></div> --}}
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-auto">
                         <div class="widget widget_nav_menu footer-widget">
-                            <h3 class="widget_title">Quick Links</h3>
+                            <h3 class="widget_title">Social Media</h3>
                             <div class="menu-all-pages-container">
                                 <ul class="menu">
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="team.html">Meet Our Team</a></li>
-                                    <li><a href="project.html">Our Projects</a></li>
-                                    <li><a href="faq.html">Help & FAQs</a></li>
-                                    <li><a href="contact.html">Contact Us</a></li>
+                                    <li>
+                                        <a href="https://www.facebook.com/hummatech" target="_blank"
+                                            style="display: flex;gap: .5rem;align-items: center">
+
+                                            <img alt="Facebook Logo"
+                                                src="https://hummatech.com/storage/sosialmedia/SNQs18FXSmIXwJfZthZzYWEq5UiiLBby44rHFrNw.png"
+                                                height="16px" class="mb-0" width="16px" />
+                                            Facebook
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://instagram.com/hummatech" target="_blank"
+                                            style="display: flex;gap: .5rem;align-items: center">
+
+                                            <img alt="Facebook Logo"
+                                                src="https://hummatech.com/storage/sosialmedia/Y4cd8ZBLO5e0K26rlJ3RWL9k3kDL7SwXZijf6gcg.png"
+                                                height="16px" class="mb-0" width="16px" />
+                                            Instagram
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://twitter.com/hummatech" target="_blank"
+                                            style="display: flex;gap: .5rem;align-items: center">
+
+                                            <img alt="Facebook Logo"
+                                                src="https://hummatech.com/storage/sosialmedia/9tFUkOesptOzwPCcSedNWo7T5Q1XeZoLeFrklVRP.png"
+                                                height="16px" class="mb-0" width="16px" />
+                                            Twitter
+                                        </a>
+                                    </li>
+
                                 </ul>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-auto">
+                        <div class="widget footer-widget">
+                            <h3 class="widget_title">Layanan Kami</h3>
+                            <ul>
+                                <li>
+                                    <a href="https://hummatech.com/services/software-development"> Software
+                                        Development</a>
+                                </li>
+                                <li>
+                                    <a href="https://hummatech.com/services/kelas-industri"> Kelas Industri</a>
+                                </li>
+                                <li>
+                                    <a href="https://hummatech.com/services/pengadaan-hardware-it"> Pengadaan Hardware
+                                        IT</a>
+                                </li>
+                                <li>
+                                    <a href="https://hummatech.com/services/magang-pkl"> Magang/ PKL</a>
+                                </li>
+                                <li>
+                                    <a href="https://hummatech.com/services/kunjungan-industri"> Kunjungan Industri</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-auto">
@@ -156,16 +208,15 @@
                                     <div class="icon-btn"><i class="fa-solid fa-phone"></i></div>
                                     <div class="media-body">
                                         <p class="contact-feature_label">Whatsapp</p><a
-                                            href="https://wa.me/+6285176777785"
-                                            class="contact-feature_link" target="_blank">085176777785</a>
+                                            href="https://wa.me/+6285176777785" class="contact-feature_link"
+                                            target="_blank">085176777785</a>
                                     </div>
                                 </div>
                                 <div class="contact-feature">
                                     <div class="icon-btn"><i class="fa-solid fa-envelope"></i></div>
                                     <div class="media-body">
-                                        <p class="contact-feature_label">Email</p><a
-                                            href="mailto:info@hummatech.com" target="_blank"
-                                            class="contact-feature_link">info@hummatech.com</a>
+                                        <p class="contact-feature_label">Email</p><a href="mailto:info@hummatech.com"
+                                            target="_blank" class="contact-feature_link">info@hummatech.com</a>
                                     </div>
                                 </div>
                                 <div class="contact-feature">
@@ -181,38 +232,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xl-auto">
-                        <div class="widget footer-widget">
-                            <h3 class="widget_title">Recent Posts</h3>
-                            <div class="recent-post-wrap">
-                                <div class="recent-post">
-                                    <div class="media-img"><a href="blog-details.html"><img
-                                                src="assets_landing/img/blog/recent-post-2-1.jpg"
-                                                alt="Blog Image"></a></div>
-                                    <div class="media-body">
-                                        <h4 class="post-title"><a class="text-inherit"
-                                                href="blog-details.html">Unsatiable entreaties may collecting
-                                                Power.</a>
-                                        </h4>
-                                        <div class="recent-post-meta"><a href="blog.html"><i
-                                                    class="fal fa-calendar-days"></i>21 June, 2024</a></div>
-                                    </div>
-                                </div>
-                                <div class="recent-post">
-                                    <div class="media-img"><a href="blog-details.html"><img
-                                                src="assets_landing/img/blog/recent-post-2-2.jpg"
-                                                alt="Blog Image"></a></div>
-                                    <div class="media-body">
-                                        <h4 class="post-title"><a class="text-inherit"
-                                                href="blog-details.html">Regional
-                                                Manager limited time management.</a></h4>
-                                        <div class="recent-post-meta"><a href="blog.html"><i
-                                                    class="fal fa-calendar-days"></i>22 June, 2024</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
