@@ -8,10 +8,12 @@
                 <h3 class="mx-5 mb-0 mt-1">Divisi</h3>
             </div>
             <div class="col-sm-auto ms-auto d-flex">
-                <div class="search-box mx-3">
-                    <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa...">
-                    <i class="ri-search-line search-icon"></i>
-                </div>
+                <form action="/division">
+                    <div class="search-box mx-3">
+                        <input type="text" class="form-control" id="searchMemberList" name="name" value="{{request()->name}}" placeholder="Cari Divisi...">
+                        <i class="ri-search-line search-icon"></i>
+                    </div>
+                </form>
                 <div class="list-grid-nav hstack gap-1">
                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
                         Tambah Data
@@ -61,7 +63,9 @@
                     </div>
                 </div>
             </div>
+
         </div>
+        {{ $divisions->links() }}
     @empty
     <div class="d-flex justify-content-center mb-2 mt-5">
         <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">

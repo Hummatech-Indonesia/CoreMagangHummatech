@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Division;
 use App\Http\Requests\StoreDivisionRequest;
 use App\Http\Requests\UpdateDivisionRequest;
+use Illuminate\Http\Request;
 
 class DivisionController extends Controller
 {
@@ -18,9 +19,10 @@ class DivisionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $divisions = $this->division->get();
+
+        $divisions = $this->division->search($request)->paginate(12);
         return view('admin.page.division.index' , compact('divisions'));
     }
 
