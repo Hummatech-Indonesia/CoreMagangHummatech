@@ -11,8 +11,7 @@
     <meta name="keywords" content="Hummatech - Ayo bergabung dengan hummatech">
     <meta name="robots" content="INDEX,FOLLOW">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-    <link rel="shortcut icon" type="image/png"
-        href="{{ asset('mobilelogo.png') }}" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('mobilelogo.png') }}" />
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
     <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -122,8 +121,8 @@
                     <div class="col-md-6 col-xxl-3 col-xl-4">
                         <div class="widget footer-widget">
                             <div class="th-widget-about">
-                                <div class="about-logo"><a href="index.html"><img
-                                            src="{{ asset('animation1.gif') }}" alt="Webteck"></a></div>
+                                <div class="about-logo"><a href="index.html"><img src="{{ asset('animation1.gif') }}"
+                                            alt="Webteck"></a></div>
                                 <p class="about-text">Professionally redefine transparent ROI through low-risk
                                     high-yield imperatives. Progressively create empowered. cost effective users via
                                     team driven.</p>
@@ -151,29 +150,32 @@
                     </div>
                     <div class="col-md-6 col-xl-auto">
                         <div class="widget footer-widget">
-                            <h3 class="widget_title">Contact Us</h3>
+                            <h3 class="widget_title">Hubungi Kami</h3>
                             <div class="th-widget-contact">
                                 <div class="contact-feature">
                                     <div class="icon-btn"><i class="fa-solid fa-phone"></i></div>
                                     <div class="media-body">
-                                        <p class="contact-feature_label">Phone Number</p><a href="tel:+19088000393"
-                                            class="contact-feature_link">+190-8800-0393</a>
+                                        <p class="contact-feature_label">Whatsapp</p><a
+                                            href="https://wa.me/+6285176777785"
+                                            class="contact-feature_link" target="_blank">085176777785</a>
                                     </div>
                                 </div>
                                 <div class="contact-feature">
                                     <div class="icon-btn"><i class="fa-solid fa-envelope"></i></div>
                                     <div class="media-body">
-                                        <p class="contact-feature_label">Email address</p><a
-                                            href="mailto:info@webteck.com"
-                                            class="contact-feature_link">info@webteck.com</a>
+                                        <p class="contact-feature_label">Email</p><a
+                                            href="mailto:info@hummatech.com" target="_blank"
+                                            class="contact-feature_link">info@hummatech.com</a>
                                     </div>
                                 </div>
                                 <div class="contact-feature">
                                     <div class="icon-btn"><i class="fa-solid fa-location-dot"></i></div>
                                     <div class="media-body">
-                                        <p class="contact-feature_label">office location</p><a
-                                            href="https://www.google.com/maps" class="contact-feature_link">54
-                                            Flemington, USA</a>
+                                        <p class="contact-feature_label">Lokasi</p><a
+                                            href="https://www.google.com/maps/place/Hummasoft+%2F+Hummatech+(PT+Humma+Teknologi+Indonesia)/@-7.900063,112.6043067,17z/data=!3m1!4b1!4m6!3m5!1s0x2e7881c2c4637501:0x10433eaf1fb2fb4c!8m2!3d-7.900063!4d112.6068816!16s%2Fg%2F11cmn70zsx?entry=ttu"
+                                            class="contact-feature_link" target="_blank">Perum
+                                            Permata Regency 1 Blok 10/28, Perun Gpa, Ngijo, Kec. Karang Ploso, Kabupaten
+                                            Malang, Jawa Timur 65152.</a>
                                     </div>
                                 </div>
                             </div>
