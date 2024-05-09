@@ -8,7 +8,6 @@ use App\Contracts\Interfaces\JournalInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Journal;
 use App\Services\JournalService;
-use Carbon;
 use Illuminate\Http\Request;
 
 class AdminJournalController extends Controller
@@ -25,7 +24,6 @@ class AdminJournalController extends Controller
     public function index(Request $request)
     {
         $adminJournalQuery = $this->adminJournal->search($request);
-        $adminJournalQuery->whereDate('created_at', Carbon::today());
         $adminJournal = $adminJournalQuery->paginate(10);
 
         return view('admin.page.journal', compact('adminJournal'));
