@@ -24,9 +24,19 @@ class CategoryBoardRepository extends BaseRepository implements CategoryBoardInt
 
     public function update(mixed $id, array $data): mixed
     {
-        return $this->model->query()
-            ->where('id', $id)
+        return $this->show($id)
             ->update($data);
+    }
+    /**
+     * Method show
+     *
+     * @param mixed $id [explicite description]
+     *
+     * @return mixed
+     */
+    public function show(mixed $id): mixed
+    {
+        return $this->model->query()->findOrFail($id);
     }
 
     /**

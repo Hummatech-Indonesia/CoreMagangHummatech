@@ -177,6 +177,7 @@ Route::get('/siswa-online/absensi', [AttendanceController::class, 'attendanceOnl
 
 Route::get('hummateam/team/{slug}/note', [CategoryBoardController::class, 'shownote'])->name('team.note');
 Route::post('/hummateam/team/note/store', [CategoryBoardController::class, 'savenote'])->name('team.note.store');
+Route::patch('/hummateam/team/note/{categoryBoard}', [CategoryBoardController::class, 'update'])->name('team.note.update');
 Route::delete('/hummateam/team/note/delete/{categoryBoard}', [CategoryBoardController::class, 'destroy'])->name('team.note.destroy');
 
 

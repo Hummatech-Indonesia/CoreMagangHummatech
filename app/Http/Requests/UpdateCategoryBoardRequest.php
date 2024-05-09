@@ -22,16 +22,16 @@ class UpdateCategoryBoardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'hummatask_team_id' => 'required',
+            'title' => 'required',
+            'status' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'Kategori harus diisi.',
-            'hummatask_team_id.required' => 'hummatask id harus diisi.',
+            'title.required' => 'title harus diisi.',
+            'status.required' => 'hummatask id harus diisi.',
 
         ];
     }
