@@ -55,5 +55,10 @@ class AdminJournalRepository extends BaseRepository implements AdminJournalInter
         return $query;
     }
 
+    public function getByStatus(string $status): mixed
+    {
+        return $this->model->query()->where('status', $status)->get();
+    }
+
 
 }

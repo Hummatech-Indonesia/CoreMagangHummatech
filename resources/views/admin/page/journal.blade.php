@@ -79,28 +79,26 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-auto ms-auto d-flex justify-content-between pt-4">
-                    <form action="/journal">
-                        <div class="search-box">
+                <div class="col-sm-auto ms-auto pt-4">
+                    <form action="/journal" class="d-flex flex-column flex-sm-row mb-2">
+                        <div class="mb-2 me-sm-2">
                             <input type="text" class="form-control" name="name" value="{{ request()->name }}" id="searchMemberList" placeholder="Cari Siswa...">
-                            <i class="ri-search-line search-icon"></i>
                         </div>
-                    </form>
-
-                    <form action="/journal" class="d-flex align-items-center" method="GET">
-                        <div class="mx-2">
-                            <input type="date" name="created_at" value="{{ request()->created_at }}" class="form-control" id="exampleInputdate">
-                        </div>
-                        <div class="">
-                            <button class="btn btn-primary addMembers-modal" type="submit">
-                                Cari
+                        <div class="mb-2 d-sm-none">
+                            <button class="btn btn-primary w-100" type="submit">
+                                <i class="ri-search-line search-icon"></i> Cari
                             </button>
                         </div>
+                        <div class="mx-sm-2 mb-2">
+                            <input type="date" name="created_at" value="{{ request()->created_at }}" class="form-control" id="exampleInputdate">
+                        </div>
+                        <div>
+                            <button class="btn btn-primary w-100" type="submit">Cari</button>
+                        </div>
                     </form>
-
-
-
                 </div>
+
+
             </div>
         </div>
     </div>

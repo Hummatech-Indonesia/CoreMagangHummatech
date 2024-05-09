@@ -8,5 +8,5 @@ use App\Contracts\Interfaces\Eloquent\SearchInterface;
 
 interface AdminJournalInterface extends GetInterface, SearchInterface
 {
-
+    public function getByStatus(string $status) :mixed;
 }
