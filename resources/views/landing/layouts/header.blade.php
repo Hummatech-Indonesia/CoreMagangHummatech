@@ -48,11 +48,16 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="col-auto px-5 d-none d-lg-block">
+                    <div class="col-auto">
+                        <div class="d-block d-lg-inline-block">
+                                <a href="/login" class="th-btn shadow-none">{{(auth()->check()) ? 'Home' : 'Login'}}<i class="fas fa-arrow-right ms-2"></i></a>
+                        </div>
+                    </div>
+                    {{-- <div class="col-auto px-5 d-none d-lg-block">
                         <div class="header-button">
                              <a href="/login" class="th-btn shadow-none">{{(auth()->check()) ? 'Home' : 'Login'}}<i class="fas fa-arrow-right ms-2"></i></a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
