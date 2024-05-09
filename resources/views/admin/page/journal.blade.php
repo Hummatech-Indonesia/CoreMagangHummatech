@@ -87,7 +87,7 @@
                         </div>
                     </form>
 
-                    <form action="/journal" class="d-flex align-items-center">
+                    <form action="/journal" class="d-flex align-items-center" method="GET">
                         <div class="mx-2">
                             <input type="date" name="created_at" value="{{ request()->created_at }}" class="form-control" id="exampleInputdate">
                         </div>
@@ -97,6 +97,7 @@
                             </button>
                         </div>
                     </form>
+
 
 
                 </div>

@@ -55,4 +55,5 @@ class AdminJournalRepository extends BaseRepository implements AdminJournalInter
         return $query;
     }
 
+
 }
