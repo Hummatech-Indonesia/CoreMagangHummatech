@@ -8,10 +8,12 @@
                 <h4 class="mx-5 pt-2">Jadwal Zoom</h4>
             </div>
             <div class="col-sm-auto ms-auto d-flex">
-                <div class="search-box mx-3">
-                    <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa...">
-                    <i class="ri-search-line search-icon"></i>
-                </div>
+                <form action="/administrator/zoom-schedules">
+                    <div class="search-box mx-3">
+                        <input type="text" class="form-control" name="title" value="{{request()->title}}" id="searchMemberList" placeholder="Cari Siswa...">
+                        <i class="ri-search-line search-icon"></i>
+                    </div>
+                </form>
 
                     <div class="list-grid-nav hstack gap-1">
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
@@ -140,6 +142,9 @@
     </div>
 
     @endforelse
+
+    {{ $zoomSchedules->links() }}
+
 
 </div>
 

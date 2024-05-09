@@ -5,6 +5,7 @@ use App\Contracts\Interfaces\ApprovalInterface;
 use App\Contracts\Interfaces\ZoomScheduleInterface;
 use App\Models\Student;
 use App\Models\ZoomSchedule;
+use Illuminate\Http\Request;
 
 class ZoomScheduleRepository extends BaseRepository implements ZoomScheduleInterface
 {
@@ -34,5 +35,15 @@ class ZoomScheduleRepository extends BaseRepository implements ZoomScheduleInter
     public function delete(mixed $id): mixed
     {
         return $this->model->query()->findOrFail($id)->delete($id);
+    }
+    public function search(Request $request):mixed
+    {
+        $query = $this->model->query();
+
+        $query->when($request->title, function ($query) use ($request) {
+            $query->where('title', 'LIKE', '%' . $request->title . '%');
+        });
+
+        return $query;
     }
 }

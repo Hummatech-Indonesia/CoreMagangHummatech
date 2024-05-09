@@ -8,6 +8,7 @@ use App\Models\ZoomSchedule;
 use App\Http\Requests\StoreZoomScheduleRequest;
 use App\Http\Requests\UpdateZoomScheduleRequest;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class ZoomScheduleController extends Controller
 {
@@ -20,9 +21,10 @@ class ZoomScheduleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $zoomSchedules = $this->zoomSchedule->paginate(24);
+        // $zoomSchedules = $this->zoomSchedule->paginate(9);
+        $zoomSchedules = $this->zoomSchedule->search($request)->paginate(9);
         return view('admin.page.zoom-schedules.index' , compact('zoomSchedules'));
     }
 
