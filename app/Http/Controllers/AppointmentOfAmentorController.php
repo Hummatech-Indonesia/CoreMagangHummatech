@@ -8,6 +8,7 @@ use App\Contracts\Interfaces\MentorInterface;
 use App\Models\AppointmentOfAmentor;
 use App\Http\Requests\StoreAppointmentOfAmentorRequest;
 use App\Http\Requests\UpdateAppointmentOfAmentorRequest;
+use Illuminate\Http\Request;
 
 class AppointmentOfAmentorController extends Controller
 {
@@ -23,11 +24,11 @@ class AppointmentOfAmentorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $mentors = $this->mentor->get();
         $courses = $this->course->get();
-        $appointmentOfAmentors = $this->appointmentOfAmentor->get();
+        $appointmentOfAmentors = $this->appointmentOfAmentor->search($request)->paginate(10);
         return view('admin.page.course.appointmentofmentor.index' , compact('appointmentOfAmentors' , 'mentors' , 'courses'));
     }
 

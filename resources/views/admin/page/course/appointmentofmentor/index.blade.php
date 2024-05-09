@@ -7,10 +7,12 @@
                     <h4 class="mx-5 pt-2">Daftar Mentor Materi</h4>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
-                    <div class="search-box mx-3">
-                        <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa...">
-                        <i class="ri-search-line search-icon"></i>
-                    </div>
+                    <form action="/administrator/appointmentofmentor">
+                        <div class="search-box mx-3">
+                            <input type="text" class="form-control" id="searchMemberList" name="name" value="{{request()->name}}" placeholder="Cari Siswa...">
+                            <i class="ri-search-line search-icon"></i>
+                        </div>
+                    </form>
                     <div class="list-grid-nav hstack gap-1">
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
                             Tambah Data
@@ -133,7 +135,9 @@
                                     {{ $appointmentOfAmentor->course->title }}
                                 </td>
                                 <td>
-                                    {{ 'Rp ' . number_format($appointmentOfAmentor->course->price, 0, ',', '.') }}
+                                    {{-- {{ 'Rp ' . number_format($appointmentOfAmentor->course->price, 0, ',', '.') }} --}}
+
+                                    {{ isset($appointmentOfAmentor->course->price) ? 'Rp ' . number_format(floatval($appointmentOfAmentor->course->price), 0, ',', '.') : 'Harga tidak tersedia' }}
                                 </td>
                                 <td>
                                     <div class="gap-2">
@@ -175,8 +179,10 @@
                         @endforelse
                     </tbody>
                 </table>
+                {{ $appointmentOfAmentors->links() }}
             </div>
         </div>
+
     </div>
     @include('admin.components.delete-modal-component')
 @endsection
