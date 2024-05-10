@@ -82,8 +82,17 @@
                         <div class="counter-card">
                             <div class="icon"><img src="assets_landing/img/icon/counter_2_1.png" alt="Icon"></div>
                             <div class="media-body">
-                                <h2 class="counter-card_number text-title"><span class="counter-number">986</span></h2>
-                                <p class="counter-card_text text-body">Setifkat Di Berikan</p>
+                                <h2 class="counter-card_number text-title"><span class="counter-number">{{$onlineStudents}}</span></h2>
+                                <p class="counter-card_text text-body">Anak Magang Online</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-auto">
+                        <div class="counter-card">
+                            <div class="icon"><img src="assets_landing/img/icon/counter_2_3.png" alt="Icon"></div>
+                            <div class="media-body">
+                                <h2 class="counter-card_number text-title"><span class="counter-number">{{$offlineStudents}}</span></h2>
+                                <p class="counter-card_text text-body">Anak Magang Offline</p>
                             </div>
                         </div>
                     </div>
@@ -96,15 +105,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-auto">
-                        <div class="counter-card">
-                            <div class="icon"><img src="assets_landing/img/icon/counter_2_3.png" alt="Icon"></div>
-                            <div class="media-body">
-                                <h2 class="counter-card_number text-title"><span class="counter-number">{{$activeStudents}}</span></h2>
-                                <p class="counter-card_text text-body">Anak Magang</p>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="col-6 col-lg-auto">
                         <div class="counter-card">
                             <div class="icon"><img src="assets_landing/img/icon/counter_2_4.png" alt="Icon"></div>

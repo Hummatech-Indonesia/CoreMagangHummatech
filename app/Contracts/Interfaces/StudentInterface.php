@@ -12,11 +12,17 @@ use Illuminate\Http\Request;
 interface StudentInterface extends GetInterface , StoreInterface , DeleteInterface , UpdateInterface, WhereInterface, ShowInterface
 {
     /**
-     * Method countActiceStudents
+     * Method countActiveOnlineStudents
      *
      * @return mixed
      */
-    public function countActiceStudents():mixed;
+    public function countActiveOnlineStudents():mixed;
+    /**
+     * Method countActiveOfflineStudents
+     *
+     * @return mixed
+     */
+    public function countActiveOfflineStudents():mixed;
     /**
      * Method countDeactiveStudents
      *

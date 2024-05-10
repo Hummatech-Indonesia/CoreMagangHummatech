@@ -25,9 +25,10 @@ class LandingController extends Controller
     {
         $courses = $this->course->getPaid();
         $divisions = $this->divsion->get();
-        $activeStudents = $this->student->countActiceStudents();
+        $offlineStudents = $this->student->countActiveOfflineStudents();
+        $onlineStudents = $this->student->countActiveOnlineStudents();
         $deactiveStudents = $this->student->countDeactiveStudents();
         $products=$this->product->get()->count();
-        return view('landing.index', compact('divisions', 'courses', 'activeStudents', 'deactiveStudents','products'));
+        return view('landing.index', compact('divisions', 'courses', 'onlineStudents','offlineStudents', 'deactiveStudents','products'));
     }
 }
