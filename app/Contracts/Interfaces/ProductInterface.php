@@ -3,13 +3,14 @@ namespace App\Contracts\Interfaces;
 
 use App\Contracts\Interfaces\Eloquent\DeleteInterface;
 use App\Contracts\Interfaces\Eloquent\GetInterface;
+use App\Contracts\Interfaces\Eloquent\SearchInterface;
 use App\Contracts\Interfaces\Eloquent\WhereSingleInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
-interface ProductInterface extends GetInterface, StoreInterface, DeleteInterface, UpdateInterface, WhereSingleInterface
+interface ProductInterface extends GetInterface, StoreInterface, DeleteInterface, UpdateInterface, WhereSingleInterface, SearchInterface
 {
-    
+
     /**
      * Get Products Based on Division
      *
