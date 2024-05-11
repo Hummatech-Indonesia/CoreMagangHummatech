@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\CategoryProjectInterface;
 use App\Models\CategoryProject;
 use App\Http\Requests\StoreCategoryProjectRequest;
 use App\Http\Requests\UpdateCategoryProjectRequest;
+use Illuminate\Http\Request;
 
 class CategoryProjectController extends Controller
 {
@@ -18,9 +19,10 @@ class CategoryProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categoryProjects = $this->categoryProject->get();
+
+        $categoryProjects = $this->categoryProject->search($request)->paginate(12);
         return view('admin.page.category-project.index' , compact('categoryProjects'));
     }
 
