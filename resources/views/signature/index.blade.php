@@ -91,6 +91,10 @@
                             <td class="text-right">Jabatan:</td>
                             <td>{{ $dataceos->ceo->field }}</td>
                         </tr>
+                        <tr>
+                            <td class="text-right">Tanda Tangan:</td>
+                            <td>{{ \Carbon\Carbon::parse($dataceos->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
