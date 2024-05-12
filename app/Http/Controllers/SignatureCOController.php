@@ -18,10 +18,10 @@ class SignatureCOController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        $signaturecos = $this->signature_CO->get();
-        return view('signature.index' , compact('signaturecos'));
+        $dataceos = $this->signature_CO->show($id);
+        return view('signature.index' , compact('dataceos'));
     }
 
     /**
