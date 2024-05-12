@@ -43,12 +43,16 @@
             <div class="col-lg-8 col-md-6 col-sm-12">
                 <div class="d-flex justify-content-end gap-2">
                     <div class="search-box col-lg-3">
-                        <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa">
-                        <i class="ri-search-line search-icon"></i>
-                    </div>
+                            <form action="/absent">
+                            <input type="text" class="form-control" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Siswa">
+                            <i class="ri-search-line search-icon"></i>
+                        </form>
+                        </div>
                     <div class="search-box col-lg-3">
-                        <input type="text" class="form-control" data-provider="flatpickr" data-date-format="d M, Y" placeholder="Pilih tanggal">
-                        <i class="ri-calendar-line search-icon"></i>
+                        <form action="/absent">
+                            <input type="text" class="form-control" name="created_at" value="{{request()->created_at}}" data-provider="flatpickr" data-date-format="d M, Y" placeholder="Pilih tanggal">
+                            <i class="ri-calendar-line search-icon"></i>
+                        </form>
                     </div>
                     <div class="search-box col-lg-2">
                         <select class="form-select" aria-label=".form-select-sm example">
@@ -111,13 +115,13 @@
                                                 $waktuSaatIni = \Carbon\Carbon::now();
                                                 $waktuJamDelapan = \Carbon\Carbon::today()->setHour(8);
                                             @endphp
-        
+
                                             @if ($waktuSaatIni->greaterThan($waktuJamDelapan))
                                                 Alpha
                                             @else
                                                 Belum Hadir
                                             @endif
-        
+
                                         </div>
                                     @endif
                                 </td>
@@ -204,13 +208,13 @@
                                                 $waktuSaatIni = \Carbon\Carbon::now();
                                                 $waktuJamDelapan = \Carbon\Carbon::today()->setHour(8);
                                             @endphp
-        
+
                                             @if ($waktuSaatIni->greaterThan($waktuJamDelapan))
                                                 Alpha
                                             @else
                                                 Belum Hadir
                                             @endif
-        
+
                                         </div>
                                     @endif
                                 </td>
