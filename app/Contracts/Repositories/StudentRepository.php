@@ -380,13 +380,31 @@ class StudentRepository extends BaseRepository implements StudentInterface
         ;
     }
 
-    public function whereRfidNull(): mixed
+    public function whereRfidNull(Request $request): mixed
     {
-        return $this->model->query()->whereNull('rfid')->get();
+        return $this->model->query()
+        ->whereNull('rfid')
+        ->when($request->name, function ($query) use ($request) {
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        })
+        ->when($request->created_at, function ($query) use ($request) {
+            $query->whereDate('created_at', $request->created_at);
+        })
+        ->paginate(10);
     }
 
-    public function listRfid(): mixed
+    public function listRfid(Request $request): mixed
     {
-        return $this->model->query()->where('status', 'accepted')->whereNotNull('rfid')->get();
+        return $this->model->query()
+        ->where('status', 'accepted')
+        ->whereNotNull('rfid')
+        ->when($request->name, function ($query) use ($request) {
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        })
+        ->when($request->created_at, function ($query) use ($request) {
+            $query->whereDate('created_at', $request->created_at);
+        })
+        ->paginate(10);
+
     }
 }
