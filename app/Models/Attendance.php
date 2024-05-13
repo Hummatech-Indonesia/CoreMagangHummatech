@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $student_id
@@ -37,7 +37,7 @@ class Attendance extends Model implements HasStudent, HasAttendanceDetails
     use HasFactory;
 
     protected $table = 'attendances';
-    protected $fillable = ['student_id', 'status', 'is_admin'];
+    protected $fillable = ['student_id', 'status', 'is_admin', 'created_at', 'updated_at'];
     protected $guarded = [];
 
     /**
