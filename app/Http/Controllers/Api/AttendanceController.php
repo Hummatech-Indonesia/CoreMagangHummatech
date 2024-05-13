@@ -81,12 +81,12 @@ class AttendanceController extends Controller
                 $attendance = $this->attendance->store($attendanceData);
             }
 
-            dd($attendance);
             foreach ($data['detail_attendances'] as $detailAttendance) {
                 $dataAttendanceDetail['attendance_id'] = $attendance->id;
                 $dataAttendanceDetail['status'] = $detailAttendance['status'];
                 $dataAttendanceDetail['created_at'] = $detailAttendance['created_at'];
                 $dataAttendanceDetail['updated_at'] = $detailAttendance['updated_at'];
+                dd($dataAttendanceDetail);
                 if (!$this->attendanceDetail->checkAttendanceToday(['status' => $detailAttendance['status'], 'attendance_id' => $attendance->id])) {
                     $this->attendanceDetail->store($dataAttendanceDetail);
                 }
