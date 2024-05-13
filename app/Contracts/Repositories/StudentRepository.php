@@ -480,31 +480,78 @@ class StudentRepository extends BaseRepository implements StudentInterface
         ;
     }
 
+
     public function whereRfidNull(Request $request): mixed
     {
-        return $this->model->query()
-        ->whereNull('rfid')
-        ->when($request->name, function ($query) use ($request) {
-            $query->where('name', 'LIKE', '%' . $request->name . '%');
-        })
-        ->when($request->created_at, function ($query) use ($request) {
+        $request->session()->put('created_at', $request->created_at);
+
+        $query = $this->model->query()
+            ->whereNull('rfid')
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
+            });
+
+        if ($request->created_at) {
             $query->whereDate('created_at', $request->created_at);
-        })
-        ->paginate(10);
+        } elseif ($request->session()->has('created_at')) {
+            $query->whereDate('created_at', $request->session()->get('created_at'));
+        }
+
+        $data = $query->paginate(1);
+
+        // Return data
+        return $data;
     }
 
     public function listRfid(Request $request): mixed
     {
-        return $this->model->query()
-        ->where('status', 'accepted')
-        ->whereNotNull('rfid')
-        ->when($request->name, function ($query) use ($request) {
-            $query->where('name', 'LIKE', '%' . $request->name . '%');
-        })
-        ->when($request->created_at, function ($query) use ($request) {
-            $query->whereDate('created_at', $request->created_at);
-        })
-        ->paginate(10);
+        $request->session()->put('created_at', $request->created_at);
 
+        $query = $this->model->query()
+            ->where('status', 'accepted')
+            ->whereNotNull('rfid')
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
+            });
+
+        if ($request->created_at) {
+            $query->whereDate('created_at', $request->created_at);
+        } elseif ($request->session()->has('created_at')) {
+            $query->whereDate('created_at', $request->session()->get('created_at'));
+        }
+
+        $data = $query->paginate(10);
+
+        return $data;
     }
+
+
+        // public function whereRfidNull(Request $request): mixed
+    // {
+    //     return $this->model->query()
+    //     ->whereNull('rfid')
+    //     ->when($request->name, function ($query) use ($request) {
+    //         $query->where('name', 'LIKE', '%' . $request->name . '%');
+    //     })
+    //     ->when($request->created_at, function ($query) use ($request) {
+    //         $query->whereDate('created_at', $request->created_at);
+    //     })
+    //     ->paginate(10);
+    // }
+
+
+    // public function listRfid(Request $request): mixed
+    // {
+    //     return $this->model->query()
+    //     ->where('status', 'accepted')
+    //     ->whereNotNull('rfid')
+    //     ->when($request->name, function ($query) use ($request) {
+    //         $query->where('name', 'LIKE', '%' . $request->name . '%');
+    //     })
+    //     ->when($request->created_at, function ($query) use ($request) {
+    //         $query->whereDate('created_at', $request->created_at);
+    //     })
+    //     ->paginate(10);
+
+    // }
 }
