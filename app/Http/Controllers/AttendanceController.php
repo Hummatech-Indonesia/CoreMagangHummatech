@@ -9,6 +9,7 @@ use App\Contracts\Interfaces\AttendanceRuleInterface;
 use App\Contracts\Interfaces\MaxLateInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\WorkFromHomeInterface;
+use App\Http\Requests\AttendanceStatusRequest;
 use App\Http\Requests\MaxLateRequest;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
@@ -94,6 +95,29 @@ class AttendanceController extends Controller
             $this->attendanceDetail->store(['status' => 'return', 'attendance_id' => $attendance->id]);
         }
         return redirect()->back()->with('success', "Berhasil absen");
+    }
+
+
+
+    /**
+     * @param AttendanceStatusRequest $request
+     * @return RedirectResponse
+     */
+    public function changeAttendanceStatus(AttendanceStatusRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+        $attendanceStudent = $this->attendance->checkAttendanceStudent($data['student_id']);
+
+        if ($attendanceStudent) {
+            $this->attendance->update($attendanceStudent->id, ['status' => $data['status'], 'is_admin' => 1]);
+        } else {
+            $this->attendance->store([
+                'student_id' => $data['student_id'],
+                'status' => $data['status'],
+                'is_admin' => 1,
+            ]);
+        }
+        return redirect()->back()->with('success', 'Berhasil menambahkan status');
     }
 
     /**

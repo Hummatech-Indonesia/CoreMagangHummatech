@@ -231,6 +231,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('store-absent', [AttendanceController::class, 'absentOnline'])->name('attendance.online.store');
+Route::post('change-status-student', [AttendanceController::class, 'changeAttendanceStatus'])->name('attendance.change-status');
 Route::post('store-absent-offline', [AttendanceController::class, 'absentOffline'])->name('attendance.offline.store');
 
 # Transaction and Payment Routing

@@ -4,16 +4,17 @@ namespace App\Contracts\Interfaces;
 
 use App\Contracts\Interfaces\Eloquent\CountInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
+use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
-interface AttendanceInterface extends StoreInterface
+interface AttendanceInterface extends StoreInterface, UpdateInterface
 {
     /**
      * checkAttendanceStudent
      *
      * @param  mixed $studentId
-     * @return void
+     * @return mixed
      */
-    public function checkAttendanceStudent(mixed $studentId);
+    public function checkAttendanceStudent(mixed $studentId): mixed;
 
     /**
      * checkAttendanceToday
