@@ -98,6 +98,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
                 $query->where('name', 'LIKE', '%' . $request->name . '%');
             })
             ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
+            ->where('id', auth()->user()->student->id)
             ->withCount([
                 'attendances' => function ($query) {
                     $query->whereDate('created_at', now());
