@@ -22,7 +22,7 @@ class ResponseLetterController extends Controller
      */
     public function index(Request $request)
     {
-        $responsesletters = $this->responseLetter->search($request)->paginate(10);
+        $responsesletters = $this->responseLetter->search($request)->latest()->paginate(10);
 
         return view('admin.page.responseletters.index', compact('responsesletters'));
     }
