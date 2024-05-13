@@ -130,7 +130,8 @@
                                     <div class="d-flex align-items-center">
                                         <a class="link me-1" data-bs-toggle="modal" data-bs-target="#updateTeamNoteModal"
                                             data-id="{{ $categoryBoard->id }}" data-title="{{ $categoryBoard->title }}"
-                                            data-status="{{ $categoryBoard->status }}" id="updateTeamNote">
+                                            data-status="{{ $categoryBoard->status }}"
+                                            data-note="{{ $categoryBoard->boards }}" id="updateTeamNote">
                                             <i class="ti ti-pencil fs-5 favourite-note text-warning"></i>
                                         </a>
                                         <button type="button"
@@ -184,7 +185,8 @@
                                     <div class="d-flex align-items-center">
                                         <a class="link me-1" data-bs-toggle="modal" data-bs-target="#updateTeamNoteModal"
                                             data-id="{{ $categoryBoard->id }}" data-title="{{ $categoryBoard->title }}"
-                                            data-status="{{ $categoryBoard->status }}" id="updateRevisionNote">
+                                            data-status="{{ $categoryBoard->status }}"
+                                            data-note="{{ $categoryBoard->boards }}" id="updateRevisionNote">
                                             <i class="ti ti-pencil fs-5 favourite-note text-warning"></i>
                                         </a>
                                         <button type="button"
@@ -255,10 +257,11 @@
                             </div>
 
                             <div class="mb-3 mt-0 col-md-12">
-                                <div id="note-container">
+                                <div id="update-note-container">
                                     <!-- Kontainer untuk input catatan -->
                                 </div>
-                                <button type="button" class="btn add-button-trigger2 btn-primary mt-3">Tambah</button>
+                                <button type="button" class="btn add-button-trigger2 btn-primary mt-3"
+                                    id="addButtonTrigger">Tambah</button>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
@@ -313,7 +316,7 @@
             noteInput.type = 'text';
             noteInput.name = 'name[]';
             noteInput.required = true;
-            noteInput.autocomplete = 'na,e';
+            noteInput.autocomplete = 'name';
             noteInput.placeholder = 'Catatan';
             newNoteInput.appendChild(noteInput);
 
@@ -341,6 +344,34 @@
     </script>
 
     <script>
+        const addUpdateInput = () => {
+            let noteContainer = $('#update-note-container');
+
+            // Membuat div baru untuk input catatan dan tombol hapus
+            let newNoteInput = $('<div>').addClass('d-flex align-items-center mb-3');
+
+            // Input catatan
+            let noteInput = $('<input>')
+                .addClass('form-control')
+                .attr('type', 'text')
+                .attr('name', 'name[]')
+                .attr('required', true)
+                .attr('autocomplete', 'name')
+                .attr('placeholder', 'Catatan');
+            newNoteInput.append(noteInput);
+
+            // Tombol hapus dengan ikon sampah
+            let deleteButton = $('<button>')
+                .addClass('btn btn-danger ms-2')
+                .attr('type', 'button')
+                .html('<i class="fas fa-trash"></i>')
+                .on('click', function() {
+                    newNoteInput.remove(); // Menghapus input catatan beserta tombol hapusnya
+                });
+            newNoteInput.append(deleteButton);
+
+            noteContainer.append(newNoteInput); // Menambahkan input catatan beserta tombol hapus ke dalam kontainer
+        };
         // $('.btn-edit').click(function() {
         //     var id = $(this).data('id');
         //     var title = $(this).data('title');
@@ -354,39 +385,59 @@
         //     $('#modal-edit').modal('show');
         // });
 
-        $(document).on('click', '#updateRevisionNote', function() {
+        $(document).on('click', '#updateTeamNote,#updateRevisionNote', function() {
             $('#updateTeamNoteModal').modal('show');
             const id = $(this).data('id');
             const title = $(this).data('title');
             const status = $(this).data('status');
-            console.log(id);
-            console.log(title);
-            console.log(status);
+            const note = $(this).data('note');
 
+            // Set nilai pada elemen modal sesuai data yang diperoleh dari tombol edit
             $('#teamNoteTitle').val(title);
-            // Menghapus atribut checked sebelumnya dan menetapkan yang baru berdasarkan status
             $('input[name="status"]').prop('checked', false);
             $('input[name="status"][value="' + status + '"]').prop('checked', true);
 
+            // Set action form untuk update berdasarkan ID
             let url = `{{ route('team.note.update', ':id') }}`.replace(':id', id);
             $('#updateTeamNoteForm').attr('action', url);
-        });
-        $(document).on('click', '#updateTeamNote', function() {
-            $('#updateTeamNoteModal').modal('show');
-            const id = $(this).data('id');
-            const title = $(this).data('title');
-            const status = $(this).data('status');
-            console.log(id);
-            console.log(title);
-            console.log(status);
 
-            $('#teamNoteTitle').val(title);
-            // Menghapus atribut checked sebelumnya dan menetapkan yang baru berdasarkan status
-            $('input[name="status"]').prop('checked', false);
-            $('input[name="status"][value="' + status + '"]').prop('checked', true);
+            // Kosongkan dan tambahkan kembali input catatan berdasarkan data yang ada
+            $('#update-note-container').empty();
+            if (note && note.length > 0) {
+                note.forEach(function(item) {
+                    // Membuat div baru untuk input catatan dan tombol hapus
+                    let newNoteInput = $('<div>').addClass('d-flex align-items-center mb-3');
 
-            let url = `{{ route('team.note.update', ':id') }}`.replace(':id', id);
-            $('#updateTeamNoteForm').attr('action', url);
+                    // Input catatan
+                    let noteInput = $('<input>')
+                        .addClass('form-control')
+                        .attr('type', 'text')
+                        .attr('name', 'name[]')
+                        .attr('required', true)
+                        .attr('autocomplete', 'name')
+                        .attr('placeholder', 'Catatan')
+                        .val(item['name']);
+                    newNoteInput.append(noteInput);
+
+                    // Tombol hapus dengan ikon sampah
+                    let deleteButton = $('<button>')
+                        .addClass('btn btn-danger ms-2')
+                        .attr('type', 'button')
+                        .html('<i class="fas fa-trash"></i>')
+                        .on('click', function() {
+                            newNoteInput.remove(); // Menghapus input catatan beserta tombol hapusnya
+                        });
+                    newNoteInput.append(deleteButton);
+
+                    $('#update-note-container').append(
+                        newNoteInput); // Menambahkan input catatan beserta tombol hapus ke dalam kontainer
+                });
+            }
+
+            // Menambahkan event handler untuk tombol tambah
+            $('#addButtonTrigger').off('click').on('click', function() {
+                addUpdateInput(); // Memanggil fungsi addUpdateInput ketika tombol tambah ditekan
+            });
         });
 
         $('.btn-delete').click(function() {
