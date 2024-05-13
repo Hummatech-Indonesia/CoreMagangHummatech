@@ -15,7 +15,6 @@ class Attendance extends Model implements HasStudent, HasAttendanceDetails
 
     protected $table = 'attendances';
     protected $primaryKey = 'id';
-    public $timestamps = false;
     protected $fillable = ['student_id', 'status', 'is_admin', 'created_at', 'updated_at'];
     protected $guarded = [];
 
