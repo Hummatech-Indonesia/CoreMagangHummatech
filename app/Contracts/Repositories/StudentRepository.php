@@ -497,9 +497,8 @@ class StudentRepository extends BaseRepository implements StudentInterface
             $query->whereDate('created_at', $request->session()->get('created_at'));
         }
 
-        $data = $query->paginate(1);
+        $data = $query->paginate(10);
 
-        // Return data
         return $data;
     }
 
