@@ -39,10 +39,12 @@ class AdminMentorController extends Controller
         $this->mentorservice = $mentorservice;
         $this->user = $user;
     }
-    public function index()
+    public function index(Request $request)
     {
         $divisions = $this->division->get();
-        $mentors = $this->mentor->get();
+
+        $mentors = $this->mentor->search($request)->paginate(10);
+
         $check_id = $this->mentorStudent->pluck('student_id');
 
         return view('admin.page.user.mentor', compact('divisions', 'mentors'));
