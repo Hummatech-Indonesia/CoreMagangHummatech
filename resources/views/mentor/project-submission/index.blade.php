@@ -24,14 +24,9 @@
     <div class="row mb-3">
         <div class="col-md-4 col-xl-2 col-sm-4">
             <form class="position-relative">
-                <input type="text" class="form-control product-search ps-5" id="input-search" placeholder="Cari tim...">
+                <input type="text" class="form-control product-search ps-5" id="input-search" placeholder="Cari projek...">
                 <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
             </form>
-        </div>
-        <div class="ms-auto text-end" style="margin-top: -38px">
-            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#add-team">
-                Buat Tim
-            </button>
         </div>
     </div>
 
@@ -120,9 +115,9 @@
         </div>
     @empty
         <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
-            <img src="{{ asset('empty-asset.png') }}" alt="" width="200px" srcset="">
-            <p class="fs-5 text-dark">
-                Belum Ada Team
+            <img src="{{ asset('empty-asset.png') }}" alt="" width="150px" srcset="">
+            <p class="fs-4 text-dark">
+                Belum Ada Pengajuan Project
             </p>
         </div>
     @endforelse

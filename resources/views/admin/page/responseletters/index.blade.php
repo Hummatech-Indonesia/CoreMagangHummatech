@@ -8,8 +8,10 @@
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
                     <div class="search-box mx-3">
-                        <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa...">
-                        <i class="ri-search-line search-icon"></i>
+                        <form action="/response-letter">
+                            <input type="text" class="form-control" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Siswa...">
+                            <i class="ri-search-line search-icon"></i>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -82,6 +84,10 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                            <div class="pt-3 mx-2">
+                                {{ $responsesletters->links() }}
+
+                            </div>
                         </div>
                     </div>
                 </div><!-- end card-body -->

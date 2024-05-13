@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreResponseLetterRequest;
 use App\Http\Requests\UpdateResponseLetterRequest;
 use App\Contracts\Interfaces\ResponseLetterInterface;
+use Illuminate\Http\Request;
 
 class ResponseLetterController extends Controller
 {
@@ -19,9 +20,9 @@ class ResponseLetterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $responsesletters = $this->responseLetter->get();
+        $responsesletters = $this->responseLetter->search($request)->paginate(10);
 
         return view('admin.page.responseletters.index', compact('responsesletters'));
     }

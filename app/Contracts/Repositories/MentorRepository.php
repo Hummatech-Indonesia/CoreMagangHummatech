@@ -9,6 +9,7 @@ use App\Contracts\Interfaces\StudentInterface;
 use App\Models\Journal;
 use App\Models\Mentor;
 use App\Models\Student;
+use Illuminate\Http\Request;
 
 class MentorRepository extends BaseRepository implements MentorInterface
 {
@@ -40,6 +41,16 @@ class MentorRepository extends BaseRepository implements MentorInterface
     public function delete(mixed $id): mixed
     {
         return $this->model->query()->where('id', $id)->delete();
+    }
+
+    public function search(Request $request): mixed
+    {
+        $query = $this->model->query();
+
+        $query->when($request->name, function ($query) use ($request) {
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        });
+        return $query;
     }
 
 }

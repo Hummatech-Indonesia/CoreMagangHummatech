@@ -11,6 +11,7 @@ use App\Contracts\Interfaces\StudentInterface;
 use App\Http\Requests\StoreWarning_LetterRequest;
 use App\Http\Requests\UpdateWarning_LetterRequest;
 use App\Contracts\Interfaces\WarningLetterInterface;
+use Illuminate\Http\Request;
 
 class WarningLetterController extends Controller
 {
@@ -27,9 +28,9 @@ class WarningLetterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $warningLetters = $this->warningLetters->get();
+        $warningLetters = $this->warningLetters->search($request)->paginate(10);
         $students = $this->students->where();
         return view('admin.page.warning_letter.index' , compact('warningLetters', 'students'));
     }

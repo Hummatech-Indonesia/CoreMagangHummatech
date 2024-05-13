@@ -304,8 +304,8 @@
                                 <ul class="nav nav-tabs-custom rounded card-header-tabs border-bottom-0 d-flex"
                                     role="tablist">
 
-                                    <li class="nav-item">
-                                        <a class="nav-link " data-bs-toggle="tab" href="#monday" role="tab" aria-selected="true">Senin</a>
+                                    <li class="nav-item active">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#monday" role="tab" aria-selected="true">Senin</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" data-bs-toggle="tab" href="#tuesday" role="tab" aria-selected="false">Selasa</a>
@@ -325,7 +325,7 @@
                         </div>
                         <div class="card-body">
                             <div class="tab-content p-0">
-                                <div class="tab-pane " id="monday" role="tabpanel">
+                                <div class="tab-pane active" id="monday" role="tabpanel">
                                     <form action="{{ route('attendance-rule.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="day" value="monday">

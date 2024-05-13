@@ -11,8 +11,10 @@
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
                     <div class="search-box mx-3">
-                        <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa...">
-                        <i class="ri-search-line search-icon"></i>
+                        <form action="/warning-letter">
+                            <input type="text" class="form-control" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Siswa...">
+                            <i class="ri-search-line search-icon"></i>
+                        </form>
                     </div>
                     <div class="list-grid-nav hstack gap-1">
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
@@ -88,6 +90,10 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                            <div class="pt-3 mx-2">
+                                {{ $warningLetters->links() }}
+
+                            </div>
                         </div>
                     </div>
                 </div><!-- end card-body -->

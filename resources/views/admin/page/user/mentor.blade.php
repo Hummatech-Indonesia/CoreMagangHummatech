@@ -8,8 +8,10 @@
                 </div>
                 <div class="col-sm-auto ms-auto d-flex justify-content-between pt-4">
                     <div class="search-box mx-3">
-                        <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa...">
-                        <i class="ri-search-line search-icon"></i>
+                        <form action="/menu-mentor">
+                            <input type="text" class="form-control" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Siswa...">
+                            <i class="ri-search-line search-icon"></i>
+                        </form>
                     </div>
                     <div class="list-grid-nav hstack gap-1">
                         <button class="btn btn-success addMembers-modal" data-bs-toggle="modal" data-bs-target="#addModal">
@@ -133,24 +135,7 @@
                                 </div>
 
                                 <!-- Pagination -->
-                                <div class="d-flex justify-content-between px-3">
-                                    <p>Showing 1 to 10 of 14 entries</p>
-                                    <nav aria-label="Page navigation example">
-                                        <ul class="pagination justify-content-end">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1"
-                                                    aria-disabled="true">Previous</a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">Next</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-
+                                    {{ $mentors->links() }}
                             </div>
                         </div>
                     </div>
