@@ -128,9 +128,17 @@ class AttendanceController extends Controller
      */
     public function storeWorkFromHome(Request $request): RedirectResponse
     {
-        $isOn = 0;
-        if ($request->has('is_on')) $isOn = 1;
+        $wfh = $this->workFromHome->getToday();
+
+        if (!$wfh) {
+            if ($request->has('is_on')) $isOn = 1;
+        } elseif($wfh->is_on == 1) {
+            $isOn = 0;
+        } elseif($wfh->is_on == 0) {
+            $isOn = 1;
+        }
         $this->workFromHome->store(['date' => now()->format('Y-m-d'), 'is_on' => $isOn]);
+        
         return redirect()->back()->with('success', 'Berhasil merubah status');
     }
 
@@ -145,7 +153,8 @@ class AttendanceController extends Controller
         $onlineAttendances = $this->student->listAttendance($request);
         $oflineAttendances = $this->student->listOfflineAttendance($request);
         $students = $this->student->get();
-        return view('admin.page.absent.index', compact('onlineAttendances', 'oflineAttendances', 'students'));
+        $wfh = $this->workFromHome->getToday();
+        return view('admin.page.absent.index', compact('onlineAttendances', 'oflineAttendances', 'students', 'wfh'));
     }
 
     public function attendanceOffline(Request $request): View
