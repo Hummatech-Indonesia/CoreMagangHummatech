@@ -70,7 +70,6 @@ class AttendanceController extends Controller
     public function sync(Request $request): JsonResponse
     {
         foreach ($request->data as $data) {
-            dd($data);
             $attendanceData = [
                 'student_id' => $data['user_id'],
                 'status' => $data['status'],
@@ -87,7 +86,7 @@ class AttendanceController extends Controller
                 $dataAttendanceDetail['status'] = $detailAttendance['status'];
                 $dataAttendanceDetail['created_at'] = $detailAttendance['created_at'];
                 $dataAttendanceDetail['updated_at'] = $detailAttendance['updated_at'];
-                dd($detailAttendance);
+                dd($detailAttendance, $data['detail_attendances']);
                 if (!$this->attendanceDetail->checkAttendanceToday(['status' => $detailAttendance['status'], 'attendance_id' => $attendance->id])) {
                     $this->attendanceDetail->store($dataAttendanceDetail);
                 }
