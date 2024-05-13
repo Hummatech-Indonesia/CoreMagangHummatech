@@ -32,21 +32,20 @@
                     </div>
                 </div>
                 <div class="col-sm-auto col-xl-4 ms-auto d-flex gap-2 justify-content-end">
-                    <form class="app-search d-none d-md-block w-50">
+                    <form class="app-search w-75" action="/administrator/course">
                         <div class="position-relative">
-                            <input type="text" class="form-control" placeholder="Cari..." autocomplete="off"
-                                id="search-options" value="">
+                            <input type="text" class="form-control" placeholder="Cari..." autocomplete="off" id="search-options" value="{{ request()->title }}" name="title">
                             <span class="mdi mdi-magnify search-widget-icon"></span>
-                            <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none"
-                                id="search-close-options"></span>
+                            <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none" id="search-close-options"></span>
                         </div>
                     </form>
                     <div class="list-grid-nav hstack gap-1">
-                        <button class="btn btn-secondary shadow-none" data-bs-toggle="modal" data-bs-target="#add">
-                            Tambah Data
+                        <button class="btn btn-secondary  shadow-none" data-bs-toggle="modal" data-bs-target="#add">
+                            Tambah
                         </button>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -214,6 +213,8 @@
             </div>
         </div>
     </div>
+    {{-- {{ $courses->links() }} --}}
+
 
     <!-- Add Modal -->
     <div class="modal fade" id="add" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">

@@ -13,6 +13,7 @@ use App\Models\Course;
 use App\Http\Requests\StoreCourseRequest;
 use App\Http\Requests\UpdateCourseRequest;
 use App\Services\CourseService;
+use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
@@ -45,9 +46,10 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $courses = $this->course->get();
+        // $courses = $this->course->get();
+        $courses = $this->course->search($request)->paginate(8);
         $divisions = $this->division->get();
 
         return view('admin.page.course.index' , compact('courses','divisions'));

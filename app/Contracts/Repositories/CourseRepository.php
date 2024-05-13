@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Models\Course;
 use App\Models\Journal;
+use Illuminate\Http\Request;
 
 class CourseRepository extends BaseRepository implements CourseInterface
 {
@@ -14,6 +15,10 @@ class CourseRepository extends BaseRepository implements CourseInterface
         $this->model = $course;
     }
 
+    public function paginate($perPage = 15, $columns = ['*'], $pageName = 'page', $page = null): mixed
+    {
+        return $this->model->query()->paginate($perPage, $columns, $pageName, $page);
+    }
     public function get(): mixed
     {
         return $this->model->query()->get();
@@ -80,5 +85,16 @@ class CourseRepository extends BaseRepository implements CourseInterface
                 $query->where('student_id', $studentId);
             })
             ->get();
+    }
+
+    public function search(Request $request):mixed
+    {
+        $query = $this->model->query();
+
+        $query->when($request->title, function ($query) use ($request) {
+            $query->where('title', 'LIKE', '%' . $request->title . '%');
+        });
+
+        return $query;
     }
 }
