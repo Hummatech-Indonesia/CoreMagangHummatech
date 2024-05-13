@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Resources\StudentResource;
 use App\Services\StudentService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class StudentController extends Controller
@@ -47,9 +48,9 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = $this->student->getstudentbanned();
+        $students = $this->student->getstudentbanned($request);
         return view('admin.page.user.students-banned' , compact('students'));
     }
 
