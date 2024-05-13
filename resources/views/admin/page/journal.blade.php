@@ -362,7 +362,7 @@
                                         </tbody>
                                     </table>
                                     <div class="pt-2">
-                                        {{ $adminJournal->links() }}
+                                        {{-- {{ $adminJournal->links() }} --}}
                                     </div>
                                 </div>
                             </div>
