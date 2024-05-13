@@ -67,7 +67,7 @@
     <div class="card-body border-top">
         <div class="table-responsive table-card p-3">
             <div class="tab-content">
-                <div class="tab-pane fade show active" id="offline">
+                <div class="tab-pane fade" id="online">
                     <table class="table align-middle table-nowrap table-striped-columns mb-0">
                         <thead class="table-light">
                             <tr>
@@ -158,7 +158,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="tab-pane fade" id="online">
+                <div class="tab-pane fade show active" id="offline">
                     <table class="table align-middle table-nowrap table-striped-columns mb-0">
                         <thead class="table-light">
                             <tr>
