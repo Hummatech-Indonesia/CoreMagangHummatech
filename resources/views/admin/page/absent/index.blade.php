@@ -81,7 +81,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($oflineAttendances as $attendance)
+                            @foreach ($onlineAttendances as $attendance)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $attendance->name }}</td>
@@ -174,7 +174,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($onlineAttendances as $attendance)
+                            @foreach ($oflineAttendances as $attendance)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $attendance->name }}</td>
