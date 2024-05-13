@@ -33,6 +33,7 @@ use App\Http\Controllers\CourseController as AdminCourseController;
 use App\Http\Controllers\DataCOController;
 use App\Http\Controllers\FaceController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SignatureCOController;
 use App\Http\Controllers\StudentCourseController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -45,7 +46,7 @@ use App\Http\Controllers\TaskSubmissionController;
 
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', [LandingController::class, 'index']);
-Route::get('/hummatech/{id}' , [SignatureCOController::class , 'index']);
+Route::get('/hummatech/{id}', [SignatureCOController::class, 'index']);
 // Route::get('/payment-instructions/{code}', [PaymentController::class, 'paymentInstructions']);
 
 # ================================================ Authentication Routes Group ================================================
@@ -60,6 +61,12 @@ Route::get('statement-parent', [StatementController::class, 'parent'])->name('st
 
 # ================================================ Administrator Route Group ==================================================
 Route::middleware(['roles:administrator', 'auth'])->group(function () {
+
+
+    Route::get('product', [ProductController::class, 'index']);
+    Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
+    Route::put('product/{product}', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
     # Dashboard Home
     Route::get('administrator', [AdminController::class, 'index'])->name('.home');
     Route::patch('max-late', [AttendanceController::class, 'storeMaxLate'])->name('maxlate.store');
@@ -239,7 +246,7 @@ Route::post('transaction/save/{product}', [TransactionController::class, 'save']
 Route::post('transaction/save-course/{course}', [TransactionController::class, 'saveCourse'])->name('transaction.save-course');
 Route::get('transaction/checkout/{product}', [TransactionController::class, 'checkout'])->name('transaction-history.checkout');;
 Route::get('transaction/checkout-course/{course}', [TransactionController::class, 'checkoutCourse'])->name('transaction.checkout-course');
-Route::get('transaction', function() {
+Route::get('transaction', function () {
     return view('student_online_&_offline.transaction.index');
 })->name('transaction-history.index');
 Route::get('transaction/detail/{transaction}', [TransactionController::class, 'show'])->name('transaction-history.detail');
