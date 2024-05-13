@@ -54,7 +54,8 @@
                             </p>
                         @enderror
                         <label for="" class="mt-2 mb-2">Deskripsi</label>
-                        <textarea name="description" id="" class="form-control"></textarea>
+                        <textarea name="description" id="description" class="form-control" onkeyup="countCharacters(this)"></textarea>
+                        <p id="characterCount">0 characters</p>
                         @error('description')
                             <p class="text-danger">
                                 {{ $message }}
@@ -227,7 +228,8 @@
                             </p>
                         @enderror
                         <label for="" class="mt-2 mb-2">Deskripsi</label>
-                        <textarea name="description" id="description-edit" class="form-control"></textarea>
+                        <textarea name="description" id="description-edit" class="form-control" oninput="countCharactersEdit(this)"></textarea>
+                        <div id="characterCountEdit" class="text-muted"></div>
                         @error('description')
                             <p class="text-danger">
                                 {{ $message }}
@@ -263,15 +265,17 @@
                 <div class="modal-body">
                     <div class="col-lg-6 text-start" id="detail-content">
                     </div>
-                    <div class="modal-footer">
-                        <div class="d-flex justify-content-end">
-                            <button class="purchase-btn btn btn-hover-effect btn-light-danger text-danger f-w-500"
-                                type="button" data-bs-dismiss="modal">Tutup</button>
-                        </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="d-flex justify-content-end">
+                        <button class="purchase-btn btn btn-hover-effect btn-light-danger text-danger f-w-500"
+                            type="button" data-bs-dismiss="modal">Tutup</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
     @endsection
     @section('script')
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
@@ -318,33 +322,60 @@
                 var school = $(this).data('school');
                 var description = $(this).data('description');
                 var image = $(this).data('image');
-                detail.append('<div class="mb-2">');
-                detail.append('<h6 class="f-w-600">Nama</h6>');
-                detail.append('<p class="text-muted">' + name + '</p>');
-                detail.append('</div>');
-                detail.append('<div class="mb-2">');
-                detail.append('<h6 class="f-w-600">Tanggal</h6>');
-                detail.append('<p class="text-muted">' + date + '</p>');
-                detail.append('</div>');
-                detail.append('<div class="mb-2">');
-                detail.append('<h6 class="f-w-600">Sekolah</h6>');
-                detail.append('<p class="text-muted">' + school + '</p>');
-                detail.append('</div>');
-                detail.append('<div class="mb-2">');
-                detail.append('<h6 class="f-w-600">Kegiatan</h6>');
-                detail.append('<p>' + description + '</p>');
-                detail.append('</div>');
-                detail.append('<div class="mb-2">');
-                detail.append('<h6 class="f-w-600">Bukti</h6>');
-                detail.append('<img src="' + image + '" width="100%"></img>');
-                detail.append('</div>');
+                var modalBody = $('<div class="modal-body"></div>'); 
+                modalBody.append('<div class="mb-2">');
+                modalBody.append('<h6 class="f-w-600">Nama</h6>');
+                modalBody.append('<p class="text-muted">' + name + '</p>');
+                modalBody.append('</div>');
+                modalBody.append('<div class="mb-2">');
+                modalBody.append('<h6 class="f-w-600">Tanggal</h6>');
+                modalBody.append('<p class="text-muted">' + date + '</p>');
+                modalBody.append('</div>');
+                modalBody.append('<div class="mb-2">');
+                modalBody.append('<h6 class="f-w-600">Sekolah</h6>');
+                modalBody.append('<p class="text-muted">' + school + '</p>');
+                modalBody.append('</div>');
+                modalBody.append('<div class="mb-2">');
+                modalBody.append('<h6 class="f-w-600">Kegiatan</h6>');
+                modalBody.append('<p style="word-wrap: break-word;">' + description + '</p>');
+                modalBody.append('</div>');
+                modalBody.append('<div class="mb-2">');
+                modalBody.append('<h6 class="f-w-600">Bukti</h6>');
+                modalBody.append('<img src="' + image + '" class="img-fluid"></img>');
+                modalBody.append('</div>');
+                detail.append(modalBody);
                 $('#detail').modal('show');
             });
+
 
             $('.btn-delete').click(function() {
                 var id = $(this).data('id');
                 $('#form-delete').attr('action', '/division/' + id);
                 $('#modal-delete').modal('show');
             });
+        </script>
+        <script>
+            function countCharacters(textarea) {
+                var count = textarea.value.length;
+                var countElement = document.getElementById('characterCount');
+                countElement.innerText = count + ' karakter';
+                if (count >= 150) {
+                    countElement.style.color = 'green';
+                } else {
+                    countElement.style.color = 'red';
+                }
+            }
+        </script>
+        <script>
+        function countCharactersEdit(element) {
+            var count = element.value.length;
+            var countElement = document.getElementById('characterCountEdit');
+            countElement.innerText = count + ' characters';
+            if (count >= 150) {
+                countElement.style.color = 'green';
+            } else {
+                countElement.style.color = 'red';
+            }
+        }
         </script>
     @endsection
