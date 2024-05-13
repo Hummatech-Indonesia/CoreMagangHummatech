@@ -36,7 +36,7 @@ class ApprovalRepository extends BaseRepository implements ApprovalInterface
         ->where('status' , 'pending')
         ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
         ->when($request->name, function ($query) use ($request){
-            $query->where('name', 'LIKE', '%' . $request->name . '%');
+            $query->where('name' , 'LIKE' , '%' . $request->name . '%');
         })
         ->paginate(10);
     }
@@ -47,10 +47,9 @@ class ApprovalRepository extends BaseRepository implements ApprovalInterface
         ->where('status' , 'pending')
         ->where('internship_type', InternshipTypeEnum::ONLINE->value)
         ->when($request->name, function ($query) use ($request){
-            $query->where('name', 'LIKE', '%' . $request->name . '%');
+            $query->where('name' , 'LIKE' , '%' . $request->name . '%');
         })
         ->paginate(10);
     }
-
 
 }

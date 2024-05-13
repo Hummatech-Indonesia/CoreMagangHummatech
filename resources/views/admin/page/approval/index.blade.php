@@ -144,8 +144,9 @@
                                             @endforelse
                                         </tbody>
                                     </table>
-                                    <div class="pt-3">
-                                        {{ $studentOffline->links() }}
+                                    <div class="pt-2">
+
+                                        {{$studentOffline->links()}}
                                     </div>
                                 </div>
 

@@ -10,5 +10,6 @@ interface ApprovalInterface extends WhereInterface, UpdateInterface
 {
     public function ListStudentOnline(Request $request): mixed;
 
+
     public function ListStudentOffline(Request $request): mixed;
 }
