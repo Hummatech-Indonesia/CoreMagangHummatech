@@ -19,9 +19,9 @@
                         </div>
                     </div>
                     <div class="col-sm-auto">
-                        <form action="" class="d-flex gap-2 align-items-center">
+                        <form action="/students-rejected" class="d-flex gap-2 align-items-center">
                             <label for="search">Cari:</label>
-                            <input type="text" name="" id="search" class="form-control">
+                            <input type="text" name="name" value="{{request()->name}}" id="search" class="form-control">
                         </form>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                                     <td>{{  \Carbon\Carbon::parse($student->start_date)->locale('id')->isoFormat('D MMMM Y') }} - {{ \Carbon\Carbon::parse($student->finish_date)->locale('id')->isoFormat('D MMMM Y') }}</td>
                                     <td>{{ $student->school }}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-secondary shadow-none btn-detail" 
+                                        <button class="btn btn-secondary shadow-none btn-detail"
                                         data-name="{{ $student->name }}" data-phone="{{ $student->phone }}"
                                         data-address="{{ $student->address }}" data-birthdate="{{ $student->birth_date }}"
                                         data-birthplace="{{ $student->birth_place }}"
@@ -60,9 +60,9 @@
                                         data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
                                         data-cv="{{ file_exists(public_path('storage/' . $student->cv)) ? asset('storage/' . $student->cv) : asset('no data.png') }}"
                                         data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}">Detail</button>
-                                        <button class="btn btn-success shadow-none btn-accept" 
+                                        <button class="btn btn-success shadow-none btn-accept"
                                             data-id="{{ $student->id }}"
-                                        >Terima</button> 
+                                        >Terima</button>
                                     </td>
                                 </tr>
                             @empty
@@ -81,22 +81,9 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div class="d-flex justify-content-between px-3">
-                <p>Showing 1 to 10 of 14 entries</p>
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-end">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
+                <div class="pt-2">
+                    {{ $studentRejecteds->links() }}
+                </div>
             </div>
         </div>
     </div>
@@ -203,7 +190,7 @@
        </div>
    </div>
 </div>
-    
+
 @endsection
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -231,7 +218,7 @@
                 let cv = $(this).data('cv');
                 let self_statement = $(this).data('selfstatement');
                 let parents_statement = $(this).data('parentsstatement');
-    
+
                 $('.show-name').text(name);
                 $('.show-image').attr('src', avatar);
                 $('.show-address').text(address);
@@ -240,22 +227,22 @@
                 $('.show-start').text(start_date);
                 $('.show-school').text(school);
                 $('.show-finish').text(finish_date);
-    
+
                 // console.log(cv);
                 $('.show-cv').attr('src', cv);
                 $('.download-cv').attr('href', cv);
                 $('.download-cv').attr('download', cv);
-    
+
                 // console.log(parents_statement);
                 $('.show-parent-statement').attr('src', parents_statement);
                 $('.download-parent-statement').attr('href', parents_statement);
                 $('.download-parent-statement').attr('download', parents_statement);
-    
+
                 // console.log(self_statement);
                 $('.show-self-statement').attr('src', self_statement);
                 $('.download-self-statement').attr('href', self_statement);
                 $('.download-self-statement').attr('download', self_statement);
-    
+
                 $('#offcanvasRight').offcanvas('show');
             });
         </script>
