@@ -110,7 +110,7 @@ class AttendanceController extends Controller
         $permissions = $sick + $permissionCount;
         $total = $attends + $permissionCount + $sick + $absent;
         $workFromHomes = $this->workFromHome->getToday();
-        $offlineAttendances = $this->student->listOfflineAttendance($request);
+        $offlineAttendances = $this->student->studentOfflineAttendance($request);
         return view('student_offline.absensi.index', compact('offlineAttendances','attends','permissions','absent', 'total', 'workFromHomes'));
 
     }

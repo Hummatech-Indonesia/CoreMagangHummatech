@@ -56,6 +56,7 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
      * @return mixed
      */
     public function listOfflineAttendance(Request $request): mixed;
+    public function studentOfflineAttendance(Request $request): mixed;
 
     /**
      * listStudent

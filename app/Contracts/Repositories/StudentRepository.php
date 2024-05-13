@@ -93,6 +93,33 @@ class StudentRepository extends BaseRepository implements StudentInterface
             $date = $request->date;
         }
         return $this->model->query()
+            ->whereNotNull('rfid')
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
+            })
+            ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
+            ->withCount([
+                'attendances' => function ($query) {
+                    $query->whereDate('created_at', now());
+                }
+            ])
+            ->with([
+                'attendances' => function ($query) use ($date) {
+                    $query->whereDate('created_at', $date);
+                }
+            ])
+            ->where('status', StudentStatusEnum::ACCEPTED->value)
+            ->orderByDesc('attendances_count')
+            ->get();
+    }
+
+    public function studentOfflineAttendance(Request $request): mixed
+    {
+        $date = now();
+        if ($request->has('date')) {
+            $date = $request->date;
+        }
+        return $this->model->query()
             ->where('id', auth()->user()->student->id)
             ->whereNotNull('rfid')
             ->when($request->name, function ($query) use ($request) {
