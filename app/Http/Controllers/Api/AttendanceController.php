@@ -86,7 +86,7 @@ class AttendanceController extends Controller
                 $dataAttendanceDetail['status'] = $detailAttendance['status'];
                 $dataAttendanceDetail['created_at'] = $detailAttendance['created_at'];
                 $dataAttendanceDetail['updated_at'] = $detailAttendance['updated_at'];
-                dd($dataAttendanceDetail);
+                dd($detailAttendance);
                 if (!$this->attendanceDetail->checkAttendanceToday(['status' => $detailAttendance['status'], 'attendance_id' => $attendance->id])) {
                     $this->attendanceDetail->store($dataAttendanceDetail);
                 }
