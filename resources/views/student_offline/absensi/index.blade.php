@@ -232,7 +232,77 @@
                 </thead>
                 <tbody>
                     @forelse ($offlineAttendances as $attendance)
-                        <tr class="search-items">
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ request('date') ?? \Carbon\Carbon::now()->format('Y-m-d') }}</td>
+                        <td class="text-center">
+                            @if (isset($attendance->attendances[0]))
+                                @if ($attendance->attendances[0]->status == 'masuk')
+                                    <span class="badge bg-success-subtle text-success py-2 px-3">
+                                        {{ $attendance->attendances[0]->status }}
+                                    </span>
+                                @endif
+                                @if ($attendance->attendances[0]->status == 'izin')
+                                    <span class="badge bg-success-subtle text-success py-2 px-3">
+                                        {{ $attendance->attendances[0]->status }}
+                                    </span>
+                                @endif
+                                @if ($attendance->attendances[0]->status == 'sakit')
+                                    <span class="badge bg-success-subtle text-success py-2 px-3">
+                                        {{ $attendance->attendances[0]->status }}
+                                    </span>
+                                @endif
+                                @if ($attendance->attendances[0]->status == 'alpha')
+                                    <span class="badge bg-success-subtle text-success py-2 px-3">
+                                        {{ $attendance->attendances[0]->status }}
+                                    </span>
+                                @endif
+                            @else
+                                <div class="badge bg-danger-subtle text-danger py-2 px-3">
+                                    @php
+                                        $waktuSaatIni = \Carbon\Carbon::now();
+                                        $waktuJamDelapan = \Carbon\Carbon::today()->setHour(8);
+                                    @endphp
+
+                                    @if ($waktuSaatIni->greaterThan($waktuJamDelapan))
+                                        Alpha
+                                    @else
+                                        Belum Hadir
+                                    @endif
+
+                                </div>
+                            @endif
+                        </td>
+                        <td class="text-center">
+                        @if (isset($attendance->attendances[0]))
+                            @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
+                                @if ($detailAttendance->status == 'present')
+                                    @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                            \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                        <span class="badge bg-success-subtle text-success py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @else
+                                        <span class="badge bg-danger-subtle text-danger py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endif
+                        </td>
+                        <td class="text-center">
+                        @if (isset($attendance->attendances[0]))
+                            @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
+                                @if ($detailAttendance->status == 'return')
+                                    @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                            \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                        <span class="badge bg-success-subtle text-success py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @else
+                                        <span class="badge bg-danger-subtle text-danger py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endif
+                        </td>
+                    </tr>
+                        {{-- <tr class="search-items">
                             <td class="d-flex">
                                 <div class="ms-3">
                                     <div class="user-meta-info">
@@ -307,7 +377,7 @@
                                     @endforeach
                                 @endif
                             </td>
-                        </tr>
+                        </tr> --}}
                     @empty
                         <tr>
                             <td colspan="8" class="text-center">
