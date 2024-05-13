@@ -51,6 +51,7 @@ use App\Contracts\Repositories\AttendanceRepository;
 use App\Contracts\Interfaces\AbsenteePermitInterface;
 use App\Contracts\Interfaces\ActiveCourseInterface;
 use App\Contracts\Interfaces\ActiveFeatureInterface;
+use App\Contracts\Interfaces\AdminAttendanceInterface;
 use App\Contracts\Interfaces\AppointmentOfMentorInterface;
 use App\Contracts\Interfaces\AttendanceRuleInterface;
 use App\Contracts\Interfaces\MentorDivisionInterface;
@@ -97,6 +98,7 @@ use App\Contracts\Interfaces\VoucherUsageInterface;
 use App\Contracts\Interfaces\WorkFromHomeInterface;
 use App\Contracts\Repositories\ActiveCourseRepository;
 use App\Contracts\Repositories\ActiveFeatureRepository;
+use App\Contracts\Repositories\AdminAttendanceRepository;
 use App\Contracts\Repositories\AppointmentOfMentorRepository;
 use App\Contracts\Repositories\PicketingReportRepository;
 use App\Contracts\Repositories\AttendanceDetailRepository;
@@ -189,7 +191,8 @@ class AppServiceProvider extends ServiceProvider
         WorkFromHomeInterface::class => WorkFromHomeRepository::class,
         PermissionInterface::class => PermissionRepository::class,
         DataCOInterface::class => DataCORepository::class,
-        Signature_COInterface::class => Signature_CORepository::class
+        Signature_COInterface::class => Signature_CORepository::class,
+        AdminAttendanceInterface::class => AdminAttendanceRepository::class,
     ];
 
     /**

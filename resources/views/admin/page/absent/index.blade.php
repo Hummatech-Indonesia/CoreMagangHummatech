@@ -319,20 +319,19 @@
                 <h5 class="modal-title" id="varyingcontentModalLabel">Tambah Absensi</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" method="POST">
+            <form action="{{ route('attendance.offline.store') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-4">
                         <label for="student_id">Pilih Siswa</label>
                         <select class="tambah js-example-basic-single form-control @error('name') is-invalid @enderror" aria-label=".form-select example" name="student_id">
-                            <option value="">NIAM</option>
-                            <option value="">RENDI</option>
-                            <option value="">FARAH</option>
-                            <option value="">NESA</option>
-                            <option value="">KADER</option>
-                            <option value="">ADI</option>
+                            @forelse ($students as $student)
+                                <option value="{{ $student->id }}">{{ $student->name }}</option>
+                            @empty
+                                <option disabled>Tidak ada siswa</option>
+                            @endforelse
                         </select>
-                        @error('name')
+                        @error('student_id')
                             <p class="text-danger">
                                 {{ $message }}
                             </p>
@@ -341,9 +340,9 @@
                     <div class="mb-1">
                         <label for="status">Status</label>
                         <select class="tambah js-example-basic-single form-control @error('status') is-invalid @enderror" aria-label=".form-select example" name="status">
-                            <option value="">Masuk</option>
-                            <option value="">Izin</option>
-                            <option value="">Sakit</option>
+                            <option value="masuk">Masuk</option>
+                            <option value="izin">Izin</option>
+                            <option value="sakit">Sakit</option>
                         </select>
                         @error('status')
                             <p class="text-danger">
