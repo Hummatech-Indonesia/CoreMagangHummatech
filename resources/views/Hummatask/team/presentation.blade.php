@@ -45,9 +45,6 @@
                         <h6 class="fs-4 fw-semibold mb-0">Status Presentasi</h6>
                     </th>
                     <th>
-                        <h6 class="fs-4 fw-semibold mb-0">Judul</h6>
-                    </th>
-                    <th>
                         <h6 class="fs-4 fw-semibold mb-0">Jadwal </h6>
                     </th>
                     <th>
@@ -56,69 +53,74 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        <p class="mb-0 fw-normal fs-4">1</p>
-                    </td>
-                    <td>
-                        <p class="mb-0 fw-normal fs-4">Progres migguan</p>
-                    </td>
-                    <td>
-                        <p class="mb-0 fw-normal fs-4">29 mei 2024</p>
-                    </td>
-                    <td>
-                        <p class="mb-0 fw-normal fs-4">Progres migguan</p>
-                    </td>
-                    <td>
-                        <p class="mb-0 fw-normal fs-4">Selesai</p>
-                    </td>
-                    <td>
-                        <p class="mb-0 fw-normal fs-4">Jadwal ke - 4</p>
-                    </td>
-                    <td>
-                        <button class="btn mb-1 waves-effect waves-light btn-warning" data-bs-toggle="modal"
-                            data-bs-target="#historyModal">
-                            <i class="ti ti-eye fs-7"></i>
-                        </button>
-                    </td>
-                </tr>
+                @foreach ($presentations->whereNotNull('hummatask_team_id') as $presentation)
+                    <tr>
+                        <td>
+                            <p class="mb-0 fw-normal fs-4">{{ $loop->iteration }}</p>
+                        </td>
+                        <td>
+                            <p class="mb-0 fw-normal fs-4">{{ $presentation->title }}</p>
+                        </td>
+                        <td>
+                            <p class="mb-0 fw-normal fs-4">{{ \Carbon\Carbon::parse($presentation->created_at)->format('j F Y') }}</</p>
+                        </td>
+                        <td>
+                            <p class="mb-0 fw-normal fs-4">{{ $presentation->status_presentation }}</p>
+                        </td>
+                        <td>
+                            <p class="mb-0 fw-normal fs-4">{{ $presentation->schedule_to }}</p>
+                        </td>
+                        <td>
+                            <button class="btn mb-1 waves-effect waves-light btn-warning" data-bs-toggle="modal"
+                                data-bs-target="#historyModal{{ $presentation->id }}">
+                                <i class="ti ti-eye fs-7"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <!--Detail Modal -->
+                    <div class="modal fade" id="historyModal{{ $presentation->id }}" tabindex="-1"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="historyModalLabel">Feedback</h5>
+                                    <button type="button" class="close border-0 bg-transparent" data-bs-dismiss="modal"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Riwayat Presentasi -->
+                                    <div class="mb-3">
+                                        <p>Judul Presentasi: {{ $presentation->title }}</p>
+                                        <hr>
+                                        <p>Tanggal: {{ \Carbon\Carbon::parse($presentation->created_at)->format('j F Y') }}</p>
+                                        <hr>
+                                        <p>Jadwal :
+                                            {{ $presentation->schedule_to }} : {{ $presentation->start_date }} - {{ $presentation->end_date }}
+                                        </p>
+                                        <hr>
+                                        <p>Deskripsi : {{ $presentation->description }}</p>
+                                        <hr>
+                                        <p>Feedback dari mentor :
+                                            {{ $presentation->callback ?? 'Mentor tidak atau belum memberi anda feedback' }}
+                                        </p>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Tutup</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </tbody>
         </table>
     </div>
 
 
-    <!--Detail Modal -->
-    <div class="modal fade" id="historyModal" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="historyModalLabel">Feedback</h5>
-                    <button type="button" class="close border-0 bg-transparent" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Riwayat Presentasi -->
-                    <div class="mb-3">
-                        <p>Judul Presentasi: Interview</p>
-                        <hr>
-                        <p>Tanggal: 12 Mei 2024</p>
-                        <hr>
-                        <p>Jadwal : Jadwal ke- 2 11:00 11:25</p>
-                        <hr>
-                        <p>Deskripsi : Anda tidak mengisi deskripsi presentasi</p>
-                        <hr>
-                        <p>Feedback dari mentor : Mentor tidak atau belum memberi feedback
-                        </p>
 
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <!-- Add presentation -->
