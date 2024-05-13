@@ -233,7 +233,7 @@
                 <tbody>
                     @forelse ($offlineAttendances as $attendance)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ auth()->user()->student->name }}</td>
                         <td>{{ request('date') ?? \Carbon\Carbon::now()->format('Y-m-d') }}</td>
                         <td class="text-center">
                             @if (isset($attendance->attendances[0]))
