@@ -31,7 +31,7 @@ class AdminJournalController extends Controller
         $adminJournalQuery->whereDate('created_at', $searchDate);
     }
 
-    $adminJournal = $adminJournalQuery->paginate(1);
+    $adminJournal = $adminJournalQuery->paginate(10);
 
     $adminJournal->appends(['created_at' => $searchDate]);
 
