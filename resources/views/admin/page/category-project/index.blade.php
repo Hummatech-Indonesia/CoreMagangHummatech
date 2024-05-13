@@ -53,11 +53,13 @@
                     <h4 class="mx-3 mb-0">Kategori Projek</h4>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex justify-content-between ">
-                    <div class="search-box me-3">
-                        <input type="text" class="form-control" id="searchMemberList"
-                            placeholder="Cari kategori projek...">
-                        <i class="ri-search-line search-icon"></i>
-                    </div>
+                    <form action="/administrator/category-project">
+                        <div class="search-box me-3">
+                            <input type="text" class="form-control" id="searchMemberList" name="name" value="{{request()->name}}"
+                                placeholder="Cari kategori projek...">
+                            <i class="ri-search-line search-icon"></i>
+                        </div>
+                    </form>
                     <div class="list-grid-nav hstack gap-1">
                         <button class="btn btn-primary addMembers-modal" data-bs-toggle="modal" data-bs-target="#add">
                             Tambah kategori
@@ -117,6 +119,8 @@
                     </div>
                 </div>
             </div>
+
+            {{ $categoryProjects->links() }}
 
         @empty
             <div class="d-flex justify-content-center mt-3">

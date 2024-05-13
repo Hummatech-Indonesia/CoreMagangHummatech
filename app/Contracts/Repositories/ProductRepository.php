@@ -3,6 +3,7 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\ProductInterface;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductRepository extends BaseRepository implements ProductInterface
 {
@@ -54,6 +55,17 @@ class ProductRepository extends BaseRepository implements ProductInterface
         return $this->model->query()
         ->findOrFail($id)
         ->update($data);
+    }
+
+    public function search(Request $request):mixed
+    {
+        $query = $this->model->query();
+
+        $query->when($request->name, function ($query) use ($request) {
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        });
+
+        return $query;
     }
 
 }

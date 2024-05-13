@@ -48,12 +48,13 @@ class AdminJournalRepository extends BaseRepository implements AdminJournalInter
             });
         });
 
-        $query->when($request->created_at, function ($query) use ($request) {
+        if ($request->filled('created_at')) {
             $query->whereDate('created_at', $request->created_at);
-        });
+        }
 
         return $query;
     }
+
 
     public function getByStatus(string $status): mixed
     {

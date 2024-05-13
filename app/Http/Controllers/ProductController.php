@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Services\ProductService;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -23,12 +24,13 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $product = $this->product->get();
+        // $product = $this->product->get();
+        $products = $this->product->search($request)->paginate(8);
         $divisions = $this->division->get();
 
-        return view('admin.page.product.index', compact('product','divisions'));
+        return view('admin.page.product.index', compact('products','divisions'));
     }
 
     /**
@@ -62,7 +64,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $divisions = $this->division->get(); 
+        $divisions = $this->division->get();
         return view('admin.page.product.edit', compact('product', 'divisions'));
     }
 

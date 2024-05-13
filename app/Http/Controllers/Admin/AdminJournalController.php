@@ -24,10 +24,13 @@ class AdminJournalController extends Controller
      */
     public function index(Request $request)
     {
-        $today = Carbon::today(); // Mendapatkan tanggal hari ini
+        $adminJournalQuery = $this->adminJournal->search($request);
 
-        $adminJournalQuery = $this->adminJournal->search($request)
-            ->whereDate('created_at', $today); // Menambahkan kondisi untuk hanya menampilkan data yang dibuat hari ini
+        $searchDate = $request->filled('created_at') ? $request->created_at : Carbon::today()->toDateString();
+
+        if (!$request->filled('created_at') || Carbon::parse($searchDate)->isToday()) {
+            $adminJournalQuery->whereDate('created_at', $searchDate);
+        }
 
         $adminJournal = $adminJournalQuery->paginate(10);
 

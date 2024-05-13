@@ -16,14 +16,14 @@ class RfidController extends Controller
     public function __construct(StudentInterface $student)
     {
         $this->student = $student;
-    } 
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = $this->student->whereRfidNull();
-        $rfidStudents = $this->student->listRfid();
+        $students = $this->student->whereRfidNull($request);
+        $rfidStudents = $this->student->listRfid($request);
         return view('admin.page.user.rfid', compact('students','rfidStudents'));
     }
 

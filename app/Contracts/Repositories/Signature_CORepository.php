@@ -33,4 +33,9 @@ class Signature_CORepository extends BaseRepository implements Signature_COInter
     {
         return $this->model->query()->findOrFail($id)->delete($id);
     }
+
+    public function show(mixed $id): mixed
+    {
+        return $this->model->query()->findOrFail($id);
+    }
 }

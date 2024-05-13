@@ -14,10 +14,12 @@
                     <h4 class="mx-5 pt-2">Daftar Paket</h4>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
-                    <div class="search-box mx-3">
-                        <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa...">
-                        <i class="ri-search-line search-icon"></i>
-                    </div>
+                    <form action="/product">
+                        <div class="search-box mx-3">
+                            <input type="text" class="form-control"  name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Siswa...">
+                            <i class="ri-search-line search-icon"></i>
+                        </div>
+                    </form>
                     @php
                         $unusedDivisionsExist = false;
 
@@ -53,7 +55,7 @@
     @endif
 
     <div class="row">
-        @forelse ($product as $product)
+        @forelse ($products as $product)
             <div class="col-sm-6 col-xl-3">
                 <div class="card mb-3">
                     <div class="d-flex justify-content-center">
@@ -86,14 +88,17 @@
                 </div>
             </div>
 
-        @empty
+
+            @empty
             <div class="d-flex justify-content-center mb-2 mt-5">
                 <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
             </div>
             <p class="fs-5 text-dark text-center">
                 Data Masih Kosong
             </p>
-        @endforelse
+            @endforelse
+
+            {{ $products->links() }}
     </div>
     @include('admin.components.delete-modal-component')
 

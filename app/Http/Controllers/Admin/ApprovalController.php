@@ -13,6 +13,7 @@ use App\Http\Requests\AcceptedAprovalRequest;
 use App\Http\Requests\DeclinedAprovalRequest;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\ApprovalInterface;
+use Illuminate\Http\Request;
 
 class ApprovalController extends Controller
 {
@@ -30,10 +31,10 @@ class ApprovalController extends Controller
         $this->servicestudent = $servicestudent;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $studentOffline = $this->approval->ListStudentOffline();
-        $studentOnline = $this->approval->ListStudentOnline();
+        $studentOffline = $this->approval->ListStudentOffline($request);
+        $studentOnline = $this->approval->ListStudentOnline($request);
         $limits = $this->limit->first();
         $studentcount = $this->student->countStudentOffline();
         $limit = $this->limit->first() ? $this->limit->first()->limits : 0;
