@@ -65,6 +65,21 @@
         </div>
     </div>
     <div class="card-body border-top">
+        @php
+            function konversiWaktu($waktu)
+            {
+                $timezoneUTC = new DateTimeZone('UTC');
+                $timezoneID = new DateTimeZone('Asia/Jakarta');
+                $datetime = DateTime::createFromFormat(
+                    'Y-m-d H:i:s',
+                    $waktu,
+                    $timezoneUTC,
+                );
+                $datetime->setTimezone($timezoneID);
+                $jamIndonesia = $datetime->format('H:i');
+                return $jamIndonesia;
+            }
+        @endphp
         <div class="table-responsive table-card p-3">
             <div class="tab-content">
                 <div class="tab-pane fade" id="online">
@@ -131,9 +146,11 @@
                                         @if ($detailAttendance->status == 'present')
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
                                                     \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                                <span class="badge bg-success-subtle text-success py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                                <span
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
                                             @else
-                                                <span class="badge bg-danger-subtle text-danger py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                                <span
+                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
                                             @endif
                                         @endif
                                     @endforeach
@@ -145,9 +162,11 @@
                                         @if ($detailAttendance->status == 'return')
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
                                                     \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                                <span class="badge bg-success-subtle text-success py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                                <span
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
                                             @else
-                                                <span class="badge bg-danger-subtle text-danger py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                                <span
+                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
                                             @endif
                                         @endif
                                     @endforeach
@@ -224,9 +243,11 @@
                                         @if ($detailAttendance->status == 'present')
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
                                                     \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                                <span class="badge bg-success-subtle text-success py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                                <span
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
                                             @else
-                                                <span class="badge bg-danger-subtle text-danger py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                                <span
+                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
                                             @endif
                                         @endif
                                     @endforeach
@@ -238,9 +259,11 @@
                                         @if ($detailAttendance->status == 'break')
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
                                                     \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                                <span class="badge bg-success-subtle text-success py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                                <span
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
                                             @else
-                                                <span class="badge bg-danger-subtle text-danger py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                                <span
+                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
                                             @endif
                                         @endif
                                     @endforeach
@@ -252,9 +275,11 @@
                                         @if ($detailAttendance->status == 'return_break')
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
                                                     \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                                <span class="badge bg-success-subtle text-success py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                                <span
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
                                             @else
-                                                <span class="badge bg-danger-subtle text-danger py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                                <span
+                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
                                             @endif
                                         @endif
                                     @endforeach
@@ -266,9 +291,11 @@
                                         @if ($detailAttendance->status == 'return')
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
                                                     \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                                <span class="badge bg-success-subtle text-success py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                                <span
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
                                             @else
-                                                <span class="badge bg-danger-subtle text-danger py-2 px-3">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                                <span
+                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
                                             @endif
                                         @endif
                                     @endforeach
