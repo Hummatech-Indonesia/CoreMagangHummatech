@@ -70,6 +70,7 @@ class AttendanceController extends Controller
     public function sync(Request $request): JsonResponse
     {
         foreach ($request->data as $data) {
+            dd($data);
             $attendanceData = [
                 'student_id' => $data['user_id'],
                 'status' => $data['status'],
