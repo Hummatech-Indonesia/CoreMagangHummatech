@@ -81,7 +81,7 @@
                 @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $key => $student)
                   <tr>
                     <td>
-                      <p class="mb-0 fs-3">{{ ++$key }}</p>
+                      <p class="mb-0 fs-3">{{ (++$key + 1) }}</p>
                     </td>
                     <td class="ps-0">
                       <div class="d-flex align-items-center">

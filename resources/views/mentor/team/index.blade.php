@@ -120,7 +120,7 @@
         </div>
         @empty
             <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
-                <img src="{{ asset('empty-asset.png') }}" alt="" width="200px" srcset="">
+                <img src="{{ asset('empty-asset.png') }}" alt="" width="150px" srcset="">
                 <p class="fs-5 text-dark">
                     Belum Ada Team
                 </p>

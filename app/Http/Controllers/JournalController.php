@@ -66,21 +66,25 @@ class JournalController extends Controller
      */
     public function store(StoreJournalRequest $request)
     {
-        $currentDate = Carbon::now()->locale('id_ID')->setTimezone('Asia/Jakarta')->isoFormat('HH:mm:ss');
-        if ($currentDate < '16:00:00' || $currentDate > '23:59:00') {
-            return redirect()->back()->with('error', 'Waktu pengumpulan adalah jam 4 sore sampai 12 malam');
-        } else {
-            $existingData = $this->journal->where('created_at', '>=', now()->startOfDay());
-            if ($existingData) {
-                return redirect()->back()->with('error', 'Anda Telah Mengisi Jurnal Hari ini.');
+        try {
+            $currentDate = Carbon::now()->locale('id_ID')->setTimezone('Asia/Jakarta')->isoFormat('HH:mm:ss');
+            if ($currentDate < '16:00:00' || $currentDate > '23:59:00') {
+                return redirect()->back()->with('error', 'Waktu pengumpulan adalah jam 4 sore sampai 12 malam');
+            } else {
+                $existingData = $this->journal->where('created_at', '>=', now()->startOfDay());
+                if ($existingData) {
+                    return redirect()->back()->with('error', 'Anda Telah Mengisi Jurnal Hari ini.');
+                }
+    
+                if (now()->isWeekend()) {
+                    return redirect()->back()->with('error', 'Hari ini adalah hari libur.');
+                }
+                $data = $this->service->store($request);
+                $this->journal->store($data); // Menggunakan metode create() untuk menyimpan data baru
+                return redirect()->back()->with('success', 'Jurnal Berhasil Ditambahkan');
             }
-
-            if (now()->isWeekend()) {
-                return redirect()->back()->with('error', 'Hari ini adalah hari libur.');
-            }
-            $data = $this->service->store($request);
-            $this->journal->store($data); // Menggunakan metode create() untuk menyimpan data baru
-            return redirect()->back()->with('success', 'Jurnal Berhasil Ditambahkan');
+        } catch (\Throwable $th) {
+            return back()->with('warning', 'Gagal Mengisi Jurnal, ' . $th->getMessage());
         }
     }
 

@@ -66,8 +66,9 @@ class HummataskTeamController extends Controller
      */
     public function index()
     {
+        $hummataskTeams = $this->hummatask_team->where('student_id', auth()->user()->student->id);
         $studentProjects = $this->studentTeam->where('student_id', auth()->user()->student->id);
-        return view('Hummatask.index', compact('studentProjects'));
+        return view('Hummatask.index', compact('studentProjects', 'hummataskTeams'));
     }
 
     /**
