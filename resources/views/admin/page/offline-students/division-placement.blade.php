@@ -26,10 +26,10 @@
                     </div>
                 </div>
                 <div class="col-xl-2">
-                    <form class="app-search d-none d-md-block w-100">
+                    <form class="app-search d-none d-md-block w-100" action="/offline-students/division-placement">
                         <div class="position-relative">
                             <input type="text" class="form-control" placeholder="Cari..." autocomplete="off"
-                                id="search-options" value="">
+                                id="search-options" name="name" value="{{request()->name}}">
                             <span class="mdi mdi-magnify search-widget-icon"></span>
                             <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none"
                                 id="search-close-options"></span>
@@ -112,24 +112,10 @@
                                         @endforelse
                                     </tbody>
                                 </table>
+                                <div class="pt-2">
+                                    {{ $studentOfflines->links() }}
+                                </div>
                             </div>
-                        </div>
-                        <div class="d-flex justify-content-between px-3">
-                            <p>Showing 1 to 10 of 14 entries</p>
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1"
-                                            aria-disabled="true">Previous</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
                         </div>
                     </div>
                 </div>
@@ -206,24 +192,10 @@
                                         @endforelse
                                     </tbody>
                                 </table>
+                                <div class="pt-2">
+                                    {{ $studentOfflines->links() }}
+                                </div>
                             </div>
-                        </div>
-                        <div class="d-flex justify-content-between px-3">
-                            <p>Showing 1 to 10 of 14 entries</p>
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1"
-                                            aria-disabled="true">Previous</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
                         </div>
                     </div>
                 </div>

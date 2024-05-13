@@ -62,7 +62,7 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
      * listStudent
      * @return mixed
      */
-    public function listStudent(): mixed;
+    public function listStudent(Request $request): mixed;
 
     /**
      * Sp
@@ -77,22 +77,22 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
     /**
      * List Student Offline
      */
-    public function listStudentOffline(): mixed;
+    public function listStudentOffline(Request $request): mixed;
 
     /**
      * List Student Offline
      */
-    public function listStudentOnline(): mixed;
+    public function listStudentOnline(Request $request): mixed;
 
     /**
      * Get Student Banned
      */
-    public function getstudentbanned(): mixed;
+    public function getstudentbanned(Request $request): mixed;
 
     /**
      * Get Student Banned
      */
-    public function getstudentdeclined(): mixed;
+    public function getstudentdeclined(Request $request): mixed;
 
     /**
      * Get Student Mentor Placement
@@ -108,7 +108,7 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
     /**
      * Get Student Division Placement
      */
-    public function getstudentdivisionplacement(): mixed;
+    public function getstudentdivisionplacement(Request $request): mixed;
 
     /**
      * Pluck  collumn
@@ -123,7 +123,7 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
     /**
      * Get Edit Student Division Placement
      */
-    public function getstudentdivisionplacementedit(): mixed;
+    public function getstudentdivisionplacementedit(Request $request): mixed;
     public function whereStudentDivision(mixed $id):mixed;
 
     public function whereRfidNull(Request $request): mixed;
