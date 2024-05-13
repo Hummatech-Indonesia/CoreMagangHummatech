@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\LimitInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Enum\InternshipTypeEnum;
 use App\Models\Student;
+use Illuminate\Http\Request;
 
 class ApprovalRepository extends BaseRepository implements ApprovalInterface
 {
@@ -29,14 +30,27 @@ class ApprovalRepository extends BaseRepository implements ApprovalInterface
         return $this->model->query()->findOrFail($id)->update($data);
     }
 
-    public function ListStudentOffline(): mixed
+    public function ListStudentOffline(Request $request): mixed
     {
-        return $this->model->query()->where('status' , 'pending')->where('internship_type', InternshipTypeEnum::OFFLINE->value)->get();
+        return $this->model->query()
+        ->where('status' , 'pending')
+        ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
+        ->when($request->name, function ($query) use ($request){
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        })
+        ->paginate(10);
     }
 
-    public function ListStudentOnline(): mixed
+    public function ListStudentOnline(Request $request): mixed
     {
-        return $this->model->query()->where('status' , 'pending')->where('internship_type', InternshipTypeEnum::ONLINE->value)->get();
+        return $this->model->query()
+        ->where('status' , 'pending')
+        ->where('internship_type', InternshipTypeEnum::ONLINE->value)
+        ->when($request->name, function ($query) use ($request){
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        })
+        ->paginate(10);
     }
+
 
 }

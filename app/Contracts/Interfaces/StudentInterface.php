@@ -12,11 +12,17 @@ use Illuminate\Http\Request;
 interface StudentInterface extends GetInterface , StoreInterface , DeleteInterface , UpdateInterface, WhereInterface, ShowInterface
 {
     /**
-     * Method countActiceStudents
+     * Method countActiveOnlineStudents
      *
      * @return mixed
      */
-    public function countActiceStudents():mixed;
+    public function countActiveOnlineStudents():mixed;
+    /**
+     * Method countActiveOfflineStudents
+     *
+     * @return mixed
+     */
+    public function countActiveOfflineStudents():mixed;
     /**
      * Method countDeactiveStudents
      *
@@ -119,8 +125,8 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
     public function getstudentdivisionplacementedit(): mixed;
     public function whereStudentDivision(mixed $id):mixed;
 
-    public function whereRfidNull(): mixed;
-    public function listRfid(): mixed;
+    public function whereRfidNull(Request $request): mixed;
+    public function listRfid(Request $request): mixed;
 
     /**
      * getStudentAccepted

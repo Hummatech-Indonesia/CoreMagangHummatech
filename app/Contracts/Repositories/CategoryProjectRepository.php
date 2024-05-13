@@ -4,15 +4,20 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\CategoryProjectInterface;
 use App\Models\CategoryProject;
+use Illuminate\Http\Request;
 
 class CategoryProjectRepository extends BaseRepository implements CategoryProjectInterface
 {
-    
+
     public function __construct(CategoryProject $categoryProject)
     {
         $this->model = $categoryProject;
     }
 
+     public function paginate($perPage = 15, $columns = ['*'], $pageName = 'page', $page = null): mixed
+    {
+        return $this->model->query()->paginate($perPage, $columns, $pageName, $page);
+    }
     public function get(): mixed
     {
         return $this->model->query()
@@ -57,5 +62,15 @@ class CategoryProjectRepository extends BaseRepository implements CategoryProjec
         return $this->model->query()
             ->where('id', $id)
             ->delete();
+    }
+    public function search(Request $request):mixed
+    {
+        $query = $this->model->query();
+
+        $query->when($request->name, function ($query) use ($request) {
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        });
+
+        return $query;
     }
 }

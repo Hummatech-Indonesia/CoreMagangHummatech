@@ -91,7 +91,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('voucher', [VoucherController::class, 'index'])->name('voucher.index');
     Route::post('voucher/store', [VoucherController::class, 'store'])->name('voucher.store');
     Route::delete('voucher/delete/{voucher}', [VoucherController::class, 'destroy'])->name('voucher.delete');
-    
+
     # Mentor
     Route::get('menu-mentor', [AdminMentorController::class, 'index'])->name('mentor.index');
     Route::post('menu-mentor/store', [AdminMentorController::class, 'store'])->name('mentor.store');

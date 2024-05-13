@@ -27,15 +27,17 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-auto ms-auto d-flex">
-                    <div class="search-box mx-3">
-                        <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa...">
-                        <i class="ri-search-line search-icon"></i>
+                <div class="col-sm-auto ms-auto d-flex align-items-center">
+                    <div class="search-box mx-3 flex-grow-1">
+                        <form action="\approval">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Siswa...">
+                                <span class="input-group-text"><i class="ri-search-line search-icon"></i></span>
+                            </div>
+                        </form>
                     </div>
                     <div class="list-grid-nav hstack gap-1">
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">
-                            Edit Limit
-                        </button>
+                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">Edit Limit</button>
                     </div>
                 </div>
             </div>
@@ -46,19 +48,18 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header align-items-center d-flex justify-content-between mx-3">
-                            <div class="d-flex gap-2">
-                                <p class="m-0">Show</p>
-                                <select name="" id="">
+                        <div class="card-header align-items-center d-flex justify-content-between mx-md-3 flex-column flex-md-row">
+                            <div class="d-flex gap-2 mb-2 mb-md-0">
+                                <p class="m-0 me-2">Show</p>
+                                <select class="form-select" id="showEntries">
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
                                 </select>
-                                <p class="m-0">entries</p>
+                                <p class="m-0 ms-2">entries</p>
                             </div>
                             <div>
-                                <span class="btn bg-secondary-subtle text-secondary">Limit saat ini:
-                                    {{ $limits == null ? 0 : $limits->limits }}, Sisa limit:{{ $countLimits }}</span>
+                                <span class="btn bg-secondary-subtle text-secondary">Limit saat ini: {{ $limits == null ? 0 : $limits->limits }}, Sisa limit:{{ $countLimits }}</span>
                             </div>
                         </div><!-- end card header -->
 
@@ -143,7 +144,11 @@
                                             @endforelse
                                         </tbody>
                                     </table>
+                                    <div class="pt-3">
+                                        {{ $studentOffline->links() }}
+                                    </div>
                                 </div>
+
                             </div>
                         </div><!-- end card-body -->
                     </div>
@@ -154,19 +159,18 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header align-items-center d-flex justify-content-between mx-3">
-                            <div class="d-flex gap-2">
-                                <p class="m-0">Show</p>
-                                <select name="" id="">
+                        <div class="card-header align-items-center d-flex justify-content-between mx-md-3 flex-column flex-md-row">
+                            <div class="d-flex gap-2 mb-2 mb-md-0">
+                                <p class="m-0 me-2">Show</p>
+                                <select class="form-select" id="showEntries">
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
                                 </select>
-                                <p class="m-0">entries</p>
+                                <p class="m-0 ms-2">entries</p>
                             </div>
                             <div>
-                                <span class="btn bg-secondary-subtle text-secondary">Limit saat ini :
-                                    Tidak ada limit</span>
+                                <span class="btn bg-secondary-subtle text-secondary">Limit saat ini: {{ $limits == null ? 0 : $limits->limits }}, Sisa limit:{{ $countLimits }}</span>
                             </div>
                         </div><!-- end card header -->
 
@@ -251,6 +255,9 @@
                                             @endforelse
                                         </tbody>
                                     </table>
+                                    <div class="pt-3">
+                                        {{ $studentOnline->links() }}
+                                    </div>
                                 </div>
                             </div>
                         </div><!-- end card-body -->
