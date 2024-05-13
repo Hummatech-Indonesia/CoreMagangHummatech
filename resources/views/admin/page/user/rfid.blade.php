@@ -23,20 +23,29 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-sm-auto ms-auto d-flex justify-content-between pt-4">
+            <div class="col-sm-auto ms-auto pt-4">
                 <div class="search-box">
-                    <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa...">
-                    <i class="ri-search-line search-icon"></i>
-                </div>
-                <div class="mx-3">
-                    <input type="date" class="form-control"id="exampleInputdate">
-                </div>
-                <div class="list-grid-nav hstack gap-1">
-                    <button class="btn btn-primary addMembers-modal" data-bs-toggle="modal" data-bs-target="#addmemberModal">
-                        Cari
-                    </button>
+                    <form action="/rfid">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="name" value="{{ request()->name }}" id="searchMemberList" placeholder="Cari Siswa...">
+                            <span class="input-group-text">
+                                <i class="ri-search-line search-icon"></i>
+                            </span>
+                        </div>
+                    </form>
                 </div>
             </div>
+
+            <div class="col-sm-auto pt-4">
+                <form action="/rfid" method="GET">
+                    <div class="list-grid-nav hstack gap-1">
+                        <input type="date" class="form-control" id="exampleInputdate" name="created_at" value="{{ request()->created_at }}">
+                        <button type="submit" class="btn btn-primary">Cari</button>
+                    </div>
+                </form>
+            </div>
+
+
         </div>
     </div>
 </div>
@@ -89,13 +98,13 @@
                                                 <td class="number">{{ $loop->iteration }}</td>
                                                 <td class="name">{{ $student->name }}</td>
                                                 <td class="date">{{ $student->email }}</td>
-                                                <td class="time">{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }} - 
+                                                <td class="time">{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }} -
                                                                 {{ \carbon\Carbon::parse($student->end_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}
                                                 </td>
                                                 <td class="description">{{ $student->school }}</td>
                                                 <td>
                                                     <div class="view">
-                                                        <button class="btn btn-soft-success add-rfid-btn" 
+                                                        <button class="btn btn-soft-success add-rfid-btn"
                                                         data-id="{{ $student->id }}"
                                                         data-name="{{ $student->name }}">
                                                             Daftarkan
@@ -119,24 +128,10 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                             <!-- Pagination -->
-                            <div class="d-flex justify-content-between px-3">
-                                <p>Showing 1 to 10 of 14 entries</p>
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-end">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
+                            {{ $students->links() }}
+
 
                         </div>
                     </div>
@@ -193,7 +188,7 @@
                                                 <td class="number">{{ $loop->iteration }}</td>
                                                 <td class="name">{{ $student->name }}</td>
                                                 <td class="date">{{ $student->email }}</td>
-                                                <td class="time">{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }} - 
+                                                <td class="time">{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }} -
                                                                 {{ \carbon\Carbon::parse($student->end_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}
                                                 </td>
                                                 <td class="description">{{ $student->school }}</td>
@@ -225,22 +220,8 @@
                                 </table>
                             </div>
                             <!-- Pagination -->
-                            <div class="d-flex justify-content-between px-3">
-                                <p>Showing 1 to 10 of 14 entries</p>
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-end">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
+                            {{ $rfidStudents->links() }}
+
                         </div>
                     </div>
                 </div>

@@ -325,110 +325,6 @@
         </div>
 
         <div id="pills-experience" class="tab-pane fade">
-            {{-- <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="listjs-table"id="customerList">
-                            <div class="row g-4 mb-3">
-                                <div class="col-sm-auto">
-                                    <div class="d-flex">
-                                        <h5 class="mx-2 pt-2">Show</h5>
-                                        <select name=""class="form-select" id="expiry-month-input">
-                                            <option value="1">10</option>
-                                        </select>
-                                        <h5 class="mx-2 pt-2">entries</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="table-responsive table-card mt-3 mb-1 mx-3">
-                                <table class="table align-middle table-nowrap" id="customerTable">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th class="sort" data-sort="number">
-                                                NO
-                                            </th>
-                                            <th class="sort" data-sort="name">
-                                                Nama
-                                            </th>
-                                            <th class="sort" data-sort="date">
-                                                Tanggal
-                                            </th>
-                                            <th class="sort" data-sort="status">
-                                                Status
-                                            </th>
-                                            <th class="sort" data-sort="description">
-                                                Deskripsi
-                                            </th>
-                                            <th class="sort" data-sort="action">
-                                                Aksi
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="list form-check-all">
-                                        @forelse ($adminJournal as $index => $journal)
-                                            @if ($journal->status === 'NOTFILLING')
-                                                <tr>
-                                                    <td class="number">{{ $index + 1 }}</td>
-                                                    <td class="name">{{ $journal->user->name }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($journal->tanggal)->locale('id')->isoFormat('dddd, D MMMM Y') }}</td>
-                                                    <td class="status">
-                                                        <?php
-                                                        if ($journal->status === 'fillin') {
-                                                            echo '<span class="badge bg-success-subtle text-success text-uppercase">MENGISI</span>';
-                                                        } else {
-                                                            echo '<span class="badge bg-danger-subtle text-danger text-uppercase">TIDAK MENGISI</span>';
-                                                        }
-                                                        ?>
-                                                    </td>
-                                                    <td class="description">
-                                                        {!! Str::limit($journal->description, 50) !!}
-                                                    </td>
-                                                    <td>
-                                                        <div class="view">
-                                                            <button class="btn btn-soft-primary edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal_{{ $journal->id }}">
-                                                                <i class="ri-eye-line"></i>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endif
-                                        @empty
-                                        <div class="d-flex justify-content-center mb-2 mt-5">
-                                            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
-                                        </div>
-                                            <p class="fs-5 text-dark text-center">
-                                                Data Masih Kosong
-                                            </p>
-                                        @endforelse
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- Pagination -->
-                            <div class="d-flex justify-content-between px-3">
-                                <p>Showing 1 to 10 of 14 entries</p>
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-end">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -463,7 +359,7 @@
                                             @forelse ($adminJournal as $index => $journal)
                                                 @if ($journal->status === 'notfilling')
                                                     <tr>
-                                                        
+
                                                         <td class="number">{{ $index + 1 }}</td>
                                                         <td class="name">{{ $journal->student->name }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($journal->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
