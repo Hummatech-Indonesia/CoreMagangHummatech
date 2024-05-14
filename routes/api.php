@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\FaceController;
 use App\Http\Controllers\Api\JournalController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\StudentController;
@@ -19,6 +20,7 @@ Route::post('callback', [TransactionController::class, 'callback']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::put('journal/update/{journal}' , [JournalController::class , 'update']);
     Route::get('users', [UserController::class, 'index']);
+    Route::post('permision' , [PermissionController::class ,'store']);
     Route::get('profile' , [ProfileController::class , 'index']);
     Route::get('journals' , [JournalController::class , 'index']);
     Route::post('journal' , [JournalController::class , 'store']);
