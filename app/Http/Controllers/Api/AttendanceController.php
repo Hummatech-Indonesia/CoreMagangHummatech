@@ -209,4 +209,17 @@ class AttendanceController extends Controller
         return response()->json($offlineAttendances);
     }
 
+    public function count()
+    {
+        $attends = $this->attendance->count('masuk');
+        $permissionCount = $this->attendance->count('izin');
+        $sick = $this->attendance->count('sakit');
+        $absent = $this->attendance->count('alpha');
+        return response()->json([
+            'attends' => $attends,
+            'permissionCount' => $permissionCount,
+            'sick' => $sick,
+            'absens' => $absent
+        ]);
+    }
 }
