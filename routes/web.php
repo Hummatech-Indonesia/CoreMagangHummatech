@@ -61,7 +61,7 @@ Route::get('statement-parent', [StatementController::class, 'parent'])->name('st
 
 # ================================================ Administrator Route Group ==================================================
 Route::middleware(['roles:administrator', 'auth'])->group(function () {
-
+    Route::get('absent', [AttendanceController::class, 'index'])->name('attendance.index');
 
     Route::get('product', [ProductController::class, 'index']);
     Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
