@@ -88,8 +88,9 @@ class CategoryBoardController extends Controller
      */
     public function update(UpdateCategoryBoardRequest $request, CategoryBoard $categoryBoard)
     {
-        $this->categoryBoard->update($categoryBoard->id  , $request->validated());
+        $this->noteservice->updateCatatan($request,$categoryBoard->id);
         return back()->with('success' , 'Data Berhasil Diperbarui');
+        // $this->categoryBoard->update($categoryBoard->id  , $request->validated());
     }
 
     /**
