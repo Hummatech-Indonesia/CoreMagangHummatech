@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('mentorStudent',[DashboardController::class, 'mentorStudent']);
     Route::get('journals/detail/{id}' , [JournalController::class , 'show']);
     Route::get('attendace' , [AttendanceController::class , 'attendanceOffline']);
-    Route::get('countAttendace' , [DashboardController::class , 'count']);
+    Route::get('countAttendace' , [AttendanceController::class , 'count']);
 });
 Route::post('sync', [AttendanceController::class, 'sync']);
 Route::get('students', [StudentController::class, 'getStudents']);
