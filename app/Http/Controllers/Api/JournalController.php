@@ -78,7 +78,11 @@ class JournalController extends Controller
     public function show($id)
     {
         $journal = $this->journal->show($id);
-        return ResponseHelper::success(JournalResource::collection($journal));
-
+    
+        if (!$journal) {
+            return ResponseHelper::error("Journal not found", 404);
+        }
+    
+        return ResponseHelper::success(new JournalResource($journal));
     }
 }
