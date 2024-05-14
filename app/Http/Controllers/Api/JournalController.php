@@ -69,8 +69,9 @@ class JournalController extends Controller
      */
     public function update(UpdateJournalRequest $request, Journal $journal): JsonResponse
     {
-          $data =  $this->journal->update($journal->id, $request->validated());
-            return ResponseHelper::success($data);
+        $data = $this->service->update($journal, $request);
+        $this->journal->update($journal->id, $data);
+        return ResponseHelper::success($data);
     }
 
     public function show($id)
