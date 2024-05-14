@@ -18,6 +18,7 @@ use App\Contracts\Interfaces\StudentInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Request;
 
 class JournalController extends Controller
@@ -62,8 +63,8 @@ class JournalController extends Controller
 
     public function update(UpdateJournalRequest $request, Journal $journal)
     {
-        $this->journal->update($journal->id, $request->validated());
-        return ResponseHelper::success(null, 'berhasil');
+          $data =  $this->journal->update($journal->id, $request->validated());
+            return ResponseHelper::success($data);
     }
 
     public function show($id)

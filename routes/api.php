@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/ApiLogin', [AuthLoginController::class, 'ApiLogin']);
 Route::get('zoom_schedule' , [DashboardController::class , 'index']);
+Route::put('journal/update/{journal}' , [JournalController::class , 'update']);
 Route::post('callback', [TransactionController::class, 'callback']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('users', [UserController::class, 'index']);
@@ -22,7 +23,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('journals' , [JournalController::class , 'index']);
     Route::get('journals/detail/{id}' , [JournalController::class , 'show']);
     Route::post('journal' , [JournalController::class , 'store']);
-    Route::put('journal/update/{journal}' , [JournalController::class , 'update']);
     Route::get('mentorStudent',[DashboardController::class, 'mentorStudent']);
 });
 Route::post('sync', [AttendanceController::class, 'sync']);

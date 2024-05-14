@@ -22,22 +22,21 @@ class UpdateJournalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required',
-            'description' => 'required|min:150',
-            'image' => 'mimes:png,jpg|max:500'
+            'title' => '',
+            'description' => 'min:150',
+            'image' => 'mimes:png,jpg|max:1000'
         ];
     }
-
 
     public function messages()
     {
         return [
-            'title.required' => 'Judul harus diisi',
-            'description.required' => 'Deskripsi harus diisi',
+            'title.required' => 'Judul tidak boleh kosong.',
+            'description.required' => 'Deskripsi tidak boleh kosong.',
             'description.min' => 'Deskripsi harus minimal 150 karakter.',
-            'image.mimes' => 'Gambar harus berupa png, jpg atau jpeg',
+            'image.required' => 'Gambar tidak boleh kosong.',
+            'image.mimes' => 'Gambar harus berformat PNG atau JPG.',
             'image.max' => 'Ukuran gambar tidak boleh lebih dari 500 KB.'
-
         ];
     }
 }

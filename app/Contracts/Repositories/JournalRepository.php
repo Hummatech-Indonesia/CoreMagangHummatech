@@ -42,7 +42,6 @@ class JournalRepository extends BaseRepository implements JournalInterface
 
     public function update(mixed $id, array $data): mixed
     {
-        $data['student_id'] = auth()->user()->student->id;
         return $this->model->query()->findOrFail($id)->update($data);
     }
 
