@@ -78,10 +78,7 @@ class JournalController extends Controller
     public function show($id)
     {
         $journal = $this->journal->show($id);
-        $response = [
-            'result' => JournalResource::collection($journal)
-        ];
-        
-        return response()->json($response);
+        return ResponseHelper::success(JournalResource::collection($journal));
+
     }
 }
