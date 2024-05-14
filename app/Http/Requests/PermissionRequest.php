@@ -16,9 +16,9 @@ class PermissionRequest extends FormRequest
     {
         return [
             'description' => 'nullable',
-            'proof' => 'nullable|image',
-            'start' => 'nullable|date|date_format:Y-m-d|after_or_equal:today',
-            'end' => 'nullable|date|date_format:Y-m-d|after:start',
+            'proof' => 'nullable',
+            'start' => 'nullable',
+            'end' => 'nullable',
             'status' => 'nullable'
         ];
     }
