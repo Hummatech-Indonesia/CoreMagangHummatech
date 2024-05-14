@@ -15,11 +15,11 @@ class PermissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'required',
-            'proof' => 'required|image',
-            'start' => 'required|date|date_format:Y-m-d|after_or_equal:today',
-            'end' => 'required|date|date_format:Y-m-d|after:start',
-            'status' => 'required'
+            'description' => 'nullable',
+            'proof' => 'nullable|image',
+            'start' => 'nullable|date|date_format:Y-m-d|after_or_equal:today',
+            'end' => 'nullable|date|date_format:Y-m-d|after:start',
+            'status' => 'nullable'
         ];
     }
 }
