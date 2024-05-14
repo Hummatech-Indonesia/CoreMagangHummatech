@@ -319,7 +319,7 @@
                                                 @if ($journal->status === 'notfilling')
                                                     <tr>
 
-                                                        <td class="number">{{ $index + 1 }}</td>
+                                                        <td class="number">{{ $index }}</td>
                                                         <td class="name">{{ $journal->student->name }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($journal->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
                                                         </td>
@@ -362,7 +362,7 @@
                                         </tbody>
                                     </table>
                                     <div class="pt-2">
-                                        {{-- {{ $adminJournal->links() }} --}}
+                                        {{ $adminJournal->links() }}
                                     </div>
                                 </div>
                             </div>
