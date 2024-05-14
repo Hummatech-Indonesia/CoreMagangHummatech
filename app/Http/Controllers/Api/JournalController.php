@@ -18,6 +18,7 @@ use App\Contracts\Interfaces\SignatureInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\JournalResource;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Request;
@@ -77,6 +78,10 @@ class JournalController extends Controller
     public function show($id)
     {
         $journal = $this->journal->show($id);
-        return ResponseHelper::success($journal);
+        $response = [
+            'result' => JournalResource::collection($journal)
+        ];
+        
+        return response()->json($response);
     }
 }
