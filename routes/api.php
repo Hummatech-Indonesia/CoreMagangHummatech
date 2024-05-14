@@ -23,8 +23,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('journals' , [JournalController::class , 'index']);
     Route::post('journal' , [JournalController::class , 'store']);
     Route::get('mentorStudent',[DashboardController::class, 'mentorStudent']);
+    Route::get('journals/detail/{id}' , [JournalController::class , 'show']);
 });
-Route::get('journals/detail/{id}' , [JournalController::class , 'show']);
 Route::post('sync', [AttendanceController::class, 'sync']);
 Route::get('students', [StudentController::class, 'getStudents']);
 Route::get('/limit', [AttendanceController::class, 'maxlate']);
