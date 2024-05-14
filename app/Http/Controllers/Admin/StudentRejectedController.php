@@ -26,9 +26,9 @@ class StudentRejectedController extends Controller
         $this->service = $service;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $studentRejecteds = $this->student->getstudentdeclined();
+        $studentRejecteds = $this->student->getstudentdeclined($request);
 
         return view('admin.page.user.students-rejected', compact('studentRejecteds'));
     }

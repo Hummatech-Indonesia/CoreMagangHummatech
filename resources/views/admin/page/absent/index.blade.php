@@ -54,11 +54,19 @@
                             <i class="ri-calendar-line search-icon"></i>
                         </form>
                     </div>
-                    <div class="search-box col-lg-2">
-                        <select class="form-select" aria-label=".form-select-sm example">
-                            <option value="">WFO</option>
-                            <option value="">WFH</option>
-                        </select>
+                    <div class="form-check form-switch d-flex justify-content-between align-items-center"
+                        style="width: 160px">
+                        <form action="{{ route('wfh.today') }}" class="d-flex align-items-center"
+                            id="toggleForm" method="POST">
+                            @csrf
+                            <label class="form-check-label ms-n4" for="switchSizeLargeChecked">WFO</label>
+                            <div class="" style="margin-left: 38px">
+                                <input class="form-check-input" type="checkbox" name="is_on"
+                                    style="width: 40px; height: 20px" role="switch" id="switchSizeLargeChecked" value="true"
+                                    {{ $wfh && $wfh->is_on == 1 ? 'checked' : '' }} />
+                            </div>
+                            <label class="form-check-label ms-1" for="switchSizeLargeChecked">WFH</label>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -66,18 +74,8 @@
     </div>
     <div class="card-body border-top">
         @php
-            function konversiWaktu($waktu)
-            {
-                $timezoneUTC = new DateTimeZone('UTC');
-                $timezoneID = new DateTimeZone('Asia/Jakarta');
-                $datetime = DateTime::createFromFormat(
-                    'Y-m-d H:i:s',
-                    $waktu,
-                    $timezoneUTC,
-                );
-                $datetime->setTimezone($timezoneID);
-                $jamIndonesia = $datetime->format('H:i');
-                return $jamIndonesia;
+            function dateFormatted(string $dateTime): string {
+                return \Carbon\Carbon::parse($dateTime)->format('H:i');
             }
         @endphp
         <div class="table-responsive table-card p-3">
@@ -147,10 +145,10 @@
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
                                                     \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
                                                 <span
-                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                             @else
                                                 <span
-                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
+                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                             @endif
                                         @endif
                                     @endforeach
@@ -163,10 +161,10 @@
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
                                                     \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
                                                 <span
-                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                             @else
                                                 <span
-                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
+                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                             @endif
                                         @endif
                                     @endforeach
@@ -244,10 +242,10 @@
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
                                                     \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
                                                 <span
-                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                             @else
                                                 <span
-                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
+                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                             @endif
                                         @endif
                                     @endforeach
@@ -260,10 +258,10 @@
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
                                                     \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
                                                 <span
-                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                             @else
                                                 <span
-                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
+                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                             @endif
                                         @endif
                                     @endforeach
@@ -276,10 +274,10 @@
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
                                                     \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
                                                 <span
-                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                             @else
                                                 <span
-                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
+                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                             @endif
                                         @endif
                                     @endforeach
@@ -292,10 +290,10 @@
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
                                                     \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
                                                 <span
-                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                             @else
                                                 <span
-                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ konversiWaktu($detailAttendance->created_at) }}</span>
+                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                             @endif
                                         @endif
                                     @endforeach
@@ -364,6 +362,12 @@
 @endsection
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-    </script>
+<script>
+    $(document).ready(function() {
+        $('#switchSizeLargeChecked').change(function() {
+            $('#toggleForm').submit();
+        });
+    });
+</script>
+
 @endsection

@@ -9,6 +9,7 @@ use App\Models\Journal;
 use App\Services\JournalService;
 use App\Http\Requests\StoreJournalRequest;
 use App\Http\Requests\UpdateJournalRequest;
+use Illuminate\Http\JsonResponse;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\DataAdminInterface;
@@ -61,7 +62,12 @@ class JournalController extends Controller
         }
     }
 
-    public function update(UpdateJournalRequest $request, Journal $journal)
+    /**
+     * @param UpdateJournalRequest $request
+     * @param Journal $journal
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(UpdateJournalRequest $request, Journal $journal): JsonResponse
     {
           $data =  $this->journal->update($journal->id, $request->validated());
             return ResponseHelper::success($data);

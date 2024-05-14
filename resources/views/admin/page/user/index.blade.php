@@ -34,36 +34,49 @@
                 </div>
                 <div class="col-sm-auto ms-auto d-flex justify-content-between ">
                     <div class="list-grid-nav hstack gap-1 mx-1">
-                        <select name="school" class="form-select" id="">
-                            <option disabled selected>Sekolah</option>
-                            <option value="1">Sekolah 1</option>
-                            <option value="2">Sekolah 2</option>
-                        </select>
+                        <form action="/menu-siswa">
+                            <select name="school" class="form-select" id="schoolFilter">
+                                <option value="">Sekolah</option>
+                                @forelse ($schools as $school)
+                                <option value="{{ $school }}">{{ $school }}</option>
+                                {{-- <option value="{{ $school }}" {{ $request->school == $school ? 'selected' : '' }}>{{ $school }}</option> --}}
+                                @empty
+                                <option value="">Belum ada data</option>
+                                @endforelse
+                            </select>
+                        </form>
+                    </div>
+
+                    <div class="list-grid-nav hstack gap-1 mx-1">
+                        <form action="">
+                            <select name="status" class="form-select" id="acceptedFilter">
+                                <option value="" disabled selected>Status</option>
+                                <option value="1">Accepted</option>
+                                <option value="0">Not Accepted</option>
+                            </select>
+                        </form>
                     </div>
                     <div class="list-grid-nav hstack gap-1 mx-1">
-                        <select name="status" class="form-select" id="">
-                            <option disabled selected>Status</option>
-                            <option value="1">Aktif</option>
-                            <option value="0">Tidak Aktif</option>
-                        </select>
-                    </div>
-                    <div class="list-grid-nav hstack gap-1 mx-1">
-                        <select name="gender" class="form-select" id="">
-                            <option disabled selected>jenis kelamin</option>
-                            <option value="male">Laki-laki</option>
-                            <option value="female">Perempuan</option>
-                        </select>
+                        <form action="">
+                            <select name="gender" class="form-select" id="genderFilter">
+                                <option disabled selected>jenis kelamin</option>
+                                <option value="male">Laki-laki</option>
+                                <option value="female">Perempuan</option>
+                            </select>
+                        </form>
                     </div>
                     <div class="search-box d-flex justify-content-end w-25">
-                        <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa...">
-                        <i class="ri-search-line search-icon"></i>
+                        <form action="/menu-siswa">
+                            <input type="text" class="form-control" id="searchMemberList" name="name" value="{{request()->name}}" placeholder="Cari Siswa...">
+                            <i class="ri-search-line search-icon"></i>
+                        </form>
                     </div>
-                    <div class="list-grid-nav hstack gap-1">
+                    {{-- <div class="list-grid-nav hstack gap-1">
                         <button class="btn btn-primary addMembers-modal" data-bs-toggle="modal"
                             data-bs-target="#addmemberModal">
                             Cari
                         </button>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -139,7 +152,9 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
+                    {{$students->links()}}
                 @empty
                     <div class="col-12 d-flex justify-content-center text-center">
                         <img src="{{ asset('no data.png') }}" width="200px" alt="">
@@ -194,7 +209,7 @@
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $studentoffline->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $studentoffline->id }}"
-                                                data-image="{{ $student->avatar }}">Ganti
+                                                data-image="{{ $studentoffline->avatar }}">Ganti
                                                 Profile</button>
                                             <button class="dropdown-item btn-detail"
                                                 data-name="{{ $studentoffline->name }}"
@@ -222,6 +237,8 @@
                             </div>
                         </div>
                     </div>
+                    {{$studentOfflines->links()}}
+
                 @empty
                     <div class="col-12 d-flex justify-content-center text-center">
                         <img src="{{ asset('no data.png') }}" width="200px" alt="">
@@ -304,6 +321,8 @@
                             </div>
                         </div>
                     </div>
+                    {{$studentOnllines->links()}}
+
                 @empty
                     <div class="col-12 d-flex justify-content-center text-center">
                         <img src="{{ asset('no data.png') }}" width="200px" alt="">
@@ -603,9 +622,6 @@
         })
     </script>
 
-
-
-
     <script>
         function zoomImage(img) {
             // Membuat elemen overlay
@@ -639,4 +655,18 @@
             };
         }
     </script>
+
+<script>
+    document.getElementById('schoolFilter').addEventListener('change', function() {
+        this.form.submit();
+    });
+    document.getElementById('acceptedFilter').addEventListener('change', function() {
+        this.form.submit();
+    });
+    document.getElementById('genderFilter').addEventListener('change', function() {
+        this.form.submit();
+    });
+</script>
+
+
 @endsection

@@ -22,9 +22,9 @@ class RfidController extends Controller
      */
     public function index(Request $request)
     {
-        $students = $this->student->whereRfidNull($request);
-        $rfidStudents = $this->student->listRfid($request);
-        return view('admin.page.user.rfid', compact('students','rfidStudents'));
+        $students = $this->student->whereRfidNull($request)->appends($request->except('page'));
+        $rfidStudents = $this->student->listRfid($request)->appends($request->except('page'));
+        return view('admin.page.user.rfid', compact('students', 'rfidStudents'));
     }
 
     /**

@@ -19,9 +19,9 @@
                         </div>
                     </div>
                     <div class="col-sm-auto">
-                        <form action="" class="d-flex gap-2 align-items-center">
+                        <form action="/students-banned" class="d-flex gap-2 align-items-center">
                             <label for="search">Cari:</label>
-                            <input type="text" name="" id="search" class="form-control">
+                            <input type="text" name="name" value="{{request()->name}}" id="search" class="form-control">
                         </form>
                     </div>
                 </div>
@@ -77,6 +77,9 @@
                             @endforelse
                         </tbody>
                     </table>
+                    <div class="pt-2">
+                        {{ $students->links() }}
+                    </div>
                 </div>
             </div>
         </div>

@@ -257,12 +257,39 @@ class StudentRepository extends BaseRepository implements StudentInterface
      *
      * @return mixed
      */
-    public function listStudent(): mixed
+    public function listStudent(Request $request): mixed
     {
         return $this->model->query()
             ->whereNotIn('status', ['pending', 'banned'])
-            ->get();
+            ->when($request->name, function ($query) use ($request){
+                $query->where('name' , 'LIKE' , '%' . $request->name . '%');
+            })
+            ->when($request->school, function($query) use ($request){
+                $query->where('school', 'LIKE', '%' . $request->school . '%');
+            })
+            ->when($request->acepted, function($query) use ($request){
+                $query->where('acepted', 'LIKE', '%' . $request->acepted . '%');
+            })
+            ->when($request->gender, function($query) use ($request){
+                $request->where('gender', 'LIKE', '%' . $request->gender . '%');
+            })
+            ->paginate(10);
     }
+
+    // public function listRfid(Request $request): mixed
+    // {
+    //     return $this->model->query()
+    //     ->where('status', 'accepted')
+    //     ->whereNotNull('rfid')
+    //     ->when($request->name, function ($query) use ($request) {
+    //         $query->where('name', 'LIKE', '%' . $request->name . '%');
+    //     })
+    //     ->when($request->created_at, function ($query) use ($request) {
+    //         $query->whereDate('created_at', $request->created_at);
+    //     })
+    //     ->paginate(10);
+
+    // }
 
     /**
      * Show Student To Warning Letter
@@ -295,12 +322,24 @@ class StudentRepository extends BaseRepository implements StudentInterface
      *
      * @return mixed
      */
-    public function listStudentOffline(): mixed
+    public function listStudentOffline(Request $request): mixed
     {
         return $this->model->query()
             ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
             ->where('status', 'accepted')
-            ->get();
+            ->when($request->name, function ($query) use ($request){
+                $query->where('name' , 'LIKE' , '%' . $request->name . '%');
+            })
+            ->when($request->school, function($query) use ($request){
+                $query->where('school', 'LIKE', '%' . $request->school . '%');
+            })
+            ->when($request->acepted, function($query) use ($request){
+                $query->where('acepted', 'LIKE', '%' . $request->acepted . '%');
+            })
+            ->when($request->gender, function($query) use ($request){
+                $request->where('gender', 'LIKE', '%' . $request->gender . '%');
+            })
+            ->paginate(10);
     }
 
     /**
@@ -308,12 +347,24 @@ class StudentRepository extends BaseRepository implements StudentInterface
      *
      * @return mixed
      */
-    public function listStudentOnline(): mixed
+    public function listStudentOnline(Request $request): mixed
     {
         return $this->model->query()
             ->where('internship_type', InternshipTypeEnum::ONLINE->value)
             ->where('status', 'accepted')
-            ->get();
+            ->when($request->name, function ($query) use ($request){
+                $query->where('name' , 'LIKE' , '%' . $request->name . '%');
+            })
+            ->when($request->school, function($query) use ($request){
+                $query->where('school', 'LIKE', '%' . $request->school . '%');
+            })
+            ->when($request->acepted, function($query) use ($request){
+                $query->where('acepted', 'LIKE', '%' . $request->acepted . '%');
+            })
+            ->when($request->gender, function($query) use ($request){
+                $request->where('gender', 'LIKE', '%' . $request->gender . '%');
+            })
+            ->paginate(10);
     }
 
     /**
@@ -321,11 +372,14 @@ class StudentRepository extends BaseRepository implements StudentInterface
      *
      * @return mixed
      */
-    public function getstudentdeclined(): mixed
+    public function getstudentdeclined(Request $request): mixed
     {
         return $this->model->query()
             ->where('status', StudentStatusEnum::DECLINED->value)
-            ->get();
+            ->when($request->name, function ($query) use ($request){
+                $query->where('name' , 'LIKE' , '%' . $request->name . '%');
+            })
+            ->paginate(10);
     }
 
     /**
@@ -333,11 +387,14 @@ class StudentRepository extends BaseRepository implements StudentInterface
      *
      * @return mixed
      */
-    public function getstudentbanned(): mixed
+    public function getstudentbanned(Request $request): mixed
     {
         return $this->model->query()
             ->where('status', StudentStatusEnum::BANNED->value)
-            ->get();
+            ->when($request->name, function ($query) use ($request){
+                $query->where('name' , 'LIKE' , '%' . $request->name . '%');
+            })
+            ->paginate(10);
     }
 
     /**
@@ -373,13 +430,16 @@ class StudentRepository extends BaseRepository implements StudentInterface
      *
      * @return mixed
      */
-    public function getstudentdivisionplacement(): mixed
+    public function getstudentdivisionplacement(Request $request): mixed
     {
         return $this->model->query()
             ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
             ->where('status', 'accepted')
             ->where('division_id', null)
-            ->get();
+            ->when($request->name, function ($query) use ($request){
+                $query->where('name' , 'LIKE' , '%' . $request->name . '%');
+            })
+            ->paginate(10);
     }
 
     /**
@@ -402,13 +462,16 @@ class StudentRepository extends BaseRepository implements StudentInterface
      *
      * @return mixed
      */
-    public function getstudentdivisionplacementedit(): mixed
+    public function getstudentdivisionplacementedit(Request $request): mixed
     {
         return $this->model->query()
             ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
             ->where('status', 'accepted')
             ->where('division_id', '!=', null)
-            ->get();
+            ->when($request->name, function ($query) use ($request){
+                $query->where('name' , 'LIKE' , '%' . $request->name . '%');
+            })
+            ->paginate(10);
     }
 
     public function whereStudentDivision(mixed $id): mixed
@@ -417,31 +480,77 @@ class StudentRepository extends BaseRepository implements StudentInterface
         ;
     }
 
+
     public function whereRfidNull(Request $request): mixed
     {
-        return $this->model->query()
-        ->whereNull('rfid')
-        ->when($request->name, function ($query) use ($request) {
-            $query->where('name', 'LIKE', '%' . $request->name . '%');
-        })
-        ->when($request->created_at, function ($query) use ($request) {
+        $request->session()->put('created_at', $request->created_at);
+
+        $query = $this->model->query()
+            ->whereNull('rfid')
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
+            });
+
+        if ($request->created_at) {
             $query->whereDate('created_at', $request->created_at);
-        })
-        ->paginate(10);
+        } elseif ($request->session()->has('created_at')) {
+            $query->whereDate('created_at', $request->session()->get('created_at'));
+        }
+
+        $data = $query->paginate(10);
+
+        return $data;
     }
 
     public function listRfid(Request $request): mixed
     {
-        return $this->model->query()
-        ->where('status', 'accepted')
-        ->whereNotNull('rfid')
-        ->when($request->name, function ($query) use ($request) {
-            $query->where('name', 'LIKE', '%' . $request->name . '%');
-        })
-        ->when($request->created_at, function ($query) use ($request) {
-            $query->whereDate('created_at', $request->created_at);
-        })
-        ->paginate(10);
+        $request->session()->put('created_at', $request->created_at);
 
+        $query = $this->model->query()
+            ->where('status', 'accepted')
+            ->whereNotNull('rfid')
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
+            });
+
+        if ($request->created_at) {
+            $query->whereDate('created_at', $request->created_at);
+        } elseif ($request->session()->has('created_at')) {
+            $query->whereDate('created_at', $request->session()->get('created_at'));
+        }
+
+        $data = $query->paginate(10);
+
+        return $data;
     }
+
+
+        // public function whereRfidNull(Request $request): mixed
+    // {
+    //     return $this->model->query()
+    //     ->whereNull('rfid')
+    //     ->when($request->name, function ($query) use ($request) {
+    //         $query->where('name', 'LIKE', '%' . $request->name . '%');
+    //     })
+    //     ->when($request->created_at, function ($query) use ($request) {
+    //         $query->whereDate('created_at', $request->created_at);
+    //     })
+    //     ->paginate(10);
+    // }
+
+
+    // public function listRfid(Request $request): mixed
+    // {
+    //     return $this->model->query()
+    //     ->where('status', 'accepted')
+    //     ->whereNotNull('rfid')
+    //     ->when($request->name, function ($query) use ($request) {
+    //         $query->where('name', 'LIKE', '%' . $request->name . '%');
+    //     })
+    //     ->when($request->created_at, function ($query) use ($request) {
+    //         $query->whereDate('created_at', $request->created_at);
+    //     })
+    //     ->paginate(10);
+
+    // }
 }

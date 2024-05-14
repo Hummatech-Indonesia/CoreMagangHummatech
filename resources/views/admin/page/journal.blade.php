@@ -361,28 +361,8 @@
                                             @endforelse
                                         </tbody>
                                     </table>
-                                    <div class="d-flex justify-content-between px-3 pt-3">
-                                        <p>Showing {{ $adminJournal->firstItem() }} to {{ $adminJournal->lastItem() }} of {{ $adminJournal->total() }} entries</p>
-                                        <nav aria-label="Page navigation example">
-                                            <ul class="pagination justify-content-end">
-                                                {{-- Tombol Previous --}}
-                                                <li class="page-item {{ $adminJournal->previousPageUrl() ? '' : 'disabled' }}">
-                                                    <a class="page-link" href="{{ $adminJournal->previousPageUrl() }}" tabindex="-1" aria-disabled="true">Previous</a>
-                                                </li>
-
-                                                {{-- Link Halaman --}}
-                                                @for ($i = 1; $i <= $adminJournal->lastPage(); $i++)
-                                                    <li class="page-item {{ $i == $adminJournal->currentPage() ? 'active' : '' }}">
-                                                        <a class="page-link" href="{{ $adminJournal->url($i) }}">{{ $i }}</a>
-                                                    </li>
-                                                @endfor
-
-                                                {{-- Tombol Next --}}
-                                                <li class="page-item {{ $adminJournal->nextPageUrl() ? '' : 'disabled' }}">
-                                                    <a class="page-link" href="{{ $adminJournal->nextPageUrl() }}">Next</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
+                                    <div class="pt-2">
+                                        {{-- {{ $adminJournal->links() }} --}}
                                     </div>
                                 </div>
                             </div>
