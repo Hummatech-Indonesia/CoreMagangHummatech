@@ -202,4 +202,10 @@ class AttendanceController extends Controller
         return ResponseHelper::success($this->getStudentByRfid($rfid), "Berhasil absensi");
     }
 
+    public function offline()
+    {
+        $oflineAttendances = $this->student->listOfflineAttendance($request);
+
+    }
+
 }
