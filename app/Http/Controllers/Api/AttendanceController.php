@@ -14,6 +14,7 @@ use App\Http\Resources\MaxLateResource;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use View;
 
 class AttendanceController extends Controller
 {
@@ -202,4 +203,23 @@ class AttendanceController extends Controller
         return ResponseHelper::success($this->getStudentByRfid($rfid), "Berhasil absensi");
     }
 
+    public function attendanceOffline(Request $request)
+    {
+        $offlineAttendances = $this->student->studentOfflineAttendance($request);
+        return response()->json($offlineAttendances);
+    }
+
+    public function count()
+    {
+        $attends = $this->attendance->count('masuk');
+        $permissionCount = $this->attendance->count('izin');
+        $sick = $this->attendance->count('sakit');
+        $absent = $this->attendance->count('alpha');
+        return response()->json([
+            'attends' => $attends,
+            'permissionCount' => $permissionCount,
+            'sick' => $sick,
+            'absens' => $absent
+        ]);
+    }
 }

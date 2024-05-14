@@ -20,7 +20,6 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         $student = $this->student->getApiStudent();
-
         return ResponseHelper::success(ProfileResource::collection($student));
     }
 }

@@ -138,7 +138,7 @@ class AttendanceController extends Controller
             $isOn = 1;
         }
         $this->workFromHome->store(['date' => now()->format('Y-m-d'), 'is_on' => $isOn]);
-        
+
         return redirect()->back()->with('success', 'Berhasil merubah status');
     }
 

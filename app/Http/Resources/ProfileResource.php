@@ -22,7 +22,7 @@ class ProfileResource extends JsonResource
         'phone' => $this->phone,
         'address' => $this->address,
         'gender' => $this->gender,
-        'divisi' => $this->division->name,
+        'divisi' => $this->division ? $this->division->name : 'Tidak ada divisi',
         'school' => $this->school
        ];
     }

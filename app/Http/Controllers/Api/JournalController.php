@@ -18,7 +18,9 @@ use App\Contracts\Interfaces\SignatureInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\JournalResource;
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Request;
 
 class JournalController extends Controller
@@ -68,13 +70,19 @@ class JournalController extends Controller
      */
     public function update(UpdateJournalRequest $request, Journal $journal): JsonResponse
     {
-        $this->journal->update($journal->id, $request->validated());
-        return ResponseHelper::success(null, 'berhasil');
+        $data = $this->service->update($journal, $request);
+        $this->journal->update($journal->id, $data);
+        return ResponseHelper::success($data);
     }
 
     public function show($id)
     {
         $journal = $this->journal->show($id);
-        return ResponseHelper::success($journal);
+    
+        if (!$journal) {
+            return ResponseHelper::error("Journal not found", 404);
+        }
+    
+        return ResponseHelper::success(new JournalResource($journal));
     }
 }
