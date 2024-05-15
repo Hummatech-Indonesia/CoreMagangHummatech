@@ -31,7 +31,7 @@
     </div>
     <div class="row">
         @forelse ($vouchers as $voucher)
-            <div class="col-3">
+            <div class="col-12 col-xl-3">
                 <div class="card">
                     <div class="card-header border border-5 border-secondary border-bottom-0 border-top-0 border-end-0 p-2">
                         <div class="d-flex justify-content-between">
