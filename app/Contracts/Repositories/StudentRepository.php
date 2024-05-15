@@ -126,9 +126,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
                 $query->where('name', 'LIKE', '%'. $request->name. '%');
             })
             ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
-            ->with('attendances') // Load attendances relationship
-            ->where('status', StudentStatusEnum::ACCEPTED->value)
-            ->orderByDesc('attendances_count')
+            ->with('attendances')
             ->get();
     }
     /**
