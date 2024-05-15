@@ -273,7 +273,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->when($request->gender, function ($query) use ($request) {
                 $request->where('gender', 'LIKE', '%' . $request->gender . '%');
             })
-            ->paginate(10);
+            ->paginate(12);
     }
 
     // public function listRfid(Request $request): mixed
@@ -339,7 +339,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->when($request->gender, function ($query) use ($request) {
                 $request->where('gender', 'LIKE', '%' . $request->gender . '%');
             })
-            ->paginate(10);
+            ->paginate(12);
     }
 
     /**
@@ -364,7 +364,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->when($request->gender, function ($query) use ($request) {
                 $request->where('gender', 'LIKE', '%' . $request->gender . '%');
             })
-            ->paginate(10);
+            ->paginate(12);
     }
 
     /**
