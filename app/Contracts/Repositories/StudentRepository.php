@@ -28,15 +28,15 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function countActiveOnlineStudents(): mixed
     {
         return $this->model
-        ->query()
+            ->query()
             ->where('finish_date', '>', now())
             ->where('internship_type', 'online')->count();
     }
     public function countActiveOfflineStudents(): mixed
     {
         return $this->model->query()
-        ->where('finish_date', '>', now())
-        ->where('internship_type', 'offline')->count();
+            ->where('finish_date', '>', now())
+            ->where('internship_type', 'offline')->count();
     }
     /**
      * Method countDeactiveStudents
@@ -132,8 +132,8 @@ class StudentRepository extends BaseRepository implements StudentInterface
                 }
             ])
             ->with([
-                'attendances' => function ($query) use ($date) {
-                    $query->whereDate('created_at', $date);
+                'attendances' => function ($query) {
+                    $query;
                 }
             ])
             ->where('status', StudentStatusEnum::ACCEPTED->value)
@@ -261,19 +261,19 @@ class StudentRepository extends BaseRepository implements StudentInterface
     {
         return $this->model->query()
             ->whereNotIn('status', ['pending', 'banned'])
-            ->when($request->name, function ($query) use ($request){
-                $query->where('name' , 'LIKE' , '%' . $request->name . '%');
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
             })
-            ->when($request->school, function($query) use ($request){
+            ->when($request->school, function ($query) use ($request) {
                 $query->where('school', 'LIKE', '%' . $request->school . '%');
             })
-            ->when($request->acepted, function($query) use ($request){
+            ->when($request->acepted, function ($query) use ($request) {
                 $query->where('acepted', 'LIKE', '%' . $request->acepted . '%');
             })
-            ->when($request->gender, function($query) use ($request){
+            ->when($request->gender, function ($query) use ($request) {
                 $request->where('gender', 'LIKE', '%' . $request->gender . '%');
             })
-            ->paginate(10);
+            ->paginate(12);
     }
 
     // public function listRfid(Request $request): mixed
@@ -327,19 +327,19 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query()
             ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
             ->where('status', 'accepted')
-            ->when($request->name, function ($query) use ($request){
-                $query->where('name' , 'LIKE' , '%' . $request->name . '%');
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
             })
-            ->when($request->school, function($query) use ($request){
+            ->when($request->school, function ($query) use ($request) {
                 $query->where('school', 'LIKE', '%' . $request->school . '%');
             })
-            ->when($request->acepted, function($query) use ($request){
+            ->when($request->acepted, function ($query) use ($request) {
                 $query->where('acepted', 'LIKE', '%' . $request->acepted . '%');
             })
-            ->when($request->gender, function($query) use ($request){
+            ->when($request->gender, function ($query) use ($request) {
                 $request->where('gender', 'LIKE', '%' . $request->gender . '%');
             })
-            ->paginate(10);
+            ->paginate(12);
     }
 
     /**
@@ -352,19 +352,19 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query()
             ->where('internship_type', InternshipTypeEnum::ONLINE->value)
             ->where('status', 'accepted')
-            ->when($request->name, function ($query) use ($request){
-                $query->where('name' , 'LIKE' , '%' . $request->name . '%');
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
             })
-            ->when($request->school, function($query) use ($request){
+            ->when($request->school, function ($query) use ($request) {
                 $query->where('school', 'LIKE', '%' . $request->school . '%');
             })
-            ->when($request->acepted, function($query) use ($request){
+            ->when($request->acepted, function ($query) use ($request) {
                 $query->where('acepted', 'LIKE', '%' . $request->acepted . '%');
             })
-            ->when($request->gender, function($query) use ($request){
+            ->when($request->gender, function ($query) use ($request) {
                 $request->where('gender', 'LIKE', '%' . $request->gender . '%');
             })
-            ->paginate(10);
+            ->paginate(12);
     }
 
     /**
@@ -376,8 +376,8 @@ class StudentRepository extends BaseRepository implements StudentInterface
     {
         return $this->model->query()
             ->where('status', StudentStatusEnum::DECLINED->value)
-            ->when($request->name, function ($query) use ($request){
-                $query->where('name' , 'LIKE' , '%' . $request->name . '%');
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
             })
             ->paginate(10);
     }
@@ -391,8 +391,8 @@ class StudentRepository extends BaseRepository implements StudentInterface
     {
         return $this->model->query()
             ->where('status', StudentStatusEnum::BANNED->value)
-            ->when($request->name, function ($query) use ($request){
-                $query->where('name' , 'LIKE' , '%' . $request->name . '%');
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
             })
             ->paginate(10);
     }
@@ -403,7 +403,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
      * @param  mixed $id
      * @return mixed
      */
-    public function getstudentmentorplacement(mixed $id): mixed
+    public function getstudentmentorplacement(mixed $id, Request $request): mixed
     {
         return $this->model->query()
             ->where('internship_type', InternshipTypeEnum::ONLINE->value)
@@ -436,8 +436,8 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
             ->where('status', 'accepted')
             ->where('division_id', null)
-            ->when($request->name, function ($query) use ($request){
-                $query->where('name' , 'LIKE' , '%' . $request->name . '%');
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
             })
             ->paginate(10);
     }
@@ -448,7 +448,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
      * @param  mixed $id
      * @return mixed
      */
-    public function geteditstudentmentorplacement(mixed $id): mixed
+    public function geteditstudentmentorplacement(mixed $id, Request $request): mixed
     {
         return $this->model->query()
             ->where('internship_type', InternshipTypeEnum::ONLINE->value)
@@ -468,16 +468,15 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
             ->where('status', 'accepted')
             ->where('division_id', '!=', null)
-            ->when($request->name, function ($query) use ($request){
-                $query->where('name' , 'LIKE' , '%' . $request->name . '%');
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
             })
             ->paginate(10);
     }
 
     public function whereStudentDivision(mixed $id): mixed
     {
-        return $this->model->query()->where('division_id', $id)->get();
-        ;
+        return $this->model->query()->where('division_id', $id)->get();;
     }
 
 
@@ -525,7 +524,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     }
 
 
-        // public function whereRfidNull(Request $request): mixed
+    // public function whereRfidNull(Request $request): mixed
     // {
     //     return $this->model->query()
     //     ->whereNull('rfid')

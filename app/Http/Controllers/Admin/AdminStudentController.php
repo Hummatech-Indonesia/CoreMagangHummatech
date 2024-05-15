@@ -33,8 +33,6 @@ class AdminStudentController extends Controller
     public function index(Request $request)
     {
         $schools = $this->student->listStudent($request)->pluck('school')->unique();
-
-
         $students = $this->student->listStudent($request);
         $studentOfflines = $this->student->listStudentOffline($request);
         $studentOnllines = $this->student->listStudentOnline($request);
