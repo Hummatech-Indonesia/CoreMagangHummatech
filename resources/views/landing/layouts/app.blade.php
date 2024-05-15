@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{{ config('app.name') }}</title>
+    <title>{{ env('APP_NAME') }}</title>
     <meta name="author" content="Themeholy">
     <meta name="description" content="Hummatech - Ayo bergabung dengan hummatech">
     <meta name="keywords" content="Hummatech - Ayo bergabung dengan hummatech">
