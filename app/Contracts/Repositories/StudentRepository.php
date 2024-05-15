@@ -123,17 +123,14 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->where('id', auth()->user()->student->id)
             ->whereNotNull('rfid')
             ->when($request->name, function ($query) use ($request) {
-                $query->where('name', 'LIKE', '%' . $request->name . '%');
+                $query->where('name', 'LIKE', '%'. $request->name. '%');
             })
             ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
-            ->withCount('attendances')
-            ->with('attendances')
+            ->with('attendances') // Load attendances relationship
             ->where('status', StudentStatusEnum::ACCEPTED->value)
             ->orderByDesc('attendances_count')
             ->get();
     }
-
-
     /**
      * getByRfid
      *
