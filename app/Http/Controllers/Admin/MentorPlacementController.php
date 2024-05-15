@@ -32,11 +32,11 @@ class MentorPlacementController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $studentid = $this->mentorStudent->pluck('student_id')->toArray();
-        $students = $this->student->getstudentmentorplacement($studentid);
-        $studentedit = $this->student->geteditstudentmentorplacement($studentid);
+        $students = $this->student->getstudentmentorplacement($studentid, $request);
+        $studentedit = $this->student->geteditstudentmentorplacement($studentid, $request);
         $mentors = collect();
 
         foreach ($students as $student) {

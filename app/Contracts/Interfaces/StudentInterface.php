@@ -98,7 +98,7 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
      * Get Student Mentor Placement
      */
 
-     public function getstudentmentorplacement(mixed $id): mixed;
+     public function getstudentmentorplacement(mixed $id,Request $request): mixed;
 
      /**
       * Get Student Except Auth
@@ -118,7 +118,7 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
     /**
      * Get Edit Student Mentor Placement
      */
-    public function geteditstudentmentorplacement(mixed $id): mixed;
+    public function geteditstudentmentorplacement(mixed $id, Request $request): mixed;
 
     /**
      * Get Edit Student Division Placement
