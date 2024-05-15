@@ -132,7 +132,9 @@ class StudentRepository extends BaseRepository implements StudentInterface
                 }
             ])
             ->with([
-                'attendances'
+                'attendances' => function ($query) use ($date) {
+                    $query->whereDate('created_at', $date);
+                }
             ])
             ->where('status', StudentStatusEnum::ACCEPTED->value)
             ->orderByDesc('attendances_count')
