@@ -234,7 +234,7 @@
                         <tr>
                             <td>{{ auth()->user()->student->name }}</td>
                             <td>{{ request('date') ?? \Carbon\Carbon::now()->format('Y-m-d') }}</td>
-                            <td class="text-center">
+                            <td>
                                 @if (isset($attendance->attendances[0]))
                                     @if ($attendance->attendances[0]->status == 'masuk')
                                         <span class="badge bg-success-subtle text-success py-2 px-3">
@@ -272,7 +272,7 @@
                                     </div>
                                 @endif
                             </td>
-                            <td class="text-center">
+                            <td >
                                 @if (isset($attendance->attendances[0]))
                                     @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
                                         @if ($detailAttendance->status == 'present')
@@ -288,7 +288,39 @@
                                     @endforeach
                                 @endif
                             </td>
-                            <td class="text-center">
+                            <td>
+                                @if (isset($attendance->attendances[0]))
+                                    @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
+                                        @if ($detailAttendance->status == 'break')
+                                            @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                    \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                <span
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ \Carbon\Carbon::parse($detailAttendance->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}</span>
+                                            @else
+                                                <span
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ \Carbon\Carbon::parse($detailAttendance->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}</span>
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td>
+                                @if (isset($attendance->attendances[0]))
+                                    @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
+                                        @if ($detailAttendance->status == 'return_break')
+                                            @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                    \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                <span
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ \Carbon\Carbon::parse($detailAttendance->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}</span>
+                                            @else
+                                                <span
+                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ \Carbon\Carbon::parse($detailAttendance->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}</span>
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td>
                                 @if (isset($attendance->attendances[0]))
                                     @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
                                         @if ($detailAttendance->status == 'return')
