@@ -138,5 +138,6 @@ Route::post('hummateam/team/{slug}/submit-project', [ProjectController::class, '
 
 Route::get('mentor/project-submission', [ProjectController::class, 'mentor'])->name('project-submission.index');
 Route::get('mentor/project-submission/{slug}', [ProjectController::class, 'showProjectSubmission'])->name('project-submission.detail');
+Route::put('mentor/project-submission/{slug}/acc/{project}', [ProjectController::class, 'update'])->name('project-submission.acc');
 
 Route::post('attendance-rule/store', [AttendanceRuleController::class, 'store'])->name('attendance-rule.store');

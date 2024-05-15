@@ -106,11 +106,19 @@
                         <div class="px-3 pb-3">
                             <div class="d-flex justify-content-between">
                                 <h6>Kondisi Tim</h6>
-                                <span class="mb-1 badge font-medium bg-light-{{ $team->project_id != null ? $team->project->status->color()  : 'warning' }} text-{{ $team->project_id != null ? $team->project->status->color()  : 'warning' }}">{{  $team->project_id != null ? $team->project->status->label()  : 'Belum Aktif' }}</span>
+                                @if (App\Models\Project::where('hummatask_team_id', $team->id)->where('status', 'accepted')->first())
+                                    @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $studentTeam)
+                                    <span class="mb-1 badge font-medium bg-light-{{ $studentTeam->project_id ? $studentTeam->project->status->color()  : 'warning' }} text-{{ $studentTeam->project_id != null ? $studentTeam->project->status->color()  : 'warning' }}">{{  $studentTeam->project_id != null ? $studentTeam->project->status->label()  : 'Belum Aktif' }}</span>
+                                    @endforeach
+                                @else
+                                    <span class="mb-1 badge font-medium bg-light-warning text-{{ $team->project_id != null ? $team->project->status->color()  : 'warning' }}">{{  $team->project_id != null ? $team->project->status->label()  : 'Belum Aktif' }}</span>
+                                @endif
                             </div>
                             <div class="d-flex justify-content-between py-1">
                                 <h6>Deadline:</h6>
-                                <p class="text-danger">{{ $team->project_id != null ? $team->project->end_date  : '-' }}</p>
+                                @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $studentTeam)
+                                <p class="text-danger">{{ $studentTeam->project_id != null ? \Carbon\Carbon::parse($studentTeam->project->end_date)->locale('id')->isoFormat('dddd, D MMMM Y') : '-' }}</p>
+                                @endforeach
                             </div>
                             <a href="{{ route('mentor.team-detail', ['slug' => $team->slug]) }}" class="btn btn-primary col-12">Lihat detail</a>
                         </div>

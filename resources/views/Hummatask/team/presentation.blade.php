@@ -151,7 +151,7 @@
                                                     class="form-check-input date_range {{ $presentation->hummatask_team_id ? 'disable' : '' }}"
                                                     type="radio" name="date_range" id="date_range"
                                                     value="{{ $presentation->start_date }}"
-                                                    data-id="{{ $presentation->id }}"
+                                                    data-id="{{ $presentation->id }}"   
                                                     data-start-date="{{ $presentation->start_date }}"
                                                     data-schedule-to="{{ $presentation->schedule_to }}"
                                                     data-end-date="{{ $presentation->end_date }}"

@@ -118,9 +118,20 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(UpdateProjectRequest $request, $slug, Project $project)
     {
-        //
+        $team = $this->hummatask_team->slug($slug);
+        
+        $data = $request->validated();
+        $this->project->accProject($project->id, $data, $team->id);
+        $data['project_id'] = $project->id;
+
+        $studentTeams = $this->studentTeam->where('hummatask_team_id', $team->id);
+        foreach ($studentTeams as $studentTeam) {
+            $this->studentTeam->update($studentTeam->id, $data);
+        }
+        
+        return back()->with('success' , 'Berhasil memilih tema');
     }
 
     /**
@@ -135,7 +146,6 @@ class ProjectController extends Controller
     {
         $categoryProjects = $this->categoryProject->get();
         $mentorStudents = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
-        $projects = $this->project->where('status', StatusProjectEnum::PENDING->value);
         $teams = $this->hummatask_team->WhereTeam();
         $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
         return view('Mentor.project-submission.index', compact('categoryProjects', 'mentorStudents', 'teams' ,'mentors'));
@@ -144,6 +154,7 @@ class ProjectController extends Controller
     public function showProjectSubmission($slug){
         $team = $this->hummatask_team->slug($slug);
         $projects = $this->project->where('hummatask_team_id', $team->id);
-        return view('Mentor.project-submission.detail', compact('team', 'projects'));
+        $done = $this->project->getProjectAccepted($team->id);
+        return view('Mentor.project-submission.detail', compact('team', 'projects', 'done'));
     }
 }
