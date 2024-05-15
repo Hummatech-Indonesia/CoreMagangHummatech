@@ -155,13 +155,13 @@
                         </div>
 
                     </div>
-                    {{ $students->links() }}
-                @empty
+                    @empty
                     <div class="col-12 d-flex justify-content-center text-center">
                         <img src="{{ asset('no data.png') }}" width="200px" alt="">
                     </div>
                     <h5 class="mt-3 text-center">Tidak ada data</h5>
-                @endforelse
+                    @endforelse
+                    {{ $students->links() }}
             </div>
         </div>
         <div id="steparrow-description-info" class="tab-pane fade">
