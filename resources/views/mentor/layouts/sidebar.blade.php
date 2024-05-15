@@ -51,15 +51,22 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/mentor/project-submission" aria-expanded="false">
                         <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-users-group">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-topology-star-ring">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" />
-                                <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                <path d="M17 10h2a2 2 0 0 1 2 2v1" />
-                                <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                <path d="M3 13v-1a2 2 0 0 1 2 -2h2" />
-                              </svg>
+                                <path d="M14 20a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" />
+                                <path d="M14 4a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" />
+                                <path d="M6 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" />
+                                <path d="M22 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" />
+                                <path d="M14 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" />
+                                <path d="M6 12h4" />
+                                <path d="M14 12h4" />
+                                <path d="M13.5 5.5l5 5" />
+                                <path d="M5.5 13.5l5 5" />
+                                <path d="M13.5 18.5l5 -5" />
+                                <path d="M10.5 5.5l-5 5" />
+                                <path d="M12 6v4" />
+                                <path d="M12 14v4" />
+                              </svg>    
                             </span>
                         <span class="hide-menu">Pengajuan Projek</span>
                     </a>
