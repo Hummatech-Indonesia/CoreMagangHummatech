@@ -106,7 +106,11 @@
                         <div class="px-3 pb-3">
                             <div class="d-flex justify-content-between">
                                 <h6>Kondisi Tim</h6>
-                                <span class="mb-1 badge font-medium bg-light-{{ $team->project_id != null ? $team->project->status->color()  : 'warning' }} text-{{ $team->project_id != null ? $team->project->status->color()  : 'warning' }}">{{  $team->project_id != null ? $team->project->status->label()  : 'Belum Aktif' }}</span>
+                                @if (App\Models\Project::where('hummatask_team_id', $team->id)->where('status', 'accepted')->first())
+                                    <span class="mb-1 badge font-medium bg-light-{{ $team->project_id != null ? $team->project->status->color()  : 'warning' }} text-{{ $team->project_id != null ? $team->project->status->color()  : 'warning' }}">{{  $team->project_id != null ? $team->project->status->label()  : 'Belum Aktif' }}</span>
+                                @else
+                                    <span class="mb-1 badge font-medium bg-light-{{ $team->project_id != null ? $team->project->status->color()  : 'warning' }} text-{{ $team->project_id != null ? $team->project->status->color()  : 'warning' }}">{{  $team->project_id != null ? $team->project->status->label()  : 'Belum Aktif' }}</span>
+                                @endif
                             </div>
                             <div class="d-flex justify-content-between py-1">
                                 <h6>Deadline:</h6>

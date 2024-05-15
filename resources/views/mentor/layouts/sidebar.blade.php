@@ -61,7 +61,7 @@
                                 <path d="M3 13v-1a2 2 0 0 1 2 -2h2" />
                               </svg>
                             </span>
-                        <span class="hide-menu">Pengajuan Project</span>
+                        <span class="hide-menu">Pengajuan Projek</span>
                     </a>
                 </li>
                 <li class="sidebar-item">

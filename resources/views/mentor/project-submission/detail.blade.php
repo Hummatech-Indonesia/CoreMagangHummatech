@@ -17,13 +17,15 @@
 @endsection
 @section('content')
 <div class="d-flex gap-3 justify-content-end mb-3">
-  <button type="button" class="btn btn-light-info text-info" data-bs-toggle="modal" data-bs-target="#edit-team">
-    Edit Tim
+  <a href="{{ route('project-submission.index') }}" class="btn btn-light-info text-info">Kembali</a>
+  @if (!$done)
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#acc-project-modal">
+   Pilih Tema
   </button>
-  <a href="/mentor/team" class="btn btn-primary">Kembali</a>
+  @endif
 </div>
 <div class="row">
-  <div class="col-lg-7">
+  <div class="col-lg-12">
     <div class="card w-100 p-4 bg-light-info overflow-hidden shadow-none">
       <div class="d-flex gap-4">
         <div class="text-center align-content-center ">
@@ -81,7 +83,7 @@
                 @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $key => $student)
                   <tr>
                     <td>
-                      <p class="mb-0 fs-3">{{ ++$key }}</p>
+                      <p class="mb-0 fs-3">{{ ++$key + 1 }}</p>
                     </td>
                     <td class="ps-0">
                       <div class="d-flex align-items-center">
@@ -107,12 +109,14 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-5 d-flex align-items-strech">
+</div>
+<div class="row">
+  <div class="col-lg-12 d-flex align-items-strech">
     <div class="card w-100">
       <div class="card-body p-4">
         <div class="d-flex align-items-center justify-content-between">
           <div>
-            <h5 class="card-title fw-semibold">Project yang diajukan</h5>
+            <h5 class="card-title fw-semibold">{{ $done ? 'Projek yang diterima' : 'Projek yang diajukan' }}</h5>
           </div>
         </div>
         <div class="card shadow-none mb-0 mt-3">
@@ -121,9 +125,6 @@
               <div>
                 <h6 class="mb-0 fw-semibold">{{ $project->title }}</h6>
                 <span class="fs-2">{{ $project->description }}</span>
-              </div>
-              <div class="ms-auto text-end">
-                <span class="text-danger">-6.8%</span>
               </div>
             </div>
           @empty
@@ -139,65 +140,53 @@
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-lg-12">
-    <div class="card">
-      <div class="card-body px-4 py-3">
-        <h5 class="p-0 m-0">Riwayat presentasi</h5>
+
+{{-- acc project start --}}
+<div class="modal fade" id="acc-project-modal" tabindex="-1" aria-labelledby="exampleModalLabel1" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header d-flex align-items-center">
+        <h4 class="modal-title" id="exampleModalLabel1">
+          Pilih Tema
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <form id="acc-form" method="post" action="">
+        @csrf
+        @method('PUT')
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="project_id">Tema</label>
+              <select class="select2 js-example-basic-single form-control" id="project_id" style="width: 100%; height: 36px" >
+                <option>Pilih tema</option>
+                @foreach ($projects as $project)
+                    <option id="acc" value="{{ $project->id }}"
+                      data-id="{{ $project->id }}"
+                      data-slug="{{ $team->slug }}">{{ $project->title }}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="mb-1">
+              <label for="deadline">Deadline</label>
+              <input type="date" name="end_date" id="deadline" placeholder="Tambahkan Deadline" class="form-control">
+              @error('end_date')
+                  <p class="text-danger">{{ $message }}</p>
+              @enderror
+            </div>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-light-danger text-danger font-medium" data-bs-dismiss="modal" >
+            Tutup
+          </button>
+          <button type="submit" class="btn btn-info">
+            Terima
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
-<div class="d-flex align-items-strech">
-  <div class="card w-100">
-    <div class="card-body pt-1">
-      <div class="table-responsive">
-        <table class="table align-middle text-nowrap mb-0">
-          <thead>
-            <tr class="text-muted fw-semibold">
-              <th scope="col" class="ps-0" style="width: 3.5pc">No</th>
-              <th scope="col">Judul</th>
-              <th scope="col">Tanggal</th>
-              <th scope="col">Status presentasi</th>
-              <th scope="col">Jadwal</th>
-              <th scope="col">Aksi</th>
-            </tr>
-          </thead>
-          <tbody class="border-top">
-            <tr>
-              <td>
-                <p class="mb-0 fs-3">2</p>
-              </td>
-              <td class="ps-0">
-                <div class="d-flex align-items-center">
-                  <div class="me-2 pe-1">
-                    <img src="{{ asset('assets-user/dist/images/profile/user-10.jpg') }}" class="rounded-circle" width="40" height="40" alt="" />
-                  </div>
-                  <div>
-                    <h6 class="fw-semibold mb-1">Sunil Jamal</h6>
-                    <p class="fs-2 mb-0 text-muted">Anggota</p>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <p class="fs-3 text-dark mb-0">Web technologies</p>
-              </td>
-              <td>
-                <p class="fs-3 text-dark mb-0">Web technologies</p>
-              </td>
-              <td>
-                <p class="fs-3 text-dark mb-0">Web technologies</p>
-              </td>
-              <td>
-                <p class="fs-3 text-dark mb-0">Web technologies</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
+{{-- acc project end --}}
 
 @include('admin.components.delete-modal-component')
 
@@ -218,6 +207,27 @@
 
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2();
+        });
+
+        $(document).ready(function() {
+            $(".js-example-basic-single").select2({
+                dropdownParent: $("#acc-project-modal")
+            });
+        });
+
+        $(document).ready(function() {
+          $('#project_id').on('change', function() {
+            let selectedOption = $(this).find('option:selected');
+            let id = selectedOption.data('id');
+            let slug = selectedOption.data('slug');
+
+            console.log(id);
+            console.log(slug);
+
+            let url = `{{ route('project-submission.acc', ['slug' => ':slug', 'project' => ':project']) }}`;
+            url = url.replace(':slug', slug).replace(':project', id);
+            $('#acc-form').attr('action', url);
+          });
         });
     </script>
 @endsection
