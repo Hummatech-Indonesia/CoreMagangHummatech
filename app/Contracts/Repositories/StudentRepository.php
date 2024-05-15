@@ -401,20 +401,14 @@ class StudentRepository extends BaseRepository implements StudentInterface
      * @param  mixed $id
      * @return mixed
      */
-
-    public function getstudentmentorplacement(mixed $id,Request $request): mixed
+    public function getstudentmentorplacement(mixed $id): mixed
     {
         return $this->model->query()
             ->where('internship_type', InternshipTypeEnum::ONLINE->value)
             ->where('status', 'accepted')
             ->whereNotIn('id', $id)
-            ->when($request->name, function ($query) use ($request){
-                $query->where('name', 'LIKE', '%' . $request->name. '%');
-            })
-            ->paginate(10);
+            ->get();
     }
-
-
 
     /**
      * Get Student By Status Accepted
@@ -452,16 +446,13 @@ class StudentRepository extends BaseRepository implements StudentInterface
      * @param  mixed $id
      * @return mixed
      */
-    public function geteditstudentmentorplacement(mixed $id, Request $request): mixed
+    public function geteditstudentmentorplacement(mixed $id): mixed
     {
         return $this->model->query()
             ->where('internship_type', InternshipTypeEnum::ONLINE->value)
             ->where('status', 'accepted')
             ->whereIn('id', $id)
-            ->when($request->name, function ($query) use ($request){
-                $query->where('name', 'LIKE', '%' . $request->name . '%');
-            })
-            ->paginate(10);
+            ->get();
     }
 
     /**
