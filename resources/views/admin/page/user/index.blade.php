@@ -238,7 +238,6 @@
                             </div>
                         </div>
                     </div>
-                    {{ $studentOfflines->links() }}
 
                 @empty
                     <div class="col-12 d-flex justify-content-center text-center">
@@ -246,6 +245,7 @@
                     </div>
                     <h5 class="mt-3 text-center">Tidak ada data</h5>
                 @endforelse
+                {{ $studentOfflines->links() }}
             </div>
         </div>
         <div id="pills-experience" class="tab-pane fade">
