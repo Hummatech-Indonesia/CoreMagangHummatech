@@ -120,6 +120,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
             $date = $request->date;
         }
         return $this->model->query()
+            ->where('id', auth()->user()->student->id)
             ->whereNotNull('rfid')
             ->when($request->name, function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->name . '%');
