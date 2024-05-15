@@ -273,7 +273,7 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                {{-- @if (isset($attendance->attendances[0]))
+                                @if (isset($attendance->attendances[0]))
                                     @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
                                         @if ($detailAttendance->status == 'present')
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
@@ -286,10 +286,10 @@
                                             @endif
                                         @endif
                                     @endforeach
-                                @endif --}}
+                                @endif
                             </td>
                             <td class="text-center">
-                                {{-- @if (isset($attendance->attendances[0]))
+                                @if (isset($attendance->attendances[0]))
                                     @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
                                         @if ($detailAttendance->status == 'return')
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
@@ -302,7 +302,7 @@
                                             @endif
                                         @endif
                                     @endforeach
-                                @endif --}}
+                                @endif
                             </td>
                         </tr>
                         {{-- <tr class="search-items">

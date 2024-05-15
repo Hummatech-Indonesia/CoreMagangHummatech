@@ -403,7 +403,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
      * @param  mixed $id
      * @return mixed
      */
-    public function getstudentmentorplacement(mixed $id): mixed
+    public function getstudentmentorplacement(mixed $id , Request $request): mixed
     {
         return $this->model->query()
             ->where('internship_type', InternshipTypeEnum::ONLINE->value)
@@ -448,7 +448,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
      * @param  mixed $id
      * @return mixed
      */
-    public function geteditstudentmentorplacement(mixed $id): mixed
+    public function geteditstudentmentorplacement(mixed $id , Request $request): mixed
     {
         return $this->model->query()
             ->where('internship_type', InternshipTypeEnum::ONLINE->value)
