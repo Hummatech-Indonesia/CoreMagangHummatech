@@ -38,16 +38,16 @@ class AdminStudentController extends Controller
         $studentOnllines = $this->student->listStudentOnline($request);
         $divisions = $this->division->get();
 
-        // // Iterasi melalui data siswa
-        // foreach ($students as $student) {
-        //     // Cek apakah siswa tersebut ada di tabel attendance
-        //     $attendance = Attendance::where('student_id', $student->id)->first();
-        //     if ($attendance) {
-        //         // Jika ada, maka update kolom accepted menjadi 1
-        //         $student->acepted = 1;
-        //         $student->save();
-        //     }
-        // }
+        // Iterasi melalui data siswa
+        foreach ($students as $student) {
+            // Cek apakah siswa tersebut ada di tabel attendance
+            $attendance = Attendance::where('student_id', $student->id)->first();
+            if ($attendance) {
+                // Jika ada, maka update kolom accepted menjadi 1
+                $student->acepted = 1;
+                $student->save();
+            }
+        }
 
         return view('admin.page.user.index', compact('students', 'studentOfflines', 'studentOnllines', 'divisions', 'schools'));
     }
