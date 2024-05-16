@@ -22,9 +22,11 @@
                         <div class="d-flex align-items-center justify-content-between gap-4">
                             <img src="{{ asset($randomImage) }}" alt="">
                             <div>
-                                <p class="text-dark fs-5 mb-0 fw-bold">
-                                    {{ $student->name }}
-                                </p>
+                                <div class="col-4">
+                                    <p class="text-dark fs-5 mb-0 fw-bold">
+                                        {{ $student->name }}
+                                    </p>
+                                </div>
                                 <p>
                                     {{ $student->school }}
                                 </p>
