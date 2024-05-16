@@ -34,7 +34,7 @@ class AttendanceDetailRepository extends BaseRepository implements AttendanceDet
         return $this->model->query()
             ->updateOrCreate(
                 ['attendance_id' => $data['attendance_id'], 'status' => $data['status']],
-                ['status' => $data['status']]
+                ['status' => $data['status'], 'created_at' => $data['created_at'], 'updated_at' => $data['updated_at']]
             );
     }
 }
