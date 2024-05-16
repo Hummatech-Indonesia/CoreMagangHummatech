@@ -166,6 +166,7 @@
                   data-title="{{ $presentationHistory->title }}"
                   data-description="{{ $presentationHistory->description }}"
                   data-date="{{ \Carbon\Carbon::parse($presentationHistory->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}"
+                  data-callback="{{ $presentationHistory->callback != null ? $presentationHistory->callback : 'Belum ada tanggapan' }}"
                   >
                     <i class="ti ti-eye fs-5"></i>
                   </button>
@@ -208,6 +209,8 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <h6 class="mb-4">Tanggal: <span id="date"></span></h6>
           <h5 id="title">Judul presentasi</h5>
           <p id="description"></p>
+          <h5 class="mt-4">Tanggapan mentor:</h5>
+          <p id="callback"></p>
           </div>
         </div>
         <div class="modal-footer">
@@ -351,10 +354,12 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
             let date = $(this).data('date');
             let title = $(this).data('title');
             let description = $(this).data('description');
+            let callback = $(this).data('callback');
                         
             $('#date').text(date);
             $('#title').text(title);
             $('#description').text(description);
+            $('#callback').text(callback);
             $('#show-modal').modal('show');
         });
 
