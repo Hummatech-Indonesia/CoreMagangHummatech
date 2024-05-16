@@ -236,10 +236,10 @@
                                     <div>
                                         <p class="fw-medium text-muted mb-0">TOTAL SISWA AKTIF</p>
                                         <h2 class="mt-4 ff-secondary fw-semibold">
-                                            <span class="counter-value" data-target="39"></span>
+                                            <span class="counter-value" data-target="{{ $countofflineactive }}"></span>
                                         </h2>
-                                        <a href="javascript:void(0)" class="text-decoration-underline">Lihat Data
-                                            Siswa</a>
+                                        {{-- <a href="javascript:void(0)" class="text-decoration-underline">Lihat Data
+                                            Siswa</a> --}}
                                     </div>
                                     <div class="avatar-sm flex-shrink-0">
                                         <span class="avatar-title rounded-3 fs-2" style="background-color: #EDF9FF">
@@ -257,10 +257,10 @@
                                     <div>
                                         <p class="fw-medium text-muted mb-0">MENUNGGU KONFIRMASI</p>
                                         <h2 class="mt-4 ff-secondary fw-semibold">
-                                            <span class="counter-value" data-target="39"></span>
+                                            <span class="counter-value" data-target="{{ $countPending }}"></span>
                                         </h2>
-                                        <a href="javascript:void(0)" class="text-decoration-underline">Lihat Data
-                                            Siswa</a>
+                                        {{-- <a href="javascript:void(0)" class="text-decoration-underline">Lihat Data
+                                            Siswa</a> --}}
                                     </div>
                                     <div class="avatar-sm flex-shrink-0">
                                         <span class="avatar-title rounded-3 fs-2" style="background-color: #FEF4E4">
@@ -277,10 +277,10 @@
                                     <div>
                                         <p class="fw-medium text-muted mb-0">SISWA DI TOLAK</p>
                                         <h2 class="mt-4 ff-secondary fw-semibold">
-                                            <span class="counter-value" data-target="28.05">36</span>
+                                            <span class="counter-value" data-target="{{ $countDecline }}"></span>
                                         </h2>
-                                        <a href="javascript:void(0)" class="text-decoration-underline">Lihat Data
-                                            Siswa</a>
+                                        {{-- <a href="javascript:void(0)" class="text-decoration-underline">Lihat Data
+                                            Siswa</a> --}}
                                     </div>
                                     <div class="avatar-sm flex-shrink-0">
                                         <span class="avatar-title rounded-3 fs-2" style="background-color: #FBF2EF">
