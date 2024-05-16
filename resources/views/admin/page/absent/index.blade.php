@@ -73,11 +73,13 @@
         </div>
     </div>
     <div class="card-body border-top">
-        @php
-            function dateFormatted(string $dateTime): string {
-                return \Carbon\Carbon::parse($dateTime)->format('H:i');
-            }
-        @endphp
+        @if (!function_exists('dateFormatted'))
+            @php
+                function dateFormatted(string $dateTime): string {
+                    return \Carbon\Carbon::parse($dateTime)->format('H:i');
+                }
+            @endphp
+        @endif
         <div class="table-responsive table-card p-3">
             <div class="tab-content">
                 <div class="tab-pane fade" id="online">
