@@ -241,9 +241,8 @@
 
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsMobile">Mulai Magang</label>
-                                            <input type="date" id="multiStepsMobile" name="start_date"
-                                                value="{{ old('start_date') }}" class="form-control multi-steps-mobile"
-                                                placeholder="202 555 0111" />
+                                            <input type="date"  name="start_date"
+                                                value="{{ old('start_date') }}" class="form-control"/>
                                             @error('start_date')
                                                 <p class="text-danger m-0">{{ $message }}</p>
                                             @enderror
