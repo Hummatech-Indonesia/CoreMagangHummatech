@@ -44,7 +44,7 @@ class AdminStudentController extends Controller
             $attendance = Attendance::where('student_id', $student->id)->first();
             if ($attendance) {
                 // Jika ada, maka update kolom accepted menjadi 1
-                $student->accepted = 1;
+                $student->acepted = 1;
                 $student->save();
             }
         }
