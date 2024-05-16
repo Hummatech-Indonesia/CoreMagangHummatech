@@ -214,8 +214,7 @@
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsMobile">Surat Pernyataan Diri</label>
                                             <div class="input-group">
-                                                <input type="file" id="multiStepsMobile" name="self_statement"
-                                                    class="form-control multi-steps-mobile" placeholder="202 555 0111" />
+                                                <input type="file" name="self_statement" class="form-control"/>
                                             </div>
                                             <p class="text-danger">*Surat Pernyataan Diri Harus Berformat .jpg, .jpeg,
                                                 atau .png</p>
@@ -286,7 +285,7 @@
                                                     {{ old('internship_type') == 'offline' ? 'selected' : '' }}>
                                                     offline</option>
                                             </select>
-                                            
+
                                             @error('internship_type')
                                                 <p class="text-danger m-0">{{ $message }}</p>
                                             @enderror
