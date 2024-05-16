@@ -29,8 +29,10 @@
                 <div class="col-sm-auto ms-auto d-flex">
                     <div class="list-grid-nav hstack gap-1">
                         <div class="search-box">
-                            <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa...">
-                            <i class="ri-search-line search-icon"></i>
+                            <form action="/online-student/menotor-placement">
+                                <input type="text" class="form-control" id="searchMemberList" name="name" value="{{request()->name}}" placeholder="Cari Siswa...">
+                                <i class="ri-search-line search-icon"></i>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -115,6 +117,7 @@
                             </tbody>
                         </table>
                     </table>
+                    {{$students->links()}}
                 </div>
             </div>
         </div>
@@ -196,6 +199,7 @@
                             </tbody>
                         </table>
                     </table>
+                    {{$studentedit->links()}}
                 </div>
             </div>
         </div>

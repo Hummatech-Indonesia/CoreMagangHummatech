@@ -31,7 +31,8 @@
     </div>
 
     <div class="row  mt-5">
-        @forelse ($teams as $team)
+    @forelse ($teams as $team)
+    @if (!App\Models\Project::where('hummatask_team_id', $team->id)->where('status', 'accepted')->first())
         <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12">
             <div class="card">
                 <div class="card-body py-1 px-2">
@@ -57,7 +58,7 @@
                                         $firstLetter = substr($team->student->name, 0, 1);
                                         $firstLetter = strtoupper($firstLetter);
                                         $backgroundColors = [
-                                             '#ff5722',
+                                            '#ff5722',
                                             '#4caf50',
                                             '#2196f3',
                                         ];
@@ -113,11 +114,18 @@
                 </div>
             </div>
         </div>
+    @endif
+    <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+        <img src="{{ asset('empty-asset.png') }}" alt="" width="150px" srcset="">
+        <p class="fs-4 text-dark">
+            Belum Ada Tim Yang Mengajukan Projek
+        </p>
+    </div>
     @empty
         <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
             <img src="{{ asset('empty-asset.png') }}" alt="" width="150px" srcset="">
             <p class="fs-4 text-dark">
-                Belum Ada Pengajuan Project
+                Belum Ada Tim Yang Mengajukan Projek
             </p>
         </div>
     @endforelse

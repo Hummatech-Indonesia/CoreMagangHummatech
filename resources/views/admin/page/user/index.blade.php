@@ -38,10 +38,10 @@
                             <select name="school" class="form-select" id="schoolFilter">
                                 <option value="">Sekolah</option>
                                 @forelse ($schools as $school)
-                                <option value="{{ $school }}">{{ $school }}</option>
-                                {{-- <option value="{{ $school }}" {{ $request->school == $school ? 'selected' : '' }}>{{ $school }}</option> --}}
+                                    <option value="{{ $school }}">{{ $school }}</option>
+                                    {{-- <option value="{{ $school }}" {{ $request->school == $school ? 'selected' : '' }}>{{ $school }}</option> --}}
                                 @empty
-                                <option value="">Belum ada data</option>
+                                    <option value="">Belum ada data</option>
                                 @endforelse
                             </select>
                         </form>
@@ -67,7 +67,8 @@
                     </div>
                     <div class="search-box d-flex justify-content-end w-25">
                         <form action="/menu-siswa">
-                            <input type="text" class="form-control" id="searchMemberList" name="name" value="{{request()->name}}" placeholder="Cari Siswa...">
+                            <input type="text" class="form-control" id="searchMemberList" name="name"
+                                value="{{ request()->name }}" placeholder="Cari Siswa...">
                             <i class="ri-search-line search-icon"></i>
                         </form>
                     </div>
@@ -154,13 +155,13 @@
                         </div>
 
                     </div>
-                    {{$students->links()}}
-                @empty
+                    @empty
                     <div class="col-12 d-flex justify-content-center text-center">
                         <img src="{{ asset('no data.png') }}" width="200px" alt="">
                     </div>
                     <h5 class="mt-3 text-center">Tidak ada data</h5>
-                @endforelse
+                    @endforelse
+                    {{ $students->links() }}
             </div>
         </div>
         <div id="steparrow-description-info" class="tab-pane fade">
@@ -237,7 +238,6 @@
                             </div>
                         </div>
                     </div>
-                    {{$studentOfflines->links()}}
 
                 @empty
                     <div class="col-12 d-flex justify-content-center text-center">
@@ -245,6 +245,7 @@
                     </div>
                     <h5 class="mt-3 text-center">Tidak ada data</h5>
                 @endforelse
+                {{ $studentOfflines->links() }}
             </div>
         </div>
         <div id="pills-experience" class="tab-pane fade">
@@ -321,7 +322,6 @@
                             </div>
                         </div>
                     </div>
-                    {{$studentOnllines->links()}}
 
                 @empty
                     <div class="col-12 d-flex justify-content-center text-center">
@@ -329,6 +329,7 @@
                     </div>
                     <h5 class="mt-3 text-center">Tidak ada data</h5>
                 @endforelse
+                {{ $studentOnllines->links() }}
             </div>
         </div>
     </div>
@@ -449,7 +450,8 @@
                     <div class="modal-body">
                         <div class="col-12">
                             <div class="mb-3 d-flex gap-3 flex-column align-items-center">
-                                <img src="{{ asset('user.webp') }}" class="rounded show-image avatar-lg object-fit-cover" alt="User Profile" />
+                                <img src="{{ asset('user.webp') }}"
+                                    class="rounded show-image avatar-lg object-fit-cover" alt="User Profile" />
                                 <input type="file" id="image" name="avatar" class="form-control" />
                             </div>
                         </div>
@@ -656,17 +658,15 @@
         }
     </script>
 
-<script>
-    document.getElementById('schoolFilter').addEventListener('change', function() {
-        this.form.submit();
-    });
-    document.getElementById('acceptedFilter').addEventListener('change', function() {
-        this.form.submit();
-    });
-    document.getElementById('genderFilter').addEventListener('change', function() {
-        this.form.submit();
-    });
-</script>
-
-
+    <script>
+        document.getElementById('schoolFilter').addEventListener('change', function() {
+            this.form.submit();
+        });
+        document.getElementById('acceptedFilter').addEventListener('change', function() {
+            this.form.submit();
+        });
+        document.getElementById('genderFilter').addEventListener('change', function() {
+            this.form.submit();
+        });
+    </script>
 @endsection
