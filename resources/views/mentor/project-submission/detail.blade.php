@@ -39,7 +39,7 @@
           <h3 class="text-primary text-capitalize" style="font-weight: 700">{{ $team->name }}</h3>
           <p class="text-muted m-0">{{ ($team->project_id != null) ? $team->project->description : ($team->hummataskTeam->description ?? '') }}</p>
           <p class="m-0">Mentor: {{ auth()->user()->mentor->name }}</p>
-          <p class="text-danger m-0">Deadline: {{ $team->project_id != null ? $team->project->end_date  : '-' }}</p>
+          <p class="text-danger m-0">Deadline: {{ $done ? \Carbon\Carbon::parse($done->end_date)->locale('id')->isoFormat('dddd, D MMMM Y') : '-' }}</p>
         </div>
       </div>
     </div>

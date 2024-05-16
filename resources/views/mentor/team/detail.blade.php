@@ -37,7 +37,7 @@
           <h3 class="text-primary text-capitalize" style="font-weight: 700">{{ $team->name }}</h3>
           <p class="text-muted m-0">{{ ($team->project_id != null) ? $team->project->description : ($team->hummataskTeam->description ?? '') }}</p>
           <p class="m-0">Mentor: {{ auth()->user()->mentor->name }}</p>
-          <p class="text-danger m-0">Deadline: {{ $team->project_id != null ? $team->project->end_date  : '-' }}</p>
+          <p class="text-danger m-0">Deadline: {{ $done ? \Carbon\Carbon::parse($done->end_date)->locale('id')->isoFormat('dddd, D MMMM Y')  : '-' }}</p>
         </div>
       </div>
     </div>
@@ -107,49 +107,13 @@
       </div>
     </div>
   </div>
-  {{-- <div class="col-lg-5">
-    <div class="card">
-      <div class="card-header text-bg-primary d-flex justify-content-between align-items-center rounded-top-4">
-        <h5 class="card-title text-white mb-0">Tema project yang diajukan</h5>
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#add-team">
-          setujui project
-        </button>
-      </div>
-      <div class="card-body pb-1">
-        <div class="accordion accordion-flush card position-relative overflow-hidden" id="accordionFlushExample">
-          @forelse ($projects as $i => $project)
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-headingOne">
-                <button class="accordion-button collapsed fs-4 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                 {{$project->title}}
-                </button>
-              </h2>
-              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body fw-normal">
-                  {{ $project->description }}
-                </div>
-              </div>
-            </div>
-          @empty
-            <div class="container">
-              <div class="row justify-content-center align-items-center">
-                  <div class="col-md-6 text-center">
-                      <img src="{{ asset('empty-asset.png') }}" alt="" width="100px" class="mb-2">
-                      <p class="fs-3 text-dark">
-                          Tim belum mengajukan tema project
-                      </p>
-                  </div>
-              </div>
-            </div>
-          @endforelse
-        </div>
-      </div>
-    </div>
-  </div> --}}
-  <div class="col-lg-5 ">
+  <div class="col-lg-5 d-flex align-items-stretch">
     <div class="card">
       <div class="card-body">
         <h5>Progress tim</h5>
+        <div class="chart">
+
+        </div>
       </div>
     </div>
   </div>
@@ -175,43 +139,110 @@
               <th scope="col">Tanggal</th>
               <th scope="col">Status presentasi</th>
               <th scope="col">Jadwal</th>
-              <th scope="col">Aksi</th>
+              <th scope="col" class="text-center">Aksi</th>
             </tr>
           </thead>
           <tbody class="border-top">
-            <tr>
-              <td>
-                <p class="mb-0 fs-3">2</p>
-              </td>
-              <td class="ps-0">
-                <div class="d-flex align-items-center">
-                  <div class="me-2 pe-1">
-                    <img src="{{ asset('assets-user/dist/images/profile/user-10.jpg') }}" class="rounded-circle" width="40" height="40" alt="" />
+            @forelse ($presentationHistories as $presentationHistory)
+              <tr>
+                <td>
+                  <p class="mb-0 fs-3">{{ $loop->iteration }}.</p>
+                </td>
+                <td class="ps-0">
+                  <h6 class="fw-semibold mb-1">{{ $presentationHistory->title }}</h6>
+                </td>
+                <td>
+                  <p class="fs-3 text-dark mb-0">{{ \Carbon\Carbon::parse($presentationHistory->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}</p>
+                </td>
+                <td>
+                  <p class="fs-3 text-{{ $presentationHistory->status_presentation->color()  }} mb-0 bg-light-{{ $presentationHistory->status_presentation->color()  }} badge">{{ $presentationHistory->status_presentation->label() }}</p>
+                </td>
+                <td>
+                  <p class="fs-3 text-dark mb-0">{{ $presentationHistory->schedule_to }}</p>
+                </td>
+                <td class="d-flex gap-2 justify-content-center">
+                  <button class="text-primary show-btn badge border-0 bg-light-primary"
+                  data-id="{{ $presentationHistory->id }}"
+                  data-title="{{ $presentationHistory->title }}"
+                  data-description="{{ $presentationHistory->description }}"
+                  data-date="{{ \Carbon\Carbon::parse($presentationHistory->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}"
+                  >
+                    <i class="ti ti-eye fs-5"></i>
+                  </button>
+                  <button class="text-warning callback-btn badge border-0 bg-light-warning"
+                  data-id="{{ $presentationHistory->id }}"
+                  >
+                    <i class="ti ti-send fs-5"></i>
+                  </button>
+                </td>
+              </tr>  
+            @empty
+              <tr>
+                <td colspan="6">
+                  <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                    <img src="{{ asset('empty-asset.png') }}" alt="" width="100px" srcset="">
+                    <p class="fs-3 text-dark text-capitalize">
+                        Tim {{ $team->name }} Belum Pernah Presentasi
+                    </p>
                   </div>
-                  <div>
-                    <h6 class="fw-semibold mb-1">Sunil Jamal</h6>
-                    <p class="fs-2 mb-0 text-muted">Anggota</p>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <p class="fs-3 text-dark mb-0">Web technologies</p>
-              </td>
-              <td>
-                <p class="fs-3 text-dark mb-0">Web technologies</p>
-              </td>
-              <td>
-                <p class="fs-3 text-dark mb-0">Web technologies</p>
-              </td>
-              <td>
-                <p class="fs-3 text-dark mb-0">Web technologies</p>
-              </td>
-            </tr>
+                </td>
+              </tr>
+            @endforelse
           </tbody>
         </table>
       </div>
     </div>
   </div>
+</div>
+
+<div class="modal fade" id="show-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog modal-md">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title px-3" id="staticBackdropLabel">Detail presentasi</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="px-3">
+            <h6 class="mb-4">Tanggal: <span id="date"></span></h6>
+          <h5 id="title">Judul presentasi</h5>
+          <p id="description"></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light-danger text-danger"
+                data-bs-dismiss="modal">Tutup</button>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" id="callback-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog modal-md">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title px-3" id="staticBackdropLabel">Detail presentasi</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="POST" enctype="multipart/form-data" id="form-callback">
+          @csrf
+          @method('PATCH')
+          <div class="modal-body">
+              <div class="px-3">
+                <label for="callback" class="mb-2">Berikan tanggapan</label>
+              <textarea name="callback" id="callback" rows="5" class="form-control">{{ old('callback') }}</textarea>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-light-danger text-danger"
+                  data-bs-dismiss="modal">Tutup</button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+      </form>
+    </div>
+</div>
 </div>
 
 <div class="modal fade" id="edit-team" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -313,6 +344,24 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
             var id = $(this).data('id');
             $('#form-delete').attr('action', '/mentor/challenge/delete/' + id);
             $('#modal-delete').modal('show');
+          });
+
+        $('.show-btn').on('click', function() {
+            let id = $(this).data('id');
+            let date = $(this).data('date');
+            let title = $(this).data('title');
+            let description = $(this).data('description');
+                        
+            $('#date').text(date);
+            $('#title').text(title);
+            $('#description').text(description);
+            $('#show-modal').modal('show');
+        });
+
+        $('.callback-btn').on('click', function() {
+          let id = $(this).data('id');
+          $('#form-callback').attr('action', '/mentor/presentation/callback/' + id);
+          $('#callback-modal').modal('show');
         });
 
         $(document).ready(function() {

@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\CategoryProjectInterface;
 use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
+use App\Contracts\Interfaces\PresentationInterface;
 use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
@@ -37,6 +38,7 @@ class HummataskTeamController extends Controller
     private StudentInterface $student;
     private StudentTeamInterface $studentTeam;
     private MentorStudentInterface $mentorStudent;
+    private PresentationInterface $presentation;
 
     public function __construct(
         HummataskTeamInterface $hummatask_team, HummataskTeamService $service,
@@ -46,7 +48,8 @@ class HummataskTeamController extends Controller
         StudentInterface $student,
         MentorDivisionInterface $mentordivision,
         StudentTeamInterface $studentTeam,
-        MentorStudentInterface $mentorStudent
+        MentorStudentInterface $mentorStudent,
+        PresentationInterface $presentation
         )
     {
         $this->hummatask_team = $hummatask_team;
@@ -60,6 +63,7 @@ class HummataskTeamController extends Controller
         $this->student = $student;
         $this->studentTeam = $studentTeam;
         $this->mentorStudent = $mentorStudent;
+        $this->presentation = $presentation;
     }
     /**
      * Display a listing of the resource.
@@ -180,11 +184,12 @@ class HummataskTeamController extends Controller
 
     public function mentorShow($slug){
         $team = $this->hummatask_team->slug($slug);
-        $projects = $this->project->where('hummatask_team_id', $team->id);
         $categoryProjects = $this->categoryProject->get();
         $students = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
         $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
-        return view('mentor.team.detail', compact('team', 'projects', 'categoryProjects', 'students', 'mentors'));
+        $done = $this->project->getProjectAccepted($team->id);
+        $presentationHistories = $this->presentation->where('hummatask_team_id', $team->id);
+        return view('mentor.team.detail', compact('team', 'done', 'categoryProjects', 'students', 'mentors', 'presentationHistories'));
     }
 
 }

@@ -90,4 +90,9 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->where('mentor_id' , $id)
             ->get();
     }
+
+    public function where($parameter, $value): mixed
+    {
+        return $this->model->query()->where($parameter, $value)->get();
+    }
 }
