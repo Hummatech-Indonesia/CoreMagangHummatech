@@ -4,12 +4,25 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\AttendanceInterface;
 use App\Models\Attendance;
+use Illuminate\Http\Request;
 
 class AttendanceRepository extends BaseRepository implements AttendanceInterface
 {
     public function __construct(Attendance $attendance)
     {
         $this->model = $attendance;
+    }
+
+    /**
+     * get attendance by student
+     * @param Request $request
+     * @return mixed
+     */
+    public function getAttendanceByStudent(Request $request): mixed
+    {
+        return $this->model->query()
+            ->where('student_id', auth()->user()->student->id)
+            ->get();
     }
 
     /**

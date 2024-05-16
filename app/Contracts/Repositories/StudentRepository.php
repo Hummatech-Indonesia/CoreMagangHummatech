@@ -20,6 +20,22 @@ class StudentRepository extends BaseRepository implements StudentInterface
     {
         $this->model = $student;
     }
+
+    public function countActiveOflline(): mixed
+    {
+        return $this->model->query()->where('acepted' , 1)->count();
+    }
+
+    public function countPending(): mixed
+    {
+        return $this->model->query()->where('status' , 'pending')->count();
+    }
+
+    public function countDecline(): mixed
+    {
+        return $this->model->query()->where('status' , 'decline')->count();
+
+    }
     /**
      * Method countActiceStudents
      *

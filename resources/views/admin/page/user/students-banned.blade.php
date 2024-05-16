@@ -65,7 +65,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="8">
+                                <td colspan="9">
                                     <div class="d-flex justify-content-center mb-3 mt-3">
                                         <img src="{{ asset('no data.png') }}" width="200px" alt="" srcset="">
                                     </div>

@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 
 interface StudentInterface extends GetInterface , StoreInterface , DeleteInterface , UpdateInterface, WhereInterface, ShowInterface
 {
+    public function countActiveOflline():mixed;
+    public function countPending():mixed;
+    public function countDecline():mixed;
+
     /**
      * Method countActiveOnlineStudents
      *

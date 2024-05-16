@@ -123,12 +123,12 @@
                                                     class="mdi mdi-dots-vertical align-center"></i></span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            {{-- <a class="dropdown-item"
-                                                href="/menu-siswa/face/{{ $student->id }}">Wajah</a> --}}
-                                            {{-- <button class="dropdown-item btn-reset" type="button"
+                                            <a class="dropdown-item"
+                                                href="/menu-siswa/face/{{ $student->id }}">Wajah</a>
+                                             <button class="dropdown-item btn-reset" type="button"
                                                 data-id="{{ $student->id }}">Reset Password</button>
                                             <button class="dropdown-item btn-ban"
-                                                data-id="{{ $student->id }}">Banned</button> --}}
+                                                data-id="{{ $student->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $student->id }}"
                                                 data-image="{{ $student->avatar }}">Ganti
                                                 Profile</button>

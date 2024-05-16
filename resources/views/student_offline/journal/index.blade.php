@@ -322,7 +322,7 @@
                 var school = $(this).data('school');
                 var description = $(this).data('description');
                 var image = $(this).data('image');
-                var modalBody = $('<div class="modal-body"></div>'); 
+                var modalBody = $('<div class="modal-body"></div>');
                 modalBody.append('<div class="mb-2">');
                 modalBody.append('<h6 class="f-w-600">Nama</h6>');
                 modalBody.append('<p class="text-muted">' + name + '</p>');
@@ -341,7 +341,7 @@
                 modalBody.append('</div>');
                 modalBody.append('<div class="mb-2">');
                 modalBody.append('<h6 class="f-w-600">Bukti</h6>');
-                modalBody.append('<img src="' + image + '" class="img-fluid"></img>');
+                modalBody.append('<img src="' + image + '" class="" style="width:700px; object-fit:cover"></img>');
                 modalBody.append('</div>');
                 detail.append(modalBody);
                 $('#detail').modal('show');

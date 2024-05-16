@@ -26,7 +26,7 @@ class PicketingReportController extends Controller
     public function index()
     {
         $picketingReport = $this->picketingReport->get();
-        return view('' , compact('picketingReport'));
+        return view('admin.page.picket.report' , compact('picketingReport'));
     }
 
     /**

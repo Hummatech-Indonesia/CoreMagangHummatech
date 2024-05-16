@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Enum\StudentStatusEnum;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\Attendance;
 use App\Models\Student;
 
 class AdminStudentController extends Controller
@@ -29,8 +30,7 @@ class AdminStudentController extends Controller
 
     /**
      * Display a listing of the resource.
-     */
-    public function index(Request $request)
+     */ public function index(Request $request)
     {
         $schools = $this->student->listStudent($request)->pluck('school')->unique();
         $students = $this->student->listStudent($request);
@@ -38,7 +38,18 @@ class AdminStudentController extends Controller
         $studentOnllines = $this->student->listStudentOnline($request);
         $divisions = $this->division->get();
 
-        return view('admin.page.user.index', compact('students', 'studentOfflines', 'studentOnllines', 'divisions','schools'));
+        // // Iterasi melalui data siswa
+        // foreach ($students as $student) {
+        //     // Cek apakah siswa tersebut ada di tabel attendance
+        //     $attendance = Attendance::where('student_id', $student->id)->first();
+        //     if ($attendance) {
+        //         // Jika ada, maka update kolom accepted menjadi 1
+        //         $student->acepted = 1;
+        //         $student->save();
+        //     }
+        // }
+
+        return view('admin.page.user.index', compact('students', 'studentOfflines', 'studentOnllines', 'divisions', 'schools'));
     }
     /**
      * Show The Face of the resource.
