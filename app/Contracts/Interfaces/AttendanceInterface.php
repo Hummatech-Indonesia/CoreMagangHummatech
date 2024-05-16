@@ -5,9 +5,19 @@ namespace App\Contracts\Interfaces;
 use App\Contracts\Interfaces\Eloquent\CountInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
+use Illuminate\Http\Request;
 
 interface AttendanceInterface extends StoreInterface, UpdateInterface
 {
+
+    /**
+     * get attendance by student
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    function getAttendanceByStudent(Request $request): mixed;
+
     /**
      * checkAttendanceStudent
      *
