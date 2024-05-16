@@ -4,6 +4,8 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\ProjectInterface;
 use App\Models\Project;
+use App\StatusProjectEnum;
+use Carbon;
 
 class ProjectRepository extends BaseRepository implements ProjectInterface
 {
@@ -32,6 +34,21 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
     public function where($parameter, $value): mixed
     {
         return $this->model->query()->where($parameter, $value)->get();
+    }
+    public function accProject(mixed $id, array $data, $hummataskTeam): mixed
+    {
+        $data['start_end'] = Carbon::now()->toDateString();
+        $data['status'] = StatusProjectEnum::ACCEPTED->value;
+        
+        $this->model->query()
+            ->where('hummatask_team_id', $hummataskTeam)
+            ->where('id', '!=', $id)
+            ->delete();
+        return $this->model->query()->findOrFail($id)->update($data);
+    }
+    public function getProjectAccepted($id): mixed
+    {
+        return $this->model->query()->where('hummatask_team_id', $id)->where('status', StatusProjectEnum::ACCEPTED->value)->first();
     }
 }
 
