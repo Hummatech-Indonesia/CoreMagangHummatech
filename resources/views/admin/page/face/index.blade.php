@@ -12,18 +12,18 @@
 
     <div class="row">
         @foreach ($students as $student)
-            @php
-                $imageFiles = ['folder.png', 'folder-2.png', 'folder-3.png', 'folder-4.png'];
-                $randomImage = $imageFiles[array_rand($imageFiles)];
-            @endphp
+        @php
+            $imageFiles = ['folder.png', 'folder-2.png', 'folder-3.png', 'folder-4.png'];
+            $randomImage = $imageFiles[array_rand($imageFiles)];
+        @endphp
             <div class="col-12 col-xl-3">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex align-items-center justify-content-between gap-4">
+                        <div class="d-flex align-header justify-content-header gap-4">
                             <img src="{{ asset($randomImage) }}" alt="">
-                            <div>
-                                <div class="col-4">
-                                    <p class="text-dark fs-5 mb-0 fw-bold">
+                            <div class="">
+                                <div class="col-7">
+                                    <p class="text-dark fs-5 mb-0" style="font-weight:600">
                                         {{ $student->name }}
                                     </p>
                                 </div>
