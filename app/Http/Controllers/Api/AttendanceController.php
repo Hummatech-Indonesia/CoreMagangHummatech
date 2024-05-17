@@ -216,10 +216,10 @@ class AttendanceController extends Controller
         $sick = $this->attendance->count('sakit');
         $absent = $this->attendance->count('alpha');
         return response()->json([
-            'attends' => $attends,
-            'permissionCount' => $permissionCount,
+            'present' => $attends,
+            'permission' => $permissionCount,
             'sick' => $sick,
-            'absens' => $absent
+            'alpha' => $absent
         ]);
     }
 }
