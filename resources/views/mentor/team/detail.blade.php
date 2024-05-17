@@ -226,7 +226,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog modal-md">
     <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title px-3" id="staticBackdropLabel">Detail presentasi</h4>
+            <h4 class="modal-title px-3" id="staticBackdropLabel">Kirim tanggapan</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form method="POST" enctype="multipart/form-data" id="form-callback">
