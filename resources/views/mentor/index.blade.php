@@ -127,17 +127,17 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mt-4">
-                                <h3 class="mb-0 fw-semibold fs-5">10 materi</h3>
+                                <h3 class="mb-0 fw-semibold fs-5">{{ $countCourse }} materi</h3>
                                 <span class="fw-bold">materi</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="card bg-light-danger shadow-none">
+                    <div class="card bg-light-success shadow-none">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
-                                <div class="round rounded bg-danger d-flex align-items-center justify-content-center">
+                                <div class="round rounded bg-success d-flex align-items-center justify-content-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round"
@@ -160,65 +160,15 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mt-4">
-                                <h3 class="mb-0 fw-semibold fs-5">4 jadwal</h3>
-                                <span class="fw-bold">jadwal</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card bg-light-primary shadow-none">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="round rounded bg-primary d-flex align-items-center justify-content-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard-copy"
-                                        style="color: white">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h3m9 -9v-5a2 2 0 0 0 -2 -2h-2" />
-                                        <path
-                                            d="M13 17v-1a1 1 0 0 1 1 -1h1m3 0h1a1 1 0 0 1 1 1v1m0 3v1a1 1 0 0 1 -1 1h-1m-3 0h-1a1 1 0 0 1 -1 -1v-1" />
-                                        <path
-                                            d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between mt-4">
-                                <h3 class="mb-0 fw-semibold fs-5">10 materi</h3>
-                                <span class="fw-bold">materi</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="card bg-light-success shadow-none">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="round rounded bg-success d-flex align-items-center justify-content-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="currentColor"
-                                        class="icon icon-tabler icons-tabler-filled icon-tabler-user"
-                                        style="color: white">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
-                                        <path
-                                            d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between mt-4">
-                                <h3 class="mb-0 fw-semibold fs-5">200 siswa</h3>
-                                <span class="fw-bold">siswa</span>
+                                <h3 class="mb-0 fw-semibold fs-5">4 Siswa</h3>
+                                <span class="fw-bold">Siswa</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-12 col-md-6 col-sm-12 mb-4">
+            <div class="col-lg-12 col-md-12 col-sm-12 mb-4 col-12">
                 <h5 class="mb-3">Jadwal Hari Ini</h5>
                 <div class="card h-100">
                     <div class="card-header text-bg-primary d-flex align-items-center rounded-top-4">
