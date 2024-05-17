@@ -13,4 +13,5 @@ interface PresentationInterface extends GetInterface, StoreInterface, UpdateInte
     public function GetToday(): mixed;
     public function deleteAll(): mixed;
     public function GetPresentations(mixed $id):mixed;
+    public function where($parameter, $value): mixed;
 }

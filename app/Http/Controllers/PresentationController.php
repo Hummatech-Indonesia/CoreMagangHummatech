@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\LimitPresentationInterface;
 use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\PresentationInterface;
 use App\Enum\StatusPresentationEnum;
+use App\Http\Requests\StoreCallbackRequest;
 use App\Models\Presentation;
 use App\Http\Requests\StorePresentationRequest;
 use App\Http\Requests\UpdatePresentationRequest;
@@ -138,5 +139,12 @@ class PresentationController extends Controller
             // dd($mentor);
         }
         return view('Hummatask.team.presentation', compact('hummataskTeam', 'presentations', 'limits', 'slugs'));
+    }
+
+    public function callback(StoreCallbackRequest $request, Presentation $presentation)
+    {
+        $data = $request->validated();
+        $this->presentation->update($presentation->id, $data);
+        return back()->with('success', 'Berhasil memberi tanggapan');
     }
 }

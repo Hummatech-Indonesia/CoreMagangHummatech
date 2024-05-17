@@ -140,3 +140,4 @@ Route::get('mentor/project-submission/{slug}', [ProjectController::class, 'showP
 Route::put('mentor/project-submission/{slug}/acc/{project}', [ProjectController::class, 'update'])->name('project-submission.acc');
 
 Route::post('attendance-rule/store', [AttendanceRuleController::class, 'store'])->name('attendance-rule.store');
+Route::patch('mentor/presentation/callback/{presentation}', [PresentationController::class, 'callback'])->name('mentor.callback');

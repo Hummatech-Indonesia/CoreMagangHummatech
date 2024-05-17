@@ -70,7 +70,7 @@
                                 @endif
                             </a>
                             @if ($team->categoryProject->name == 'solo project')
-                                
+
                             @else
                                 @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $student)
                                     <a href="#{{ $student->student->name }}" title="{{ $student->student->name }}">
@@ -115,12 +115,6 @@
             </div>
         </div>
     @endif
-    <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
-        <img src="{{ asset('empty-asset.png') }}" alt="" width="150px" srcset="">
-        <p class="fs-4 text-dark">
-            Belum Ada Tim Yang Mengajukan Projek
-        </p>
-    </div>
     @empty
         <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
             <img src="{{ asset('empty-asset.png') }}" alt="" width="150px" srcset="">
