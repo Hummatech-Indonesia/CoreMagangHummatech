@@ -111,7 +111,8 @@
                         <div class="counter-card">
                             <div class="icon"><img src="assets_landing/img/icon/counter_2_4.png" alt="Icon"></div>
                             <div class="media-body">
-                                <h2 class="counter-card_number text-title"><span class="counter-number">{{$products}}</span></h2>
+                                <h2 class="counter-card_number text-title"><span class="counter-number">35</span></h2>
+                                {{-- {{$products}} --}}
                                 <p class="counter-card_text text-body">Produk Yang Di Hasilkan</p>
                             </div>
                         </div>
