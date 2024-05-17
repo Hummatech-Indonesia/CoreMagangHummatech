@@ -100,7 +100,8 @@
                         <div class="counter-card">
                             <div class="icon"><img src="assets_landing/img/icon/counter_2_2.png" alt="Icon"></div>
                             <div class="media-body">
-                                <h2 class="counter-card_number text-title"><span class="counter-number">{{$deactiveStudents}}</span></h2>
+                                <h2 class="counter-card_number text-title"><span class="counter-number">556</span></h2>
+                                {{-- {{$deactiveStudents}} --}}
                                 <p class="counter-card_text text-body">Alumni</p>
                             </div>
                         </div>
