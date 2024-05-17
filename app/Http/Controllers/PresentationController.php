@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\CategoryProjectInterface;
 use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Contracts\Interfaces\LimitPresentationInterface;
 use App\Contracts\Interfaces\MentorDivisionInterface;
@@ -17,6 +18,7 @@ use App\Models\Mentor;
 use App\Models\Project;
 use App\Services\PresentationService;
 use Carbon;
+use Illuminate\Http\Request;
 
 class PresentationController extends Controller
 {
@@ -25,13 +27,15 @@ class PresentationController extends Controller
     private Project $project;
     private HummataskTeamInterface $hummataskTeam;
     private MentorDivisionInterface $mentorDivision;
-    public function __construct(MentorDivisionInterface $mentorDivision, PresentationInterface $presentation, LimitPresentationInterface $limits, PresentationService $service, Project $project, HummataskTeamInterface $hummataskTeam)
+    private CategoryProjectInterface $categoryProject;
+    public function __construct(MentorDivisionInterface $mentorDivision, PresentationInterface $presentation, LimitPresentationInterface $limits, PresentationService $service, Project $project, HummataskTeamInterface $hummataskTeam, CategoryProjectInterface $categoryProject)
     {
         $this->presentation = $presentation;
         $this->limits = $limits;
         $this->project = $project;
         $this->hummataskTeam = $hummataskTeam;
         $this->mentorDivision = $mentorDivision;
+        $this->categoryProject = $categoryProject;
     }
     /**
      * Display a listing of the resource.
@@ -88,12 +92,35 @@ class PresentationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Presentation $presentation)
+    // public function show(Presentation $presentation)
+    // {
+    //     $categoryProject = $this->categoryProject->get();
+    //     $presentations = $this->presentation->getByHummataskTeamId();
+
+    //     $teamId = 1; // Ganti dengan ID tim yang Anda inginkan
+    //     $monthlyPresentationCount = $this->presentation->countMonthlyPresentationsByTeamId($teamId);
+
+    //     return view('admin.page.presentation.index', compact('categoryProject', 'presentations', 'monthlyPresentationCount'));
+    // }
+
+    public function show(Request $request)
     {
-        $finisheds = $this->presentation->whereStatus(StatusPresentationEnum::FINISH->value);
-        $pendings = $this->presentation->whereStatus(StatusPresentationEnum::PENNDING->value);
-        $ongoings = $this->presentation->whereStatus(StatusPresentationEnum::ONGOING->value);
-        return view('admin.page.presentation.index', compact('finisheds', 'pendings', 'ongoings'));
+        $categoryProject = $this->categoryProject->get();
+        $presentations = $this->presentation->getByHummataskTeamId();
+
+        // Ambil ID tim tertentu
+        $teamId = 1; // Ganti dengan ID tim yang Anda inginkan
+        $monthlyPresentationCount = $this->presentation->countMonthlyPresentationsByTeamId($teamId);
+
+        // Ambil ID siswa tertentu
+        $studentId = 1; // Ganti dengan ID siswa yang Anda inginkan
+        $studentsTeam = $this->presentation->countMonthlyPresentationsByStudentId($studentId);
+
+        if (is_null($studentsTeam)) {
+            $studentsTeam = [];
+        }
+
+        return view('admin.page.presentation.index', compact('categoryProject', 'presentations', 'monthlyPresentationCount', 'studentsTeam'));
     }
 
     /**
@@ -135,9 +162,10 @@ class PresentationController extends Controller
 
         $mentors = $this->mentorDivision->whereMentorDivision($division);
         foreach ($mentors as $mentor) {
-            $presentations = $this->presentation->GetPresentations($mentor->mentor_id);
+            $presentations = $this->presentation->GetPresentations($mentor->mentor_id, $slugs->id);
             // dd($mentor);
         }
+
         return view('Hummatask.team.presentation', compact('hummataskTeam', 'presentations', 'limits', 'slugs'));
     }
 

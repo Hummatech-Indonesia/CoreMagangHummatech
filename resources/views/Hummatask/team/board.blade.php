@@ -123,7 +123,7 @@
                 <div class="card-body rounded-2 mb-3" >
                     <div class="d-flex align-items-center mb-3">
                         <h5 class="card-title pt-1" style="font-size: 18px;">{{$categoryBoard->title}}</h5>
-                        <div class="bg-primary text-light d-inline-flex align-items-center justify-content-center rounded-circle ms-2" style="font-size: 14px; width: 25px; height: 25px;">5</div>
+                            {{-- <div class="bg-primary text-light d-inline-flex align-items-center justify-content-center rounded-circle ms-2" style="font-size: 14px; width: 25px; height: 25px;">5</div> --}}
                         <div class="d-flex justify-content-end align-items-center ms-auto">
                             <div class="m3-3">
                                 <button class="btn show-form" data-target="formContainer-{{ $categoryBoard->id }}">
@@ -224,17 +224,17 @@
 
                                             <div class="d-flex align-items-center justify-content-between pt-8">
                                                 <h6 class="mb-0 text-danger">{{ $board->countdown() }}</h6>
-                                                @foreach ($studentTeams as $student)
-
                                                 <div class="d-flex align-items-end justify-content-end">
-                                                    {{-- <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35" alt=""> --}}
-                                                    @if(Storage::disk('public')->exists($student->student->avatar))
-                                                        <img src="{{ asset('storage/' . $student->student->avatar) }}" alt="avatar" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35" >
-                                                    @else
-                                                        <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle me-n2 card-hover border border-2 border-white" width="35" height="35">
-                                                    @endif
+                                                    @foreach ($studentTeams as $student)
+                                                        <div class="position-relative" style="z-index: {{ $loop->remaining + 1 }};">
+                                                            @if(Storage::disk('public')->exists($student->student->avatar))
+                                                                <img src="{{ asset('storage/' . $student->student->avatar) }}" alt="avatar" class="rounded-circle border border-2 border-white" width="35" height="35" style="margin-left: -15px;">
+                                                            @else
+                                                                <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle border border-2 border-white" width="35" height="35" style="margin-left: -15px;">
+                                                            @endif
+                                                        </div>
+                                                    @endforeach
                                                 </div>
-                                                @endforeach
                                             </div>
 
                                         </div>
@@ -286,11 +286,11 @@
                                         Edit Tugas
                                     </button>
                                 </li>
-                                <li class="nav-item" role="presentation">
+                                {{-- <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="tab2" aria-selected="false">
                                         <i class="ti ti-clock-hour-5 fs-4 me-2"></i>
                                         Aktifitas</button>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                         <div class="col-md-9">
@@ -327,6 +327,7 @@
                                                 <div class="mb-3">
                                                     <label for="status" class="form-label">Status</label>
                                                     <select class="form-select" id="status-edit" name="status">
+                                                        <option value="">Status</option>
                                                         <option value="baru">Baru</option>
                                                         <option value="dikerjakan">Dikerjakan</option>
                                                         <option value="selesai">Selesai</option>
@@ -337,6 +338,7 @@
                                                 <div class="mb-3">
                                                     <label for="prioritas" class="form-label">Prioritas</label>
                                                     <select class="form-select" id="priority-edit" name="priority">
+                                                        <option value="">prioritas</option>
                                                         <option value="biasa">Biasa</option>
                                                         <option value="penting">Penting</option>
                                                         <option value="mendesak">Mendesak</option>
@@ -359,6 +361,15 @@
                                                 <option value="frontend">Front End</option>
                                                 <option value="backend">Back End </option>
                                                 <option value="ui/ux">UI/UX</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="assignee" class="form-label">Tugas Untuk</label>
+                                            <select class="form-select" id="student_team_id-edit" name="student_team_id">
+                                                <option value="">Anggota</option>
+                                                @foreach ($studentTeams as $studentTeam)
+                                                <option value="{{$studentTeam->id}}">{{$studentTeam->student->name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="modal-footer">
@@ -476,7 +487,7 @@
         var status = $(this).data('status');
         var start_date = $(this).data('start_date');
         var end_date = $(this).data('end_date');
-        // var student_project_id = $(this).data('student_project_id');
+        var student_team_id = $(this).data('student_team_id');
         // var category_project_id = $(this).data('category_project_id');
 
 
@@ -487,7 +498,7 @@
         $('#status-edit').val(status);
         $('#start_date-edit').val(start_date);
         $('#end_date-edit').val(end_date);
-        // $('#student_project_id-edit').val(student_project_id);
+        $('#student_team_id-edit').val(student_team_id);
         // $('#category_board-edit').val(category_board);
         $('#form-update-board').attr('action', '/hummateam/board/update/' + id);
 

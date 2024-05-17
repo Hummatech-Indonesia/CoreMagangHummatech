@@ -45,9 +45,6 @@ Route::get('report', [PicketingReportController::class, 'index']);
 
 
 
-
-
-
 // mentor
 Route::get('student/absensi', function () {
     return view('mentor.absensi.index');

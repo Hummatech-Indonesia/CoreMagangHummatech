@@ -40,7 +40,7 @@ class CategoryBoardController extends Controller
     public function index($slug, HummataskTeam $hummataskTeam)
     {
         $slugs = $this->hummataskTeam->slug($slug);
-        $categoryBoards = $this->categoryBoard->get();
+        $categoryBoards = $this->categoryBoard->getByHummataskTeamId($slugs->id);
         $boards = $this->board->get();
         $projects = $this->Project->where('title', $slugs->slug);
         $studentTeams = $this->studentTeam->get();

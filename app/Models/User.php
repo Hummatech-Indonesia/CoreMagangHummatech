@@ -71,4 +71,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(ZoomSchedule::class);
     }
+    public function picketReporting()
+    {
+        return $this->belongsTo(PicketingReport::class);
+    }
 }
