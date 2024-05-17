@@ -149,7 +149,6 @@
                             @endforelse
                         </tbody>
                     </table>
-                    {{ $journalStudents->links() }}
                 </div>
             </div>
 
