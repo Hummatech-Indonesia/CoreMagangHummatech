@@ -266,7 +266,7 @@
                                                     class="badge bg-success-subtle text-success py-2 px-3">{{ \Carbon\Carbon::parse($detailAttendance->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}</span>
                                             @else
                                                 <span
-                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ \Carbon\Carbon::parse($detailAttendance->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}</span>
+                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ \Carbon\Carbon::parse($detailAttendance->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}</span>
                                             @endif
                                         @endif
                                     @endforeach
@@ -274,13 +274,14 @@
                             <td>
                                     @foreach ($attendance->attendanceDetails as $detailAttendance)
                                         @if ($detailAttendance->status == 'break')
-                                            @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                    \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                            @if (date('H:i:s', strtotime($detailAttendance->created_at)) >=
+                                                    \Carbon\Carbon::createFromFormat('H:i:s', '11:00:00')->addMinutes(1)->format('H:i:s') && date('H:i:s', strtotime($detailAttendance->created_at)) <
+                                                    \Carbon\Carbon::createFromFormat('H:i:s', '13:00:00')->addMinutes(1)->format('H:i:s'))
                                                 <span
                                                     class="badge bg-success-subtle text-success py-2 px-3">{{ \Carbon\Carbon::parse($detailAttendance->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}</span>
                                             @else
                                                 <span
-                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ \Carbon\Carbon::parse($detailAttendance->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}</span>
+                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ \Carbon\Carbon::parse($detailAttendance->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}</span>
                                             @endif
                                         @endif
                                     @endforeach
@@ -288,14 +289,10 @@
                             <td>
                                     @foreach ($attendance->attendanceDetails as $detailAttendance)
                                         @if ($detailAttendance->status == 'return_break')
-                                            @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                    \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+
                                                 <span
                                                     class="badge bg-success-subtle text-success py-2 px-3">{{ \Carbon\Carbon::parse($detailAttendance->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}</span>
-                                            @else
-                                                <span
-                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ \Carbon\Carbon::parse($detailAttendance->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}</span>
-                                            @endif
+                                           
                                         @endif
                                     @endforeach
                             </td>
