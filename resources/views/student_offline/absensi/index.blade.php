@@ -233,7 +233,7 @@
                     @forelse ($attendances as $attendance)
                         <tr>
                             <td>{{ auth()->user()->student->name }}</td>
-                            <td>{{ request('date') ?? \Carbon\Carbon::now()->format('Y-m-d') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($attendance->created_at)->format('Y-m-d') }}</td>
                             <td>
                                     @if ($attendance->status == 'masuk')
                                         <span class="badge bg-success-subtle text-success py-2 px-3">
