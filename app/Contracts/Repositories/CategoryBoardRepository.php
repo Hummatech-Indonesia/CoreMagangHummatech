@@ -64,4 +64,12 @@ class CategoryBoardRepository extends BaseRepository implements CategoryBoardInt
             ->where('id', $id)
             ->delete();
     }
+
+    public function getByHummataskTeamId(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('hummatask_team_id', $id)
+            ->get();
+    }
+
 }
