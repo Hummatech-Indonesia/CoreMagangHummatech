@@ -90,7 +90,17 @@ class HummataskTeam extends Model
     }
 
     public function mentor()
-{
-    return $this->belongsTo(Mentor::class, 'mentor_id');
-}
+    {
+        return $this->belongsTo(Mentor::class, 'mentor_id');
+    }
+
+    public function presentation(): HasMany
+    {
+        return $this->hasMany(Presentation::class);
+    }
+    public function division()
+    {
+        return $this->belongsTo(Division::class, 'division_id');
+    }
+
 }
