@@ -22,6 +22,7 @@ class AttendanceRepository extends BaseRepository implements AttendanceInterface
     {
         return $this->model->query()
             ->where('student_id', auth()->user()->student->id)
+            ->latest()
             ->get();
     }
 

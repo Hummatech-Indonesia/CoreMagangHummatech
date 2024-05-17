@@ -241,17 +241,17 @@
                                         </span>
                                     @endif
                                     @if ($attendance->status == 'izin')
-                                        <span class="badge bg-success-subtle text-success py-2 px-3">
+                                        <span class="badge bg-warning-subtle text-warning py-2 px-3">
                                             {{ $attendance->status }}
                                         </span>
                                     @endif
                                     @if ($attendance->status == 'sakit')
-                                        <span class="badge bg-success-subtle text-success py-2 px-3">
+                                        <span class="badge bg-warning-subtle text-warning py-2 px-3">
                                             {{ $attendance->status }}
                                         </span>
                                     @endif
                                     @if ($attendance->status == 'alpha')
-                                        <span class="badge bg-success-subtle text-success py-2 px-3">
+                                        <span class="badge bg-danger-subtle text-danger py-2 px-3">
                                             {{ $attendance->status }}
                                         </span>
                                     @endif
