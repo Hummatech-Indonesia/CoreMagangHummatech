@@ -52,7 +52,7 @@ class JournalRepository extends BaseRepository implements JournalInterface
 
     public function whereStudent(mixed $id): mixed
     {
-        return $this->model->query()->where('student_id', $id)->get();
+        return $this->model->query()->where('student_id', $id)->paginate(10);
     }
 
     public function show(mixed $id): mixed
