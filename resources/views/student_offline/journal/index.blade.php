@@ -187,9 +187,6 @@
                         @endforelse
                     </tbody>
                 </table>
-                <div class="d-flex justify-content-end">
-                    {{ $journals->links() }}
-                </div>
             </div>
         </div>
     </div>
