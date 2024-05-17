@@ -14,7 +14,6 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
     public function countActiveOflline():mixed;
     public function countPending():mixed;
     public function countDecline():mixed;
-    public function CountJournalFillin();
     /**
      * Method countActiveOnlineStudents
      *
