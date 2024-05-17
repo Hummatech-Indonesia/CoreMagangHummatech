@@ -258,7 +258,7 @@
                                     @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
                                         @if ($detailAttendance->status == 'break')
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                    \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                    \Carbon\Carbon::createFromFormat('H:i:s', '12:35:00')->addMinutes(1)->format('H:i:s'))
                                                 <span
                                                     class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                             @else
@@ -274,7 +274,7 @@
                                     @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
                                         @if ($detailAttendance->status == 'return_break')
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                    \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                    \Carbon\Carbon::createFromFormat('H:i:s', '13:00:00')->addMinutes(1)->format('H:i:s'))
                                                 <span
                                                     class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                             @else
@@ -290,7 +290,7 @@
                                     @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
                                         @if ($detailAttendance->status == 'return')
                                             @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                    \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                    \Carbon\Carbon::createFromFormat('H:i:s', '18:00:00')->addMinutes(1)->format('H:i:s'))
                                                 <span
                                                     class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                             @else
