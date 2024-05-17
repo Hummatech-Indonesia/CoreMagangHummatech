@@ -107,7 +107,12 @@
                             <input type="hidden" name="schedule_to[]" value="Jadwal Ke {{ $i + 1 }}">
                         @endfor
                         @else
-
+                        <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                            <img src="{{ asset('empty-asset.png') }}" alt="" width="150px" srcset="">
+                            <p class="fs-5 text-dark">
+                                Data masih kosong
+                            </p>
+                        </div>
                         @endif
                         <div class="col-md-12 mt-3">
                             <button type="submit" class="btn btn-primary float-end">Simpan</button>

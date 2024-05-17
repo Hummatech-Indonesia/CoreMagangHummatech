@@ -46,12 +46,14 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model
             ->query()
             ->where('finish_date', '>', now())
+            ->where('status' ,'accepted')
             ->where('internship_type', 'online')->count();
     }
     public function countActiveOfflineStudents(): mixed
     {
         return $this->model->query()
             ->where('finish_date', '>', now())
+            ->where('status' ,'accepted')
             ->where('internship_type', 'offline')->count();
     }
     /**

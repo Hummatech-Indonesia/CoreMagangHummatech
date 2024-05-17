@@ -100,6 +100,9 @@
                             @endforelse
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-end">
+                        {{ $mentorStudent->links() }}
+                    </div>
                 </div>
             </div>
         </div>
