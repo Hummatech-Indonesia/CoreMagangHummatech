@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Contracts\Interfaces\AttendanceDetailInterface;
 use App\Contracts\Interfaces\AttendanceInterface;
 use App\Contracts\Interfaces\AttendanceRuleInterface;
+use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\MaxLateInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Helpers\ResponseHelper;
@@ -23,13 +24,15 @@ class AttendanceController extends Controller
     private MaxLateInterface $maxLate;
     private AttendanceRuleInterface $attendanceRule;
     private AttendanceDetailInterface $attendanceDetail;
-    public function __construct(StudentInterface $studentInterface, AttendanceRuleInterface $attendanceRuleInterface, MaxLateInterface $maxLateInterface, AttendanceInterface $attendanceInterface, AttendanceDetailInterface $attendanceDetailInterface)
+    private JournalInterface $journal;
+    public function __construct(StudentInterface $studentInterface, AttendanceRuleInterface $attendanceRuleInterface, MaxLateInterface $maxLateInterface, AttendanceInterface $attendanceInterface, AttendanceDetailInterface $attendanceDetailInterface, JournalInterface $journal)
     {
         $this->attendanceDetail = $attendanceDetailInterface;
         $this->attendance = $attendanceInterface;
         $this->maxLate = $maxLateInterface;
         $this->attendanceRule = $attendanceRuleInterface;
         $this->student = $studentInterface;
+        $this->journal = $journal;
     }
 
     /**
@@ -215,11 +218,15 @@ class AttendanceController extends Controller
         $permissionCount = $this->attendance->count('izin');
         $sick = $this->attendance->count('sakit');
         $absent = $this->attendance->count('alpha');
+        $fillin  = $this->journal->CountJournalFillin();
+        $notfillin  = $this->journal->CountJournalNotFillin();
         return response()->json([
             'present' => $attends,
             'permission' => $permissionCount,
             'sick' => $sick,
-            'alpha' => $absent
+            'alpha' => $absent,
+            'fillin' => $fillin,
+            'notfillin' => $notfillin
         ]);
     }
 }

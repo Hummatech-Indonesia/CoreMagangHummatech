@@ -59,4 +59,13 @@ class JournalRepository extends BaseRepository implements JournalInterface
     {
         return $this->model->query()->findOrFail($id);
     }
+
+    public function CountJournalFillin()
+    {
+        return $this->model->query()->where('status' , 'fillin')->orWhere('student_id' , auth()->user()->student->id)->count();
+    }
+    public function CountJournalNotFillin()
+    {
+        return $this->model->query()->where('status' , 'notfilling')->orWhere('student_id' , auth()->user()->student->id)->count();
+    }
 }
