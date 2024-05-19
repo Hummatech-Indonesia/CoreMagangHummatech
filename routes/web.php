@@ -81,6 +81,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     # Approval
     Route::get('approval', [ApprovalController::class, 'index'])->name('.approval.index');
     Route::put('approval/accept/{student}', [ApprovalController::class, 'accept'])->name('approval.accept');
+    Route::put('approval/accept-multiple', [ApprovalController::class, 'acceptMultiple'])->name('approval.acceptMultiple');
     Route::put('approval/decline/{student}', [ApprovalController::class, 'decline'])->name('approval.decline');
     Route::delete('approval/delete/{student}', [ApprovalController::class, 'destroy'])->name('approval.delete');
 
