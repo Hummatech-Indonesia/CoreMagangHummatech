@@ -94,7 +94,7 @@
                                                     <tr>
                                                         <td>
                                                             <div class="form-check">
-                                                                <input class="form-check-input cardtableCheck" type="checkbox" value="{{ $student->id }}" id="cardtableCheck{{ $student->id }}">
+                                                                <input class="form-check-input cardtableCheck" type="checkbox" value="{{ $student->id }}" id="cardtableCheck{{ $student->id }}" data-school="{{ $student->school }}">
                                                                 <label class="form-check-label" for="cardtableCheck{{ $student->id }}"></label>
                                                             </div>
                                                         </td>
@@ -102,7 +102,7 @@
                                                         <td>{{ $student->name }}</td>
                                                         <td>{{ $student->major }}</td>
                                                         <td>{{ $student->class }}</td>
-                                                        <td>{{ \carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}</td>
                                                         <td>{{ $student->school }}</td>
                                                         <td>
                                                             <button type="button" data-id="{{ $student->id }}"
@@ -126,6 +126,7 @@
                                                                 class="btn bg-secondary-subtle text-secondary btn-detail">
                                                                 <i class="ri-eye-fill"></i>
                                                             </button>
+
                                                         </td>
                                                     </tr>
                                                 @empty
@@ -135,10 +136,11 @@
                                                 @endforelse
                                             </tbody>
                                         </table>
-                                        <div class="pt-2">
+                                        <div class="pt-3">
                                             {{ $studentOffline->links() }}
                                         </div>
                                     </div>
+
                                 </form>
                             </div>
                         </div><!-- end card-body -->
@@ -178,7 +180,7 @@
                                                 <tr>
                                                     <th scope="col" style="width: 46px;">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="selectAllOnline">
+                                                            <input class="form-check-input" type="checkbox" id="selectAll">
                                                             <label class="form-check-label" for="selectAll">All</label>
                                                         </div>
                                                     </th>
@@ -196,15 +198,15 @@
                                                     <tr>
                                                         <td>
                                                             <div class="form-check">
-                                                                <input class="form-check-input cardtableCheck" type="checkbox" value="{{ $student->id }}" id="cardtableCheck{{ $student->id }}">
-                                                                <label class="form-check-label" for="cardtableCheck{{ $student->id }}"></label>
+                                                                <input class="form-check-input cardtableCheck-online" type="checkbox" value="{{ $student->id }}" data-school="{{ $student->school }}" id="cardtableCheck-online{{ $student->id }}">
+                                                                <label class="form-check-label" for="cardtableCheck-online{{ $student->id }}"></label>
                                                             </div>
                                                         </td>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $student->name }}</td>
                                                         <td>{{ $student->major }}</td>
                                                         <td>{{ $student->class }}</td>
-                                                        <td>{{ \carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}</td>
                                                         <td>{{ $student->school }}</td>
                                                         <td>
                                                             <button type="button" data-id="{{ $student->id }}"
@@ -228,6 +230,7 @@
                                                                 class="btn bg-secondary-subtle text-secondary btn-detail">
                                                                 <i class="ri-eye-fill"></i>
                                                             </button>
+
                                                         </td>
                                                     </tr>
                                                 @empty
@@ -237,10 +240,11 @@
                                                 @endforelse
                                             </tbody>
                                         </table>
-                                        <div class="pt-2">
+                                        <div class="pt-3">
                                             {{ $studentOnline->links() }}
                                         </div>
                                     </div>
+
                                 </form>
                             </div>
                         </div><!-- end card-body -->
@@ -421,10 +425,12 @@
                         <form action="{{ route('approval.acceptMultiple') }}" id="form-accepted" method="POST">
                             @csrf
                             @method('PUT')
-                            <label for="letter_number">Masukan Nomer Surat</label>
-                            <input type="number" class="form-control" name="letter_number" id="letter_number">
-                            <!-- Input tersembunyi untuk menyimpan ID yang dipilih -->
                             <input type="hidden" name="selected_ids" id="selected_ids">
+
+                            <div id="school-letters-container">
+                                <!-- Dynamic inputs will be inserted here -->
+                            </div>
+
                             <div class="mt-4 mb-3 d-flex justify-content-center gap-2">
                                 <button id="acceptButton" class="btn btn-success">Ya, terima</button>
                                 <button class="btn btn-light" type="button" data-bs-dismiss="modal">Batal</button>
@@ -435,6 +441,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="modal fade" id="modalReject" tabindex="-1" aria-labelledby="modal-deleteLabel1">
         <div class="modal-dialog modal-sm" role="document">
@@ -582,38 +589,108 @@
         }
     </script>
 
-    <script>
-        $(document).ready(function() {
-            $('#selectAll').on('change', function() {
-                $('.cardtableCheck').prop('checked', this.checked);
-                toggleSubmitButton();
-            });
+    {{-- <script>
+    $(document).ready(function() {
+        $('#selectAll').on('change', function() {
+            $('.cardtableCheck').prop('checked', this.checked);
+            toggleSubmitButton();
+        });
 
-            $('.cardtableCheck').on('change', function() {
-                if ($('.cardtableCheck:checked').length == $('.cardtableCheck').length) {
-                    $('#selectAll').prop('checked', true);
-                } else {
-                    $('#selectAll').prop('checked', false);
+        $('.cardtableCheck').on('change', function() {
+            if ($('.cardtableCheck:checked').length == $('.cardtableCheck').length) {
+                $('#selectAll').prop('checked', true);
+            } else {
+                $('#selectAll').prop('checked', false);
+            }
+            toggleSubmitButton();
+        });
+
+        function toggleSubmitButton() {
+            if ($('.cardtableCheck:checked').length > 0) {
+                $('#submitSelected').show();
+            } else {
+                $('#submitSelected').hide();
+            }
+        }
+
+        $('#submitSelected').on('click', function() {
+            var selectedIds = $('.cardtableCheck:checked').map(function() {
+                return $(this).val();
+            }).get().join(',');
+            $('#selected_ids').val(selectedIds);
+
+            // Menampilkan modal ketika tombol submit dipilih
+            $('#modal-acc-multiple').modal('show');
+        });
+
+        // Tambahkan event listener untuk memperbarui placeholder nomor surat berdasarkan pilihan sekolah
+        $('#letter_number').attr('placeholder', 'Masukkan Nomor Surat untuk Sekolah A');
+        $('#letter_number').on('input', function() {
+            var school = $('#school').val();
+            $(this).attr('placeholder', 'Masukkan Nomor Surat untuk ' + school);
+        });
+
+    });
+
+    </script> --}}
+
+<script>
+    $(document).ready(function() {
+        function updateModal() {
+            var selectedSchools = {};
+            var selectedIds = [];
+
+            // Mengelompokkan siswa berdasarkan sekolah
+            $('.cardtableCheck:checked').each(function() {
+                var school = $(this).data('school');
+                var studentId = $(this).val();
+
+                if (school) { // Pengecekan untuk memastikan bahwa sekolah valid
+                    if (!selectedSchools[school]) {
+                        selectedSchools[school] = [];
+                    }
+                    selectedSchools[school].push(studentId);
+                    selectedIds.push(studentId);
                 }
-                toggleSubmitButton();
             });
 
-            function toggleSubmitButton() {
-                if ($('.cardtableCheck:checked').length > 0) {
-                    $('#submitSelected').show();
-                } else {
-                    $('#submitSelected').hide();
+            // Menghapus input nomor surat yang ada
+            $('#nomor-surat-container').empty();
+
+            // Menambahkan input nomor surat untuk setiap sekolah
+            for (var school in selectedSchools) {
+                if (selectedSchools.hasOwnProperty(school)) {
+                    var nomorSuratHtml = `
+                        <div class="mb-3">
+                            <label for="letter_number">Masukkan Nomor Surat untuk ${school}</label>
+                            <input type="number" class="form-control" name="letter_number[${school}]" placeholder="Masukkan Nomor Surat untuk ${school}">
+                        </div>
+                    `;
+                    $('#nomor-surat-container').append(nomorSuratHtml);
                 }
             }
 
-            $('#submitSelected').on('click', function() {
-                var selectedIds = $('.cardtableCheck:checked').map(function() {
-                    return $(this).val();
-                }).get().join(',');
-                $('#selected_ids').val(selectedIds);
-            });
+            // Memperbarui input hidden dengan ID siswa yang dipilih
+            $('#selected_ids').val(selectedIds.join(','));
+        }
+
+        // Mendeteksi perubahan pada checkbox siswa
+        $('.cardtableCheck').on('change', updateModal);
+
+        // Saat tombol modal di klik, update modal dengan input nomor surat yang sesuai
+        $('#openModalButton').on('click', function() {
+            updateModal();
+            $('#modal-acc-multiple').modal('show');
         });
-    </script>
+
+        // Update modal saat checkbox select all diubah
+        $('#selectAll').on('change', function() {
+            $('.cardtableCheck').prop('checked', this.checked);
+            updateModal();
+        });
+    });
+</script>
+
 
 <script>
     $(document).ready(function() {
@@ -644,6 +721,63 @@
                 return $(this).val();
             }).get().join(',');
             $('#selected_ids').val(selectedIds);
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#selectAll').on('change', function() {
+            $('.cardtableCheck').prop('checked', this.checked);
+            toggleSubmitButton();
+        });
+
+        $('.cardtableCheck').on('change', function() {
+            if ($('.cardtableCheck:checked').length == $('.cardtableCheck').length) {
+                $('#selectAll').prop('checked', true);
+            } else {
+                $('#selectAll').prop('checked', false);
+            }
+            toggleSubmitButton();
+        });
+
+        function toggleSubmitButton() {
+            if ($('.cardtableCheck:checked').length > 0) {
+                $('#submitSelected').show();
+            } else {
+                $('#submitSelected').hide();
+            }
+        }
+
+        $('#submitSelected').on('click', function() {
+            var selectedIds = $('.cardtableCheck:checked').map(function() {
+                return $(this).val();
+            }).get().join(',');
+
+            $('#selected_ids').val(selectedIds);
+
+            var schools = {};
+            $('.cardtableCheck:checked').each(function() {
+                var school = $(this).data('school');
+                if (!schools[school]) {
+                    schools[school] = [];
+                }
+                schools[school].push($(this).val());
+            });
+
+            $('#school-letters-container').empty();
+            $.each(schools, function(school, ids) {
+                var schoolLabel = $('<label>').text(`Masukkan Nomor Surat untuk ${school}`);
+                var schoolInput = $('<input>').attr({
+                    type: 'number',
+                    class: 'form-control',
+                    name: `letter_numbers[${school}]`,
+                    id: `letter_number_${school}`
+                });
+                var schoolGroup = $('<div>').addClass('school-letter-group');
+                schoolGroup.append(schoolLabel).append(schoolInput);
+                $('#school-letters-container').append(schoolGroup);
+            });
         });
     });
 </script>

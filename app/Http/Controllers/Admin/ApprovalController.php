@@ -63,13 +63,30 @@ class ApprovalController extends Controller
         return back()->with('success', 'Berhasil Menerima Siswa Baru');
     }
 
-    public function acceptMultiple(AcceptedAprovalRequest $request)
+    public function acceptMultiple(Request $request)
     {
+
         $selectedIds = explode(',', $request->input('selected_ids'));
-        $this->service->acceptMultiple($selectedIds, $request);
+        $letterNumbers = $request->input('letter_numbers');
+
+        $groupedData = [];
+        foreach ($selectedIds as $studentId) {
+            $student = Student::find($studentId);
+            if ($student) {
+                $school = $student->school;
+                $groupedData[$school]['letter_number'] = $letterNumbers[$school];
+                $groupedData[$school]['student_ids'][] = $studentId;
+            }
+        }
+
+        $this->service->acceptMultiple($groupedData);
 
         return back()->with('success', 'Berhasil menerima Siswa Baru');
     }
+
+
+
+
 
 
     public function decline(DeclinedAprovalRequest $request, Student $student)
