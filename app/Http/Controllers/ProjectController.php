@@ -148,13 +148,13 @@ class ProjectController extends Controller
         $mentorStudents = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
         $teams = $this->hummatask_team->WhereTeam();
         $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
-        return view('Mentor.project-submission.index', compact('categoryProjects', 'mentorStudents', 'teams' ,'mentors'));
+        return view('mentor.project-submission.index', compact('categoryProjects', 'mentorStudents', 'teams' ,'mentors'));
     }
 
     public function showProjectSubmission($slug){
         $team = $this->hummatask_team->slug($slug);
         $projects = $this->project->where('hummatask_team_id', $team->id);
         $done = $this->project->getProjectAccepted($team->id);
-        return view('Mentor.project-submission.detail', compact('team', 'projects', 'done'));
+        return view('mentor.project-submission.detail', compact('team', 'projects', 'done'));
     }
 }
