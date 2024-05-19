@@ -71,7 +71,9 @@ class AdminMentorController extends Controller
     public function show(Mentor $mentor)
     {
         $studentDivisions = $this->student->whereStudentDivision(auth()->user()->id);
-       return ResponseHelper::success(null , $studentDivisions);
+        return response()->json([
+            'result' => $studentDivisions
+        ]);
     }
 
     public function update(UpdateMentorRequest $request, Mentor $mentor)
