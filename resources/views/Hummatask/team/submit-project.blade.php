@@ -14,7 +14,7 @@
         <div class="card-bod p-3">
             <form action="{{ route('project.store', ['slug' => $slugs->slug]) }}" method="post">
                 @csrf
-                @foreach (range(0, 9) as $key => $item)
+                @foreach (range(1, 5) as $key => $item)
                     <div class="row col-12 mb-4">
                         <div class="col-4">
                             <label for="" class="mt-1 mb-1">Tema ke-{{ ++$key }}</label>
