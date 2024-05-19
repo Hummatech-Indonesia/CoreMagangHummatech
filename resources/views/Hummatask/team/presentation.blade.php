@@ -53,19 +53,19 @@
                 </tr>
             </thead>
             <tbody>
-                @if($presentations->whereNotNull('hummatask_team_id')->isEmpty())
+                @if($histories->whereNotNull('hummatask_team_id')->isEmpty())
                 <tr>
                     <td colspan="6">
                         <div class="mb-3 mt-5 text-center" style="margin: 0 auto;">
                             <img src="{{ asset('empty-asset.png') }}" alt="" width="100px" srcset="">
                             <p class="fs-3 text-dark">
-                                Belum ada data
+                                Belum melakukan presentasi
                             </p>
                         </div>
                     </td>
                 </tr>
             @else
-                @foreach ($presentations->whereNotNull('hummatask_team_id') as $presentation)
+                @foreach ($histories as $presentation)
                     <tr>
                         <td>
                             <p class="mb-0 fw-normal fs-4">{{ $loop->iteration }}</p>

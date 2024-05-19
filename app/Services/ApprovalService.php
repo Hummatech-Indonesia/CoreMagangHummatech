@@ -21,6 +21,7 @@ use App\Contracts\Interfaces\Signature_COInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Enum\InternshipTypeEnum;
 use App\Models\Limits;
+use App\Models\ResponseLetter;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -142,6 +143,90 @@ class ApprovalService
         // Return the response
         return $data;
     }
+
+    public function acceptMultiple(array $studentIds, AcceptedAprovalRequest $request): void
+    {
+        $data = $request->validated();
+
+        foreach ($studentIds as $studentId) {
+            $student = Student::findOrFail($studentId);
+
+            $start_date_formatted = Carbon::createFromDate($student->start_date)->locale('id')->isoFormat('D MMMM Y');
+            $finish_date_formatted = Carbon::createFromDate($student->finish_date)->locale('id')->isoFormat('D MMMM Y');
+
+            $dataadmin = $this->dataCO->get();
+            foreach ($data as $item) {
+                $data_CO = [
+                    'barcode' => '',
+                    'data_c_o_s_id' => $dataadmin->id
+                ];
+                $signature = $this->signature_CO->store($data_CO);
+
+                $qrCode = QrCode::size(100)->generate(url('/hummatech/' . $signature->id));
+                $qrCodeImage = 'data:image/png;base64,' . base64_encode($qrCode);
+
+                $signature->barcode = $qrCodeImage;
+                $signature->save();
+            }
+
+            // Generate PDF and send email for each student
+            $data = [
+                'email' => $student->email,
+                'name' => $student->name,
+                'letter_number' => $data['letter_number'],
+                'start_date' => $start_date_formatted,
+                'date' => Carbon::now()->locale('id')->isoFormat('D MMMM Y'),
+                'finish_date' => $finish_date_formatted,
+                'school' => $student->school,
+                'identify_number' => $student->identify_number,
+                'school_address' => $student->school_address,
+                'school_phone' => $student->school_phone,
+            ];
+
+            $view = view('desain_pdf.pendaftaran', compact('data', 'qrCodeImage'));
+            $html = $view->render();
+            $pdf = Pdf::loadHTML($html);
+            $generatedPdfName = 'pdf_Terima_' . time() . '.pdf';
+            $pdfPath = 'public/' . TypeEnum::RESPONSELETTER->value . '/' . $generatedPdfName;
+            Storage::put($pdfPath, $pdf->output());
+
+            // Data For store
+            $dataForResponseLetter = [
+                'student_id' => $student->id,
+                'letter_number' => $data['letter_number'] . '/PKL/HMTI/' . Carbon::now()->format('Y'),
+                'letter_file' => $generatedPdfName
+            ];
+            $this->responseLetter->store($dataForResponseLetter);
+
+            // Send Email To student
+            Mail::send(['html' => 'mail.accept'], ['data' => $data], function ($message) use ($data, $pdf) {
+                $message->to($data['email'])
+                    ->subject('Konfirmasi Pendaftaran')
+                    ->attachData($pdf->output(), "Konfirmasi.pdf");
+            });
+
+            // Create user for each student
+            $dataUser = [
+                'name' => $student->name,
+                'email' => $student->email,
+                'password' => $student->password,
+                'student_id' => $student->id,
+            ];
+            $user = $this->user->store($dataUser);
+
+            // Assign role based on internship type
+            if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
+                $user->assignRole(RolesEnum::OFFLINE->value);
+            } elseif ($student->internship_type == InternshipTypeEnum::ONLINE->value) {
+                $user->assignRole(RolesEnum::ONLINE->value);
+            }
+
+            // Update student status
+            $student->update(['status' => StudentStatusEnum::ACCEPTED->value]);
+        }
+    }
+
+
 
     public function decline(DeclinedAprovalRequest $request, Student $student)
     {

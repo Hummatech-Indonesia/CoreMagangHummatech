@@ -12,7 +12,7 @@ interface PresentationInterface extends GetInterface, StoreInterface, UpdateInte
     public function whereStatus(mixed $status): mixed;
     public function GetToday(): mixed;
     public function deleteAll(): mixed;
-    public function GetPresentations(mixed $id, $team):mixed;
+    public function GetPresentations(mixed $id):mixed;
     public function where($parameter, $value): mixed;
     public function getByHummataskTeamId(): mixed;
     public function countMonthlyPresentationsByTeamId(int $teamId): int;
