@@ -128,12 +128,12 @@ class HummataskTeamController extends Controller
         $data = $this->service->update($hummataskTeam, $request);
         // dd($data);
         $hummatask_team = $this->hummatask_team->update($hummataskTeam->id, $data);
-        foreach ($request->student_id as $student_id) {
-            $this->studentTeam->update(id,[
-                'hummatask_team_id' => $hummatask_team->id,
-                'student_id' => $student_id,
-            ]);
-        }
+        // foreach ($request->student_id as $student_id) {
+        //     $this->studentTeam->update(id,[
+        //         'hummatask_team_id' => $hummatask_team->id,
+        //         'student_id' => $student_id,
+        //     ]);
+        // }
         return back()->with('success', 'Berhasil Memperbarui Data Team');
     }
 
