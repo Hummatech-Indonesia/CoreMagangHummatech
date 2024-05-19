@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('attendace' , [AttendanceController::class , 'attendanceOffline']);
     Route::get('countAttendace' , [AttendanceController::class , 'count']);
     Route::get('mentor_student' , [AdminMentorController::class ,'show']);
+    Route::get('student/{student}' , [UserController::class , 'show']);
 });
 Route::post('sync', [AttendanceController::class, 'sync']);
 Route::get('students', [StudentController::class, 'getStudents']);
