@@ -4,7 +4,7 @@
         <div class="d-flex gap-4">
           <div class="description">
             <h4 class="text-primary text-capitalize" style="font-weight: 700">Perhatikan!</h4>
-            <p class="m-0">List <span style="font-weight: 800">10</span> tema projek untuk tim anda beserta deskripsinya.</p>
+            <p class="m-0">List <span style="font-weight: 800">5</span> tema projek untuk tim anda beserta deskripsinya.</p>
             <p class="m-0">Apabila sudah anda ajukan, silahkan temui mentor anda dan tunggu mentor untuk menyetujui salah satu tema projek yang diajukan tim anda.</p>
             <h6 class="mt-2 text-warning" style="font-weight: 600">Mentor: Test Mentor</h6>
           </div>
