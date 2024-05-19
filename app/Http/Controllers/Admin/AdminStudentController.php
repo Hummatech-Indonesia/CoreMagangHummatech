@@ -81,9 +81,13 @@ class AdminStudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        $this->servicestudent->delete($student);
-        $this->student->delete($student->id);
-        return redirect()->back()->with(['success' => 'Data Berhasil Telah Di Hapus']);
+        try {
+            $this->servicestudent->delete($student);
+            $this->student->delete($student->id);
+            return redirect()->back()->with(['success' => 'Data Berhasil Telah Di Hapus']);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with(['errors' => 'Data Masih digunakan di tabel wajah']);
+        }
     }
 
     public function banned(Student $student)
