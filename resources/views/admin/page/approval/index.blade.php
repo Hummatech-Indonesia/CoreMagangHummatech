@@ -180,8 +180,8 @@
                                                 <tr>
                                                     <th scope="col" style="width: 46px;">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="selectAll">
-                                                            <label class="form-check-label" for="selectAll">All</label>
+                                                            <input class="form-check-input" type="checkbox" id="selectAllOnline">
+                                                            <label class="form-check-label" for="selectAllOnline">All</label>
                                                         </div>
                                                     </th>
                                                     <th scope="col">No</th>
@@ -782,5 +782,61 @@
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+        $('#selectAllOnline').on('change', function() {
+            $('.cardtableCheck-online').prop('checked', this.checked);
+            toggleSubmitButton();
+        });
+
+        $('.cardtableCheck-online').on('change', function() {
+            if ($('.cardtableCheck-online:checked').length == $('.cardtableCheck-online').length) {
+                $('#selectAllOnline').prop('checked', true);
+            } else {
+                $('#selectAllOnline').prop('checked', false);
+            }
+            toggleSubmitButton();
+        });
+
+        function toggleSubmitButton() {
+            if ($('.cardtableCheck-online:checked').length > 0) {
+                $('#submitSelectedOnline').show();
+            } else {
+                $('#submitSelectedOnline').hide();
+            }
+        }
+
+        $('#submitSelectedOnline').on('click', function() {
+            var selectedIds = $('.cardtableCheck-online:checked').map(function() {
+                return $(this).val();
+            }).get().join(',');
+
+            $('#selected_ids').val(selectedIds);
+
+            var schools = {};
+            $('.cardtableCheck-online:checked').each(function() {
+                var school = $(this).data('school');
+                if (!schools[school]) {
+                    schools[school] = [];
+                }
+                schools[school].push($(this).val());
+            });
+
+            $('#school-letters-container').empty();
+            $.each(schools, function(school, ids) {
+                var schoolLabel = $('<label>').text(`Masukkan Nomor Surat untuk ${school}`);
+                var schoolInput = $('<input>').attr({
+                    type: 'number',
+                    class: 'form-control',
+                    name: `letter_numbers[${school}]`,
+                    id: `letter_number_${school}`
+                });
+                var schoolGroup = $('<div>').addClass('school-letter-group');
+                schoolGroup.append(schoolLabel).append(schoolInput);
+                $('#school-letters-container').append(schoolGroup);
+            });
+        });
+    });
+</script>
 
 @endsection
