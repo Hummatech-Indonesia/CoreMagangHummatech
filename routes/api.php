@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AdminMentorController;
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\DashboardController;
@@ -28,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('journals/detail/{id}' , [JournalController::class , 'show']);
     Route::get('attendace' , [AttendanceController::class , 'attendanceOffline']);
     Route::get('countAttendace' , [AttendanceController::class , 'count']);
+    Route::get('mentor_student' , [AdminMentorController::class ,'show']);
 });
 Route::post('sync', [AttendanceController::class, 'sync']);
 Route::get('students', [StudentController::class, 'getStudents']);
