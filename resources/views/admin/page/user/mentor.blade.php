@@ -9,7 +9,7 @@
                 <div class="col-sm-auto ms-auto d-flex justify-content-between pt-4">
                     <div class="search-box mx-3">
                         <form action="/menu-mentor">
-                            <input type="text" class="form-control" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Siswa...">
+                            <input type="text" class="form-control" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Mentor...">
                             <i class="ri-search-line search-icon"></i>
                         </form>
                     </div>

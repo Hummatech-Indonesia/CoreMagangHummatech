@@ -60,8 +60,11 @@
                 <div class="col-sm-8">
                     <div class="d-flex align-items-center mb-7">
                         <div class="rounded-circle overflow-hidden me-6">
-                            <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt="" width="40"
-                                height="40">
+                            @if(auth()->user()->student->avatar != null && Storage::disk('public')->exists(auth()->user()->student->avatar))
+                                <img src="{{ asset('storage/' . auth()->user()->student->avatar) }}" alt="avatar" class="rounded-circle mb-3" width="40px" height="40px" >
+                            @else
+                                <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle mb-3" width="40px" height="40px">
+                            @endif
                         </div>
                         <h5 class="fw-semibold mb-0 fs-5 mt-1">Selamat datang!</h5>
                     </div>
