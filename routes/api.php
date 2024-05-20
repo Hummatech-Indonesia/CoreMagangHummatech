@@ -34,6 +34,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('student/{student}' , [UserController::class , 'show']);
     Route::get('mentor-journal' , [JournalController::class ,'journal']);
     Route::get('course_mentor' , [AppointmentOfMentor::class , 'index']);
+    Route::get('count_mentor' , [DashboardController::class , 'count']);
+
 });
 Route::post('sync', [AttendanceController::class, 'sync']);
 Route::get('students', [StudentController::class, 'getStudents']);
