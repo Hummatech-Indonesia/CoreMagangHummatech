@@ -46,42 +46,44 @@
                     @endif
                 @endauth
                 @forelse ($studentProjects as $studentProject)
-                    <li class="sidebar-item px-2">
-                        <a href="{{ route('team.show', ['slug' => $studentProject->hummataskTeam->slug]) }}" class="d-flex align-items-center">
-                            <div class="rounded-circle overflow-hidden me-6">
-                                @if($studentProject->hummataskTeam->image != null && Storage::disk('public')->exists($studentProject->hummataskTeam->image))
-                                    <img src="{{ asset('storage/' . $studentProject->hummataskTeam->image) }}"
-                                        class="rounded-circle card-hover border border-white" width="40"
-                                        height="40">
-                                @else
-                                    @php
-                                        $firstLetter = substr($studentProject->hummataskTeam->name, 0, 1);
-                                        $firstLetter = strtoupper($firstLetter);
-                                        $backgroundColors = [
-                                            '#ff5722',
-                                            '#4caf50',
-                                            '#2196f3',
-                                        ];
-                                        $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
-                                    @endphp
-                                    <div style="background-color: {{ $backgroundColor }}; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center;" >
-                                        <span style="color: white; font-size: 15px;">{{ $firstLetter }}</span>
-                                    </div>
-                                @endif
-                            </div>
-                            <div class="d-inline-block">
-                                <h6 class="mb-1 bg-hover-primary">{{ $studentProject->hummataskTeam->name }}</h6>
-                                <div class="tb-section-2 mt-2">
-                                    @if ($studentProject->project_id)
-                                    <span class="bg-{{ $studentProject->project->status->color() }} px-2  text-bg-{{ $studentProject->project->status->color() }} fs-2 text-capitalize rounded-1 pb-1">{{ $studentProject->project->status->label() }}</span>
+                    @if ($studentProject->project->hummataskTeam->category_project_id != 1)
+                        <li class="sidebar-item px-2">
+                            <a href="{{ route('team.show', ['slug' => $studentProject->hummataskTeam->slug]) }}" class="d-flex align-items-center">
+                                <div class="rounded-circle overflow-hidden me-6">
+                                    @if($studentProject->hummataskTeam->image != null && Storage::disk('public')->exists($studentProject->hummataskTeam->image))
+                                        <img src="{{ asset('storage/' . $studentProject->hummataskTeam->image) }}"
+                                            class="rounded-circle card-hover border border-white" width="40"
+                                            height="40">
                                     @else
-                                    <span class="bg-warning px-2  text-bg-warning fs-2 text-capitalize rounded-1 pb-1">Belum aktif</span>
+                                        @php
+                                            $firstLetter = substr($studentProject->hummataskTeam->name, 0, 1);
+                                            $firstLetter = strtoupper($firstLetter);
+                                            $backgroundColors = [
+                                                '#ff5722',
+                                                '#4caf50',
+                                                '#2196f3',
+                                            ];
+                                            $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
+                                        @endphp
+                                        <div style="background-color: {{ $backgroundColor }}; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center;" >
+                                            <span style="color: white; font-size: 15px;">{{ $firstLetter }}</span>
+                                        </div>
                                     @endif
-                                    <span class="bg-primary px-2  text-bg-primary fs-2 rounded-1 pb-1">{{ $studentProject->hummataskTeam->categoryProject->name }}</span>
                                 </div>
-                            </div>
-                        </a>
-                    </li>
+                                <div class="d-inline-block">
+                                    <h6 class="mb-1 bg-hover-primary">{{ $studentProject->hummataskTeam->name }}</h6>
+                                    <div class="tb-section-2 mt-2">
+                                        @if ($studentProject->project_id)
+                                            <span class="bg-{{ $studentProject->project->status->color() }} px-2  text-bg-{{ $studentProject->project->status->color() }} fs-2 text-capitalize rounded-1 pb-1">{{ $studentProject->project->status->label() }}</span>
+                                        @else
+                                            <span class="bg-warning px-2  text-bg-warning fs-2 text-capitalize rounded-1 pb-1">Belum aktif</span>
+                                        @endif
+                                        <span class="bg-primary px-2  text-bg-primary fs-2 rounded-1 pb-1">{{ $studentProject->hummataskTeam->categoryProject->name }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    @endif
                 @empty
 
                 @endforelse
@@ -112,8 +114,11 @@
                             <div class="d-inline-block">
                                 <h6 class="mb-1 bg-hover-primary">{{ $hummataskTeam->name }}</h6>
                                 <div class="tb-section-2 mt-2">
-                                    @if ($hummataskTeam->project_id)
-                                    <span class="bg-{{ $hummataskTeam->project->status->color() }} px-2  text-bg-{{ $hummataskTeam->project->status->color() }} fs-2 text-capitalize rounded-1 pb-1">{{ $hummataskTeam->project->status->label() }}</span>
+                                    @php
+                                        $studentTeam = App\Models\StudentTeam::where('hummatask_team_id', $hummataskTeam->id)->first()
+                                    @endphp
+                                    @if ($studentTeam->project_id != null)    
+                                    <span class="bg-{{ $studentTeam->project->status->color() }} px-2  text-bg-{{ $studentTeam->project->status->color() }} fs-2 text-capitalize rounded-1 pb-1">{{ $studentTeam->project->status->label() }}</span>
                                     @else
                                     <span class="bg-warning px-2  text-bg-warning fs-2 text-capitalize rounded-1 pb-1">Belum aktif</span>
                                     @endif
