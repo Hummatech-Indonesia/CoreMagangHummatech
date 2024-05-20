@@ -12,12 +12,15 @@ class PermissionService {
      * @param  mixed $request
      * @return array
      */
-    public function store(PermissionRequest $request): array
+    public function store(PermissionRequest $request): array|bool
     {
         $data = $request->validated();
-        if ($request->hasFile('image')) {
-            $data['proof'] = $request->file('image')->store(TypeEnum::PERMISSION->value, 'public');
+
+        if ($request->hasFile('proof') && $request->file('proof')->isValid()) {
+            $data['proof'] = $request->file('proof')->store(TypeEnum::PERMISSION->value, 'public');
+            return $data;
         }
-        return $data;
+        return false;
     }
+
 }

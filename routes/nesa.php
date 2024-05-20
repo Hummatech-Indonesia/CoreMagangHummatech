@@ -13,6 +13,7 @@ use App\Http\Controllers\LimitPresentationController;
 use App\Http\Controllers\Mentor\JournalController;
 use App\Http\Controllers\NotePicketController;
 use App\Http\Controllers\NoteTeamController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\StudentOfline\CourseOfflineController;
 use App\Http\Controllers\ProductController;
@@ -91,6 +92,12 @@ Route::get('timetable', [ZoomScheduleController::class, 'show']);
 
 //Admin
 Route::get('administrator/presentation', [PresentationController::class, 'show']);
+
+Route::get('administrator/permission', [PermissionController::class, 'index']);
+Route::put('administrator/permission/update/{permission}', [PermissionController::class, 'updateApproval'])->name('approval.izin');
+Route::put('administrator/permission/update/reject/{permission}', [PermissionController::class, 'updateApprovalReject'])->name('approval.reject');
+
+
 
 // Route::get('administrator/presentation', function (){
 //     return view('admin.page.presentation.index');

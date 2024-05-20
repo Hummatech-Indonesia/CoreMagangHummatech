@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\AttendanceInterface;
 use App\Contracts\Interfaces\PermissionInterface;
+use App\Contracts\Interfaces\StudentInterface;
 use App\Enum\StatusApprovalPermissionEnum;
 use App\Http\Requests\PermissionRequest;
 use App\Http\Requests\StatusApprovalRequest;
@@ -19,11 +20,13 @@ class PermissionController extends Controller
     private PermissionInterface $permission;
     private AttendanceInterface $attendance;
     private PermissionService $service;
-    public function __construct(PermissionInterface $permissionInterface, PermissionService $permissionService, AttendanceInterface $attendanceInterface)
+    private StudentInterface $student;
+    public function __construct(PermissionInterface $permissionInterface, PermissionService $permissionService, AttendanceInterface $attendanceInterface, StudentInterface $student)
     {
         $this->attendance = $attendanceInterface;
         $this->service = $permissionService;
         $this->permission = $permissionInterface;
+        $this->student = $student;
     }
 
     /**
@@ -34,8 +37,9 @@ class PermissionController extends Controller
      */
     public function index(Request $request): View
     {
+        $students = $this->student->get();
         $permissions = $this->permission->search($request);
-        return view('', compact('permissions'));
+        return view('admin.page.approval.permision', compact('permissions','students'));
     }
 
     /**
@@ -59,9 +63,9 @@ class PermissionController extends Controller
      * @param  mixed $request
      * @return RedirectResponse
      */
-    public function updateApproval(Permission $permission, StatusApprovalRequest $request): RedirectResponse
+    public function updateApproval(Permission $permission, PermissionRequest $request): RedirectResponse
     {
-        $this->permission->update($permission->id, $request->validated());
+        $this->permission->update($permission->id, $request->all());
         if ($request->status_approval == StatusApprovalPermissionEnum::AGREE->value) {
             if ($permission->start === Carbon::today()->toDateString()) {
                 $izinDari = Carbon::tomorrow();
@@ -85,5 +89,30 @@ class PermissionController extends Controller
         return redirect()->back()->with('success', 'Berhasil menyimpan');
     }
 
+    public function updateApprovalReject(Permission $permission, PermissionRequest $request): RedirectResponse
+    {
+        $this->permission->update($permission->id, $request->all());
+        if ($request->status_approval == StatusApprovalPermissionEnum::REJECT->value) {
+            if ($permission->start === Carbon::today()->toDateString()) {
+                $izinDari = Carbon::tomorrow();
+            } else {
+                $izinDari = Carbon::parse($permission->start);
+            }
+            $izinSampai = Carbon::parse($permission->end);
+            $tanggalMulai = $izinDari;
+            $tanggalBerakhir = $izinSampai;
+            $today = now();
+            while ($tanggalMulai <= $tanggalBerakhir) {
+                $this->attendance->store([
+                    'student_id' => $permission->student_id,
+                    'status' => $permission->status,
+                    'created_at' => $today,
+                ]);
+                $tanggalMulai->addDay();
+                $today->addDay();
+            }
+        }
+        return redirect()->back()->with('success', 'Berhasil menyimpan');
+    }
 
 }
