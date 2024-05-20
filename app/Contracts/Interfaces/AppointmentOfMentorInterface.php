@@ -10,4 +10,6 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 interface AppointmentOfMentorInterface extends GetInterface, StoreInterface, UpdateInterface, DeleteInterface, SearchInterface
 {
     public function count();
+
+    public function detailAppointment();
 }
