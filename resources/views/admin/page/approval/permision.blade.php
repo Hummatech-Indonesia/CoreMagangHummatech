@@ -29,7 +29,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="col-sm-auto ms-auto d-flex justify-content-between pt-4">
                 <div class="search-box">
                     <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa...">
@@ -121,12 +121,12 @@
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <button class="dropdown-item btn-reset btn-detail" type="button"
-                                                                data-id="{{$permission->id}}" 
-                                                                data-proof="{{ file_exists(public_path('storage/' . $permission->proof)) ? asset('storage/' . $permission->proof) : asset('user.webp') }}"
+                                                                data-id="{{$permission->id}}"
+                                                                data-proof="{{ asset('storage/' $permision->proof) }}"
                                                                 >Lihat Bukti</button>
                                                                 <a href="#" class="dropdown-item btn-reset text-success btn-agree" data-id="{{$permission->id}}">Terima</a>
                                                                 <button class="dropdown-item btn-ban text-danger btn-reject" type="button" data-id="{{$permission->id}}">Tolak</button>
-                                    
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -146,7 +146,7 @@
                                         </tr>
                                         @endforelse
                                     </tbody>
-                                    
+
                                 </table>
                             </div>
                             <!-- Pagination -->
@@ -246,12 +246,12 @@
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <button class="dropdown-item btn-reset btn-detail" type="button"
-                                                                data-id="{{$permission->id}}" 
+                                                                data-id="{{$permission->id}}"
                                                                 data-proof="{{ file_exists(public_path('storage/' . $permission->proof)) ? asset('storage/' . $permission->proof) : asset('user.webp') }}"
                                                                 >Lihat Bukti</button>
                                                                 <a href="#" class="dropdown-item btn-reset text-success btn-agree" data-id="{{$permission->id}}">Terima</a>
                                                                 <button class="dropdown-item btn-ban text-danger btn-reject" type="button" data-id="{{$permission->id}}">Tolak</button>
-                                    
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -271,7 +271,7 @@
                                         </tr>
                                         @endforelse
                                     </tbody>
-                                    
+
                                 </table>
                             </div>
                             <!-- Pagination -->
@@ -369,12 +369,12 @@
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <button class="dropdown-item btn-reset btn-detail" type="button"
-                                                                data-id="{{$permission->id}}" 
+                                                                data-id="{{$permission->id}}"
                                                                 data-proof="{{ file_exists(public_path('storage/' . $permission->proof)) ? asset('storage/' . $permission->proof) : asset('user.webp') }}"
                                                                 >Lihat Bukti</button>
                                                                 <a href="#" class="dropdown-item btn-reset text-success btn-agree" data-id="{{$permission->id}}">Terima</a>
                                                                 <button class="dropdown-item btn-ban text-danger btn-reject" type="button" data-id="{{$permission->id}}">Tolak</button>
-                                    
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -394,7 +394,7 @@
                                         </tr>
                                         @endforelse
                                     </tbody>
-                                    
+
                                 </table>
                             </div>
                             <!-- Pagination -->
