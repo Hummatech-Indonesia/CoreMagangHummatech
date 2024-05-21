@@ -80,8 +80,24 @@
 </div>
 
 <style>
-    .modal-dialog-scrollable .modal-body {
-        max-height: calc(100vh - 3.5rem);
+    .modal-dialog {
+        max-width: 90%;
+    }
+
+    @media (min-width: 576px) {
+        .modal-dialog {
+            max-width: 500px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .modal-dialog {
+            max-width: 800px;
+        }
+    }
+
+    .modal-body {
+        max-height: 70vh;
         overflow-y: auto;
     }
 </style>
