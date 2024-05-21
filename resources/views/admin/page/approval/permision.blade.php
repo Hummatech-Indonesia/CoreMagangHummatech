@@ -122,7 +122,7 @@
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <button class="dropdown-item btn-reset btn-detail" type="button"
                                                                 data-id="{{$permission->id}}"
-                                                                data-proof="{{ asset('storage/' $permission->proof) }}"
+                                                                data-proof="{{ asset('storage/' . $permission->proof) }}"
                                                                 >Lihat Bukti</button>
                                                                 <a href="#" class="dropdown-item btn-reset text-success btn-agree" data-id="{{$permission->id}}">Terima</a>
                                                                 <button class="dropdown-item btn-ban text-danger btn-reject" type="button" data-id="{{$permission->id}}">Tolak</button>
