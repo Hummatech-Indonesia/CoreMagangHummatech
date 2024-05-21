@@ -69,7 +69,7 @@
                         @enderror
                     </div>
                     <hr>
-                    <div class="modal-footer">
+                    <div class="modal-footer modal-body-scrollable">
                         <button type="button" class="btn btn-light-danger text-danger font-medium waves-effect text-start"
                             data-bs-dismiss="modal">
                             Close
