@@ -15,9 +15,10 @@ class JournalResource extends JsonResource
     public function toArray(Request $request): array
     {
         setlocale(LC_TIME, 'id_ID.utf8');
-        
+
         return [
             'name' => $this->student->name,
+            'internship_type' => $this->student->internship_type,
             'school' => $this->student->school,
             'title' => $this->title,
             'description' => $this->description,
