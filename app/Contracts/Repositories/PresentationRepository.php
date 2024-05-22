@@ -90,8 +90,15 @@ class PresentationRepository extends BaseRepository implements PresentationInter
         return $this->model->query()
             ->whereDate('created_at', Carbon::today())
             ->where('mentor_id' , $id)
-            // ->where('hummatask_team_id', $team)
             ->get();
+    }
+
+    public function GetPresentationByMentor(mixed $id): mixed
+    {
+        return $this->model->query()
+        ->where('mentor_id', $id)
+        // ->where('hummatask_team_id', $id)
+        ->get();
     }
 
     public function getPresentationsByTeam(mixed $id):mixed
