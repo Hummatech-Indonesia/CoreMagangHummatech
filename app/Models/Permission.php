@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Base\Interfaces\HasStudent;
+use App\Enum\PermissionEnum;
+use App\Enum\StatusApprovalPermissionEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,6 +12,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Permission extends Model implements HasStudent
 {
     use HasFactory;
+    // protected $casts = [
+    //     'status' => PermissionEnum::class,
+    //     'status_approval' => StatusApprovalPermissionEnum::class,
+    // ];
 
     protected $table = 'student_permissions';
     protected $primaryKey = 'id';
@@ -35,4 +41,5 @@ class Permission extends Model implements HasStudent
     {
         return $this->belongsTo(Student::class);
     }
+
 }

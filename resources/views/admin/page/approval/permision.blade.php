@@ -29,21 +29,21 @@
                     </ul>
                 </div>
             </div>
-
-            <div class="col-sm-auto ms-auto d-flex justify-content-between pt-4">
-                <div class="search-box">
-                    <input type="text" class="form-control" id="searchMemberList" placeholder="Cari Siswa...">
-                    <i class="ri-search-line search-icon"></i>
-                </div>
-                <div class="mx-3">
-                    <input type="date" class="form-control"id="exampleInputdate">
-                </div>
-                <div class="list-grid-nav hstack gap-1">
-                    <button class="btn btn-primary addMembers-modal" data-bs-toggle="modal" data-bs-target="#addmemberModal">
-                        Cari
-                    </button>
-                </div>
+            <div class="col-sm-auto ms-auto pt-4">
+                <form action="/administrator/permission" class="d-flex flex-column flex-sm-row mb-2">
+                    <div class="mb-2 me-sm-2">
+                        <input type="text" class="form-control" name="name" value="{{ request()->name }}" id="searchMemberList" placeholder="Cari Siswa...">
+                    </div>
+                    <div class="mx-sm-2 mb-2">
+                        <input type="date" name="created_at" value="{{ request()->created_at }}" class="form-control" id="exampleInputdate">
+                    </div>
+                    <div>
+                        <button class="btn btn-primary w-100" type="submit">Cari</button>
+                    </div>
+                </form>
             </div>
+
+
         </div>
     </div>
 </div>
@@ -55,19 +55,19 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="listjs-table"id="customerList">
+                        <div class="listjs-table" id="customerList">
                             <div class="row g-4 mb-3">
                                 <div class="col-sm-auto">
                                     <div class="d-flex">
                                         <h5 class="mx-2 pt-2">Show</h5>
-                                        <select name=""class="form-select" id="expiry-month-input">
+                                        <select name="" class="form-select" id="expiry-month-input">
                                             <option value="1">10</option>
                                         </select>
                                         <h5 class="mx-2 pt-2">entries</h5>
                                     </div>
                                 </div>
                             </div>
-                            <div class="table-card mt-3 mb-1 mx-3">
+                            <div class="table-responsive">
                                 <table class="table align-middle table-nowrap" id="customerTable">
                                     <thead class="table-light">
                                         <tr>
@@ -112,23 +112,27 @@
                                             </td>
                                             <td class="status_approval">{{$permission->status_approval}}</td>
                                             <td>
-                                                <div class="d-flex justify-content-end w-100">
-                                                    <div class="dropdown card-header-dropdown">
-                                                        <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false">
-                                                            <span class="text-muted fs-16"><i
-                                                                    class="mdi mdi-dots-vertical align-center"></i></span>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                <div class="dropdown d-inline-block">
+                                                    <button class="btn btn-soft-secondary btn-sm dropdown"
+                                                        type="button" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                        <i class="ri-more-fill align-middle"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li>
                                                             <button class="dropdown-item btn-reset btn-detail" type="button"
                                                                 data-id="{{$permission->id}}"
                                                                 data-proof="{{ file_exists(public_path('storage/' . $permission->proof)) ? asset('storage/' . $permission->proof) : asset('user.webp') }}"
                                                                 >Lihat Bukti</button>
-                                                                <a href="#" class="dropdown-item btn-reset text-success btn-agree" data-id="{{$permission->id}}">Terima</a>
-                                                                <button class="dropdown-item btn-ban text-danger btn-reject" type="button" data-id="{{$permission->id}}">Tolak</button>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" class="dropdown-item btn-reset text-success btn-agree" data-id="{{$permission->id}}">Terima</a>
+                                                        </li>
+                                                        <li>
+                                                            <button class="dropdown-item btn-ban text-danger btn-reject" type="button" data-id="{{$permission->id}}">Tolak</button>
 
-                                                        </div>
-                                                    </div>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </td>
                                         </tr>
@@ -146,26 +150,10 @@
                                         </tr>
                                         @endforelse
                                     </tbody>
-
                                 </table>
                             </div>
                             <!-- Pagination -->
-                            <div class="d-flex justify-content-between px-3">
-                                <p>Showing 1 to 10 of 14 entries</p>
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-end">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
+                            {{ $permissions->links() }}
 
                         </div>
                     </div>
@@ -180,19 +168,19 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="listjs-table"id="customerList">
+                        <div class="listjs-table" id="customerList">
                             <div class="row g-4 mb-3">
                                 <div class="col-sm-auto">
                                     <div class="d-flex">
                                         <h5 class="mx-2 pt-2">Show</h5>
-                                        <select name=""class="form-select" id="expiry-month-input">
+                                        <select name="" class="form-select" id="expiry-month-input">
                                             <option value="1">10</option>
                                         </select>
                                         <h5 class="mx-2 pt-2">entries</h5>
                                     </div>
                                 </div>
                             </div>
-                            <div class="table table-card mt-3 mb-1 mx-3">
+                            <div class="table-responsive">
                                 <table class="table align-middle table-nowrap" id="customerTable">
                                     <thead class="table-light">
                                         <tr>
@@ -237,23 +225,27 @@
                                             </td>
                                             <td class="status_approval">{{$permission->status_approval}}</td>
                                             <td>
-                                                <div class="d-flex justify-content-end w-100">
-                                                    <div class="dropdown card-header-dropdown">
-                                                        <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false">
-                                                            <span class="text-muted fs-16"><i
-                                                                    class="mdi mdi-dots-vertical align-center"></i></span>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                <div class="dropdown d-inline-block">
+                                                    <button class="btn btn-soft-secondary btn-sm dropdown"
+                                                        type="button" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                        <i class="ri-more-fill align-middle"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li>
                                                             <button class="dropdown-item btn-reset btn-detail" type="button"
                                                                 data-id="{{$permission->id}}"
                                                                 data-proof="{{ file_exists(public_path('storage/' . $permission->proof)) ? asset('storage/' . $permission->proof) : asset('user.webp') }}"
                                                                 >Lihat Bukti</button>
-                                                                <a href="#" class="dropdown-item btn-reset text-success btn-agree" data-id="{{$permission->id}}">Terima</a>
-                                                                <button class="dropdown-item btn-ban text-danger btn-reject" type="button" data-id="{{$permission->id}}">Tolak</button>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" class="dropdown-item btn-reset text-success btn-agree" data-id="{{$permission->id}}">Terima</a>
+                                                        </li>
+                                                        <li>
+                                                            <button class="dropdown-item btn-ban text-danger btn-reject" type="button" data-id="{{$permission->id}}">Tolak</button>
 
-                                                        </div>
-                                                    </div>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </td>
                                         </tr>
@@ -271,26 +263,11 @@
                                         </tr>
                                         @endforelse
                                     </tbody>
-
                                 </table>
                             </div>
                             <!-- Pagination -->
-                            <div class="d-flex justify-content-between px-3">
-                                <p>Showing 1 to 10 of 14 entries</p>
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-end">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
+                            {{ $permissions->links() }}
+
                         </div>
                     </div>
                 </div>
@@ -308,14 +285,14 @@
                                 <div class="col-sm-auto">
                                     <div class="d-flex">
                                         <h5 class="mx-2 pt-2">Show</h5>
-                                        <select name=""class="form-select" id="expiry-month-input">
+                                        <select name="" class="form-select" id="expiry-month-input">
                                             <option value="1">10</option>
                                         </select>
                                         <h5 class="mx-2 pt-2">entries</h5>
                                     </div>
                                 </div>
                             </div>
-                            <div class="table table-card mt-3 mb-1 mx-3">
+                            <div class="table-responsive">
                                 <table class="table align-middle table-nowrap" id="customerTable">
                                     <thead class="table-light">
                                         <tr>
@@ -360,23 +337,27 @@
                                             </td>
                                             <td class="status_approval">{{$permission->status_approval}}</td>
                                             <td>
-                                                <div class="d-flex justify-content-end w-100">
-                                                    <div class="dropdown card-header-dropdown">
-                                                        <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false">
-                                                            <span class="text-muted fs-16"><i
-                                                                    class="mdi mdi-dots-vertical align-center"></i></span>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                <div class="dropdown d-inline-block">
+                                                    <button class="btn btn-soft-secondary btn-sm dropdown"
+                                                        type="button" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                        <i class="ri-more-fill align-middle"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li>
                                                             <button class="dropdown-item btn-reset btn-detail" type="button"
                                                                 data-id="{{$permission->id}}"
                                                                 data-proof="{{ file_exists(public_path('storage/' . $permission->proof)) ? asset('storage/' . $permission->proof) : asset('user.webp') }}"
                                                                 >Lihat Bukti</button>
-                                                                <a href="#" class="dropdown-item btn-reset text-success btn-agree" data-id="{{$permission->id}}">Terima</a>
-                                                                <button class="dropdown-item btn-ban text-danger btn-reject" type="button" data-id="{{$permission->id}}">Tolak</button>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" class="dropdown-item btn-reset text-success btn-agree" data-id="{{$permission->id}}">Terima</a>
+                                                        </li>
+                                                        <li>
+                                                            <button class="dropdown-item btn-ban text-danger btn-reject" type="button" data-id="{{$permission->id}}">Tolak</button>
 
-                                                        </div>
-                                                    </div>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </td>
                                         </tr>
@@ -394,26 +375,11 @@
                                         </tr>
                                         @endforelse
                                     </tbody>
-
                                 </table>
                             </div>
                             <!-- Pagination -->
-                            <div class="d-flex justify-content-between px-3">
-                                <p>Showing 1 to 10 of 14 entries</p>
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-end">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
+                            {{ $permissions->links() }}
+
                         </div>
                     </div>
                 </div>

@@ -38,7 +38,7 @@ class PermissionController extends Controller
     public function index(Request $request): View
     {
         $students = $this->student->get();
-        $permissions = $this->permission->search($request);
+        $permissions = $this->permission->search($request)->paginate(1);
         return view('admin.page.approval.permision', compact('permissions','students'));
     }
 
@@ -91,27 +91,13 @@ class PermissionController extends Controller
 
     public function updateApprovalReject(Permission $permission, PermissionRequest $request): RedirectResponse
     {
-        $this->permission->update($permission->id, $request->all());
+        $this->permission->update($permission->id, ['status_approval' => $request->status_approval]);
+
         if ($request->status_approval == StatusApprovalPermissionEnum::REJECT->value) {
-            if ($permission->start === Carbon::today()->toDateString()) {
-                $izinDari = Carbon::tomorrow();
-            } else {
-                $izinDari = Carbon::parse($permission->start);
-            }
-            $izinSampai = Carbon::parse($permission->end);
-            $tanggalMulai = $izinDari;
-            $tanggalBerakhir = $izinSampai;
-            $today = now();
-            while ($tanggalMulai <= $tanggalBerakhir) {
-                $this->attendance->store([
-                    'student_id' => $permission->student_id,
-                    'status' => $permission->status,
-                    'created_at' => $today,
-                ]);
-                $tanggalMulai->addDay();
-                $today->addDay();
-            }
+            return redirect()->back()->with('success', 'Berhasil menyimpan');
         }
+
+
         return redirect()->back()->with('success', 'Berhasil menyimpan');
     }
 
