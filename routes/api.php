@@ -37,6 +37,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('course_mentor' , [AppointmentOfMentor::class , 'index']);
     Route::get('count_mentor' , [DashboardController::class , 'count']);
 
+    // api seluruh siswa
+    Route::prefix('student')->group(function () {
+        Route::get('active-courses', [CourseController::class, 'activeCourses']);
+    });
+
+
     // api mentor
     Route::prefix('mentor')->group(function () {
         Route::get('student-attendances', [MentorController::class, 'studentAttendances']);
