@@ -38,7 +38,7 @@ class PermissionController extends Controller
     public function index(Request $request): View
     {
         $students = $this->student->get();
-        $permissions = $this->permission->search($request)->paginate(1);
+        $permissions = $this->permission->search($request)->paginate(10);
         return view('admin.page.approval.permision', compact('permissions','students'));
     }
 
