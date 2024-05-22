@@ -11,6 +11,15 @@ use Illuminate\Http\Request;
 
 interface StudentInterface extends GetInterface , StoreInterface , DeleteInterface , UpdateInterface, WhereInterface, ShowInterface
 {
+
+    /**
+     *
+     * @param mixed $id
+     * @return mixed
+     *
+     */
+    public function getAttendanceByDivision(mixed $id): mixed;
+
     public function countActiveOflline():mixed;
     public function countPending():mixed;
     public function countDecline():mixed;

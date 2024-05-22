@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\AppointmentOfMentor;
+use App\Http\Controllers\Api\MentorController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TransactionController;
@@ -35,6 +36,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('mentor-journal' , [JournalController::class ,'journal']);
     Route::get('course_mentor' , [AppointmentOfMentor::class , 'index']);
     Route::get('count_mentor' , [DashboardController::class , 'count']);
+
+    // api mentor
+    Route::prefix('mentor')->group(function () {
+        Route::get('student-attendances', [MentorController::class, 'studentAttendances']);
+    });
 
 });
 Route::post('sync', [AttendanceController::class, 'sync']);
