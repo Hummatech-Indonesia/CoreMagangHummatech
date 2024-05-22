@@ -15,5 +15,17 @@ interface JournalInterface extends GetInterface , StoreInterface , UpdateInterfa
     public function whereStudent(mixed $id) :mixed;
     public function CountJournalFillin();
     public function CountJournalNotFillin();
+
+    /**
+     * get by student offline
+     * @return mixed
+     */
+    public function getByStudentOffline(): mixed;
+
+    /**
+     * get by student online
+     * @return mixed
+     */
+    public function getByStudentOnline(): mixed;
     // public function getStats(): mixed;
 }

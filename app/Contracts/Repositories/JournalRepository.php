@@ -3,6 +3,7 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\JournalInterface;
+use App\Enum\InternshipTypeEnum;
 use App\Enum\StatusJournalEnum;
 use App\Models\Journal;
 use Carbon\Carbon;
@@ -12,6 +13,31 @@ class JournalRepository extends BaseRepository implements JournalInterface
     public function __construct(Journal $journal)
     {
         $this->model = $journal;
+    }
+
+    /**
+     *
+     * get by student offline
+     * @return mixed
+     *
+     */
+    public function getByStudentOffline(): mixed
+    {
+        return $this->model->query()
+            ->whereRelation('student', 'internship_type', InternshipTypeEnum::OFFLINE->value)
+            ->get();
+    }
+    /**
+     *
+     * get by student online
+     * @return mixed
+     *
+     */
+    public function getByStudentOnline(): mixed
+    {
+        return $this->model->query()
+            ->whereRelation('student', 'internship_type', InternshipTypeEnum::ONLINE->value)
+            ->get();
     }
 
     public function getjournal()
