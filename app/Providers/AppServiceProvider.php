@@ -79,6 +79,7 @@ use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\Signature_COInterface;
 use App\Contracts\Interfaces\StudentChallengeInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
+use App\Contracts\Interfaces\StudentSubCourseInterface;
 use App\Contracts\Interfaces\StudentTaskInterface;
 use App\Contracts\Interfaces\StudentTeamInterface;
 use App\Contracts\Interfaces\SubCourseUnlockInterface;
@@ -128,6 +129,7 @@ use App\Contracts\Repositories\ThesisRepository;
 use App\Contracts\Repositories\TransactionRepository;
 use App\Contracts\Repositories\VoucherUsageRepository;
 use App\Contracts\Repositories\WorkFromHomeRepository;
+use App\Models\StudentSubCourse;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -193,6 +195,7 @@ class AppServiceProvider extends ServiceProvider
         DataCOInterface::class => DataCORepository::class,
         Signature_COInterface::class => Signature_CORepository::class,
         AdminAttendanceInterface::class => AdminAttendanceRepository::class,
+        StudentSubCourseInterface::class => StudentSubCourse::class,
     ];
 
     /**
