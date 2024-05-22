@@ -65,6 +65,33 @@ class StudentRepository extends BaseRepository implements StudentInterface
     {
         return $this->model->where('finish_date', '<', now())->count();
     }
+
+    /**
+     * get attendance by division
+     * @param mixed $id
+     * @return mixed
+     */
+    public function getAttendanceByDivision(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->whereNotNull('rfid')
+            ->where('division_id', $id)
+            ->withCount([
+                'attendances' => function ($query) {
+                    $query->whereDate('created_at', now());
+                }
+            ])
+
+            ->with([
+                'attendances' => function ($query) {
+                    $query->whereDate('created_at', now());
+                }
+            ])
+            ->where('status', StudentStatusEnum::ACCEPTED->value)
+            ->orderByDesc('attendances_count')
+            ->get();
+    }
+
     /**
      * listAttendance
      *
