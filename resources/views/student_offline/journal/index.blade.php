@@ -95,11 +95,6 @@
             max-width: 800px;
         }
     }
-
-    .modal-body {
-        max-height: 70vh;
-        overflow-y: auto;
-    }
 </style>
     <div class="d-flex justify-content-between mb-4">
         <h4>
@@ -264,7 +259,7 @@
                         <button type="button"
                             class="btn btn-light-danger text-danger font-medium waves-effect text-start"
                             data-bs-dismiss="modal">
-                            Close
+                            Tutup
                         </button>
                         <button type="submit"
                             class="btn btn-light-primary text-primary font-medium waves-effect text-start"
