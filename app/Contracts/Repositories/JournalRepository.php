@@ -39,6 +39,7 @@ class JournalRepository extends BaseRepository implements JournalInterface
     {
         return $this->model->query()
             ->whereIn('student_id', $student_ids)
+            ->whereDate('created_at', now())
             ->get();
     }
 
