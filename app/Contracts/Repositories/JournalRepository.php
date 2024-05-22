@@ -27,6 +27,21 @@ class JournalRepository extends BaseRepository implements JournalInterface
             ->whereRelation('student', 'internship_type', InternshipTypeEnum::OFFLINE->value)
             ->get();
     }
+
+    /**
+     *
+     * get by students
+     * @param array
+     * @return mixed
+     *
+     */
+    public function getByStudents(array $student_ids): mixed
+    {
+        return $this->model->query()
+            ->whereIn('student_id', $student_ids)
+            ->get();
+    }
+
     /**
      *
      * get by student online

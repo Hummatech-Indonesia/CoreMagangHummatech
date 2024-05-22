@@ -98,7 +98,6 @@ class JournalController extends Controller
             $journals[] = $this->journal->whereStudent($mentorStudent->student_id);
         }
         $journalStudents = collect($journals)->flatten();
-        // dd($journalStudents);
         return response()->json([
             'result' => $journalStudents
         ]);
