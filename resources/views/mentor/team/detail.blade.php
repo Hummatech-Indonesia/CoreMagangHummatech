@@ -16,8 +16,14 @@
 </style>
 @endsection
 @section('content')
+@php
+    $studentTeam = App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get();
+@endphp
 <div class="d-flex gap-3 justify-content-end mb-3">
-  <button type="button" class="btn btn-light-info text-info" data-bs-toggle="modal" data-bs-target="#edit-team">
+  <button type="button" class="btn btn-light-info text-info btn-edit-team" data-bs-toggle="modal" data-bs-target="#edit-team" 
+  data-member="{{ $team->studentTeams }}"
+  data-deadline="{{ $studentTeam->project->end_date }}"
+  data-id="{{ $team->id }}">
     Edit Tim
   </button>
   <a href="/mentor/team" class="btn btn-primary">Kembali</a>
@@ -58,30 +64,32 @@
                 </tr>
               </thead>
               <tbody class="border-top">
-                <tr>
-                  <td>
-                    <p class="mb-0 fs-3">1</p>
-                  </td>
-                  <td class="ps-0">
-                    <div class="d-flex align-items-center">
-                      <div class="me-2 pe-1">
-                        @if(Storage::disk('public')->exists($team->student->avatar))
-                          <img src="{{ asset('storage/' . $team->student->avatar) }}" alt="avatar" class="rounded-circle mb-3" width="40px" height="40px" >
-                        @else
-                          <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle mb-3" width="40px" height="40px">
-                        @endif
-                      </div>
-                      <div>
-                        <h6 class="fw-semibold mb-1">{{ $team->student->name }}</h6>
-                        <p class="fs-2 mb-0 text-muted">Ketua</p>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $key => $student)
+                @if ($team->category_project_id != 1)
                   <tr>
                     <td>
-                      <p class="mb-0 fs-3">{{ (++$key + 1) }}</p>
+                      <p class="mb-0 fs-3">1</p>
+                    </td>
+                    <td class="ps-0">
+                      <div class="d-flex align-items-center">
+                        <div class="me-2 pe-1">
+                          @if(Storage::disk('public')->exists($team->student->avatar))
+                            <img src="{{ asset('storage/' . $team->student->avatar) }}" alt="avatar" class="rounded-circle mb-3" width="40px" height="40px" >
+                          @else
+                            <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle mb-3" width="40px" height="40px">
+                          @endif
+                        </div>
+                        <div>
+                          <h6 class="fw-semibold mb-1">{{ $team->student->name }}</h6>
+                          <p class="fs-2 mb-0 text-muted">Ketua</p>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>  
+                @endif
+                @foreach ($studentTeam as $key => $student)
+                  <tr>
+                    <td>
+                      <p class="mb-0 fs-3">{{ $team->category_project_id != 1 ? (++$key + 1) : 1 }}</p>
                     </td>
                     <td class="ps-0">
                       <div class="d-flex align-items-center">
@@ -167,14 +175,19 @@
                   data-description="{{ $presentationHistory->description }}"
                   data-date="{{ \Carbon\Carbon::parse($presentationHistory->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}"
                   data-callback="{{ $presentationHistory->callback != null ? $presentationHistory->callback : 'Belum ada tanggapan' }}"
+                  data-schedule-to="{{ $presentationHistory->schedule_to }}"
+                  data-start-date="{{ $presentationHistory->start_date }}"
+                  data-end-date="{{ $presentationHistory->end_date }}"
                   >
                     <i class="ti ti-eye fs-5"></i>
                   </button>
-                  <button class="text-warning callback-btn badge border-0 bg-light-warning"
-                  data-id="{{ $presentationHistory->id }}"
-                  >
-                    <i class="ti ti-send fs-5"></i>
-                  </button>
+                  @if ($presentationHistory->status_presentation == 'finish')
+                    <button class="text-warning callback-btn badge border-0 bg-light-warning"
+                    data-id="{{ $presentationHistory->id }}"
+                    >
+                      <i class="ti ti-send fs-5"></i>
+                    </button>
+                  @endif
                 </td>
               </tr>  
             @empty
@@ -198,19 +211,32 @@
 
 <div class="modal fade" id="show-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog modal-md">
+<div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title px-3" id="staticBackdropLabel">Detail presentasi</h4>
+            <h4 class="modal-title px-2" id="staticBackdropLabel">Detail presentasi</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <div class="px-3">
-            <h6 class="mb-4">Tanggal: <span id="date"></span></h6>
-          <h5 id="title">Judul presentasi</h5>
-          <p id="description"></p>
-          <h5 class="mt-4">Tanggapan mentor:</h5>
-          <p id="callback"></p>
+        <div class="modal-body px-4">
+          <div class="d-flex justify-content-between border-bottom">
+            <h6><b>Judul</b></h6>
+            <p id="title" class="mb-0"></p>
+          </div>
+          <div class="d-flex justify-content-between border-bottom mt-2">
+            <h6><b>Tanggal</b></h6>
+            <p id="date" class="mb-0"></p>
+          </div>
+          <div class="d-flex justify-content-between border-bottom mt-2">
+            <h6><b>Jadwal</b></h6>
+            <p id="schedule_to" class="mb-0"></p>
+          </div>
+          <div class="card p-3 mt-4 mb-2 shadow-sm">
+            <span><b>Deskripsi</b></span>
+            <span id="description" class="fs-2"></span>
+          </div>
+          <div class="card p-3 mt-3 shadow-sm mb-0">
+            <span><b>Feedback dari Mentor</b></span>
+            <span id="callback" class="fs-2"></span>
           </div>
         </div>
         <div class="modal-footer">
@@ -221,8 +247,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
 </div>
 </div>
 
-<div class="modal fade" id="callback-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="callback-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog modal-md">
     <div class="modal-content">
         <div class="modal-header">
@@ -248,8 +273,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
 </div>
 </div>
 
-<div class="modal fade" id="edit-team" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="edit-team" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
@@ -281,9 +305,25 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         @error('category_project_id')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
+                        <label for="deadline" class="mt-2 mb-1">Deadline</label>
+                        <input type="date" name="end_date" id="deadline" placeholder="Tambahkan Deadline" class="form-control">
+                        @error('end_date')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                        <label for="deadline" class="mt-3 mb-1">Status tim</label>
+                        <div class="d-flex">
+                          <div class="me-3">
+                            <input type="radio" name="status" id="active" class="me-1">Aktif
+                          </div>
+                          <div class="">
+                            <input type="radio" name="status" id="non-active" class="me-1">Tidak Aktif
+                          </div>
+                        </div>
+                        @error('status')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                         <label for="" class="mt-2 mb-1">Ketua tim</label>
                         <select class="select2 form-control custom-select" style="width: 100%; height: 36px"
-                        {{-- @dd($student->student->id, $team->student_id) --}}
                             name="leader">
                             <option disabled>Pilih ketua tim</option>
                             @forelse ($students as $student)
@@ -296,10 +336,11 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
 
-                        <div class="mb-3 mt-2 col-md-12">
+                        <div class="mb-3 mt-3 col-md-12">
                             <label for="bm-title" class="mb-1">Anggota tim</label>
-                            @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $key => $member)
-                              <select class="select2 form-control custom-select mb-3"
+                            @foreach ($studentTeam as $key => $member)
+                            <div class="d-flex align-items-center mt-1 gap-2" id="{{ ++$key }}">
+                              <select class="select2 form-control custom-select mb-1"
                                   name="student_id[]">
                                   <option disabled>Pilih anggota tim</option>
                                   @forelse ($students as $student)
@@ -308,7 +349,10 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                       <option disabled>Tidak ada siswa</option>
                                   @endforelse
                               </select>
-                              
+                              @if ($key > 1)
+                                <button onclick="deleteElement('{{ $key }}')" type="button" class="btn delete-trigger px-3 btn-danger"><i class="fas fa-trash"></i></button>
+                              @endif
+                            </div>
                               @error('student_id.*')
                                   <p class="text-danger">{{ $message }}</p>
                               @enderror
@@ -316,7 +360,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
                             <div id="member"></div>
 
-                            <button type="button" class="btn add-button-trigger btn-primary mt-3">Tambah
+                            <button type="button" class="btn add-button-trigger btn-light-info text-info mt-3">Tambah
                                 anggota</button>
                         </div>
                     </div>
@@ -355,11 +399,16 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
             let title = $(this).data('title');
             let description = $(this).data('description');
             let callback = $(this).data('callback');
-                        
+            let schedule_to = $(this).data('schedule-to');
+            let start_date = $(this).data('start-date');
+            let end_date = $(this).data('end-date');
+            
+            console.log(start_date, end_date);
             $('#date').text(date);
             $('#title').text(title);
             $('#description').text(description);
             $('#callback').text(callback);
+            $('#schedule_to').text(schedule_to+' ('+start_date+'-'+end_date+')');
             $('#show-modal').modal('show');
         });
 
@@ -379,7 +428,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
             $('.add-button-trigger').click((e) => {
                 let idInput = 'input_' + Math.random().toString(36).substr(2, 9); // Generate random id
                 let target = $(e.target).parent().find('#member');
-                target.append(`<div class="d-flex align-items-center mt-3 gap-2" id="${idInput}">
+                target.append(`<div class="d-flex align-items-center my-1 mb-2 gap-2" id="${idInput}">
                   <select class="select2 form-control custom-select" style="width: 100%; height: 36px" name="student_id[]">
                     <option>Pilih anggota tim</option>
                     @forelse ($students as $student)
@@ -398,4 +447,84 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
             });
         })();
     </script>
+<script>
+  $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+
+    // Function to delete an element by id
+    const deleteElement = (id) => $('#' + id).remove();
+
+    // Function to add new member input dynamically
+    const addNewMemberInput = (target) => {
+        let idInput = 'input_' + Math.random().toString(36).substr(2, 9); // Generate random id
+        target.append(`
+            <div class="d-flex align-items-center mt-3 gap-2" id="${idInput}">
+                <select class="select2 form-control custom-select" style="width: 100%; height: 36px" name="student_id[]">
+                    <option>Pilih anggota tim</option>
+                    @forelse ($students as $student)
+                        <option value="{{ $student->id }}">{{ $student->student->name }}</option>
+                    @empty
+                        <option>Tidak ada siswa</option>
+                    @endforelse
+                </select>
+                <button onclick="deleteElement('${idInput}')" type="button" class="btn delete-trigger px-3 mt-0 btn-danger">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `);
+        $('.select2').select2(); // Re-initialize select2 for new elements
+    }
+
+    // Event handler for showing the edit team modal
+    $(document).on('click', '.btn-edit-team', function() {
+        $('#edit-team').modal('show');
+        const id = $(this).data('id');
+        const members = $(this).data('member');
+        const target = $('#member');
+
+        // Clear previous members
+        target.empty();
+
+        // Populate members if they exist
+        if (members && members.length > 0) {
+            members.forEach(function(member) {
+                let idInput = 'input_' + Math.random().toString(36).substr(2, 9);
+                target.append(`
+                    <div class="d-flex align-items-center mt-3 gap-2" id="${idInput}">
+                        <select class="select2 form-control custom-select" style="width: 100%; height: 36px" name="student_id[]">
+                            <option>Pilih anggota tim</option>
+                            @forelse ($students as $student)
+                                <option value="{{ $student->id }}" ${member.student_id == $student->student->id ? 'selected' : ''}>
+                                    {{ $student->student->name }}
+                                </option>
+                            @empty
+                                <option>Tidak ada siswa</option>
+                            @endforelse
+                        </select>
+                        <button onclick="deleteElement('${idInput}')" type="button" class="btn delete-trigger px-3 mt-0 btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `);
+            });
+        }
+
+        // Add new member input on button click
+        $('.add-button-trigger').off('click').on('click', function() {
+            addNewMemberInput(target);
+        });
+
+        // Set form action URL
+        let url = `{{ route('team.update', ':id') }}`.replace(':id', id);
+        $('form[action*="team/update"]').attr('action', url);
+
+        console.log(members);
+    });
+
+    // Initialize select2
+    $('.select2').select2();
+});
+
+</script>
+
 @endsection
