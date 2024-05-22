@@ -18,6 +18,7 @@ use App\Models\Mentor;
 use App\Models\Project;
 use App\Services\PresentationService;
 use Carbon;
+use DB;
 use Illuminate\Http\Request;
 
 class PresentationController extends Controller
@@ -134,14 +135,48 @@ class PresentationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePresentationRequest $request,string $id, Presentation $presentation)
+    public function update(UpdatePresentationRequest $request, string $id, Presentation $presentation)
     {
-        $data=$request->validated();
-        $data['hummatask_team_id']=$id;
-        $data['status_presentation']=StatusPresentationEnum::PENNDING->value;
-        $this->presentation->update($presentation->id, $data);
-        return back()->with('success', 'Data Berhasil Diperbarui');
+        $teamId = $id;
+
+        $oldPresentation = Presentation::where('hummatask_team_id', $teamId)->first();
+
+        $updateSuccess = false;
+
+        if ($presentation->hummatask_team_id && $presentation->hummatask_team_id !== $teamId) {
+            return back()->with('error', 'Jadwal sudah dipilih oleh tim lain');
+        }
+
+        $data = $request->validated();
+
+        $data['hummatask_team_id'] = $teamId;
+        $data['status_presentation'] = StatusPresentationEnum::PENNDING;
+
+        DB::beginTransaction();
+
+        try {
+            $presentation->update($data);
+            $updateSuccess = true;
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->with('error', 'Gagal memperbarui data');
+        }
+
+        if ($updateSuccess && $oldPresentation) {
+            $oldPresentation->hummatask_team_id = null;
+            $oldPresentation->save();
+        }
+
+        DB::commit();
+
+        if ($updateSuccess) {
+            return back()->with('success', 'Data Berhasil Diperbarui');
+        }
+
+        return back()->with('error', 'Gagal memperbarui data');
     }
+
+
 
     /**
      *
