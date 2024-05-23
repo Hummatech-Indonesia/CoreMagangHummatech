@@ -359,11 +359,12 @@
                 modalBody.append('</div>');
                 modalBody.append('<div class="mb-2">');
                 modalBody.append('<h6 class="f-w-600">Bukti</h6>');
-                modalBody.append('<img src="' + image + '" class="" style="width:700px; object-fit:cover"></img>');
+                modalBody.append('<img src="' + image + '" class="img-fluid" style="width:100%; max-width:700px; object-fit:cover"></img>');
                 modalBody.append('</div>');
                 detail.append(modalBody);
                 $('#detail').modal('show');
             });
+
 
 
             $('.btn-delete').click(function() {
