@@ -9,6 +9,7 @@ use App\Contracts\Interfaces\AttendanceRuleInterface;
 use App\Contracts\Interfaces\MaxLateInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\WorkFromHomeInterface;
+use App\Enum\DayEnum;
 use App\Http\Requests\AttendanceStatusRequest;
 use App\Http\Requests\MaxLateRequest;
 use Carbon\Carbon;
@@ -154,7 +155,8 @@ class AttendanceController extends Controller
         $oflineAttendances = $this->student->listOfflineAttendance($request);
         $students = $this->student->get();
         $wfh = $this->workFromHome->getToday();
-        return view('admin.page.absent.index', compact('onlineAttendances', 'oflineAttendances', 'students', 'wfh'));
+        $rule = $this->attendanceRule->getByDay(now()->format('l'));
+        return view('admin.page.absent.index', compact('onlineAttendances', 'oflineAttendances', 'students', 'wfh', 'rule'));
     }
 
     public function attendanceOffline(Request $request): View
