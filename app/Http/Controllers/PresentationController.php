@@ -157,7 +157,7 @@ class PresentationController extends Controller
                 $oldPresentation->hummatask_team_id = null;
                 $oldPresentation->status_presentation = null;
                 $oldPresentation->title = null;
-                $oldPresentation->save(); // Menghapus data lama (hummatask_team_id, status_presentation, title)
+                $oldPresentation->save();
             }
 
             $presentation->update($data);
