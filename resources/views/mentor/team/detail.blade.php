@@ -18,14 +18,10 @@
 @section('content')
 @php
     $studentTeam = App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get();
+    $project = App\Models\Project::where('hummatask_team_id', $team->id)->where('status', 'accepted')->first();
 @endphp
 <div class="d-flex gap-3 justify-content-end mb-3">
-  <button type="button" class="btn btn-light-info text-info btn-edit-team" data-bs-toggle="modal" data-bs-target="#edit-team" 
-  data-member="{{ $team->studentTeams }}"
-  data-deadline="{{ $studentTeam->project->end_date }}"
-  data-id="{{ $team->id }}">
-    Edit Tim
-  </button>
+  <a href="{{ route('mentor-team.edit', ['slug' => $team->slug]) }}" class="btn btn-light-info text-info edit-team-btn">Edit Tim</a>
   <a href="/mentor/team" class="btn btn-primary">Kembali</a>
 </div>
 <div class="row">
@@ -209,8 +205,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="show-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="show-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
@@ -273,7 +268,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
 </div>
 </div>
 
-<div class="modal fade" id="edit-team" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="edit-team-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
@@ -305,18 +300,20 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         @error('category_project_id')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
-                        <label for="deadline" class="mt-2 mb-1">Deadline</label>
-                        <input type="date" name="end_date" id="deadline" placeholder="Tambahkan Deadline" class="form-control">
-                        @error('end_date')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
+                        @if ($project && $project->end_date != null)
+                          <label for="deadline" class="mt-2 mb-1">Deadline</label>
+                          <input type="date" name="end_date" id="edit-deadline" class="form-control">
+                          @error('end_date')
+                              <p class="text-danger">{{ $message }}</p>
+                          @enderror
+                        @endif
                         <label for="deadline" class="mt-3 mb-1">Status tim</label>
                         <div class="d-flex">
                           <div class="me-3">
-                            <input type="radio" name="status" id="active" class="me-1">Aktif
+                            <input type="radio" name="status" id="active" class="me-1" {{ $project && $project->status == 'accepted' ? 'checked' : '' }}>Aktif
                           </div>
                           <div class="">
-                            <input type="radio" name="status" id="non-active" class="me-1">Tidak Aktif
+                            <input type="radio" name="status" id="non-active" class="me-1" {{ !$project || $project->status != 'accepted' ? 'checked' : '' }}>Tidak Aktif
                           </div>
                         </div>
                         @error('status')
@@ -417,6 +414,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
           $('#form-callback').attr('action', '/mentor/presentation/callback/' + id);
           $('#callback-modal').modal('show');
         });
+        
 
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2();
@@ -472,56 +470,8 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 </button>
             </div>
         `);
-        $('.select2').select2(); // Re-initialize select2 for new elements
+        $('.select2').select2(); 
     }
-
-    // Event handler for showing the edit team modal
-    $(document).on('click', '.btn-edit-team', function() {
-        $('#edit-team').modal('show');
-        const id = $(this).data('id');
-        const members = $(this).data('member');
-        const target = $('#member');
-
-        // Clear previous members
-        target.empty();
-
-        // Populate members if they exist
-        if (members && members.length > 0) {
-            members.forEach(function(member) {
-                let idInput = 'input_' + Math.random().toString(36).substr(2, 9);
-                target.append(`
-                    <div class="d-flex align-items-center mt-3 gap-2" id="${idInput}">
-                        <select class="select2 form-control custom-select" style="width: 100%; height: 36px" name="student_id[]">
-                            <option>Pilih anggota tim</option>
-                            @forelse ($students as $student)
-                                <option value="{{ $student->id }}" ${member.student_id == $student->student->id ? 'selected' : ''}>
-                                    {{ $student->student->name }}
-                                </option>
-                            @empty
-                                <option>Tidak ada siswa</option>
-                            @endforelse
-                        </select>
-                        <button onclick="deleteElement('${idInput}')" type="button" class="btn delete-trigger px-3 mt-0 btn-danger">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                `);
-            });
-        }
-
-        // Add new member input on button click
-        $('.add-button-trigger').off('click').on('click', function() {
-            addNewMemberInput(target);
-        });
-
-        // Set form action URL
-        let url = `{{ route('team.update', ':id') }}`.replace(':id', id);
-        $('form[action*="team/update"]').attr('action', url);
-
-        console.log(members);
-    });
-
-    // Initialize select2
     $('.select2').select2();
 });
 

@@ -192,4 +192,11 @@ class HummataskTeamController extends Controller
         return view('mentor.team.detail', compact('team', 'done', 'categoryProjects', 'students', 'mentors', 'presentationHistories'));
     }
 
+    public function mentorEdit($slug){
+        $team = $this->hummatask_team->slug($slug);
+        $categoryProjects = $this->categoryProject->get();
+        $students = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
+        return view('mentor.team.edit', compact('team', 'categoryProjects', 'students'));
+    }
+
 }
