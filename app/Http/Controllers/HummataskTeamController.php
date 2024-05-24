@@ -126,14 +126,17 @@ class HummataskTeamController extends Controller
     public function update(UpdateHummataskTeamRequest $request, HummataskTeam $hummataskTeam)
     {
         $data = $this->service->update($hummataskTeam, $request);
-        // dd($data);
         $hummatask_team = $this->hummatask_team->update($hummataskTeam->id, $data);
-        // foreach ($request->student_id as $student_id) {
-        //     $this->studentTeam->update(id,[
-        //         'hummatask_team_id' => $hummatask_team->id,
-        //         'student_id' => $student_id,
-        //     ]);
-        // }
+        $this->studentTeam->deleteByTeamId($hummataskTeam->id);
+        if ($request->has('end_date')) {
+            $this->project->updateByTeamId($hummatask_team->id, ['end_date' => $data['end_date']]);
+        }
+        foreach ($request->student_id as $student_id) {
+            $this->studentTeam->store([
+                'hummatask_team_id' => $hummatask_team->id,
+                'student_id' => $student_id,
+            ]);
+        }
         return back()->with('success', 'Berhasil Memperbarui Data Team');
     }
 
@@ -147,7 +150,7 @@ class HummataskTeamController extends Controller
             return back()->with('success', 'Berhasil Menghapus Data');
         } catch (\Throwable $th) {
             return back()->with('warning', 'Gagal Menghapus Data, ' . $th->getMessage());
-        }        
+        }
     }
 
     public function soloTeam(StoreSoloProjectRequest $request){

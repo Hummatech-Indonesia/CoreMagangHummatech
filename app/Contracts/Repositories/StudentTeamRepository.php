@@ -12,6 +12,20 @@ class StudentTeamRepository extends BaseRepository implements StudentTeamInterfa
         $this->model = $studentTeam;
     }
 
+    /**
+     *
+     * delete by hummatask team id
+     * @param mixed $id
+     * @return mixed
+     *
+     */
+    public function deleteByTeamId(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('hummatask_team_id', $id)
+            ->delete();
+    }
+
     public function get(): mixed
     {
         return $this->model->query()->get();

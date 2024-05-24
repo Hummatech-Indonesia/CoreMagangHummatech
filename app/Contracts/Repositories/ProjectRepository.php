@@ -14,6 +14,24 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
         $this->model = $project;
     }
 
+    /**
+     *
+     * update by team id
+     * @param mixed $id
+     * @param array $data
+     * @return mixed
+     *
+     */
+    public function updateByTeamId(mixed $id, array $data): mixed
+    {
+        return $this->model->query()
+            ->where(
+                ['hummatask_team_id', '=', $id],
+                ['status', '=', StatusProjectEnum::ACCEPTED->value]
+            )
+            ->update($data);
+    }
+
     public function get(): mixed
     {
         return $this->model->query()->get();
@@ -39,7 +57,7 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
     {
         $data['start_date'] = Carbon::now()->toDateString();
         $data['status'] = StatusProjectEnum::ACCEPTED->value;
-        
+
         $this->model->query()
             ->where('hummatask_team_id', $hummataskTeam)
             ->where('id', '!=', $id)
