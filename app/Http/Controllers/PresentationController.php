@@ -140,7 +140,6 @@ class PresentationController extends Controller
         $teamId = $id;
 
         $oldPresentation = Presentation::where('hummatask_team_id', $teamId)->first();
-
         $updateSuccess = false;
 
         if ($presentation->hummatask_team_id && $presentation->hummatask_team_id !== $teamId) {
@@ -148,32 +147,28 @@ class PresentationController extends Controller
         }
 
         $data = $request->validated();
-
         $data['hummatask_team_id'] = $teamId;
         $data['status_presentation'] = StatusPresentationEnum::PENNDING;
 
         DB::beginTransaction();
 
         try {
+            if ($oldPresentation) {
+                $oldPresentation->hummatask_team_id = null;
+                $oldPresentation->status_presentation = null;
+                $oldPresentation->title = null;
+                $oldPresentation->save();
+            }
+
             $presentation->update($data);
             $updateSuccess = true;
+            DB::commit();
+
+            return back()->with('success', 'Data Berhasil Diperbarui');
         } catch (\Exception $e) {
             DB::rollback();
             return back()->with('error', 'Gagal memperbarui data');
         }
-
-        if ($updateSuccess && $oldPresentation) {
-            $oldPresentation->hummatask_team_id = null;
-            $oldPresentation->save();
-        }
-
-        DB::commit();
-
-        if ($updateSuccess) {
-            return back()->with('success', 'Data Berhasil Diperbarui');
-        }
-
-        return back()->with('error', 'Gagal memperbarui data');
     }
 
 
@@ -202,6 +197,7 @@ class PresentationController extends Controller
         }
 
         $histories = $this->presentation->getPresentationsByTeam($slugs->id);
+
 
         return view('Hummatask.team.presentation', compact('hummataskTeam', 'presentations', 'limits', 'slugs','histories'));
     }

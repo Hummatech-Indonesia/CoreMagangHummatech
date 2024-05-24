@@ -100,8 +100,11 @@
                                     </td>
                                     <td>
                                         <h6>
-                                            {{$presentation ? $presentation->status_presentation : ''}}
-
+                                            @if ($presentation)
+                                                <span class="badge bg-{{$presentation->status_presentation?->color()}}">
+                                                    {{$presentation->status_presentation?->label()}}
+                                                </span>
+                                            @endif
                                         </h6>
                                     </td>
                                     <td class=" gap-2 justify-content-center">
@@ -125,7 +128,17 @@
 
                                 </tr>
                             @empty
-
+                            <tr>
+                                <td colspan="8">
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <img src="{{ asset('no data.png') }}" width="200px"
+                                            alt="">
+                                    </div>
+                                    <h4 class="text-center mt-2 mb-4">
+                                        Data Masih kosong
+                                    </h4>
+                                </td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>
@@ -171,7 +184,7 @@
                     </div>
                 @empty
                     <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
-                        <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                        <img src="{{ asset('no data.png') }}" alt="" width="200px" srcset="">
                         <p class="fs-5 text-dark">
                             Belum Ada Jadwal
                         </p>
@@ -198,6 +211,14 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
               <div class="px-3">
                 <label for="callback" class="mb-2">Berikan tanggapan</label>
               <textarea name="callback" id="" rows="5" class="form-control">{{ old('callback') }}</textarea>
+              </div>
+              <div class="px-3">
+                <label for="status_presentation" class="mb-2">Status</label>
+                <select name="status_presentation" class="form-select">
+                  <option value="ongoing">Sedang Berlangsung</option>
+                  <option value="finish">Selesai</option>
+                  <option value="notfinish">Tidak Selesai</option>
+                </select>
               </div>
           </div>
           <div class="modal-footer">

@@ -1,4 +1,13 @@
 @extends('Hummatask.team.layouts.app')
+
+@section('style')
+<style>
+    .simplebar-content-wrapper {
+        border-top: 2px solid blue;
+    }
+</style>
+@endsection
+
 @section('content')
     <div class="card bg-light-info shadow-none position-relative overflow-hidden">
         <div class="card-body px-4 py-3">
@@ -141,9 +150,7 @@
                                         </button>
                                         <div class="ms-auto">
                                             <div class="category-selector btn-group">
-                                                <button type="button"
-                                                    class="btn mb-1 waves-effect waves-light btn-rounded btn-light-primary text-primary"
-                                                    data-bs-toggle="modal" data-bs-target="#detailModal">
+                                                <button type="button" class="btn mb-1 waves-effect waves-light btn-rounded btn-light-primary text-primary" data-bs-toggle="modal" data-bs-target="#detailModal{{ $categoryBoard->id }}">
                                                     <i class="ti ti-eye fs-5"></i>
                                                 </button>
                                             </div>
@@ -274,23 +281,56 @@
         </div>
 
         <!-- Detail Modal -->
-        <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+        @foreach ($categoryBoards as $categoryBoard)
+        <div class="modal fade" id="detailModal{{ $categoryBoard->id }}" tabindex="-1" aria-labelledby="detailModalLabel{{ $categoryBoard->id }}" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="detailModalLabel">Detail</h5>
+                        <h5 class="modal-title" id="detailModalLabel{{ $categoryBoard->id }}">Detail</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- Tempat untuk menampilkan data dari database -->
-                        <div id="modal-content"></div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mb-1 text-center">Judul</h4>
+                                <h3 class="text-center">{{ $categoryBoard->title }}</h3>
+                            </div>
+                            <div class="comment-widgets scrollable mb-2 common-widget" style="max-height: 450px" data-simplebar="init">
+                                <div class="simplebar-wrapper">
+                                    <div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: 100%; overflow: hidden scroll;">
+                                        @forelse ($categoryBoard->boards as $board)
+                                        <div class="simplebar-content">
+                                            <div class="d-flex flex-row comment-row border-bottom p-3">
+                                                <div class="comment-text w-100 p-3">
+                                                    <h5 class="font-weight-medium">{{$board->name}}</h5>
+                                                    <p class="mb-1 fs-3 text-muted">
+                                                        {{$board->description}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @empty
+                                        <div class="simplebar-content">
+                                            <div class="d-flex flex-row comment-row border-bottom p-3">
+                                                <div class="comment-text w-100 p-3">
+                                                    <h5 class="font-weight-medium">No Data</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforelse
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                     </div>
                 </div>
             </div>
         </div>
+        @endforeach
+
     </div>
     </div>
 
@@ -372,18 +412,6 @@
 
             noteContainer.append(newNoteInput); // Menambahkan input catatan beserta tombol hapus ke dalam kontainer
         };
-        // $('.btn-edit').click(function() {
-        //     var id = $(this).data('id');
-        //     var title = $(this).data('title');
-        //     var status = $(this).data('status');
-        //     var note = $(this).data('note');
-        //     console.log(id);
-        //     console.log(title);
-        //     console.log(status);
-        //     console.log(note);
-
-        //     $('#modal-edit').modal('show');
-        // });
 
         $(document).on('click', '#updateTeamNote,#updateRevisionNote', function() {
             $('#updateTeamNoteModal').modal('show');
@@ -445,5 +473,7 @@
             $('#form-delete').attr('action', '/hummateam/team/note/delete/' + id);
             $('#modal-delete').modal('show');
         });
+
+
     </script>
 @endsection

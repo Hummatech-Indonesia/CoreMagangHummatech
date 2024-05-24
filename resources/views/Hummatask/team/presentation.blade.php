@@ -77,7 +77,13 @@
                             <p class="mb-0 fw-normal fs-4">{{ \Carbon\Carbon::parse($presentation->created_at)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</p>
                         </td>
                         <td>
-                            <p class="mb-0 fw-normal fs-4">{{ $presentation->status_presentation }}</p>
+                            <p class="mb-0 fw-normal fs-4">
+                                @if ($presentation)
+                                <span class="badge bg-{{$presentation->status_presentation?->color()}}">
+                                    {{$presentation->status_presentation?->label()}}
+                                </span>
+                            @endif
+                        </p>
                         </td>
                         <td>
                             <p class="mb-0 fw-normal fs-4">{{ $presentation->schedule_to }}</p>
@@ -175,6 +181,7 @@
                                                     <label class="form-check-label text-danger d-block" for="date_range_{{ $presentation->id }}">
                                                         {{ $presentation->start_date }} - {{ $presentation->end_date }}
                                                     </label>
+                                                    {{-- <p class="pt-2 text-muted">Dipilih oleh tim {{ $presentation->hummatask_team_id }}</p> --}}
                                                 </div>
                                             </div>
 
