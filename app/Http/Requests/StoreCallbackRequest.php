@@ -22,7 +22,8 @@ class StoreCallbackRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'callback' => 'required|max:10000'
+            'callback' => 'required|max:10000',
+            'status_presentation' => 'required',
         ];
     }
 }
