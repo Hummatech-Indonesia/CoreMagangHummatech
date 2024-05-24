@@ -115,7 +115,7 @@
     <div class="card">
       <div class="card-body">
         <h5>Progress tim</h5>
-            <div id="chart" class="pt-4"></div>
+            <div id="chart-progres" class="pt-4"></div>
       </div>
     </div>
   </div>
@@ -523,7 +523,7 @@
             };
 
 
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        var chart = new ApexCharts(document.querySelector("#chart-progres"), options);
         chart.render();
 
 
