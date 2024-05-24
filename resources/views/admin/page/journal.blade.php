@@ -136,7 +136,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($adminJournal as $journal)
+                                            @forelse ($adminJournalAll as $journal)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td class="name">{{ $journal->student->name }}</td>
@@ -180,7 +180,7 @@
                                         </tbody>
                                     </table>
                                     <div class="pt-2">
-                                        {{ $adminJournal->links() }}
+                                        {{ $adminJournalAll->appends(request()->except('all_page'))->links('pagination::bootstrap-4', ['paginator' => $adminJournalAll, 'pageName' => 'all_page']) }}
                                     </div>
                                 </div>
                             </div>
@@ -225,37 +225,34 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($adminJournal as $journal)
-                                                @if ($journal->status === 'fillin')
-                                                    <tr>
-
-                                                        <td class="number">{{ $loop->iteration }}</td>
-                                                        <td class="name">{{ $journal->student->name }}</td>
-                                                        <td>{{ \Carbon\Carbon::parse($journal->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
-                                                        </td>
-                                                        <td class="status">
-                                                            <?php
-                                                            if ($journal->status === 'fillin') {
-                                                                echo '<span class="badge bg-success-subtle text-success text-uppercase">MENGISI</span>';
-                                                            } else {
-                                                                echo '<span class="badge bg-danger-subtle text-danger text-uppercase">TIDAK MENGISI</span>';
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td class="description">
-                                                            {!! Str::limit($journal->description, 50) !!}
-                                                        </td>
-                                                        <td>
-                                                            <div class="view">
-                                                                <button class="btn btn-soft-primary edit-item-btn"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#showModal_{{ $journal->id }}">
-                                                                    <i class="ri-eye-line"></i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endif
+                                            @forelse ($adminJournalFillIn as $journal)
+                                                <tr>
+                                                    <td class="number">{{ $loop->iteration }}</td>
+                                                    <td class="name">{{ $journal->student->name }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($journal->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
+                                                    </td>
+                                                    <td class="status">
+                                                        <?php
+                                                        if ($journal->status === 'fillin') {
+                                                            echo '<span class="badge bg-success-subtle text-success text-uppercase">MENGISI</span>';
+                                                        } else {
+                                                            echo '<span class="badge bg-danger-subtle text-danger text-uppercase">TIDAK MENGISI</span>';
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td class="description">
+                                                        {!! Str::limit($journal->description, 50) !!}
+                                                    </td>
+                                                    <td>
+                                                        <div class="view">
+                                                            <button class="btn btn-soft-primary edit-item-btn"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#showModal_{{ $journal->id }}">
+                                                                <i class="ri-eye-line"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                             @empty
                                                 <tr>
                                                     <td colspan="8">
@@ -272,7 +269,7 @@
                                         </tbody>
                                     </table>
                                     <div class="pt-2">
-                                        {{ $adminJournal->links() }}
+                                        {{ $adminJournalFillIn->appends(request()->except('fillin_page'))->links('pagination::bootstrap-4', ['paginator' => $adminJournalFillIn, 'pageName' => 'fillin_page']) }}
                                     </div>
                                 </div>
                             </div>
@@ -305,7 +302,6 @@
                                     <table class="table align-middle table-nowrap table-striped-columns mb-0">
                                         <thead class="table-light">
                                             <tr>
-
                                                 <th scope="col">No</th>
                                                 <th scope="col">Nama</th>
                                                 <th scope="col">Tanggal</th>
@@ -315,43 +311,38 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($adminJournal as $index => $journal)
-                                                @if ($journal->status === 'notfilling')
-                                                    <tr>
-
-                                                        <td class="number">{{ $index }}</td>
-                                                        <td class="name">{{ $journal->student->name }}</td>
-                                                        <td>{{ \Carbon\Carbon::parse($journal->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
-                                                        </td>
-                                                        <td class="status">
-                                                            <?php
-                                                            if ($journal->status === 'fillin') {
-                                                                echo '<span class="badge bg-success-subtle text-success text-uppercase">MENGISI</span>';
-                                                            } else {
-                                                                echo '<span class="badge bg-danger-subtle text-danger text-uppercase">TIDAK MENGISI</span>';
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td class="description">
-                                                            {!! Str::limit($journal->description, 50) !!}
-                                                        </td>
-                                                        <td>
-                                                            <div class="view">
-                                                                <button class="btn btn-soft-primary edit-item-btn"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#showModal_{{ $journal->id }}">
-                                                                    <i class="ri-eye-line"></i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                            @forelse ($adminJournalNotFilling as $index => $journal)
+                                                @if ($journal !== 'fillin')
+                                                <tr>
+                                                    <td class="number">{{ ++$index }}</td>
+                                                    <td class="name">{{ $journal->student->name }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($journal->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}</td>
+                                                    <td class="status">
+                                                        <?php
+                                                        if ($journal->status === 'fillin') {
+                                                            echo '<span class="badge bg-success-subtle text-success text-uppercase">MENGISI</span>';
+                                                        } else {
+                                                            echo '<span class="badge bg-danger-subtle text-danger text-uppercase">TIDAK MENGISI</span>';
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td class="description">
+                                                        {!! Str::limit($journal->description, 50) !!}
+                                                    </td>
+                                                    <td>
+                                                        <div class="view">
+                                                            <button class="btn btn-soft-primary edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal_{{ $journal->id }}">
+                                                                <i class="ri-eye-line"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                                 @endif
                                             @empty
                                                 <tr>
                                                     <td colspan="8">
                                                         <div class="d-flex justify-content-center mt-3">
-                                                            <img src="{{ asset('no data.png') }}" width="200px"
-                                                                alt="">
+                                                            <img src="{{ asset('no data.png') }}" width="200px" alt="">
                                                         </div>
                                                         <h4 class="text-center mt-2 mb-4">
                                                             Data Masih kosong
@@ -362,7 +353,7 @@
                                         </tbody>
                                     </table>
                                     <div class="pt-2">
-                                        {{ $adminJournal->links() }}
+                                        {{-- {{ $adminJournalNotFilling->appends(request()->except('notfilling_page'))->links('pagination::bootstrap-4', ['paginator' => $adminJournalNotFilling, 'pageName' => 'notfilling_page']) }} --}}
                                     </div>
                                 </div>
                             </div>
@@ -370,11 +361,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
-    @foreach ($adminJournal as $journal)
+    @foreach ($adminJournalAll as $journal)
         <div class="modal fade" id="showModal_{{ $journal->id }}" tabindex="-1"
             aria-labelledby="showModalLabel_{{ $journal->id }}" aria-hidden="true">
             <div class="modal-dialog">
