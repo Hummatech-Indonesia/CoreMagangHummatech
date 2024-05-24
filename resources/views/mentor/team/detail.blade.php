@@ -80,7 +80,7 @@
                         </div>
                       </div>
                     </td>
-                  </tr>  
+                  </tr>
                 @endif
                 @foreach ($studentTeam as $key => $student)
                   <tr>
@@ -115,9 +115,7 @@
     <div class="card">
       <div class="card-body">
         <h5>Progress tim</h5>
-        <div class="chart">
-
-        </div>
+            <div id="chart" class="pt-4"></div>
       </div>
     </div>
   </div>
@@ -185,7 +183,7 @@
                     </button>
                   @endif
                 </td>
-              </tr>  
+              </tr>
             @empty
               <tr>
                 <td colspan="6">
@@ -378,11 +376,19 @@
 @endsection
 
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.48.0/apexcharts.min.js"
+    integrity="sha512-wqcdhB5VcHuNzKcjnxN9wI5tB3nNorVX7Zz9NtKBxmofNskRC29uaQDnv71I/zhCDLZsNrg75oG8cJHuBvKWGw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.48.0/apexcharts.min.css"
+    integrity="sha512-qc0GepkUB5ugt8LevOF/K2h2lLGIloDBcWX8yawu/5V8FXSxZLn3NVMZskeEyOhlc6RxKiEj6QpSrlAoL1D3TA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <script>
         $('.btn-delete').on('click', function() {
             var id = $(this).data('id');
@@ -399,7 +405,7 @@
             let schedule_to = $(this).data('schedule-to');
             let start_date = $(this).data('start-date');
             let end_date = $(this).data('end-date');
-            
+
             console.log(start_date, end_date);
             $('#date').text(date);
             $('#title').text(title);
@@ -414,7 +420,7 @@
           $('#form-callback').attr('action', '/mentor/presentation/callback/' + id);
           $('#callback-modal').modal('show');
         });
-        
+
 
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2();
@@ -445,36 +451,83 @@
             });
         })();
     </script>
-<script>
-  $(document).ready(function() {
-    $('.js-example-basic-multiple').select2();
+    <script>
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
 
-    // Function to delete an element by id
-    const deleteElement = (id) => $('#' + id).remove();
+        // Function to delete an element by id
+        const deleteElement = (id) => $('#' + id).remove();
 
-    // Function to add new member input dynamically
-    const addNewMemberInput = (target) => {
-        let idInput = 'input_' + Math.random().toString(36).substr(2, 9); // Generate random id
-        target.append(`
-            <div class="d-flex align-items-center mt-3 gap-2" id="${idInput}">
-                <select class="select2 form-control custom-select" style="width: 100%; height: 36px" name="student_id[]">
-                    <option>Pilih anggota tim</option>
-                    @forelse ($students as $student)
-                        <option value="{{ $student->id }}">{{ $student->student->name }}</option>
-                    @empty
-                        <option>Tidak ada siswa</option>
-                    @endforelse
-                </select>
-                <button onclick="deleteElement('${idInput}')" type="button" class="btn delete-trigger px-3 mt-0 btn-danger">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        `);
-        $('.select2').select2(); 
-    }
-    $('.select2').select2();
-});
+        // Function to add new member input dynamically
+        const addNewMemberInput = (target) => {
+            let idInput = 'input_' + Math.random().toString(36).substr(2, 9); // Generate random id
+            target.append(`
+                <div class="d-flex align-items-center mt-3 gap-2" id="${idInput}">
+                    <select class="select2 form-control custom-select" style="width: 100%; height: 36px" name="student_id[]">
+                        <option>Pilih anggota tim</option>
+                        @forelse ($students as $student)
+                            <option value="{{ $student->id }}">{{ $student->student->name }}</option>
+                        @empty
+                            <option>Tidak ada siswa</option>
+                        @endforelse
+                    </select>
+                    <button onclick="deleteElement('${idInput}')" type="button" class="btn delete-trigger px-3 mt-0 btn-danger">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `);
+            $('.select2').select2();
+        }
+        $('.select2').select2();
+    });
+    </script>
 
-</script>
+    <script>
+              var options = {
+                series: [44, 55, 41, 17],
+                chart: {
+                    type: 'donut',
+                    height: 400
+                },
+                labels: ['Hadir', 'Telat', 'Izin', 'Alpha'],
+                colors: ['#13DEB9', '#5D87FF', '#49BEFF', '#FFAE1F'],
+                dataLabels: {
+                    enabled: false
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            labels: {
+                                show: false
+                            }
+                        }
+                    },
+                    stroke: {
+                        show: false
+                    }
+                },
+                legend: {
+                    position: 'bottom'
+                },
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            height: 900,
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
+
+
+    </script>
 
 @endsection
