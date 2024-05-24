@@ -30,11 +30,11 @@ class AdminJournalController extends Controller
         if (!$request->filled('created_at') || Carbon::parse($searchDate)->isToday()) {
             $adminJournalQuery->whereDate('created_at', $searchDate);
         }
-        
 
-        $adminJournalAll = $adminJournalQuery->paginate(1, ['*'], 'all_page');
-        $adminJournalFillIn = $adminJournalQuery->where('status', 'fillin')->paginate(1, ['*'], 'fillin_page');
-        $adminJournalNotFilling = $adminJournalQuery->where('status', '!=', 'fillin')->paginate(1, ['*'], 'notfilling_page');
+
+        $adminJournalAll = $adminJournalQuery->paginate(10, ['*'], 'all_page');
+        $adminJournalFillIn = $adminJournalQuery->where('status', 'fillin')->paginate(10, ['*'], 'fillin_page');
+        $adminJournalNotFilling = $adminJournalQuery->where('status', '!=', 'fillin')->paginate(10, ['*'], 'notfilling_page');
 
 
         return view('admin.page.journal', compact('adminJournalAll','adminJournalFillIn','adminJournalNotFilling'));
