@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('student_permissions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->enum('status', [PermissionEnum::PERMISSION->value, PermissionEnum::SICK->value]);
+            $table->enum('status', ['izin', 'sakit']);
             $table->text('description');
             $table->string('proof');
             $table->enum('status_approval', [StatusApprovalPermissionEnum::AGREE->value, StatusApprovalPermissionEnum::REJECT->value, StatusApprovalPermissionEnum::PENDING->value])->default(StatusApprovalPermissionEnum::PENDING->value);

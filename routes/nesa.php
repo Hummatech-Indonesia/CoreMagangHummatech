@@ -96,6 +96,9 @@ Route::get('administrator/presentation', [PresentationController::class, 'show']
 Route::get('administrator/permission', [PermissionController::class, 'index']);
 Route::put('administrator/permission/update/{permission}', [PermissionController::class, 'updateApproval'])->name('approval.izin');
 Route::put('administrator/permission/update/reject/{permission}', [PermissionController::class, 'updateApprovalReject'])->name('approval.reject');
+Route::delete('administrator/permission/delete/{permission}', [PermissionController::class, 'destroy'])->name('permission.delete');
+
+
 
 
 

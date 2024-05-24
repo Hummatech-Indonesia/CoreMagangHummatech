@@ -98,9 +98,9 @@
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
-                                        @forelse ($permissions->where('status_approval', 'pending') as $index => $permission)
+                                        @forelse ($permissions->where('status_approval', 'pending') as  $permission)
                                         <tr>
-                                            <td class="number">{{++$index}}</td>
+                                            <td class="number">{{ $loop->iteration }}</td>
                                             <td class="name">{{$permission->student->name}}</td>
                                             <td class="date">{{$permission->student->school}}</td>
                                             <td class="status">
@@ -120,16 +120,18 @@
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-end">
                                                         <li>
-                                                            <button class="dropdown-item btn-reset btn-detail" type="button"
-                                                                data-id="{{$permission->id}}"
+                                                            <button class="dropdown-item btn-reset btn-detail" type="button" data-id="{{$permission->id}}"
                                                                 data-proof="{{ file_exists(public_path('storage/' . $permission->proof)) ? asset('storage/' . $permission->proof) : asset('user.webp') }}"
-                                                                >Lihat Bukti</button>
+                                                                data-description="{{$permission->description}}">Lihat Bukti</button>
                                                         </li>
                                                         <li>
                                                             <a href="#" class="dropdown-item btn-reset text-success btn-agree" data-id="{{$permission->id}}">Terima</a>
                                                         </li>
                                                         <li>
                                                             <button class="dropdown-item btn-ban text-danger btn-reject" type="button" data-id="{{$permission->id}}">Tolak</button>
+                                                        </li>
+                                                        <li>
+                                                            <button class="dropdown-item btn-ban btn-delete" type="button" data-id="{{$permission->id}}">Hapus</button>
 
                                                         </li>
                                                     </ul>
@@ -211,9 +213,9 @@
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
-                                        @forelse ($permissions->where('status_approval', 'agree') as $index => $permission)
+                                        @forelse ($permissions->where('status_approval', 'agree') as $permission)
                                         <tr>
-                                            <td class="number">{{++$index}}</td>
+                                            <td class="number">{{ $loop->iteration }}</td>
                                             <td class="name">{{$permission->student->name}}</td>
                                             <td class="date">{{$permission->student->school}}</td>
                                             <td class="status">
@@ -233,16 +235,18 @@
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-end">
                                                         <li>
-                                                            <button class="dropdown-item btn-reset btn-detail" type="button"
-                                                                data-id="{{$permission->id}}"
+                                                            <button class="dropdown-item btn-reset btn-detail" type="button" data-id="{{$permission->id}}"
                                                                 data-proof="{{ file_exists(public_path('storage/' . $permission->proof)) ? asset('storage/' . $permission->proof) : asset('user.webp') }}"
-                                                                >Lihat Bukti</button>
+                                                                data-description="{{$permission->description}}">Lihat Bukti</button>
                                                         </li>
                                                         <li>
                                                             <a href="#" class="dropdown-item btn-reset text-success btn-agree" data-id="{{$permission->id}}">Terima</a>
                                                         </li>
                                                         <li>
                                                             <button class="dropdown-item btn-ban text-danger btn-reject" type="button" data-id="{{$permission->id}}">Tolak</button>
+                                                        </li>
+                                                        <li>
+                                                            <button class="dropdown-item btn-ban btn-delete" type="button" data-id="{{$permission->id}}">Hapus</button>
 
                                                         </li>
                                                     </ul>
@@ -323,9 +327,9 @@
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
-                                        @forelse ($permissions->where('status_approval', 'reject') as $index => $permission)
+                                        @forelse ($permissions->where('status_approval', 'reject') as  $permission)
                                         <tr>
-                                            <td class="number">{{++$index}}</td>
+                                            <td class="number">{{ $loop->iteration }}</td>
                                             <td class="name">{{$permission->student->name}}</td>
                                             <td class="date">{{$permission->student->school}}</td>
                                             <td class="status">
@@ -345,16 +349,18 @@
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-end">
                                                         <li>
-                                                            <button class="dropdown-item btn-reset btn-detail" type="button"
-                                                                data-id="{{$permission->id}}"
+                                                            <button class="dropdown-item btn-reset btn-detail" type="button" data-id="{{$permission->id}}"
                                                                 data-proof="{{ file_exists(public_path('storage/' . $permission->proof)) ? asset('storage/' . $permission->proof) : asset('user.webp') }}"
-                                                                >Lihat Bukti</button>
+                                                                data-description="{{$permission->description}}">Lihat Bukti</button>
                                                         </li>
                                                         <li>
                                                             <a href="#" class="dropdown-item btn-reset text-success btn-agree" data-id="{{$permission->id}}">Terima</a>
                                                         </li>
                                                         <li>
                                                             <button class="dropdown-item btn-ban text-danger btn-reject" type="button" data-id="{{$permission->id}}">Tolak</button>
+                                                        </li>
+                                                        <li>
+                                                            <button class="dropdown-item btn-ban btn-delete" type="button" data-id="{{$permission->id}}">Hapus</button>
 
                                                         </li>
                                                     </ul>
@@ -425,6 +431,8 @@
             </div>
             <div class="modal-body">
                 <img id="show-proof" class="img-fluid" alt="Bukti">
+                <h6 id="show-description-title" class="pt-3">Deskripsi:</h6>
+                <p id="show-description"></p>
             </div>
             <div class="modal-footer d-flex justify-content-center">
                 <a id="download-link" class="btn btn-primary" download>Download</a>
@@ -459,6 +467,8 @@
     </div>
 </div>
 
+@include('admin.components.delete-modal-component')
+
 
 @endsection
 
@@ -471,11 +481,14 @@
 <script>
     $('.btn-detail').click(function() {
         let proof = $(this).data('proof');
+        let description = $(this).data('description');
         console.log(proof);
         $('#show-proof').attr('src', proof);
+        $('#show-description').text(description);
 
         $('#buktiModal').modal('show');
     });
+
 
     $('#download-link').click(function() {
         var imageSrc = $('#show-proof').attr('src');
@@ -496,6 +509,12 @@
         let id = $(this).data('id');
         $('#form-update').attr('action', '/administrator/permission/update/' + id);
         $('#konfirmasiTerimaModal').modal('show');
+    });
+
+    $('.btn-delete').click(function () {
+        var id = $(this).data('id');
+        $('#form-delete').attr('action', '/administrator/permission/delete/' + id);
+        $('#modal-delete').modal('show');
     });
 
 </script>
