@@ -265,6 +265,7 @@
                                                         </h4>
                                                     </td>
                                                 </tr>
+                                                
                                             @endforelse
                                         </tbody>
                                     </table>

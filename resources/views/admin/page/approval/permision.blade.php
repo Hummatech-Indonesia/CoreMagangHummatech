@@ -113,6 +113,7 @@
                                             <td class="status_approval">{{$permission->status_approval}}</td>
                                             <td>
                                                 <div class="dropdown d-inline-block">
+                                                        
                                                     <button class="btn btn-soft-secondary btn-sm dropdown"
                                                         type="button" data-bs-toggle="dropdown"
                                                         aria-expanded="false">
