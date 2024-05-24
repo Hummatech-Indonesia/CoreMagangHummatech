@@ -18,7 +18,7 @@
 @section('content')
 <div class="d-flex justify-content-between mb-3">
     <h4>Edit Tim</h4>
-  <a href="/mentor/team/{{ $team->slug }}" class="btn btn-primary">Kembali</a>
+  <a href="/mentor/team/{{ $team->slug }}" class="btn btn-light-warning text-warning">Kembali</a>
 </div>
 
 <form action="{{ route('team.update', $team->id) }}" method="POST" enctype="multipart/form-data">
@@ -93,8 +93,6 @@
             </div>
         </div>
         <div class="text-end">
-            <button type="button" class="btn btn-light-danger me-2 text-danger"
-                data-bs-dismiss="modal">Tutup</button>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </div>
 </form>
