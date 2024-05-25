@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('hummatask_team_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('title');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->string('link')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
