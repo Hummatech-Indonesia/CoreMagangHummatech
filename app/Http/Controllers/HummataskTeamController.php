@@ -125,7 +125,7 @@ class HummataskTeamController extends Controller
      */
     public function update(UpdateHummataskTeamRequest $request, HummataskTeam $hummataskTeam)
     {
-        $data = $this->service->update($hummataskTeam, $request);
+        $data = $request->validated();
         $hummatask_team = $this->hummatask_team->update($hummataskTeam->id, $data);
         $this->studentTeam->deleteByTeamId($hummataskTeam->id);
         if ($request->has('end_date')) {

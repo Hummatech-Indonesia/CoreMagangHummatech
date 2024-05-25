@@ -7,32 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-/**
- *
- *
- * @method static \Database\Factories\HummataskTeamFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|HummataskTeam newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|HummataskTeam newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|HummataskTeam query()
- * @property int $id
- * @property string $name
- * @property string $image
- * @property string $description
- * @property int $student_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|HummataskTeam whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|HummataskTeam whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|HummataskTeam whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|HummataskTeam whereImage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|HummataskTeam whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|HummataskTeam whereStudentId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|HummataskTeam whereUpdatedAt($value)
- * @mixin \Eloquent
- */
 class HummataskTeam extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'id';
+    protected $fillalbe = ['name', 'image', 'description', 'category_project_id', 'student_id', 'division_id'];
     protected $guarded = ['id'];
 
     /**
