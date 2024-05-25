@@ -34,7 +34,7 @@
                 @enderror
                 @if ($project && $project->end_date != null)
                   <label for="deadline" class="mt-2 mb-1">Deadline</label>
-                  <input type="date" name="end_date" id="edit-deadline" class="form-control">
+                  <input type="date" name="end_date" value="{{ $project->end_date }}" class="form-control">
                   @error('end_date')
                       <p class="text-danger">{{ $message }}</p>
                   @enderror

@@ -192,14 +192,17 @@ class HummataskTeamController extends Controller
         $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
         $done = $this->project->getProjectAccepted($team->id);
         $presentationHistories = $this->presentation->where('hummatask_team_id', $team->id);
-        return view('mentor.team.detail', compact('team', 'done', 'categoryProjects', 'students', 'mentors', 'presentationHistories'));
+        $studentTeams = $this->studentTeam->where('hummatask_team_id', $team->id);
+        $project = $this->project->getProjectAccepted($team->id);
+        return view('mentor.team.detail', compact('team', 'done', 'categoryProjects', 'students', 'mentors', 'presentationHistories', 'studentTeams', 'project'));
     }
 
     public function mentorEdit($slug){
         $team = $this->hummatask_team->slug($slug);
         $categoryProjects = $this->categoryProject->get();
         $students = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
-        return view('mentor.team.edit', compact('team', 'categoryProjects', 'students'));
+        $project = $this->project->getProjectAccepted($team->id);
+        $studentTeams = $this->studentTeam->where('hummatask_team_id', $team->id);
+        return view('mentor.team.edit', compact('team', 'categoryProjects', 'students', 'project', 'studentTeams'));
     }
-
 }
