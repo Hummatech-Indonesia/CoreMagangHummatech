@@ -169,7 +169,7 @@
 
             <div class="my-3" id="select-projek">
               <label for="project_id">Tema</label>
-              <select class="select2 js-example-basic-single form-control" id="project_id" style="width: 100%; height: 36px" >
+              <select class="select2 js-example-basic-single form-control" name="project_id" id="project_id" style="width: 100%; height: 36px" >
                 <option>Pilih tema</option>
                 @foreach ($projects as $project)
                     <option id="acc" value="{{ $project->id }}"
