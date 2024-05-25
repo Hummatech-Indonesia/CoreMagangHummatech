@@ -129,7 +129,7 @@ class ProjectController extends Controller
 
         $studentTeams = $this->studentTeam->where('hummatask_team_id', $team->id);
         foreach ($studentTeams as $studentTeam) {
-            $this->studentTeam->update($studentTeam->id, $data);
+           $this->studentTeam->update($studentTeam->id, $data);
         }
         
         return back()->with('success' , 'Berhasil memilih tema');
@@ -145,8 +145,8 @@ class ProjectController extends Controller
             'title' => $data['custom-project']
         ]);
 
-        $this->project->accProject($project->id, $data, $team->id);
         $data['project_id'] = $project->id;
+        $this->project->accProject($project->id, $data, $team->id);
 
         $studentTeams = $this->studentTeam->where('hummatask_team_id', $team->id);
         foreach ($studentTeams as $studentTeam) {

@@ -45,18 +45,18 @@
                     </li>
                     @endif
                 @endauth
-                @forelse ($studentProjects as $studentProject)
-                    @if ($studentProject->project->hummataskTeam->category_project_id != 1)
+                @forelse ($studentTeams as $studentTeam)
+                    @if ($studentTeam->hummataskTeam->category_project_id != 1)
                         <li class="sidebar-item px-2">
-                            <a href="{{ route('team.show', ['slug' => $studentProject->hummataskTeam->slug]) }}" class="d-flex align-items-center">
+                            <a href="{{ route('team.show', ['slug' => $studentTeam->hummataskTeam->slug]) }}" class="d-flex align-items-center">
                                 <div class="rounded-circle overflow-hidden me-6">
-                                    @if($studentProject->hummataskTeam->image != null && Storage::disk('public')->exists($studentProject->hummataskTeam->image))
-                                        <img src="{{ asset('storage/' . $studentProject->hummataskTeam->image) }}"
+                                    @if($studentTeam->hummataskTeam->image != null && Storage::disk('public')->exists($studentTeam->hummataskTeam->image))
+                                        <img src="{{ asset('storage/' . $studentTeam->hummataskTeam->image) }}"
                                             class="rounded-circle card-hover border border-white" width="40"
                                             height="40">
                                     @else
                                         @php
-                                            $firstLetter = substr($studentProject->hummataskTeam->name, 0, 1);
+                                            $firstLetter = substr($studentTeam->hummataskTeam->name, 0, 1);
                                             $firstLetter = strtoupper($firstLetter);
                                             $backgroundColors = [
                                                 '#ff5722',
@@ -71,14 +71,14 @@
                                     @endif
                                 </div>
                                 <div class="d-inline-block">
-                                    <h6 class="mb-1 bg-hover-primary">{{ $studentProject->hummataskTeam->name }}</h6>
+                                    <h6 class="mb-1 bg-hover-primary">{{ $studentTeam->hummataskTeam->name }}</h6>
                                     <div class="tb-section-2 mt-2">
-                                        @if ($studentProject->project_id)
-                                            <span class="bg-{{ $studentProject->project->status->color() }} px-2  text-bg-{{ $studentProject->project->status->color() }} fs-2 text-capitalize rounded-1 pb-1">{{ $studentProject->project->status->label() }}</span>
+                                        @if ($studentTeam->project_id)
+                                            <span class="bg-{{ $studentTeam->project->status->color() }} px-2  text-bg-{{ $studentTeam->project->status->color() }} fs-2 text-capitalize rounded-1 pb-1">{{ $studentTeam->project->status->label() }}</span>
                                         @else
                                             <span class="bg-warning px-2  text-bg-warning fs-2 text-capitalize rounded-1 pb-1">Belum aktif</span>
                                         @endif
-                                        <span class="bg-primary px-2  text-bg-primary fs-2 rounded-1 pb-1">{{ $studentProject->hummataskTeam->categoryProject->name }}</span>
+                                        <span class="bg-primary px-2  text-bg-primary fs-2 rounded-1 pb-1">{{ $studentTeam->hummataskTeam->categoryProject->name }}</span>
                                     </div>
                                 </div>
                             </a>
