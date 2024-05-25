@@ -144,3 +144,5 @@ Route::post('attendance-rule/store', [AttendanceRuleController::class, 'store'])
 Route::patch('mentor/presentation/callback/{presentation}', [PresentationController::class, 'callback'])->name('mentor.callback');
 
 Route::get('mentor/team/{slug}/edit', [HummataskTeamController::class, 'mentorEdit'])->name('mentor-team.edit');
+
+Route::patch('hummateam/team/{slug}/add-repository/{project}', [ProjectController::class, 'addRepository'])->name('add.repository');

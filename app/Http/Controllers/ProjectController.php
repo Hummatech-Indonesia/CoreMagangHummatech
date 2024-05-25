@@ -10,6 +10,7 @@ use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Contracts\Interfaces\StudentTeamInterface;
+use App\Http\Requests\AddRepositoryRequest;
 use App\Http\Requests\StoreProjectFromMentorRequest;
 use App\Services\HummataskTeamService;
 use App\Services\ProjectService;
@@ -114,6 +115,14 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         //
+    }
+
+    public function addRepository(AddRepositoryRequest $request, $slug, Project $project)
+    {
+        $data = $request->validated();
+        $this->project->update($project->id, $data);
+
+        return back()->with('success', 'Berhasil menambahkan link repository');
     }
 
     /**
