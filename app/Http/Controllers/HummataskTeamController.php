@@ -133,7 +133,7 @@ class HummataskTeamController extends Controller
         }
         foreach ($request->student_id as $student_id) {
             $this->studentTeam->store([
-                'hummatask_team_id' => $hummatask_team->id,
+                'hummatask_team_id' => $hummataskTeam->id,
                 'student_id' => $student_id,
             ]);
         }
