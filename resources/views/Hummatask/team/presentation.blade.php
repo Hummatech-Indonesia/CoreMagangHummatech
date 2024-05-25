@@ -181,7 +181,9 @@
                                                     <label class="form-check-label text-danger d-block" for="date_range_{{ $presentation->id }}">
                                                         {{ $presentation->start_date }} - {{ $presentation->end_date }}
                                                     </label>
-                                                    {{-- <p class="pt-2 text-muted">Dipilih oleh tim {{ $presentation->hummatask_team_id }}</p> --}}
+                                                    @if ($presentation && $presentation->hummatask_team_id)
+                                                        <p class="pt-2 text-muted">Sudah dipilih</p>
+                                                    @endif
                                                 </div>
                                             </div>
 

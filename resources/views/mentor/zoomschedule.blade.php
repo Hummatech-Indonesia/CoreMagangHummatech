@@ -30,13 +30,17 @@
           <span class="d-none d-md-block font-weight-medium">Zoom</span>
         </a>
       </li>
-      <li class="nav-item ms-auto d-flex">
-        {{-- <div class="mx-sm-2 mb-2">
-            <input type="date" name="created_at" value="{{ request()->created_at }}" class="form-control" id="exampleInputdate">
-        </div>
-        <div>
-            <button class="btn btn-primary w-100" type="submit">Cari</button>
-        </div> --}}
+      <li class="nav-item ms-auto">
+        <form action="/timetable">
+            <div class="ms-auto d-flex">
+                <div class="mx-sm-2 mb-2">
+                    <input type="date" name="created_at" value="{{ request()->created_at }}" class="form-control" id="exampleInputdate">
+                </div>
+                <div>
+                    <button class="btn btn-primary w-100" type="submit">Cari</button>
+                </div>
+            </div>
+        </form>
       </li>
     </ul>
 
@@ -142,7 +146,7 @@
                             @endforelse
                         </tbody>
                     </table>
-
+                    {{$presentations->links()}}
                 </div>
             </div>
         </div>

@@ -14,6 +14,7 @@ use App\Models\Thesis;
 use Carbon;
 use DB;
 use Flasher\Prime\Response\Presenter\PresenterInterface;
+use Illuminate\Http\Request;
 
 class PresentationRepository extends BaseRepository implements PresentationInterface
 {
@@ -93,12 +94,23 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->get();
     }
 
-    public function GetPresentationByMentor(mixed $id): mixed
+    public function GetPresentationByMentor(mixed $id, Request $request): mixed
     {
-        return $this->model->query()
-        ->where('mentor_id', $id)
-        // ->where('hummatask_team_id', $id)
-        ->get();
+        $query = $this->model->query()
+            ->where('mentor_id', $id);
+
+        if ($request->filled('created_at')) {
+            $query->whereDate('created_at', $request->input('created_at'));
+        } else {
+            $query->whereDate('created_at', now()->toDateString());
+        }
+
+        $perPage = 10;
+        $presentations = $query->paginate($perPage);
+
+        $presentations->appends($request->query());
+
+        return $presentations;
     }
 
     public function getPresentationsByTeam(mixed $id):mixed
@@ -112,6 +124,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     {
         return $this->model->query()->where($parameter, $value)->get();
     }
+
     public function getByHummataskTeamId(): mixed
     {
         return $this->model->query()

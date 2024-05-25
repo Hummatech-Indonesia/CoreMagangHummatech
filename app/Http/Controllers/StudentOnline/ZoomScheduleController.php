@@ -61,7 +61,7 @@ class ZoomScheduleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ZoomSchedule $zoomSchedule)
+    public function show(ZoomSchedule $zoomSchedule, Request $request)
     {
         $zoomSchedules = $this->zoomSchedule->get();
 
@@ -87,7 +87,7 @@ class ZoomScheduleController extends Controller
             }
         }
 
-        $presentations = $this->presentation->GetPresentationByMentor(auth()->user()->mentor->id);
+        $presentations = $this->presentation->GetPresentationByMentor(auth()->user()->mentor->id, $request);
 
         return view('mentor.zoomschedule', compact('processedSchedules', 'presentations'));
     }
