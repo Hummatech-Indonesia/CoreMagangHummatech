@@ -144,7 +144,7 @@ class ProjectController extends Controller
             'hummatask_team_id' => $team->id,
             'title' => $data['custom-project']
         ]);
-        
+
         $this->project->accProject($project->id, $data, $team->id);
         $data['project_id'] = $project->id;
 
@@ -170,7 +170,8 @@ class ProjectController extends Controller
         $mentorStudents = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
         $teams = $this->hummatask_team->WhereTeam();
         $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
-        return view('mentor.project-submission.index', compact('categoryProjects', 'mentorStudents', 'teams' ,'mentors'));
+        $acc = $this->project->where('status', StatusProjectEnum::ACCEPTED->value);
+        return view('mentor.project-submission.index', compact('categoryProjects', 'mentorStudents', 'teams' ,'mentors', 'acc'));
     }
 
     public function showProjectSubmission($slug){
