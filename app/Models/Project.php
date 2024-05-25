@@ -14,6 +14,7 @@ class Project extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    protected $fillable = ['hummatask_team_id', 'title', 'description', 'link', 'start_date', 'end_date', 'status'];
     protected $casts = [
         'status' => StatusProjectEnum::class,
     ];

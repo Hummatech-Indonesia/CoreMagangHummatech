@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class StudentTeam extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'id';
     protected $guarded = ['id'];
+    protected $fillable = ['student_id', 'hummatask_team_id', 'project_id'];
 
     /**
      * Get the student that owns the studentTeam
