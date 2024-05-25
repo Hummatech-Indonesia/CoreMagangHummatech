@@ -10,6 +10,7 @@ use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Contracts\Interfaces\StudentTeamInterface;
+use App\Http\Requests\StoreProjectFromMentorRequest;
 use App\Services\HummataskTeamService;
 use App\Services\ProjectService;
 use App\Services\StudentProjectService;
@@ -132,6 +133,27 @@ class ProjectController extends Controller
         }
         
         return back()->with('success' , 'Berhasil memilih tema');
+    }
+
+    public function projectFromMentor(StoreProjectFromMentorRequest $request, $slug)
+    {
+        $team = $this->hummatask_team->slug($slug);
+        
+        $data = $request->validated();
+        $project = $this->project->store([
+            'hummatask_team_id' => $team->id,
+            'title' => $data['custom-project']
+        ]);
+        
+        $this->project->accProject($project->id, $data, $team->id);
+        $data['project_id'] = $project->id;
+
+        $studentTeams = $this->studentTeam->where('hummatask_team_id', $team->id);
+        foreach ($studentTeams as $studentTeam) {
+            $this->studentTeam->update($studentTeam->id, $data);
+        }
+        
+        return back()->with('success' , 'Berhasil memberikan tema');
     }
 
     /**

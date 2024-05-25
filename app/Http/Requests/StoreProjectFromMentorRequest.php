@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProjectRequest extends FormRequest
+class StoreProjectFromMentorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class UpdateProjectRequest extends FormRequest
     {
         return [
             'end_date' => 'required',
-            'project_id' => 'required',
+            'custom-project' => 'required|max:255'
         ];
     }
 }

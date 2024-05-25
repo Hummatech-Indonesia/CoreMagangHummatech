@@ -155,7 +155,19 @@
         @csrf
         @method('PUT')
         <div class="modal-body">
-            <div class="mb-3">
+            <label for="projek-checkbox">
+              <input type="checkbox" id="projek-checkbox" data-slug="{{ $team->slug }}"> Tidak ada tema yang cocok
+            </label>
+
+            <div id="input-project" class="mb-3 my-2" style="display: none">
+                <label for="custom-project">Tema dari mentor</label>
+                <input type="text" id="custom-project" placeholder="Masukkan judul tema" class="form-control" name="custom-project">
+            </div>
+            @error('custom-project')
+              <p class="text-danger">{{ $message }}</p>
+            @enderror
+
+            <div class="my-3" id="select-projek">
               <label for="project_id">Tema</label>
               <select class="select2 js-example-basic-single form-control" id="project_id" style="width: 100%; height: 36px" >
                 <option>Pilih tema</option>
@@ -165,6 +177,9 @@
                       data-slug="{{ $team->slug }}">{{ $project->title }}</option>
                 @endforeach
               </select>
+              @error('project_id')
+                  <p class="text-danger">{{ $message }}</p>
+              @enderror
             </div>
             <div class="mb-1">
               <label for="deadline">Deadline</label>
@@ -229,5 +244,25 @@
             $('#acc-form').attr('action', url);
           });
         });
+    </script>
+
+    <script>
+      $(document).ready(function(){
+          $('#projek-checkbox').change(function(){
+              if ($(this).is(':checked')) {
+                  $('#select-projek').hide();
+                  $('#input-project').show();
+                  let slug = $(this).data('slug');
+                  console.log(slug);
+
+                  let url = `{{ route('project-submission-mentor.acc', ['slug' => ':slug']) }}`;
+                  url = url.replace(':slug', slug);
+                  $('#acc-form').attr('action', url);
+              } else {
+                  $('#select-projek').show();
+                  $('#input-project').hide();
+              }
+          });
+      });
     </script>
 @endsection
