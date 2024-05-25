@@ -31,7 +31,7 @@
     </div>
 
     <div class="row  mt-5">
-    @if ($teams && !$acc)
+    @if ($teams && $acc)
         @foreach ($teams as $team)
             @if (!App\Models\Project::where('hummatask_team_id', $team->id)->where('status', 'accepted')->first())
                 <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12">
