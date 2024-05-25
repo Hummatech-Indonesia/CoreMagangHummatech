@@ -16,7 +16,7 @@
                     <!-- Dashboard -->
                     <!-- =================== -->
                     <li class="sidebar-item px-2">
-                        <a class="sidebar-link " href="{{ route('team.show', ['slug' => $slugs->slug]) }}" aria-expanded="false">
+                        <a class="sidebar-link " href="{{ route('team.show', ['slug' => $team->slug]) }}" aria-expanded="false">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-topology-star-ring">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -38,7 +38,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item px-2">
-                        <a class="sidebar-link " href="{{ route('team.board', ['slug' => $slugs->slug]) }}" aria-expanded="false">
+                        <a class="sidebar-link " href="{{ route('team.board', ['slug' => $team->slug]) }}" aria-expanded="false">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-layout-kanban">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -52,7 +52,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item px-2">
-                        <a class="sidebar-link " href="{{ route('team.note', ['slug' => $slugs->slug]) }}" aria-expanded="false">
+                        <a class="sidebar-link " href="{{ route('team.note', ['slug' => $team->slug]) }}" aria-expanded="false">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-list-details">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -68,7 +68,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item px-2">
-                        <a class="sidebar-link " href="{{ route('team.presentation', ['slug' => $slugs->slug]) }}" aria-expanded="false">
+                        <a class="sidebar-link " href="{{ route('team.presentation', ['slug' => $team->slug]) }}" aria-expanded="false">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-presentation">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />

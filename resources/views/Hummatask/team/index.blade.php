@@ -21,8 +21,8 @@
             </div>
         </div>
     </div>
-    <div class="col-12">
-        @if ($activeProject)
+    @if ($activeProject)
+        <div class="col-lg-12">
             <div class="card p-4">
                 <div class="row gap-4">
                     <div class="d-flex align-items-center gap-3">
@@ -58,58 +58,99 @@
                         <div class="text-end ms-auto">
                             <button class="btn btn-primary btn-add-repository fs-2"
                             data-id="{{ $activeProject->id }}"
-                            data-slug="{{ $slugs->slug }}"
+                            data-slug="{{ $team->slug }}"
                             data-link="{{ $activeProject->link }}">
-                              Tambah link repository
+                                Tambah link repository
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-        @else
-            @forelse ($projects as $project)
-            <div class="d-flex align-items-center gap-4 mb-4 ">
-                <div class="position-relative">
-                    @if ($project->hummataskTeam->image != null)
-                        <div class="border border-2 border-primary rounded-2">
-                            <img src="{{ asset('storage/'.$project->hummataskTeam->image) }}" style="width: 60px; height: 60px; object-fit: cover;" class="img-fluid rounded-circle m-1" alt="user1"
-                            width="60" />
-                        </div>
-                    @else
-                        <div class="text-center align-content-center ">
-                            <div class="bg-primary rounded rounded-2 text-white d-flex align-items-center justify-content-center text-uppercase fs-1" style="width: 4pc; height: 4pc;">
-                            <p class="m-0 p-0">
-                                {{ $project->hummataskTeam->categoryProject->name }}
-                            </p>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-                <div>
-                    <h3 class="fw-semibold"><span class="text-dark">{{ $project->title }}</span>
-                    </h3>
-                    @if ( $project->start_date != null)
-                        <span>Tanggal  Mulai : {{ \Carbon\Carbon::parse($project->start_date)->locale('id')->isoFormat('dddd, D MMMM Y') }} &nbsp; &nbsp;- &nbsp;  Tenggat : {{ \Carbon\Carbon::parse($project->end_date)->locale('id')->isoFormat('dddd, D MMMM Y') }}</span>
-                    @else
-                        <p class="text-muted">{{ $project->description }}</p>
-                    @endif
-                    <div class="tb-section-2 mt-2">
-                        <span class="badge px-2  text-bg-{{ $project->status->color() }} fs-1">{{ $project->status->label() }}</span>
-                        <span class="badge px-2  text-bg-primary fs-1">{{ $project->hummataskTeam->categoryProject->name }}</span>
+        </div>
+        <div class="col-lg-12 row">
+            <div class="col-lg-4 d-flex align-items-stretch">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Progres tim</h5>
+                        <div id="chart-progres" class="pt-4"></div>
                     </div>
                 </div>
             </div>
-            @empty
-                <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
-                    <img src="{{ asset('empty-asset.png') }}" alt="" width="100px" srcset="">
-                    <p class="fs-5 text-dark">
-                        Tim anda belum mengajukan projek
-                    </p>
-                    <a href="{{ route('project.index', ['slug' => $slugs->slug]) }}" class="btn btn-primary">Ajukan projek</a>
+            <div class="col-lg-8 card">
+                    <div class="card-body">
+                        <h5>Anggota tim</h5>
+                        <div class="col-lg-12 mt-3 row">
+                            @foreach ($studentTeams as $student)
+                                <div class="col-lg-6 card">
+                                    <div class="p-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2 pe-1">
+                                              @if(Storage::disk('public')->exists($student->student->avatar))
+                                                <img src="{{ asset('storage/' . $student->student->avatar) }}" alt="avatar" class="rounded-circle mb-3" width="40px" height="40px" >
+                                              @else
+                                                <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle mb-3" width="40px" height="40px">
+                                              @endif
+                                            </div>
+                                            <div>
+                                              <h6 class="fw-semibold mb-1">{{ $student->student->name }}</h6>
+                                              <p class="fs-2 mb-0 text-muted">Anggota</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                        </div>
+                        <div class="d-flex flex-wrap gap-5 col-lg-12">
+                        </div>
+                    </div>
+            </div>
+        </div>
+    @else
+    <div class="col-12">
+        @forelse ($projects as $project)
+        <div class="d-flex align-items-center gap-4 mb-4 ">
+            <div class="position-relative">
+                @if ($project->hummataskTeam->image != null)
+                    <div class="border border-2 border-primary rounded-2">
+                        <img src="{{ asset('storage/'.$project->hummataskTeam->image) }}" style="width: 60px; height: 60px; object-fit: cover;" class="img-fluid rounded-circle m-1" alt="user1"
+                        width="60" />
+                    </div>
+                @else
+                    <div class="text-center align-content-center ">
+                        <div class="bg-primary rounded rounded-2 text-white d-flex align-items-center justify-content-center text-uppercase fs-1" style="width: 4pc; height: 4pc;">
+                        <p class="m-0 p-0">
+                            {{ $project->hummataskTeam->categoryProject->name }}
+                        </p>
+                        </div>
+                    </div>
+                @endif
+            </div>
+            <div>
+                <h3 class="fw-semibold"><span class="text-dark">{{ $project->title }}</span>
+                </h3>
+                @if ( $project->start_date != null)
+                    <span>Tanggal  Mulai : {{ \Carbon\Carbon::parse($project->start_date)->locale('id')->isoFormat('dddd, D MMMM Y') }} &nbsp; &nbsp;- &nbsp;  Tenggat : {{ \Carbon\Carbon::parse($project->end_date)->locale('id')->isoFormat('dddd, D MMMM Y') }}</span>
+                @else
+                    <p class="text-muted">{{ $project->description }}</p>
+                @endif
+                <div class="tb-section-2 mt-2">
+                    <span class="badge px-2  text-bg-{{ $project->status->color() }} fs-1">{{ $project->status->label() }}</span>
+                    <span class="badge px-2  text-bg-primary fs-1">{{ $project->hummataskTeam->categoryProject->name }}</span>
                 </div>
-            @endforelse
-        @endif
+            </div>
+        </div>
+        @empty
+            <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                <img src="{{ asset('empty-asset.png') }}" alt="" width="100px" srcset="">
+                <p class="fs-5 text-dark">
+                    Tim anda belum mengajukan projek
+                </p>
+                <a href="{{ route('project.index', ['slug' => $team->slug]) }}" class="btn btn-primary">Ajukan projek</a>
+            </div>
+        @endforelse
     </div>
+    @endif
 
     <div class="modal fade" id="add-repository-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-md">
@@ -143,6 +184,9 @@
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.48.0/apexcharts.min.js" integrity="sha512-wqcdhB5VcHuNzKcjnxN9wI5tB3nNorVX7Zz9NtKBxmofNskRC29uaQDnv71I/zhCDLZsNrg75oG8cJHuBvKWGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.48.0/apexcharts.min.css" integrity="sha512-qc0GepkUB5ugt8LevOF/K2h2lLGIloDBcWX8yawu/5V8FXSxZLn3NVMZskeEyOhlc6RxKiEj6QpSrlAoL1D3TA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script>
     $('.btn-add-repository').on('click', function() {
         let id = $(this).data('id');
@@ -153,5 +197,47 @@
         $('#form-link').attr('action', '/hummateam/team/'+slug+'/add-repository/' + id);
         $('#add-repository-modal').modal('show');
     });
+</script>
+<script>
+    var options = {
+      series: [44, 55, 41, 17],
+      chart: {
+          type: 'donut',
+          height: 400
+      },
+      labels: ['Tugas baru', 'Dikerjakan', 'Direvisi', 'Selesai'],
+      colors: ['#13DEB9', '#5D87FF', '#49BEFF', '#FFAE1F'],
+      dataLabels: {
+          enabled: false
+      },
+      plotOptions: {
+          pie: {
+              donut: {
+                  labels: {
+                      show: false
+                  }
+              }
+          },
+          stroke: {
+              show: false
+          }
+      },
+      legend: {
+          position: 'bottom'
+      },
+      responsive: [{
+          breakpoint: 480,
+          options: {
+              chart: {
+                  height: 900,
+              },
+              legend: {
+                  position: 'bottom'
+              }
+          }
+      }]
+    };
+    var chart = new ApexCharts(document.querySelector("#chart-progres"), options);
+    chart.render();
 </script>
 @endsection

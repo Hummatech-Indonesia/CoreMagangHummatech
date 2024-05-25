@@ -107,10 +107,11 @@ class HummataskTeamController extends Controller
      */
     public function show($slug, HummataskTeam $hummataskTeam)
     {
-        $slugs = $this->hummatask_team->slug($slug);
-        $projects = $this->project->where('hummatask_team_id', $slugs->id);
-        $activeProject = $this->project->getProjectAccepted($slugs->id);
-        return view('Hummatask.team.index', compact('slugs', 'projects', 'activeProject'));
+        $team = $this->hummatask_team->slug($slug);
+        $projects = $this->project->where('hummatask_team_id', $team->id);
+        $activeProject = $this->project->getProjectAccepted($team->id);
+        $studentTeams = $this->studentTeam->where('hummatask_team_id', $team->id);
+        return view('Hummatask.team.index', compact('team', 'projects', 'activeProject', 'studentTeams'));
     }
 
     /**
