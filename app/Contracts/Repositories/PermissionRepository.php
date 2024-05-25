@@ -71,11 +71,20 @@ class PermissionRepository extends BaseRepository implements PermissionInterface
      * @param  mixed $status
      * @return mixed
      */
-    public function getByStatus(string $status): mixed
+    public function getByStatus(string $status, Request $request): mixed
     {
-        return $this->model->query()
+        $query = $this->model->query()
             ->where('status_approval', $status)
-            ->get();
+            ->when($request->filled('created_at') && $request->input('created_at') !== 'all', function ($query) use ($request) {
+                $query->whereDate('created_at', $request->input('created_at'));
+            })
+            ->when($request->filled('name'), function ($query) use ($request) {
+                $query->whereHas('student', function ($query) use ($request) {
+                    $query->where('name', 'LIKE', '%' . $request->input('name') . '%');
+                });
+            });
+
+        return $query;
     }
 
     /**

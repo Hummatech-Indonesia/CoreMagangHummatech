@@ -36,11 +36,19 @@ class PermissionController extends Controller
      * @param  mixed $request
      * @return View
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         $students = $this->student->get();
         $permissions = $this->permission->search($request)->paginate(1);
-        return view('admin.page.approval.permision', compact('permissions','students'));
+        $perPagePanding = 1;
+        $perPageAgree = 1;
+        $perPageReject = 1;
+
+        $pandingPermissions = $this->permission->getByStatus('pending', $request)->paginate($perPagePanding, ['*'], 'panding_page');
+        $agreePermissions = $this->permission->getByStatus('agree', $request)->paginate($perPageAgree, ['*'], 'agree_page');
+        $rejectPermissions = $this->permission->getByStatus('reject', $request)->paginate($perPageReject, ['*'], 'reject_page');
+
+        return view('admin.page.approval.permision', compact('pandingPermissions', 'agreePermissions', 'rejectPermissions', 'students'));
     }
 
     /**
