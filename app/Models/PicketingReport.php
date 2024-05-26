@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Enum\PicketingStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -33,4 +35,12 @@ class PicketingReport extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-}
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
+
+    protected $casts = [
+        'status' => PicketingStatusEnum::class,
+    ];}

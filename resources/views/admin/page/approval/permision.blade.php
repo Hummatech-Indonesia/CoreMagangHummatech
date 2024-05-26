@@ -98,7 +98,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
-                                        @forelse ($permissions->where('status_approval', 'pending') as  $permission)
+                                        @forelse ($pandingPermissions as  $permission)
                                         <tr>
                                             <td class="number">{{ $loop->iteration }}</td>
                                             <td class="name">{{$permission->student->name}}</td>
@@ -113,7 +113,7 @@
                                             <td class="status_approval">{{$permission->status_approval}}</td>
                                             <td>
                                                 <div class="dropdown d-inline-block">
-                                                        
+
                                                     <button class="btn btn-soft-secondary btn-sm dropdown"
                                                         type="button" data-bs-toggle="dropdown"
                                                         aria-expanded="false">
@@ -156,7 +156,7 @@
                                 </table>
                             </div>
                             <!-- Pagination -->
-                            {{ $permissions->links() }}
+                            {{ $pandingPermissions->links() }}
 
                         </div>
                     </div>
@@ -214,7 +214,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
-                                        @forelse ($permissions->where('status_approval', 'agree') as $permission)
+                                        @forelse ($agreePermissions as $permission)
                                         <tr>
                                             <td class="number">{{ $loop->iteration }}</td>
                                             <td class="name">{{$permission->student->name}}</td>
@@ -271,7 +271,7 @@
                                 </table>
                             </div>
                             <!-- Pagination -->
-                            {{ $permissions->links() }}
+                            {{ $agreePermissions->links() }}
 
                         </div>
                     </div>
@@ -328,7 +328,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all">
-                                        @forelse ($permissions->where('status_approval', 'reject') as  $permission)
+                                        @forelse ($rejectPermissions as  $permission)
                                         <tr>
                                             <td class="number">{{ $loop->iteration }}</td>
                                             <td class="name">{{$permission->student->name}}</td>
@@ -385,7 +385,7 @@
                                 </table>
                             </div>
                             <!-- Pagination -->
-                            {{ $permissions->links() }}
+                            {{ $rejectPermissions->links() }}
 
                         </div>
                     </div>

@@ -31,8 +31,8 @@ class PicketingReportRepository extends BaseRepository implements PicketingRepor
     public function getToday(): mixed
     {
         return $this->model->query()
-                    ->whereDate('created_at', Carbon::now()->toDateString()) 
+                    ->whereDate('created_at', Carbon::now()->toDateString())
                     ->where('user_id', auth()->user()->id)
-                    ->first(); 
+                    ->first();
     }
 }
