@@ -144,33 +144,27 @@ class PresentationRepository extends BaseRepository implements PresentationInter
 
     public function countMonthlyPresentationsByStudentId(int $studentId): array
     {
-
         $teams = HummataskTeam::with('student', 'division')->whereHas('student', function ($query) use ($studentId) {
-        $query->where('id', $studentId);
-    })->get();
+            $query->where('id', $studentId);
+        })->get();
 
-    $monthlyPresentations = [];
-    foreach ($teams as $team) {
-        if ($team && $team->students) {
-            foreach ($team->students as $student) {
-                if ($student) {
-                    $count = $this->model->where('hummatask_team_id', $team->id)
-                                          ->whereMonth('created_at', Carbon::now()->month)
-                                          ->whereYear('created_at', Carbon::now()->year)
-                                          ->count();
-                    $monthlyPresentations[] = [
-                        'student_name' => $student->name,
-                        'team_name' => $team->name,
-                        'division_name' => $team->division->name,
-                        'month' => Carbon::now()->translatedFormat('F'),
-                        'presentation_count' => $count
-                    ];
-                }
-            }
+        $monthlyPresentations = [];
+        foreach ($teams as $team) {
+            $count = $this->model->where('hummatask_team_id', $team->id)
+                ->whereMonth('created_at', Carbon::now()->month)
+                ->whereYear('created_at', Carbon::now()->year)
+                ->count();
+
+            $monthlyPresentations[] = [
+                'student_name' => $team->student->name,
+                'team_name' => $team->name,
+                'division_name' => $team->division->name,
+                'month' => Carbon::now()->translatedFormat('F'),
+                'presentation_count' => $count
+            ];
         }
-    }
 
-    return $monthlyPresentations;
+        return $monthlyPresentations;
     }
 
 

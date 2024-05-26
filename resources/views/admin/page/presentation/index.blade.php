@@ -5,17 +5,12 @@
         <ul class="nav nav-pills nav-custom nav-custom-light" style="width: fit-content" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" data-bs-toggle="tab" href="#done" role="tab">
-                    Sudah Presentasi
+                    Tim
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="tab" href="#on" role="tab">
-                    Sedang Presentasi
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#off" role="tab">
-                    Menunggu Presentasi
+                    Siswa
                 </a>
             </li>
         </ul>
@@ -33,144 +28,135 @@
 
 <div class="tab-content text-muted">
     <div class="tab-pane active" id="done" role="tabpanel">
-        <div class="row gap-2">
-            @forelse ($finisheds as $presentation)
-                <div class="card col-xl-4">
-                    <div class="p-3 d-flex justify-content-between">
-                        <p class="text-muted">{{ $presentation->end_date }}</p>
-                        <div class="gap-2">
-                            <p class="badge bg-success-subtle text-success">Premini Project</p>
-                            <p class="badge bg-secondary-subtle text-secondary">Website</p>
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
                     <div class="card-body">
-                        <div class="d-flex gap-4">
-                            <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded avatar-sm shadow">
-                            <div class="about">
-                                <h4>{{ $presentation->hummataskTeam->name }}</h4>
-                                <p class="text-muted">
-                                    {{ $presentation->hummataskTeam->description }}
-                                </p>
+                        <div id="table-gridjs">
+                            <div role="complementary" class="gridjs gridjs-container" style="width: 100%;">
+                            <div class="gridjs-wrapper" style="height: auto;">
+                                <table role="grid" class="gridjs-table" style="height: auto;">
+                                    <thead class="gridjs-thead">
+                                        <tr class="gridjs-tr">
+                                            <th data-column-id="name" class="gridjs-th" style="width: 50px;">
+                                                <div class="gridjs-th-content">No</div>
+                                            </th>
+                                            <th data-column-id="name" class="gridjs-th" style="width: 150px;">
+                                                <div class="gridjs-th-content">Divisi</div>
+                                            </th>
+                                            <th data-column-id="name" class="gridjs-th" style="width: 150px;">
+                                                <div class="gridjs-th-content">Nama Tim</div>
+                                            </th>
+                                            <th data-column-id="name" class="gridjs-th" style="width: 150px;">
+                                                <div class="gridjs-th-content">Kategori Projek</div>
+                                            </th>
+                                            <th data-column-id="name" class="gridjs-th" style="width: 150px;">
+                                                <div class="gridjs-th-content">Bulan</div>
+                                            </th>
+                                            <th data-column-id="name" class="gridjs-th" style="width: 150px;">
+                                                <div class="gridjs-th-content">Jumlah Presentasi</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    @php
+                                        $teamPresentations = [];
+
+                                        foreach ($presentations as $presentation) {
+                                            $teamId = $presentation->hummataskTeam->id;
+
+                                            if (!isset($teamPresentations[$teamId])) {
+                                                $teamPresentations[$teamId] = [
+                                                    'team' => $presentation->hummataskTeam,
+                                                    'count' => 0,
+                                                ];
+                                            }
+
+                                            $teamPresentations[$teamId]['count']++;
+                                        }
+                                    @endphp
+
+                                    <tbody class="gridjs-tbody">
+                                        @foreach ($teamPresentations as $teamPresentation)
+                                            <tr class="gridjs-tr">
+                                                <td data-column-id="name" class="gridjs-td">{{ $loop->iteration }}</td>
+                                                <td data-column-id="name" class="gridjs-td">{{ $teamPresentation['team']->division->name }}</td>
+                                                <td data-column-id="name" class="gridjs-td">{{ $teamPresentation['team']->name }}</td>
+                                                <td data-column-id="name" class="gridjs-td">{{ $teamPresentation['team']->categoryProject->name }}</td>
+                                                <td data-column-id="name" class="gridjs-td">{{ \Carbon\Carbon::parse($presentation->created_at)->translatedFormat('F') }}</td>
+                                                <td data-column-id="name" class="gridjs-td">{{ $teamPresentation['count'] }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+
+                                </table>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-end gap-3">
-                        <p class="text-muted" style="position: relative; top: 10px">Anggota:</p>
-                        <div class="avatar-group">
-                            <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Christi">
-                                <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle avatar-xs">
-                            </a>
-                            <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Frank Hook">
-                                <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle avatar-xs">
-                            </a>
                         </div>
                     </div>
                 </div>
-            @empty
-                <div class="py-5 mt-5">
-                    <div class="d-flex justify-content-center mt-3">
-                        <img src="{{ asset('no data.png') }}" width="200px"
-                            alt="">
-                    </div>
-                    <h4 class="text-center mt-2 mb-4">
-                        Belum ada tim yang selesai presentasi
-                    </h4>
-                </div>
-            @endforelse
+            </div>
         </div>
     </div>
     <div class="tab-pane " id="on" role="tabpanel">
-        <div class="row gap-2">
-            @forelse ($ongoings as $presentation)
-                <div class="card col-xl-4">
-                    <div class="p-3 d-flex justify-content-between">
-                        <p class="text-muted">{{ $presentation->end_date }}</p>
-                        <div class="gap-2">
-                            <p class="badge bg-success-subtle text-success">Premini Project</p>
-                            <p class="badge bg-secondary-subtle text-secondary">Website</p>
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
                     <div class="card-body">
-                        <div class="d-flex gap-4">
-                            <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded avatar-sm shadow">
-                            <div class="about">
-                                <h4>{{ $presentation->hummataskTeam->name }}</h4>
-                                <p class="text-muted">
-                                    {{ $presentation->hummataskTeam->description }}
-                                </p>
+                        <div id="table-gridjs">
+                            <div role="complementary" class="gridjs gridjs-container" style="width: 100%;">
+                            <div class="gridjs-wrapper" style="height: auto;">
+                                <table role="grid" class="gridjs-table" style="height: auto;">
+                                    <thead class="gridjs-thead">
+                                        <tr class="gridjs-tr">
+                                            <th data-column-id="name" class="gridjs-th" style="width: 50px;">
+                                                <div class="gridjs-th-content">No</div>
+                                            </th>
+                                            <th data-column-id="name" class="gridjs-th" style="width: 150px;">
+                                                <div class="gridjs-th-content">Divisi</div>
+                                            </th>
+                                            <th data-column-id="name" class="gridjs-th" style="width: 150px;">
+                                                <div class="gridjs-th-content">Nama Tim</div>
+                                            </th>
+                                            <th data-column-id="name" class="gridjs-th" style="width: 150px;">
+                                                <div class="gridjs-th-content">Nama Siswa</div>
+                                            </th>
+                                            <th data-column-id="name" class="gridjs-th" style="width: 150px;">
+                                                <div class="gridjs-th-content">Bulan</div>
+                                            </th>
+                                            <th data-column-id="name" class="gridjs-th" style="width: 150px;">
+                                                <div class="gridjs-th-content">Jumlah Presentasi</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    @forelse ($studentsTeam as $studentPresentation)
+                                        <tbody class="gridjs-tbody">
+                                            <tr class="gridjs-tr">
+                                                <td data-column-id="name" class="gridjs-td">{{ $loop->iteration }}</td>
+                                                <td data-column-id="name" class="gridjs-td">{{ $studentPresentation['division_name'] }}</td>
+                                                <td data-column-id="name" class="gridjs-td">{{ $studentPresentation['team_name'] }}</td>
+                                                <td data-column-id="name" class="gridjs-td">{{ $studentPresentation['student_name'] }}</td>
+                                                <td data-column-id="name" class="gridjs-td">{{ $studentPresentation['month'] }}</td>
+                                                <td data-column-id="name" class="gridjs-td">{{ $studentPresentation['presentation_count'] }} kali</td>
+                                            </tr>
+                                        </tbody>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6">
+                                                <div class="d-flex justify-content-center mt-3">
+                                                    <img src="{{ asset('no data.png') }}" width="200px" alt="">
+                                                </div>
+                                                <h4 class="text-center mt-2 mb-4">Data Masih kosong</h4>
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </table>
+
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-end gap-3">
-                        <p class="text-muted" style="position: relative; top: 10px">Anggota:</p>
-                        <div class="avatar-group">
-                            <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Christi">
-                                <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle avatar-xs">
-                            </a>
-                            <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Frank Hook">
-                                <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle avatar-xs">
-                            </a>
                         </div>
                     </div>
                 </div>
-            @empty
-                <div class="py-5 mt-5">
-                    <div class="d-flex justify-content-center mt-3">
-                        <img src="{{ asset('no data.png') }}" width="200px"
-                            alt="">
-                    </div>
-                    <h4 class="text-center mt-2 mb-4">
-                        Tidak ada tim yang sedang presentasi
-                    </h4>
-                </div>
-            @endforelse
-        </div>
-    </div>
-    <div class="tab-pane " id="off" role="tabpanel">
-        <div class="row gap-2">
-            @forelse ($pendings as $presentation)
-                <div class="card col-xl-4">
-                    <div class="p-3 d-flex justify-content-between">
-                        <p class="text-muted">{{ $presentation->end_date }}</p>
-                        <div class="gap-2">
-                            <p class="badge bg-success-subtle text-success">Premini Project</p>
-                            <p class="badge bg-secondary-subtle text-secondary">Website</p>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex gap-4">
-                            <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded avatar-sm shadow">
-                            <div class="about">
-                                <h4>{{ $presentation->hummataskTeam->name }}</h4>
-                                <p class="text-muted">
-                                    {{ $presentation->hummataskTeam->description }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-end gap-3">
-                        <p class="text-muted" style="position: relative; top: 10px">Anggota:</p>
-                        <div class="avatar-group">
-                            <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Christi">
-                                <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle avatar-xs">
-                            </a>
-                            <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Frank Hook">
-                                <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle avatar-xs">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <div class="py-5 mt-5">
-                    <div class="d-flex justify-content-center mt-3">
-                        <img src="{{ asset('no data.png') }}" width="200px"
-                            alt="">
-                    </div>
-                    <h4 class="text-center mt-2 mb-4">
-                        Belum ada tim yang menunggu presentasi
-                    </h4>
-                </div>
-            @endforelse
+            </div>
         </div>
     </div>
 </div>
