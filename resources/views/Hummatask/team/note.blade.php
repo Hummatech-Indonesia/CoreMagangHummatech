@@ -158,6 +158,13 @@
                                     </div>
                                 </div>
                             </div>
+                        @else
+                            <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                                <img src="{{ asset('no data.png') }}" alt="" width="200px" srcset="">
+                                <p class="fs-5 text-dark">
+                                    Belum Ada Catatan
+                                </p>
+                            </div>
                         @endif
                     @empty
                         <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
@@ -214,6 +221,13 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        @else
+                            <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                                <img src="{{ asset('no data.png') }}" alt="" width="200px" srcset="">
+                                <p class="fs-5 text-dark">
+                                    Belum Ada Catatan
+                                </p>
                             </div>
                         @endif
 

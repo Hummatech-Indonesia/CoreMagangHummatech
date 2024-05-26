@@ -110,13 +110,13 @@ class CategoryBoardController extends Controller
 
     public function shownote($slug, HummataskTeam $hummataskTeam)
     {
-        $categoryBoards = $this->categoryBoard->get();
+        $team = $this->hummataskTeam->slug($slug);
+        $categoryBoards = $this->categoryBoard->getByHummataskTeamId($team->id);
         $board = [];
 
         foreach ($categoryBoards as $key => $categoryBoard) {
             $board = $this->board->whereCategory($categoryBoard->id);
         }
-        $team = $this->hummataskTeam->slug($slug);
         return view('Hummatask.team.note', compact('hummataskTeam', 'team','categoryBoards','board'));
     }
 }
