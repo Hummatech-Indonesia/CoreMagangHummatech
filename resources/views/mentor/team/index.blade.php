@@ -73,7 +73,7 @@
                                     </div>
                                 @endif
                             </a>
-                            @if ($team->categoryProject->name == 'solo project')
+                            @if ($team->category_project_id == 1)
                                 
                             @else
                                 @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $student)
