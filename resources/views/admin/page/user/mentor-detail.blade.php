@@ -83,6 +83,9 @@
                                             @endforelse
                                         </tbody>
                                     </table>
+                                    <div class="pt-3">
+                                        {{$studentDivisions->links()}}
+                                    </div>
                                 </div>
                             </div>
                         </div><!-- end card-body -->
