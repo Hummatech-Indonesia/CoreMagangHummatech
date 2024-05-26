@@ -106,14 +106,7 @@
                         <div class="px-3 pb-3">
                             <div class="d-flex justify-content-between">
                                 <h6>Kondisi Tim</h6>
-                                @php
-                                    $project = App\Models\Project::where('hummatask_team_id', $team->id)->where('status', 'accepted')->first()
-                                @endphp
-                                @if ($project)
-                                <span class="mb-1 badge font-medium bg-light-{{ $project->status->color() }} text-{{ $project->status->color() }}">{{  $project->status->label() }}</span>
-                                @else
-                                    <span class="mb-1 badge font-medium bg-light-warning text-{{ $team->project_id != null ? $team->project->status->color()  : 'warning' }}">{{  $team->project_id != null ? $team->project->status->label()  : 'Belum Aktif' }}</span>
-                                @endif
+                                <span class="mb-1 badge font-medium bg-light-{{ $team->status->color() }} text-{{ $team->status->color() }}">{{  $team->status->label() }}</span>
                             </div>
                             <div class="d-flex justify-content-between py-1">
                                 <h6>Deadline:</h6>

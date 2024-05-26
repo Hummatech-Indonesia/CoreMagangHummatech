@@ -42,10 +42,10 @@
                 <label for="deadline" class="mt-3 mb-1">Status tim</label>
                 <div class="d-flex">
                   <div class="me-3">
-                    <input type="radio" name="status" id="active" class="me-1" {{ $project && $project->status == 'accepted' ? 'checked' : '' }}>Aktif
+                    <input type="radio" name="status" id="active" value="active" class="me-1" {{ $team->status == 'active' ? 'checked' : '' }}>Aktif
                   </div>
                   <div class="">
-                    <input type="radio" name="status" id="non-active" class="me-1" {{ !$project || $project->status != 'accepted' ? 'checked' : '' }}>Tidak Aktif
+                    <input type="radio" name="status" id="non-active" value="expired" class="me-1" {{ $team->status != 'active' ? 'checked' : '' }}>Tidak Aktif
                   </div>
                 </div>
                 @error('status')

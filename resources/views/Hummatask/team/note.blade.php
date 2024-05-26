@@ -71,12 +71,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('team.note.store', ['slug' => $slugs->slug]) }}" method="post">
+                        <form action="{{ route('team.note.store', ['slug' => $team->slug]) }}" method="post">
                             @csrf
                             @method('POST')
                             <div class="mb-3">
                                 <input type="text" class="form-control" id="tim" name="hummatask_team_id"
-                                    value="{{ $slugs->id }}" placeholder="Masukkan judul disini" hidden>
+                                    value="{{ $team->id }}" placeholder="Masukkan judul disini" hidden>
                                 <input type="text" class="form-control" id="judulCatatan" name="title"
                                     placeholder="Judul">
                             </div>
