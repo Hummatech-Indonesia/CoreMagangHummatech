@@ -45,7 +45,7 @@
                     <input type="radio" name="status" id="active" value="active" class="me-1" {{ $team->status == 'active' ? 'checked' : '' }}>Aktif
                   </div>
                   <div class="">
-                    <input type="radio" name="status" id="non-active" value="expired" class="me-1" {{ $team->status != 'active' ? 'checked' : '' }}>Tidak Aktif
+                    <input type="radio" name="status" id="non-active" value="expired" class="me-1" {{ $team->status == 'expired' ? 'checked' : '' }}>Tidak Aktif
                   </div>
                 </div>
                 @error('status')

@@ -27,6 +27,7 @@ class UpdateHummataskTeamRequest extends FormRequest
             'leader' => 'required',
             'deadline' => 'nullable|date',
             'student_id.*' => 'nullable|exists:students,id',
+            'status' => 'required',
         ];
     }
     public function messages()
