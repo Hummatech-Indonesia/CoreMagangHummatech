@@ -304,22 +304,32 @@ class StudentRepository extends BaseRepository implements StudentInterface
      */
     public function listStudent(Request $request): mixed
     {
-        return $this->model->query()
-            ->whereNotIn('status', ['pending', 'banned'])
-            ->when($request->name, function ($query) use ($request) {
-                $query->where('name', 'LIKE', '%' . $request->name . '%');
-            })
-            ->when($request->school, function ($query) use ($request) {
-                $query->where('school', 'LIKE', '%' . $request->school . '%');
-            })
-            ->when($request->acepted, function ($query) use ($request) {
-                $query->where('acepted', 'LIKE', '%' . $request->acepted . '%');
-            })
-            ->when($request->gender, function ($query) use ($request) {
-                $request->where('gender', 'LIKE', '%' . $request->gender . '%');
-            })
-            ->paginate(12);
+        $query = $this->model->query()
+            ->whereNotIn('status', ['pending', 'banned']);
+
+        $query->when($request->filled('name'), function ($query) use ($request) {
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        });
+
+        $query->when($request->filled('school'), function ($query) use ($request) {
+            $query->where('school', 'LIKE', '%' . $request->school . '%');
+        });
+
+        $query->when($request->filled('status'), function ($query) use ($request) {
+            $query->where('status', 'LIKE', '%' . $request->status . '%');
+        });
+
+        $query->when($request->filled('gender'), function ($query) use ($request) {
+            $query->where('gender', 'LIKE', '%' . $request->gender . '%');
+        });
+
+        $students = $query->paginate(10);
+
+        $students->appends($request->only(['name', 'school', 'status', 'gender']));
+
+        return $students;
     }
+
 
     // public function listRfid(Request $request): mixed
     // {
@@ -382,7 +392,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
                 $query->where('acepted', 'LIKE', '%' . $request->acepted . '%');
             })
             ->when($request->gender, function ($query) use ($request) {
-                $request->where('gender', 'LIKE', '%' . $request->gender . '%');
+                $query->where('gender', 'LIKE', '%' . $request->gender . '%');
             })
             ->paginate(12);
     }
@@ -407,7 +417,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
                 $query->where('acepted', 'LIKE', '%' . $request->acepted . '%');
             })
             ->when($request->gender, function ($query) use ($request) {
-                $request->where('gender', 'LIKE', '%' . $request->gender . '%');
+                $query->where('gender', 'LIKE', '%' . $request->gender . '%');
             })
             ->paginate(12);
     }
@@ -527,7 +537,8 @@ class StudentRepository extends BaseRepository implements StudentInterface
 
     public function whereStudentDivision(mixed $id): mixed
     {
-        return $this->model->query()->where('division_id', $id)->get();;
+        return $this->model->query()->where('division_id', $id)
+        ->paginate(10);
     }
 
 
