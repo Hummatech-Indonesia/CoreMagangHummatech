@@ -12,7 +12,7 @@
     </div>
     <div class="card">
         <div class="card-bod p-3">
-            <form action="{{ route('project.store', ['slug' => $slugs->slug]) }}" method="post">
+            <form action="{{ route('project.store', ['slug' => $team->slug]) }}" method="post">
                 @csrf
                 @foreach (range(1, 5) as $key => $item)
                     <div class="row col-12 mb-4">

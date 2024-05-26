@@ -64,8 +64,8 @@ class ProjectController extends Controller
      */
     public function index($slug)
     {
-        $slugs = $this->hummatask_team->slug($slug);
-        return view('Hummatask.team.submit-project', compact('slugs'));
+        $team = $this->hummatask_team->slug($slug);
+        return view('Hummatask.team.submit-project', compact('team'));
     }
 
     /**
