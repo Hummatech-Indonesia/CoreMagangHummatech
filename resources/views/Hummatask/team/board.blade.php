@@ -327,7 +327,6 @@
                                                 <div class="mb-3">
                                                     <label for="status" class="form-label">Status</label>
                                                     <select class="form-select" id="status-edit" name="status">
-                                                        <option value="">Status</option>
                                                         <option value="baru">Baru</option>
                                                         <option value="dikerjakan">Dikerjakan</option>
                                                         <option value="selesai">Selesai</option>
@@ -338,7 +337,6 @@
                                                 <div class="mb-3">
                                                     <label for="prioritas" class="form-label">Prioritas</label>
                                                     <select class="form-select" id="priority-edit" name="priority">
-                                                        <option value="">prioritas</option>
                                                         <option value="biasa">Biasa</option>
                                                         <option value="penting">Penting</option>
                                                         <option value="mendesak">Mendesak</option>
@@ -366,7 +364,6 @@
                                         <div class="mb-3">
                                             <label for="assignee" class="form-label">Tugas Untuk</label>
                                             <select class="form-select" id="student_team_id-edit" name="student_team_id">
-                                                <option value="">Anggota</option>
                                                 @foreach ($studentTeams as $studentTeam)
                                                 <option value="{{$studentTeam->id}}">{{$studentTeam->student->name}}</option>
                                                 @endforeach
