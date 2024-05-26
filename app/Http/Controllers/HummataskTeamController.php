@@ -11,6 +11,7 @@ use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Contracts\Interfaces\StudentTeamInterface;
+use App\Enum\StatusHummaTeamEnum;
 use App\Models\HummataskTeam;
 use App\Http\Requests;
 use App\Http\Requests\StoreHummataskTeamRequest;
@@ -158,6 +159,7 @@ class HummataskTeamController extends Controller
         $data['student_id'] = auth()->user()->student->id;
         $data['division_id'] = auth()->user()->student->division_id;
         $data['slug'] = Str::slug($request->name);
+        $data['status'] = StatusHummaTeamEnum::ACTIVE->value;
         $team = $this->hummatask_team->store($data);
 
         $projectVar['hummatask_team_id'] = $team->id;

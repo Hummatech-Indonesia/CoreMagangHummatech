@@ -10,6 +10,7 @@ use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Contracts\Interfaces\StudentTeamInterface;
+use App\Enum\StatusHummaTeamEnum;
 use App\Http\Requests\AddRepositoryRequest;
 use App\Http\Requests\StoreProjectFromMentorRequest;
 use App\Services\HummataskTeamService;
@@ -136,6 +137,10 @@ class ProjectController extends Controller
         $this->project->accProject($project->id, $data, $team->id);
         $data['project_id'] = $project->id;
 
+        $this->hummatask_team->update($team->id, [
+            'status' => StatusHummaTeamEnum::ACTIVE->value
+        ]);
+
         $studentTeams = $this->studentTeam->where('hummatask_team_id', $team->id);
         foreach ($studentTeams as $studentTeam) {
            $this->studentTeam->update($studentTeam->id, $data);
@@ -156,6 +161,10 @@ class ProjectController extends Controller
 
         $data['project_id'] = $project->id;
         $this->project->accProject($project->id, $data, $team->id);
+
+        $this->hummatask_team->update($team->id, [
+            'status' => StatusHummaTeamEnum::ACTIVE->value
+        ]);
 
         $studentTeams = $this->studentTeam->where('hummatask_team_id', $team->id);
         foreach ($studentTeams as $studentTeam) {

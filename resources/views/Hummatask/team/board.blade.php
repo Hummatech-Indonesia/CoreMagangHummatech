@@ -66,11 +66,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{route('list.store', ['slug' => $slugs->slug] )}}" method="POST">
+                <form action="{{route('list.store', ['slug' => $team->slug] )}}" method="POST">
                     @csrf
                     @method('POST')
                     <div class="mb-3">
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="judul" name="hummatask_team_id" value="{{$slugs->id}}" placeholder="Masukkan judul disini" hidden>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="judul" name="hummatask_team_id" value="{{$team->id}}" placeholder="Masukkan judul disini" hidden>
                         <input type="text" class="form-control @error('title') is-invalid @enderror" id="judul" name="title" placeholder="Masukkan judul disini">
                         @error('title')
                             <div class="invalid-feedback text-danger">{{ $message }}</div>

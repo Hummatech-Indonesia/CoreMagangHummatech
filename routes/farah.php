@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminStudentTeamControlle;
+use App\Http\Controllers\Admin\AdminStudentTeamController;
 use App\Http\Controllers\Admin\DivisionController;
 use App\Http\Controllers\Admin\DivisionPlacementController;
 use App\Http\Controllers\Admin\PicketingReportController;
@@ -69,9 +71,7 @@ Route::get('person-in-charge/detail', function() {
 Route::get('offline-students/division-placement', [DivisionPlacementController::class, 'index']);
 Route::post('offline-students/division-placement/{student}', [DivisionPlacementController::class ,'divisionplacement'])->name('division-placement');
 Route::put('offline-students/division-placement/update/{student}', [DivisionPlacementController::class ,'divisionchange'])->name('division-placement.update');
-Route::get('offline-students/team', function() {
-    return view('admin.page.offline-students.team.index');
-});
+Route::get('offline-students/team', [AdminStudentTeamController::class, 'index']);
 Route::get('offline-students/team/detail', function() {
     return view('admin.page.offline-students.team.detail');
 });
