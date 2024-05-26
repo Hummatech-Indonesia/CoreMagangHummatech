@@ -109,12 +109,10 @@ class PresentationController extends Controller
         $categoryProject = $this->categoryProject->get();
         $presentations = $this->presentation->getByHummataskTeamId();
 
-        // Ambil ID tim tertentu
-        $teamId = 1; // Ganti dengan ID tim yang Anda inginkan
+        $teamId = 1;
         $monthlyPresentationCount = $this->presentation->countMonthlyPresentationsByTeamId($teamId);
 
-        // Ambil ID siswa tertentu
-        $studentId = 1; // Ganti dengan ID siswa yang Anda inginkan
+        $studentId = 1; 
         $studentsTeam = $this->presentation->countMonthlyPresentationsByStudentId($studentId);
 
         if (is_null($studentsTeam)) {
