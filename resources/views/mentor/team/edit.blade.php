@@ -34,18 +34,19 @@
                 @enderror
                 @if ($project && $project->end_date != null)
                   <label for="deadline" class="mt-2 mb-1">Deadline</label>
-                  <input type="date" name="end_date" value="{{ $project->end_date }}" class="form-control">
+                  <input type="date" name="end_date" value="{{ old('end_date', $project->end_date) }}" class="form-control">
                   @error('end_date')
                       <p class="text-danger">{{ $message }}</p>
                   @enderror
                 @endif
                 <label for="deadline" class="mt-3 mb-1">Status tim</label>
                 <div class="d-flex">
+                    <p>{{ $team->status }}</p>
                   <div class="me-3">
-                    <input type="radio" name="status" id="active" value="active" class="me-1" {{ $team->status == 'active' ? 'checked' : '' }}>Aktif
+                    <input type="radio" name="status" value="active" class="me-1" {{ $team->status == 'active' ? 'checked' : '' }}>Aktif
                   </div>
                   <div class="">
-                    <input type="radio" name="status" id="non-active" value="expired" class="me-1" {{ $team->status == 'expired' ? 'checked' : '' }}>Tidak Aktif
+                    <input type="radio" name="status" value="expired" class="me-1" {{ $team->status == 'expired' ? 'checked' : '' }}>Tidak Aktif
                   </div>
                 </div>
                 @error('status')
