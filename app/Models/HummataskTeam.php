@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\StatusHummaTeamEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,8 +13,11 @@ class HummataskTeam extends Model
     use HasFactory;
 
     protected $primaryKey = 'id';
-    protected $fillalbe = ['name', 'image', 'description', 'category_project_id', 'student_id', 'division_id'];
+    protected $fillable = ['name', 'image', 'description', 'slug', 'category_project_id', 'student_id', 'division_id', 'status'];
     protected $guarded = ['id'];
+    protected $casts = [
+        'status' => StatusHummaTeamEnum::class,
+    ];
 
     /**
      * Get all of the comments for the HummataskTeam
