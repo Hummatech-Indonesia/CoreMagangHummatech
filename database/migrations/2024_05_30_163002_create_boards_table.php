@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('label', ['frontend', 'backend', 'fullstack', 'ui/ux'])->nullable();
             $table->enum('priority', ['biasa', 'penting', 'mendesak'])->nullable();
             $table->enum('status', ['baru', 'dikerjakan', 'selesai'])->nullable();
-            $table->foreignId('student_team_id')->nullable()->constrained();
+            $table->foreignId('student_team_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('category_board_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
