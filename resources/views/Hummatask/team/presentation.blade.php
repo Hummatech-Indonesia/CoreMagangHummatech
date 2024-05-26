@@ -174,7 +174,7 @@
                                                     data-start-date="{{ $presentation->start_date }}"
                                                     data-schedule-to="{{ $presentation->schedule_to }}"
                                                     data-end-date="{{ $presentation->end_date }}"
-                                                    data-hummatask-team-id="{{ $slugs->id }}">
+                                                    data-hummatask-team-id="{{ $team->id }}">
 
                                                 <div class="text-center">
                                                     <label for="" class="d-block">{{$presentation->schedule_to}}</label>
