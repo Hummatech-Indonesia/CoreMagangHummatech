@@ -185,10 +185,10 @@ class PresentationController extends Controller
 
     public function usershow($slug, HummataskTeam $hummataskTeam)
     {
-        $slugs = $this->hummataskTeam->slug($slug);
+        $team = $this->hummataskTeam->slug($slug);
         $limits = $this->limits->first();
         $presentations = [];
-        $division = $slugs->student->division_id;
+        $division = $team->student->division_id;
 
         $mentors = $this->mentorDivision->whereMentorDivision($division);
         foreach ($mentors as $mentor) {
@@ -196,10 +196,10 @@ class PresentationController extends Controller
             // dd($mentor);
         }
 
-        $histories = $this->presentation->getPresentationsByTeam($slugs->id);
+        $histories = $this->presentation->getPresentationsByTeam($team->id);
 
 
-        return view('Hummatask.team.presentation', compact('hummataskTeam', 'presentations', 'limits', 'slugs','histories'));
+        return view('Hummatask.team.presentation', compact('hummataskTeam', 'presentations', 'limits', 'team','histories'));
     }
 
     public function callback(StoreCallbackRequest $request, Presentation $presentation)
