@@ -22,88 +22,82 @@
         </div>
     </div>
     @if ($activeProject)
-        <div class="col-lg-12">
-            <div class="card p-4">
-                <div class="row gap-4">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="position-relative">
-                            @if ($activeProject->hummataskTeam->image != null)
-                                <div class="border border-2 border-primary rounded-2">
-                                    <img src="{{ asset('storage/'.$activeProject->hummataskTeam->image) }}" style="width: 60px; height: 60px; object-fit: cover;" class="img-fluid rounded-circle m-1" alt="user1"
-                                    width="60" />
-                                </div>
-                            @else
-                                <div class="text-center align-content-center ">
-                                    <div class="bg-primary rounded rounded-2 text-white d-flex align-items-center justify-content-center text-uppercase fs-1" style="width: 4pc; height: 4pc;">
-                                    <p class="m-0 p-0">
-                                        {{ $activeProject->hummataskTeam->categoryProject->name }}
-                                    </p>
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-                        <div class="mt-2">
-                            <h3 class="fw-semibold"><span class="text-dark">{{ $activeProject->title }}</span>
-                            </h3>
-                            @if ( $activeProject->start_date != null)
-                                <span>Tanggal  Mulai : {{ \Carbon\Carbon::parse($activeProject->start_date)->locale('id')->isoFormat('dddd, D MMMM Y') }} &nbsp; &nbsp;- &nbsp;  Tenggat : {{ \Carbon\Carbon::parse($activeProject->end_date)->locale('id')->isoFormat('dddd, D MMMM Y') }}</span>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card p-4 mb-4">
+                    <div class="row align-items-center gap-4">
+                        <div class="col">
+                            <h3 class="fw-semibold">{{ $activeProject->title }}</h3>
+                            @if ($activeProject->start_date != null)
+                                <span>Tanggal Mulai: {{ \Carbon\Carbon::parse($activeProject->start_date)->locale('id')->isoFormat('dddd, D MMMM Y') }} - Tenggat: {{ \Carbon\Carbon::parse($activeProject->end_date)->locale('id')->isoFormat('dddd, D MMMM Y') }}</span>
                             @else
                                 <p class="text-muted">{{ $activeProject->description }}</p>
                             @endif
-                            <div class="tb-section-2 mt-2">
-                                <span class="badge px-2 pb-2 text-bg-{{ $activeProject->status->color() }} fs-1">{{ $activeProject->status->label() }}</span>
-                                <span class="badge px-2 pb-2 text-bg-primary fs-1">{{ $activeProject->hummataskTeam->categoryProject->name }}</span>
+                            <div class="mt-2">
+                                <span class="badge text-bg-{{ $activeProject->status->color() }}">{{ $activeProject->status->label() }}</span>
+                                <span class="badge text-bg-primary">{{ $activeProject->hummataskTeam->categoryProject->name }}</span>
                             </div>
                         </div>
-                        <div class="text-end ms-auto">
-                            <button class="btn btn-primary btn-add-repository fs-2"
-                            data-id="{{ $activeProject->id }}"
-                            data-slug="{{ $team->slug }}"
-                            data-link="{{ $activeProject->link }}">
+                        <div class="col-auto text-end">
+                            <button class="btn btn-primary btn-add-repository" data-id="{{ $activeProject->id }}" data-slug="{{ $team->slug }}" data-link="{{ $activeProject->link }}">
                                 Tambah link repository
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-12 row">
-            <div class="col-lg-4 d-flex align-items-stretch">
-                <div class="card">
+            <div class="col-lg-5 mb-4">
+                <div class="card h-100">
                     <div class="card-body">
                         <h5>Progres tim</h5>
                         <div id="chart-progres" class="pt-4"></div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8 card">
+            <div class="col-lg-7 mb-4">
+                <div class="card h-100">
                     <div class="card-body">
                         <h5>Anggota tim</h5>
-                        <div class="col-lg-12 mt-3 row">
+                        <div class="row mt-4">
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-body p-3 d-flex align-items-center">
+                                        <div class="me-3">
+                                            @if(Storage::disk('public')->exists($team->student->avatar))
+                                                <img src="{{ asset('storage/' . $team->student->avatar) }}" alt="avatar" class="rounded-circle" width="40" height="40">
+                                            @else
+                                                <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle" width="40" height="40">
+                                            @endif
+                                        </div>  
+                                        <div>
+                                            <h6 class="fw-semibold mb-1">{{ $team->student->name }}</h6>
+                                            <p class="fs-2 mb-0 text-primary badge bg-light-primary p-1">Ketua Kelompok</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             @foreach ($studentTeams as $student)
-                                <div class="col-lg-6 card">
-                                    <div class="p-2">
-                                        <div class="d-flex align-items-center">
-                                            <div class="me-2 pe-1">
-                                              @if(Storage::disk('public')->exists($student->student->avatar))
-                                                <img src="{{ asset('storage/' . $student->student->avatar) }}" alt="avatar" class="rounded-circle mb-3" width="40px" height="40px" >
-                                              @else
-                                                <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle mb-3" width="40px" height="40px">
-                                              @endif
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body p-3 d-flex align-items-center">
+                                            <div class="me-3">
+                                                @if(Storage::disk('public')->exists($student->student->avatar))
+                                                    <img src="{{ asset('storage/' . $student->student->avatar) }}" alt="avatar" class="rounded-circle" width="40" height="40">
+                                                @else
+                                                    <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle" width="40" height="40">
+                                                @endif
                                             </div>
                                             <div>
-                                              <h6 class="fw-semibold mb-1">{{ $student->student->name }}</h6>
-                                              <p class="fs-2 mb-0 text-muted">Anggota</p>
+                                                <h6 class="fw-semibold mb-1">{{ $student->student->name }}</h6>
+                                                <p class="fs-2 mb-0 text-warning badge bg-light-warning p-1">Anggota Kelompok</p>
                                             </div>
-                                          </div>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
-
-                        </div>
-                        <div class="d-flex flex-wrap gap-5 col-lg-12">
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     @else
