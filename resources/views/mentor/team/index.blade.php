@@ -103,6 +103,9 @@
                         </div>
                         <h5 style="font-weight: 700" class="text-capitalize">{{ $team->name }}</h5>
                         <p>{{ Str::limit($team->description, 40) }}</p>
+                        @php
+                            $project = App\Models\Project::where('hummatask_team_id', $team->id)->where('status', 'accepted')->first()
+                        @endphp
                         <div class="px-3 pb-3">
                             <div class="d-flex justify-content-between">
                                 <h6>Kondisi Tim</h6>
