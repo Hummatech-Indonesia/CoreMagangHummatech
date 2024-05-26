@@ -2,7 +2,7 @@
 
 @section('style')
 <style>
-    .simplebar-content-wrapper {
+    .comment-widgets {
         border-top: 2px solid blue;
     }
 </style>
@@ -158,13 +158,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @else
-                            <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
-                                <img src="{{ asset('no data.png') }}" alt="" width="200px" srcset="">
-                                <p class="fs-5 text-dark">
-                                    Belum Ada Catatan
-                                </p>
-                            </div>
+
                         @endif
                     @empty
                         <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
@@ -304,38 +298,29 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title mb-1 text-center">Judul</h4>
-                                <h3 class="text-center">{{ $categoryBoard->title }}</h3>
-                            </div>
-                            <div class="comment-widgets scrollable mb-2 common-widget" style="max-height: 450px" data-simplebar="init">
-                                <div class="simplebar-wrapper">
-                                    <div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: 100%; overflow: hidden scroll;">
-                                        @forelse ($categoryBoard->boards as $board)
-                                        <div class="simplebar-content">
-                                            <div class="d-flex flex-row comment-row border-bottom p-3">
-                                                <div class="comment-text w-100 p-3">
-                                                    <h5 class="font-weight-medium">{{$board->name}}</h5>
-                                                    <p class="mb-1 fs-3 text-muted">
-                                                        {{$board->description}}
-                                                    </p>
-                                                </div>
-                                            </div>
+                        <h4 class="card-title mb-1 text-center">Judul</h4>
+                        <h3 class="text-center">{{ $categoryBoard->title }}</h3>
+                        <div class="card pt-3" style="max-width: 600px; margin: auto;">
+                            <div class="comment-widgets scrollable mb-2 common-widget" style="max-height: 450px; overflow-y: auto;">
+                                @forelse ($categoryBoard->boards as $board)
+                                    <div class="d-flex flex-row comment-row border-bottom p-3">
+                                        <div class="comment-text w-100 p-3">
+                                            <h5 class="font-weight-medium">{{$board->name}}</h5>
+                                            <p class="mb-1 fs-3 text-muted">
+                                                {{$board->description}}
+                                            </p>
                                         </div>
-                                        @empty
-                                        <div class="simplebar-content">
-                                            <div class="d-flex flex-row comment-row border-bottom p-3">
-                                                <div class="comment-text w-100 p-3">
-                                                    <h5 class="font-weight-medium">No Data</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endforelse
                                     </div>
-                                </div>
+                                @empty
+                                    <div class="d-flex flex-row comment-row border-bottom p-3">
+                                        <div class="comment-text w-100 p-3">
+                                            <h5 class="font-weight-medium">No Data</h5>
+                                        </div>
+                                    </div>
+                                @endforelse
                             </div>
                         </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
