@@ -33,6 +33,10 @@ class AdminStudentController extends Controller
      */ public function index(Request $request)
     {
         $schools = $this->student->listStudent($request)->pluck('school')->unique();
+        $genders = $this->student->listStudent($request)->pluck('gender')->unique();
+        $status = $this->student->listStudent($request)->pluck('status')->unique();
+
+
         $students = $this->student->listStudent($request);
         $studentOfflines = $this->student->listStudentOffline($request);
         $studentOnllines = $this->student->listStudentOnline($request);
@@ -49,8 +53,10 @@ class AdminStudentController extends Controller
         //     }
         // }
 
-        return view('admin.page.user.index', compact('students', 'studentOfflines', 'studentOnllines', 'divisions', 'schools'));
+
+        return view('admin.page.user.index', compact('students', 'studentOfflines', 'studentOnllines', 'divisions', 'schools', 'genders','status'));
     }
+
     /**
      * Show The Face of the resource.
      */
