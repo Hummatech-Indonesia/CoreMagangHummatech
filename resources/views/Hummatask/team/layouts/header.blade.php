@@ -27,12 +27,12 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <div class="d-flex align-items-center justify-content-between px-0 px-xl-8">
-                <a href="javascript:void(0)"
+                {{-- <a href="javascript:void(0)"
                     class="nav-link round-40 p-1 ps-0 d-flex d-xl-none align-items-center justify-content-center"
                     type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"
                     aria-controls="offcanvasWithBothOptions">
                     <i class="ti ti-align-justified fs-7"></i>
-                </a>
+                </a> --}}
                 <style>
                     .myElement {
                         background: linear-gradient(to right, #ffffff,  rgba(200, 200, 200, 0.5));
