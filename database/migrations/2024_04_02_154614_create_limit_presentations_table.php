@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('limits')->default(0);
             $table->enum('day' , [DayEnum::SUNDAY->value , DayEnum::MONDAY->value , DayEnum::TUESDAY->value ,DayEnum::WEDNESDAY->value ,DayEnum::THURSDAY->value , DayEnum::FRIDAY->value , DayEnum::SATURDAY->value]);
-            $table->foreignId('mentor_id')->constrained();
+            $table->foreignId('mentor_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
