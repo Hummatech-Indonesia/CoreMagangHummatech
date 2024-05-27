@@ -21,7 +21,7 @@
   <a href="/mentor/team" class="btn btn-primary">Kembali</a>
 </div>
 <div class="row">
-  <div class="col-lg-8">
+  <div class="col-lg-12">
     <div class="card w-100 p-4 bg-light-info overflow-hidden shadow-none">
       <div class="d-flex gap-4">
         <div class="text-center align-content-center ">
@@ -105,12 +105,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="col-lg-4 d-flex align-items-stretch card">
-    <div class="card-body">
-      <h5>Progres tim</h5>
-          <div id="chart-progres" class="pt-4"></div>
     </div>
   </div>
 </div>
@@ -332,47 +326,5 @@
                 target.each((i, el) => $(el).click());
             });
         })();
-    </script>
-    <script>
-      var options = {
-        series: [44, 55, 41, 17],
-        chart: {
-            type: 'donut',
-            height: 400
-        },
-        labels: ['Tugas baru', 'Dikerjakan', 'Direvisi', 'Selesai'],
-        colors: ['#13DEB9', '#5D87FF', '#49BEFF', '#FFAE1F'],
-        dataLabels: {
-            enabled: false
-        },
-        plotOptions: {
-            pie: {
-                donut: {
-                    labels: {
-                        show: false
-                    }
-                }
-            },
-            stroke: {
-                show: false
-            }
-        },
-        legend: {
-            position: 'bottom'
-        },
-        responsive: [{
-            breakpoint: 480,
-            options: {
-                chart: {
-                    height: 900,
-                },
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }]
-      };
-      var chart = new ApexCharts(document.querySelector("#chart-progres"), options);
-      chart.render();
     </script>
 @endsection
