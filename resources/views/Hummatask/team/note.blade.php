@@ -203,9 +203,7 @@
                                     </button>
                                     <div class="ms-auto">
                                         <div class="category-selector btn-group">
-                                            <button type="button"
-                                                class="btn mb-1 waves-effect waves-light btn-rounded btn-light-primary text-primary view-detail"
-                                                data-bs-toggle="modal" data-bs-target="#detailModal" data-id="1">
+                                            <button type="button" class="btn mb-1 waves-effect waves-light btn-rounded btn-light-primary text-primary" data-bs-toggle="modal" data-bs-target="#detailModal{{ $categoryBoard->id }}">
                                                 <i class="ti ti-eye fs-5"></i>
                                             </button>
                                             <!-- Tambahkan tombol lain dengan ID yang berbeda jika perlu -->
@@ -319,7 +317,6 @@
             </div>
         </div>
         @endforeach
-
     </div>
     </div>
 
