@@ -21,7 +21,7 @@
   <a href="/mentor/team" class="btn btn-primary">Kembali</a>
 </div>
 <div class="row">
-  <div class="col-lg-8">
+  <div class="col-lg-12">
     <div class="card w-100 p-4 bg-light-info overflow-hidden shadow-none">
       <div class="d-flex gap-4">
         <div class="text-center align-content-center ">
@@ -105,12 +105,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="col-lg-4 d-flex align-items-stretch card">
-    <div class="card-body">
-      <h5>Progres tim</h5>
-          <div id="chart-progres" class="pt-4"></div>
     </div>
   </div>
 </div>
