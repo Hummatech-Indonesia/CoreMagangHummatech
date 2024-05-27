@@ -327,46 +327,4 @@
             });
         })();
     </script>
-    <script>
-      var options = {
-        series: [44, 55, 41, 17],
-        chart: {
-            type: 'donut',
-            height: 400
-        },
-        labels: ['Tugas baru', 'Dikerjakan', 'Direvisi', 'Selesai'],
-        colors: ['#13DEB9', '#5D87FF', '#49BEFF', '#FFAE1F'],
-        dataLabels: {
-            enabled: false
-        },
-        plotOptions: {
-            pie: {
-                donut: {
-                    labels: {
-                        show: false
-                    }
-                }
-            },
-            stroke: {
-                show: false
-            }
-        },
-        legend: {
-            position: 'bottom'
-        },
-        responsive: [{
-            breakpoint: 480,
-            options: {
-                chart: {
-                    height: 900,
-                },
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }]
-      };
-      var chart = new ApexCharts(document.querySelector("#chart-progres"), options);
-      chart.render();
-    </script>
 @endsection
