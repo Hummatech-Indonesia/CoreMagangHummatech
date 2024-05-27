@@ -15,7 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/png"
-        href="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/favicon.ico" />
+        href="{{ asset('mobilelogo.png') }}" />
     <!-- Owl Carousel -->
     <link rel="stylesheet" href="{{ asset('assets-user/dist/libs/owl.carousel/dist/assets/owl.carousel.min.css') }}">
 
@@ -26,9 +26,13 @@
 
 <body>
     <!-- Preloader -->
+    <!-- Preloader -->
     <div class="preloader">
-        <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/favicon.ico"
-            alt="loader" class="lds-ripple img-fluid" />
+        <img src="{{ asset('preloader.png') }}" style="width:150px" alt="loader" class="lds-ripple" />
+    </div>
+    <!-- Preloader -->
+    <div class="preloader">
+        <img src="{{ asset('preloader.png') }}" style="width:150px" alt="loader" class="lds-ripple" />
     </div>
     <!-- Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="horizontal" data-navbarbg="skin6" data-sidebartype="full"
@@ -320,12 +324,12 @@
         </div>
     </div>
     <!--  Customizer -->
-    <button class="btn btn-primary p-3 rounded-circle d-flex align-items-center justify-content-center customizer-btn"
+    {{-- <button class="btn btn-primary p-3 rounded-circle d-flex align-items-center justify-content-center customizer-btn"
         type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
         aria-controls="offcanvasExample">
         <i class="ti ti-settings fs-7" data-bs-toggle="tooltip" data-bs-placement="top"
             data-bs-title="Settings"></i>
-    </button>
+    </button> --}}
     <div class="offcanvas offcanvas-end customizer" tabindex="-1" id="offcanvasExample"
         aria-labelledby="offcanvasExampleLabel" data-simplebar="">
         <div class="d-flex align-items-center justify-content-between p-3 border-bottom">

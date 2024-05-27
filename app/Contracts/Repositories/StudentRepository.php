@@ -323,7 +323,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
             $query->where('gender', 'LIKE', '%' . $request->gender . '%');
         });
 
-        $students = $query->paginate(10);
+        $students = $query->paginate(12);
 
         $students->appends($request->only(['name', 'school', 'status', 'gender']));
 

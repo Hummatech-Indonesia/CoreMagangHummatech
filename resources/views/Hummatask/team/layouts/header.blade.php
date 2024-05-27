@@ -15,7 +15,7 @@
         </ul>
         <div class="d-block d-xl-none">
             <a href="javascript:void(0)" class="text-nowrap nav-link">
-                <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/dark-logo.svg"
+                <img src="{{ asset('logopkldark.png') }}"
                     width="180" alt="" />
             </a>
         </div>
@@ -31,7 +31,7 @@
                     class="nav-link round-40 p-1 ps-0 d-flex d-xl-none align-items-center justify-content-center"
                     type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"
                     aria-controls="offcanvasWithBothOptions">
-                    <i class="ti ti-align-justified fs-7"></i>
+                    {{-- <i class="ti ti-align-justified fs-7"></i> --}}
                 </a>
                 <style>
                     .myElement {

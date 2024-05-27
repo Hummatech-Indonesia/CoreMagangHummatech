@@ -25,18 +25,20 @@ class NoteService
         $categoryBoard = new CategoryBoard();
         $categoryBoard->title = $request->title;
         $categoryBoard->status = $request->status;
-        $categoryBoard->hummatask_team_id = $hummataskTeam->id; // Mengisi hummatask_team_id
+        $categoryBoard->hummatask_team_id = $hummataskTeam->id; 
         $categoryBoard->save();
 
-        $studentTeam = StudentTeam::where('student_id', auth()->user()->student_id)->where('hummatask_team_id', $hummataskTeam->id)->first();
+        $studentTeams = StudentTeam::where('hummatask_team_id', $hummataskTeam->id)->get();
 
         // Simpan nama-nama ke dalam tabel board
         foreach ($request->name as $name) {
-            $board = new Board();
-            $board->name = $name;
-            $board->category_board_id = $categoryBoard->id;
-            $board->student_team_id = $studentTeam->id;
-            $board->save();
+            foreach ($studentTeams as $studentTeam) {
+                $board = new Board();
+                $board->name = $name;
+                $board->category_board_id = $categoryBoard->id;
+                $board->student_team_id = $studentTeam->id;
+                $board->save();
+            }
         }
     }
 

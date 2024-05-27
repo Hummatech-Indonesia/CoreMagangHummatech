@@ -91,6 +91,7 @@ class HummataskTeamController extends Controller
     {
         $data = $this->service->storeTim($request);
         $data['division_id'] = auth()->user()->mentor->division_id;
+        $data['status'] = StatusHummaTeamEnum::PENDING->value;
         // dd($data);
         $hummatask_team = $this->hummatask_team->store($data);
         foreach ($request->student_id as $student_id) {
