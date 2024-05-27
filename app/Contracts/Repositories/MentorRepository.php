@@ -33,7 +33,7 @@ class MentorRepository extends BaseRepository implements MentorInterface
 
     public function update(mixed $id, array $data): mixed
     {
-        return $this->model->query()->findOrFail('id', $id)->update($data);
+        return $this->model->query()->findOrFail($id)->update($data);
     }
 
     public function show(mixed $id): mixed
