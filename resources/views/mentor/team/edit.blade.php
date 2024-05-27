@@ -49,12 +49,13 @@
                 <div class="d-flex">
                     <div class="me-3">
                         <input type="radio" name="status" value="active"
-                            {{ $team->status === 'active' ? 'checked' : '' }}>Aktif
+                            data-sider-select-id="{{ $team->status == 'active' ? 'active' : '' }}">
+                        <label for="status-active">Aktif</label>
                     </div>
-                    <div class="">
-
+                    <div>
                         <input type="radio" name="status" value="expired"
-                            {{ $team->status === 'expired' ? 'checked' : '' }}>Tidak Aktif
+                            data-sider-select-id="{{ $team->status == 'expired' ? 'expired' : '' }}">
+                        <label for="status-expired">Tidak Aktif</label>
                     </div>
                 </div>
                 @error('status')
