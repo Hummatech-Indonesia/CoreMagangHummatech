@@ -14,4 +14,5 @@ interface MentorStudentInterface extends GetInterface, StoreInterface, UpdateInt
     public function whereMentorStudent(mixed $id):mixed;
     public function whereStudent(mixed $id): mixed;
     public function studentFirst(mixed $student, mixed $mentor): mixed;
+    public function getBymentor($id): mixed;
 }
