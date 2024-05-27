@@ -117,6 +117,9 @@ class CategoryBoardController extends Controller
         foreach ($categoryBoards as $key => $categoryBoard) {
             $board = $this->board->whereCategory($categoryBoard->id);
         }
-        return view('Hummatask.team.note', compact('hummataskTeam', 'team','categoryBoards','board'));
+
+        $revision = $this->categoryBoard->getByStatus('revision_note', $team->id);
+
+        return view('Hummatask.team.note', compact('hummataskTeam', 'team','categoryBoards','board','revision'));
     }
 }

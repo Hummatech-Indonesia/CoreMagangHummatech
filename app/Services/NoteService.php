@@ -25,7 +25,7 @@ class NoteService
         $categoryBoard = new CategoryBoard();
         $categoryBoard->title = $request->title;
         $categoryBoard->status = $request->status;
-        $categoryBoard->hummatask_team_id = $hummataskTeam->id; // Mengisi hummatask_team_id
+        $categoryBoard->hummatask_team_id = $hummataskTeam->id; 
         $categoryBoard->save();
 
         $studentTeam = StudentTeam::where('student_id', auth()->user()->student_id)->where('hummatask_team_id', $hummataskTeam->id)->first();

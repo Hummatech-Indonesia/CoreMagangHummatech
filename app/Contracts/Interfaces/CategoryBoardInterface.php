@@ -11,5 +11,7 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 interface CategoryBoardInterface extends GetInterface, StoreInterface, UpdateInterface, DeleteInterface,ShowInterface
 {
         public function getByHummataskTeamId(int $teamId): mixed;
+        public function getByStatus(mixed $id, $team):mixed;
+
 
 }
