@@ -234,10 +234,10 @@ Route::middleware('auth')->group(function () {
     //     });
 
     # Redirect based on roles
-    // Route::get('/home', function () {
-    //     $roles = Auth::user()->roles->pluck('name');
-    //     return redirect($roles[0]);
-    // })->name('authenticated');
+    Route::get('/login', function () {
+        $roles = Auth::user()->roles->pluck('name');
+        return redirect($roles[0]);
+    })->name('authenticated');
 });
 
 Route::post('store-absent', [AttendanceController::class, 'absentOnline'])->name('attendance.online.store');
