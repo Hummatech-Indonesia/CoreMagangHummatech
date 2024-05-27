@@ -74,7 +74,7 @@
                                     <h6 class="mb-1 bg-hover-primary">{{ $studentTeam->hummataskTeam->name }}</h6>
                                     <div class="tb-section-2 mt-2">
                                         @if ($studentTeam->project_id)
-                                            <span class="bg-{{ $studentTeam->project->status->color() }} px-2  text-bg-{{ $studentTeam->project->status->color() }} fs-2 text-capitalize rounded-1 pb-1">{{ $studentTeam->project->status->label() }}</span>
+                                            <span class="bg-{{ $studentTeam->hummataskTeam->status->color() }} px-2  text-bg-{{ $studentTeam->hummataskTeam->status->color() }} fs-2 text-capitalize rounded-1 pb-1">{{ $studentTeam->hummataskTeam->status->label() }}</span>
                                         @else
                                             <span class="bg-warning px-2  text-bg-warning fs-2 text-capitalize rounded-1 pb-1">Belum aktif</span>
                                         @endif
