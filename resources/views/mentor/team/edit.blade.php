@@ -49,11 +49,12 @@
                 <div class="d-flex">
                     <div class="me-3">
                         <input type="radio" name="status" value="active" class="me-1"
-                            @if ($team && $team->status == 'active') checked @endif>Aktif
+                            {{ $team->status === 'active' ? 'checked' : '' }}>Aktif
                     </div>
                     <div class="">
+
                         <input type="radio" name="status" value="expired" class="me-1"
-                            @if ($team && $team->status == 'expired') checked @endif>Tidak Aktif
+                            {{ $team->status === 'expired' ? 'checked' : '' }}>Tidak Aktif
                     </div>
                 </div>
                 @error('status')
