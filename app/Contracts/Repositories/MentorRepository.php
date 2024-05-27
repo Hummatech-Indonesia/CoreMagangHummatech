@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\AdminMentorInterface;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\MentorInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Enum\RolesEnum;
 use App\Models\Journal;
 use App\Models\Mentor;
 use App\Models\Student;
@@ -25,7 +26,9 @@ class MentorRepository extends BaseRepository implements MentorInterface
 
     public function store(array $data): mixed
     {
-        return $this->model->query()->create($data);
+        $mentor =  $this->model->query()->create($data);
+        $mentor->assignRole(RolesEnum::OFFLINE->value);
+        return $mentor;
     }
 
     public function update(mixed $id, array $data): mixed
