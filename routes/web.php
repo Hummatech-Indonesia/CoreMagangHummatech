@@ -198,11 +198,10 @@ Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function () {
     // Route::get('/', function () {
     //     return view('mentor.index');
     // });
-    Route::get('/', [DashboardController::class, 'index'])->name('.home');
 });
+Route::get('/home', [DashboardController::class, 'index'])->name('.home');
 
 #================================================= End Mentor ====================================================================
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
     # Subscription Route
@@ -234,7 +233,7 @@ Route::middleware('auth')->group(function () {
     //     });
 
     # Redirect based on roles
-    Route::get('/home', function () {
+    Route::get('/', function () {
         $roles = Auth::user()->roles->pluck('name');
         return redirect($roles[0]);
     })->name('authenticated');
