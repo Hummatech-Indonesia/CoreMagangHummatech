@@ -72,4 +72,12 @@ class CategoryBoardRepository extends BaseRepository implements CategoryBoardInt
             ->get();
     }
 
+    public function getByStatus(mixed $id, $team):mixed
+    {
+        return $this->model->query()
+            ->where('status', $id)
+            ->where('hummatask_team_id', $team)
+            ->get();
+    }
+
 }

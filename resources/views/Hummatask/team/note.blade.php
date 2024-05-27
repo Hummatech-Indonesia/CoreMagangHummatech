@@ -162,7 +162,7 @@
                         @endif
                     @empty
                         <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
-                            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                            <img src="{{ asset('no data.png') }}" alt="" width="200px" srcset="">
                             <p class="fs-5 text-dark">
                                 Belum Ada catatan
                             </p>
@@ -173,61 +173,51 @@
 
             <div class="tab-pane" id="done" role="tabpanel">
                 <div class="row">
-                    @forelse ($categoryBoards as $categoryBoard)
-                        @if ($categoryBoard->status == 'revision_note')
-                            <div class="col-md-4 single-note-item all-category" style>
-                                <div class="card card-body">
-                                    <span class="side-stick"></span>
-                                    <h6 class="note-title text-truncate w-75 mb-0">
-                                        {{ $categoryBoard->title }}
-                                    </h6>
-                                    <p class="note-date fs-2">
-                                        {{ \Carbon\Carbon::parse($categoryBoard->created_at)->translatedFormat('d F Y') }}
+                    @forelse ($revision as $categoryBoard)
+                        <div class="col-md-4 single-note-item all-category" style>
+                            <div class="card card-body">
+                                <span class="side-stick"></span>
+                                <h6 class="note-title text-truncate w-75 mb-0">
+                                    {{ $categoryBoard->title }}
+                                </h6>
+                                <p class="note-date fs-2">
+                                    {{ \Carbon\Carbon::parse($categoryBoard->created_at)->translatedFormat('d F Y') }}
+                                </p>
+                                <div class="note-content">
+                                    <h6>{{ $categoryBoard->category }}</h6>
+                                    <p class="note-inner-content">
+                                        Catatan <br>
                                     </p>
-                                    <div class="note-content">
-                                        <h6>{{ $categoryBoard->category }}</h6>
-                                        <p class="note-inner-content">
-                                            Catatan <br>
-                                        </p>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <a class="link me-1" data-bs-toggle="modal" data-bs-target="#updateTeamNoteModal"
-                                            data-id="{{ $categoryBoard->id }}" data-title="{{ $categoryBoard->title }}"
-                                            data-status="{{ $categoryBoard->status }}"
-                                            data-note="{{ $categoryBoard->boards }}" id="updateRevisionNote">
-                                            <i class="ti ti-pencil fs-5 favourite-note text-warning"></i>
-                                        </a>
-                                        <button type="button"
-                                            class="link text-danger bg-transparent border-0 ms-2 btn-delete"
-                                            data-id="{{ $categoryBoard->id }}">
-                                            <i class="ti ti-trash fs-5 remove-note"></i>
-                                        </button>
-                                        <div class="ms-auto">
-                                            <div class="category-selector btn-group">
-                                                <button type="button"
-                                                    class="btn mb-1 waves-effect waves-light btn-rounded btn-light-primary text-primary view-detail"
-                                                    data-bs-toggle="modal" data-bs-target="#detailModal" data-id="1">
-                                                    <i class="ti ti-eye fs-5"></i>
-                                                </button>
-                                                <!-- Tambahkan tombol lain dengan ID yang berbeda jika perlu -->
-                                            </div>
-
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <a class="link me-1" data-bs-toggle="modal" data-bs-target="#updateTeamNoteModal"
+                                        data-id="{{ $categoryBoard->id }}" data-title="{{ $categoryBoard->title }}"
+                                        data-status="{{ $categoryBoard->status }}"
+                                        data-note="{{ $categoryBoard->boards }}" id="updateRevisionNote">
+                                        <i class="ti ti-pencil fs-5 favourite-note text-warning"></i>
+                                    </a>
+                                    <button type="button"
+                                        class="link text-danger bg-transparent border-0 ms-2 btn-delete"
+                                        data-id="{{ $categoryBoard->id }}">
+                                        <i class="ti ti-trash fs-5 remove-note"></i>
+                                    </button>
+                                    <div class="ms-auto">
+                                        <div class="category-selector btn-group">
+                                            <button type="button"
+                                                class="btn mb-1 waves-effect waves-light btn-rounded btn-light-primary text-primary view-detail"
+                                                data-bs-toggle="modal" data-bs-target="#detailModal" data-id="1">
+                                                <i class="ti ti-eye fs-5"></i>
+                                            </button>
+                                            <!-- Tambahkan tombol lain dengan ID yang berbeda jika perlu -->
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
-                        @else
-                            <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
-                                <img src="{{ asset('no data.png') }}" alt="" width="200px" srcset="">
-                                <p class="fs-5 text-dark">
-                                    Belum Ada Catatan
-                                </p>
-                            </div>
-                        @endif
-
+                        </div>
                     @empty
                         <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
-                            <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                            <img src="{{ asset('no data.png') }}" alt="" width="200px" srcset="">
                             <p class="fs-5 text-dark">
                                 Belum Ada Catatan
                             </p>
