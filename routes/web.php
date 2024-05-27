@@ -199,7 +199,7 @@ Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function () {
     //     return view('mentor.index');
     // });
 });
-Route::get('/home', [DashboardController::class, 'index'])->name('.home');
+Route::get('/home', [DashboardController::class, 'index']);
 
 #================================================= End Mentor ====================================================================
 
