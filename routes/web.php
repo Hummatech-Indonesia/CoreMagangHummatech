@@ -99,7 +99,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::post('voucher/store', [VoucherController::class, 'store'])->name('voucher.store');
     Route::delete('voucher/delete/{voucher}', [VoucherController::class, 'destroy'])->name('voucher.delete');
     // banned
-    Route::get('students-banned', [StudentController::class , 'index']);
+    Route::get('students-banned', [StudentController::class, 'index']);
 
     # Mentor
     Route::get('menu-mentor', [AdminMentorController::class, 'index'])->name('mentor.index');
@@ -247,7 +247,8 @@ Route::post('wfh/store', [AttendanceController::class, 'storeWorkFromHome'])->na
 # Transaction and Payment Routing
 Route::post('transaction/save/{product}', [TransactionController::class, 'save'])->name('transaction.save');
 Route::post('transaction/save-course/{course}', [TransactionController::class, 'saveCourse'])->name('transaction.save-course');
-Route::get('transaction/checkout/{product}', [TransactionController::class, 'checkout'])->name('transaction-history.checkout');;
+Route::get('transaction/checkout/{product}', [TransactionController::class, 'checkout'])->name('transaction-history.checkout');
+;
 Route::get('transaction/checkout-course/{course}', [TransactionController::class, 'checkoutCourse'])->name('transaction.checkout-course');
 Route::get('transaction', function () {
     return view('student_online_&_offline.transaction.index');
@@ -263,6 +264,28 @@ Route::get('transaction/detail-course/{transaction}', [TransactionController::cl
 // });
 
 Route::get('order', [OrderController::class, 'index'])->name('my-order')->middleware(['auth']);
+
+
+Route::get('/aboutUs', function () {
+    return view('landing.aboutUs');
+});
+
+Route::get('/alumniSiswa', function () {
+    return view('landing.alumni');
+});
+
+Route::get('/galeri', function () {
+    return view('landing.galeri');
+});
+
+Route::get('/prosedur', function () {
+    return view('landing.prosedur');
+});
+
+Route::get('/hubungi', function () {
+    return view('landing.hubungi');
+});
+
 
 require_once __DIR__ . '/kader.php';
 require_once __DIR__ . '/farah.php';
