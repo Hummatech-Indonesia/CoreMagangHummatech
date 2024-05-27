@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="d-flex align-items-center mt-4">
                                     <div class="border-end pe-4 border-muted border-opacity-10">
-                                        <h4>Mentor Website</h4>
+                                        <h4>Mentor {{ auth()->user()->mentor->division->name}}</h4>
                                     </div>
                                 </div>
                             </div>
