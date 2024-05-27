@@ -353,7 +353,7 @@
                                 TEKNOLOGI INDONESIA. Untuk informasi terkait
                                 kegiatan magang silahkan bergabung pada link di
                                 bawah ini untuk mengikuti pengumuman
-                                selanjutnya.<a href="http://milink.id/Grubmagang2024" style="color: #2f85da;" target="_blank">http://milink.id/Grubmagang2024</a>
+                                selanjutnya.<a href="https://chat.whatsapp.com/JUfC7aMLZAeEkrzFrd2YBe" style="color: #2f85da;" target="_blank">https://chat.whatsapp.com/JUfC7aMLZAeEkrzFrd2YBe</a>
                                 <br />
                                 Akun anda sudah bisa digunakan silahkan login
                               </p>

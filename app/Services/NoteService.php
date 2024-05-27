@@ -6,6 +6,7 @@ use App\Models\CategoryBoard;
 use App\Models\Board;
 use App\Models\HummataskTeam; // Import model HummataskTeam
 use App\Http\Requests\CatatanRequest;
+use App\Models\StudentTeam;
 use Illuminate\Http\Request;
 
 class NoteService
@@ -27,11 +28,14 @@ class NoteService
         $categoryBoard->hummatask_team_id = $hummataskTeam->id; // Mengisi hummatask_team_id
         $categoryBoard->save();
 
+        $studentTeam = StudentTeam::where('student_id', auth()->user()->student_id)->where('hummatask_team_id', $hummataskTeam->id)->first();
+
         // Simpan nama-nama ke dalam tabel board
         foreach ($request->name as $name) {
             $board = new Board();
             $board->name = $name;
             $board->category_board_id = $categoryBoard->id;
+            $board->student_team_id = $studentTeam->id;
             $board->save();
         }
     }

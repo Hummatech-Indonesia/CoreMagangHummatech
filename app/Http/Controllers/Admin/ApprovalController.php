@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use App\Models\Student;
 use App\Enum\StudentStatusEnum;
 use App\Enum\InternshipTypeEnum;
@@ -13,6 +15,7 @@ use App\Http\Requests\AcceptedAprovalRequest;
 use App\Http\Requests\DeclinedAprovalRequest;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\ApprovalInterface;
+use App\Models\ResponseLetter;
 use Illuminate\Http\Request;
 
 class ApprovalController extends Controller
@@ -59,6 +62,32 @@ class ApprovalController extends Controller
         $this->approval->update($student->id, $data);
         return back()->with('success', 'Berhasil Menerima Siswa Baru');
     }
+
+    public function acceptMultiple(Request $request)
+    {
+
+        $selectedIds = explode(',', $request->input('selected_ids'));
+        $letterNumbers = $request->input('letter_numbers');
+
+        $groupedData = [];
+        foreach ($selectedIds as $studentId) {
+            $student = Student::find($studentId);
+            if ($student) {
+                $school = $student->school;
+                $groupedData[$school]['letter_number'] = $letterNumbers[$school];
+                $groupedData[$school]['student_ids'][] = $studentId;
+            }
+        }
+
+        $this->service->acceptMultiple($groupedData);
+
+        return back()->with('success', 'Berhasil menerima Siswa Baru');
+    }
+
+
+
+
+
 
     public function decline(DeclinedAprovalRequest $request, Student $student)
     {

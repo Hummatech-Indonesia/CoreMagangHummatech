@@ -10,6 +10,9 @@ use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Contracts\Interfaces\StudentTeamInterface;
+use App\Enum\StatusHummaTeamEnum;
+use App\Http\Requests\AddRepositoryRequest;
+use App\Http\Requests\StoreProjectFromMentorRequest;
 use App\Services\HummataskTeamService;
 use App\Services\ProjectService;
 use App\Services\StudentProjectService;
@@ -61,8 +64,8 @@ class ProjectController extends Controller
      */
     public function index($slug)
     {
-        $slugs = $this->hummatask_team->slug($slug);
-        return view('Hummatask.team.submit-project', compact('slugs'));
+        $team = $this->hummatask_team->slug($slug);
+        return view('Hummatask.team.submit-project', compact('team'));
     }
 
     /**
@@ -115,6 +118,14 @@ class ProjectController extends Controller
         //
     }
 
+    public function addRepository(AddRepositoryRequest $request, $slug, Project $project)
+    {
+        $data = $request->validated();
+        $this->project->update($project->id, $data);
+
+        return back()->with('success', 'Berhasil menambahkan link repository');
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -126,12 +137,41 @@ class ProjectController extends Controller
         $this->project->accProject($project->id, $data, $team->id);
         $data['project_id'] = $project->id;
 
+        $this->hummatask_team->update($team->id, [
+            'status' => StatusHummaTeamEnum::ACTIVE->value
+        ]);
+
+        $studentTeams = $this->studentTeam->where('hummatask_team_id', $team->id);
+        foreach ($studentTeams as $studentTeam) {
+           $this->studentTeam->update($studentTeam->id, $data);
+        }
+        
+        return back()->with('success' , 'Berhasil memilih tema');
+    }
+
+    public function projectFromMentor(StoreProjectFromMentorRequest $request, $slug)
+    {
+        $team = $this->hummatask_team->slug($slug);
+        
+        $data = $request->validated();
+        $project = $this->project->store([
+            'hummatask_team_id' => $team->id,
+            'title' => $data['custom-project']
+        ]);
+
+        $data['project_id'] = $project->id;
+        $this->project->accProject($project->id, $data, $team->id);
+
+        $this->hummatask_team->update($team->id, [
+            'status' => StatusHummaTeamEnum::ACTIVE->value
+        ]);
+
         $studentTeams = $this->studentTeam->where('hummatask_team_id', $team->id);
         foreach ($studentTeams as $studentTeam) {
             $this->studentTeam->update($studentTeam->id, $data);
         }
         
-        return back()->with('success' , 'Berhasil memilih tema');
+        return back()->with('success' , 'Berhasil memberikan tema');
     }
 
     /**
@@ -148,13 +188,14 @@ class ProjectController extends Controller
         $mentorStudents = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
         $teams = $this->hummatask_team->WhereTeam();
         $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
-        return view('Mentor.project-submission.index', compact('categoryProjects', 'mentorStudents', 'teams' ,'mentors'));
+        $acc = $this->project->where('status', StatusProjectEnum::ACCEPTED->value);
+        return view('mentor.project-submission.index', compact('categoryProjects', 'mentorStudents', 'teams' ,'mentors', 'acc'));
     }
 
     public function showProjectSubmission($slug){
         $team = $this->hummatask_team->slug($slug);
         $projects = $this->project->where('hummatask_team_id', $team->id);
         $done = $this->project->getProjectAccepted($team->id);
-        return view('Mentor.project-submission.detail', compact('team', 'projects', 'done'));
+        return view('mentor.project-submission.detail', compact('team', 'projects', 'done'));
     }
 }

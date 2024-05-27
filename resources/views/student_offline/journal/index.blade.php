@@ -23,61 +23,79 @@
     </div>
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header d-flex align-items-center">
-                    <h4 class="modal-title" id="myLargeModalLabel">
-                        Tambah Jurnal
-                    </h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="/create/jurnal" method="post" enctype="multipart/form-data">
-                    @csrf
-                    @method('POST')
-                    <div class="modal-body">
-                        <label for="" class="mt-2 mb-2">Judul</label>
-                        <input type="text" name="title" class="form-control" value="{{ old('title') }}">
-                        @error('title')
-                            <p class="text-danger">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                        <label for="" class="mt-2 mb-2">Bukti</label>
-                        <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
-                            <img class="img-thumbnail image-preview" itemprop="thumbnail">
-                        </figure>
-                        <input type="file" name="image" class="form-control" onchange="preview(event)">
-                        @error('image')
-                            <p class="text-danger">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                        <label for="" class="mt-2 mb-2">Deskripsi</label>
-                        <textarea name="description" id="description" class="form-control" onkeyup="countCharacters(this)"></textarea>
-                        <p id="characterCount">0 characters</p>
-                        @error('description')
-                            <p class="text-danger">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </div>
-                    <hr>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light-danger text-danger font-medium waves-effect text-start"
-                            data-bs-dismiss="modal">
-                            Close
-                        </button>
-                        <button type="submit"
-                            class="btn btn-light-primary text-primary font-medium waves-effect text-start"
-                            data-bs-dismiss="modal">
-                            Simpan
-                        </button>
-                    </div>
-                </form>
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center">
+                <h4 class="modal-title" id="myLargeModalLabel">
+                    Tambah Jurnal
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="/create/jurnal" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('POST')
+                <div class="modal-body">
+                    <label for="" class="mt-2 mb-2">Judul</label>
+                    <input type="text" name="title" class="form-control" value="{{ old('title') }}">
+                    @error('title')
+                        <p class="text-danger">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                    <label for="" class="mt-2 mb-2">Bukti</label>
+                    <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
+                        <img class="img-thumbnail image-preview" itemprop="thumbnail">
+                    </figure>
+                    <input type="file" name="image" class="form-control" onchange="preview(event)">
+                    @error('image')
+                        <p class="text-danger">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                    <label for="" class="mt-2 mb-2">Deskripsi</label>
+                    <textarea name="description" id="description" class="form-control" onkeyup="countCharacters(this)"></textarea>
+                    <p id="characterCount">0 characters</p>
+                    @error('description')
+                        <p class="text-danger">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
+                <hr>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-danger text-danger font-medium waves-effect text-start"
+                        data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit"
+                        class="btn btn-light-primary text-primary font-medium waves-effect text-start"
+                        data-bs-dismiss="modal">
+                        Simpan
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
+
+<style>
+    .modal-dialog {
+        max-width: 90%;
+    }
+
+    @media (min-width: 576px) {
+        .modal-dialog {
+            max-width: 500px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .modal-dialog {
+            max-width: 800px;
+        }
+    }
+</style>
     <div class="d-flex justify-content-between mb-4">
         <h4>
             Data Jurnal
@@ -241,7 +259,7 @@
                         <button type="button"
                             class="btn btn-light-danger text-danger font-medium waves-effect text-start"
                             data-bs-dismiss="modal">
-                            Close
+                            Tutup
                         </button>
                         <button type="submit"
                             class="btn btn-light-primary text-primary font-medium waves-effect text-start"
@@ -263,7 +281,7 @@
                     <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="col-lg-6 text-start" id="detail-content">
+                    <div class="col-lg-12 text-start" id="detail-content">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -341,11 +359,12 @@
                 modalBody.append('</div>');
                 modalBody.append('<div class="mb-2">');
                 modalBody.append('<h6 class="f-w-600">Bukti</h6>');
-                modalBody.append('<img src="' + image + '" class="" style="width:700px; object-fit:cover"></img>');
+                modalBody.append('<img src="' + image + '" class="img-fluid" style="width:100%; max-width:700px; object-fit:cover"></img>');
                 modalBody.append('</div>');
                 detail.append(modalBody);
                 $('#detail').modal('show');
             });
+
 
 
             $('.btn-delete').click(function() {

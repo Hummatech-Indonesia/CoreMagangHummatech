@@ -53,7 +53,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($presentations->whereNotNull('hummatask_team_id') as $presentation)
+                @if($histories->whereNotNull('hummatask_team_id')->isEmpty())
+                <tr>
+                    <td colspan="6">
+                        <div class="mb-3 mt-5 text-center" style="margin: 0 auto;">
+                            <img src="{{ asset('empty-asset.png') }}" alt="" width="100px" srcset="">
+                            <p class="fs-3 text-dark">
+                                Belum melakukan presentasi
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            @else
+                @foreach ($histories as $presentation)
                     <tr>
                         <td>
                             <p class="mb-0 fw-normal fs-4">{{ $loop->iteration }}</p>
@@ -62,10 +74,16 @@
                             <p class="mb-0 fw-normal fs-4">{{ $presentation->title }}</p>
                         </td>
                         <td>
-                            <p class="mb-0 fw-normal fs-4">{{ \Carbon\Carbon::parse($presentation->created_at)->format('j F Y') }}</</p>
+                            <p class="mb-0 fw-normal fs-4">{{ \Carbon\Carbon::parse($presentation->created_at)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</p>
                         </td>
                         <td>
-                            <p class="mb-0 fw-normal fs-4">{{ $presentation->status_presentation }}</p>
+                            <p class="mb-0 fw-normal fs-4">
+                                @if ($presentation)
+                                <span class="badge bg-{{$presentation->status_presentation?->color()}}">
+                                    {{$presentation->status_presentation?->label()}}
+                                </span>
+                            @endif
+                        </p>
                         </td>
                         <td>
                             <p class="mb-0 fw-normal fs-4">{{ $presentation->schedule_to }}</p>
@@ -94,7 +112,7 @@
                                     <div class="mb-3">
                                         <p>Judul Presentasi: {{ $presentation->title }}</p>
                                         <hr>
-                                        <p>Tanggal: {{ \Carbon\Carbon::parse($presentation->created_at)->format('j F Y') }}</p>
+                                        <p>Tanggal: {{ \Carbon\Carbon::parse($presentation->created_at)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</p>
                                         <hr>
                                         <p>Jadwal :
                                             {{ $presentation->schedule_to }} : {{ $presentation->start_date }} - {{ $presentation->end_date }}
@@ -105,7 +123,6 @@
                                         <p>Feedback dari mentor :
                                             {{ $presentation->callback ?? 'Mentor tidak atau belum memberi anda feedback' }}
                                         </p>
-
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -115,6 +132,8 @@
                         </div>
                     </div>
                 @endforeach
+            @endif
+
             </tbody>
         </table>
     </div>
@@ -140,8 +159,8 @@
                             <label for="" class="form-label">Judul Presentasi</label>
                             <input type="text" name="title" id="" class="form-control">
                         </div>
-                        <div class="">
-                            <label class="mb-3" class="form-label">Pilih Jadwal</label>
+                        <div class="pt-3">
+                            <label class="mb-3 text-dark" class="form-label">Pilih Jadwal</label>
                             <div class="row">
                                 @forelse ($presentations as $key=> $presentation)
                                     <div class="col-md-6">
@@ -151,18 +170,23 @@
                                                     class="form-check-input date_range {{ $presentation->hummatask_team_id ? 'disable' : '' }}"
                                                     type="radio" name="date_range" id="date_range"
                                                     value="{{ $presentation->start_date }}"
-                                                    data-id="{{ $presentation->id }}"   
+                                                    data-id="{{ $presentation->id }}"
                                                     data-start-date="{{ $presentation->start_date }}"
                                                     data-schedule-to="{{ $presentation->schedule_to }}"
                                                     data-end-date="{{ $presentation->end_date }}"
-                                                    data-hummatask-team-id="{{ $slugs->id }}">
-                                                {{-- <input type="hidden" name="hummatask_team_id"
-                                                    value="{{ $slugs->id }}"> --}}
-                                                <label class="form-check-label"
-                                                    for="date_range_{{ $presentation->id }}">{{ $presentation->start_date }}
-                                                    -
-                                                    {{ $presentation->end_date }}</label>
+                                                    data-hummatask-team-id="{{ $team->id }}">
+
+                                                <div class="text-center">
+                                                    <label for="" class="d-block">{{$presentation->schedule_to}}</label>
+                                                    <label class="form-check-label text-danger d-block" for="date_range_{{ $presentation->id }}">
+                                                        {{ $presentation->start_date }} - {{ $presentation->end_date }}
+                                                    </label>
+                                                    @if ($presentation && $presentation->hummatask_team_id)
+                                                        <p class="pt-2 text-muted">Sudah dipilih</p>
+                                                    @endif
+                                                </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 @empty

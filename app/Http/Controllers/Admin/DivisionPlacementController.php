@@ -53,15 +53,50 @@ class DivisionPlacementController extends Controller
         return redirect()->back()->with(['success' => 'Berhasil menetapkan divisi']);
     }
 
-    public function divisionchange( UpdateStudentRequest $request, Student $student)
+    // public function divisionchange( UpdateStudentRequest $request, Student $student)
+    // {
+    //     $mentorDivisions = $this->mentorDivision->whereMentorDivision($student->division_id);
+    //     // dd($mentorDivisions);
+    //     foreach ($mentorDivisions as $mentorDivision) {
+    //         $data['student_id'] = $student->id;
+    //         $data['mentor_id'] = $mentorDivision->mentor_id;
+    //         $mentorStudent = $this->mentorStudent->studentFirst($student->id, $mentorDivision->mentor_id);
+    //         dd($request, $student, $mentorDivisions, $mentorStudent->id);
+    //         $this->mentorStudent->update($mentorStudent->id, $data);
+    //     }
+    //     $this->student->update($student->id, ['division_id' => $request->division_id]);
+    //     return redirect()->back()->with(['success' => 'Berhasil menetapkan divisi']);
+    // }
+
+    public function divisionchange(UpdateStudentRequest $request, Student $student)
     {
-        $mentorDivisions = $this->mentorDivision->whereMentorDivision($request->division_id);
-        foreach ($mentorDivisions as $mentor) {
-            $data['student_id'] = $student->id;
-            $data['mentor_id'] = $mentor->id;
-            $this->mentorStudent->update($student->id, $data);
+        $oldMentorDivisions = $this->mentorDivision->whereMentorDivision($student->division_id);
+
+        foreach ($oldMentorDivisions as $oldMentorDivision) {
+            $this->mentorStudent->deleteByStudentAndMentor($student->id, $oldMentorDivision->mentor_id);
         }
+
+        // Update divisi siswa
         $this->student->update($student->id, ['division_id' => $request->division_id]);
+
+        // Ambil semua mentor yang ada di divisi baru
+        $newMentorDivisions = $this->mentorDivision->whereMentorDivision($request->division_id);
+
+        // Insert data baru ke tabel mentorStudent
+        foreach ($newMentorDivisions as $newMentorDivision) {
+            $data['student_id'] = $student->id;
+            $data['mentor_id'] = $newMentorDivision->mentor_id;
+
+            // Cek apakah entri sudah ada, jika tidak, tambahkan entri baru
+            $mentorStudent = $this->mentorStudent->studentFirst($student->id, $newMentorDivision->mentor_id);
+            if (!$mentorStudent) {
+                $this->mentorStudent->store($data);
+            } else {
+                $this->mentorStudent->update($mentorStudent->id, $data);
+            }
+        }
+
         return redirect()->back()->with(['success' => 'Berhasil menetapkan divisi']);
     }
+
 }

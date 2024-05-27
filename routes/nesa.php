@@ -13,6 +13,7 @@ use App\Http\Controllers\LimitPresentationController;
 use App\Http\Controllers\Mentor\JournalController;
 use App\Http\Controllers\NotePicketController;
 use App\Http\Controllers\NoteTeamController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\StudentOfline\CourseOfflineController;
 use App\Http\Controllers\ProductController;
@@ -42,9 +43,6 @@ Route::post('note-picket/store', [NotePicketController::class, 'store'])->name('
 Route::put('note-picket/{notePicket}', [NotePicketController::class, 'update'])->name('note.update');
 
 Route::get('report', [PicketingReportController::class, 'index']);
-
-
-
 
 
 
@@ -81,6 +79,10 @@ Route::post('mentor/limit/presentation/store', [LimitPresentationController::cla
 // Route::put('mentor/limit/presentation/{limitPresentation}', [LimitPresentationController::class,'update'])->name('limitpresentation.update');
 
 
+// Route::put('mentor/callback/{presentation}', [PresentationController::class, 'callback'])->name('presentation.callback');
+
+
+
 
 
 
@@ -94,6 +96,15 @@ Route::get('timetable', [ZoomScheduleController::class, 'show']);
 
 //Admin
 Route::get('administrator/presentation', [PresentationController::class, 'show']);
+
+Route::get('administrator/permission', [PermissionController::class, 'index']);
+Route::put('administrator/permission/update/{permission}', [PermissionController::class, 'updateApproval'])->name('approval.izin');
+Route::put('administrator/permission/update/reject/{permission}', [PermissionController::class, 'updateApprovalReject'])->name('approval.reject');
+Route::delete('administrator/permission/delete/{permission}', [PermissionController::class, 'destroy'])->name('permission.delete');
+
+
+
+
 
 // Route::get('administrator/presentation', function (){
 //     return view('admin.page.presentation.index');

@@ -27,56 +27,139 @@
     </div>
 </div>
 <div class="row">
-    @foreach (range(1, 5) as $item)
+    @forelse ($teams as $team)
     <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6">
         <div class="card">
             <span class="card-img-top w-100" style="height: 100px; background-color: #C7C7C7"></span>
             <div class="d-flex justify-content-center px-3" style="margin-top: -35px;">
-                <img class="img-thumbnail rounded-circle avatar-md" alt="200x200" src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}">
+                @if($team->image != null && Storage::disk('public')->exists($team->image))
+                    <img src="{{ asset('storage/' . $team->image) }}"
+                        class="img-thumbnail rounded-circle avatar-md" width="50px"
+                        height="50px">
+                @else
+                    @php
+                        $firstLetter = substr($team->name, 0, 1);
+                        $firstLetter = strtoupper($firstLetter);
+                        $backgroundColors = [
+                            '#ff5722',
+                            '#4caf50',
+                            '#2196f3',
+                        ];
+                        $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
+                    @endphp
+                    <div style="background-color: {{ $backgroundColor }}; width: 67px; height: 67px; border-radius: 50%; display: flex; justify-content: center; align-items: center;" >
+                        <span style="color: white; font-size: 20px;">{{ $firstLetter }}</span>
+                    </div>
+                @endif
             </div>
             <div class="card-body text-center">
                 <div class="d-flex justify-content-center gap-2 mb-2">
-                    <span class="badge bg-success-subtle text-success">Premini project</span>
+                    @php
+                        $color = 'primary';
+                        if ($team->category_project_id == 1) {
+                            $color = 'danger';
+                        }elseif ($team->category_project_id == 2) {
+                            $color = 'warning';
+                        }elseif ($team->category_project_id == 3) {
+                            $color = 'info';
+                        }elseif ($team->category_project_id == 4) {
+                            $color = 'success';
+                        }
+                    @endphp
+                    <span class="badge bg-{{ $color }}-subtle text-{{ $color }}">{{ $team->categoryProject->name }}</span>
                     <span class="badge bg-danger-subtle text-danger">Expired project</span>
-                    <span class="badge bg-secondary-subtle text-secondary">Website</span>
+                    <span class="badge bg-secondary-subtle text-secondary">{{ $team->division->name }}</span>
                 </div>
                 <a href="{{ url('/offline-students/team/detail') }}" style="font-size: 15px" class="text-dark">
-                    Pre-Mini Project Team Laundry
+                    {{ $team->name }}
                 </a>
                 <p class="text-muted pt-1">
-                    Jumat, 12 Januari 2024
+                    {{ \Carbon\Carbon::parse($team->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
                 </p>
                 <div class="d-flex w-100 justify-content-center gap-2">
                     <p style="position: relative; top: 10px">Anggota: </p>
-                    <!-- Avatar Group with Tooltip -->
                     <div class="avatar-group">
-                        <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Christi">
-                            <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle avatar-xs">
-                        </a>
-                        <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Frank Hook">
-                            <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle avatar-xs">
-                        </a>
-                        <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Christi">
-                            <div class="avatar-xs">
-                                <div class="avatar-title rounded-circle bg-light text-primary">
-                                    C
+                        @if(Storage::disk('public')->exists($team->student->avatar))
+                            <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $team->student->name }}">
+                                <img src="{{ asset('storage/'.$team->student->avatar) }}" alt="" class="rounded-circle avatar-xs">
+                            </a>
+                        @else
+                            @php
+                                $firstLetter = substr($team->student->name, 0, 1);
+                                $firstLetter = strtoupper($firstLetter);
+                                $backgroundColors = [
+                                    '#ff5722',
+                                    '#4caf50',
+                                    '#2196f3',
+                                ];
+                                $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
+                            @endphp
+                            <a href="javascript: void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $team->student->name }}">
+                                <div style="background-color: {{ $backgroundColor }}; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center;" class="me-n3">
+                                    <span style="color: white; font-size: 15px;">{{ $firstLetter }}</span>
                                 </div>
-                            </div>
-                        </a>
-                        <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="more">
-                            <div class="avatar-xs">
-                                <div class="avatar-title rounded-circle">
-                                    2+
-                                </div>
-                            </div>
-                        </a>
+                            </a>
+                        @endif
+                        @if ($team->category_project_id == 1)
+                                
+                        @else
+                            @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $index => $studentTeam)
+                                @if ($index < 1)
+                                        @if(Storage::disk('public')->exists($studentTeam->student->avatar))
+                                        <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $studentTeam->student->name }}">
+                                            <img src="{{ asset('storage/'.$studentTeam->student->avatar) }}" alt="" class="rounded-circle avatar-xs">
+                                        </a>
+                                    @else
+                                        @php
+                                            $firstLetter = substr($studentTeam->student->name, 0, 1);
+                                            $firstLetter = strtoupper($firstLetter);
+                                            $backgroundColors = [
+                                                '#ff5722',
+                                                '#4caf50',
+                                                '#2196f3',
+                                            ];
+                                            $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
+                                        @endphp
+                                        <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="more">
+                                            <div class="avatar-xs">
+                                                <div style="background-color: {{ $backgroundColor }};" class="avatar-title rounded-circle">
+                                                    {{ $firstLetter }}
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="javascript: void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $studentTeam->student->name }}">
+                                            <div style="background-color: {{ $backgroundColor }}; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center;" class="me-n3">
+                                                <span style="color: white; font-size: 15px;">{{ $firstLetter }}</span>
+                                            </div>
+                                        </a>
+                                    @endif
+                                @else
+                                    <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="more">
+                                        <div class="avatar-xs">
+                                            <div class="avatar-title rounded-circle">
+                                                2+
+                                            </div>
+                                        </div>
+                                    </a>
+                                    
+                                @endif
+                            @endforeach
+                        @endif
                     </div>
                 </div>
               <a href="{{ url('/offline-students/team/detail') }}" class="btn btn-secondary w-100 mt-4">Detail</a>
             </div>
           </div>
     </div>
-    @endforeach
+    @empty
+    <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+        <img src="{{ asset('empty-asset.png') }}" alt="" width="100px" srcset="">
+        <p class="fs-5 text-dark">
+            Tidak ada tim
+        </p>
+        <a href="{{ route('project.index', ['slug' => $team->slug]) }}" class="btn btn-primary">Ajukan projek</a>
+    </div>
+    @endforelse
 </div>
 
 <div class="modal fade" id="add" tabindex="-1" aria-labelledby="varyingcontentModalLabel" aria-hidden="true">

@@ -98,10 +98,10 @@
                                     class="nav-link {{ request()->is('approval*') ? 'active' : '' }}"
                                     data-key="t-chat">Pendaftaran</a>
                             </li>
-                            {{-- <li class="nav-item {{ request()->is('/permission') ? 'active' : '' }}">
-                                <a href="{{ url('/permission') }}" class="nav-link" data-key="t-api-key">Izin &amp; Sakit</a>
+                            <li class="nav-item {{ request()->is('administrator/permission*') ? 'active' : '' }}">
+                                <a href="{{ url('/administrator/permission') }}" class="nav-link" data-key="t-api-key">Izin &amp; Sakit</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="{{ url('/top-up') }}" class="nav-link" data-key="t-api-key">TopUp</a>
                             </li> --}}
                         </ul>

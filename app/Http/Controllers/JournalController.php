@@ -68,7 +68,7 @@ class JournalController extends Controller
     {
         try {
             $currentDate = Carbon::now()->locale('id_ID')->setTimezone('Asia/Jakarta')->isoFormat('HH:mm:ss');
-            if ($currentDate < '08:00:00' || $currentDate > '23:59:00') {
+            if ($currentDate < '16:00:00' || $currentDate > '23:59:00') {
                 return redirect()->back()->with('error', 'Waktu pengumpulan adalah jam 4 sore sampai 12 malam');
             } else {
                 $existingData = $this->journal->where('created_at', '>=', now()->startOfDay());

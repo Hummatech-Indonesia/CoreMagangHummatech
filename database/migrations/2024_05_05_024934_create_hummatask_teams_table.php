@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\StatusHummaTeamEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('division_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('slug');
+            $table->enum('status', [StatusHummaTeamEnum::PENDING->value, StatusHummaTeamEnum::ACTIVE->value, StatusHummaTeamEnum::EXPIRED->value])->default(StatusHummaTeamEnum::PENDING->value);
             $table->timestamps();
         });
     }

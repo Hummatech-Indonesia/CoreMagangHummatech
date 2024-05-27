@@ -31,6 +31,7 @@ class UpdateBoardRequest extends FormRequest
             'priority' => 'nullable',
             'status' => 'nullable',
             'student_project_id' => 'nullable',
+            'student_team_id' => 'nullable',
         ];
     }
 

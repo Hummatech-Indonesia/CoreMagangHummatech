@@ -193,7 +193,7 @@
                                     </tbody>
                                 </table>
                                 <div class="pt-2">
-                                    {{ $studentOfflines->links() }}
+                                    {{ $students->links() }}
                                 </div>
                             </div>
                         </div>

@@ -58,7 +58,9 @@
                     </div>
                     <div class="col-auto">
                         <div class="d-block d-lg-inline-block">
-                            <a href="/login" class="th-btn shadow-none">{{(auth()->check()) ? 'Home' : 'Login'}}<i
+
+                            <a href="/login"
+                                class="th-btn shadow-none btn-login-sm">{{(auth()->check()) ? 'Home' : 'Login'}}<i
                                     class="fas fa-arrow-right ms-2"></i></a>
                         </div>
                     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Mentor;
 
+use App\Contracts\Interfaces\AppointmentOfMentorInterface;
 use App\Contracts\Interfaces\DivisionInterface;
 use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\MentorInterface;
@@ -24,9 +25,11 @@ class DashboardController extends Controller
     private MentorStudentInterface $mentorStudent;
     private MentorDivisionInterface $mentorDivision;
     private ZoomScheduleInterface $zoomSchedule;
+    private AppointmentOfMentorInterface $appointment;
+
     private MentorService $mentorService;
 
-    public function __construct(DivisionInterface $division, MentorInterface $mentor, StudentInterface $student, StudentService $studentService, MentorStudentInterface $mentorStudent, MentorDivisionInterface $mentorDivision, ZoomScheduleInterface $zoomSchedule, MentorService $mentorService)
+    public function __construct(DivisionInterface $division, MentorInterface $mentor, StudentInterface $student, StudentService $studentService, MentorStudentInterface $mentorStudent, MentorDivisionInterface $mentorDivision, ZoomScheduleInterface $zoomSchedule, MentorService $mentorService,AppointmentOfMentorInterface $appointment)
     {
         $this->division = $division;
         $this->mentor = $mentor;
@@ -36,6 +39,7 @@ class DashboardController extends Controller
         $this->mentorService = $mentorService;
         $this->mentorDivision = $mentorDivision;
         $this->zoomSchedule = $zoomSchedule;
+        $this->appointment = $appointment;
     }
     /**
      * Display a listing of the resource.
@@ -53,8 +57,8 @@ class DashboardController extends Controller
 
         $zoomSchedule = $this->zoomSchedule->get();
         $totalSchedule = $zoomSchedule->count();
-
-        return view('mentor.index',compact('division','mentor', 'mentorStudent','mentorDivision','jumlahSiswa','totalSchedule','zoomSchedule'));
+        $countCourse = $this->appointment->count();
+        return view('mentor.index',compact('division','mentor', 'mentorStudent','mentorDivision','jumlahSiswa','totalSchedule','zoomSchedule','countCourse'));
     }
 
     /**

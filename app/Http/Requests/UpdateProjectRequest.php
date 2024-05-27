@@ -23,6 +23,7 @@ class UpdateProjectRequest extends FormRequest
     {
         return [
             'end_date' => 'required',
+            'project_id' => 'required',
         ];
     }
 }

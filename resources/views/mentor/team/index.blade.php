@@ -73,7 +73,7 @@
                                     </div>
                                 @endif
                             </a>
-                            @if ($team->categoryProject->name == 'solo project')
+                            @if ($team->category_project_id == 1)
                                 
                             @else
                                 @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $student)
@@ -103,17 +103,13 @@
                         </div>
                         <h5 style="font-weight: 700" class="text-capitalize">{{ $team->name }}</h5>
                         <p>{{ Str::limit($team->description, 40) }}</p>
+                        @php
+                            $project = App\Models\Project::where('hummatask_team_id', $team->id)->where('status', 'accepted')->first()
+                        @endphp
                         <div class="px-3 pb-3">
                             <div class="d-flex justify-content-between">
                                 <h6>Kondisi Tim</h6>
-                                @php
-                                    $project = App\Models\Project::where('hummatask_team_id', $team->id)->where('status', 'accepted')->first()
-                                @endphp
-                                @if ($project)
-                                <span class="mb-1 badge font-medium bg-light-{{ $project->status->color() }} text-{{ $project->status->color() }}">{{  $project->status->label() }}</span>
-                                @else
-                                    <span class="mb-1 badge font-medium bg-light-warning text-{{ $team->project_id != null ? $team->project->status->color()  : 'warning' }}">{{  $team->project_id != null ? $team->project->status->label()  : 'Belum Aktif' }}</span>
-                                @endif
+                                <span class="mb-1 badge font-medium bg-light-{{ $team->status->color() }} text-{{ $team->status->color() }}">{{  $team->status->label() }}</span>
                             </div>
                             <div class="d-flex justify-content-between py-1">
                                 <h6>Deadline:</h6>

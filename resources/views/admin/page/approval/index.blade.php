@@ -58,98 +58,90 @@
                                 </select>
                                 <p class="m-0 ms-2">entries</p>
                             </div>
-                            <div>
-                                <span class="btn bg-secondary-subtle text-secondary">Limit saat ini: {{ $limits == null ? 0 : $limits->limits }}, Sisa limit:{{ $countLimits }}</span>
+                            <div class="d-flex align-items-center justify-content-between mt-3">
+                                <!-- Tambahkan tombol submit -->
+                                <button id="submitSelected" type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#modal-acc-multiple" style="display: none;">Terima</button>
+                                <span class="btn bg-secondary-subtle text-secondary">Limit saat ini: {{ $limits == null ? 0 : $limits->limits }}, Sisa limit: {{ $countLimits }}</span>
                             </div>
+
                         </div><!-- end card header -->
 
                         <div class="card-body mx-3">
                             <div class="live-preview ">
-                                <div class="table-responsive table-card">
-                                    <table class="table align-middle table-nowrap table-striped-columns mb-0">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th scope="col" style="width: 46px;">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="cardtableCheck">
-                                                        <label class="form-check-label" for="cardtableCheck"></label>
-                                                    </div>
-                                                </th>
-                                                <th scope="col">No</th>
-                                                <th scope="col">Nama</th>
-                                                <th scope="col">Jurusan</th>
-                                                <th scope="col">Kelas</th>
-                                                <th scope="col">Masa Magang</th>
-                                                <th scope="col">Sekolah</th>
-                                                <th scope="col" style="width: 150px;">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @forelse ($studentOffline as $student)
+                                <form id="studentForm">
+                                    @csrf
+                                    <div class="table-responsive table-card">
+                                        <table class="table align-middle table-nowrap table-striped-columns mb-0">
+                                            <thead class="table-light">
                                                 <tr>
-                                                    <td>
+                                                    <th scope="col" style="width: 46px;">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value=""
-                                                                id="cardtableCheck01">
-                                                            <label class="form-check-label" for="cardtableCheck01"></label>
+                                                            <input class="form-check-input" type="checkbox" id="selectAll">
+                                                            <label class="form-check-label" for="selectAll">All</label>
                                                         </div>
-                                                    </td>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $student->name }}</td>
-                                                    <td>{{ $student->major }}</td>
-                                                    <td>{{ $student->class }}</td>
-                                                    <td
-                                                        style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
-                                                        {{ \carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}
-                                                    </td>
-                                                    <td>{{ $student->school }}</td>
-                                                    <td>
-                                                        <button type="button" data-id="{{ $student->id }}"
-                                                            data-name="{{ $student->name }}"
-                                                            data-majors="{{ $student->major }}"
-                                                            data-class="{{ $student->class }}"
-                                                            data-phone="{{ $student->phone }}"
-                                                            data-address="{{ $student->address }}"
-                                                            data-birthdate="{{ \carbon\Carbon::parse($student->birth_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
-                                                            data-birthplace="{{ $student->birth_place }}"
-                                                            data-startdate="{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
-                                                            data-finishdate="{{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
-                                                            data-school="{{ $student->school }}"
-                                                            data-email="{{ $student->email }}"
-                                                            data-avatar="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}"
-                                                            data-cv="{{ file_exists(public_path('storage/' . $student->cv)) ? asset('storage/' . $student->cv) : asset('no data.png') }}"
-                                                            data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
-                                                            data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
-                                                            data-identify_number="{{ $student->identify_number }}"
-                                                            data-identify_number="{{ $student->identify_number }}"
-                                                            data-internship_type="{{ $student->internship_type }}"
-                                                            class="btn bg-secondary-subtle text-secondary btn-detail">
-                                                            <i class="ri-eye-fill"></i>
-                                                        </button>
-                                                    </td>
+                                                    </th>
+                                                    <th scope="col">No</th>
+                                                    <th scope="col">Nama</th>
+                                                    <th scope="col">Jurusan</th>
+                                                    <th scope="col">Kelas</th>
+                                                    <th scope="col">Masa Magang</th>
+                                                    <th scope="col">Sekolah</th>
+                                                    <th scope="col" style="width: 150px;">Action</th>
                                                 </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="8">
-                                                        <div class="d-flex justify-content-center mt-3">
-                                                            <img src="{{ asset('no data.png') }}" width="200px"
-                                                                alt="">
-                                                        </div>
-                                                        <h4 class="text-center mt-2 mb-4">
-                                                            Data Masih kosong
-                                                        </h4>
-                                                    </td>
-                                                </tr>
-                                            @endforelse
-                                        </tbody>
-                                    </table>
-                                    <div class="pt-2">
+                                            </thead>
+                                            <tbody>
+                                                @forelse ($studentOffline as $student)
+                                                    <tr>
+                                                        <td>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input cardtableCheck" type="checkbox" value="{{ $student->id }}" id="cardtableCheck{{ $student->id }}" data-school="{{ $student->school }}">
+                                                                <label class="form-check-label" for="cardtableCheck{{ $student->id }}"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $student->name }}</td>
+                                                        <td>{{ $student->major }}</td>
+                                                        <td>{{ $student->class }}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}</td>
+                                                        <td>{{ $student->school }}</td>
+                                                        <td>
+                                                            <button type="button" data-id="{{ $student->id }}"
+                                                                data-name="{{ $student->name }}"
+                                                                data-majors="{{ $student->major }}"
+                                                                data-class="{{ $student->class }}"
+                                                                data-phone="{{ $student->phone }}"
+                                                                data-address="{{ $student->address }}"
+                                                                data-birthdate="{{ \carbon\Carbon::parse($student->birth_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                                                data-birthplace="{{ $student->birth_place }}"
+                                                                data-startdate="{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                                                data-finishdate="{{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                                                data-school="{{ $student->school }}"
+                                                                data-email="{{ $student->email }}"
+                                                                data-avatar="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}"
+                                                                data-cv="{{ file_exists(public_path('storage/' . $student->cv)) ? asset('storage/' . $student->cv) : asset('no data.png') }}"
+                                                                data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
+                                                                data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
+                                                                data-identify_number="{{ $student->identify_number }}"
+                                                                data-internship_type="{{ $student->internship_type }}"
+                                                                class="btn bg-secondary-subtle text-secondary btn-detail">
+                                                                <i class="ri-eye-fill"></i>
+                                                            </button>
 
-                                        {{$studentOffline->links()}}
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="8" class="text-center">Data Masih kosong</td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                        <div class="pt-3">
+                                            {{ $studentOffline->links() }}
+                                        </div>
                                     </div>
-                                </div>
 
+                                </form>
                             </div>
                         </div><!-- end card-body -->
                     </div>
@@ -170,96 +162,90 @@
                                 </select>
                                 <p class="m-0 ms-2">entries</p>
                             </div>
-                            <div>
-                                <span class="btn bg-secondary-subtle text-secondary">Limit saat ini: {{ $limits == null ? 0 : $limits->limits }}, Sisa limit:{{ $countLimits }}</span>
+                            <div class="d-flex align-items-center justify-content-between mt-3">
+                                <!-- Tambahkan tombol submit -->
+                                <button id="submitSelectedOnline" type="button" class="btn btn-success me-3" data-bs-toggle="modal" data-bs-target="#modal-acc-multiple" style="display: none;">Terima</button>
+                                <span class="btn bg-secondary-subtle text-secondary">Limit saat ini: {{ $limits == null ? 0 : $limits->limits }}, Sisa limit: {{ $countLimits }}</span>
                             </div>
+
                         </div><!-- end card header -->
 
                         <div class="card-body mx-3">
                             <div class="live-preview ">
-                                <div class="table-responsive table-card">
-                                    <table class="table align-middle table-nowrap table-striped-columns mb-0">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th scope="col" style="width: 46px;">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="cardtableCheck">
-                                                        <label class="form-check-label" for="cardtableCheck"></label>
-                                                    </div>
-                                                </th>
-                                                <th scope="col">No</th>
-                                                <th scope="col">Nama</th>
-                                                <th scope="col">Jurusan</th>
-                                                <th scope="col">Kelas</th>
-                                                <th scope="col">Masa Magang</th>
-                                                <th scope="col">Sekolah</th>
-                                                <th scope="col" style="width: 150px;">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @forelse ($studentOnline as $student)
+                                <form id="studentForm">
+                                    @csrf
+                                    <div class="table-responsive table-card">
+                                        <table class="table align-middle table-nowrap table-striped-columns mb-0">
+                                            <thead class="table-light">
                                                 <tr>
-                                                    <td>
+                                                    <th scope="col" style="width: 46px;">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                value="" id="cardtableCheck01">
-                                                            <label class="form-check-label"
-                                                                for="cardtableCheck01"></label>
+                                                            <input class="form-check-input" type="checkbox" id="selectAllOnline">
+                                                            <label class="form-check-label" for="selectAllOnline">All</label>
                                                         </div>
-                                                    </td>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $student->name }}</td>
-                                                    <td>{{ $student->major }}</td>
-                                                    <td>{{ $student->class }}</td>
-                                                    <td
-                                                        style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
-                                                        {{ \carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}
-                                                    </td>
-                                                    <td>{{ $student->school }}</td>
-                                                    <td>
-                                                        <button type="button" data-id="{{ $student->id }}"
-                                                            data-name="{{ $student->name }}"
-                                                            data-majors="{{ $student->major }}"
-                                                            data-class="{{ $student->class }}"
-                                                            data-phone="{{ $student->phone }}"
-                                                            data-address="{{ $student->address }}"
-                                                            data-birthdate="{{ \carbon\Carbon::parse($student->birth_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
-                                                            data-birthplace="{{ $student->birth_place }}"
-                                                            data-startdate="{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
-                                                            data-finishdate="{{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
-                                                            data-school="{{ $student->school }}"
-                                                            data-email="{{ $student->email }}"
-                                                            data-avatar="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}"
-                                                            data-cv="{{ file_exists(public_path('storage/' . $student->cv)) ? asset('storage/' . $student->cv) : asset('no data.png') }}"
-                                                            data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
-                                                            data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
-                                                            data-identify_number="{{ $student->identify_number }}"
-                                                            data-internship_type="{{ $student->internship_type }}"
-                                                            class="btn bg-secondary-subtle text-secondary btn-detail">
-                                                            <i class="ri-eye-fill"></i>
-                                                        </button>
-                                                    </td>
+                                                    </th>
+                                                    <th scope="col">No</th>
+                                                    <th scope="col">Nama</th>
+                                                    <th scope="col">Jurusan</th>
+                                                    <th scope="col">Kelas</th>
+                                                    <th scope="col">Masa Magang</th>
+                                                    <th scope="col">Sekolah</th>
+                                                    <th scope="col" style="width: 150px;">Action</th>
                                                 </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="8">
-                                                        <div class="d-flex justify-content-center mt-3">
-                                                            <img src="{{ asset('no data.png') }}" width="200px"
-                                                                alt="">
-                                                        </div>
-                                                        <h4 class="text-center mt-2 mb-4">
-                                                            Data Masih kosong
-                                                        </h4>
-                                                    </td>
-                                                </tr>
-                                            @endforelse
-                                        </tbody>
-                                    </table>
-                                    <div class="pt-3">
-                                        {{ $studentOnline->links() }}
+                                            </thead>
+                                            <tbody>
+                                                @forelse ($studentOnline as $student)
+                                                    <tr>
+                                                        <td>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input cardtableCheck-online" type="checkbox" value="{{ $student->id }}" data-school="{{ $student->school }}" id="cardtableCheck-online{{ $student->id }}">
+                                                                <label class="form-check-label" for="cardtableCheck-online{{ $student->id }}"></label>
+                                                            </div>
+                                                        </td>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $student->name }}</td>
+                                                        <td>{{ $student->major }}</td>
+                                                        <td>{{ $student->class }}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}</td>
+                                                        <td>{{ $student->school }}</td>
+                                                        <td>
+                                                            <button type="button" data-id="{{ $student->id }}"
+                                                                data-name="{{ $student->name }}"
+                                                                data-majors="{{ $student->major }}"
+                                                                data-class="{{ $student->class }}"
+                                                                data-phone="{{ $student->phone }}"
+                                                                data-address="{{ $student->address }}"
+                                                                data-birthdate="{{ \carbon\Carbon::parse($student->birth_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                                                data-birthplace="{{ $student->birth_place }}"
+                                                                data-startdate="{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                                                data-finishdate="{{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                                                data-school="{{ $student->school }}"
+                                                                data-email="{{ $student->email }}"
+                                                                data-avatar="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}"
+                                                                data-cv="{{ file_exists(public_path('storage/' . $student->cv)) ? asset('storage/' . $student->cv) : asset('no data.png') }}"
+                                                                data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
+                                                                data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
+                                                                data-identify_number="{{ $student->identify_number }}"
+                                                                data-internship_type="{{ $student->internship_type }}"
+                                                                class="btn bg-secondary-subtle text-secondary btn-detail">
+                                                                <i class="ri-eye-fill"></i>
+                                                            </button>
+
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="8" class="text-center">Data Masih kosong</td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                        <div class="pt-3">
+                                            {{ $studentOnline->links() }}
+                                        </div>
                                     </div>
-                                </div>
+
+                                </form>
                             </div>
                         </div><!-- end card-body -->
                     </div>
@@ -407,14 +393,14 @@
     </div>
 
     <!-- Letter Number -->
-    <div class="modal fade bs-example-modal-center" tabindex="-1" aria-labelledby="mySmallModalLabel"
+    <div class="modal fade bs-example-modal-center" id="accepted-one" tabindex="-1" aria-labelledby="mySmallModalLabel"
         style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body p-2 text-center">
                     <div class="mt-3 mx-3">
                         <h4>Nomor surat</h4>
-                        <form action="" id="form-accepted" method="POST">
+                        <form action="" id="form-accepted-one" method="POST">
                             @csrf
                             @method('put')
                             <label for="">Masukan Nomer Surat</label>
@@ -429,6 +415,34 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade bs-example-modal-center" id="modal-acc-multiple" tabindex="-1" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body p-2 text-center">
+                    <div class="mt-3 mx-3">
+                        <h4>Nomor surat</h4>
+                        <form action="{{ route('approval.acceptMultiple') }}" id="form-accepted" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="selected_ids" id="selected_ids">
+
+                            <div id="school-letters-container">
+                                <!-- Dynamic inputs will be inserted here -->
+                            </div>
+
+                            <div class="mt-4 mb-3 d-flex justify-content-center gap-2">
+                                <button id="acceptButton" class="btn btn-success">Ya, terima</button>
+                                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Batal</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="modal fade" id="modalReject" tabindex="-1" aria-labelledby="modal-deleteLabel1">
         <div class="modal-dialog modal-sm" role="document">
             <form id="form-reject" method="POST">
@@ -530,8 +544,8 @@
 
         $('.btn-accept').click(function() {
             let id = $(this).data('id');
-            $('#form-accepted').attr('action', 'approval/accept/' + id);
-            $('.bs-example-modal-center').modal('show');
+            $('#form-accepted-one').attr('action', 'approval/accept/' + id);
+            $('#accepted-one').modal('show');
         });
 
         $('.btn-reject').click(function() {
@@ -574,4 +588,255 @@
             };
         }
     </script>
+
+    {{-- <script>
+    $(document).ready(function() {
+        $('#selectAll').on('change', function() {
+            $('.cardtableCheck').prop('checked', this.checked);
+            toggleSubmitButton();
+        });
+
+        $('.cardtableCheck').on('change', function() {
+            if ($('.cardtableCheck:checked').length == $('.cardtableCheck').length) {
+                $('#selectAll').prop('checked', true);
+            } else {
+                $('#selectAll').prop('checked', false);
+            }
+            toggleSubmitButton();
+        });
+
+        function toggleSubmitButton() {
+            if ($('.cardtableCheck:checked').length > 0) {
+                $('#submitSelected').show();
+            } else {
+                $('#submitSelected').hide();
+            }
+        }
+
+        $('#submitSelected').on('click', function() {
+            var selectedIds = $('.cardtableCheck:checked').map(function() {
+                return $(this).val();
+            }).get().join(',');
+            $('#selected_ids').val(selectedIds);
+
+            // Menampilkan modal ketika tombol submit dipilih
+            $('#modal-acc-multiple').modal('show');
+        });
+
+        // Tambahkan event listener untuk memperbarui placeholder nomor surat berdasarkan pilihan sekolah
+        $('#letter_number').attr('placeholder', 'Masukkan Nomor Surat untuk Sekolah A');
+        $('#letter_number').on('input', function() {
+            var school = $('#school').val();
+            $(this).attr('placeholder', 'Masukkan Nomor Surat untuk ' + school);
+        });
+
+    });
+
+    </script> --}}
+
+<script>
+    $(document).ready(function() {
+        function updateModal() {
+            var selectedSchools = {};
+            var selectedIds = [];
+
+            // Mengelompokkan siswa berdasarkan sekolah
+            $('.cardtableCheck:checked').each(function() {
+                var school = $(this).data('school');
+                var studentId = $(this).val();
+
+                if (school) { // Pengecekan untuk memastikan bahwa sekolah valid
+                    if (!selectedSchools[school]) {
+                        selectedSchools[school] = [];
+                    }
+                    selectedSchools[school].push(studentId);
+                    selectedIds.push(studentId);
+                }
+            });
+
+            // Menghapus input nomor surat yang ada
+            $('#nomor-surat-container').empty();
+
+            // Menambahkan input nomor surat untuk setiap sekolah
+            for (var school in selectedSchools) {
+                if (selectedSchools.hasOwnProperty(school)) {
+                    var nomorSuratHtml = `
+                        <div class="mb-3">
+                            <label for="letter_number">Masukkan Nomor Surat untuk ${school}</label>
+                            <input type="number" class="form-control" name="letter_number[${school}]" placeholder="Masukkan Nomor Surat untuk ${school}">
+                        </div>
+                    `;
+                    $('#nomor-surat-container').append(nomorSuratHtml);
+                }
+            }
+
+            // Memperbarui input hidden dengan ID siswa yang dipilih
+            $('#selected_ids').val(selectedIds.join(','));
+        }
+
+        // Mendeteksi perubahan pada checkbox siswa
+        $('.cardtableCheck').on('change', updateModal);
+
+        // Saat tombol modal di klik, update modal dengan input nomor surat yang sesuai
+        $('#openModalButton').on('click', function() {
+            updateModal();
+            $('#modal-acc-multiple').modal('show');
+        });
+
+        // Update modal saat checkbox select all diubah
+        $('#selectAll').on('change', function() {
+            $('.cardtableCheck').prop('checked', this.checked);
+            updateModal();
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        $('#selectAllOnline').on('change', function() {
+            $('.cardtableCheck').prop('checked', this.checked);
+            toggleSubmitButton();
+        });
+
+        $('.cardtableCheck').on('change', function() {
+            if ($('.cardtableCheck:checked').length == $('.cardtableCheck').length) {
+                $('#selectAllOnline').prop('checked', true);
+            } else {
+                $('#selectAllOnline').prop('checked', false);
+            }
+            toggleSubmitButton();
+        });
+
+        function toggleSubmitButton() {
+            if ($('.cardtableCheck:checked').length > 0) {
+                $('#submitSelectedOnline').show();
+            } else {
+                $('#submitSelectedOnline').hide();
+            }
+        }
+
+        $('#submitSelectedOnline').on('click', function() {
+            var selectedIds = $('.cardtableCheck:checked').map(function() {
+                return $(this).val();
+            }).get().join(',');
+            $('#selected_ids').val(selectedIds);
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#selectAll').on('change', function() {
+            $('.cardtableCheck').prop('checked', this.checked);
+            toggleSubmitButton();
+        });
+
+        $('.cardtableCheck').on('change', function() {
+            if ($('.cardtableCheck:checked').length == $('.cardtableCheck').length) {
+                $('#selectAll').prop('checked', true);
+            } else {
+                $('#selectAll').prop('checked', false);
+            }
+            toggleSubmitButton();
+        });
+
+        function toggleSubmitButton() {
+            if ($('.cardtableCheck:checked').length > 0) {
+                $('#submitSelected').show();
+            } else {
+                $('#submitSelected').hide();
+            }
+        }
+
+        $('#submitSelected').on('click', function() {
+            var selectedIds = $('.cardtableCheck:checked').map(function() {
+                return $(this).val();
+            }).get().join(',');
+
+            $('#selected_ids').val(selectedIds);
+
+            var schools = {};
+            $('.cardtableCheck:checked').each(function() {
+                var school = $(this).data('school');
+                if (!schools[school]) {
+                    schools[school] = [];
+                }
+                schools[school].push($(this).val());
+            });
+
+            $('#school-letters-container').empty();
+            $.each(schools, function(school, ids) {
+                var schoolLabel = $('<label>').text(`Masukkan Nomor Surat untuk ${school}`);
+                var schoolInput = $('<input>').attr({
+                    type: 'number',
+                    class: 'form-control',
+                    name: `letter_numbers[${school}]`,
+                    id: `letter_number_${school}`
+                });
+                var schoolGroup = $('<div>').addClass('school-letter-group');
+                schoolGroup.append(schoolLabel).append(schoolInput);
+                $('#school-letters-container').append(schoolGroup);
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#selectAllOnline').on('change', function() {
+            $('.cardtableCheck-online').prop('checked', this.checked);
+            toggleSubmitButton();
+        });
+
+        $('.cardtableCheck-online').on('change', function() {
+            if ($('.cardtableCheck-online:checked').length == $('.cardtableCheck-online').length) {
+                $('#selectAllOnline').prop('checked', true);
+            } else {
+                $('#selectAllOnline').prop('checked', false);
+            }
+            toggleSubmitButton();
+        });
+
+        function toggleSubmitButton() {
+            if ($('.cardtableCheck-online:checked').length > 0) {
+                $('#submitSelectedOnline').show();
+            } else {
+                $('#submitSelectedOnline').hide();
+            }
+        }
+
+        $('#submitSelectedOnline').on('click', function() {
+            var selectedIds = $('.cardtableCheck-online:checked').map(function() {
+                return $(this).val();
+            }).get().join(',');
+
+            $('#selected_ids').val(selectedIds);
+
+            var schools = {};
+            $('.cardtableCheck-online:checked').each(function() {
+                var school = $(this).data('school');
+                if (!schools[school]) {
+                    schools[school] = [];
+                }
+                schools[school].push($(this).val());
+            });
+
+            $('#school-letters-container').empty();
+            $.each(schools, function(school, ids) {
+                var schoolLabel = $('<label>').text(`Masukkan Nomor Surat untuk ${school}`);
+                var schoolInput = $('<input>').attr({
+                    type: 'number',
+                    class: 'form-control',
+                    name: `letter_numbers[${school}]`,
+                    id: `letter_number_${school}`
+                });
+                var schoolGroup = $('<div>').addClass('school-letter-group');
+                schoolGroup.append(schoolLabel).append(schoolInput);
+                $('#school-letters-container').append(schoolGroup);
+            });
+        });
+    });
+</script>
+
 @endsection

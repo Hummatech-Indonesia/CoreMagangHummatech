@@ -17,13 +17,11 @@
 @endsection
 @section('content')
 <div class="d-flex gap-3 justify-content-end mb-3">
-  <button type="button" class="btn btn-light-info text-info" data-bs-toggle="modal" data-bs-target="#edit-team">
-    Edit Tim
-  </button>
+  <a href="{{ route('mentor-team.edit', ['slug' => $team->slug]) }}" class="btn btn-light-info text-info edit-team-btn">Edit Tim</a>
   <a href="/mentor/team" class="btn btn-primary">Kembali</a>
 </div>
 <div class="row">
-  <div class="col-lg-7">
+  <div class="col-lg-12">
     <div class="card w-100 p-4 bg-light-info overflow-hidden shadow-none">
       <div class="d-flex gap-4">
         <div class="text-center align-content-center ">
@@ -58,30 +56,32 @@
                 </tr>
               </thead>
               <tbody class="border-top">
-                <tr>
-                  <td>
-                    <p class="mb-0 fs-3">1</p>
-                  </td>
-                  <td class="ps-0">
-                    <div class="d-flex align-items-center">
-                      <div class="me-2 pe-1">
-                        @if(Storage::disk('public')->exists($team->student->avatar))
-                          <img src="{{ asset('storage/' . $team->student->avatar) }}" alt="avatar" class="rounded-circle mb-3" width="40px" height="40px" >
-                        @else
-                          <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle mb-3" width="40px" height="40px">
-                        @endif
-                      </div>
-                      <div>
-                        <h6 class="fw-semibold mb-1">{{ $team->student->name }}</h6>
-                        <p class="fs-2 mb-0 text-muted">Ketua</p>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $key => $student)
+                @if ($team->category_project_id != 1)
                   <tr>
                     <td>
-                      <p class="mb-0 fs-3">{{ (++$key + 1) }}</p>
+                      <p class="mb-0 fs-3">1</p>
+                    </td>
+                    <td class="ps-0">
+                      <div class="d-flex align-items-center">
+                        <div class="me-2 pe-1">
+                          @if(Storage::disk('public')->exists($team->student->avatar))
+                            <img src="{{ asset('storage/' . $team->student->avatar) }}" alt="avatar" class="rounded-circle mb-3" width="40px" height="40px" >
+                          @else
+                            <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle mb-3" width="40px" height="40px">
+                          @endif
+                        </div>
+                        <div>
+                          <h6 class="fw-semibold mb-1">{{ $team->student->name }}</h6>
+                          <p class="fs-2 mb-0 text-muted">Ketua</p>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                @endif
+                @foreach ($studentTeams as $key => $student)
+                  <tr>
+                    <td>
+                      <p class="mb-0 fs-3">{{ $team->category_project_id != 1 ? (++$key + 1) : 1 }}</p>
                     </td>
                     <td class="ps-0">
                       <div class="d-flex align-items-center">
@@ -103,16 +103,6 @@
               </tbody>
             </table>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-5 d-flex align-items-stretch">
-    <div class="card">
-      <div class="card-body">
-        <h5>Progress tim</h5>
-        <div class="chart">
-
         </div>
       </div>
     </div>
@@ -167,16 +157,21 @@
                   data-description="{{ $presentationHistory->description }}"
                   data-date="{{ \Carbon\Carbon::parse($presentationHistory->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}"
                   data-callback="{{ $presentationHistory->callback != null ? $presentationHistory->callback : 'Belum ada tanggapan' }}"
+                  data-schedule-to="{{ $presentationHistory->schedule_to }}"
+                  data-start-date="{{ $presentationHistory->start_date }}"
+                  data-end-date="{{ $presentationHistory->end_date }}"
                   >
                     <i class="ti ti-eye fs-5"></i>
                   </button>
-                  <button class="text-warning callback-btn badge border-0 bg-light-warning"
-                  data-id="{{ $presentationHistory->id }}"
-                  >
-                    <i class="ti ti-send fs-5"></i>
-                  </button>
+                  @if ($presentationHistory->status_presentation == 'finish')
+                    <button class="text-warning callback-btn badge border-0 bg-light-warning"
+                    data-id="{{ $presentationHistory->id }}"
+                    >
+                      <i class="ti ti-send fs-5"></i>
+                    </button>
+                  @endif
                 </td>
-              </tr>  
+              </tr>
             @empty
               <tr>
                 <td colspan="6">
@@ -196,21 +191,33 @@
   </div>
 </div>
 
-<div class="modal fade" id="show-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog modal-md">
+<div class="modal fade" id="show-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title px-3" id="staticBackdropLabel">Detail presentasi</h4>
+            <h4 class="modal-title px-2" id="staticBackdropLabel">Detail presentasi</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <div class="px-3">
-            <h6 class="mb-4">Tanggal: <span id="date"></span></h6>
-          <h5 id="title">Judul presentasi</h5>
-          <p id="description"></p>
-          <h5 class="mt-4">Tanggapan mentor:</h5>
-          <p id="callback"></p>
+        <div class="modal-body px-4">
+          <div class="d-flex justify-content-between border-bottom">
+            <h6><b>Judul</b></h6>
+            <p id="title" class="mb-0"></p>
+          </div>
+          <div class="d-flex justify-content-between border-bottom mt-2">
+            <h6><b>Tanggal</b></h6>
+            <p id="date" class="mb-0"></p>
+          </div>
+          <div class="d-flex justify-content-between border-bottom mt-2">
+            <h6><b>Jadwal</b></h6>
+            <p id="schedule_to" class="mb-0"></p>
+          </div>
+          <div class="card p-3 mt-4 mb-2 shadow-sm">
+            <span><b>Deskripsi</b></span>
+            <span id="description" class="fs-2"></span>
+          </div>
+          <div class="card p-3 mt-3 shadow-sm mb-0">
+            <span><b>Feedback dari Mentor</b></span>
+            <span id="callback" class="fs-2"></span>
           </div>
         </div>
         <div class="modal-footer">
@@ -221,8 +228,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
 </div>
 </div>
 
-<div class="modal fade" id="callback-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="callback-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog modal-md">
     <div class="modal-content">
         <div class="modal-header">
@@ -248,100 +254,17 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
 </div>
 </div>
 
-<div class="modal fade" id="edit-team" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title px-3" id="staticBackdropLabel">Edit Tim</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="{{ route('team.update', $team->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="modal-body">
-                <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
-                    <div class="mx-3">
-                        <label for="" class="mt-1 mb-1">Nama Tim</label>
-                        <input type="text" name="name" class="form-control" placeholder="Masukkan nama tim"
-                            value="{{ old('name', $team->name) }}">
-                        @error('name')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                        <label for="" class="mt-2 mb-1">Kategori projek</label>
-                        <select class="select2 form-control custom-select" style="width: 100%; height: 36px"
-                            name="category_project_id">
-                            <option disabled>Pilih kategori projek</option>
-                            @forelse ($categoryProjects as $categoryProject)
-                                <option value="{{ $categoryProject->id }}" {{ $team->category_project_id == $categoryProject->id ? 'selected' : '' }}>{{ $categoryProject->name }}</option>
-                            @empty
-                                <option disabled>Belum ada kategori projek</option>
-                            @endforelse
-                        </select>
-                        @error('category_project_id')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                        <label for="" class="mt-2 mb-1">Ketua tim</label>
-                        <select class="select2 form-control custom-select" style="width: 100%; height: 36px"
-                        {{-- @dd($student->student->id, $team->student_id) --}}
-                            name="leader">
-                            <option disabled>Pilih ketua tim</option>
-                            @forelse ($students as $student)
-                                <option value="{{ $student->id }}" {{ $team->student_id == $student->student->id ? 'selected' : '' }}>{{ $student->student->name }}</option>
-                            @empty
-                                <option disabled>Tidak ada siswa</option>
-                            @endforelse
-                        </select>
-                        @error('leader')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-
-                        <div class="mb-3 mt-2 col-md-12">
-                            <label for="bm-title" class="mb-1">Anggota tim</label>
-                            @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $key => $member)
-                              <select class="select2 form-control custom-select mb-3"
-                                  name="student_id[]">
-                                  <option disabled>Pilih anggota tim</option>
-                                  @forelse ($students as $student)
-                                      <option value="{{ $student->id }}" {{ $member->hummataskTeam->student_id == $student->student->id ? 'selected' : '' }}>{{ $student->student->name }}</option>
-                                  @empty
-                                      <option disabled>Tidak ada siswa</option>
-                                  @endforelse
-                              </select>
-                              
-                              @error('student_id.*')
-                                  <p class="text-danger">{{ $message }}</p>
-                              @enderror
-                            @endforeach
-
-                            <div id="member"></div>
-
-                            <button type="button" class="btn add-button-trigger btn-primary mt-3">Tambah
-                                anggota</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light-danger text-danger"
-                    data-bs-dismiss="modal">Tutup</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
-            </div>
-        </form>
-    </div>
-</div>
-</div>
-
 @include('admin.components.delete-modal-component')
 
 @endsection
 
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.48.0/apexcharts.min.js" integrity="sha512-wqcdhB5VcHuNzKcjnxN9wI5tB3nNorVX7Zz9NtKBxmofNskRC29uaQDnv71I/zhCDLZsNrg75oG8cJHuBvKWGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.48.0/apexcharts.min.css" integrity="sha512-qc0GepkUB5ugt8LevOF/K2h2lLGIloDBcWX8yawu/5V8FXSxZLn3NVMZskeEyOhlc6RxKiEj6QpSrlAoL1D3TA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <script>
         $('.btn-delete').on('click', function() {
             var id = $(this).data('id');
@@ -355,11 +278,16 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
             let title = $(this).data('title');
             let description = $(this).data('description');
             let callback = $(this).data('callback');
-                        
+            let schedule_to = $(this).data('schedule-to');
+            let start_date = $(this).data('start-date');
+            let end_date = $(this).data('end-date');
+
+            console.log(start_date, end_date);
             $('#date').text(date);
             $('#title').text(title);
             $('#description').text(description);
             $('#callback').text(callback);
+            $('#schedule_to').text(schedule_to+' ('+start_date+'-'+end_date+')');
             $('#show-modal').modal('show');
         });
 
@@ -368,6 +296,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
           $('#form-callback').attr('action', '/mentor/presentation/callback/' + id);
           $('#callback-modal').modal('show');
         });
+
 
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2();
@@ -379,7 +308,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
             $('.add-button-trigger').click((e) => {
                 let idInput = 'input_' + Math.random().toString(36).substr(2, 9); // Generate random id
                 let target = $(e.target).parent().find('#member');
-                target.append(`<div class="d-flex align-items-center mt-3 gap-2" id="${idInput}">
+                target.append(`<div class="d-flex align-items-center my-1 mb-2 gap-2" id="${idInput}">
                   <select class="select2 form-control custom-select" style="width: 100%; height: 36px" name="student_id[]">
                     <option>Pilih anggota tim</option>
                     @forelse ($students as $student)

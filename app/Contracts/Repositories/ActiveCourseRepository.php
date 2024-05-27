@@ -13,6 +13,19 @@ class ActiveCourseRepository extends BaseRepository implements ActiveCourseInter
     }
 
     /**
+     * get by student
+     * @param mixed $id
+     * @return mixed
+     */
+    public function getByStudent(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->with('course')
+            ->where('student_id', $id)
+            ->get();
+    }
+
+    /**
      * store
      *
      * @param  mixed $data

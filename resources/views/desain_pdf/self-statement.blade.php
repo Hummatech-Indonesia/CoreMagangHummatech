@@ -74,7 +74,7 @@
             </tr>
             <tr>
                 <td>2.</td>
-                <td>Saya bersedia melakukan Magang minimal 8 bulan di kantor PT. HUMMATECH</td>
+                <td>Saya bersedia melakukan Magang minimal 6 bulan di kantor PT. HUMMATECH</td>
             </tr>
             <tr>
                 <td>3.</td>

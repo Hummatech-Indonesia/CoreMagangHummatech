@@ -8,6 +8,7 @@ use App\Contracts\Interfaces\Eloquent\SearchInterface;
 use App\Contracts\Interfaces\Eloquent\ShowInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
+use Illuminate\Http\Request;
 
 interface PermissionInterface extends GetInterface, StoreInterface, UpdateInterface, DeleteInterface, ShowInterface, SearchInterface
 {
@@ -26,5 +27,5 @@ interface PermissionInterface extends GetInterface, StoreInterface, UpdateInterf
      * @param  mixed $status
      * @return mixed
      */
-    public function getByStatus(string $status): mixed;
+    public function getByStatus(string $status, Request $request): mixed;
 }

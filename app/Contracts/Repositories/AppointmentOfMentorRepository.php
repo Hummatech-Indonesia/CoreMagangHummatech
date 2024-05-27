@@ -69,4 +69,14 @@ class AppointmentOfMentorRepository extends BaseRepository implements Appointmen
 
         return $query;
     }
+
+    public function count()
+    {
+        return $this->model->query()->where('mentor_id' , auth()->user()->id)->count();
+    }
+
+    public function detailAppointment()
+    {
+        return $this->model->query()->where('mentor_id' , auth()->user()->id)->get();
+    }
 }

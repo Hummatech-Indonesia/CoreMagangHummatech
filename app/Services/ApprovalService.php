@@ -21,8 +21,10 @@ use App\Contracts\Interfaces\Signature_COInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Enum\InternshipTypeEnum;
 use App\Models\Limits;
+use App\Models\ResponseLetter;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Illuminate\Support\Facades\Hash;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ApprovalService
@@ -87,6 +89,12 @@ class ApprovalService
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'attachment; filename="absensi.pdf"'
         ];
+
+        $studentsData[] = [
+            'name' => $student->name,
+            'identify_number' => $student->identify_number
+        ];
+
         // end qr
         $data = [
             'email' => $student->email,
@@ -100,7 +108,11 @@ class ApprovalService
             'school_address' => $student->school_address,
             'school_phone' => $student->school_phone,
         ];
-        $view = view('desain_pdf.pendaftaran', compact('data', 'qrCodeImage'));
+
+        $directorName = $dataadmin->name;
+        $directorField = $dataadmin->field;
+
+        $view = view('desain_pdf.pendaftaran', compact('data', 'qrCodeImage', 'studentsData', 'directorName', 'directorField'));
         $html = $view->render();
         $pdf = Pdf::loadHTML($html);
         $generatedPdfName = 'pdf_Terima_' . time() . '.pdf';
@@ -142,6 +154,107 @@ class ApprovalService
         // Return the response
         return $data;
     }
+
+    public function acceptMultiple(array $groupedData): void
+    {
+        foreach ($groupedData as $school => $data) {
+            $letterNumber = $data['letter_number'];
+            $studentIds = $data['student_ids'];
+
+            $studentsData = [];
+
+            foreach ($studentIds as $studentId) {
+                $student = Student::findOrFail($studentId);
+
+                $start_date_formatted = Carbon::createFromDate($student->start_date)->locale('id')->isoFormat('D MMMM Y');
+                $finish_date_formatted = Carbon::createFromDate($student->finish_date)->locale('id')->isoFormat('D MMMM Y');
+
+                $dataadmin = $this->dataCO->get();
+                $data_CO = [
+                    'barcode' => '',
+                    'data_c_o_s_id' => $dataadmin->id
+                ];
+                $signature = $this->signature_CO->store($data_CO);
+
+                $qrCode = QrCode::size(100)->generate(url('/hummatech/' . $signature->id));
+                $qrCodeImage = 'data:image/png;base64,' . base64_encode($qrCode);
+
+                $signature->barcode = $qrCodeImage;
+                $signature->save();
+
+                // Tambahkan data siswa ke dalam array $studentsData
+                $studentsData[] = [
+                    'name' => $student->name,
+                    'identify_number' => $student->identify_number
+                ];
+
+                // Generate PDF dan kirim email untuk semua siswa setelah loop
+                $data = [
+                    'letter_number' => $letterNumber,
+                    'start_date' => $start_date_formatted,
+                    'date' => Carbon::now()->locale('id')->isoFormat('D MMMM Y'),
+                    'finish_date' => $finish_date_formatted,
+                    'school' => $student->school,
+                    'school_address' => $student->school_address,
+                    'school_phone' => $student->school_phone,
+                ];
+            }
+
+            // Ambil nama dan field dari data_co
+            $directorName = $dataadmin->name;
+            $directorField = $dataadmin->field;
+
+            $view = view('desain_pdf.pendaftaran', compact('data', 'qrCodeImage', 'studentsData', 'directorName', 'directorField'));
+            $html = $view->render();
+            $pdf = Pdf::loadHTML($html);
+            $generatedPdfName = 'pdf_Terima_' . time() . '.pdf';
+            $pdfPath = 'public/' . TypeEnum::RESPONSELETTER->value . '/' . $generatedPdfName;
+            Storage::put($pdfPath, $pdf->output());
+
+            // Simpan data untuk setiap siswa
+            foreach ($studentIds as $studentId) {
+                $student = Student::findOrFail($studentId);
+
+                $dataForResponseLetter = [
+                    'student_id' => $student->id,
+                    'letter_number' => $letterNumber . '/PKL/HMTI/' . Carbon::now()->format('Y'),
+                    'letter_file' => $generatedPdfName
+                ];
+                $this->responseLetter->store($dataForResponseLetter);
+
+                // Kirim email ke setiap siswa
+                $data['email'] = $student->email;
+                $data['name'] = $student->name;
+                Mail::send(['html' => 'mail.accept'], ['data' => $data], function ($message) use ($data, $pdf) {
+                    $message->to($data['email'])
+                        ->subject('Konfirmasi Pendaftaran')
+                        ->attachData($pdf->output(), "Konfirmasi.pdf");
+                });
+
+                // Buat user untuk setiap siswa
+                $dataUser = [
+                    'name' => $student->name,
+                    'email' => $student->email,
+                    'password' => $student->password,
+                    'student_id' => $student->id,
+                ];
+                $user = $this->user->store($dataUser);
+
+                // Assign role berdasarkan jenis PKL
+                if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
+                    $user->assignRole(RolesEnum::OFFLINE->value);
+                } elseif ($student->internship_type == InternshipTypeEnum::ONLINE->value) {
+                    $user->assignRole(RolesEnum::ONLINE->value);
+                }
+
+                // Update status siswa
+                $student->update(['status' => StudentStatusEnum::ACCEPTED->value]);
+            }
+        }
+    }
+
+
+
 
     public function decline(DeclinedAprovalRequest $request, Student $student)
     {

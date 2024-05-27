@@ -23,20 +23,22 @@ class AdminJournalController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    $adminJournalQuery = $this->adminJournal->search($request);
-    $searchDate = $request->filled('created_at') ? $request->created_at : Carbon::today()->toDateString();
+    {
+        $adminJournalQuery = $this->adminJournal->search($request);
+        $searchDate = $request->filled('created_at') ? $request->created_at : Carbon::today()->toDateString();
 
-    if (!$request->filled('created_at') || Carbon::parse($searchDate)->isToday()) {
-        $adminJournalQuery->whereDate('created_at', $searchDate);
+        if (!$request->filled('created_at') || Carbon::parse($searchDate)->isToday()) {
+            $adminJournalQuery->whereDate('created_at', $searchDate);
+        }
+
+
+        $adminJournalAll = $adminJournalQuery->paginate(10, ['*'], 'all_page');
+        $adminJournalFillIn = $adminJournalQuery->where('status', 'fillin')->paginate(10, ['*'], 'fillin_page');
+        $adminJournalNotFilling = $adminJournalQuery->where('status', '!=', 'fillin')->paginate(10, ['*'], 'notfilling_page');
+
+
+        return view('admin.page.journal', compact('adminJournalAll','adminJournalFillIn','adminJournalNotFilling'));
     }
-
-    $adminJournal = $adminJournalQuery->paginate(10);
-
-    $adminJournal->appends(['created_at' => $searchDate]);
-
-    return view('admin.page.journal', compact('adminJournal'));
-}
     /**
      * Show the form for creating a new resource.
      */

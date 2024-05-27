@@ -10,4 +10,13 @@ interface StudentTeamInterface extends GetInterface, StoreInterface, UpdateInter
 {
     public function where($parameter, $value): mixed;
     public function getTeamsByMentorId($mentor_id): mixed;
+
+    /**
+     *
+     * delete by hummatask team id
+     * @param mixed $id
+     * @return mixed
+     *
+     */
+    public function deleteByTeamId(mixed $id): mixed;
 }

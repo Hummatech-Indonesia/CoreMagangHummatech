@@ -29,10 +29,7 @@
           </a>
           <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-center">
             <li class="nav-item dropdown">
-              <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="ti ti-bell-ringing"></i>
-                <div class="notification bg-primary rounded-circle"></div>
-              </a>
+
               <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                 <div class="d-flex align-items-center justify-content-between py-3 px-7">
                   <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5>
@@ -149,31 +146,13 @@
                     @endif
                     <div class="ms-3">
                       <h5 class="mb-1 fs-3">{{ auth()->user()->mentor->name }}</h5>
-                      <span class="mb-1 d-block text-dark">Designer</span>
+                      <span class="mb-1 d-block text-dark">{{auth()->user()->mentor->division->name}}</span>
                       <p class="mb-0 d-flex text-dark align-items-center gap-2">
                         <i class="ti ti-mail fs-4"></i> {{ auth()->user()->mentor->email }}
                       </p>
                     </div>
                   </div>
                   <div class="message-body">
-                    <a href="page-user-profile.html" class="py-8 px-7 mt-8 d-flex align-items-center">
-                      <span class="d-flex align-items-center justify-content-center bg-light rounded-1 p-6">
-                        <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/svgs/icon-account.svg" alt="" width="24" height="24">
-                      </span>
-                      <div class="w-75 d-inline-block v-middle ps-3">
-                        <h6 class="mb-1 bg-hover-primary fw-semibold"> My Profile </h6>
-                        <span class="d-block text-dark">Account Settings</span>
-                      </div>
-                    </a>
-                    <a href="app-notes.html" class="py-8 px-7 d-flex align-items-center">
-                      <span class="d-flex align-items-center justify-content-center bg-light rounded-1 p-6">
-                        <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/svgs/icon-tasks.svg" alt="" width="24" height="24">
-                      </span>
-                      <div class="w-75 d-inline-block v-middle ps-3">
-                        <h6 class="mb-1 bg-hover-primary fw-semibold">My Task</h6>
-                        <span class="d-block text-dark">To-do and Daily Tasks</span>
-                      </div>
-                    </a>
                   </div>
                   <div class="d-grid py-4 px-7 pt-8">
                     {{-- <div class="upgrade-plan bg-light-primary position-relative overflow-hidden rounded-4 p-4 mb-9">

@@ -39,15 +39,15 @@ class CategoryBoardController extends Controller
      */
     public function index($slug, HummataskTeam $hummataskTeam)
     {
-        $slugs = $this->hummataskTeam->slug($slug);
-        $categoryBoards = $this->categoryBoard->get();
+        $team = $this->hummataskTeam->slug($slug);
+        $categoryBoards = $this->categoryBoard->getByHummataskTeamId($team->id);
         $boards = $this->board->get();
-        $projects = $this->Project->where('title', $slugs->slug);
+        $projects = $this->Project->where('title', $team->slug);
         $studentTeams = $this->studentTeam->get();
         foreach ($projects as $project) {
             $studentTeams = $this->studentTeam->where('project_id', $project->id);
         }
-        return view('Hummatask.team.board' , compact('categoryBoards', 'hummataskTeam', 'boards', 'slugs', 'studentTeams'));
+        return view('Hummatask.team.board' , compact('categoryBoards', 'hummataskTeam', 'boards', 'team', 'studentTeams'));
     }
 
     /**
@@ -110,13 +110,13 @@ class CategoryBoardController extends Controller
 
     public function shownote($slug, HummataskTeam $hummataskTeam)
     {
-        $categoryBoards = $this->categoryBoard->get();
+        $team = $this->hummataskTeam->slug($slug);
+        $categoryBoards = $this->categoryBoard->getByHummataskTeamId($team->id);
         $board = [];
 
         foreach ($categoryBoards as $key => $categoryBoard) {
             $board = $this->board->whereCategory($categoryBoard->id);
         }
-        $slugs = $this->hummataskTeam->slug($slug);
-        return view('Hummatask.team.note', compact('hummataskTeam', 'slugs','categoryBoards','board'));
+        return view('Hummatask.team.note', compact('hummataskTeam', 'team','categoryBoards','board'));
     }
 }

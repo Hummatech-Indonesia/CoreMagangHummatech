@@ -56,26 +56,32 @@
                                     </tr>
                                 </thead>
                                 <tbody class="list form-check-all">
-                                    @forelse ($picketingReport as $index=>$picketingReport)
+                                    @forelse ($picketingReport as $index => $picketingReport)
                                         <tr align="center">
-                                            <td class="number">1</td>
-                                            <td class="name">VLZ1400087402</td>
-                                            <td>Post launch reminder/ post list</td>
+                                            <td class="number">{{++$index}}</td>
+                                            <td class="name">nama</td>
+                                            <td>{{ \Carbon\Carbon::parse($picketingReport->created_at)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</td>
                                             <td>
-                                                <img src="assets/images/galaxy/img-1.png" alt="My Image"
+                                                <img src="{{ asset('storage/' . $picketingReport->proof) }}" alt="My Image"
                                                     style="max-width: 150px; max-height:150px;">
                                             </td>
-                                            <td>Lorem ipsum dolor sit amet consectetur.....</td>
+                                            <td>{{ Str::limit($picketingReport->description, 60) }}</td>
                                             <td class="status">
-                                                <h5><span class="badge bg-success-subtle text-success text-uppercase">Di
-                                                        Terima</span>
-                                                </h5>
+                                                <h6>
+                                                    <span class="badge bg-{{ $picketingReport->status->color() }}">
+                                                        {{ $picketingReport->status->label() }}
+                                                    </span>
+                                                </h6>
                                             </td>
                                             <td>
                                                 <div class="view">
-                                                    <button class="btn btn-soft-primary  edit-item-btn"
-                                                        data-bs-toggle="modal" data-bs-target="#showModal">
-                                                        <i class=" ri-eye-line"></i>
+                                                    <button class="btn btn-soft-primary btn-detail"
+                                                    data-id="{{$picketingReport->id}}"
+                                                    data-proof="{{ asset('storage/' . $picketingReport->proof) }}"
+                                                    data-description="{{$picketingReport->description}}"
+                                                    data-created_at="{{$picketingReport->created_at}}"
+                                                    >
+                                                        <i class="ri-eye-line"></i>
                                                     </button>
                                                 </div>
                                             </td>
@@ -102,46 +108,65 @@
         </div>
     </div>
 
-    <!-- Detail Modal -->
-    <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="showModalLabel">Detail Laporan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Detail Modal -->
+<div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showModalLabel">Detail Laporan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <h6 style="color: black;">Hari :</h6>
+                    <p id="show-created_at"></p>
                 </div>
-                <div class="modal-body">
-                    <div>
-                        <h6 style="color: black;">Hari :</h6>
-                        <p id="modalName">Jumat</p>
-                    </div>
-                    <div>
-                        <h6 style="color: black;">Waktu :</h6>
-                        <p id="modalName">Sore</p>
-                    </div>
-                    <div>
-                        <h6 style="color: black;">Bukti :</h6>
-                        <p id="modalName">
-                            <img src="assets/images/galaxy/img-1.png" alt="My Image" style="width: 100%; height: auto;">
-                        </p>
-                    </div>
-                    <div>
-                        <h6 style="color: black;">Deskripsi :</h6>
-                        <p id="modalName">
-                            Lorem ipsum dolor sit amet consectetur. Viverra ornare ullamcorper mattis amet pretium. Morbi ac
-                            ipsum tellus dignissim sapien. Diam at enim semper pharetra ac libero a neque sit. Sit tristique
-                            fermentum ullamcorper leo mattis quis. Nisl eget viverra id imperdiet pharetra. Elit in pulvinar
-                            adipiscing diam adipiscing. Senectus cum in amet a congue. Amet etiam vitae fringilla adipiscing
-                            sit et lorem. Urna mi sed ac commodo. Ornare nulla sit sit porta. Varius commodo tortor odio
-                            aliquam consectetur.
-                        </p>
-                    </div>
-
+                <div class="mb-3">
+                    <h6 style="color: black;">Bukti :</h6>
+                    <img id="show-proof" src="" alt="Proof Image" style="width: 100%; height: auto;">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
+                <div>
+                    <h6 style="color: black;">Deskripsi :</h6>
+                    <p id="show-description"></p>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>
+</div>
+
+
+
+
+@endsection
+
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/id.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        moment.locale('id'); // Set locale to Indonesian
+
+        $('.btn-detail').click(function() {
+            let id = $(this).data('id');
+            let proof = $(this).data('proof');
+            let created_at = $(this).data('created_at');
+            let description = $(this).data('description');
+
+            let formattedDate = moment(created_at).format('dddd, DD MMMM YYYY');
+
+            $('#show-created_at').text(formattedDate);
+            $('#show-description').text(description);
+            $('#show-proof').attr('src', proof );
+
+            $('#showModal').modal('show');
+        });
+    });
+</script>
 @endsection

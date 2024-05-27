@@ -17,9 +17,9 @@ class Presentation extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function hummataskTeam(): BelongsTo
+    public function hummataskTeam()
     {
-        return $this->belongsTo(HummataskTeam::class);
+        return $this->belongsTo(HummataskTeam::class, 'hummatask_team_id');
     }
 
     protected $casts = [

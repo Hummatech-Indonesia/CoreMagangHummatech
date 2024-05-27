@@ -292,7 +292,7 @@
 
                                                 <span
                                                     class="badge bg-success-subtle text-success py-2 px-3">{{ \Carbon\Carbon::parse($detailAttendance->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}</span>
-                                           
+
                                         @endif
                                     @endforeach
                             </td>
@@ -433,17 +433,18 @@
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="status" id="izinDiterima" status
-                                    value="permission">
+                                    value="izin">
                                 <label class="form-check-label" for="izinDiterima">
                                     Izin
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="status" id="izinDitolak"
-                                    value="sick">
+                                    value="sakit">
                                 <label class="form-check-label" for="izinDitolak">
                                     Sakit
                                 </label>
+                                
                             </div>
                         </div>
                         <div class="modal-footer">

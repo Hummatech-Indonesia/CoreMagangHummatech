@@ -2,21 +2,28 @@
 
 namespace App\Http\Controllers\StudentOnline;
 
+use App\Contracts\Interfaces\HummataskTeamInterface;
+use App\Contracts\Interfaces\PresentationInterface;
 use App\Contracts\Interfaces\ZoomScheduleInterface;
 use App\Http\Controllers\Controller;
 use App\Models\ZoomSchedule;
 use App\Http\Requests\StoreZoomScheduleRequest;
 use App\Http\Requests\UpdateZoomScheduleRequest;
+use App\Models\Presentation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ZoomScheduleController extends Controller
 {
     private ZoomScheduleInterface $zoomSchedule;
+    private HummataskTeamInterface $hummataskTeam;
+    private PresentationInterface $presentation;
 
-    public function __construct(ZoomScheduleInterface $zoomSchedule)
+    public function __construct(ZoomScheduleInterface $zoomSchedule, HummataskTeamInterface $hummataskTeam, PresentationInterface $presentation)
     {
         $this->zoomSchedule = $zoomSchedule;
+        $this->hummataskTeam = $hummataskTeam;
+        $this->presentation = $presentation;
     }
     /**
      * Display a listing of the resource.
@@ -54,34 +61,36 @@ class ZoomScheduleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ZoomSchedule $zoomSchedule)
-{
-    $zoomSchedules = $this->zoomSchedule->get();
+    public function show(ZoomSchedule $zoomSchedule, Request $request)
+    {
+        $zoomSchedules = $this->zoomSchedule->get();
 
-    $processedSchedules = [];
+        $processedSchedules = [];
 
-    if ($zoomSchedules->isNotEmpty()) {
-        foreach ($zoomSchedules as $schedule) {
-            $startDate = \Carbon\Carbon::parse($schedule->start_date);
-            $endDate = \Carbon\Carbon::parse($schedule->end_date);
-            $now = \Carbon\Carbon::now();
-            $status = '';
+        if ($zoomSchedules->isNotEmpty()) {
+            foreach ($zoomSchedules as $schedule) {
+                $startDate = \Carbon\Carbon::parse($schedule->start_date);
+                $endDate = \Carbon\Carbon::parse($schedule->end_date);
+                $now = \Carbon\Carbon::now();
+                $status = '';
 
-            if ($now->lt($startDate)) {
-                $status = 'Mendatang';
-            } elseif ($now->gt($endDate)) {
-                $status = 'Berakhir';
-            } else {
-                $status = 'Berlangsung';
+                if ($now->lt($startDate)) {
+                    $status = 'Mendatang';
+                } elseif ($now->gt($endDate)) {
+                    $status = 'Berakhir';
+                } else {
+                    $status = 'Berlangsung';
+                }
+
+                $schedule->status = $status;
+                $processedSchedules[] = $schedule;
             }
-
-            $schedule->status = $status;
-            $processedSchedules[] = $schedule;
         }
-    }
 
-    return view('mentor.zoomschedule', compact('processedSchedules'));
-}
+        $presentations = $this->presentation->GetPresentationByMentor(auth()->user()->mentor->id, $request);
+
+        return view('mentor.zoomschedule', compact('processedSchedules', 'presentations'));
+    }
 
 
     /**

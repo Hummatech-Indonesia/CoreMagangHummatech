@@ -86,13 +86,13 @@ class MentorService
         }
 
         $dataUser = [
-            'name' => $data->name,
-            'email' => $data->email,
+            'name' => $data['name'],
+            'email' => $data['email'],
             'password' => Hash::make('password'),
             'mentors_id' => $mentor->id,
         ];
 
-        $this->user->store($dataUser);
+        $this->user->update($mentor->id, $dataUser);
 
         return $data;
     }

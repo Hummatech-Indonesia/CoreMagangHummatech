@@ -23,18 +23,22 @@ class UpdateHummataskTeamRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'description' => 'nullable',
-            'image' => 'nullable|mimes:png,jpg',
-            'student_id.*' => 'required',
+            'status' => 'required',
+            'leader' => 'required',
+            'end_date' => 'nullable|date',
+            'student_id.*' => 'nullable|exists:students,id',
+            'status' => 'required',
         ];
     }
     public function messages()
     {
         return [
-            'name.required' => 'Nama Tidak boleh kosong',
-            'image.required' => 'Image Tidak boleh kosong',
-            'description.required' => 'Deskripsi Tidak boleh kosong',
-            'image.mimes' => 'Image hanya di perbolehkan Exstensi png,jpg'
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.max' => 'Maksimal :max karakter',
+            'status.required' => 'Pilih salah satu',
+            'leader.required' => 'Ketua tim tidak boleh kosong',
+            'end_date.date' => 'Deadline harus berupa tanggal',
+            'student_id.*.exists' => 'Siswa yang dipilih tidak ada',
         ];
     }
 }

@@ -14,6 +14,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\DataAdminInterface;
 use App\Contracts\Interfaces\LetterheadsInterface;
+use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\SignatureInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Helpers\ResponseHelper;
@@ -28,11 +29,14 @@ class JournalController extends Controller
 
     private JournalInterface $journal;
     private JournalService $service;
+    private MentorStudentInterface $mentorStudent;
 
-    public function __construct(JournalInterface $journal, JournalService $service)
+    public function __construct(JournalInterface $journal, JournalService $service,MentorStudentInterface $mentorStudent)
     {
         $this->journal = $journal;
         $this->service = $service;
+        $this->mentorStudent = $mentorStudent;
+
     }
 
     /**
@@ -78,11 +82,24 @@ class JournalController extends Controller
     public function show($id)
     {
         $journal = $this->journal->show($id);
-    
+
         if (!$journal) {
             return ResponseHelper::error("Journal not found", 404);
         }
-    
+
         return ResponseHelper::success(new JournalResource($journal));
+    }
+
+    public function journal()
+    {
+        $mentorStudents = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
+        $journals = [];
+        foreach ($mentorStudents as $mentorStudent) {
+            $journals[] = $this->journal->whereStudent($mentorStudent->student_id);
+        }
+        $journalStudents = collect($journals)->flatten();
+        return response()->json([
+            'result' => $journalStudents
+        ]);
     }
 }

@@ -48,20 +48,22 @@
                     </div>
 
                     <div class="list-grid-nav hstack gap-1 mx-1">
-                        <form action="">
+                        <form action="/menu-siswa">
                             <select name="status" class="form-select" id="acceptedFilter">
                                 <option value="" disabled selected>Status</option>
-                                <option value="1">Accepted</option>
-                                <option value="0">Not Accepted</option>
+                                @foreach ($status as $status)
+                                <option value="{{ $status }}">{{ $status }}</option>
+                                @endforeach
                             </select>
                         </form>
                     </div>
                     <div class="list-grid-nav hstack gap-1 mx-1">
-                        <form action="">
+                        <form action="/menu-siswa">
                             <select name="gender" class="form-select" id="genderFilter">
                                 <option disabled selected>jenis kelamin</option>
-                                <option value="male">Laki-laki</option>
-                                <option value="female">Perempuan</option>
+                                @foreach($genders as $gender)
+                                    <option value="{{ $gender }}" {{ request('gender') == $gender ? 'selected' : '' }}>{{ ucfirst($gender) }}</option>
+                                @endforeach
                             </select>
                         </form>
                     </div>
