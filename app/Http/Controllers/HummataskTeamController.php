@@ -183,7 +183,7 @@ class HummataskTeamController extends Controller
 
     public  function mentor(){
         $categoryProjects = $this->categoryProject->get();
-        $mentorStudents = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
+        $students = $this->mentorStudent->getBymentor(auth()->user()->mentor->id);
         $teams = $this->hummatask_team->WhereTeam();
         $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
         // dd($mentorStudents);
