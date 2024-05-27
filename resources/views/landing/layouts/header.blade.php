@@ -67,11 +67,11 @@
                     {{-- <div class="col-auto px-5 d-none d-lg-block">
                         <div class="header-button">
                             <a href="/login" class="th-btn shadow-none">{{(auth()->check()) ? 'Home' : 'Login'}}<i
-                                    class="fas fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div> --}}
+                        class="fas fa-arrow-right ms-2"></i></a>
                 </div>
-            </div>
+            </div> --}}
         </div>
+    </div>
+    </div>
     </div>
 </header>
