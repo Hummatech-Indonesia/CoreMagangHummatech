@@ -52,8 +52,7 @@ class AdminMentorController extends Controller
 
     public function store(StoreMentorRequest $request)
     {
-        $this->mentorservice->store($request);
-        $data = $request->validated();
+        $data = $this->mentorservice->store($request);
         foreach ($request->division_id as $division) {
             $data['division_id'] = $division;
         }
