@@ -10,6 +10,7 @@ use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\UserInterface;
 use App\Http\Requests\UpdateMentorRequest;
 use App\Models\Mentor;
+use App\Models\User;
 use Hash;
 
 class MentorService
@@ -92,7 +93,9 @@ class MentorService
             'mentors_id' => $mentor->id,
         ];
 
-        $this->user->update($mentor->id, $dataUser);
+        $user = User::where('mentors_id', $mentor->id)->first();
+
+        $this->user->update($user->id, $dataUser);
 
         return $data;
     }

@@ -10,6 +10,7 @@ use App\Contracts\Interfaces\DivisionInterface;
 use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\UserInterface;
+use App\Enum\RolesEnum;
 use App\Http\Requests\StoreMentorRequest;
 use App\Http\Requests\UpdateMentorRequest;
 use App\Models\Mentor;
@@ -71,7 +72,8 @@ class AdminMentorController extends Controller
         'password' => Hash::make('password'),
         'mentors_id' => $mentor->id,
     ];
-    $this->user->store($dataUser);
+    $user = $this->user->store($dataUser);
+    $user->assignRole(RolesEnum::MENTOR);
 
     foreach ($request->division_id as $division) {
         $students = Student::where('division_id', $division)->get();
