@@ -5,7 +5,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 11.6.0.
+ * Generated for Laravel 11.7.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -18499,13 +18499,12 @@ namespace Barryvdh\DomPDF\Facade {
                     /**
          * Replace all the Options from DomPDF
          *
-         * @deprecated Use setOption to override individual options.
          * @param array<string, mixed> $options
          * @static 
-         */        public static function setOptions($options)
+         */        public static function setOptions($options, $mergeWithDefaults = false)
         {
                         /** @var \Barryvdh\DomPDF\PDF $instance */
-                        return $instance->setOptions($options);
+                        return $instance->setOptions($options, $mergeWithDefaults);
         }
                     /**
          * Output the PDF as a string.
@@ -18659,13 +18658,12 @@ namespace Barryvdh\DomPDF\Facade {
                     /**
          * Replace all the Options from DomPDF
          *
-         * @deprecated Use setOption to override individual options.
          * @param array<string, mixed> $options
          * @static 
-         */        public static function setOptions($options)
+         */        public static function setOptions($options, $mergeWithDefaults = false)
         {
                         /** @var \Barryvdh\DomPDF\PDF $instance */
-                        return $instance->setOptions($options);
+                        return $instance->setOptions($options, $mergeWithDefaults);
         }
                     /**
          * Output the PDF as a string.
@@ -18736,79 +18734,142 @@ namespace Flasher\Laravel\Facade {
             /**
      * 
      *
-     * @method static NotificationBuilder addSuccess(string $message, array $options = array())
-     * @method static NotificationBuilder addError(string $message, array $options = array())
-     * @method static NotificationBuilder addWarning(string $message, array $options = array())
-     * @method static NotificationBuilder addInfo(string $message, array $options = array())
-     * @method static NotificationBuilder addFlash(NotificationInterface|string $type, string $message = null, array $options = array())
-     * @method static NotificationBuilder flash(StampInterface[] $stamps = array())
-     * @method static NotificationBuilder type(string $type, string $message = null, array $options = array())
+     * @method static NotificationBuilder title(string $message)
      * @method static NotificationBuilder message(string $message)
+     * @method static NotificationBuilder type(string $message)
      * @method static NotificationBuilder options(array $options, bool $merge = true)
      * @method static NotificationBuilder option(string $name, $value)
-     * @method static NotificationBuilder success(string $message = null, array $options = array())
-     * @method static NotificationBuilder error(string $message = null, array $options = array())
-     * @method static NotificationBuilder info(string $message = null, array $options = array())
-     * @method static NotificationBuilder warning(string $message = null, array $options = array())
      * @method static NotificationBuilder priority(int $priority)
      * @method static NotificationBuilder hops(int $amount)
      * @method static NotificationBuilder keep()
      * @method static NotificationBuilder delay(int $delay)
-     * @method static NotificationBuilder now()
+     * @method static NotificationBuilder translate(array $parameters = [], ?string $locale = null)
+     * @method static NotificationBuilder handler(string $handler)
+     * @method static NotificationBuilder context(array $context)
+     * @method static NotificationBuilder when(bool|\Closure $condition)
+     * @method static NotificationBuilder unless(bool|\Closure $condition)
      * @method static NotificationBuilder with(StampInterface[] $stamps = array())
      * @method static NotificationBuilder withStamp(StampInterface $stamp)
-     * @method static NotificationBuilder handler(string $handler)
+     * @method static Envelope            success(string $message, array $options = [], ?string $title = null)
+     * @method static Envelope            error(string $message, array $options = [], ?string $title = null)
+     * @method static Envelope            info(string $message, array $options = [], ?string $title = null)
+     * @method static Envelope            warning(string $message, array $options = [], ?string $title = null)
+     * @method static Envelope            flash(?string $type = null, ?string $message = null, array $options = [], ?string $title = null)
+     * @method static Envelope            preset(string $preset, array $parameters = [])
+     * @method static Envelope            operation(string $operation, string|object|null $resource = null)
+     * @method static Envelope            created(string|object|null $resource = null)
+     * @method static Envelope            updated(string|object|null $resource = null)
+     * @method static Envelope            saved(string|object|null $resource = null)
+     * @method static Envelope            deleted(string|object|null $resource = null)
+     * @method static Envelope            push()
+     * @method static Envelope            addSuccess(string $message, array $options = [], ?string $title = null)
+     * @method static Envelope            addError(string $message, array $options = [], ?string $title = null)
+     * @method static Envelope            addInfo(string $message, array $options = [], ?string $title = null)
+     * @method static Envelope            addWarning(string $message, array $options = [], ?string $title = null)
+     * @method static Envelope            addFlash(?string $type = null, ?string $message = null, array $options = [], ?string $title = null)
+     * @method static Envelope            addPreset(string $preset, array $parameters = [])
+     * @method static Envelope            addCreated(string|object|null $resource = null)
+     * @method static Envelope            addUpdated(string|object|null $resource = null)
+     * @method static Envelope            addDeleted(string|object|null $resource = null)
+     * @method static Envelope            addSaved(string|object|null $resource = null)
+     * @method static Envelope            addOperation(string $operation, string|object|null $resource = null)
      * @method static Envelope            getEnvelope()
      */        class Flasher {
                     /**
-         * Get a driver instance.
+         * 
          *
-         * @param string|null $alias
-         * @return \Flasher\Prime\Factory\NotificationFactoryInterface 
-         * @throws \InvalidArgumentException
          * @static 
-         */        public static function create($alias = null)
+         */        public static function use($alias)
+        {
+                        /** @var \Flasher\Prime\Flasher $instance */
+                        return $instance->use($alias);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */        public static function create($alias)
         {
                         /** @var \Flasher\Prime\Flasher $instance */
                         return $instance->create($alias);
         }
                     /**
-         * Get a driver instance.
+         * 
          *
-         * @param string|null $alias
-         * @return \Flasher\Prime\Factory\NotificationFactoryInterface 
-         * @throws \InvalidArgumentException
          * @static 
-         */        public static function using($alias)
+         */        public static function render($presenter = 'html', $criteria = [], $context = [])
         {
                         /** @var \Flasher\Prime\Flasher $instance */
-                        return $instance->using($alias);
+                        return $instance->render($presenter, $criteria, $context);
         }
+            }
+    }
+
+namespace Flasher\Toastr\Laravel\Facade {
+            /**
+     * 
+     *
+     * @method static ToastrBuilder flash(StampInterface[] $stamps = array())
+     * @method static ToastrBuilder type(string $type, string $message = null, array $options = array())
+     * @method static ToastrBuilder message(string $message)
+     * @method static ToastrBuilder options(array $options, bool $merge = true)
+     * @method static ToastrBuilder option(string $name, $value)
+     * @method static ToastrBuilder success(string $message = null, array $options = array())
+     * @method static ToastrBuilder error(string $message = null, array $options = array())
+     * @method static ToastrBuilder info(string $message = null, array $options = array())
+     * @method static ToastrBuilder warning(string $message = null, array $options = array())
+     * @method static ToastrBuilder priority(int $priority)
+     * @method static ToastrBuilder hops(int $amount)
+     * @method static ToastrBuilder keep()
+     * @method static ToastrBuilder delay(int $delay)
+     * @method static ToastrBuilder now()
+     * @method static ToastrBuilder with(StampInterface[] $stamps = array())
+     * @method static ToastrBuilder withStamp(StampInterface $stamp)
+     * @method static ToastrBuilder handler(string $handler)
+     * @method static Envelope      getEnvelope()
+     * @method static ToastrBuilder title(string $title)
+     * @method static ToastrBuilder closeButton(bool $closeButton = true)
+     * @method static ToastrBuilder closeClass(string $closeClass)
+     * @method static ToastrBuilder closeDuration(int $closeDuration)
+     * @method static ToastrBuilder closeEasing(string $closeEasing)
+     * @method static ToastrBuilder closeHtml(string $closeHtml)
+     * @method static ToastrBuilder closeMethod(string $closeMethod)
+     * @method static ToastrBuilder closeOnHover(bool $closeOnHover = true)
+     * @method static ToastrBuilder containerId(string $containerId)
+     * @method static ToastrBuilder debug(bool $debug = true)
+     * @method static ToastrBuilder escapeHtml(bool $escapeHtml = true)
+     * @method static ToastrBuilder extendedTimeOut(int $extendedTimeOut)
+     * @method static ToastrBuilder hideDuration(int $hideDuration)
+     * @method static ToastrBuilder hideEasing(string $hideEasing)
+     * @method static ToastrBuilder hideMethod(string $hideMethod)
+     * @method static ToastrBuilder iconClass(string $iconClass)
+     * @method static ToastrBuilder messageClass(string $messageClass)
+     * @method static ToastrBuilder newestOnTop(bool $newestOnTop = true)
+     * @method static ToastrBuilder onHidden(string $onHidden)
+     * @method static ToastrBuilder onShown(string $onShown)
+     * @method static ToastrBuilder positionClass(string $positionClass)
+     * @method static ToastrBuilder preventDuplicates(bool $preventDuplicates = true)
+     * @method static ToastrBuilder progressBar(bool $progressBar = true)
+     * @method static ToastrBuilder progressClass(string $progressClass)
+     * @method static ToastrBuilder rtl(bool $rtl = true)
+     * @method static ToastrBuilder showDuration(int $showDuration)
+     * @method static ToastrBuilder showEasing(string $showEasing)
+     * @method static ToastrBuilder showMethod(string $showMethod)
+     * @method static ToastrBuilder tapToDismiss(bool $tapToDismiss = true)
+     * @method static ToastrBuilder target(string $target)
+     * @method static ToastrBuilder timeOut(int $timeOut, bool $extendedTimeOut = null)
+     * @method static ToastrBuilder titleClass(string $titleClass)
+     * @method static ToastrBuilder toastClass(string $toastClass)
+     * @method static ToastrBuilder persistent()
+     */        class Toastr {
                     /**
          * 
          *
-         * @param array<string, mixed> $criteria
-         * @param string $presenter
-         * @param array<string, mixed> $context
-         * @return mixed 
-         * @phpstan-return ($presenter is 'html' ? string : mixed)
          * @static 
-         */        public static function render($criteria = [], $presenter = 'html', $context = [])
+         */        public static function createNotificationBuilder()
         {
-                        /** @var \Flasher\Prime\Flasher $instance */
-                        return $instance->render($criteria, $presenter, $context);
-        }
-                    /**
-         * Register a custom driver creator.
-         *
-         * @param string $alias
-         * @param callable|\Flasher\Prime\Factory\NotificationFactoryInterface $factory
-         * @return static 
-         * @static 
-         */        public static function addFactory($alias, $factory)
-        {
-                        /** @var \Flasher\Prime\Flasher $instance */
-                        return $instance->addFactory($alias, $factory);
+                        /** @var \Flasher\Toastr\Prime\Toastr $instance */
+                        return $instance->createNotificationBuilder();
         }
             }
     }
@@ -19672,80 +19733,6 @@ namespace Spatie\LaravelIgnition\Facades {
         {
                         /** @var \Spatie\FlareClient\Flare $instance */
                         return $instance->group($groupName, $properties);
-        }
-            }
-    }
-
-namespace Yoeunes\Toastr\Facades {
-            /**
-     * 
-     *
-     */        class Toastr {
-                    /**
-         * Shortcut for adding an error notification.
-         *
-         * @param string $message The notification's message
-         * @param string $title The notification's title
-         * @param array<string, mixed> $options The notification's options
-         * @return \Toastr 
-         * @static 
-         */        public static function error($message, $title = '', $options = [])
-        {
-                        /** @var \Yoeunes\Toastr\Toastr $instance */
-                        return $instance->error($message, $title, $options);
-        }
-                    /**
-         * Shortcut for adding an info notification.
-         *
-         * @param string $message The notification's message
-         * @param string $title The notification's title
-         * @param array<string, mixed> $options The notification's options
-         * @return \Toastr 
-         * @static 
-         */        public static function info($message, $title = '', $options = [])
-        {
-                        /** @var \Yoeunes\Toastr\Toastr $instance */
-                        return $instance->info($message, $title, $options);
-        }
-                    /**
-         * Shortcut for adding a success notification.
-         *
-         * @param string $message The notification's message
-         * @param string $title The notification's title
-         * @param array<string, mixed> $options The notification's options
-         * @return \Toastr 
-         * @static 
-         */        public static function success($message, $title = '', $options = [])
-        {
-                        /** @var \Yoeunes\Toastr\Toastr $instance */
-                        return $instance->success($message, $title, $options);
-        }
-                    /**
-         * Shortcut for adding a warning notification.
-         *
-         * @param string $message The notification's message
-         * @param string $title The notification's title
-         * @param array<string, mixed> $options The notification's options
-         * @return \Toastr 
-         * @static 
-         */        public static function warning($message, $title = '', $options = [])
-        {
-                        /** @var \Yoeunes\Toastr\Toastr $instance */
-                        return $instance->warning($message, $title, $options);
-        }
-                    /**
-         * Add a notification.
-         *
-         * @param string $type could be error, info, success, or warning
-         * @param string $message The notification's message
-         * @param string $title The notification's title
-         * @param array<string, mixed> $options The notification's options
-         * @return \Toastr 
-         * @static 
-         */        public static function addNotification($type, $message, $title = '', $options = [])
-        {
-                        /** @var \Yoeunes\Toastr\Toastr $instance */
-                        return $instance->addNotification($type, $message, $title, $options);
         }
             }
     }
@@ -22337,6 +22324,57 @@ namespace  {
                                 return $instance->orWhereJsonDoesntContain($column, $value);
             }
                             /**
+             * Add a "where JSON overlaps" clause to the query.
+             *
+             * @param string $column
+             * @param mixed $value
+             * @param string $boolean
+             * @param bool $not
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function whereJsonOverlaps($column, $value, $boolean = 'and', $not = false)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereJsonOverlaps($column, $value, $boolean, $not);
+            }
+                            /**
+             * Add an "or where JSON overlaps" clause to the query.
+             *
+             * @param string $column
+             * @param mixed $value
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWhereJsonOverlaps($column, $value)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereJsonOverlaps($column, $value);
+            }
+                            /**
+             * Add a "where JSON not overlap" clause to the query.
+             *
+             * @param string $column
+             * @param mixed $value
+             * @param string $boolean
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function whereJsonDoesntOverlap($column, $value, $boolean = 'and')
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereJsonDoesntOverlap($column, $value, $boolean);
+            }
+                            /**
+             * Add an "or where JSON not overlap" clause to the query.
+             *
+             * @param string $column
+             * @param mixed $value
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWhereJsonDoesntOverlap($column, $value)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereJsonDoesntOverlap($column, $value);
+            }
+                            /**
              * Add a clause that determines if a JSON path exists to the query.
              *
              * @param string $column
@@ -23474,10 +23512,10 @@ namespace  {
             class Pdf extends \Barryvdh\DomPDF\Facade\Pdf {}
             class PDF extends \Barryvdh\DomPDF\Facade\Pdf {}
             class Flasher extends \Flasher\Laravel\Facade\Flasher {}
+            class Toastr extends \Flasher\Toastr\Laravel\Facade\Toastr {}
             class Sentry extends \Sentry\Laravel\Facade {}
             class QrCode extends \SimpleSoftwareIO\QrCode\Facades\QrCode {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
-            class Toastr extends \Yoeunes\Toastr\Facades\Toastr {}
             class Transaction extends \App\Helpers\TransactionHelper {}
             class Cart extends \App\Helpers\CartHelper {}
             class Carbon extends \Carbon\Carbon {}
