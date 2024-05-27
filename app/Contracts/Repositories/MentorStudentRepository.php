@@ -38,6 +38,10 @@ class MentorStudentRepository extends BaseRepository implements MentorStudentInt
     {
         return $this->model->query()->where('student_id', $id)->delete();
     }
+    public function deleteByStudentAndMentor(mixed $student, mixed $mentor): mixed
+    {
+        return $this->model->query()->where('student_id', $student)->where('mentor_id', $mentor)->delete();
+    }
 
     public function pluck($column)
     {
@@ -50,5 +54,9 @@ class MentorStudentRepository extends BaseRepository implements MentorStudentInt
     public function whereStudent(mixed $id): mixed
     {
         return $this->model->query()->where('student_id', $id)->get();
+    }
+    public function studentFirst(mixed $student, mixed $mentor): mixed
+    {
+        return $this->model->query()->where('student_id', $student)->where('mentor_id', $mentor)->first();
     }
 }
