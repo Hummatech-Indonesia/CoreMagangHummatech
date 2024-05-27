@@ -33,7 +33,7 @@ class MentorRepository extends BaseRepository implements MentorInterface
 
     public function update(mixed $id, array $data): mixed
     {
-        return $this->model->query()->where('id', $id)->update($data);
+        return $this->model->query()->findOrFail('id', $id)->update($data);
     }
 
     public function show(mixed $id): mixed
@@ -43,7 +43,7 @@ class MentorRepository extends BaseRepository implements MentorInterface
 
     public function delete(mixed $id): mixed
     {
-        return $this->model->query()->where('id', $id)->delete();
+        return $this->model->query()->findOrFail('id', $id)->delete();
     }
 
     public function search(Request $request): mixed
