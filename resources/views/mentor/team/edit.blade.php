@@ -48,12 +48,12 @@
                 <label for="deadline" class="mt-3 mb-1">Status tim</label>
                 <div class="d-flex">
                     <div class="me-3">
-                        <input type="radio" name="status" value="active" class="me-1"
+                        <input type="radio" name="status" value="active"
                             {{ $team->status === 'active' ? 'checked' : '' }}>Aktif
                     </div>
                     <div class="">
 
-                        <input type="radio" name="status" value="expired" class="me-1"
+                        <input type="radio" name="status" value="expired"
                             {{ $team->status === 'expired' ? 'checked' : '' }}>Tidak Aktif
                     </div>
                 </div>
