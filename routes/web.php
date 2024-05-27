@@ -233,7 +233,7 @@ Route::middleware('auth')->group(function () {
     //     });
 
     # Redirect based on roles
-    Route::get('/', function () {
+    Route::get('/home', function () {
         $roles = Auth::user()->roles->pluck('name');
         return redirect($roles[0]);
     })->name('authenticated');
