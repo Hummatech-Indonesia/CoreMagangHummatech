@@ -198,11 +198,11 @@ Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function () {
     // Route::get('/', function () {
     //     return view('mentor.index');
     // });
-    Route::get('/', [DashboardController::class, 'index'])->name('.home');
+    Route::get('/', [DashboardController::class, 'index'])->name('home');
 });
 
 #================================================= End Mentor ====================================================================
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
     # Subscription Route
