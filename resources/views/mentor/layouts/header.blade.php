@@ -146,7 +146,7 @@
                     @endif
                     <div class="ms-3">
                       <h5 class="mb-1 fs-3">{{ auth()->user()->mentor->name }}</h5>
-                      <span class="mb-1 d-block text-dark">Designer</span>
+                      <span class="mb-1 d-block text-dark">{{auth()->user()->mentor->division->name}}</span>
                       <p class="mb-0 d-flex text-dark align-items-center gap-2">
                         <i class="ti ti-mail fs-4"></i> {{ auth()->user()->mentor->email }}
                       </p>
