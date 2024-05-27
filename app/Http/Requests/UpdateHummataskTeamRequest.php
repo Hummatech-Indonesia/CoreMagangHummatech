@@ -25,7 +25,7 @@ class UpdateHummataskTeamRequest extends FormRequest
             'name' => 'required|max:255',
             'status' => 'required',
             'leader' => 'required',
-            'deadline' => 'nullable|date',
+            'end_date' => 'nullable|date',
             'student_id.*' => 'nullable|exists:students,id',
             'status' => 'required',
         ];
@@ -37,7 +37,7 @@ class UpdateHummataskTeamRequest extends FormRequest
             'name.max' => 'Maksimal :max karakter',
             'status.required' => 'Pilih salah satu',
             'leader.required' => 'Ketua tim tidak boleh kosong',
-            'deadline.date' => 'Deadline harus berupa tanggal',
+            'end_date.date' => 'Deadline harus berupa tanggal',
             'student_id.*.exists' => 'Siswa yang dipilih tidak ada',
         ];
     }
