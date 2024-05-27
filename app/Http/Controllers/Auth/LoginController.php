@@ -21,7 +21,7 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/login';
     private UserInterface $user;
     public function __construct(UserInterface $user)
     {
