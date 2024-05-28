@@ -537,10 +537,14 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->paginate(10);
     }
 
-    public function whereStudentDivision(mixed $id): mixed
+    public function whereStudentDivision(mixed $id, Request $request): mixed
     {
-        return $this->model->query()->where('division_id', $id)
-        ->paginate(10);
+        return $this->model->query()
+            ->where('division_id', $id)
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
+            })
+            ->paginate(10);
     }
 
 

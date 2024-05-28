@@ -89,10 +89,10 @@ class AdminMentorController extends Controller
         return back()->with('success', 'Mentor Berhasil Ditambahkan');
     }
 
-    public function show(Mentor $mentor)
+    public function show(Mentor $mentor, Request $request)
     {
         $mentor = $this->mentor->show($mentor->id);
-        $studentDivisions = $this->student->whereStudentDivision($mentor->division_id);
+        $studentDivisions = $this->student->whereStudentDivision($mentor->division_id, $request);
         return view('admin.page.user.mentor-detail', compact('mentor','studentDivisions'));
     }
 
