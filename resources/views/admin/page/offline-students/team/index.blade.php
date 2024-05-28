@@ -67,7 +67,7 @@
                         }
                     @endphp
                     <span class="badge bg-{{ $color }}-subtle text-{{ $color }}">{{ $team->categoryProject->name }}</span>
-                    <span class="badge bg-danger-subtle text-danger">Expired project</span>
+                    <span class="badge bg-{{ $team->status->color() }}-subtle text-{{ $team->status->color() }}">{{ $team->status->label() }}</span>
                     <span class="badge bg-secondary-subtle text-secondary">{{ $team->division->name }}</span>
                 </div>
                 <a href="{{ url('/offline-students/team/detail') }}" style="font-size: 15px" class="text-dark">
@@ -100,6 +100,10 @@
                                 </div>
                             </a>
                         @endif
+                        @php
+                            $countTeam = App\Models\StudentTeam::where('hummatask_team_id', $team->id)->count();
+                            $count = $countTeam - 1;
+                        @endphp
                         @if ($team->category_project_id == 1)
                                 
                         @else
@@ -120,24 +124,19 @@
                                             ];
                                             $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
                                         @endphp
-                                        <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="more">
+                                        <a href="javascript: void(0);" class="avatar-group-item shadow ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $studentTeam->student->name }}">
                                             <div class="avatar-xs">
                                                 <div style="background-color: {{ $backgroundColor }};" class="avatar-title rounded-circle">
                                                     {{ $firstLetter }}
                                                 </div>
                                             </div>
                                         </a>
-                                        <a href="javascript: void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $studentTeam->student->name }}">
-                                            <div style="background-color: {{ $backgroundColor }}; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center;" class="me-n3">
-                                                <span style="color: white; font-size: 15px;">{{ $firstLetter }}</span>
-                                            </div>
-                                        </a>
                                     @endif
                                 @else
-                                    <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="more">
+                                    <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $count }} lainnya">
                                         <div class="avatar-xs">
                                             <div class="avatar-title rounded-circle">
-                                                2+
+                                                {{ $count }}+
                                             </div>
                                         </div>
                                     </a>
@@ -153,11 +152,10 @@
     </div>
     @empty
     <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
-        <img src="{{ asset('empty-asset.png') }}" alt="" width="100px" srcset="">
+        <img src="{{ asset('no data.png') }}" alt="" width="200px" srcset="">
         <p class="fs-5 text-dark">
             Tidak ada tim
         </p>
-        <a href="{{ route('project.index', ['slug' => $team->slug]) }}" class="btn btn-primary">Ajukan projek</a>
     </div>
     @endforelse
 </div>
