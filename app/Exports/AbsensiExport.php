@@ -55,7 +55,7 @@ class AbsensiExport implements FromCollection, WithHeadings, WithTitle, ShouldAu
 
     public function collection()
     {
-        $attendances = Attendance::with('student', 'detailAttendances')
+        $attendances = Attendance::with('student', 'attendanceDetails')
             ->whereYear('created_at', $this->year)
             ->whereMonth('created_at', $this->month)
             ->get()
