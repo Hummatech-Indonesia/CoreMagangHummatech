@@ -189,7 +189,7 @@ Route::delete('/hummateam/team/note/delete/{categoryBoard}', [CategoryBoardContr
 
 Route::get('hummateam/team/{slug}/board', [CategoryBoardController::class, 'index'])->name('team.board');
 Route::post('hummateam/team/{slug}/board/store', [CategoryBoardController::class, 'store'])->name('list.store');
-Route::put('hummateam/board/list/update/{categoryBoard}', [CategoryBoardController::class, 'update'])->name('list.update');
+Route::put('hummateam/board/list/update/{categoryBoard}', [CategoryBoardController::class, 'updateList'])->name('list.update');
 Route::delete('hummateam/board/list/delete/{categoryBoard}', [CategoryBoardController::class, 'destroy'])->name('list.destroy');
 
 

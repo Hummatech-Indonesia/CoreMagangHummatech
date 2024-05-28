@@ -93,6 +93,13 @@ class CategoryBoardController extends Controller
         // $this->categoryBoard->update($categoryBoard->id  , $request->validated());
     }
 
+    public function updateList(Request $request, CategoryBoard $categoryBoard)
+    {
+        $this->noteservice->updateTitle($request,$categoryBoard->id);
+        return back()->with('success' , 'Data Berhasil Diperbarui');
+
+    }
+
     /**
      * Remove the specified resource from storage.
      */
