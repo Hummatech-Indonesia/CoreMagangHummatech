@@ -480,7 +480,9 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query()
             ->where('internship_type', 'offline')
             ->where('id', '!=', $id)
-            ->get();
+            ->where('acepted' , '1')
+            ->latest()
+            ->paginate('6');
     }
 
     /**
