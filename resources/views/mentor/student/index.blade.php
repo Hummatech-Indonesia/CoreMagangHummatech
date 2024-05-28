@@ -36,41 +36,43 @@
 </div>
 
 <div class="row">
-    @forelse ($mentorStudent as $student)
+    @forelse ($students as $student)
+
+    {{-- @dd($student); --}}
 
     <div class="col-md-4">
         <div class="card hover-img">
             <div class="card-body p-4 text-center border-bottom">
                 {{-- <img src="{{ asset('storage/' . $student->student->avatar) }}" class="rounded-circle mb-3" width="80" height="80" alt=""> --}}
 
-                @if(Storage::disk('public')->exists($student->student->avatar))
-                    <img src="{{ asset('storage/' . $student->student->avatar) }}" alt="avatar" class="rounded-circle mb-3" width="80px" height="80px" >
+                @if(Storage::disk('public')->exists($student->avatar))
+                    <img src="{{ asset('storage/' . $student->avatar) }}" alt="avatar" class="rounded-circle mb-3" width="80px" height="80px" >
                 @else
                     <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle mb-3" width="80px" height="80px">
                 @endif
 
-                <h5 class="fw-semibold mb-0 fs-5">{{$student->student->name}}</h5>
-                <span class="text-dark fs-2">{{$student->student->school}}</span>
+                <h5 class="fw-semibold mb-0 fs-5">{{$student->name}}</h5>
+                <span class="text-dark fs-2">{{$student->school}}</span>
             </div>
             <ul class="px-2 py-2 list-unstyled d-flex align-items-center justify-content-center mb-0">
                 <li class="position-relative">
                     <button class="btn mb-1 btn-detail" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
-                        data-id="{{ $student->student->id }}"
-                        data-name="{{ $student->student->name }}"
-                        data-majors="{{ $student->student->major }}"
-                        data-class="{{ $student->student->class }}"
-                        data-phone="{{ $student->student->phone }}"
-                        data-address="{{ $student->student->address }}"
-                        data-birthdate="{{ \carbon\Carbon::parse($student->student->birth_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
-                        data-birthplace="{{ $student->student->birth_place }}"
-                        data-startdate="{{ \carbon\Carbon::parse($student->student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
-                        data-finishdate="{{ \carbon\Carbon::parse($student->student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
-                        data-school="{{ $student->student->school }}"
-                        data-email="{{ $student->student->email }}"
-                        data-avatar="{{ file_exists(public_path('storage/' . $student->student->avatar)) ? asset('storage/' . $student->student->avatar) : asset('user.webp') }}"
-                        data-cv="{{ file_exists(public_path('storage/' . $student->student->cv)) ? asset('storage/' . $student->student->cv) : asset('no data.png') }}"
-                        data-selfstatement="{{ file_exists(public_path('storage/' . $student->student->self_statement)) ? asset('storage/' . $student->student->self_statement) : asset('no data.png') }}"
-                        data-parentsstatement="{{ file_exists(public_path('storage/' . $student->student->parents_statement)) ? asset('storage/' . $student->student->parents_statement) : asset('no data.png') }}"
+                        data-id="{{ $student->id }}"
+                        data-name="{{ $student->name }}"
+                        data-majors="{{ $student->major }}"
+                        data-class="{{ $student->class }}"
+                        data-phone="{{ $student->phone }}"
+                        data-address="{{ $student->address }}"
+                        data-birthdate="{{ \carbon\Carbon::parse($student->birth_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                        data-birthplace="{{ $student->birth_place }}"
+                        data-startdate="{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                        data-finishdate="{{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                        data-school="{{ $student->school }}"
+                        data-email="{{ $student->email }}"
+                        data-avatar="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}"
+                        data-cv="{{ file_exists(public_path('storage/' . $student->cv)) ? asset('storage/' . $student->cv) : asset('no data.png') }}"
+                        data-selfstatement="{{ file_exists(public_path('storage/' . $student->self_statement)) ? asset('storage/' . $student->self_statement) : asset('no data.png') }}"
+                        data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-circle">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
