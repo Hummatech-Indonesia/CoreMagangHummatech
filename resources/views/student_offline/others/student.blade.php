@@ -26,7 +26,7 @@
             <form action="">
                 <div class="d-flex">
                     <div class="search-box mx-2">
-                        <input type="text" class="form-control search-chat py-2" id="text-srh" placeholder="Cari Materi">
+                        <input type="text" class="form-control search-chat py-2" id="text-srh" placeholder="Cari Siswa">
                     </div>
                     <button class="btn btn-primary">
                         Cari
@@ -70,6 +70,9 @@
             Tidak ada siswa magang offline selain kamu
         </p>
         @endforelse
+    </div>
+    <div class="">
+        {{ $students->links() }}
     </div>
 
     {{-- <nav aria-label="...">
