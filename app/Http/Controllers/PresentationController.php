@@ -112,12 +112,14 @@ class PresentationController extends Controller
         $teamId = 1;
         $monthlyPresentationCount = $this->presentation->countMonthlyPresentationsByTeamId($teamId);
 
-        $studentId = 1; 
+        $studentId = 1;
         $studentsTeam = $this->presentation->countMonthlyPresentationsByStudentId($studentId);
 
         if (is_null($studentsTeam)) {
             $studentsTeam = [];
         }
+
+
 
         return view('admin.page.presentation.index', compact('categoryProject', 'presentations', 'monthlyPresentationCount', 'studentsTeam'));
     }
@@ -190,8 +192,8 @@ class PresentationController extends Controller
 
         $mentors = $this->mentorDivision->whereMentorDivision($division);
         foreach ($mentors as $mentor) {
-            $presentations = $this->presentation->GetPresentations($mentor->mentor_id);
-            // dd($mentor);
+            $presentations = $this->presentation->GetPresentations($mentor->division_id);
+            // dd($presentations);
         }
 
         $histories = $this->presentation->getPresentationsByTeam($team->id);
