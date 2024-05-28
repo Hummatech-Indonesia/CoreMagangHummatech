@@ -11,7 +11,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-dark fs-7 mb-0">Apakah anda yakin ingin menghapus data?</p>
+                    <p class="text-dark mb-0">Apakah anda yakin ingin menghapus data?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button"style="background-color: #1B3061" class="btn text-white btn-create waves-effect"
