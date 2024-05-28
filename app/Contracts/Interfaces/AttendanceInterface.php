@@ -34,4 +34,6 @@ interface AttendanceInterface extends StoreInterface, UpdateInterface
      */
     public function checkAttendanceToday(array $data): mixed;
     public function count($status):mixed;
+    public function yearAttendances(): mixed;
+    public function monthAttendances(): mixed;
 }

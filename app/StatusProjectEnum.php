@@ -17,7 +17,7 @@ enum StatusProjectEnum : string
     public function color(): string
     {
         return match ($this) {
-            self::PENDING => 'warning',
+            self::PENDING => 'danger',
             self::ACCEPTED => 'success',
         };
     }

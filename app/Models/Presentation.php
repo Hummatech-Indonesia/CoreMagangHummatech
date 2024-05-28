@@ -22,6 +22,16 @@ class Presentation extends Model
         return $this->belongsTo(HummataskTeam::class, 'hummatask_team_id');
     }
 
+    /**
+     * Get the mentor that owns the Presentation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function mentor(): BelongsTo
+    {
+        return $this->belongsTo(Mentor::class);
+    }
+
     protected $casts = [
         'status_presentation' => StatusPresentationEnum::class,
     ];

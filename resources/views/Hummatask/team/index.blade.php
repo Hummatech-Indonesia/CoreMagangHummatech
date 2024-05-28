@@ -60,7 +60,7 @@
                                             @else
                                                 <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle" width="40" height="40">
                                             @endif
-                                        </div>  
+                                        </div>
                                         <div>
                                             <h6 class="fw-semibold mb-1">{{ $team->student->name }}</h6>
                                             <p class="fs-2 mb-0 text-primary badge bg-light-primary p-1">Ketua Kelompok</p>
@@ -93,7 +93,7 @@
             </div>
         </div>
     @else
-    <div class="col-12">
+    {{-- <div class="col-12">
         @forelse ($projects as $project)
         <div class="d-flex align-items-center gap-4 mb-4 ">
             <div class="position-relative">
@@ -134,6 +134,46 @@
                 </p>
                 <a href="{{ route('project.index', ['slug' => $team->slug]) }}" class="btn btn-primary">Ajukan projek</a>
             </div>
+        @endforelse
+    </div> --}}
+    <div class="row">
+        @forelse ($projects as $project)
+            <div class="col-sm-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body p-4">
+                        @if ($project->hummataskTeam->image != null)
+                            <div class="border border-2 border-primary rounded-2">
+                                <img src="{{ asset('storage/'.$project->hummataskTeam->image) }}" class="img-fluid rounded-circle mb-4" width="80" height="80" alt="">
+                            </div>
+                        @else
+                            <div class="text-center align-content-center mb-3">
+                                <div class="bg-primary rounded-circle text-white d-flex align-items-center justify-content-center text-uppercase fs-1" style="width: 5pc; height: 5pc;">
+                                <p class="m-0 p-0">
+                                    {{ $project->hummataskTeam->categoryProject->name }}
+                                </p>
+                                </div>
+                            </div>
+                        @endif
+
+                        <h5 class="mb-3 fw-semibold fs-4">
+                            {{ $project->hummataskTeam->categoryProject->name }}
+                        </h5>
+                        <div class="d-flex align-items-center gap-4">
+                            <button class="btn text-bg-{{ $project->status->color() }} w-100 btn-sm">{{ $project->status->label() }}</button>
+                            <button class="btn bg-light-warning text-warning w-100 btn-sm">premini</button>
+                        </div>
+                        <p class="pt-3">{{$project->description}}</p>
+                    </div>
+                </div>
+            </div>
+        @empty
+        <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+            <img src="{{ asset('empty-asset.png') }}" alt="" width="100px" srcset="">
+            <p class="fs-5 text-dark">
+                Tim anda belum mengajukan projek
+            </p>
+            <a href="{{ route('project.index', ['slug' => $team->slug]) }}" class="btn btn-primary">Ajukan projek</a>
+        </div>
         @endforelse
     </div>
     @endif
