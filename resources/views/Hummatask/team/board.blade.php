@@ -224,7 +224,7 @@
 
                                             <div class="d-flex align-items-center justify-content-between pt-8">
                                                 <h6 class="mb-0 text-danger">{{ $board->countdown() }}</h6>
-                                                <div class="d-flex align-items-end justify-content-end">
+                                                {{-- <div class="d-flex align-items-end justify-content-end">
                                                     @foreach ($studentTeams as $student)
                                                         <div class="position-relative" style="z-index: {{ $loop->remaining + 1 }};">
                                                             @if(Storage::disk('public')->exists($student->student->avatar))
@@ -234,7 +234,7 @@
                                                             @endif
                                                         </div>
                                                     @endforeach
-                                                </div>
+                                                </div> --}}
                                             </div>
 
                                         </div>
