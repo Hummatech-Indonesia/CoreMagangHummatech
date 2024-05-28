@@ -22,5 +22,4 @@ interface PresentationInterface extends GetInterface, StoreInterface, UpdateInte
     public function getPresentationsByTeam(mixed $id):mixed;
     public function GetPresentationByMentor(mixed $id, Request $request): mixed;
 
-
 }

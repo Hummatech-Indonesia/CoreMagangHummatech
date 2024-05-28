@@ -160,7 +160,6 @@
                             <label class="mb-3 text-dark form-label">Pilih Jadwal</label>
                             <div class="row">
                                 @forelse ($presentations as $key => $presentation)
-                                    @if ($presentation->mentor->division_id == auth()->user()->student->division_id)
                                         <div class="col-md-6">
                                             <div class="card mb-3">
                                                 <div class="card-body">
@@ -185,8 +184,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                    @endif
                                 @empty
                                     <div class="mb-3 mt-5 text-center" style="margin: 0 auto;">
                                         <img src="{{ asset('empty-asset.png') }}" alt="" width="100px">

@@ -188,11 +188,11 @@ class PresentationController extends Controller
         $team = $this->hummataskTeam->slug($slug);
         $limits = $this->limits->first();
         $presentations = [];
-        $division = $team->student->division_id;
+        $division = auth()->user()->student->division_id;
 
         $mentors = $this->mentorDivision->whereMentorDivision($division);
         foreach ($mentors as $mentor) {
-            $presentations = $this->presentation->GetPresentations($mentor->division_id);
+            $presentations = $this->presentation->GetPresentations($mentor->mentor_id);
             // dd($presentations);
         }
 
