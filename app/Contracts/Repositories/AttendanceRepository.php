@@ -86,4 +86,12 @@ class AttendanceRepository extends BaseRepository implements AttendanceInterface
         ->count();
     }
 
+    public function yearAttendances(): mixed
+    {
+        return $this->model->query()->selectRaw('YEAR(created_at) as year')->groupBy('year')->orderBy('year', 'desc')->get();
+    }
+    public function monthAttendances(): mixed
+    {
+        return $this->model->query()->selectRaw('MONTH(created_at) as month')->groupBy('month')->orderBy('month', 'desc')->get();
+    }
 }
