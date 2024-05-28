@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div class="row g-2 mb-4">
+    {{-- <div class="row g-2 mb-4">
         <div class="col-sm-auto ms-auto">
             <form action="">
                 <div class="d-flex">
@@ -34,7 +34,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> --}}
 
     <div class="row">
         @forelse ($students as $student)
