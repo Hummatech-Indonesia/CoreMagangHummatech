@@ -160,6 +160,7 @@
                             <label class="mb-3 text-dark form-label">Pilih Jadwal</label>
                             <div class="row">
                                 @forelse ($presentations as $key => $presentation)
+
                                         <div class="col-md-6">
                                             <div class="card mb-3">
                                                 <div class="card-body">

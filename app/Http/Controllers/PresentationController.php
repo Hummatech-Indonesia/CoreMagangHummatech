@@ -192,15 +192,16 @@ class PresentationController extends Controller
 
         $mentors = $this->mentorDivision->whereMentorDivision($division);
         foreach ($mentors as $mentor) {
-            $presentations = $this->presentation->GetPresentations($mentor->mentor_id);
-            // dd($presentations);
+            $presentations[] = $this->presentation->GetPresentations($mentor->mentor_id);
         }
+
+        $presentations = collect($presentations)->flatten();
 
         $histories = $this->presentation->getPresentationsByTeam($team->id);
 
-
         return view('Hummatask.team.presentation', compact('hummataskTeam', 'presentations', 'limits', 'team','histories'));
     }
+
 
     public function callback(StoreCallbackRequest $request, Presentation $presentation)
     {
