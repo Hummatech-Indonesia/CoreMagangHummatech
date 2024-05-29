@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAbsentController;
+use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminStudentTeamControlle;
 use App\Http\Controllers\Admin\AdminStudentTeamController;
 use App\Http\Controllers\Admin\DivisionController;
@@ -62,10 +63,9 @@ Route::get('person-in-charge/detail', function() {
 Route::get('offline-students/division-placement', [DivisionPlacementController::class, 'index']);
 Route::post('offline-students/division-placement/{student}', [DivisionPlacementController::class ,'divisionplacement'])->name('division-placement');
 Route::put('offline-students/division-placement/update/{student}', [DivisionPlacementController::class ,'divisionchange'])->name('division-placement.update');
-Route::get('offline-students/team', [AdminStudentTeamController::class, 'index']);
-Route::get('offline-students/team/detail', function() {
-    return view('admin.page.offline-students.team.detail');
-});
+
+Route::get('offline-students/team', [AdminStudentTeamController::class, 'index'])->name('admin.team.index');
+Route::get('offline-students/team/{slug}', [AdminStudentTeamController::class, 'show'])->name('admin.team.show');
 Route::get('offline-students/presentation', [PresentationController::class, 'index']);
 
 Route::get('administrator/course/detail', function() {

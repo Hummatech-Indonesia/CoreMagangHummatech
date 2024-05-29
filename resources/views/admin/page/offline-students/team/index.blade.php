@@ -80,7 +80,7 @@
                     <p style="position: relative; top: 10px">Anggota: </p>
                     <div class="avatar-group">
                         @if(Storage::disk('public')->exists($team->student->avatar))
-                            <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $team->student->name }}">
+                            <a href="javascript: void(0);" class="avatar-group-item shadowme-3" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $team->student->name }}">
                                 <img src="{{ asset('storage/'.$team->student->avatar) }}" alt="" class="rounded-circle avatar-xs">
                             </a>
                         @else
@@ -94,22 +94,20 @@
                                 ];
                                 $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
                             @endphp
-                            <a href="javascript: void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $team->student->name }}">
+                            <a href="javascript: void(0);" class="avatar-group-item me-3" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $team->student->name }}">
                                 <div style="background-color: {{ $backgroundColor }}; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center;" class="me-n3">
                                     <span style="color: white; font-size: 15px;">{{ $firstLetter }}</span>
                                 </div>
                             </a>
                         @endif
-                        @php
+                        {{-- @php
                             $countTeam = App\Models\StudentTeam::where('hummatask_team_id', $team->id)->count();
                             $count = $countTeam - 1;
-                        @endphp
-                        @if ($team->category_project_id == 1)
-                                
-                        @else
+                        @endphp --}}
+                        @if ($team->category_project_id != 1)
                             @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $index => $studentTeam)
-                                @if ($index < 1)
-                                        @if(Storage::disk('public')->exists($studentTeam->student->avatar))
+                                
+                                    @if(Storage::disk('public')->exists($studentTeam->student->avatar))
                                         <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $studentTeam->student->name }}">
                                             <img src="{{ asset('storage/'.$studentTeam->student->avatar) }}" alt="" class="rounded-circle avatar-xs">
                                         </a>
@@ -124,7 +122,7 @@
                                             ];
                                             $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
                                         @endphp
-                                        <a href="javascript: void(0);" class="avatar-group-item shadow ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $studentTeam->student->name }}">
+                                        <a href="javascript: void(0);" class="avatar-group-item shadow ms-n3" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $studentTeam->student->name }}">
                                             <div class="avatar-xs">
                                                 <div style="background-color: {{ $backgroundColor }};" class="avatar-title rounded-circle">
                                                     {{ $firstLetter }}
@@ -132,21 +130,19 @@
                                             </div>
                                         </a>
                                     @endif
-                                @else
-                                    <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $count }} lainnya">
+
+                                    {{-- <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $count }} lainnya">
                                         <div class="avatar-xs">
                                             <div class="avatar-title rounded-circle">
                                                 {{ $count }}+
                                             </div>
                                         </div>
-                                    </a>
-                                    
-                                @endif
+                                    </a> --}}
                             @endforeach
                         @endif
                     </div>
                 </div>
-              <a href="{{ url('/offline-students/team/detail') }}" class="btn btn-secondary w-100 mt-4">Detail</a>
+              <a href="{{ route('admin.team.show', $team->slug) }}" class="btn btn-secondary w-100 mt-4">Detail</a>
             </div>
           </div>
     </div>

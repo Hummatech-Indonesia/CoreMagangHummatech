@@ -25,107 +25,64 @@
 
 <div class="tab-content text-muted">
     <div class="tab-pane active" id="project" role="tabpanel">
-        <div class="card col-11">
+        <div class="card col-12">
             <div class="card-body row">
-                <div class="info d-flex align-items-center col-xl-7">
-                    <img class="rounded-circle avatar-xl shadow ms-3" alt="200x200" src="{{ asset('assets/images/users/avatar-4.jpg') }}">
-                    <div class="description px-4">
-                        <h4>IndeKost Mini Project</h4>
-                        <p class="text-muted mb-3">
-                            Lorem ipsum dolor sit amet consectetur. Dignissim feugiat pretium arcu velit eu amet porttitor. Aliquam nibh quis blandit dolor pellentesque.
-                        </p>
-                        <p class="text-muted mb-1">
-                            Link Repository: 
-                            <a href="https://github.com/Irsyadandhikaariadi/indekostv2" target="_blank" class="text-secondary">https://github.com/Irsyadandhikaariadi/indekostv2</a>
-                        </p>
-                        <p class="text-muted mb-1">
-                            Tanggal Mulai: Jumat, 18 Februari 2020
-                        </p>
-                        <p class="text-muted mb-1">
-                            Tenggat: Jumat, 18 Maret 2020
-                        </p>
-                    </div>
+                <div class="info d-flex align-items-center col-xl-12">
+                    @if ($project)
+                        @if ($team->image != null)
+                            <img class="rounded-circle avatar-xl shadow ms-3" alt="200x200" src="{{ (Storage::disk('public')->exists($team->image)) ? asset('storage/'. $team->image) : asset('team-default.png') }}">
+                        @endif
+                        <div class="description px-4">
+                            <h4>{{ $project->title }}</h4>
+                            <p class="text-muted mb-3">
+                                {{ $project->description }}
+                            </p>
+                            <p class="text-muted mb-1">
+                                Link Repository: 
+                                <a href="{{ $team->link }}" target="_blank" class="text-secondary">{{ $team->link }}</a>
+                            </p>
+                            <p class="text-muted mb-1">
+                                Tanggal Mulai: {{ \Carbon\Carbon::parse($project->start_date)->locale('id')->isoFormat('dddd, D MMMM Y') }}
+                            </p>
+                            <p class="text-muted mb-1">
+                                Tenggat: {{ \Carbon\Carbon::parse($project->end_date)->locale('id')->isoFormat('dddd, D MMMM Y') }}
+                            </p>
+                        </div>
+                    @else
+                        <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                            <img src="{{ asset('no-data/2.png') }}" alt="" width="200px" srcset="">
+                            <p class="fs-5 text-dark">
+                                Tim ini belum memilliki projek
+                            </p>
+                        </div>
+                    @endif
                 </div>
-                <div class="col-xl-5">
-                    <div class="row gap-3">
-                        <div class="col-5 m-0 card card-animate">
-                            <div class="py-3 d-flex justify-content-between">
-                                <div>
-                                    <p class="fw-medium text-muted mb-0">Di Revisi</p>
-                                    <h4 class="mt-1 ff-secondary fw-semibold"><span class="counter-value" data-target="24">0</span> Tugas</h4>
-                                </div>
-                                <div class="avatar-sm flex-shrink-0">
-                                    <span class="avatar-title bg-secondary-subtle text-secondary rounded-circle fs-2">
-                                        <i class="ri-attachment-2"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-5 m-0 card card-animate">
-                            <div class="py-3 d-flex justify-content-between">
-                                <div>
-                                    <p class="fw-medium text-muted mb-0">Tugas Baru</p>
-                                    <h4 class="mt-1 ff-info fw-semibold"><span class="counter-value" data-target="24">0</span> Tugas</h4>
-                                </div>
-                                <div class="avatar-sm flex-shrink-0">
-                                    <span class="avatar-title bg-info-subtle text-info rounded-circle fs-2">
-                                        <i class="ri-task-line"></i>
-                                    </span>
+                <div class="mx-1 mt-3">
+                    <h5>Anggota Tim</h5>
+                    <div class="row">
+                        @if ($team->category_project_id != 1)
+                            <div class="col-xl-3 card">
+                                <div class="p-2 mb-0 d-flex">
+                                    <img class="rounded-circle avatar-sm shadow me-3" alt="200x200" src="{{ (Storage::disk('public')->exists($team->student->avatar)) ? asset('storage/'. $team->student->avatar) : asset('user.webp') }}">
+                                    <div class="d-block">
+                                        <p class="m-0">{{ $team->student->name }}</p>
+                                        <p class="badge bg-success-subtle text-success p-2 m-0">Ketua</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-5 m-0 card card-animate">
-                            <div class="py-3 d-flex justify-content-between">
-                                <div>
-                                    <p class="fw-medium text-muted mb-0">Tugas Baru</p>
-                                    <h4 class="mt-1 ff-success fw-semibold"><span class="counter-value" data-target="24">0</span> Tugas</h4>
-                                </div>
-                                <div class="avatar-sm flex-shrink-0">
-                                    <span class="avatar-title bg-success-subtle text-success rounded-circle fs-2">
-                                        <i class="ri-list-check-2"></i>
-                                    </span>
+                        @endif
+                        @foreach ($studentTeams as $studentTeam)
+                            <div class="col-xl-3 card">
+                                <div class="p-2 mb-0 d-flex">
+                                    <img class="rounded-circle avatar-sm shadow me-3" alt="200x200" src="{{ (Storage::disk('public')->exists($studentTeam->student->avatar)) ? asset('storage/'. $studentTeam->student->avatar) : asset('user.webp') }}">
+                                    <div class="d-block">
+                                        <p class="m-0">{{ $studentTeam->student->name }}</p>
+                                        <p class="badge bg-warning-subtle text-warning p-2 m-0">Anggota</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-5 m-0 card card-animate">
-                            <div class="py-3 d-flex justify-content-between">
-                                <div>
-                                    <p class="fw-medium text-muted mb-0">Tugas Baru</p>
-                                    <h4 class="mt-1 ff-warning fw-semibold"><span class="counter-value" data-target="24">0</span> Tugas</h4>
-                                </div>
-                                <div class="avatar-sm flex-shrink-0">
-                                    <span class="avatar-title bg-warning-subtle text-warning rounded-circle fs-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 39 39" fill="none">
-                                            <path d="M3.25 19.5C3.25 28.4746 10.5254 35.75 19.5 35.75C28.4746 35.75 35.75 28.4746 35.75 19.5C35.75 10.5254 28.4746 3.25 19.5 3.25C10.5254 3.25 3.25 10.5254 3.25 19.5ZM32.5 19.5C32.5 26.6797 26.6797 32.5 19.5 32.5C12.3203 32.5 6.5 26.6797 6.5 19.5C6.5 12.3203 12.3203 6.5 19.5 6.5C26.6797 6.5 32.5 12.3203 32.5 19.5ZM29.25 19.5C29.25 22.1925 28.1586 24.63 26.3942 26.3942L19.5 19.5V9.75C24.8848 9.75 29.25 14.1152 29.25 19.5Z" fill="#FFAA05"/>
-                                        </svg>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
-                </div>
-                <h5>Anggota Tim</h5>
-                <div class="d-flex flex-wrap gap-2 col-15">
-                    <div class="col-xl-3 card">
-                        <div class="p-2 mb-0 d-flex">
-                            <img class="rounded-circle avatar-sm shadow me-3" alt="200x200" src="{{ asset('assets/images/users/avatar-4.jpg') }}">
-                            <div class="d-block">
-                                <p class="m-0">Oliver Phillips</p>
-                                <p class="badge bg-secondary-subtle text-secondary p-2 m-0">Ketua Kelompok</p>
-                            </div>
-                        </div>
-                    </div>
-                    @foreach (range(1, 2) as $item)
-                    <div class="col-xl-3 card">
-                        <div class="p-2 mb-0 d-flex">
-                            <img class="rounded-circle avatar-sm shadow me-3" alt="200x200" src="{{ asset('assets/images/users/avatar-4.jpg') }}">
-                            <div class="d-block">
-                                <p class="m-0">Oliver Phillips</p>
-                                <p class="badge bg-warning-subtle text-warning p-2 m-0">Anggota</p>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
                 </div>
             </div>
         </div>
@@ -134,197 +91,182 @@
         <div class="row gap-5 ms-3">
             <div class="col-xl-4 card">
                 <div class="card-body my-2">
-                    <div class="project">
-                        <h4>IndeKost Mini Project</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolorem nam esse vitae!</p>
-                    </div>
-                    <div class="note">
-                        <h4>List Catatan:</h4>
-                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <a class="nav-link mb-2 active" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Revisi Major Dan Minor In Project</a>
-                            <a class="nav-link mb-2" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Revisi Major Dan Minor In Project</a>
-                            <a class="nav-link mb-2" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Revisi Major Dan Minor In Project</a>
+                    @if ($project)
+                        <div class="project">
+                            <h4>{{ $project->title }}</h4>
+                            <p>{{ $project->description }}</p>
                         </div>
-                    </div>
+                        <div class="note">
+                            <h4>List Catatan:</h4>
+                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                @forelse ($categoryBoards as $key => $categoryBoard)
+                                    <a class="nav-link mb-2 {{ $key++ < 1 ? 'active' : '' }}" id="nav-{{ $key }}" data-bs-toggle="pill" href="#tab-{{ $key }}" role="tab" aria-controls="v-pills-home" aria-selected="true">{{ $categoryBoard->title }}</a>
+                                @empty
+                                    <div class="mb-2 text-center" style="margin: 0 auto;">
+                                        <img src="{{ asset('no-data/2.png') }}" alt="" width="100px" srcset="">
+                                        <p class="fs-6 text-dark">
+                                            Tim ini belum memilliki catatan
+                                        </p>
+                                    </div>
+                                @endforelse
+                            </div>
+                        </div>
+                    @else
+                        <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                            <img src="{{ asset('no-data/2.png') }}" alt="" width="200px" srcset="">
+                            <p class="fs-5 text-dark">
+                                Tim ini belum memilliki projek
+                            </p>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="col-xl-7 card">
                 <div class="card-body my-2">
-                    <h4 class="mb-3">Revisi ajor dan minor in project</h4>
-                    @foreach (range(1,3) as $key => $item)
-                        <div class="my-1">
-                            <h5 class="m-0">Catatan {{ ++$key }}</h5>
-                            <p class="text-muted">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eaque tenetur voluptatum. Reiciendis asperiores maiores similique repellat.
+                    @if($project)
+                        <div class="tab-content text-muted mt-4 mt-md-0" id="v-pills-tabContent">
+                            @forelse ($categoryBoards as $key => $categoryBoard)
+                                <div class="tab-pane fade show {{ $key++ < 1 ? 'active' : '' }}" id="tab-{{ $key }}" role="tabpanel" aria-labelledby="nav-{{ $key }}">
+                                    <h4 class="mb-3">{{ $categoryBoard->title }}</h4>
+                                    @forelse (App\Models\Board::where('category_board_id', $categoryBoard->id)->get() as $key => $board)
+                                        <div class="my-1">
+                                            <div class="d-flex ">
+                                                <h6 class="no mt-1 me-2">{{ ++$key }}.</h6>
+                                                <div class="content">
+                                                    <h5 class="m-0">{{ $board->name }}</h5>
+                                                    <p class="text-muted">{{ $board->description }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                                            <img src="{{ asset('no-data/2.png') }}" alt="" width="80px" srcset="">
+                                            <p class="fs-6 text-dark">
+                                                Catatan kosong
+                                            </p>
+                                        </div>
+                                    @endforelse
+                                </div>
+                            @empty
+                                <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                                    <img src="{{ asset('no-data/2.png') }}" alt="" width="150px" srcset="">
+                                    <p class="fs-6 text-dark">
+                                        Tim ini belum memilliki catatan
+                                    </p>
+                                </div>
+                            @endforelse
+                        </div>
+                    @else
+                        <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                            <img src="{{ asset('no-data/2.png') }}" alt="" width="200px" srcset="">
+                            <p class="fs-5 text-dark">
+                                Tim ini belum memilliki projek
                             </p>
                         </div>
-                    @endforeach
+                    @endif
                 </div>
             </div>
         </div>
     </div>
     <div class="tab-pane" id="board" role="tabpanel">
         <div class="d-flex gap-2">
+            @forelse ($categoryBoards as $categoryBoard)
             <div class="col-3">
                 <div class="d-flex align-items-center">
-                    <h5 class="text-uppercase m-0">Tugas Baru</h5>
+                    <h5 class="text-uppercase m-0">{{ $categoryBoard->title }}</h5>
                     <div class="badge bg-success mx-2">2</div>
                 </div>
                 <div class="mt-3 mx-0 px-0">
-                    @foreach (range(1, 2) as $item)
-                    <div class="card col-11">
-                        <div class="card-body">
-                            <h5 class="text-secondary">
-                                Lorem ipsum dolor sit amet consectetur. Et in et quis metus nunc tempus dignissim dui amet vulputate.
-                            </h5>
-                            <div class="d-flex gap-2">
-                                <div class="badge bg-warning-subtle text-warning">Front-end</div>
-                                <div class="badge bg-danger-subtle text-danger">Mendesak</div>
-                                <div class="badge bg-secondary">Direvisi mentor</div>
+                    @forelse (App\Models\Board::where('category_board_id', $categoryBoard->id)->get() as $board)
+                        <div class="card col-11">
+                            <div class="card-body">
+                                <h5 class="text-secondary">
+                                    {{ $board->name }}
+                                </h5>
+                                <div class="d-flex gap-2">
+                                    <div class="badge bg-warning-subtle text-warning">{{ $board->label }}</div>
+                                    <div class="badge bg-danger-subtle text-danger">{{ $board->priority }}</div>
+                                    <div class="badge bg-secondary">{{ $board->status }}</div>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex gap-2 align-items-center" style="border-top-style: dotted;">
+                                    <h6 class="text-secondary" style="font-size: 12px">{{ \Carbon\Carbon::parse($board->end_date)->locale('id')->isoFormat('dddd, D MMMM Y') }}</h6>
+                                <div class="avatar-group">
+                                    @if ($team->category_project_id != 1)
+                                        @if(Storage::disk('public')->exists($studentTeam->student->avatar))
+                                            <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $studentTeam->student->name }}">
+                                                <img src="{{ asset('storage/'. $studentTeam->student->avatar) }}" alt="" class="rounded-circle avatar-xxs">
+                                            </a>
+                                        @else
+                                            @php
+                                                $firstLetter = substr($studentTeam->student->name, 0, 1);
+                                                $firstLetter = strtoupper($firstLetter);
+                                                $backgroundColors = [
+                                                    '#ff5722',
+                                                    '#4caf50',
+                                                    '#2196f3',
+                                                ];
+                                                $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
+                                            @endphp
+                                            <a href="javascript: void(0);" class="avatar-group-item shadow ms-n3" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $studentTeam->student->name }}">
+                                                <div class="avatar-xs">
+                                                    <div style="background-color: {{ $backgroundColor }};" class="avatar-title rounded-circle">
+                                                        {{ $firstLetter }}
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        @endif
+                                    @endif
+                                    @foreach ($studentTeams as $studentTeam)
+                                        @if(Storage::disk('public')->exists($studentTeam->student->avatar))
+                                            <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $studentTeam->student->name }}">
+                                                <img src="{{ asset('storage/'. $studentTeam->student->avatar) }}" alt="" class="rounded-circle avatar-xxs">
+                                            </a>
+                                        @else
+                                            @php
+                                                $firstLetter = substr($studentTeam->student->name, 0, 1);
+                                                $firstLetter = strtoupper($firstLetter);
+                                                $backgroundColors = [
+                                                    '#ff5722',
+                                                    '#4caf50',
+                                                    '#2196f3',
+                                                ];
+                                                $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
+                                            @endphp
+                                            <a href="javascript: void(0);" class="avatar-group-item shadow ms-n3" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $studentTeam->student->name }}">
+                                                <div class="avatar-xs">
+                                                    <div style="background-color: {{ $backgroundColor }};" class="avatar-title rounded-circle">
+                                                        {{ $firstLetter }}
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                        <div class="card-footer d-flex gap-2 align-items-center" style="border-top-style: dotted;">
-                            <h6 class="text-secondary" style="font-size: 12px">3 Hari Lagi</h6>
-                            <div class="avatar-group">
-                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Christi">
-                                    <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle avatar-xxs">
-                                </a>
-                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Frank Hook">
-                                    <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle avatar-xxs">
-                                </a>
-                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="more">
-                                    <div class="avatar-xxs">
-                                        <div class="avatar-title rounded-circle">
-                                            3+
-                                        </div>
-                                    </div>
-                                </a>
+                    @empty
+                    <div class="card col-11">
+                        <div class="card-body">
+                            <div class="my-1 text-center" style="margin: 0 auto;">
+                                <img src="{{ asset('no-data/2.png') }}" alt="" width="80px" srcset="">
+                                <p class="fs-6 text-dark">
+                                    Board {{ $categoryBoard->title }} kosong
+                                </p>
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                    @endforelse
                 </div>
             </div>
-            <div class="col-3">
-                <div class="d-flex align-items-center col-3">
-                    <h5 class="text-uppercase m-0">Dikerjakan</h5>
-                    <div class="badge bg-secondary mx-2">5</div>
+            @empty
+                <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
+                    <img src="{{ asset('no-data/2.png') }}" alt="" width="200px" srcset="">
+                    <p class="fs-5 text-dark">
+                        Tim ini belum memilliki board
+                    </p>
                 </div>
-                <div class="mt-3 ">
-                    @foreach (range(1, 4) as $item)
-                    <div class="card col-11">
-                        <div class="card-body">
-                            <h5 class="text-secondary">
-                                Lorem ipsum dolor sit amet consectetur. Et in et quis metus nunc tempus dignissim dui amet vulputate.
-                            </h5>
-                            <div class="d-flex gap-2">
-                                <div class="badge bg-warning-subtle text-warning">Front-end</div>
-                                <div class="badge bg-danger-subtle text-danger">Mendesak</div>
-                                <div class="badge bg-secondary">Direvisi mentor</div>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex gap-2 align-items-center" style="border-top-style: dotted;">
-                            <h6 class="text-danger" style="font-size: 11px">Sudah melewati batas deadline</h6>
-                            <div class="avatar-group">
-                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Christi">
-                                    <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle avatar-xxs">
-                                </a>
-                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Frank Hook">
-                                    <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle avatar-xxs">
-                                </a>
-                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="more">
-                                    <div class="avatar-xxs">
-                                        <div class="avatar-title rounded-circle">
-                                            3+
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="d-flex align-items-center col-3">
-                    <h5 class="text-uppercase m-0">Direvisi</h5>
-                    <div class="badge bg-warning mx-2">1</div>
-                </div>
-                <div class="mt-3 ">
-                    @foreach (range(1, 1) as $item)
-                    <div class="card col-11">
-                        <div class="card-body">
-                            <h5 class="text-secondary">
-                                Lorem ipsum dolor sit amet consectetur. Et in et quis metus nunc tempus dignissim dui amet vulputate.
-                            </h5>
-                            <div class="d-flex gap-2">
-                                <div class="badge bg-warning-subtle text-warning">Front-end</div>
-                                <div class="badge bg-danger-subtle text-danger">Mendesak</div>
-                                <div class="badge bg-secondary">Direvisi mentor</div>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex gap-2 align-items-center" style="border-top-style: dotted;">
-                            <h6 class="text-danger" style="font-size: 11px">Sudah melewati batas deadline</h6>
-                            <div class="avatar-group">
-                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Christi">
-                                    <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle avatar-xxs">
-                                </a>
-                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Frank Hook">
-                                    <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle avatar-xxs">
-                                </a>
-                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="more">
-                                    <div class="avatar-xxs">
-                                        <div class="avatar-title rounded-circle">
-                                            3+
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="d-flex align-items-center col-3">
-                    <h5 class="text-uppercase m-0">Selesai</h5>
-                    <div class="badge bg-info mx-2">2</div>
-                </div>
-                <div class="mt-3 ">
-                    @foreach (range(1, 2) as $item)
-                    <div class="card col-11">
-                        <div class="card-body">
-                            <h5 class="text-secondary">
-                                Lorem ipsum dolor sit amet consectetur. Et in et quis metus nunc tempus dignissim dui amet vulputate.
-                            </h5>
-                            <div class="d-flex gap-2">
-                                <div class="badge bg-warning-subtle text-warning">Front-end</div>
-                                <div class="badge bg-danger-subtle text-danger">Mendesak</div>
-                                <div class="badge bg-secondary">Direvisi mentor</div>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex gap-2 align-items-center" style="border-top-style: dotted;">
-                            <h6 class="text-danger" style="font-size: 11px">Sudah melewati batas deadline</h6>
-                            <div class="avatar-group">
-                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Christi">
-                                    <img src="{{ asset('assets/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle avatar-xxs">
-                                </a>
-                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Frank Hook">
-                                    <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle avatar-xxs">
-                                </a>
-                                <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="more">
-                                    <div class="avatar-xxs">
-                                        <div class="avatar-title rounded-circle">
-                                            3+
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </div>
