@@ -72,7 +72,8 @@ class AdminMentorController extends Controller
             'password' => Hash::make('password'),
             'mentors_id' => $mentor->id,
         ];
-        $this->user->store($dataUser);
+        $user = $this->user->store($dataUser);
+        $user->assignRole(RolesEnum::MENTOR->value);
 
         foreach ($request->division_id as $division) {
             $students = Student::where('division_id', $division)->get();
