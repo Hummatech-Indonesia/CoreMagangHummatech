@@ -32,7 +32,9 @@ class NoteService
                 $board = new Board();
                 $board->name = $name;
                 $board->category_board_id = $categoryBoard->id;
-                // $board->student_team_id = $studentTeam->id;
+                foreach ($studentTeams as $studentTeam){
+                    $board->student_team_id = $studentTeam->id;
+                }
                 $board->save();
             // }
         }
