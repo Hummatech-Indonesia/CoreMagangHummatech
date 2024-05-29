@@ -224,17 +224,17 @@
 
                                             <div class="d-flex align-items-center justify-content-between pt-8">
                                                 <h6 class="mb-0 text-danger">{{ $board->countdown() }}</h6>
-                                                {{-- <div class="d-flex align-items-end justify-content-end">
+                                                <div class="d-flex align-items-end justify-content-end">
+                                                    {{-- <div class="position-relative" style="z-index: {{ $loop->remaining + 1 }};">
+                                                    </div> --}}
                                                     @foreach ($studentTeams as $student)
-                                                        <div class="position-relative" style="z-index: {{ $loop->remaining + 1 }};">
-                                                            @if(Storage::disk('public')->exists($student->student->avatar))
-                                                                <img src="{{ asset('storage/' . $student->student->avatar) }}" alt="avatar" class="rounded-circle border border-2 border-white" width="35" height="35" style="margin-left: -15px;">
-                                                            @else
-                                                                <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle border border-2 border-white" width="35" height="35" style="margin-left: -15px;">
-                                                            @endif
-                                                        </div>
+                                                        @if(Storage::disk('public')->exists($student->student->avatar))
+                                                            <img src="{{ asset('storage/' . $student->student->avatar) }}" alt="avatar" class="rounded-circle border border-2 border-white" width="35" height="35" style="margin-left: -15px;">
+                                                        @else
+                                                            <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle border border-2 border-white" width="35" height="35" style="margin-left: -15px;">
+                                                        @endif
                                                     @endforeach
-                                                </div> --}}
+                                                </div>
                                             </div>
 
                                         </div>
@@ -364,6 +364,7 @@
                                         <div class="mb-3">
                                             <label for="assignee" class="form-label">Tugas Untuk</label>
                                             <select class="form-select" id="student_team_id-edit" name="student_team_id">
+                                                <option value="{{$team->id}}">{{$team->student->name}}</option>
                                                 @foreach ($studentTeams as $studentTeam)
                                                 <option value="{{$studentTeam->id}}">{{$studentTeam->student->name}}</option>
                                                 @endforeach
