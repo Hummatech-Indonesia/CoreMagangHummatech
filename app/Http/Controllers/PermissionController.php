@@ -74,26 +74,35 @@ class PermissionController extends Controller
      */
     public function updateApproval(Permission $permission, PermissionRequest $request): RedirectResponse
     {
-        $this->permission->update($permission->id, $request->all());
-        if ($request->status_approval == StatusApprovalPermissionEnum::AGREE->value) {
-            if ($permission->start === Carbon::today()->toDateString()) {
-                $izinDari = Carbon::tomorrow();
-            } else {
-                $izinDari = Carbon::parse($permission->start);
-            }
-            $izinSampai = Carbon::parse($permission->end);
-            $tanggalMulai = $izinDari;
-            $tanggalBerakhir = $izinSampai;
-            $today = now();
-            while ($tanggalMulai <= $tanggalBerakhir) {
-                $this->attendance->store([
-                    'student_id' => $permission->student_id,
-                    'status' => $permission->status,
-                    'created_at' => $today,
+        switch ($request->status_approval) {
+            case StatusApprovalPermissionEnum::AGREE->value:
+                $this->permission->update($permission->id, [
+                    'status_approval' => StatusApprovalPermissionEnum::AGREE->value,
                 ]);
-                $tanggalMulai->addDay();
-                $today->addDay();
-            }
+                if ($permission->start === Carbon::today()->toDateString()) {
+                    $izinDari = Carbon::tomorrow();
+                } else {
+                    $izinDari = Carbon::parse($permission->start);
+                }
+                $izinSampai = Carbon::parse($permission->end);
+                $tanggalMulai = $izinDari;
+                $tanggalBerakhir = $izinSampai;
+                $today = now();
+                while ($tanggalMulai <= $tanggalBerakhir) {
+                    $this->attendance->store([
+                        'student_id' => $permission->student_id,
+                        'status' => $permission->status,
+                        'created_at' => $today,
+                    ]);
+                    $tanggalMulai->addDay();
+                    $today->addDay();
+                }
+                break;
+            case StatusApprovalPermissionEnum::REJECT->value:
+                $this->permission->update($permission->id, [
+                    'status_approval' => StatusApprovalPermissionEnum::REJECT->value,
+                ]);
+                break;
         }
         return redirect()->back()->with('success', 'Berhasil menyimpan');
     }
