@@ -59,7 +59,7 @@
                 </div>
                 <div class="mx-1 mt-3">
                     <h5>Anggota Tim</h5>
-                    <div class="row">
+                    <div class="row gap-2">
                         @if ($team->category_project_id != 1)
                             <div class="col-xl-3 card">
                                 <div class="p-2 mb-0 d-flex">
