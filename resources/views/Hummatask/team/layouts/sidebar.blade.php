@@ -83,14 +83,15 @@
                         </a>
                     </li>
                     <li class="nav-item ms-auto">
-                        <div class="row g-3 align-items-center">
+                        <div class="d-flex gap-3">
+                            <button class="bg-transparent border-0 sidebar-link text-primary" type="button" aria-expanded="false" data-bs-toggle="modal" data-bs-target="#edit-team">
+                                <span class="hide-menu">Edit tim</span>
+                            </button>   
                             <a href="{{url('dashboard/task')}}" class="btn me-1 mb-1 btn-info text-light btn-sm px-4 fs-4">
                                 <i class="ti ti-arrow-back fs-3"></i> Kembali
                             </a>
                         </div>
-
                     </li>
-
                 </ul>
             </div>
         </nav>

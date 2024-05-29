@@ -10,6 +10,7 @@ use App\Http\Requests\StoreDataAdminRequest;
 use App\Http\Requests\StoreHummataskTeamRequest;
 use App\Http\Requests\UpdateDataAdminRequest;
 use App\Http\Requests\UpdateHummataskTeamRequest;
+use App\Http\Requests\UpdateTeamRequest;
 use App\Models\HummataskTeam;
 use Illuminate\Http\Request;
 use Str;
@@ -69,7 +70,7 @@ class HummataskTeamService
      *
      * @return array|bool
      */
-    public function update(HummataskTeam $hummataskTeam, UpdateHummataskTeamRequest $request): array|bool
+    public function update(HummataskTeam $hummataskTeam, UpdateTeamRequest $request): array|bool
     {
         $data = $request->validated();
 
