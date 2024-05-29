@@ -131,7 +131,7 @@
                                     @forelse ($studentsTeam as $studentPresentation)
                                         <tbody class="gridjs-tbody">
                                             <tr class="gridjs-tr">
-                                                <td data-column-id="name" class="gridjs-td">{{ $loop->iteration }}</td>
+                                                <td data-column-id="name" class="gridjs-td">{{ $iteration++ }}</td>
                                                 <td data-column-id="name" class="gridjs-td">{{ $studentPresentation['division_name'] }}</td>
                                                 <td data-column-id="name" class="gridjs-td">{{ $studentPresentation['team_name'] }}</td>
                                                 <td data-column-id="name" class="gridjs-td">{{ $studentPresentation['student_name'] }}</td>
