@@ -56,10 +56,36 @@ class DashboardController extends Controller
         $check_id = $this->mentorStudent->pluck('student_id');
 
         $zoomSchedule = $this->zoomSchedule->get();
+        $processedSchedule = [];
+
+        if ($zoomSchedule->isNotEmpty()) {
+            foreach ($zoomSchedule as $schedule) {
+                $startDate = \Carbon\Carbon::parse($schedule->start_date);
+                $endDate = \Carbon\Carbon::parse($schedule->end_date);
+                $now = \Carbon\Carbon::now();
+                $status = '';
+
+                if ($now->lt($startDate)) {
+                    $status = 'Mendatang';
+                } elseif ($now->gt($endDate)) {
+                    $status = 'Berakhir';
+                } else {
+                    $status = 'Berlangsung';
+                }
+
+                $schedule->status = $status;
+                if ($status !== 'Berakhir') {
+                    $processedSchedule[] = $schedule;
+                }
+            }
+        }
+
         $totalSchedule = $zoomSchedule->count();
         $countCourse = $this->appointment->count();
-        return view('mentor.index',compact('division','mentor', 'mentorStudent','mentorDivision','jumlahSiswa','totalSchedule','zoomSchedule','countCourse'));
+        return view('mentor.index', compact('division', 'mentor', 'mentorStudent', 'mentorDivision', 'jumlahSiswa', 'totalSchedule', 'processedSchedule', 'countCourse'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
