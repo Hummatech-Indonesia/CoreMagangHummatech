@@ -11,6 +11,7 @@ use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LimitPresentationController;
 use App\Http\Controllers\Mentor\JournalController;
+use App\Http\Controllers\MentorController;
 use App\Http\Controllers\NotePicketController;
 use App\Http\Controllers\NoteTeamController;
 use App\Http\Controllers\PermissionController;
@@ -47,9 +48,7 @@ Route::get('report', [PicketingReportController::class, 'index']);
 
 
 // mentor
-Route::get('student/absensi', function () {
-    return view('mentor.absensi.index');
-});
+Route::get('student/absensi',[MentorController::class, 'indexAttendances']);
 
 Route::get('student/journal', [JournalController::class, 'index']);
 
