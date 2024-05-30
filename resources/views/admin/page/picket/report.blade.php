@@ -59,7 +59,7 @@
                                     @forelse ($picketingReport as $index => $picketingReport)
                                         <tr align="center">
                                             <td class="number">{{++$index}}</td>
-                                            <td class="name">nama</td>
+                                            <td class="name">{{ $picketingReport->user->name }}</td>
                                             <td>{{ \Carbon\Carbon::parse($picketingReport->created_at)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</td>
                                             <td>
                                                 <img src="{{ asset('storage/' . $picketingReport->proof) }}" alt="My Image"
