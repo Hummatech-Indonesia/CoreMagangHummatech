@@ -27,7 +27,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     {
         return $this->model->query()
             ->whereDate('created_at', Carbon::today())
-            ->where('mentor_id' , auth()->user()->mentor->id)
+            ->where('mentor_id')
             ->get();
     }
 
@@ -97,7 +97,10 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     public function GetPresentationByMentor(mixed $id, Request $request): mixed
     {
         $query = $this->model->query()
-            ->where('mentor_id', $id);
+            ->whereHas('mentor', function ($query) use ($id)
+        {
+            $query->where('division_id', $id);
+        });
 
         if ($request->filled('created_at')) {
             $query->whereDate('created_at', $request->input('created_at'));
