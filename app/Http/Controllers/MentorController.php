@@ -2,18 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\StudentInterface;
 use App\Models\Mentor;
 use App\Http\Requests\StoreMentorRequest;
 use App\Http\Requests\UpdateMentorRequest;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 
 class MentorController extends Controller
 {
+    private StudentInterface $student;
+    public function __construct(StudentInterface $studentInterface)
+    {
+        $this->student = $studentInterface;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         //
+    }
+
+    /**
+     *
+     * page attendance
+     * @param Request
+     * @return View
+     *
+     */
+    public function indexAttendances(Request $request): View
+    {
+        $attendaces = $this->student->getAttendanceByDivision(auth()->user()->mentor->division->id);
+        return view('mentor.absensi.index', compact('attendances'));
     }
 
     /**

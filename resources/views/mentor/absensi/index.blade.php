@@ -64,6 +64,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($attendances as $attendance)
                     <tr class="search-items">
                         <td class="d-flex">
                             <div class="n-chk align-self-center text-center">
@@ -71,74 +72,74 @@
                             </div>
                             <div class="ms-3">
                                 <div class="user-meta-info">
-                                    <h6 class="user-name mb-0" data-name="Emma Adams">Emma Adams</h6>
-                                    <span class="user-work fs-3" data-occupation="Web Developer">Web Developer</span>
+                                    <h6 class="user-name mb-0" data-name="Emma Adams">{{ $attendace->name }}</h6>
+                                    <span class="user-work fs-3" data-occupation="Web Developer">{{ $attendance->division->name }}</span>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <span class="usr-email-addr">12 Maret 2024</span>
+                            <span class="usr-email-addr">{{ now()->format('d M Y') }}</span>
                         </td>
                         <td>
-                            <span class="badge bg-success">Masuk</span>
-                        </td>
-                        <td>
-                            <span>07.39.10</span>
-                        </td>
-                        <td>
-                            <span>07.39.10</span>
-                        </td>
-                    </tr>
-                    <tr class="search-items">
-                        <td class="d-flex">
-                            <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt="avatar" class="rounded-circle" width="35">
-                            </div>
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0" data-name="Emma Adams">Emma Adams</h6>
-                                    <span class="user-work fs-3" data-occupation="Web Developer">Web Developer</span>
+                            @if (isset($attendance->attendances[0]))
+                                @if ($attendance->attendances[0]->status == 'masuk')
+                                    <span class="badge bg-success">{{ $attendance->attendances[0]->status }}</span>
+                                @endif
+                                @if ($attendance->attendances[0]->status == 'izin')
+                                    <span class="badge bg-warning">{{ $attendance->attendances[0]->status }}</span>
+                                @endif
+                                @if ($attendance->attendances[0]->status == 'sakit')
+                                    <span class="badge bg-warning">{{ $attendance->attendances[0]->status }}</span>
+                                @endif
+                                @if ($attendance->attendances[0]->status == 'alpha')
+                                    <span class="badge bg-danger">{{ $attendance->attendances[0]->status }}</span>
+                                @endif
+                            @else
+                                <div class="badge bg-danger-subtle text-danger py-2 px-3">
+                                    @php
+                                        $waktuSaatIni = \Carbon\Carbon::now();
+                                        $waktuJamDelapan = \Carbon\Carbon::today()->setHour(8);
+                                    @endphp
+
+                                    @if ($waktuSaatIni->greaterThan($waktuJamDelapan))
+                                        <span class="badge bg-danger">Alpha</span>
+                                    @else
+                                        <span class="badge bg-danger">Belum Hadir</span>
+                                    @endif
+
                                 </div>
-                            </div>
+                            @endif
                         </td>
                         <td>
-                            <span class="usr-email-addr">12 Maret 2024</span>
+                            @if (isset($attendance->attendances[0]))
+                                @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
+                                    @if ($detailAttendance->status == 'present')
+                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                \Carbon\Carbon::createFromFormat('H:i:s', $rule?->checkin_ends ?? "08:00:00")->addMinutes(1)->format('H:i:s'))
+                                            <span>{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                        @else
+                                            <span>{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            @endif
                         </td>
                         <td>
-                            <span class="badge bg-warning">Izin</span>
-                        </td>
-                        <td>
-                            <span>07.39.10</span>
-                        </td>
-                        <td>
-                            <span>07.39.10</span>
+                            @if (isset($attendance->attendances[0]))
+                                @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
+                                    @if ($detailAttendance->status == 'return')
+                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                \Carbon\Carbon::createFromFormat('H:i:s', $rule?->checkout_ends ?? '20:00:00')->addMinutes(1)->format('H:i:s'))
+                                            <span>{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                        @else
+                                            <span>{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            @endif
                         </td>
                     </tr>
-                    <tr class="search-items">
-                        <td class="d-flex">
-                            <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt="avatar" class="rounded-circle" width="35">
-                            </div>
-                            <div class="ms-3">
-                                <div class="user-meta-info">
-                                    <h6 class="user-name mb-0" data-name="Emma Adams">Emma Adams</h6>
-                                    <span class="user-work fs-3" data-occupation="Web Developer">Web Developer</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="usr-email-addr">12 Maret 2024</span>
-                        </td>
-                        <td>
-                            <span class="badge bg-danger">Alpha</span>
-                        </td>
-                        <td>
-                            <span>07.39.10</span>
-                        </td>
-                        <td>
-                            <span>07.39.10</span>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
