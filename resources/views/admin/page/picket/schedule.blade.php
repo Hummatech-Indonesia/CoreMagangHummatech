@@ -435,31 +435,40 @@
 
     <div id="pills-experience" class="tab-pane fade">
         <div class="row">
-            <div class="col-xxl-6 d-flex">
-                <div class="card flex-fill">
-                    <div class="row g-0 align-items-stretch">
-                        <div class="col-md-4">
-                            <img src="assets/images/small/img-12.jpg" alt="My Image" style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Inspektur : Niel</h5>
+            @forelse ($reports as $report)
+                <div class="col-xxl-6 d-flex">
+                    <div class="card flex-fill">
+                        <div class="row g-0 align-items-stretch">
+                            <div class="col-md-4">
+                                <img src="{{ asset('storage/'. $report->proof) }}" alt="My Image" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
-                            <div class="card-body">
-                                <p class="card-text mb-2">For that very reason, I went on a quest and spoke to many different professional graphic designers and asked them what graphic design tips they live.</p>
-                                <p class="card-text">
-                                    <small class="text-muted"> Jumat-Sore</small>
-                                </p>
-                                <div class="">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal" style="background-color: #695EEF;">Lihat Detail</button>
-                                    <button type="button" class="btn btn-success">Terima</button>
-                                    <button type="button" class="btn btn-danger" style="background-color: #DC3545;">Tolak</button>
+                            <div class="col-md-8">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Inspektur: {{ $report->user->name }}</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text mb-2">{{ $report->description }}</p>
+                                    <div class="">
+                                        <button type="button" class="btn btn-primary btn-show-report"
+                                        data-id="{{ $report->id }}" data-proof="{{ asset('storage/'. $report->proof) }}" data-description="{{ $report->description }}" data-day="{{ \Carbon\Carbon::parse($report->created_at)->locale('id')->isoFormat('dddd') }}"
+                                        data-bs-toggle="modal" data-bs-target="#detailModal" style="background-color: #695EEF;">Lihat Detail</button>
+                                        <button type="button" class="btn btn-success">Terima</button>
+                                        <button type="button" class="btn btn-danger" style="background-color: #DC3545;">Tolak</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @empty
+                <div class="d-flex justify-content-center mb-2 mt-5">
+                    <img src="{{ asset('no data.png') }}" alt="" width="300px"
+                        srcset="">
+                </div>
+                <p class="fs-5 text-dark text-center">
+                    Tidak ada laporan
+                </p>
+            @endforelse
         </div>
     </div>
 
@@ -633,7 +642,7 @@
 
   <!-- Detail Modal -->
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="showModalLabel">Detail Laporan</h5>
@@ -641,24 +650,17 @@
             </div>
             <div class="modal-body">
                 <div>
-                    <h6 style="color: black;">Hari :</h6>
-                    <p id="modalName">Jumat</p>
-                </div>
-                <div>
-                    <h6 style="color: black;">Waktu :</h6>
-                    <p id="modalName">Sore</p>
+                    <h6 style="color: black;">Hari: <span id="day-report"></span></h6>
                 </div>
                 <div>
                     <h6 style="color: black;">Bukti :</h6>
-                    <p id="modalName">
-                        <img src="assets/images/galaxy/img-1.png" alt="My Image" style="width: 100%; height: auto;">
+                    <p >
+                        <img id="proof-report" alt="My Image" style="width: 300px; height: auto;">
                     </p>
                 </div>
                 <div>
                     <h6 style="color: black;">Deskripsi :</h6>
-                    <p id="modalName">
-                        Lorem ipsum dolor sit amet consectetur. Viverra ornare ullamcorper mattis amet pretium. Morbi ac ipsum tellus dignissim sapien. Diam at enim semper pharetra ac libero a neque sit. Sit tristique fermentum ullamcorper leo mattis quis. Nisl eget viverra id imperdiet pharetra. Elit in pulvinar adipiscing diam adipiscing. Senectus cum in amet a congue. Amet etiam vitae fringilla adipiscing sit et lorem. Urna mi sed ac commodo. Ornare nulla sit sit porta. Varius commodo tortor odio aliquam consectetur.
-                    </p>
+                    <p id="description-report"></p>
                 </div>
 
             </div>
@@ -697,6 +699,20 @@
 
         // Remove the selected option
         this.removeChild(selectedOption);
+    });
+</script>
+
+<script>
+    $('.btn-show-report').click(function () {
+        let id = $(this).data('id');
+        let proof = $(this).data('proof');
+        let description = $(this).data('description');
+        let day = $(this).data('day');
+
+        $('#day-report').text(day);
+        $('#proof-report').attr('src', proof);
+        $('#description-report').text(description);
+        $('#detailModal').modal('show');
     });
 </script>
 
