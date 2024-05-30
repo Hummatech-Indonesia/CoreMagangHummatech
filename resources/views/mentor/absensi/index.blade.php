@@ -75,7 +75,7 @@
                     <tr class="search-items">
                         <td class="d-flex">
                             <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt="avatar" class="rounded-circle" width="35">
+                                <img src="{{ asset('storage/' . $attendance->avatar) }}" alt="avatar" class="rounded-circle" width="35">
                             </div>
                             <div class="ms-3">
                                 <div class="user-meta-info">
