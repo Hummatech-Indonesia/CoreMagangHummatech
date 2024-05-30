@@ -113,15 +113,15 @@ class PresentationController extends Controller
         $monthlyPresentationCount = $this->presentation->countMonthlyPresentationsByTeamId($teamId);
 
         $studentId = 1;
-        $studentsTeam = $this->presentation->countMonthlyPresentationsByStudentId($studentId);
-
-        if (is_null($studentsTeam)) {
+        $studentPresentationCount = $this->presentation->getMonthlyPresentationsByStudentId($studentId);
+        // dd($studentPresentationCount);
+        if (is_null($studentPresentationCount)) {
             $studentsTeam = [];
         }
 
 
 
-        return view('admin.page.presentation.index', compact('categoryProject', 'presentations', 'monthlyPresentationCount', 'studentsTeam'));
+        return view('admin.page.presentation.index', compact('categoryProject', 'presentations', 'monthlyPresentationCount', 'studentPresentationCount'));
     }
 
     /**

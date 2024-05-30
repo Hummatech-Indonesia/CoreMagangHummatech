@@ -32,6 +32,11 @@ class Presentation extends Model
         return $this->belongsTo(Mentor::class);
     }
 
+    public function students(): BelongsTo
+    {
+        return $this->belongsTo(Student::class);
+    }
+
     protected $casts = [
         'status_presentation' => StatusPresentationEnum::class,
     ];
