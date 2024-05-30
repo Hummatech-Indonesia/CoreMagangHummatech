@@ -67,6 +67,8 @@
                         <th>Tanggal</th>
                         <th>Keterangan</th>
                         <th>Masuk</th>
+                        <th>Istirahat</th>
+                        <th>Kembali</th>
                         <th>Pulang</th>
                     </tr>
                 </thead>
@@ -121,6 +123,34 @@
                             @if (isset($attendance->attendances[0]))
                                 @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
                                     @if ($detailAttendance->status == 'present')
+                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                \Carbon\Carbon::createFromFormat('H:i:s', $rule?->checkin_ends ?? "08:00:00")->addMinutes(1)->format('H:i:s'))
+                                            <span>{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                        @else
+                                            <span>{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            @endif
+                        </td>
+                        <td>
+                            @if (isset($attendance->attendances[0]))
+                                @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
+                                    @if ($detailAttendance->status == 'break')
+                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                \Carbon\Carbon::createFromFormat('H:i:s', $rule?->checkin_ends ?? "08:00:00")->addMinutes(1)->format('H:i:s'))
+                                            <span>{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                        @else
+                                            <span>{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            @endif
+                        </td>
+                        <td>
+                            @if (isset($attendance->attendances[0]))
+                                @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
+                                    @if ($detailAttendance->status == 'return_break')
                                         @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
                                                 \Carbon\Carbon::createFromFormat('H:i:s', $rule?->checkin_ends ?? "08:00:00")->addMinutes(1)->format('H:i:s'))
                                             <span>{{ dateFormatted($detailAttendance->created_at) }}</span>

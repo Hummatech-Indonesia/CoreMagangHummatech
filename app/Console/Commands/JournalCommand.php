@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Enum\StatusJournalEnum;
+use App\Enum\StudentStatusEnum;
 use Carbon\Carbon;
 use App\Models\Journal;
 use App\Models\Student;
@@ -35,9 +36,10 @@ class JournalCommand extends Command
         if($dayNow != 'Saturday' || $dayNow != 'Sunday') {
             $student_Already = Journal::whereDate('created_at', $dateNow)->pluck('student_id')->toArray();
             $student_notYet = Student::query()
-            ->whereNotIn('id', $student_Already)
-            ->whereDate('start_date', '<=', $dateNow)
-            ->get();
+                ->where('status', StudentStatusEnum::ACCEPTED->value)
+                ->whereNotIn('id', $student_Already)
+                ->whereDate('start_date', '<=', $dateNow)
+                ->get();
 
             foreach ($student_notYet as $student) {
                 Journal::create([
