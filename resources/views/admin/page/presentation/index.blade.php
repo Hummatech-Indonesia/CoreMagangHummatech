@@ -82,7 +82,7 @@
                                                 <td data-column-id="name" class="gridjs-td">{{ $teamPresentation['team']->division->name }}</td>
                                                 <td data-column-id="name" class="gridjs-td">{{ $teamPresentation['team']->name }}</td>
                                                 <td data-column-id="name" class="gridjs-td">{{ $teamPresentation['team']->categoryProject->name }}</td>
-                                                <td data-column-id="name" class="gridjs-td">{{ \Carbon\Carbon::parse($presentation->created_at)->translatedFormat('F') }}</td>
+                                                <td data-column-id="name" class="gridjs-td">{{ \Carbon\Carbon::parse($presentation->created_at)->translatedFormat('M') }}</td>
                                                 <td data-column-id="name" class="gridjs-td">{{ $teamPresentation['count'] }}</td>
                                             </tr>
                                         @endforeach
@@ -128,29 +128,27 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    @forelse ($studentsTeam as $studentPresentation)
+                                    {{-- @forelse ($studentPresentationCount as $studentPresentation)
                                         <tbody class="gridjs-tbody">
                                             <tr class="gridjs-tr">
-                                                <td data-column-id="name" class="gridjs-td">{{ $iteration++ }}</td>
-                                                <td data-column-id="name" class="gridjs-td">{{ $studentPresentation['division_name'] }}</td>
-                                                <td data-column-id="name" class="gridjs-td">{{ $studentPresentation['team_name'] }}</td>
-                                                <td data-column-id="name" class="gridjs-td">{{ $studentPresentation['student_name'] }}</td>
-                                                <td data-column-id="name" class="gridjs-td">{{ $studentPresentation['month'] }}</td>
-                                                <td data-column-id="name" class="gridjs-td">{{ $studentPresentation['presentation_count'] }} kali</td>
+                                                <td data-column-id="division_name" class="gridjs-td">msms</td>
+                                                <td data-column-id="team_name" class="gridjs-td">msms</td>
+                                                <td data-column-id="student_name" class="gridjs-td">msmms</td>
+                                                <td data-column-id="month" class="gridjs-td">msnmw</td>
+                                                <td data-column-id="count" class="gridjs-td"> kali</td>
                                             </tr>
                                         </tbody>
                                     @empty
                                         <tr>
-                                            <td colspan="6">
+                                            <td colspan="5">
                                                 <div class="d-flex justify-content-center mt-3">
                                                     <img src="{{ asset('no data.png') }}" width="200px" alt="">
                                                 </div>
                                                 <h4 class="text-center mt-2 mb-4">Data Masih kosong</h4>
                                             </td>
                                         </tr>
-                                    @endforelse
+                                    @endforelse --}}
                                 </table>
-
                             </div>
                         </div>
                         </div>
