@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\AnswerTypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,15 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sub_courses', function (Blueprint $table) {
-            $table->id();
+        Schema::create('course_assignments', function (Blueprint $table) {
+            $table->uuid('id')->primary();
             $table->string('title');
             $table->longText('description');
-            $table->string('file_course');
-            $table->longText('video_course');
-            $table->string('image_course');
-            $table->foreignId('course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->integer('position');
+            $table->enum('type', [AnswerTypeEnum::FILE->value, AnswerTypeEnum::IMAGE->value, AnswerTypeEnum::LINK]);
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sub_courses');
+        Schema::dropIfExists('course_assignments');
     }
 };

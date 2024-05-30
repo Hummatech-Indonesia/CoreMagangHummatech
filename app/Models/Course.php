@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Course extends Model implements HasActiveCourses
 {
     use HasFactory;
+    protected $primaryKey = 'id';
+
+    protected $fillable = ['title', 'price', 'status', 'image', 'description', 'division_id', 'position',];
     protected $guarded = [];
 
     public function subCourse()
