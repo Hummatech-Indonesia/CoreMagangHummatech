@@ -38,7 +38,7 @@
                                 {{ $project->description }}
                             </p>
                             <p class="text-muted mb-1">
-                                Link Repository: 
+                                Link Repository:
                                 <a href="{{ $team->link }}" target="_blank" class="text-secondary">{{ $team->link }}</a>
                             </p>
                             <p class="text-muted mb-1">
@@ -174,7 +174,7 @@
             <div class="col-3">
                 <div class="d-flex align-items-center">
                     <h5 class="text-uppercase m-0">{{ $categoryBoard->title }}</h5>
-                    <div class="badge bg-success mx-2">2</div>
+                    <div class="badge bg-success mx-2">{{ $boardCounts[$categoryBoard->id] ?? 0 }}</div>
                 </div>
                 <div class="mt-3 mx-0 px-0">
                     @forelse (App\Models\Board::where('category_board_id', $categoryBoard->id)->get() as $board)

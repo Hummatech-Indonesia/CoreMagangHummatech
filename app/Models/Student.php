@@ -8,6 +8,7 @@ use App\Models\WarningLetter;
 use App\Models\ResponseLetter;
 use App\Base\Interfaces\HasAttendances;
 use App\Base\Interfaces\HasOneActiveFeature;
+use App\Base\Interfaces\HasOneStudentCoursePosition;
 use App\Base\Interfaces\HasOneUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Division;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Student extends Model implements HasAttendances, HasOneActiveFeature, HasActiveCourses, HasOneUser
+class Student extends Model implements HasAttendances, HasOneActiveFeature, HasActiveCourses, HasOneUser, HasOneStudentCoursePosition
 {
     use HasFactory;
 
@@ -117,5 +118,14 @@ class Student extends Model implements HasAttendances, HasOneActiveFeature, HasA
     public function studentTeams(): HasMany
     {
         return $this->hasMany(studentTeam::class);
+    }
+
+    /**
+     * student course position
+     * @return HasOne
+     */
+    public function studentCoursePosition(): HasOne
+    {
+        return $this->hasOne(StudentCoursePosition::class);
     }
 }

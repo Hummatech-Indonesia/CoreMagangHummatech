@@ -186,6 +186,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 @empty
                     <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">
                         <img src="{{ asset('no data.png') }}" alt="" width="200px" srcset="">

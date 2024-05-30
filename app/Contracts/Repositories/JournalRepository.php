@@ -116,4 +116,5 @@ class JournalRepository extends BaseRepository implements JournalInterface
         ->where('status' , 'notfilling')
         ->count();
     }
+    
 }

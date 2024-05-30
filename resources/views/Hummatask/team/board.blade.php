@@ -174,7 +174,7 @@
                 <div class="card-body rounded-2 mb-3" >
                     <div class="d-flex align-items-center mb-3">
                         <h5 class="card-title pt-1" style="font-size: 18px;">{{$categoryBoard->title}}</h5>
-                            {{-- <div class="bg-primary text-light d-inline-flex align-items-center justify-content-center rounded-circle ms-2" style="font-size: 14px; width: 25px; height: 25px;">5</div> --}}
+                            <div class="bg-primary text-light d-inline-flex align-items-center justify-content-center rounded-circle ms-2" style="font-size: 14px; width: 25px; height: 25px;">{{ $boardCounts[$categoryBoard->id] ?? 0 }}</div>
                         <div class="d-flex justify-content-end align-items-center ms-auto">
                             <div class="m3-3">
                                 <button class="btn show-form" data-target="formContainer-{{ $categoryBoard->id }}">
@@ -415,7 +415,7 @@
                                         <div class="mb-3">
                                             <label for="assignee" class="form-label">Tugas Untuk</label>
                                             <select class="form-select" id="student_team_id-edit" name="student_team_id">
-                                                <option value="{{$team->id}}">{{$team->student->name}}</option>
+                                                {{-- <option value="{{$team->id}}">{{$team->student->name}}</option> --}}
                                                 @foreach ($studentTeams as $studentTeam)
                                                 <option value="{{$studentTeam->id}}">{{$studentTeam->student->name}}</option>
                                                 @endforeach

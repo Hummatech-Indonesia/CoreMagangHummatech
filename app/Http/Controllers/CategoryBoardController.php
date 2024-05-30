@@ -13,6 +13,7 @@ use App\Models\CategoryBoard;
 use App\Http\Requests\StoreCategoryBoardRequest;
 use App\Http\Requests\UpdateCategoryBoardRequest;
 use App\Models\HummataskTeam;
+use App\Services\BoardService;
 use App\Services\NoteService;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,8 @@ class CategoryBoardController extends Controller
     private NoteService $noteservice;
     private StudentTeamInterface $studentTeam;
     private StudentInterface $student;
-    public function __construct(CategoryBoardInterface $categoryBoard, HummataskTeamInterface $hummataskTeam, BoardInterface $board, StudentProjectInterface $studentProject, ProjectInterface $Project, NoteService $noteService, StudentTeamInterface $studentTeam, StudentInterface $student)
+    private BoardService $boardService;
+    public function __construct(CategoryBoardInterface $categoryBoard, HummataskTeamInterface $hummataskTeam, BoardInterface $board, StudentProjectInterface $studentProject, ProjectInterface $Project, NoteService $noteService, StudentTeamInterface $studentTeam, StudentInterface $student, BoardService $boardService)
     {
         $this->categoryBoard = $categoryBoard;
         $this->hummataskTeam = $hummataskTeam;
@@ -36,6 +38,7 @@ class CategoryBoardController extends Controller
         $this->noteservice = $noteService;
         $this->studentTeam = $studentTeam;
         $this->student = $student;
+        $this->boardService = $boardService;
     }
     /**
      * Display a listing of the resource.
@@ -51,7 +54,9 @@ class CategoryBoardController extends Controller
             $studentTeams = $this->studentTeam->where('project_id', $project->id);
         }
         $students = $this->student->get();
-        return view('Hummatask.team.board' , compact('categoryBoards', 'hummataskTeam', 'boards', 'team', 'studentTeams', 'students'));
+        $boardCounts = $this->boardService->getBoardCountsByCategory($team->id);
+
+        return view('Hummatask.team.board' , compact('categoryBoards', 'hummataskTeam', 'boards', 'team', 'studentTeams', 'students','boardCounts'));
     }
 
     /**

@@ -142,31 +142,59 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->count();
     }
 
-    public function countMonthlyPresentationsByStudentId(int $studentId): array
+    // public function getMonthlyPresentationsByStudentId(int $studentId): array
+    // {
+    //     $presentations = $this->model->query()
+    //         ->whereHas('hummataskTeam', function ($query) use ($studentId) {
+    //             $query->where('student_id', $studentId);
+    //         })
+    //         ->whereMonth('created_at', Carbon::now()->month)
+    //         ->whereYear('created_at', Carbon::now()->year)
+    //         ->with(['hummataskTeam.division', 'hummataskTeam.team', 'hummataskTeam.student'])
+    //         ->get()
+    //         ->groupBy(function ($presentation) {
+    //             return $presentation->hummataskTeam->student->id;
+    //         })
+    //         ->map(function ($group) {
+    //             $firstPresentation = $group->first();
+    //             return [
+    //                 'division_name' => $firstPresentation->hummataskTeam->division->name ?? 'N/A',
+    //                 'team_name' => $firstPresentation->hummataskTeam->team->name ?? 'N/A',
+    //                 'student_name' => $firstPresentation->hummataskTeam->student->name ?? 'N/A',
+    //                 'month' => $firstPresentation->created_at->format('F'),
+    //                 'count' => $group->count(),
+    //             ];
+    //         });
+
+    //         dd($presentations);
+
+
+    //     return $presentations->values()->toArray();
+    // }
+
+
+    public function getMonthlyPresentationsByStudentId(int $studentId): mixed
     {
-        $teams = HummataskTeam::with('student', 'division')->whereHas('student', function ($query) use ($studentId) {
-            $query->where('id', $studentId);
-        })->get();
+        return $this->model->query()
+            ->whereHas('hummataskTeam', function ($query) use ($studentId) {
+                $query->whereHas('studentTeams', function($q) use ($studentId) {
+                    $q->where('student_id', $studentId);
+                });
+            })
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->count();
+                // ->whereHas('hummataskTeam', function ($query) use ($studentId) {
+                //     $query->where('student_id', $studentId);
+                // })
+                // ->whereMonth('created_at', Carbon::now()->month)
+                // ->whereYear('created_at', Carbon::now()->year)
+                // ->get();
 
-        $monthlyPresentations = [];
-        foreach ($teams as $team) {
-            $count = $this->model->where('hummatask_team_id', $team->id)
-                ->whereMonth('created_at', Carbon::now()->month)
-                ->whereYear('created_at', Carbon::now()->year)
-                ->count();
+                // dd($presentations);
+        // return $presentations->values()->toArray();
 
-            $monthlyPresentations[] = [
-                'student_name' => $team->student->name,
-                'team_name' => $team->name,
-                'division_name' => $team->division->name,
-                'month' => Carbon::now()->translatedFormat('F'),
-                'presentation_count' => $count
-            ];
-        }
-
-        return $monthlyPresentations;
     }
-
 
     public function getPresentationsByStudentId(int $studentId)
     {
