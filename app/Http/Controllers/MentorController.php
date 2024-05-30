@@ -34,7 +34,7 @@ class MentorController extends Controller
      */
     public function indexAttendances(Request $request): View
     {
-        $attendaces = $this->student->getAttendanceByDivision(auth()->user()->mentor->division->id);
+        $attendances = $this->student->getAttendanceByDivision(auth()->user()->mentor->division->id);
         return view('mentor.absensi.index', compact('attendances'));
     }
 
