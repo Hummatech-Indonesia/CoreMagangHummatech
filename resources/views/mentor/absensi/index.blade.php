@@ -49,6 +49,13 @@
     </div>
 </div>
 
+@if (!function_exists('dateFormatted'))
+    @php
+        function dateFormatted(string $dateTime): string {
+            return \Carbon\Carbon::parse($dateTime)->format('H:i');
+        }
+    @endphp
+@endif
 
 <div class="row">
     <div class="card card-body">
