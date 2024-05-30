@@ -8,11 +8,11 @@
                     Tim
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="tab" href="#on" role="tab">
                     Siswa
                 </a>
-            </li>
+            </li> --}}
         </ul>
         <div class="me-2 col-xl-2 d-flex align-items-center gap-2">
             <label for="" class="mt-2">Filter: </label>
