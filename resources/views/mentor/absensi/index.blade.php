@@ -72,7 +72,7 @@
                             </div>
                             <div class="ms-3">
                                 <div class="user-meta-info">
-                                    <h6 class="user-name mb-0" data-name="Emma Adams">{{ $attendace->name }}</h6>
+                                    <h6 class="user-name mb-0" data-name="Emma Adams">{{ $attendance->name }}</h6>
                                     <span class="user-work fs-3" data-occupation="Web Developer">{{ $attendance->division->name }}</span>
                                 </div>
                             </div>
