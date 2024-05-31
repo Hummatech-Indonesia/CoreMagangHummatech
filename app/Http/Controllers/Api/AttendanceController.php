@@ -99,9 +99,12 @@ class AttendanceController extends Controller
             $attendance = $this->attendance->store($attendanceData);
         }
         if ($time >= $ruleToday->checkin_starts && $time <= Carbon::createFromFormat('H:i:s', $ruleToday->checkin_ends)->addMinutes($max ? (int) $max->minute : 15)->format('H:i:s')) {
-            $this->attendanceDetail->store(['status' => 'present', 'attendance_id' => $attendance->id, 'created_at' => now(), 'updated_at' => now()]);
+            $this->attendanceDetail->store(['status' => 'present', 'attendance_id' => $attendance->id, 'updated_at' => now()]);
         } else if ($time >= $ruleToday->checkout_starts && $time <= $ruleToday->checkout_ends) {
-            $this->attendanceDetail->store(['status' => 'return', 'attendance_id' => $attendance->id, 'created_at' => now(), 'updated_at' => now()]);
+            $this->attendanceDetail->store(['status' => 'return', 'attendance_id' => $attendance->id, 'updated_at' => now()]);
+        }
+        else {
+            return ResponseHelper::error(null, "Tidak ada jam untuk absen");
         }
         return ResponseHelper::success(null, "Berhasil absen");
     }
