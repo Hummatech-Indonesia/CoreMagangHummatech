@@ -42,7 +42,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('active-courses', [CourseController::class, 'activeCourses']);
         Route::post('attendance', [AttendanceController::class, 'storeAttendance']);
         Route::get('check-wfh', [AttendanceController::class, 'checkWfh']);
-        Route::get('nonactive-courses', [CourseController::class, 'nonactiveCourses']);
+        Route::get('nonactive-courses', function () {
+            dd("Wok");
+        });
     });
 
 
