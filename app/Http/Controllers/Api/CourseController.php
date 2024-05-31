@@ -57,6 +57,7 @@ class CourseController extends Controller
      */
     public function nonactiveCourses(): JsonResponse
     {
+        dd("A");
         $courses = $this->course->getNonactiveCourse(auth()->user()->student->division_id, auth()->user()->student->id);
         return ResponseHelper::success(CourseResource::collection($courses));
     }
