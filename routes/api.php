@@ -38,13 +38,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('count_mentor' , [DashboardController::class , 'count']);
 
     // api seluruh siswa
+    Route::get('student/active-courses', [CourseController::class, 'activeCourses']);
+    Route::post('student/attendance', [AttendanceController::class, 'storeAttendance']);
+    Route::get('student/check-wfh', [AttendanceController::class, 'checkWfh']);
+    Route::get('student/nonactive-courses', [CourseController::class, 'nonactiveCourses']);
     Route::prefix('student')->group(function () {
-        Route::get('active-courses', [CourseController::class, 'activeCourses']);
-        Route::post('attendance', [AttendanceController::class, 'storeAttendance']);
-        Route::get('check-wfh', [AttendanceController::class, 'checkWfh']);
-        Route::get('nonactive-courses', function () {
-            dd("Wok");
-        });
     });
 
 
