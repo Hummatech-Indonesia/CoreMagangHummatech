@@ -22,6 +22,14 @@ class AttendanceDetailRepository extends BaseRepository implements AttendanceDet
             ->first();
     }
 
+    public function storeOnline(array $data): mixed
+    {
+        return $this->model->query()
+            ->updateOrCreate(
+                ['attendance_id' => $data['attendance_id'], 'status' => $data['status']],
+                ['status' => $data['status']]
+            );
+    }
 
     /**
      * store
