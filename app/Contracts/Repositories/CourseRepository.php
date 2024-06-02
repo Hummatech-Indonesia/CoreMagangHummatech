@@ -71,6 +71,21 @@ class CourseRepository extends BaseRepository implements CourseInterface
     }
 
     /**
+     *
+     * get latest position by division
+     * @param mixed $id
+     * @return mixed
+     *
+     */
+    public function getLatestPositionByDivision(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('division_id', $id)
+            ->orderByDesc('position')
+            ->first();
+    }
+
+    /**
      * getNonactiveCourse
      *
      * @param  mixed $divisionId
