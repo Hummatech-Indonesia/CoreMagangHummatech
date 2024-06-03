@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\StudentCoursePositionInterface;
 use App\Contracts\Interfaces\SubmitTaskInterface;
 use App\Enum\SubmitTaskStatusEnum;
 use App\Http\Requests\UpdateStatusSubmitTaskRequest;
@@ -17,8 +18,10 @@ class SubmitTaskController extends Controller
 {
     private SubmitTaskInterface $submitTask;
     private SubmitTaskService $service;
-    public function __construct(SubmitTaskInterface $submitTaskInterface, SubmitTaskService $submitTaskService)
+    private StudentCoursePositionInterface $studentCoursePosition;
+    public function __construct(SubmitTaskInterface $submitTaskInterface, SubmitTaskService $submitTaskService, StudentCoursePositionInterface $studentCoursePositionInterface)
     {
+        $this->studentCoursePosition = $studentCoursePositionInterface;
         $this->service = $submitTaskService;
         $this->submitTask = $submitTaskInterface;
     }
@@ -90,6 +93,13 @@ class SubmitTaskController extends Controller
     {
         $data = $request->validated();
         $this->submitTask->update($submitTask->id, $data);
+        if ($request->status == SubmitTaskStatusEnum::AGREE->value) {
+            $this->studentCoursePosition->store([
+                'student_id' => $submitTask->student_id,
+                'course_id' => $submitTask->courseAssignment->course_id,
+                'position' => $submitTask->courseAssignment->course->position + 1,
+            ]);
+        }
         return redirect()->back()->with('success', 'Berhasil menyimpan');
     }
 }
