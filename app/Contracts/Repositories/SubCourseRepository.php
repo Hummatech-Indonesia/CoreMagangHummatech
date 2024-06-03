@@ -65,4 +65,19 @@ class SubCourseRepository extends BaseRepository implements SubCourseInterface
             ]);
         }
     }
+
+    /**
+     *
+     * get latest position by course
+     * @param mixed $id
+     * @return mixed
+     *
+     */
+    public function getLatestPositionByCourse(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('course_id', $id)
+            ->orderByDesc('position')
+            ->first();
+    }
 }

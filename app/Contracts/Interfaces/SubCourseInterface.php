@@ -15,4 +15,13 @@ interface SubCourseInterface extends GetInterface , StoreInterface , UpdateInter
 {
     public function whereCourse(mixed $id);
     public function addToBoughtCourse(mixed $id): void;
+
+    /**
+     *
+     * get latest position by course
+     * @param mixed $id
+     * @return mixed
+     *
+     */
+    public function getLatestPositionByCourse(mixed $id): mixed;
 }
