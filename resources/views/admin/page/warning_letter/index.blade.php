@@ -70,7 +70,7 @@
                                                 <a class="btn btn-light edit-item-btn"
                                                     href="/warning-letter/show/{{ $warningLetter->id }}"><i
                                                         class="  ri-eye-line"></i></a>
-                                                <a class="btn btn-soft-warning edit-item-btn " href="{{ asset('storage/warning_letter/' .$warningLetter->file) }}" download="{{ asset('storage/warning_letter/' .$warningLetter->file) }}"><i
+                                                <a target="_blank" class="btn btn-soft-warning edit-item-btn " href="{{ asset('storage/warning_letter/' .$warningLetter->file) }}" download="{{ asset('storage/warning_letter/' .$warningLetter->file) }}"><i
                                                         class=" ri-printer-line" ></i></a>
                                                 <button data-id="{{ $warningLetter->id }}"
                                                     class="btn btn-delete btn-soft-danger edit-item-btn"><i
