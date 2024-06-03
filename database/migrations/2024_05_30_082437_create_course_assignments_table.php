@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('title');
             $table->longText('description');
-            $table->enum('type', [AnswerTypeEnum::FILE->value, AnswerTypeEnum::IMAGE->value, AnswerTypeEnum::LINK]);
+            $table->enum('type', [AnswerTypeEnum::FILE->value, AnswerTypeEnum::IMAGE->value, AnswerTypeEnum::LINK->value]);
             $table->timestamps();
         });
     }

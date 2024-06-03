@@ -10,6 +10,9 @@ class SubCourse extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id';
+    protected $keyType = 'char';
+    public $incrementing = false;
     protected $fillable = [
         'title',
         'description',
@@ -19,6 +22,7 @@ class SubCourse extends Model
         'course_id',
         'position',
     ];
+    protected $guarded = [];
 
     public function subCourseUnlock(): mixed
     {

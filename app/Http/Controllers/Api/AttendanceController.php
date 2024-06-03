@@ -8,6 +8,7 @@ use App\Contracts\Interfaces\AttendanceRuleInterface;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\MaxLateInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Contracts\Interfaces\WorkFromHomeInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AttendanceRuleResource;
@@ -25,8 +26,10 @@ class AttendanceController extends Controller
     private AttendanceRuleInterface $attendanceRule;
     private AttendanceDetailInterface $attendanceDetail;
     private JournalInterface $journal;
-    public function __construct(StudentInterface $studentInterface, AttendanceRuleInterface $attendanceRuleInterface, MaxLateInterface $maxLateInterface, AttendanceInterface $attendanceInterface, AttendanceDetailInterface $attendanceDetailInterface, JournalInterface $journal)
+    private WorkFromHomeInterface $workFromHome;
+    public function __construct(StudentInterface $studentInterface, AttendanceRuleInterface $attendanceRuleInterface, MaxLateInterface $maxLateInterface, AttendanceInterface $attendanceInterface, AttendanceDetailInterface $attendanceDetailInterface, JournalInterface $journal, WorkFromHomeInterface $workFromHomeInterface)
     {
+        $this->workFromHome = $workFromHomeInterface;
         $this->attendanceDetail = $attendanceDetailInterface;
         $this->attendance = $attendanceInterface;
         $this->maxLate = $maxLateInterface;
@@ -63,6 +66,47 @@ class AttendanceController extends Controller
         $data['total'] = $this->maxLate->GetCount();
 
         return response()->json($data);
+    }
+
+    /**
+     * check wfh
+     * @return JsonResponse
+     */
+    public function checkWfh(): JsonResponse
+    {
+        return response()->json(['wfh' => $this->workFromHome->getToday() ? true : false]);
+    }
+
+    /**
+     * kirim absen
+     * @return JsonResponse
+     *
+     */
+    public function storeAttendance(): JsonResponse
+    {
+        $time = now()->format('H:i:s');
+        $attendanceData = [
+            'student_id' => auth()->user()->student->id,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
+        $max = $this->maxLate->get();
+        $ruleToday = $this->attendanceRule->getByDay(Carbon::now()->format('l'));
+        if (!$ruleToday) {
+            return ResponseHelper::error(null, "Tidak ada jam absen");
+        }
+        if (!$attendance = $this->attendance->checkAttendanceToday(['student_id' => auth()->user()->student->id, 'created_at' => now()])) {
+            $attendance = $this->attendance->store($attendanceData);
+        }
+        if ($time >= $ruleToday->checkin_starts && $time <= Carbon::createFromFormat('H:i:s', $ruleToday->checkin_ends)->addMinutes($max ? (int) $max->minute : 15)->format('H:i:s')) {
+            $this->attendanceDetail->storeOnline(['status' => 'present', 'attendance_id' => $attendance->id, 'updated_at' => now()]);
+        } else if ($time >= $ruleToday->checkout_starts && $time <= $ruleToday->checkout_ends) {
+            $this->attendanceDetail->storeOnline(['status' => 'return', 'attendance_id' => $attendance->id, 'updated_at' => now()]);
+        }
+        else {
+            return ResponseHelper::error(null, "Tidak ada jam untuk absen");
+        }
+        return ResponseHelper::success(null, "Berhasil absen");
     }
 
     /**

@@ -19,6 +19,15 @@ interface CourseInterface extends GetInterface, StoreInterface, DeleteInterface,
     public function whereDivision(mixed $id);
 
     /**
+     *
+     * get latest position by division
+     * @param mixed $id
+     * @return mixed
+     *
+     */
+    public function getLatestPositionByDivision(mixed $id): mixed;
+
+    /**
      * getNonactiveCourse
      *
      * @param  mixed $divisionId

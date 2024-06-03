@@ -57,9 +57,15 @@ class SubCourseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSubCourseRequest $request)
+    public function store(StoreSubCourseRequest $request, Course $course)
     {
         $data = $this->service->store($request);
+        if ($subCoursePosition = $this->subCourse->getLatestPositionByCourse($course->id)) {
+            $data['position'] = $subCoursePosition->position + 1;
+        }
+        else {
+            $data['position'] = 1;
+        }
         $course = $this->subCourse->store($data);
 
         $this->subCourse->addToBoughtCourse($course);

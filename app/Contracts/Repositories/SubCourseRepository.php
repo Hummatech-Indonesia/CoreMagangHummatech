@@ -7,6 +7,7 @@ use App\Models\CourseUnlock;
 use App\Models\SubCourse;
 use App\Models\SubCourseUnlock;
 use Auth;
+use Illuminate\Http\Request;
 
 class SubCourseRepository extends BaseRepository implements SubCourseInterface
 {
@@ -64,5 +65,39 @@ class SubCourseRepository extends BaseRepository implements SubCourseInterface
                 'unlock' => 1
             ]);
         }
+    }
+
+
+    /**
+     *
+     * search
+     * @param Request $request
+     * @return mixed
+     */
+    public function search(Request $request): mixed
+    {
+        return $this->model->query()
+            ->where('course_id' , $request->course_id)
+            ->when($request->title, function ($query) use ($request) {
+                $query->where('title', 'LIKE', '%' . $request->title . '%');
+            })
+            ->orderByDesc('position')
+            ->paginate(5);
+
+    }
+
+    /**
+     *
+     * get latest position by course
+     * @param mixed $id
+     * @return mixed
+     *
+     */
+    public function getLatestPositionByCourse(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('course_id', $id)
+            ->orderByDesc('position')
+            ->first();
     }
 }

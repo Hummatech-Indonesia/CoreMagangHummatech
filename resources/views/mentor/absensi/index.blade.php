@@ -49,6 +49,13 @@
     </div>
 </div>
 
+@if (!function_exists('dateFormatted'))
+    @php
+        function dateFormatted(string $dateTime): string {
+            return \Carbon\Carbon::parse($dateTime)->format('H:i');
+        }
+    @endphp
+@endif
 
 <div class="row">
     <div class="card card-body">
@@ -60,6 +67,8 @@
                         <th>Tanggal</th>
                         <th>Keterangan</th>
                         <th>Masuk</th>
+                        <th>Istirahat</th>
+                        <th>Kembali</th>
                         <th>Pulang</th>
                     </tr>
                 </thead>
@@ -68,11 +77,11 @@
                     <tr class="search-items">
                         <td class="d-flex">
                             <div class="n-chk align-self-center text-center">
-                                <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt="avatar" class="rounded-circle" width="35">
+                                <img src="{{ asset('storage/' . $attendance->avatar) }}" alt="avatar" class="rounded-circle" width="35">
                             </div>
                             <div class="ms-3">
                                 <div class="user-meta-info">
-                                    <h6 class="user-name mb-0" data-name="Emma Adams">{{ $attendace->name }}</h6>
+                                    <h6 class="user-name mb-0" data-name="Emma Adams">{{ $attendance->name }}</h6>
                                     <span class="user-work fs-3" data-occupation="Web Developer">{{ $attendance->division->name }}</span>
                                 </div>
                             </div>
@@ -114,6 +123,34 @@
                             @if (isset($attendance->attendances[0]))
                                 @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
                                     @if ($detailAttendance->status == 'present')
+                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                \Carbon\Carbon::createFromFormat('H:i:s', $rule?->checkin_ends ?? "08:00:00")->addMinutes(1)->format('H:i:s'))
+                                            <span>{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                        @else
+                                            <span>{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            @endif
+                        </td>
+                        <td>
+                            @if (isset($attendance->attendances[0]))
+                                @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
+                                    @if ($detailAttendance->status == 'break')
+                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                \Carbon\Carbon::createFromFormat('H:i:s', $rule?->checkin_ends ?? "08:00:00")->addMinutes(1)->format('H:i:s'))
+                                            <span>{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                        @else
+                                            <span>{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            @endif
+                        </td>
+                        <td>
+                            @if (isset($attendance->attendances[0]))
+                                @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
+                                    @if ($detailAttendance->status == 'return_break')
                                         @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
                                                 \Carbon\Carbon::createFromFormat('H:i:s', $rule?->checkin_ends ?? "08:00:00")->addMinutes(1)->format('H:i:s'))
                                             <span>{{ dateFormatted($detailAttendance->created_at) }}</span>

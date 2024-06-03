@@ -37,26 +37,21 @@
                 </a>
             </li>
             <li class="nav-item ms-auto">
+                <form class="position-relative" action="/student/journal" method="GET">
                 <div class="row g-3 align-items-center">
-                    <div class="col-md-4 col-xl-4">
-                        <input type="date" class="form-control">
+                        <div class="col-md-5 col-xl-5">
+                            <input type="text" class="form-control product-search ps-5" name="name" value="{{ request()->name }}" id="input-search" placeholder="Cari Siswa...">
+                        </div>
+                        <div class="col-md-4 col-xl-5">
+                            <input type="date" name="created_at" value="{{ request()->created_at }}" class="form-control">
+                        </div>
+                        <div class="col-md-3 col-xl-2">
+                            <button type="submit" class="btn btn-primary">Cari</button>
+                        </div>
                     </div>
-                    <div class="col-md-4 col-xl-5">
-                        <form class="position-relative">
-                            <input type="text" class="form-control product-search ps-5" id="input-search" placeholder="Search Contacts...">
-                            <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
-                        </form>
-                    </div>
-                    <div class="col-md-4 col-xl-3">
-                        <select class="form-select">
-                            <option selected>Semua</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
-                        </select>
-                    </div>
-                </div>
+                </form>
             </li>
+
         </ul>
 
         <div class="tab-content">
@@ -149,6 +144,8 @@
                             @endforelse
                         </tbody>
                     </table>
+
+                    {{-- {{$journalStudents->links()}} --}}
                 </div>
             </div>
 

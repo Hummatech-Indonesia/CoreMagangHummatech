@@ -8,6 +8,7 @@ use App\Contracts\Interfaces\Eloquent\ShowInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 use App\Contracts\Interfaces\Eloquent\WhereInterface;
+use Illuminate\Http\Request;
 
 interface JournalInterface extends GetInterface , StoreInterface , UpdateInterface , DeleteInterface,WhereInterface , ShowInterface
 {
@@ -22,6 +23,12 @@ interface JournalInterface extends GetInterface , StoreInterface , UpdateInterfa
     public function whereStudent(mixed $id) :mixed;
     public function CountJournalFillin();
     public function CountJournalNotFillin();
+
+    public function whereStudentAndDate($studentId, $date);
+
+    public function search(Request $request): mixed;
+
+
 
     /**
      * get by student offline
