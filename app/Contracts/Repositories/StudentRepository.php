@@ -325,7 +325,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
 
         $students = $query->paginate(12);
 
-        $students->appends($request->only(['name', 'school', 'status', 'gender']));
+        $students->appends($request->only(['name', 'school', 'acepted', 'status', 'gender']));
 
         return $students;
     }
@@ -388,7 +388,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->when($request->school, function ($query) use ($request) {
                 $query->where('school', 'LIKE', '%' . $request->school . '%');
             })
-            ->when($request->filled('acepted'), function ($query) use ($request) {
+            ->when($request->acepted, function ($query) use ($request) {
                 $query->where('acepted', 'LIKE', '%' . $request->acepted . '%');
             })
             ->when($request->gender, function ($query) use ($request) {
@@ -413,7 +413,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->when($request->school, function ($query) use ($request) {
                 $query->where('school', 'LIKE', '%' . $request->school . '%');
             })
-            ->when($request->filled('acepted'), function ($query) use ($request) {
+            ->when($request->acepted, function ($query) use ($request) {
                 $query->where('acepted', 'LIKE', '%' . $request->acepted . '%');
             })
             ->when($request->gender, function ($query) use ($request) {
