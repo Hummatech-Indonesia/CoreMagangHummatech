@@ -86,14 +86,13 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Course $course)
+    public function show(Request $request, Course $course)
     {
-        $id  = $course->id;
         $countSub = $this->subCourse->count();
-        $subCourses = $this->subCourse->GetWhere($course->id);
-        $course = $this->course->show($course->id);
+        $request->merge(['course_id' => $course->id]);
+        $subCourses = $this->subCourse->search($request);
 
-        return view('admin.page.course.detail' , compact('course' , 'subCourses' , 'countSub' , 'id'));
+        return view('admin.page.course.detail' , compact('course' , 'subCourses' , 'countSub'));
 
     }
 

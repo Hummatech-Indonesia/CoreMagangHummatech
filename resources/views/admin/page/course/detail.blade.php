@@ -42,10 +42,10 @@
                     </div>
                 </div>
                 <div class="col-sm-auto col-xl-4 ms-auto d-flex gap-4 justify-content-end">
-                    <form class="app-search d-none d-md-block w-50">
+                    <form class="app-search d-none d-md-block w-50" action="">
                         <div class="position-relative">
                             <input type="text" class="form-control" placeholder="Cari..." autocomplete="off"
-                                id="search-options" value="">
+                                id="search-options" value="{{ request()->title }}" name="title">
                             <span class="mdi mdi-magnify search-widget-icon"></span>
                             <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none"
                                 id="search-close-options"></span>
@@ -140,10 +140,10 @@
                     </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/create/sub-materi/{{ $id }}" method="post" enctype="multipart/form-data">
+                <form action="/create/sub-materi/{{ $course->id }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
-                        <input type="hidden" name="course_id" value="{{ $id }}">
+                        <input type="hidden" name="course_id" value="{{ $course->id }}">
                         <div class="mb-3">
                             <label for="">Judul Sub Materi</label>
                             <input type="text" name="title" class="form-control">
@@ -195,7 +195,7 @@
                     @csrf
                     @method('PUT')
                     <div class="modal-body">
-                        <input type="hidden" name="course_id" value="{{ $id }}">
+                        <input type="hidden" name="course_id" value="{{ $course->id }}">
                         <div class="mb-3">
                             <label for="">Judul Sub Materi</label>
                             <input type="text" name="title" id="edit-title" class="form-control">

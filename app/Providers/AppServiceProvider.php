@@ -135,7 +135,9 @@ use App\Contracts\Repositories\VoucherUsageRepository;
 use App\Contracts\Repositories\WorkFromHomeRepository;
 use App\Models\CourseAssignment;
 use App\Models\StudentSubCourse;
+use App\Models\SubCourse;
 use App\Observers\CourseAssignmentObserver;
+use App\Observers\SubCourseObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -225,6 +227,7 @@ class AppServiceProvider extends ServiceProvider
     {
 
         CourseAssignment::observe(CourseAssignmentObserver::class);
+        SubCourse::observe(SubCourseObserver::class);
 
         if (env('FORCE_HTTPS', false)) {
             URL::forceScheme('https');

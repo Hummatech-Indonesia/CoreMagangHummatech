@@ -50,7 +50,7 @@ class UserRepository extends BaseRepository implements UserInterface
         });
     }
 
-    public function addSubCourseToSubcribedUser(int $courseId, int $subCourseId): void
+    public function addSubCourseToSubcribedUser(int $courseId, mixed $subCourseId): void
     {
         $this->model->query()->where('feature', 1)->get()->map(function($item) use ($courseId, $subCourseId) {
             SubCourseUnlock::create([

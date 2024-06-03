@@ -25,6 +25,6 @@ interface UserInterface extends GetInterface, StoreInterface, GetWhereInterface,
      * @param mixed $subCourseId
      * @return mixed
      */
-    public function addSubCourseToSubcribedUser(int $courseId, int $subCourseId): void;
-    public function where(string $string, mixed $id): mixed;    
+    public function addSubCourseToSubcribedUser(int $courseId, mixed $subCourseId): void;
+    public function where(string $string, mixed $id): mixed;
 }
