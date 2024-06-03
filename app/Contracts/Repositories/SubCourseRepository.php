@@ -76,13 +76,13 @@ class SubCourseRepository extends BaseRepository implements SubCourseInterface
      */
     public function search(Request $request): mixed
     {
-         return $this->model->query()
-               ->where('course_id' , $request->course_id)
-               ->when($request->title, function ($query) use ($request) {
-                   $query->where('title', 'LIKE', '%' . $request->title . '%');
-               })
-               ->orderByDesc('position')
-               ->paginate(5);
+        return $this->model->query()
+            ->where('course_id' , $request->course_id)
+            ->when($request->title, function ($query) use ($request) {
+                $query->where('title', 'LIKE', '%' . $request->title . '%');
+            })
+            ->orderByDesc('position')
+            ->paginate(5);
 
     }
 

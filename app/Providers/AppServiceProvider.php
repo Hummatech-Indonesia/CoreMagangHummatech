@@ -85,6 +85,7 @@ use App\Contracts\Interfaces\StudentSubCourseInterface;
 use App\Contracts\Interfaces\StudentTaskInterface;
 use App\Contracts\Interfaces\StudentTeamInterface;
 use App\Contracts\Interfaces\SubCourseUnlockInterface;
+use App\Contracts\Interfaces\SubmitTaskInterface;
 use App\Contracts\Interfaces\TaskSubmissionInterface;
 use App\Contracts\Interfaces\ThesisInterface;
 use App\Contracts\Repositories\CodeOfConductRepository;
@@ -129,6 +130,7 @@ use App\Contracts\Repositories\Signature_CORepository;
 use App\Contracts\Repositories\StudentCoursePositionRepository;
 use App\Contracts\Repositories\StudentProjectRepository;
 use App\Contracts\Repositories\StudentTeamRepository;
+use App\Contracts\Repositories\SubmitTaskRepository;
 use App\Contracts\Repositories\ThesisRepository;
 use App\Contracts\Repositories\TransactionRepository;
 use App\Contracts\Repositories\VoucherUsageRepository;
@@ -136,8 +138,10 @@ use App\Contracts\Repositories\WorkFromHomeRepository;
 use App\Models\CourseAssignment;
 use App\Models\StudentSubCourse;
 use App\Models\SubCourse;
+use App\Models\SubmitTask;
 use App\Observers\CourseAssignmentObserver;
 use App\Observers\SubCourseObserver;
+use App\Observers\SubmitTaskObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -206,6 +210,7 @@ class AppServiceProvider extends ServiceProvider
         StudentSubCourseInterface::class => StudentSubCourse::class,
         StudentCoursePositionInterface::class => StudentCoursePositionRepository::class,
         CourseAssignmentInterface::class => CourseAssignmentRepository::class,
+        SubmitTaskInterface::class => SubmitTaskRepository::class,
     ];
 
     /**
@@ -228,6 +233,7 @@ class AppServiceProvider extends ServiceProvider
 
         CourseAssignment::observe(CourseAssignmentObserver::class);
         SubCourse::observe(SubCourseObserver::class);
+        SubmitTask::observe(SubmitTaskObserver::class);
 
         if (env('FORCE_HTTPS', false)) {
             URL::forceScheme('https');
