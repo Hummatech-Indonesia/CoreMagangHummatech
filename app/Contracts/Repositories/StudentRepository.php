@@ -388,7 +388,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->when($request->school, function ($query) use ($request) {
                 $query->where('school', 'LIKE', '%' . $request->school . '%');
             })
-            ->when($request->acepted, function ($query) use ($request) {
+            ->when($request->filled('acepted'), function ($query) use ($request) {
                 $query->where('acepted', 'LIKE', '%' . $request->acepted . '%');
             })
             ->when($request->gender, function ($query) use ($request) {
@@ -413,7 +413,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->when($request->school, function ($query) use ($request) {
                 $query->where('school', 'LIKE', '%' . $request->school . '%');
             })
-            ->when($request->acepted, function ($query) use ($request) {
+            ->when($request->filled('acepted'), function ($query) use ($request) {
                 $query->where('acepted', 'LIKE', '%' . $request->acepted . '%');
             })
             ->when($request->gender, function ($query) use ($request) {
