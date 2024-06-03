@@ -315,8 +315,8 @@ class StudentRepository extends BaseRepository implements StudentInterface
             $query->where('school', 'LIKE', '%' . $request->school . '%');
         });
 
-        $query->when($request->filled('status'), function ($query) use ($request) {
-            $query->where('status', 'LIKE', '%' . $request->status . '%');
+        $query->when($request->filled('acepted'), function ($query) use ($request) {
+            $query->where('acepted', 'LIKE', '%' . $request->acepted . '%');
         });
 
         $query->when($request->filled('gender'), function ($query) use ($request) {
