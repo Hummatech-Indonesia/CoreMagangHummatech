@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\SubmitTaskInterface;
+use App\Enum\SubmitTaskStatusEnum;
+use App\Http\Requests\UpdateStatusSubmitTaskRequest;
+use App\Models\CourseAssignment;
 use App\Models\SubmitTask;
+use App\Models\TaskSubmission;
+use App\Services\SubmitTaskService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,8 +16,10 @@ use Illuminate\Http\Request;
 class SubmitTaskController extends Controller
 {
     private SubmitTaskInterface $submitTask;
-    public function __construct(SubmitTaskInterface $submitTaskInterface)
+    private SubmitTaskService $service;
+    public function __construct(SubmitTaskInterface $submitTaskInterface, SubmitTaskService $submitTaskService)
     {
+        $this->service = $submitTaskService;
         $this->submitTask = $submitTaskInterface;
     }
 
@@ -20,10 +27,13 @@ class SubmitTaskController extends Controller
      * store
      *
      * @param  mixed $request
+     * @param  mixed $courseAssignment
      * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, CourseAssignment $courseAssignment): RedirectResponse
     {
+        $data = $this->service->store($request, $courseAssignment);
+        $this->submitTask->store($data);
         return redirect()->back()->with('success', 'Berhasil menyimpan jawaban');
     }
 
@@ -47,6 +57,8 @@ class SubmitTaskController extends Controller
      */
     public function update(Request $request, SubmitTask $submitTask): RedirectResponse
     {
+        $data = $this->service->update($request, $submitTask);
+        $this->submitTask->update($submitTask->id, $data);
         return redirect()->back()->with('success', 'Berhasil memperbarui jawaban');
     }
 
@@ -58,7 +70,26 @@ class SubmitTaskController extends Controller
      */
     public function destroy(SubmitTask $submitTask): RedirectResponse
     {
-        $this->submitTask->delete($submitTask->id);
-        return redirect()->back()->with('success', 'Berhasil menghapus jawaban');
+        if ($submitTask->status == SubmitTaskStatusEnum::PENDING->value) {
+            $this->submitTask->delete($submitTask->id);
+            return redirect()->back()->with('success', 'Berhasil menghapus jawaban');
+        }
+        else {
+            return redirect()->back()->with('error', 'Gagal menghapus jawaban');
+        }
+    }
+
+    /**
+     * updateStatus
+     *
+     * @param  mixed $request
+     * @param  mixed $submitTask
+     * @return RedirectResponse
+     */
+    public function updateStatus(UpdateStatusSubmitTaskRequest $request, SubmitTask $submitTask): RedirectResponse
+    {
+        $data = $request->validated();
+        $this->submitTask->update($submitTask->id, $data);
+        return redirect()->back()->with('success', 'Berhasil menyimpan');
     }
 }

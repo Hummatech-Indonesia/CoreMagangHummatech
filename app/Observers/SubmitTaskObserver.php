@@ -13,6 +13,7 @@ class SubmitTaskObserver
     public function creating(SubmitTask $submitTask): void
     {
         $submitTask->id = Uuid::uuid();
+        $submitTask->student_id = auth()->user()->student->id;
     }
 
     /**
