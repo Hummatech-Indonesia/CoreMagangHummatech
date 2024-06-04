@@ -53,7 +53,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('journal-online', [MentorController::class, 'studentJournalOnline']);
         Route::get('journals', [MentorController::class, 'studentJournal']);
     });
-
+    Route::get('hummatask_team' , [ProfileController::class , 'hummataskteam']);
 });
 Route::post('sync', [AttendanceController::class, 'sync']);
 Route::get('students', [StudentController::class, 'getStudents']);
