@@ -95,7 +95,7 @@
                         </div>
                     <div class="search-box col-lg-3">
                         <form action="/absent">
-                            <input type="text" class="form-control" name="created_at" value="{{request()->created_at}}" data-provider="flatpickr" data-date-format="d M, Y" placeholder="Pilih tanggal">
+                            <input type="text" class="form-control" name="date" value="{{request()->date}}" data-provider="flatpickr" placeholder="Pilih tanggal">
                             <i class="ri-calendar-line search-icon"></i>
                         </form>
                     </div>
