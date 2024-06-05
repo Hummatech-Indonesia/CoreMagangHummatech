@@ -28,6 +28,12 @@ class StudentCourseController extends Controller
         return view('student_online_&_offline.course-store.index', compact('courses'));
     }
 
+    /**
+     * activeCourses
+     *
+     * @param  mixed $request
+     * @return View
+     */
     public function activeCourses(Request $request): View
     {
         $courses = auth()->user()->student->activeCourses;
@@ -43,6 +49,7 @@ class StudentCourseController extends Controller
      */
     public function show(Course $course): View
     {
+        $course = $this->course->show($course->id);
         return view('student_online_&_offline.course-store.details', compact('course'));
     }
 }

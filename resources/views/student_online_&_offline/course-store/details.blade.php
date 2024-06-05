@@ -27,7 +27,7 @@
 
 <div class="row mb-3">
     <div class="col-md-5">
-        <img src="{{ asset('assets-user/images/laravel-11.jpg') }}" class="w-100 rounded-2">
+        <img src="{{ asset('storage/' . $course->image) }}" class="w-100 rounded-2">
     </div>
     <div class="col-md-7">
         <h1 class="fw-bolder">{{ $course->title }}</h1>
@@ -59,54 +59,19 @@
                         class="border-bottom border-primary">Materinya</span></h4>
 
                 <div class="list-group list-group-flush" style="max-height: 300px; overflow-y: auto;">
+                    @foreach ($course->subCourses as $subCourse)
                     <div class="list-group-item py-4 d-flex gap-2 align-items-center">
                         <div class="row w-100 justify-content-between align-items-center">
                             <div class="col-md-3">
-                                <img src="{{ asset('assets-user/images/laravel-11.jpg') }}" class="rounded-4 w-100" />
+                                <img src="{{ asset('storage/' . $subCourse->image_course) }}" class="rounded-4 w-100" />
                             </div>
                             <div class="col-md-9">
-                                <h5 class="mb-2">Instalasi</h5>
-                                <p class="mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, odit.
-                                </p>
+                                <h5 class="mb-2">{{ $subCourse->title }}</h5>
+                                <p class="mb-1">{{ $subCourse->description }}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="list-group-item py-4 d-flex gap-2 align-items-center">
-                        <div class="row w-100 justify-content-between align-items-center">
-                            <div class="col-md-3">
-                                <img src="{{ asset('assets-user/images/laravel-11.jpg') }}" class="rounded-4 w-100" />
-                            </div>
-                            <div class="col-md-9">
-                                <h5 class="mb-2">Instalasi</h5>
-                                <p class="mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, odit.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-group-item py-4 d-flex gap-2 align-items-center">
-                        <div class="row w-100 justify-content-between align-items-center">
-                            <div class="col-md-3">
-                                <img src="{{ asset('assets-user/images/laravel-11.jpg') }}" class="rounded-4 w-100" />
-                            </div>
-                            <div class="col-md-9">
-                                <h5 class="mb-2">Instalasi</h5>
-                                <p class="mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, odit.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-group-item py-4 d-flex gap-2 align-items-center">
-                        <div class="row w-100 justify-content-between align-items-center">
-                            <div class="col-md-3">
-                                <img src="{{ asset('assets-user/images/laravel-11.jpg') }}" class="rounded-4 w-100" />
-                            </div>
-                            <div class="col-md-9">
-                                <h5 class="mb-2">Instalasi</h5>
-                                <p class="mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, odit.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
