@@ -46,6 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('hummatask')->group(function () {
         Route::post('team', [HummataskTeamController::class, 'store']);
+        Route::get('team/{hummataskTeam}', [HummataskTeamController::class, 'show']);
     });
 
 
