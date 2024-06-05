@@ -23,6 +23,7 @@ class CourseResource extends JsonResource
             'description' => $this->description,
             'division' => DivisionResource::make($this->division),
             'position' => $this->position,
+            'sub_courses' => SubCourseResource::collection($this->subCourses),
         ];
     }
 }
