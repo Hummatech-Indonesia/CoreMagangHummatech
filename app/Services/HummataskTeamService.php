@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enum\TypeEnum;
+use App\Http\Requests\HummataskTeamRequest;
 use App\Models\DataAdmin;
 use App\Models\Letterhead;
 use App\Services\Traits\UploadTrait;
@@ -32,6 +33,21 @@ class HummataskTeamService
         if ($old_file) $this->remove($old_file);
 
         return $this->upload($disk, $file);
+    }
+
+    /**
+     * storeApi
+     *
+     * @param  mixed $request
+     * @return array
+     */
+    public function storeApi(HummataskTeamRequest $request): array
+    {
+        $data = $request->validated();
+        $data['image'] = $request->file('image')->store(TypeEnum::HUMMATASKTEAM->value, 'public');
+        $data['student_id'] = auth()->user()->student->id;
+        $data['division_id'] = auth()->user()->student->division_id;
+        return $data;
     }
 
     /**
