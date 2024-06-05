@@ -16,10 +16,10 @@ class PermissionRequest extends FormRequest
     {
         return [
             'description' => 'required',
-            'proof' => 'nullable',
-            'start' => 'nullable',
-            'end' => 'nullable',
-            'status' => 'nullable'
+            'proof' => 'required',
+            'start' => 'required',
+            'end' => 'required',
+            'status' => 'required'
         ];
     }
 }
