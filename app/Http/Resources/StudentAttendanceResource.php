@@ -17,7 +17,7 @@ class StudentAttendanceResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'created_at' => $this->attendance,
+            'created_at' => $this->created_at,
             'status' => $this->status,
             'attendances' => AttendanceResource::collection($this->attendances),
         ];
