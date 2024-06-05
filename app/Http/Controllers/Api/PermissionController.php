@@ -23,6 +23,7 @@ class PermissionController extends Controller
     }
     public function store(PermissionRequest $request)
     {
+        dd($request->all());
         $data = $this->service->store($request);
         dd($data);
         $data['student_id'] = auth()->user()->student->id;
