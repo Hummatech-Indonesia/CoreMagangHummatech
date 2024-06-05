@@ -24,7 +24,6 @@ class PermissionController extends Controller
     public function store(PermissionRequest $request)
     {
         $data = $this->service->store($request);
-        dd($data);
         $data['student_id'] = auth()->user()->student->id;
         $this->permission->store($data);
         return ResponseHelper::success(null , 'berhasil menambahkan izin');
