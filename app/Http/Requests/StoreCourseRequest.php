@@ -23,12 +23,12 @@ class StoreCourseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required',
-            'image' => 'required',
+            'title' => 'required|max:255',
+            'image' => 'required|image',
             'description' => 'required',
             'status' => ['required', new CourseStatusRule],
-            'price' => 'nullable',
-            'division_id' => 'required',
+            'price' => 'nullable|max:255',
+            'division_id' => 'required|exists:divisions,id',
         ];
     }
 

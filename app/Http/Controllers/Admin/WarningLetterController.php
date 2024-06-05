@@ -48,6 +48,7 @@ class WarningLetterController extends Controller
      */
     public function store(StoreWarning_LetterRequest $request, WarningLetter $warningLetter, Student $student)
     {
+        // dd($request);
         $data = $this->service->store($request, $warningLetter, $student);
         $this->warningLetters->store($data);
         return back()->with('success' , 'Berhasil Menambahkan data');
