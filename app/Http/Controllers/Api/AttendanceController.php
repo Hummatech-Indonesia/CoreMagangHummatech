@@ -74,7 +74,11 @@ class AttendanceController extends Controller
      */
     public function checkWfh(): JsonResponse
     {
-        return response()->json(['wfh' => $this->workFromHome->getToday() ? true : false]);
+        $check = false;
+        if ($wfh = $this->workFromHome->getToday()) {
+            $check = $wfh->is_on == 1 ? true : false;
+        }
+        return response()->json(['wfh' => $check]);
     }
 
     /**
