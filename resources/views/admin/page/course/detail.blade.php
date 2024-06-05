@@ -143,10 +143,10 @@
                 </h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/create/sub-materi/{{ $id }}" method="post" enctype="multipart/form-data">
+            <form action="/create/sub-materi/{{ $course->id }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
-                    <input type="hidden" name="course_id" value="{{ $id }}">
+                    <input type="hidden" name="course_id" value="{{ $course->id }}">
                     <div class="mb-3">
                         <label for="">Judul Sub Materi</label>
                         <input type="text" name="title" class="form-control">
@@ -193,10 +193,10 @@
                 </h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/create/sub-materi/{{ $id }}" method="post" enctype="multipart/form-data">
+            <form action="/create/sub-materi/{{ $course->id }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
-                    <input type="hidden" name="course_id" value="{{ $id }}">
+                    <input type="hidden" name="course_id" value="{{ $course->id }}">
                     <div class="mb-3">
                         <label for="">Judul Tugas</label>
                         <input type="text" name="title" class="form-control">
@@ -245,7 +245,7 @@
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
-                    <input type="hidden" name="course_id" value="{{ $id }}">
+                    <input type="hidden" name="course_id" value="{{ $course->id }}">
                     <div class="mb-3">
                         <label for="">Judul Sub Materi</label>
                         <input type="text" name="title" id="edit-title" class="form-control">

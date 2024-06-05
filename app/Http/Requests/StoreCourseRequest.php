@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CourseStatusRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCourseRequest extends FormRequest
@@ -25,7 +26,7 @@ class StoreCourseRequest extends FormRequest
             'title' => 'required',
             'image' => 'required',
             'description' => 'required',
-            'status' => 'required',
+            'status' => ['required', new CourseStatusRule],
             'price' => 'nullable',
             'division_id' => 'required',
         ];

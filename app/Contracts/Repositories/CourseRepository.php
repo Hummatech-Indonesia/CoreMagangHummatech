@@ -4,6 +4,7 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\JournalInterface;
+use App\Enum\StatusCourseEnum;
 use App\Models\Course;
 use App\Models\Journal;
 use Illuminate\Http\Request;
@@ -97,6 +98,7 @@ class CourseRepository extends BaseRepository implements CourseInterface
         return $this->model->query()
             ->with('subCourses')
             ->where('division_id', $divisionId)
+            ->where('status', StatusCourseEnum::PAID->value)
             ->whereDoesntHave('activeCourses', function ($query) use ($studentId) {
                 $query->where('student_id', $studentId);
             })

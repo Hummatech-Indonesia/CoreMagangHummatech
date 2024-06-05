@@ -69,11 +69,13 @@ class CourseController extends Controller
     public function store(StoreCourseRequest $request)
     {
         $data = $this->service->store($request);
-        if ($latestPosition = $this->course->getLatestPositionByDivision($request->division_id)) {
-            $data['position'] = $latestPosition->position + 1;
-        }
-        else {
-            $data['position'] = 1;
+        if ($request->status == StatusCourseEnum::SUBCRIBE->value) {
+            if ($latestPosition = $this->course->getLatestPositionByDivision($request->division_id)) {
+                $data['position'] = $latestPosition->position + 1;
+            }
+            else {
+                $data['position'] = 1;
+            }
         }
         $courseData = $this->course->store($data);
         if($courseData->getStatus()->value !== 'paid') {
