@@ -391,19 +391,19 @@
             </div>
             <form id="form-update" method="post" enctype="multipart/form-data">
             <div class="modal-body d-flex gap-3">
-                    @csrf
-                    @method('PUT')
-                    <div class="mb-3 col-7">
-                        <label for="laporanTextarea" class="form-label">Laporan piket </label>
-                        <textarea class="form-control" rows="17" id="des-edit" name="description"></textarea>
-                    </div>
-                    <div class="mb-3 col-4">
-                        <label for="proof" class="form-label">Bukti piket</label>
-                        <br>
-                        <img id="proof-edit" style="width: 300px;">
-                        <input class="form-control" type="file" id="proof" name="proof">
-                    </div>
+                @csrf
+                @method('PUT')
+                <div class="mb-3 col-7">
+                    <label for="laporanTextarea" class="form-label">Laporan piket </label>
+                    <textarea class="form-control" rows="17" id="des-edit" name="description"></textarea>
                 </div>
+                <div class="mb-3 col-4">
+                    <label for="proof" class="form-label">Bukti piket</label>
+                    <br>
+                    <img id="proof-edit" style="width: 300px;">
+                    <input class="form-control" type="file" id="proof" name="proof">
+                </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                 <button type="submit" class="btn btn-primary">Simpan</button>

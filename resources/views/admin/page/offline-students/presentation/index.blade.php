@@ -45,7 +45,26 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex gap-4">
-                            <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded avatar-sm shadow">
+                            {{-- <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded avatar-sm shadow"> --}}
+                            @if($presentation->hummataskTeam->image != null && Storage::disk('public')->exists($presentation->hummataskTeam->image))
+                                <img src="{{ asset('storage/' . $presentation->hummataskTeam->image) }}"
+                                    class="img-thumbnail rounded-circle avatar-md" width="50px"
+                                    height="50px">
+                            @else
+                                @php
+                                    $firstLetter = substr($presentation->hummataskTeam->name, 0, 1);
+                                    $firstLetter = strtoupper($firstLetter);
+                                    $backgroundColors = [
+                                        '#ff5722',
+                                        '#4caf50',
+                                        '#2196f3',
+                                    ];
+                                    $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
+                                @endphp
+                                <div style="background-color: {{ $backgroundColor }}; width: 67px; height: 67px; border-radius: 50%; display: flex; justify-content: center; align-items: center;" >
+                                    <span style="color: white; font-size: 20px;">{{ $firstLetter }}</span>
+                                </div>
+                            @endif
                             <div class="about">
                                 <h4>{{ $presentation->hummataskTeam->name }}</h4>
                                 <p class="text-muted">
@@ -92,7 +111,26 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex gap-4">
-                            <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded avatar-sm shadow">
+                            {{-- <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded avatar-sm shadow"> --}}
+                            @if($presentation->hummataskTeam->image != null && Storage::disk('public')->exists($presentation->hummataskTeam->image))
+                                <img src="{{ asset('storage/' . $presentation->hummataskTeam->image) }}"
+                                    class="img-thumbnail rounded-circle avatar-md" width="50px"
+                                    height="50px">
+                            @else
+                                @php
+                                    $firstLetter = substr($presentation->hummataskTeam->name, 0, 1);
+                                    $firstLetter = strtoupper($firstLetter);
+                                    $backgroundColors = [
+                                        '#ff5722',
+                                        '#4caf50',
+                                        '#2196f3',
+                                    ];
+                                    $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
+                                @endphp
+                                <div style="background-color: {{ $backgroundColor }}; width: 67px; height: 67px; border-radius: 50%; display: flex; justify-content: center; align-items: center;" >
+                                    <span style="color: white; font-size: 20px;">{{ $firstLetter }}</span>
+                                </div>
+                            @endif
                             <div class="about">
                                 <h4>{{ $presentation->hummataskTeam->name }}</h4>
                                 <p class="text-muted">
@@ -139,7 +177,26 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex gap-4">
-                            <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded avatar-sm shadow">
+                            {{-- <img src="{{ asset('assets/images/users/avatar-3.jpg') }}" alt="" class="rounded avatar-sm shadow"> --}}
+                            @if($presentation->hummataskTeam->image != null && Storage::disk('public')->exists($presentation->hummataskTeam->image))
+                                <img src="{{ asset('storage/' . $presentation->hummataskTeam->image) }}"
+                                    class="img-thumbnail rounded-circle avatar-md" width="50px"
+                                    height="50px">
+                            @else
+                                @php
+                                    $firstLetter = substr($presentation->hummataskTeam->name, 0, 1);
+                                    $firstLetter = strtoupper($firstLetter);
+                                    $backgroundColors = [
+                                        '#ff5722',
+                                        '#4caf50',
+                                        '#2196f3',
+                                    ];
+                                    $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
+                                @endphp
+                                <div style="background-color: {{ $backgroundColor }}; width: 67px; height: 67px; border-radius: 50%; display: flex; justify-content: center; align-items: center;" >
+                                    <span style="color: white; font-size: 20px;">{{ $firstLetter }}</span>
+                                </div>
+                            @endif
                             <div class="about">
                                 <h4>{{ $presentation->hummataskTeam->name }}</h4>
                                 <p class="text-muted">

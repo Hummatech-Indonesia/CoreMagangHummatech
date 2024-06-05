@@ -107,9 +107,9 @@ class StudentController extends Controller
     {
         //
     }
-    public function mentorStudent(Student $student)
+    public function mentorStudent(Student $student, Request $request)
     {
-        $mentorStudent = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
+        $mentorStudent = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);        // dd($students);
 
         return view('mentor.student.index', compact('mentorStudent'));
     }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAbsentController;
+use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminStudentTeamControlle;
 use App\Http\Controllers\Admin\AdminStudentTeamController;
 use App\Http\Controllers\Admin\DivisionController;
@@ -46,16 +48,6 @@ Route::get('siswa-online/materi/detail/pelajari', function() {
     return view('student_online.course.learn-more');
 });
 
-// Route::get('siswa-online/tugas', function() {
-//     return view('student_online.task.index');
-// });
-// Route::get('siswa-online/tugas/detail', function() {
-//     return view('student_online.task.detail');
-// });
-// Route::get('siswa-online/tugas/detail/detail-jawaban', function() {
-//     return view('student_online.task.answer-detail');
-// });
-
 Route::get('top-up', function() {
     return view('admin.page.approval.top-up');
 });
@@ -71,14 +63,11 @@ Route::get('person-in-charge/detail', function() {
 Route::get('offline-students/division-placement', [DivisionPlacementController::class, 'index']);
 Route::post('offline-students/division-placement/{student}', [DivisionPlacementController::class ,'divisionplacement'])->name('division-placement');
 Route::put('offline-students/division-placement/update/{student}', [DivisionPlacementController::class ,'divisionchange'])->name('division-placement.update');
-Route::get('offline-students/team', [AdminStudentTeamController::class, 'index']);
-Route::get('offline-students/team/detail', function() {
-    return view('admin.page.offline-students.team.detail');
-});
+
+Route::get('offline-students/team', [AdminStudentTeamController::class, 'index'])->name('admin.team.index');
+Route::get('offline-students/team/{slug}', [AdminStudentTeamController::class, 'show'])->name('admin.team.show');
 Route::get('offline-students/presentation', [PresentationController::class, 'index']);
-// Route::get('administrator/course', function() {
-//     return view('admin.page.course.index');
-// });
+
 Route::get('administrator/course/detail', function() {
     return view('admin.page.course.detail');
 });
@@ -88,9 +77,6 @@ Route::get('administrator/course/detail/sub-course', function() {
 
 Route::get('siswa-offline/task', [StudentTaskController::class, 'index']);
 
-// Route::get('siswa-offline/challenge', function(){
-//     return view('student_offline.challenge.index');
-// });
 Route::get('siswa-offline/letter-head', [LetterheadController::class, 'indexOffline']);
 Route::post('letter-head', [LetterheadController::class, 'store'])->name('letterhead.store');
 Route::put('letter-head/{letterhead}', [LetterheadController::class, 'update'])->name('letterhead.update');
@@ -122,6 +108,7 @@ Route::put('team/update/{hummataskTeam}', [HummataskTeamController::class, 'upda
 Route::get('dashboard/task', [HummataskTeamController::class, 'index']);
 Route::get('hummateam/team/{slug}', [HummataskTeamController::class, 'show'])->name('team.show');
 Route::delete('hummateam/team/{hummataskTeam}', [HummataskTeamController::class, 'destroy'])->name('team.delete');
+Route::put('hummateam/team/{hummataskTeam}', [HummataskTeamController::class, 'updateOnStudent'])->name('team-student.update');
 Route::post('solo-team/store', [HummataskTeamController::class, 'soloTeam'])->name('soloTeam.store');
 
 Route::get('administrator/category-project', [CategoryProjectController::class, 'index'])->name('category-project.index');
@@ -146,3 +133,4 @@ Route::patch('mentor/presentation/callback/{presentation}', [PresentationControl
 Route::get('mentor/team/{slug}/edit', [HummataskTeamController::class, 'mentorEdit'])->name('mentor-team.edit');
 
 Route::patch('hummateam/team/{slug}/add-repository/{project}', [ProjectController::class, 'addRepository'])->name('add.repository');
+Route::get('administrator/absent/export/excel', [AdminAbsentController::class, 'export_excel'])->name('attendance.admin.export.excel');

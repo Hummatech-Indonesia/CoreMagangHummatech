@@ -16,12 +16,20 @@ class AttendanceDetailRepository extends BaseRepository implements AttendanceDet
     public function checkAttendanceToday(array $data): mixed
     {
         return $this->model->query()
-            ->whereDate('created_at', now())
+            // ->whereDate('created_at', now())
             ->where('status', $data['status'])
             ->where('attendance_id', $data['attendance_id'])
             ->first();
     }
 
+    public function storeOnline(array $data): mixed
+    {
+        return $this->model->query()
+            ->updateOrCreate(
+                ['attendance_id' => $data['attendance_id'], 'status' => $data['status']],
+                ['status' => $data['status']]
+            );
+    }
 
     /**
      * store

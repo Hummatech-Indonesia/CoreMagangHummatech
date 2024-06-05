@@ -49,11 +49,10 @@
 
                     <div class="list-grid-nav hstack gap-1 mx-1">
                         <form action="/menu-siswa">
-                            <select name="status" class="form-select" id="acceptedFilter">
+                            <select name="acepted" class="form-select" id="acceptedFilter">
                                 <option value="" disabled selected>Status</option>
-                                @foreach ($status as $status)
-                                <option value="{{ $status }}">{{ $status }}</option>
-                                @endforeach
+                                <option value="1">Aktif</option>
+                                <option value="0">Tidak Aktif</option>
                             </select>
                         </form>
                     </div>

@@ -205,6 +205,9 @@
                         @endforelse
                     </tbody>
                 </table>
+                <div class="pt-3">
+                    {{$journals->links()}}
+                </div>
             </div>
         </div>
     </div>

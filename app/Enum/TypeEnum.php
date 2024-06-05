@@ -27,6 +27,7 @@ enum TypeEnum : string
     case TASKSUBMISSION = 'task_submission';
     case TASKANSWER = 'task-answer';
     case PICKET = 'picket';
+    case SUBMITTASK = 'submit_task';
 
     case HUMMATASKTEAM = 'hummatask_team';
     case CHALLENGEANSWER = 'challenge_answer';

@@ -114,7 +114,7 @@
                                         <hr>
                                         <p>Tanggal: {{ \Carbon\Carbon::parse($presentation->created_at)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</p>
                                         <hr>
-                                        <p>Jadwal :
+                                        <p>
                                             {{ $presentation->schedule_to }} : {{ $presentation->start_date }} - {{ $presentation->end_date }}
                                         </p>
                                         <hr>
@@ -139,139 +139,223 @@
     </div>
 
 
-
-
-
     <!-- Add presentation -->
     <div class="modal fade" id="addPresentationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="addPresentationForm" action="" method="POST">
-                    @csrf
-                    @method('PATCH')
+                <form id="addPresentationForm" action="">
+
+                    <div id="method">
+                    </div>
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Pengajuan Presentasi</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-
                         <div class="">
-                            <label for="" class="form-label">Judul Presentasi</label>
-                            <input type="text" name="title" id="" class="form-control">
+                            <label for="title" class="form-label">Judul Presentasi</label>
+                            <input type="text" name="title" id="title" value="{{ isset($presentation->title) ? $presentation->title : '' }}" class="form-control">
                         </div>
                         <div class="pt-3">
-                            <label class="mb-3 text-dark" class="form-label">Pilih Jadwal</label>
+                            <label class="mb-3 text-dark form-label">Pilih Jadwal</label>
                             <div class="row">
-                                @forelse ($presentations as $key=> $presentation)
-                                    <div class="col-md-6">
-                                        <div class="card mb-3">
-                                            <div class="card-body">
-                                                <input
-                                                    class="form-check-input date_range {{ $presentation->hummatask_team_id ? 'disable' : '' }}"
-                                                    type="radio" name="date_range" id="date_range"
-                                                    value="{{ $presentation->start_date }}"
-                                                    data-id="{{ $presentation->id }}"
-                                                    data-start-date="{{ $presentation->start_date }}"
-                                                    data-schedule-to="{{ $presentation->schedule_to }}"
-                                                    data-end-date="{{ $presentation->end_date }}"
-                                                    data-hummatask-team-id="{{ $team->id }}">
+                                @forelse ($presentations as $key => $presentation)
 
-                                                <div class="text-center">
-                                                    <label for="" class="d-block">{{$presentation->schedule_to}}</label>
-                                                    <label class="form-check-label text-danger d-block" for="date_range_{{ $presentation->id }}">
-                                                        {{ $presentation->start_date }} - {{ $presentation->end_date }}
-                                                    </label>
-                                                    @if ($presentation && $presentation->hummatask_team_id)
-                                                        <p class="pt-2 text-muted">Sudah dipilih</p>
-                                                    @endif
+                                        <div class="col-md-6">
+                                            <div class="card mb-3">
+                                                <div class="card-body">
+                                                    <input class="form-check-input date_range {{ $presentation->hummatask_team_id ? 'disable' : '' }}"
+                                                        type="radio" name="date_range" id="date_range_{{ $presentation->id }}"
+                                                        value="{{ $presentation->start_date }}"
+                                                        data-id="{{ $presentation->id }}"
+                                                        data-start-date="{{ $presentation->start_date }}"
+                                                        data-schedule-to="{{ $presentation->schedule_to }}"
+                                                        data-end-date="{{ $presentation->end_date }}"
+                                                        data-hummatask-team-id="{{ $team->id }}">
+
+                                                    <div class="text-center">
+                                                        <label for="date_range_{{ $presentation->id }}" class="d-block">{{ $presentation->schedule_to }}</label>
+                                                        <label class="form-check-label text-danger d-block" for="date_range_{{ $presentation->id }}">
+                                                            {{ $presentation->start_date }} - {{ $presentation->end_date }}
+                                                        </label>
+                                                        @if ($presentation && $presentation->hummatask_team_id)
+                                                            <p class="pt-2 text-muted">Sudah dipilih</p>
+                                                        @endif
+                                                    </div>
                                                 </div>
                                             </div>
-
                                         </div>
-                                    </div>
                                 @empty
                                     <div class="mb-3 mt-5 text-center" style="margin: 0 auto;">
-                                        <img src="{{ asset('empty-asset.png') }}" alt="" width="100px"
-                                            srcset="">
-                                        <p class="fs-3 text-dark">
-                                            Belum ada jadwal
-                                        </p>
-
+                                        <img src="{{ asset('empty-asset.png') }}" alt="" width="100px">
+                                        <p class="fs-3 text-dark">Belum ada jadwal</p>
                                     </div>
                                 @endforelse
                             </div>
                         </div>
                         <div class="">
-                            <label for="" class="form-label">Deskripsi(opsional)</label>
-                            <textarea name="description" id="" cols="15" rows="5" class="form-control"
-                                placeholder="deskripi opsional"></textarea>
+                            <label for="description" class="form-label">Deskripsi (opsional)</label>
+                            <textarea name="description" id="description" cols="15" rows="5" class="form-control" placeholder="Deskripsi opsional">{{ isset($presentation->description) ? $presentation->description : '' }}</textarea>
                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
-
-
     </div>
+
+{{-- edit tim modal --}}
+<div class="modal fade" id="edit-team" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Edit Tim</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{{ route('team-student.update', $team->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+        <div class="modal-body">
+            <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
+                <label for="image-input3" class="form-label text-white hover-label">
+                  <div class="image-container">
+                    <div class="img-img text-center">
+                      <img
+                        src="{{ $team->image == null ? asset('pen.png') : asset('storage/'. $team->image) }}"
+                        alt="example placeholder" id="preview-image3" class="img-fluid rounded-circle col-lg-3" style="object-fit: cover">
+                    </div>
+                  </div>
+                  <input type="file" class="d-none" id="image-input3" name="image"
+                    onchange="previewImage()" />
+                </label>
+                @error('image')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+                <div class="mx-3">
+                    <label for="" class="mt-1 mb-2">Nama Tim</label>
+                    <input type="text" name="name" class="form-control" placeholder="Masukkan nama tim" value="{{ old('name', $team->name) }}">
+                    @error('name')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                    <label for="" class="mt-4 mb-2">Deskripsi Tema</label>
+                    <textarea name="description" class="form-control" rows="5" placeholder="Masukkan deskripsi tema anda">{{ old('description', $team->description) }}</textarea>
+                    @error('description')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light-danger text-danger" data-bs-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+        </form>
+      </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    {{-- <script>
-    $(document).ready(function(){
-        var selectedId = $('input[name="presentation_id"]:checked').val();
-        console.log(selectedId);
+<script>
+    function previewImage() {
+      var preview = document.getElementById('preview-image3');
+      var fileInput = document.getElementById('image-input3');
+      var file = fileInput.files[0];
 
-        $('form').submit(function() {
-            var presentationId = $('input[name="presentation_id"]:checked').val();
-            if (presentationId) {
-                var formAction = "{{ route('presentation.update', ':presentation_id') }}";
-                formAction = formAction.replace(':presentation_id', presentationId);
-                this.action = formAction;
-            }
+      if (file) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          preview.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Peringatan',
+          text: 'Silahkan pilih file gambar!',
+          showConfirmButton: false
         });
+      }
+    }
+</script>
+{{-- <script>
+    $(document).on('click', '.date_range', function() {
+    const id = $(this).data('id');
+    const hummataskTeamId = $(this).data('hummatask-team-id');
+    let url = `{{ route('presentation.update', ['slug' => ':slug', 'presentation' => ':presentation']) }}`;
+    url = url.replace(':slug', hummataskTeamId).replace(':presentation', id);
+    $('#addPresentationForm').attr('method', 'POST');
+    $('#addPresentationForm').attr('action', url);
+    $('#method').html('@csrf @method('PATCH')');
+    });
+
+    document.querySelectorAll('.date_range').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+        document.querySelectorAll('.date_range').forEach(function(r) {
+            r.checked = false;
+        });
+        this.checked = true;
+    });
     });
 </script> --}}
 
-    <script>
-        $(document).on('click', '#date_range', function() {
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addPresentationForm = document.getElementById('addPresentationForm');
+        const titleInput = document.getElementById('title');
+        const descriptionInput = document.getElementById('description');
+        const methodContainer = document.getElementById('method');
+        const dateRanges = document.querySelectorAll('.date_range');
+        let selectedDateRange = null;
 
-            const id = $(this).data('id');
-            const scheduleTo = $(this).data('schedule-to');
-            const startDate = $(this).data('start-date');
-            const endDate = $(this).data('end-date');
-            const hummataskTeamId = $(this).data('hummatask-team-id');
-            console.log(scheduleTo);
-            console.log(id);
-            console.log(startDate);
-            console.log(endDate);
-            console.log(hummataskTeamId);
-            let url = `{{ route('presentation.update', ['slug' => ':slug', 'presentation' => ':presentation']) }}`;
-            url = url.replace(':slug', hummataskTeamId).replace(':presentation', id);
-            $('#addPresentationForm').attr('action', url);
-
-
-        });
-
-
-        document.querySelectorAll('.date_range').forEach(function(radio) {
-            radio.addEventListener('change', function() {
-                document.querySelectorAll('.date_range').forEach(function(r) {
-                    r.checked = false;
-                });
-                this.checked = true;
+        dateRanges.forEach(function (radio) {
+            radio.addEventListener('click', function () {
+                const id = this.dataset.id;
+                const hummataskTeamId = this.dataset.hummataskTeamId;
+                let url = `{{ route('presentation.update', ['slug' => ':slug', 'presentation' => ':presentation']) }}`;
+                url = url.replace(':slug', hummataskTeamId).replace(':presentation', id);
+                addPresentationForm.setAttribute('method', 'POST');
+                addPresentationForm.setAttribute('action', url);
+                methodContainer.innerHTML = '@csrf @method('PATCH')';
+                selectedDateRange = this.value;
             });
         });
-    </script>
+
+        addPresentationForm.addEventListener('submit', function () {
+            const formData = {
+                title: titleInput.value,
+                date_range: selectedDateRange,
+                description: descriptionInput.value
+            };
+            localStorage.setItem('presentationFormData', JSON.stringify(formData));
+        });
+
+        const addPresentationModal = document.getElementById('addPresentationModal');
+        addPresentationModal.addEventListener('show.bs.modal', function () {
+            const formData = JSON.parse(localStorage.getItem('presentationFormData'));
+            if (formData) {
+                titleInput.value = formData.title || '';
+                if (formData.date_range) {
+                    const dateRangeElement = document.querySelector(`input[name="date_range"][value="${formData.date_range}"]`);
+                    if (dateRangeElement) {
+                        dateRangeElement.checked = true;
+                    }
+                }
+                descriptionInput.value = formData.description || '';
+            }
+        });
+    });
+</script>
+
 @endsection
 `

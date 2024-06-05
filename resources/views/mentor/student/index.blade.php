@@ -19,8 +19,8 @@
 
 <div class="row mb-3">
     <div class="col-md-4 col-xl-2">
-        <form class="position-relative">
-            <input type="text" class="form-control product-search ps-5" id="input-search" placeholder="Cari siswa...">
+        <form class="position-relative" action="/student">
+            <input type="text" class="form-control product-search ps-5" name="name" value="{{ request()->name }}" id="input-search" placeholder="Cari siswa...">
             <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
         </form>
     </div>
@@ -37,6 +37,8 @@
 
 <div class="row">
     @forelse ($mentorStudent as $student)
+
+    {{-- @dd($student); --}}
 
     <div class="col-md-4">
         <div class="card hover-img">

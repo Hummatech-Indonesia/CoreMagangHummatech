@@ -17,6 +17,7 @@ use App\Http\Requests;
 use App\Http\Requests\StoreHummataskTeamRequest;
 use App\Http\Requests\StoreSoloProjectRequest;
 use App\Http\Requests\UpdateHummataskTeamRequest;
+use App\Http\Requests\UpdateTeamRequest;
 use App\Models\MentorStudent;
 use App\Services\HummataskTeamService;
 use App\Services\ProjectService;
@@ -143,6 +144,16 @@ class HummataskTeamController extends Controller
             ]);
         }
         return back()->with('success', 'Berhasil Memperbarui Data Team');
+    }
+
+    public function updateOnStudent(UpdateTeamRequest $request, HummataskTeam $hummataskTeam)
+    {
+        $data = $this->service->update($hummataskTeam, $request);
+        $this->hummatask_team->update($hummataskTeam->id, $data);
+        $project = $this->project->getProjectAccepted($hummataskTeam->id);
+        $this->project->update($project->id, $data);
+
+        return back()->with('success', 'Berhasil Mengedit Tim');
     }
 
     /**

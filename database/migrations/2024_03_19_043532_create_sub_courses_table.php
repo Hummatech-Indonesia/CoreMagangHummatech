@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sub_courses', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('title');
             $table->longText('description');
             $table->string('file_course');
             $table->longText('video_course');
             $table->string('image_course');
             $table->foreignId('course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->integer('position');
             $table->timestamps();
         });
     }

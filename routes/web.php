@@ -4,7 +4,6 @@ use App\Enum\RolesEnum;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LimitsController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\StudentController;
@@ -25,7 +24,6 @@ use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
 use App\Http\Controllers\AppointmentOfAmentorController;
 use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\CourseStoreController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Mentor\DashboardController;
 use App\Http\Controllers\StudentOnline\CourseController;
@@ -287,6 +285,7 @@ Route::get('/hubungi', function () {
     return view('landing.hubungi');
 });
 
+require_once __DIR__ . '/femas.php';
 
 require_once __DIR__ . '/kader.php';
 require_once __DIR__ . '/farah.php';

@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\AppointmentOfMentor;
+use App\Http\Controllers\Api\HummataskTeamController;
 use App\Http\Controllers\Api\MentorController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\StudentController;
@@ -38,8 +39,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('count_mentor' , [DashboardController::class , 'count']);
 
     // api seluruh siswa
-    Route::prefix('student')->group(function () {
-        Route::get('active-courses', [CourseController::class, 'activeCourses']);
+    Route::get('active-courses', [CourseController::class, 'activeCourses']);
+    Route::post('attendance', [AttendanceController::class, 'storeAttendance']);
+    Route::get('check-wfh', [AttendanceController::class, 'checkWfh']);
+    Route::get('nonactive-courses', [CourseController::class, 'nonactiveCourses']);
+
+    Route::prefix('hummatask')->group(function () {
+        Route::post('team', [HummataskTeamController::class, 'store']);
     });
 
 
@@ -50,7 +56,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('journal-online', [MentorController::class, 'studentJournalOnline']);
         Route::get('journals', [MentorController::class, 'studentJournal']);
     });
-
+    Route::get('hummatask_team' , [ProfileController::class , 'hummataskteam']);
 });
 Route::post('sync', [AttendanceController::class, 'sync']);
 Route::get('students', [StudentController::class, 'getStudents']);

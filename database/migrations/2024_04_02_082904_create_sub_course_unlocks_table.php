@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('courses_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('sub_courses_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('sub_course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->boolean('unlock')->default(false);
             $table->timestamps();
         });

@@ -66,6 +66,7 @@ use App\Contracts\Interfaces\BoardInterface;
 use App\Contracts\Interfaces\CategoryBoardInterface;
 use App\Contracts\Interfaces\CategoryProjectInterface;
 use App\Contracts\Interfaces\ChallengeInterface;
+use App\Contracts\Interfaces\CourseAssignmentInterface;
 use App\Contracts\Interfaces\CourseUnlockInterface;
 use App\Contracts\Interfaces\DataCOInterface;
 use App\Contracts\Interfaces\FaceInterface;
@@ -78,11 +79,13 @@ use App\Contracts\Interfaces\PresentationInterface;
 use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\Signature_COInterface;
 use App\Contracts\Interfaces\StudentChallengeInterface;
+use App\Contracts\Interfaces\StudentCoursePositionInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Contracts\Interfaces\StudentSubCourseInterface;
 use App\Contracts\Interfaces\StudentTaskInterface;
 use App\Contracts\Interfaces\StudentTeamInterface;
 use App\Contracts\Interfaces\SubCourseUnlockInterface;
+use App\Contracts\Interfaces\SubmitTaskInterface;
 use App\Contracts\Interfaces\TaskSubmissionInterface;
 use App\Contracts\Interfaces\ThesisInterface;
 use App\Contracts\Repositories\CodeOfConductRepository;
@@ -107,6 +110,7 @@ use App\Contracts\Repositories\BoardRepository;
 use App\Contracts\Repositories\CategoryBoardRepository;
 use App\Contracts\Repositories\CategoryProjectRepository;
 use App\Contracts\Repositories\ChallengeRepository;
+use App\Contracts\Repositories\CourseAssignmentRepository;
 use App\Contracts\Repositories\CourseUnlockRepository;
 use App\Contracts\Repositories\DataCORepository;
 use App\Contracts\Repositories\FaceRepository;
@@ -123,13 +127,21 @@ use App\Contracts\Repositories\PermissionRepository;
 use App\Contracts\Repositories\PresentationRepository;
 use App\Contracts\Repositories\ProjectRepository;
 use App\Contracts\Repositories\Signature_CORepository;
+use App\Contracts\Repositories\StudentCoursePositionRepository;
 use App\Contracts\Repositories\StudentProjectRepository;
 use App\Contracts\Repositories\StudentTeamRepository;
+use App\Contracts\Repositories\SubmitTaskRepository;
 use App\Contracts\Repositories\ThesisRepository;
 use App\Contracts\Repositories\TransactionRepository;
 use App\Contracts\Repositories\VoucherUsageRepository;
 use App\Contracts\Repositories\WorkFromHomeRepository;
+use App\Models\CourseAssignment;
 use App\Models\StudentSubCourse;
+use App\Models\SubCourse;
+use App\Models\SubmitTask;
+use App\Observers\CourseAssignmentObserver;
+use App\Observers\SubCourseObserver;
+use App\Observers\SubmitTaskObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -196,6 +208,9 @@ class AppServiceProvider extends ServiceProvider
         Signature_COInterface::class => Signature_CORepository::class,
         AdminAttendanceInterface::class => AdminAttendanceRepository::class,
         StudentSubCourseInterface::class => StudentSubCourse::class,
+        StudentCoursePositionInterface::class => StudentCoursePositionRepository::class,
+        CourseAssignmentInterface::class => CourseAssignmentRepository::class,
+        SubmitTaskInterface::class => SubmitTaskRepository::class,
     ];
 
     /**
@@ -215,6 +230,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        CourseAssignment::observe(CourseAssignmentObserver::class);
+        SubCourse::observe(SubCourseObserver::class);
+        SubmitTask::observe(SubmitTaskObserver::class);
+
         if (env('FORCE_HTTPS', false)) {
             URL::forceScheme('https');
         }

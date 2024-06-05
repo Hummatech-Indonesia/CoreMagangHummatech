@@ -71,6 +71,21 @@ class CourseRepository extends BaseRepository implements CourseInterface
     }
 
     /**
+     *
+     * get latest position by division
+     * @param mixed $id
+     * @return mixed
+     *
+     */
+    public function getLatestPositionByDivision(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('division_id', $id)
+            ->orderByDesc('position')
+            ->first();
+    }
+
+    /**
      * getNonactiveCourse
      *
      * @param  mixed $divisionId
@@ -80,6 +95,7 @@ class CourseRepository extends BaseRepository implements CourseInterface
     public function getNonactiveCourse(mixed $divisionId, mixed $studentId)
     {
         return $this->model->query()
+            ->with('subCourses')
             ->where('division_id', $divisionId)
             ->whereDoesntHave('activeCourses', function ($query) use ($studentId) {
                 $query->where('student_id', $studentId);

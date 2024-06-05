@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->longText('description');
             $table->enum('level', Task::getLevels()->toArray())->default(TaskLevelEnum::NORMAL);
-            $table->foreignId('sub_course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('sub_course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

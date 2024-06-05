@@ -72,7 +72,8 @@ class AdminMentorController extends Controller
             'password' => Hash::make('password'),
             'mentors_id' => $mentor->id,
         ];
-        $this->user->store($dataUser);
+        $user = $this->user->store($dataUser);
+        $user->assignRole(RolesEnum::MENTOR->value);
 
         foreach ($request->division_id as $division) {
             $students = Student::where('division_id', $division)->get();
@@ -89,10 +90,10 @@ class AdminMentorController extends Controller
         return back()->with('success', 'Mentor Berhasil Ditambahkan');
     }
 
-    public function show(Mentor $mentor)
+    public function show(Mentor $mentor, Request $request)
     {
         $mentor = $this->mentor->show($mentor->id);
-        $studentDivisions = $this->student->whereStudentDivision($mentor->division_id);
+        $studentDivisions = $this->student->whereStudentDivision($mentor->division_id, $request);
         return view('admin.page.user.mentor-detail', compact('mentor','studentDivisions'));
     }
 

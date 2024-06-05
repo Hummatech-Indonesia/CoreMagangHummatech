@@ -69,8 +69,13 @@ class CourseController extends Controller
     public function store(StoreCourseRequest $request)
     {
         $data = $this->service->store($request);
+        if ($latestPosition = $this->course->getLatestPositionByDivision($request->division_id)) {
+            $data['position'] = $latestPosition->position + 1;
+        }
+        else {
+            $data['position'] = 1;
+        }
         $courseData = $this->course->store($data);
-
         if($courseData->getStatus()->value !== 'paid') {
             $this->userInterface->addCourseToSubcribedUser($courseData->id);
         }
@@ -81,14 +86,13 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Course $course)
+    public function show(Request $request, Course $course)
     {
-        $id  = $course->id;
         $countSub = $this->subCourse->count();
-        $subCourses = $this->subCourse->GetWhere($course->id);
-        $course = $this->course->show($course->id);
+        $request->merge(['course_id' => $course->id]);
+        $subCourses = $this->subCourse->search($request);
 
-        return view('admin.page.course.detail' , compact('course' , 'subCourses' , 'countSub' , 'id'));
+        return view('admin.page.course.detail' , compact('course' , 'subCourses' , 'countSub'));
 
     }
 

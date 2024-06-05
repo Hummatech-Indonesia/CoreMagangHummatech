@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enum\PicketingStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -43,4 +44,15 @@ class PicketingReport extends Model
 
     protected $casts = [
         'status' => PicketingStatusEnum::class,
-    ];}
+    ];
+
+        /**
+     * Get the user that owns the ReportStudent
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+}

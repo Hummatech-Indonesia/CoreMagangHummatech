@@ -112,14 +112,16 @@ class PresentationController extends Controller
         $teamId = 1;
         $monthlyPresentationCount = $this->presentation->countMonthlyPresentationsByTeamId($teamId);
 
-        $studentId = 1; 
-        $studentsTeam = $this->presentation->countMonthlyPresentationsByStudentId($studentId);
-
-        if (is_null($studentsTeam)) {
+        $studentId = 1;
+        $studentPresentationCount = $this->presentation->getMonthlyPresentationsByStudentId($studentId);
+        // dd($studentPresentationCount);
+        if (is_null($studentPresentationCount)) {
             $studentsTeam = [];
         }
 
-        return view('admin.page.presentation.index', compact('categoryProject', 'presentations', 'monthlyPresentationCount', 'studentsTeam'));
+
+
+        return view('admin.page.presentation.index', compact('categoryProject', 'presentations', 'monthlyPresentationCount', 'studentPresentationCount'));
     }
 
     /**
@@ -186,19 +188,20 @@ class PresentationController extends Controller
         $team = $this->hummataskTeam->slug($slug);
         $limits = $this->limits->first();
         $presentations = [];
-        $division = $team->student->division_id;
+        $division = auth()->user()->student->division_id;
 
         $mentors = $this->mentorDivision->whereMentorDivision($division);
         foreach ($mentors as $mentor) {
-            $presentations = $this->presentation->GetPresentations($mentor->mentor_id);
-            // dd($mentor);
+            $presentations[] = $this->presentation->GetPresentations($mentor->mentor_id);
         }
+
+        $presentations = collect($presentations)->flatten();
 
         $histories = $this->presentation->getPresentationsByTeam($team->id);
 
-
         return view('Hummatask.team.presentation', compact('hummataskTeam', 'presentations', 'limits', 'team','histories'));
     }
+
 
     public function callback(StoreCallbackRequest $request, Presentation $presentation)
     {

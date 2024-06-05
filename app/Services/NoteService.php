@@ -13,15 +13,12 @@ class NoteService
 {
     public function simpanCatatan(Request $request)
     {
-        // Temukan tim yang sesuai berdasarkan data yang diberikan
         $hummataskTeam = HummataskTeam::find($request->hummatask_team_id);
 
-        // Pastikan tim ditemukan
         if (!$hummataskTeam) {
             throw new \Exception('Tim tidak ditemukan.');
         }
 
-        // Simpan judul dan status ke dalam tabel category_board
         $categoryBoard = new CategoryBoard();
         $categoryBoard->title = $request->title;
         $categoryBoard->status = $request->status;
@@ -30,37 +27,35 @@ class NoteService
 
         $studentTeams = StudentTeam::where('hummatask_team_id', $hummataskTeam->id)->get();
 
-        // Simpan nama-nama ke dalam tabel board
         foreach ($request->name as $name) {
-            foreach ($studentTeams as $studentTeam) {
+            // foreach ($studentTeams as $studentTeam) {
                 $board = new Board();
                 $board->name = $name;
                 $board->category_board_id = $categoryBoard->id;
-                $board->student_team_id = $studentTeam->id;
+                foreach ($studentTeams as $studentTeam){
+                    $board->student_team_id = $studentTeam->id;
+                }
                 $board->save();
-            }
+            // }
         }
     }
 
+
+
     public function updateCatatan(Request $request, $id)
     {
-        // Temukan catatan yang akan diupdate
         $categoryBoard = CategoryBoard::find($id);
 
-        // Pastikan catatan ditemukan
         if (!$categoryBoard) {
             throw new \Exception('Catatan tidak ditemukan.');
         }
 
-        // Update judul dan status
         $categoryBoard->title = $request->title;
         $categoryBoard->status = $request->status;
         $categoryBoard->save();
 
-        // Hapus semua board yang terkait dengan catatan ini
         $categoryBoard->boards()->delete();
 
-        // Simpan kembali nama-nama ke dalam tabel board
         foreach ($request->name as $name) {
             $board = new Board();
             $board->name = $name;

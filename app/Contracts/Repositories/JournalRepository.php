@@ -7,6 +7,7 @@ use App\Enum\InternshipTypeEnum;
 use App\Enum\StatusJournalEnum;
 use App\Models\Journal;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class JournalRepository extends BaseRepository implements JournalInterface
 {
@@ -95,6 +96,35 @@ class JournalRepository extends BaseRepository implements JournalInterface
     public function whereStudent(mixed $id): mixed
     {
         return $this->model->query()->where('student_id', $id)->get();
+    }
+
+    public function whereStudentAndDate($studentId, $date)
+    {
+        return $this->model->query()
+        ->where('student_id', $studentId)
+        ->whereDate('created_at', $date)
+        ->get();
+    }
+
+    public function search(Request $request): mixed
+    {
+        $query = $this->model->query();
+
+        $query->when($request->student_id, function ($query) use ($request) {
+            $query->where('student_id', $request->student_id);
+        });
+
+        $query->when($request->name, function ($query) use ($request) {
+            $query->whereHas('student', function ($q) use ($request) {
+                $q->where('name', 'LIKE', '%' . $request->name . '%');
+            });
+        });
+
+        if ($request->filled('created_at')) {
+            $query->whereDate('created_at', $request->created_at);
+        }
+
+        return $query;
     }
 
     public function show(mixed $id): mixed

@@ -57,6 +57,57 @@
 <div class="text-end mb-3">
    <button class="btn btn-primary text-light btn-xs px-4 fs-3 font-medium" data-bs-toggle="modal" data-bs-target="#bs-example-modal-md">Tambah List</button>
 </div>
+
+{{-- edit team modal --}}
+<div class="modal fade" id="edit-team" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Edit Tim</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{{ route('team-student.update', $team->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+        <div class="modal-body">
+            <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
+                <label for="image-input3" class="form-label text-white hover-label">
+                  <div class="image-container">
+                    <div class="img-img text-center">
+                      <img
+                        src="{{ $team->image == null ? asset('pen.png') : asset('storage/'. $team->image) }}"
+                        alt="example placeholder" id="preview-image3" class="img-fluid rounded-circle col-lg-3" style="object-fit: cover">
+                    </div>
+                  </div>
+                  <input type="file" class="d-none" id="image-input3" name="image"
+                    onchange="previewImage()" />
+                </label>
+                @error('image')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+                <div class="mx-3">
+                    <label for="" class="mt-1 mb-2">Nama Tim</label>
+                    <input type="text" name="name" class="form-control" placeholder="Masukkan nama tim" value="{{ old('name', $team->name) }}">
+                    @error('name')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                    <label for="" class="mt-4 mb-2">Deskripsi Tema</label>
+                    <textarea name="description" class="form-control" rows="5" placeholder="Masukkan deskripsi tema anda">{{ old('description', $team->description) }}</textarea>
+                    @error('description')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light-danger text-danger" data-bs-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+        </form>
+      </div>
+    </div>
+</div>
+
 <!-- Add List -->
 <div class="modal fade" id="bs-example-modal-md" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
@@ -123,7 +174,7 @@
                 <div class="card-body rounded-2 mb-3" >
                     <div class="d-flex align-items-center mb-3">
                         <h5 class="card-title pt-1" style="font-size: 18px;">{{$categoryBoard->title}}</h5>
-                            {{-- <div class="bg-primary text-light d-inline-flex align-items-center justify-content-center rounded-circle ms-2" style="font-size: 14px; width: 25px; height: 25px;">5</div> --}}
+                            <div class="bg-primary text-light d-inline-flex align-items-center justify-content-center rounded-circle ms-2" style="font-size: 14px; width: 25px; height: 25px;">{{ $boardCounts[$categoryBoard->id] ?? 0 }}</div>
                         <div class="d-flex justify-content-end align-items-center ms-auto">
                             <div class="m3-3">
                                 <button class="btn show-form" data-target="formContainer-{{ $categoryBoard->id }}">
@@ -225,14 +276,14 @@
                                             <div class="d-flex align-items-center justify-content-between pt-8">
                                                 <h6 class="mb-0 text-danger">{{ $board->countdown() }}</h6>
                                                 <div class="d-flex align-items-end justify-content-end">
+                                                    {{-- <div class="position-relative" style="z-index: {{ $loop->remaining + 1 }};">
+                                                    </div> --}}
                                                     @foreach ($studentTeams as $student)
-                                                        <div class="position-relative" style="z-index: {{ $loop->remaining + 1 }};">
-                                                            @if(Storage::disk('public')->exists($student->student->avatar))
-                                                                <img src="{{ asset('storage/' . $student->student->avatar) }}" alt="avatar" class="rounded-circle border border-2 border-white" width="35" height="35" style="margin-left: -15px;">
-                                                            @else
-                                                                <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle border border-2 border-white" width="35" height="35" style="margin-left: -15px;">
-                                                            @endif
-                                                        </div>
+                                                        @if(Storage::disk('public')->exists($student->student->avatar))
+                                                            <img src="{{ asset('storage/' . $student->student->avatar) }}" alt="avatar" class="rounded-circle border border-2 border-white" width="35" height="35" style="margin-left: -15px;">
+                                                        @else
+                                                            <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle border border-2 border-white" width="35" height="35" style="margin-left: -15px;">
+                                                        @endif
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -364,6 +415,7 @@
                                         <div class="mb-3">
                                             <label for="assignee" class="form-label">Tugas Untuk</label>
                                             <select class="form-select" id="student_team_id-edit" name="student_team_id">
+                                                {{-- <option value="{{$team->id}}">{{$team->student->name}}</option> --}}
                                                 @foreach ($studentTeams as $studentTeam)
                                                 <option value="{{$studentTeam->id}}">{{$studentTeam->student->name}}</option>
                                                 @endforeach
@@ -454,7 +506,30 @@
 @endsection
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    function previewImage() {
+      var preview = document.getElementById('preview-image3');
+      var fileInput = document.getElementById('image-input3');
+      var file = fileInput.files[0];
 
+      if (file) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          preview.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Peringatan',
+          text: 'Silahkan pilih file gambar!',
+          showConfirmButton: false
+        });
+      }
+    }
+</script>
 <script>
     $('.btn-edit').click(function () {
         var id = $(this).data('id');

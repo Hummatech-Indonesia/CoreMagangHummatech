@@ -136,7 +136,7 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
      * Get Edit Student Division Placement
      */
     public function getstudentdivisionplacementedit(Request $request): mixed;
-    public function whereStudentDivision(mixed $id):mixed;
+    public function whereStudentDivision(mixed $id, Request $request): mixed;
 
     public function whereRfidNull(Request $request): mixed;
     public function listRfid(Request $request): mixed;

@@ -62,6 +62,8 @@ class AttendanceController extends Controller
         $time = now()->format('H:i:s');
         $attendanceData = [
             'student_id' => auth()->user()->student->id,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
         $max = $this->maxLate->get();
         $ruleToday = $this->attendanceRule->getByDay(Carbon::now()->format('l'));
@@ -72,9 +74,9 @@ class AttendanceController extends Controller
             $attendance = $this->attendance->store($attendanceData);
         }
         if ($time >= $ruleToday->checkin_starts && $time <= Carbon::createFromFormat('H:i:s', $ruleToday->checkin_ends)->addMinutes($max ? (int) $max->minute : 15)->format('H:i:s')) {
-            return $this->attendanceDetail->store(['status' => 'present', 'attendance_id' => $attendance->id]);
+            $this->attendanceDetail->store(['status' => 'present', 'attendance_id' => $attendance->id, 'created_at' => now(), 'updated_at' => now()]);
         } else if ($time >= $ruleToday->checkout_starts && $time <= $ruleToday->checkout_ends) {
-            $this->attendanceDetail->store(['status' => 'return', 'attendance_id' => $attendance->id]);
+            $this->attendanceDetail->store(['status' => 'return', 'attendance_id' => $attendance->id, 'created_at' => now(), 'updated_at' => now()]);
         }
         return redirect()->back()->with('success', "Berhasil absen");
     }
@@ -156,7 +158,11 @@ class AttendanceController extends Controller
         $students = $this->student->get();
         $wfh = $this->workFromHome->getToday();
         $rule = $this->attendanceRule->getByDay(now()->format('l'));
-        return view('admin.page.absent.index', compact('onlineAttendances', 'oflineAttendances', 'students', 'wfh', 'rule'));
+        $attendanceYears = $this->attendance->yearAttendances();
+        $attendanceMonth = $this->attendance->monthAttendances();
+
+        // dd($attendanceYears, $attendanceMonth);
+        return view('admin.page.absent.index', compact('attendanceYears', 'attendanceMonth', 'onlineAttendances', 'oflineAttendances', 'students', 'wfh', 'rule'));
     }
 
     public function attendanceOffline(Request $request): View

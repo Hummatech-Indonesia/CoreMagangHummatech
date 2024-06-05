@@ -21,12 +21,12 @@
         </div>
     </div>
 
-    <div class="row g-2 mb-4">
+    {{-- <div class="row g-2 mb-4">
         <div class="col-sm-auto ms-auto">
             <form action="">
                 <div class="d-flex">
                     <div class="search-box mx-2">
-                        <input type="text" class="form-control search-chat py-2" id="text-srh" placeholder="Cari Materi">
+                        <input type="text" class="form-control search-chat py-2" id="text-srh" placeholder="Cari Siswa">
                     </div>
                     <button class="btn btn-primary">
                         Cari
@@ -34,7 +34,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> --}}
 
     <div class="row">
         @forelse ($students as $student)
@@ -70,6 +70,9 @@
             Tidak ada siswa magang offline selain kamu
         </p>
         @endforelse
+    </div>
+    <div class="">
+        {{ $students->links() }}
     </div>
 
     {{-- <nav aria-label="...">

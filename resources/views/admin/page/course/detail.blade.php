@@ -69,61 +69,61 @@
     <div class="tab-pane active show" id="home-1" role="tabpanel">
         <div class="row">
             @forelse ($subCourses as $subCourse)
-            <div class="col-12">
-                <div class="card border-start border-info py-3 px-4">
-                    <div class="d-flex align-items-center no-block align-items-start">
-                        <div class="col-lg-1 col-md-10 col-sm-1">
-                            <img class="img-responsive w-100 rounded"
-                                src="{{ asset('storage/' . $subCourse->image_course) }}" />
-                        </div>
-                        <div class="col-lg-9 col-sm-12 px-4">
-                            <h4>{{ $subCourse->title }}</h4>
-                            <p class="mb-0">{{ Str::limit(strip_tags($subCourse->description), 200) }}</p>
-                        </div>
-                        <div class="ms-auto">
-                            <div class="dropdown d-inline-block">
-                                <button class="bg-transparent border-0 fs-2 dropdown" style="margin-top: -10px"
-                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="ri-more-fill align-middle"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a href="/administrator/subcourse/detail/{{ $subCourse->id }}" type="button"
-                                            class="dropdown-item btn-show">
-                                            Detail Sub Materi
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <button type="button" class="dropdown-item edit-item-btn btn-edit"
-                                            data-id="{{ $subCourse->id }}" data-title="{{ $subCourse->title }}"
-                                            data-description="{{ $subCourse->description }}"
-                                            data-image="{{ $subCourse->image_course }}"
-                                            data-file="{{ $subCourse->file_course }}"
-                                            data-video="{{ $subCourse->video_course }}">
-                                            Edit Sub Materi
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button type="button" class="dropdown-item btn-delete text-danger"
-                                            data-id="{{ $subCourse->id }}">
-                                            Hapus Sub Materi
-                                        </button>
-                                    </li>
-                                </ul>
+                <div class="col-12">
+                    <div class="card border-start border-info py-3 px-4">
+                        <div class="d-flex align-items-center no-block align-items-start">
+                            <div class="col-lg-1 col-md-10 col-sm-1">
+                                <img class="img-responsive w-100 rounded"
+                                    src="{{ asset('storage/' . $subCourse->image_course) }}" />
+                            </div>
+                            <div class="col-lg-9 col-sm-12 px-4">
+                                <h4>{{ $subCourse->title }}</h4>
+                                <p class="mb-0">{{ Str::limit(strip_tags($subCourse->description), 200) }}</p>
+                            </div>
+                            <div class="ms-auto">
+                                <div class="dropdown d-inline-block">
+                                    <button class="bg-transparent border-0 fs-2 dropdown" style="margin-top: -10px"
+                                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="ri-more-fill align-middle"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <a href="/administrator/subcourse/detail/{{ $subCourse->id }}" type="button"
+                                                class="dropdown-item btn-show">
+                                                Detail Sub Materi
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="dropdown-item edit-item-btn btn-edit"
+                                                data-id="{{ $subCourse->id }}" data-title="{{ $subCourse->title }}"
+                                                data-description="{{ $subCourse->description }}"
+                                                data-image="{{ $subCourse->image_course }}"
+                                                data-file="{{ $subCourse->file_course }}"
+                                                data-video="{{ $subCourse->video_course }}">
+                                                Edit Sub Materi
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="dropdown-item btn-delete text-danger"
+                                                data-id="{{ $subCourse->id }}">
+                                                Hapus Sub Materi
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
             @empty
 
-            <div class="d-flex justify-content-center mb-2 mt-5">
-                <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
-            </div>
-            <p class="fs-5 text-dark text-center">
-                Data Masih Kosong
-            </p>
+                <div class="d-flex justify-content-center mb-2 mt-5">
+                    <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                </div>
+                <p class="fs-5 text-dark text-center">
+                    Data Masih Kosong
+                </p>
             @endforelse
 
             {{ $subCourses->links() }}
@@ -297,30 +297,30 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 <script>
-$('.btn-edit').on('click', function() {
-    let id = $(this).data('id');
-    let title = $(this).data('title');
-    let description = $(this).data('description');
-    let image = $(this).data('image');
-    let video = $(this).data('video');
-    let file = $(this).data('file');
+    $('.btn-edit').on('click', function () {
+        let id = $(this).data('id');
+        let title = $(this).data('title');
+        let description = $(this).data('description');
+        let image = $(this).data('image');
+        let video = $(this).data('video');
+        let file = $(this).data('file');
 
-    $('#edit-title').val(title);
-    $('#edit-description').val(description);
-    $('#edit-image').attr('src', '/storage/' + image);
-    $('#edit-video').val(video);
+        $('#edit-title').val(title);
+        $('#edit-description').val(description);
+        $('#edit-image').attr('src', '/storage/' + image);
+        $('#edit-video').val(video);
 
-    $('#edit-form').attr('action', '/administrator/subcourse/edit/' + id);
-    $('#edit').modal('show');
-});
+        $('#edit-form').attr('action', '/administrator/subcourse/edit/' + id);
+        $('#edit').modal('show');
+    });
 </script>
 
 <script>
-$('.btn-delete').on('click', function() {
-    let id = $(this).data('id');
+    $('.btn-delete').on('click', function () {
+        let id = $(this).data('id');
 
-    $('#form-delete').attr('action', '/administrator/subcourse/delete/' + id);
-    $('#modal-delete').modal('show');
-});
+        $('#form-delete').attr('action', '/administrator/subcourse/delete/' + id);
+        $('#modal-delete').modal('show');
+    });
 </script>
 @endsection

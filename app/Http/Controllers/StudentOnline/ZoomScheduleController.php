@@ -87,7 +87,8 @@ class ZoomScheduleController extends Controller
             }
         }
 
-        $presentations = $this->presentation->GetPresentationByMentor(auth()->user()->mentor->id, $request);
+        $presentations = $this->presentation->GetPresentationByMentor(auth()->user()->mentor->division_id, $request);
+        // dd($presentations);
 
         return view('mentor.zoomschedule', compact('processedSchedules', 'presentations'));
     }

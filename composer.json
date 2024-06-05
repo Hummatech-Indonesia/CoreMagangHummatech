@@ -15,10 +15,11 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.5",
+        "maatwebsite/excel": "^3.1",
         "sentry/sentry-laravel": "^4.5",
         "simplesoftwareio/simple-qrcode": "*",
         "spatie/laravel-permission": "^6.4",
-        "yoeunes/toastr": "*"
+        "yoeunes/toastr": "^3.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",

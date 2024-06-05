@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class JournalController extends Controller
 {
@@ -23,15 +25,21 @@ class JournalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $mentorStudents = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
         $journals = [];
+
+        // Mengambil parameter pencarian dari request
+        $studentName = $request->input('name', '');
+        $createdAt = $request->input('created_at', Carbon::today()->toDateString()); // Default ke hari ini jika tidak diisi
+
         foreach ($mentorStudents as $mentorStudent) {
-            $journals[] = $this->journal->whereStudent($mentorStudent->student_id);
+            $query = $this->journal->search($request->merge(['student_id' => $mentorStudent->student_id, 'created_at' => $createdAt]));
+            $journals[] = $query->get();
         }
+
         $journalStudents = collect($journals)->flatten();
-        // dd($journalStudents);
         return view('mentor.Journal.index', compact('journalStudents'));
     }
 }

@@ -6,12 +6,14 @@ use App\Contracts\Interfaces\BoardInterface;
 use App\Contracts\Interfaces\CategoryBoardInterface;
 use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Contracts\Interfaces\ProjectInterface;
+use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Contracts\Interfaces\StudentTeamInterface;
 use App\Models\CategoryBoard;
 use App\Http\Requests\StoreCategoryBoardRequest;
 use App\Http\Requests\UpdateCategoryBoardRequest;
 use App\Models\HummataskTeam;
+use App\Services\BoardService;
 use App\Services\NoteService;
 use Illuminate\Http\Request;
 
@@ -24,7 +26,9 @@ class CategoryBoardController extends Controller
     private BoardInterface $board;
     private NoteService $noteservice;
     private StudentTeamInterface $studentTeam;
-    public function __construct(CategoryBoardInterface $categoryBoard, HummataskTeamInterface $hummataskTeam, BoardInterface $board, StudentProjectInterface $studentProject, ProjectInterface $Project, NoteService $noteService, StudentTeamInterface $studentTeam)
+    private StudentInterface $student;
+    private BoardService $boardService;
+    public function __construct(CategoryBoardInterface $categoryBoard, HummataskTeamInterface $hummataskTeam, BoardInterface $board, StudentProjectInterface $studentProject, ProjectInterface $Project, NoteService $noteService, StudentTeamInterface $studentTeam, StudentInterface $student, BoardService $boardService)
     {
         $this->categoryBoard = $categoryBoard;
         $this->hummataskTeam = $hummataskTeam;
@@ -33,6 +37,8 @@ class CategoryBoardController extends Controller
         $this->Project = $Project;
         $this->noteservice = $noteService;
         $this->studentTeam = $studentTeam;
+        $this->student = $student;
+        $this->boardService = $boardService;
     }
     /**
      * Display a listing of the resource.
@@ -42,12 +48,15 @@ class CategoryBoardController extends Controller
         $team = $this->hummataskTeam->slug($slug);
         $categoryBoards = $this->categoryBoard->getByHummataskTeamId($team->id);
         $boards = $this->board->get();
-        $projects = $this->Project->where('title', $team->slug);
+        $projects = $this->Project->where('hummatask_team_id', $team->id);
         $studentTeams = $this->studentTeam->get();
         foreach ($projects as $project) {
             $studentTeams = $this->studentTeam->where('project_id', $project->id);
         }
-        return view('Hummatask.team.board' , compact('categoryBoards', 'hummataskTeam', 'boards', 'team', 'studentTeams'));
+        $students = $this->student->get();
+        $boardCounts = $this->boardService->getBoardCountsByCategory($team->id);
+
+        return view('Hummatask.team.board' , compact('categoryBoards', 'hummataskTeam', 'boards', 'team', 'studentTeams', 'students','boardCounts'));
     }
 
     /**
