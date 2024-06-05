@@ -15,10 +15,11 @@ class PermissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'required',
+            'description' => 'nullable',
             'proof' => 'required',
-            'start' => 'required',
-            'end' => 'required',
+            'start' => 'nullable',
+            'end' => 'nullable',
+            'status' => 'nullable'
         ];
     }
 }
