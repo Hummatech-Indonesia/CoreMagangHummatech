@@ -47,7 +47,7 @@ class HummataskTeamService
         $data['image'] = $request->file('image')->store(TypeEnum::HUMMATASKTEAM->value, 'public');
         $data['student_id'] = auth()->user()->student->id;
         $data['division_id'] = auth()->user()->student->division_id;
-        $data['slug'] = Str::slug($request->title);
+        $data['slug'] = Str::slug($request->name);
         return $data;
     }
 
