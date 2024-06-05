@@ -15,7 +15,7 @@ class PermissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'nullable|required',
+            'description' => 'required',
             'proof' => 'nullable',
             'start' => 'nullable',
             'end' => 'nullable',
