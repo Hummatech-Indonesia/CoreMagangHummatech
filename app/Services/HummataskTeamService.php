@@ -14,7 +14,7 @@ use App\Http\Requests\UpdateHummataskTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use App\Models\HummataskTeam;
 use Illuminate\Http\Request;
-use Str;
+use Illuminate\Support\Str;
 
 class HummataskTeamService
 {
@@ -47,6 +47,7 @@ class HummataskTeamService
         $data['image'] = $request->file('image')->store(TypeEnum::HUMMATASKTEAM->value, 'public');
         $data['student_id'] = auth()->user()->student->id;
         $data['division_id'] = auth()->user()->student->division_id;
+        $data['slug'] = Str::slug($request->title);
         return $data;
     }
 
