@@ -19,7 +19,6 @@ class PermissionRequest extends FormRequest
             'proof' => 'required',
             'start' => 'required',
             'end' => 'required',
-            'status' => 'required'
         ];
     }
 }
