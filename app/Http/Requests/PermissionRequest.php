@@ -16,7 +16,7 @@ class PermissionRequest extends FormRequest
     {
         return [
             'description' => 'nullable',
-            'proof' => 'required',
+            'proof' => 'nullable',
             'start' => 'nullable',
             'end' => 'nullable',
             'status' => 'nullable'
