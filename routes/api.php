@@ -39,6 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('course_mentor' , [AppointmentOfMentor::class , 'index']);
     Route::get('count_mentor' , [DashboardController::class , 'count']);
 
+    Route::get('course/task/{course}', [CourseController::class, 'courseAssignment']);
+
     // api seluruh siswa
     Route::get('active-courses', [CourseController::class, 'activeCourses']);
     Route::post('attendance', [AttendanceController::class, 'storeAttendance']);
