@@ -554,6 +554,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
 
         $query = $this->model->query()
             ->whereNull('rfid')
+            ->where('status' , 'accepted')
             ->when($request->name, function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->name . '%');
             });
