@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
 use App\Http\Controllers\AppointmentOfAmentorController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\CourseAssignmentController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Mentor\DashboardController;
 use App\Http\Controllers\StudentOnline\CourseController;
@@ -56,6 +57,8 @@ Route::post('/register/post', [StudentController::class, 'store']);
 # Statement
 Route::get('statement-self', [StatementController::class, 'self'])->name('statement-self');
 Route::get('statement-parent', [StatementController::class, 'parent'])->name('statement-parent');
+
+Route::post('course-assignment/{course}', [CourseAssignmentController::class, 'store'])->name('course-assignment.store');
 
 # ================================================ Administrator Route Group ==================================================
 Route::middleware(['roles:administrator', 'auth'])->group(function () {

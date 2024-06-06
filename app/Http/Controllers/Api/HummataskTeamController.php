@@ -45,4 +45,15 @@ class HummataskTeamController extends Controller
     {
         return ResponseHelper::success(HummataskTeamResource::make($hummataskTeam));
     }
+
+    /**
+     * member
+     *
+     * @param  mixed $hummataskTeam
+     * @return JsonResponse
+     */
+    public function member(HummataskTeam $hummataskTeam): JsonResponse
+    {
+        return ResponseHelper::success(HummataskTeamResource::collection($hummataskTeam->studentTeams));
+    }
 }
