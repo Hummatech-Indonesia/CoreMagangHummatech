@@ -23,6 +23,7 @@ class HummataskTeamResource extends JsonResource
             'division' => $this->division->name,
             'slug' => $this->slug,
             'status' => $this->status,
+            'theme' => HummataskProjectResource::collection($this->projects),
             'teams' => StudentTeamResource::collection($this->studentTeams),
         ];
     }
