@@ -45,9 +45,12 @@ class AdminStudentController extends Controller
 
         $today = date('Y-m-d');
         Student::where('finish_date', '<', $today)
-               ->update(['expired' => 'alumni']);
+            ->update([
+                'expired' => 'alumni',
+                'acepted' => '0'
+            ]);
 
-        return view('admin.page.user.index', compact('students', 'studentOfflines', 'studentOnllines', 'divisions', 'schools', 'genders','status' , 'Alumni'));
+        return view('admin.page.user.index', compact('students', 'studentOfflines', 'studentOnllines', 'divisions', 'schools', 'genders', 'status', 'Alumni'));
     }
 
     /**
