@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\StudentTeamInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\HummataskTeamResource;
 use App\Http\Resources\ProfileResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class ProfileController extends Controller
     public function studentAllTeam(): JsonResponse
     {
         $hummataskTeams = $this->hummatask_team->getByStudent(auth()->user()->student->id);
-        return ResponseHelper::success($hummataskTeams);
+        return ResponseHelper::success(HummataskTeamResource::collection($hummataskTeams));
     }
 
     public function hummataskteam()
