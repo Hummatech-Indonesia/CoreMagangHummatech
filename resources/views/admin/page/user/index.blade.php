@@ -29,6 +29,13 @@
                                     Siswa Online
                                 </button>
                             </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-experience-tab" data-bs-toggle="pill"
+                                    data-bs-target="#Alumni" type="button" role="tab"
+                                    aria-controls="pills-experience" aria-selected="false" data-position="2" tabindex="-1">
+                                    Alumni
+                                </button>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -252,6 +259,90 @@
         <div id="pills-experience" class="tab-pane fade">
             <div class="row">
                 @forelse ($studentOnllines as $studentonline)
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card">
+                            <div class="card-body d-flex  gap-1">
+                                <div class="position-relative">
+                                    <div
+                                        class="position-absolute top-0 start-0 translate-middle rounded-circle {{ $studentonline->rfid == null ? 'bg-danger' : 'bg-success' }} border-5 border-white border rounded p-2">
+                                    </div>
+                                    @if (file_exists(public_path('storage/' . $studentonline->avatar)))
+                                        <img class="avatar-lg rounded" style="object-fit: cover"
+                                            src="{{ asset('storage/' . $studentonline->avatar) }}">
+                                    @else
+                                        <img class="avatar-lg rounded" style="object-fit: cover"
+                                            src="{{ asset('user.webp') }}">
+                                    @endif
+                                </div>
+                                <div class="ms-2">
+                                    <h5 class="mt-1 m-0 fw-semibold">{{ $studentonline->name }}</h5>
+                                    <p class="mt-1 m-0 text-muted">{{ $studentonline->school }}</p>
+                                    <div class="d-flex m-0 gap-2">
+                                        <span
+                                            class="badge px-4 py-1 text-uppercase {{ $studentonline->acepted == 1 ? 'bg-success' : 'bg-danger' }} mt-1">{{ $studentonline->acepted == '0' ? 'Tidak aktif' : 'Aktif' }}</span>
+                                        <span
+                                            class="badge px-4 py-1 text-uppercase {{ $studentonline->internship_type == 'online' ? 'bg-primary' : 'bg-danger' }} mt-1">{{ $studentonline->internship_type == 'online' ? 'online' : 'offline' }}</span>
+                                    </div>
+                                    <p class=" mt-1"><strong class="fs-6">RFID: </strong><span
+                                            class="text-muted">{{ $studentonline->rfid == null ? '-' : $studentonline->rfid }}</span>
+                                    </p>
+                                </div>
+                                <div class="d-flex justify-content-end w-100">
+                                    <div class="dropdown card-header-dropdown">
+                                        <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted fs-16"><i
+                                                    class="mdi mdi-dots-vertical align-center"></i></span>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item"
+                                                href="/menu-siswa/face/{{ $studentonline->id }}">Wajah</a>
+                                            <button class="dropdown-item btn-reset" type="button"
+                                                data-id="{{ $studentonline->id }}">Reset Password</button>
+                                            <button class="dropdown-item btn-ban"
+                                                data-id="{{ $studentonline->id }}">Banned</button>
+                                            <button class="dropdown-item btn-change" data-id="{{ $studentonline->id }}"
+                                                data-image="{{ $studentonline->avatar }}">Ganti
+                                                Profile</button>
+                                            <button class="dropdown-item btn-detail"
+                                                data-name="{{ $studentonline->name }}"
+                                                data-majors="{{ $studentonline->major }}"
+                                                data-class="{{ $studentonline->class }}"
+                                                data-phone="{{ $studentonline->phone }}"
+                                                data-address="{{ $studentonline->address }}"
+                                                data-birthdate="{{ \carbon\Carbon::parse($studentonline->birth_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                                data-birthplace="{{ $studentonline->birth_place }}"
+                                                data-startdate="{{ \carbon\Carbon::parse($studentonline->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                                data-finishdate="{{ \carbon\Carbon::parse($studentonline->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
+                                                data-school="{{ $studentonline->school }}"
+                                                data-email="{{ $studentonline->email }}"
+                                                data-avatar="{{ file_exists(public_path('storage/' . $studentonline->avatar)) ? asset('storage/' . $studentonline->avatar) : asset('user.webp') }}"
+                                                data-cv="{{ file_exists(public_path('storage/' . $studentonline->cv)) ? asset('storage/' . $studentonline->cv) : asset('no data.png') }}"
+                                                data-selfstatement="{{ file_exists(public_path('storage/' . $studentonline->self_statement)) ? asset('storage/' . $studentonline->self_statement) : asset('no data.png') }}"
+                                                data-parentsstatement="{{ file_exists(public_path('storage/' . $studentonline->parents_statement)) ? asset('storage/' . $studentonline->parents_statement) : asset('no data.png') }}"
+                                                data-identify_number="{{ $studentonline->identify_number }}">Detail</button>
+                                            <button class="dropdown-item btn-delete text-danger"
+                                                id="{{ $studentonline->id }}"
+                                                data-id="{{ $studentonline->id }}">Hapus</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                @empty
+                    <div class="col-12 d-flex justify-content-center text-center">
+                        <img src="{{ asset('no data.png') }}" width="200px" alt="">
+                    </div>
+                    <h5 class="mt-3 text-center">Tidak ada data</h5>
+                @endforelse
+                {{ $studentOnllines->links() }}
+            </div>
+        </div>
+        <div id="Alumni" class="tab-pane fade">
+            <div class="row">
+                @forelse ($Alumni as $studentonline)
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="card">
                             <div class="card-body d-flex  gap-1">
