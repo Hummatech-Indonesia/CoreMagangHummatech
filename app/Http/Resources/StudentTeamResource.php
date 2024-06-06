@@ -17,6 +17,8 @@ class StudentTeamResource extends JsonResource
         return [
             'id' => $this->student->id,
             'name' => $this->student->name,
+            'email' => $this->student->email,
+            'avatar' => asset('storage/'.$this->student->avatar),
         ];
     }
 }
