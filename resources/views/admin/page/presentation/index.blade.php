@@ -1,31 +1,5 @@
 @extends('admin.layouts.app')
 @section('content')
-<div class="card">
-    <div class="card-body d-flex justify-content-between">
-        <ul class="nav nav-pills nav-custom nav-custom-light" style="width: fit-content" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" data-bs-toggle="tab" href="#done" role="tab">
-                    Tim
-                </a>
-            </li>
-            {{-- <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#on" role="tab">
-                    Siswa
-                </a>
-            </li> --}}
-        </ul>
-        <div class="me-2 col-xl-2 d-flex align-items-center gap-2">
-            <label for="" class="mt-2">Filter: </label>
-            <select class="form-control" data-choices name="choices-single-default" id="choices-single-default">
-                <option value="">Semua</option>
-                <option value="">Solo</option>
-                <option value="">Premini</option>
-                <option value="">Mini</option>
-            </select>
-        </div>
-    </div>
-</div>
-
 <div class="tab-content text-muted">
     <div class="tab-pane active" id="done" role="tabpanel">
         <div class="row">
