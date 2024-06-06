@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Base\Interfaces\HasActiveCourses;
+use App\Base\Interfaces\HasCourseAssignments;
 use App\Base\Interfaces\HasOneCourseAssignment;
 use App\Base\Interfaces\HasStudentCoursePositions;
 use App\Base\Interfaces\HasSubCourses;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Course extends Model implements HasActiveCourses, HasSubCourses, HasStudentCoursePositions, HasOneCourseAssignment
+class Course extends Model implements HasActiveCourses, HasSubCourses, HasStudentCoursePositions, HasCourseAssignments
 {
     use HasFactory;
     protected $primaryKey = 'id';
@@ -21,13 +22,13 @@ class Course extends Model implements HasActiveCourses, HasSubCourses, HasStuden
     protected $guarded = [];
 
     /**
-     * courseAssignment
+     * courseAssignments
      *
-     * @return HasOne
+     * @return HasMany
      */
-    public function courseAssignment(): HasOne
+    public function courseAssignments(): HasMany
     {
-        return $this->hasOne(CourseAssignment::class);
+        return $this->hasMany(CourseAssignment::class);
     }
 
     /**

@@ -59,7 +59,7 @@ class CourseController extends Controller
      */
     public function courseAssignment(Course $course): JsonResponse
     {
-        return ResponseHelper::success(CourseAssignmentResource::make($course->courseAssignment));
+        return ResponseHelper::success(CourseAssignmentResource::collection($course->courseAssignments));
     }
 
     /**
