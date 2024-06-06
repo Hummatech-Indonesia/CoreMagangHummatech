@@ -37,6 +37,7 @@ class JournalCommand extends Command
             $student_Already = Journal::whereDate('created_at', $dateNow)->pluck('student_id')->toArray();
             $student_notYet = Student::query()
                 ->where('status', StudentStatusEnum::ACCEPTED->value)
+                ->whereNull('expired')
                 ->whereNotIn('id', $student_Already)
                 ->whereDate('start_date', '<=', $dateNow)
                 ->get();
