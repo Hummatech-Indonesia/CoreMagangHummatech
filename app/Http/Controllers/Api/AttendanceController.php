@@ -13,6 +13,7 @@ use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AttendanceRuleResource;
 use App\Http\Resources\MaxLateResource;
+use App\Http\Resources\StudentAttendanceResource;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -74,7 +75,11 @@ class AttendanceController extends Controller
      */
     public function checkWfh(): JsonResponse
     {
-        return response()->json(['wfh' => $this->workFromHome->getToday() ? true : false]);
+        $check = false;
+        if ($wfh = $this->workFromHome->getToday()) {
+            $check = $wfh->is_on == 1 ? true : false;
+        }
+        return response()->json(['wfh' => $check]);
     }
 
     /**
@@ -253,7 +258,7 @@ class AttendanceController extends Controller
     public function attendanceOffline(Request $request)
     {
         $offlineAttendances = $this->student->studentOfflineAttendance($request);
-        return response()->json($offlineAttendances);
+        return response()->json(StudentAttendanceResource::collection($offlineAttendances));
     }
 
     public function count()

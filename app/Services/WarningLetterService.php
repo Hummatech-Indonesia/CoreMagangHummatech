@@ -71,9 +71,9 @@ class WarningLetterService
      *
      * @param StoreSaleRequest $request
      *
-     * @return array|bool
+     * @return array
      */
-    public function store(StoreWarning_LetterRequest $request, WarningLetter $warningLetter,): array|bool
+    public function store(StoreWarning_LetterRequest $request, WarningLetter $warningLetter,): array
     {
         $data = $request->validated();
         $student = $this->students->sp($data['student_id']);
@@ -89,7 +89,7 @@ class WarningLetterService
         $pdf = FacadePdf::loadView('desain_pdf.percobaan', ['data' => $dataForPdf]);
         $generatedPdfName = 'pdf_' . time() . '.pdf';
         $pdfPath = TypeEnum::WARNING_LETTER->value . '/' . $generatedPdfName;
-        Storage::put($pdfPath, $pdf->output());
+        Storage::disk('public')->put($pdfPath, $pdf->output());
         $nomor_surat = $request->reference_number . "/SP/PKL/I/" . Carbon::now()->format('Y');
 
         $data = [

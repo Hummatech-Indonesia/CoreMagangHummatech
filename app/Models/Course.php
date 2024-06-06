@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Base\Interfaces\HasActiveCourses;
+use App\Base\Interfaces\HasStudentCoursePositions;
+use App\Base\Interfaces\HasSubCourses;
 use App\Enum\StatusCourseEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Course extends Model implements HasActiveCourses
+class Course extends Model implements HasActiveCourses, HasSubCourses, HasStudentCoursePositions
 {
     use HasFactory;
     protected $primaryKey = 'id';
@@ -16,7 +18,22 @@ class Course extends Model implements HasActiveCourses
     protected $fillable = ['title', 'price', 'status', 'image', 'description', 'division_id', 'position',];
     protected $guarded = [];
 
-    public function subCourse()
+    /**
+     * studentCoursePositions
+     *
+     * @return HasMany
+     */
+    public function studentCoursePositions(): HasMany
+    {
+        return $this->hasMany(StudentCoursePosition::class);
+    }
+
+    /**
+     * subCourses
+     *
+     * @return HasMany
+     */
+    public function subCourses(): HasMany
     {
         return $this->hasMany(SubCourse::class);
     }

@@ -20,7 +20,7 @@ class ActiveCourseRepository extends BaseRepository implements ActiveCourseInter
     public function getByStudent(mixed $id): mixed
     {
         return $this->model->query()
-            ->with('course')
+            ->with('course.subCourses')
             ->where('student_id', $id)
             ->get();
     }

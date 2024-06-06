@@ -8,6 +8,7 @@ use App\Contracts\Interfaces\ZoomScheduleInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MentorStudentResource;
+use App\Http\Resources\ZoomScheduleResource;
 use App\Models\MentorStudent;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class DashboardController extends Controller
     public function index()
     {
         $zoom = $this->zoom->get();
-        $data['result'] = $zoom;
+        $data['result'] = ZoomScheduleResource::collection($zoom);
         return response()->json($data, 200);
     }
 

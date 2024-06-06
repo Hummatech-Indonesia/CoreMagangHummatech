@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\CourseInterface;
+use App\Enum\StatusCourseEnum;
 use App\Models\Course;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -27,10 +28,17 @@ class StudentCourseController extends Controller
         return view('student_online_&_offline.course-store.index', compact('courses'));
     }
 
+    /**
+     * activeCourses
+     *
+     * @param  mixed $request
+     * @return View
+     */
     public function activeCourses(Request $request): View
     {
         $courses = auth()->user()->student->activeCourses;
-        return view('student_online_&_offline.course.active-course', compact('courses'));
+        $subscibeCourses = $this->course->getCourseByStatus(StatusCourseEnum::SUBCRIBE->value);
+        return view('student_online_&_offline.course.active-course', compact('courses', 'subscibeCourses'));
     }
 
     /**
@@ -41,6 +49,7 @@ class StudentCourseController extends Controller
      */
     public function show(Course $course): View
     {
+        $course = $this->course->show($course->id);
         return view('student_online_&_offline.course-store.details', compact('course'));
     }
 }

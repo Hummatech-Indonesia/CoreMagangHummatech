@@ -3,6 +3,7 @@ namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Models\HummataskTeam;
+use App\StatusProjectEnum;
 
 class HummataskTeamRepository extends BaseRepository implements HummataskTeamInterface
 {
@@ -51,6 +52,25 @@ class HummataskTeamRepository extends BaseRepository implements HummataskTeamInt
     public function slug(mixed $slug): mixed
     {
         return $this->model->query()->where('slug', $slug)->firstOrFail();
+    }
+
+    /**
+     * getByStudent
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getByStudent(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('student_id', $id)
+            ->with(['projects' => function ($query) {
+                $query->where('status', StatusProjectEnum::ACCEPTED->value);
+            }])
+            ->orWhereHas('studentTeams', function ($query) use ($id) {
+                $query->where('student_id', $id);
+            })
+            ->get();
     }
 
 }

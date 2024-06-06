@@ -11,6 +11,8 @@ use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\AppointmentOfMentor;
+use App\Http\Controllers\Api\HummataskPresentationController;
+use App\Http\Controllers\Api\HummataskTeamController;
 use App\Http\Controllers\Api\MentorController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\StudentController;
@@ -42,7 +44,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('attendance', [AttendanceController::class, 'storeAttendance']);
     Route::get('check-wfh', [AttendanceController::class, 'checkWfh']);
     Route::get('nonactive-courses', [CourseController::class, 'nonactiveCourses']);
-    Route::prefix('student')->group(function () {
+
+    Route::prefix('hummatask')->group(function () {
+        Route::post('team', [HummataskTeamController::class, 'store']);
+        Route::get('team/{hummataskTeam}', [HummataskTeamController::class, 'show']);
+        Route::get('team', [ProfileController::class, 'studentAllTeam']);
+        Route::get('presentation/schedule', [HummataskPresentationController::class, 'schedule']);
     });
 
 
