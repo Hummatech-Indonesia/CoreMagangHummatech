@@ -193,10 +193,9 @@
                 </h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/create/sub-materi/{{ $course->id }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('course-assignment.store', $course->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
-                    <input type="hidden" name="course_id" value="{{ $course->id }}">
                     <div class="mb-3">
                         <label for="">Judul Tugas</label>
                         <input type="text" name="title" class="form-control">
@@ -207,11 +206,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="">Jenis</label>
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="type">
                             <option selected>Jenis</option>
-                            <option value="1">File</option>
-                            <option value="2">Image</option>
-                            <option value="3">Link</option>
+                            <option value="file">File</option>
+                            <option value="image">Image</option>
+                            <option value="link">Link</option>
                         </select>
                     </div>
                 </div>
