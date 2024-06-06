@@ -314,9 +314,10 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-center gap-2 mt-3">
-                            <button class="btn btn-success btn-accept" type="button">Terima</button>
-                            <button class="btn btn-warning btn-reject" type="button">Tolak</button>
-                            <button class="btn btn-danger btn-delete">Hapus</button>
+                            <button class="btn btn-success btn-sm btn-accept" type="button">Terima</button>
+                            <button class="btn btn-warning btn-sm btn-reject" type="button">Tolak</button>
+                            <button class="btn btn-warning btn-sm btn-reject-reason" type="button">Tolak dengan alasan</button>
+                            <button class="btn btn-danger btn-sm btn-delete">Hapus</button>
                         </div>
                         <div class="mt-3 mx-4">
                             <h4>CV</h4>
@@ -473,6 +474,39 @@
     </div>
 
 
+    {{-- modal reject reason start --}}
+    <div class="modal fade" id="modalReject-reason" tabindex="-1" aria-labelledby="modal-deleteLabel1">
+        <div class="modal-dialog modal-lg" role="document">
+            <form id="form-reject-reason" method="POST">
+                @method('PUT')
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header d-flex align-items-center">
+                        <h5 class="modal-title" id="modal-deleteLabel1">
+                            Tolak Siswa dengan alasan
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="reason">Alasan ditolak</label>
+                        <input type="text" placeholder="Masukkan alasan" name="reason" class="form-control">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger text-white font-medium waves-effect"
+                            data-bs-dismiss="modal">
+                            Tutup
+                        </button>
+                        <button style="background-color: #1B3061" type="submit" class="btn text-white btn-create">
+                            Tolak
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {{-- modal reject reason end --}}
+
+
     @include('admin.components.delete-modal-component')
 @endsection
 @section('script')
@@ -531,6 +565,7 @@
             $('.btn-delete').attr('data-id', id);
             $('.btn-accept').attr('data-id', id);
             $('.btn-reject').attr('data-id', id);
+            $('.btn-reject-reason').attr('data-id', id);
 
             $('#form-declined').attr('action', 'approval/decline/' + id);
             $('#offcanvasRight').offcanvas('show');
@@ -552,6 +587,12 @@
             let id = $(this).data('id');
             $('#form-reject').attr('action', 'approval/decline/' + id);
             $('#modalReject').modal('show');
+        });
+
+        $('.btn-reject-reason').click(function() {
+            let id = $(this).data('id');
+            $('#form-reject-reason').attr('action', 'approval/decline/' + id);
+            $('#modalReject-reason').modal('show');
         });
     </script>
 

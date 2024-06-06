@@ -334,12 +334,21 @@
                                 text-align: left;
                               "
                             >
+                            @if ($mailData['reason'] != null)
+                                <p>
+                                  Terima Kasih Sudah Mendaftar Magang Di PT HUMMA
+                                  TEKNOLOGI INDONESIA . Mohon Maaf anda ditolak dikarenakan {{ $mailData['reason'] }}.
+                                  Tetap semangat dan Jangan
+                                  pantang menyerah.
+                                </p>
+                            @else
                               <p>
                                 Terima Kasih Sudah Mendaftar Magang Di PT HUMMA
                                 TEKNOLOGI INDONESIA . Mohon Maaf Kuota Magang
                                 Kami Sudah Terisi Penuh. Tetap semangat dan Jangan
                                 pantang menyerah.
                               </p>
+                            @endif
                             </div>
                           </td>
                         </tr>
