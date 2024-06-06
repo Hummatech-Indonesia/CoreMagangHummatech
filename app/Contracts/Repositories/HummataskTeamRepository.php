@@ -53,4 +53,20 @@ class HummataskTeamRepository extends BaseRepository implements HummataskTeamInt
         return $this->model->query()->where('slug', $slug)->firstOrFail();
     }
 
+    /**
+     * getByStudent
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getByStudent(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('student_id', $id)
+            ->orWhereHas('studentTeams', function ($query) use ($id) {
+                $query->where('student_id', $id);
+            })
+            ->get();
+    }
+
 }
