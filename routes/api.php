@@ -39,6 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('course_mentor' , [AppointmentOfMentor::class , 'index']);
     Route::get('count_mentor' , [DashboardController::class , 'count']);
 
+    Route::get('course/task/{course}', [CourseController::class, 'courseAssignment']);
+
     // api seluruh siswa
     Route::get('active-courses', [CourseController::class, 'activeCourses']);
     Route::post('attendance', [AttendanceController::class, 'storeAttendance']);
@@ -47,6 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('hummatask')->group(function () {
         Route::post('team', [HummataskTeamController::class, 'store']);
+        Route::get('team/member/{hummataskTeam}', [HummataskTeamController::class, 'member']);
         Route::get('team/{hummataskTeam}', [HummataskTeamController::class, 'show']);
         Route::get('team', [ProfileController::class, 'studentAllTeam']);
         Route::get('presentation/schedule', [HummataskPresentationController::class, 'schedule']);

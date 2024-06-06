@@ -12,7 +12,9 @@ use App\Contracts\Interfaces\StudentInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AttendanceRuleResource;
+use App\Http\Resources\CourseAssignmentResource;
 use App\Http\Resources\CourseResource;
+use App\Models\Course;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Request;
@@ -47,6 +49,17 @@ class CourseController extends Controller
         return response()->json([
             'result' => $courses
         ]);
+    }
+
+    /**
+     * courseAssignment
+     *
+     * @param  mixed $course
+     * @return JsonResponse
+     */
+    public function courseAssignment(Course $course): JsonResponse
+    {
+        return ResponseHelper::success(CourseAssignmentResource::collection($course->courseAssignments));
     }
 
     /**

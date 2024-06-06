@@ -1,28 +1,28 @@
 @extends('admin.layouts.app')
 @section('content')
 <div class="tab-content text-muted">
-    <div class="tab-pane active" id="done" role="tabpanel">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div id="table-gridjs">
-                            <div role="complementary" class="gridjs gridjs-container" style="width: 100%;">
-                            <div class="gridjs-wrapper" style="height: auto;">
-                                <table role="grid" class="gridjs-table" style="height: auto;">
-                                    <thead class="gridjs-thead">
-                                        <tr class="gridjs-tr">
-                                            <th data-column-id="name" class="gridjs-th" style="width: 50px;">
-                                                <div class="gridjs-th-content">No</div>
-                                            </th>
-                                            <th data-column-id="name" class="gridjs-th" style="width: 150px;">
-                                                <div class="gridjs-th-content">Divisi</div>
-                                            </th>
-                                            <th data-column-id="name" class="gridjs-th" style="width: 150px;">
-                                                <div class="gridjs-th-content">Nama Tim</div>
-                                            </th>
-                                            <th data-column-id="name" class="gridjs-th" style="width: 150px;">
-                                                <div class="gridjs-th-content">Kategori Projek</div>
+<div class="tab-pane active" id="done" role="tabpanel">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div id="table-gridjs">
+                        <div role="complementary" class="gridjs gridjs-container" style="width: 100%;">
+                        <div class="gridjs-wrapper" style="height: auto;">
+                            <table role="grid" class="gridjs-table" style="height: auto;">
+                                <thead class="gridjs-thead">
+                                    <tr class="gridjs-tr">
+                                        <th data-column-id="name" class="gridjs-th" style="width: 50px;">
+                                            <div class="gridjs-th-content">No</div>
+                                        </th>
+                                        <th data-column-id="name" class="gridjs-th" style="width: 150px;">
+                                            <div class="gridjs-th-content">Divisi</div>
+                                        </th>
+                                        <th data-column-id="name" class="gridjs-th" style="width: 150px;">
+                                            <div class="gridjs-th-content">Nama Tim</div>
+                                        </th>
+                                        <th data-column-id="name" class="gridjs-th" style="width: 150px;">
+                                            <div class="gridjs-th-content">Kategori Projek</div>
                                             </th>
                                             <th data-column-id="name" class="gridjs-th" style="width: 150px;">
                                                 <div class="gridjs-th-content">Bulan</div>
