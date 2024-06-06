@@ -37,8 +37,9 @@ class StudentCourseController extends Controller
     public function activeCourses(Request $request): View
     {
         $courses = auth()->user()->student->activeCourses;
-        $subscibeCourses = $this->course->getCourseByStatus(StatusCourseEnum::SUBCRIBE->value);
-        return view('student_online_&_offline.course.active-course', compact('courses', 'subscibeCourses'));
+        $subscibeCourses = $this->course->getSubscribeByDivision(auth()->user()->student->division_id);
+        $position = auth()->user()->studentCoursePosition == null ? 1 : auth()->user()->studentCoursePosition;
+        return view('student_online_&_offline.course.active-course', compact('courses', 'subscibeCourses', 'position'));
     }
 
     /**

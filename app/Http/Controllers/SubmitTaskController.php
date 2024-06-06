@@ -96,7 +96,6 @@ class SubmitTaskController extends Controller
         if ($request->status == SubmitTaskStatusEnum::AGREE->value) {
             $this->studentCoursePosition->store([
                 'student_id' => $submitTask->student_id,
-                'course_id' => $submitTask->courseAssignment->course_id,
                 'position' => $submitTask->courseAssignment->course->position + 1,
             ]);
         }

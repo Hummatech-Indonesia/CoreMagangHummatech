@@ -76,6 +76,20 @@ class CourseRepository extends BaseRepository implements CourseInterface
     }
 
     /**
+     * getSubscribeByDivision
+     *
+     * @param  mixed $division
+     * @return mixed
+     */
+    public function getSubscribeByDivision(mixed $division): mixed
+    {
+        return $this->model->query()
+            ->where('status', 'subcribe')
+            ->where('division_id', $division)
+            ->get();
+    }
+
+    /**
      *
      * get latest position by division
      * @param mixed $id

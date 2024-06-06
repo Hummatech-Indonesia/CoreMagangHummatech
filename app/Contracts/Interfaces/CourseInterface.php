@@ -35,4 +35,12 @@ interface CourseInterface extends GetInterface, StoreInterface, DeleteInterface,
      * @return void
      */
     public function getNonactiveCourse(mixed $divisionId, mixed $studentId);
+
+    /**
+     * getSubscribeByDivision
+     *
+     * @param  mixed $division
+     * @return mixed
+     */
+    public function getSubscribeByDivision(mixed $division): mixed;
 }
