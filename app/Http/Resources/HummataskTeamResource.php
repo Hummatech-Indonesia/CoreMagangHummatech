@@ -25,6 +25,8 @@ class HummataskTeamResource extends JsonResource
             'status' => $this->status,
             'theme' => HummataskProjectResource::collection($this->projects),
             'teams' => StudentTeamResource::collection($this->studentTeams),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
