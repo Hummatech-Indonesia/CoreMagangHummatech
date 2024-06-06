@@ -43,6 +43,7 @@ return new class extends Migration
             $table->string('cv');
             $table->string('password');
             $table->enum('internship_type', [InternshipTypeEnum::ONLINE->value, InternshipTypeEnum::OFFLINE->value]);
+            $table->string('expired')->nullable();
             $table->timestamps();
         });
     }
