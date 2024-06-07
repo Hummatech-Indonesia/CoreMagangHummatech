@@ -20,7 +20,10 @@ class HummataskPresentationController extends Controller
         $this->presentation = $presentationInterface;
     }
 
-    public function store()
+    public function store(): JsonResponse
+    {
+        return ResponseHelper::success(null, "Berhasil menyimpane presentasi");
+    }
 
     /**
      * schedule
