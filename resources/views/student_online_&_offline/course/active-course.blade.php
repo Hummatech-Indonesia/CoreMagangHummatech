@@ -104,14 +104,14 @@
                     <div class="card card-body p-3" style="background-color: rgba(255, 255, 255, 0.5);">
                         <div class="w-full h-full bg-black opacity-25 absol"></div>
                         <img src="{{ asset('storage/' . $course->course->image) }}" class=" rounded-1 mb-3 w-100" />
-                        <a href="{{ url('/courses/detail')}}">
+                        <a href="{{ route('siswa-online.course.detail', $course->course->id) }}">
                             <h1 class=" h2 fw-bolder">{{ $course->course->title }}</h1>
                         </a>
 
                         <p>{{ $course->course->description }}</p>
 
                         <div class=" d-flex flex-column flex-lg-row gap-2 w-100">
-                            <a href="{{ route('student.course.show', $course->course->id) }}"
+                            <a href="{{ route('siswa-online.course.detail', $course->course->id) }}"
                                 class=" btn w-100 btn-lg btn-outline-primary">Detail</a>
                             <!-- <a href="{{ route('transaction.checkout-course', $course->course->id) }}" class="btn btn-lg btn-primary w-100 btn-lg">Beli</a> -->
                         </div>

@@ -18,7 +18,7 @@ class Course extends Model implements HasActiveCourses, HasSubCourses, HasStuden
     use HasFactory;
     protected $primaryKey = 'id';
 
-    protected $fillable = ['title', 'price', 'status', 'image', 'description', 'division_id', 'position',];
+    protected $fillable = ['title', 'price', 'status', 'image', 'description', 'division_id', 'position'];
     protected $guarded = [];
 
     /**

@@ -114,6 +114,27 @@
             @endif
         </form>
         @endif
+    @else
+    <form action="{{ route('submit.task.answer.store', $courseAssignment->id) }}" method="post" enctype="multipart/form-data">
+        @csrf
+        @method('POST')
+        @if ($courseAssignment->type == "link")
+        <div class="mb-3">
+            <label for="link" class="form-label">Unggah jawaban link</label>
+            <input class="form-control" type="text" id="link" name="link" value="{{ $courseAssignment->submitTasks->count() != 0 ? $courseAssignment->submitTasks[0]->link : "" }}">
+        </div>
+        @else
+        <div class="mb-3">
+            <label for="file" class="form-label">Unggah file</label>
+            <input class="form-control" type="file" id="file" name="file">
+        </div>
+        @endif
+        @if ($courseAssignment->submitTasks->count() == 0)
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        @else
+            <button type="submit" class="btn btn-warning">Ganti Jawaban</button>
+        @endif
+    </form>
     @endif
 @endsection
 @section('script')
