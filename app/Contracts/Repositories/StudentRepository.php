@@ -600,13 +600,19 @@ class StudentRepository extends BaseRepository implements StudentInterface
     /**
      * getByMentor
      *
-     * @param  mixed $id
+     * @param  mixed $request
      * @return mixed
      */
-    public function getByMentor(mixed $id): mixed
+    public function getByMentor(Request $request): mixed
     {
         return $this->model->query()
-            ->whereRelation('mentorstudent', 'mentor_id', '=', $id)
+            ->when($request->internship_type == InternshipTypeEnum::ONLINE->value, function ($query) {
+                $query->where('internship_type', InternshipTypeEnum::ONLINE->value);
+            })
+            ->when($request->internship_type == InternshipTypeEnum::OFFLINE->value, function ($query) {
+                $query->where('internship_type', InternshipTypeEnum::OFFLINE->value);
+            })
+            ->whereRelation('mentorstudent', 'mentor_id', '=', $request->mentor_id)
             ->get();
     }
 

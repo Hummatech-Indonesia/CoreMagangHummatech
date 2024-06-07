@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Enum\InternshipTypeEnum;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\JournalResource;
@@ -72,13 +73,28 @@ class MentorController extends Controller
     }
 
     /**
-     * listStudent
+     * listStudentOffline
      *
+     * @param  mixed $request
      * @return JsonResponse
      */
-    public function listStudent(): JsonResponse
+    public function listStudentOffline(Request $request): JsonResponse
     {
-        $students = $this->student->getByMentor(auth()->user()->mentor->id);
+        $request->merge(['mentor_id' => auth()->user()->mentor->id, 'internship_type' => InternshipTypeEnum::OFFLINE->value]);
+        $students = $this->student->getByMentor($request);
+        return ResponseHelper::success(StudentResource::collection($students));
+    }
+
+    /**
+     * listStudentOnline
+     *
+     * @param  mixed $request
+     * @return JsonResponse
+     */
+    public function listStudentOnline(Request $request): JsonResponse
+    {
+        $request->merge(['mentor_id' => auth()->user()->mentor->id, 'internship_type' => InternshipTypeEnum::ONLINE->value]);
+        $students = $this->student->getByMentor($request);
         return ResponseHelper::success(StudentResource::collection($students));
     }
 
