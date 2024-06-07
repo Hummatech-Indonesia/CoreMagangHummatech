@@ -76,26 +76,45 @@
             <p class="text-muted">Jawaban yang dikumpulkan harus bertipe {{ $courseAssignment->type }}</p>
         </div>
     </div>
-    <form action="{{ route('submit.task.answer.store', $courseAssignment->id) }}" method="post" enctype="multipart/form-data">
-        @csrf
-        @method('POST')
-        @if ($courseAssignment->type == "link")
-        <div class="mb-3">
-            <label for="link" class="form-label">Unggah jawaban link</label>
-            <input class="form-control" type="text" id="link" name="link">
-        </div>
+    @if ($courseAssignment->submitTasks->count() != 0)
+        @if ($courseAssignment->submitTasks[0]->status == "pending")
+            <div class="alert alert-warning" role="alert">
+                Anda sudah mengumpulkan dan menunggu approval admin
+            </div>
+        @elseif ($courseAssignment->submitTasks[0]->status == "agree")
+            <div class="alert alert-success" role="alert">
+                Jawaban anda telah disetujui
+            </div>
         @else
-        <div class="mb-3">
-            <label for="file" class="form-label">Unggah file</label>
-            <input class="form-control" type="file" id="file" name="file">
-        </div>
+            <div class="alert alert-danger" role="alert">
+                Jawaban anda tidak disetujui
+            </div>
         @endif
-        @if ($courseAssignment->submitTasks->count() == 0)
-            <button type="submit" class="btn btn-primary">Simpan</button>
-        @else
-            <button type="submit" class="btn btn-primary">Ganti Jawaban</button>
+    @endif
+    @if ($courseAssignment->submitTasks->count() != 0)
+        @if ($courseAssignment->submitTasks[0]->status != "agree")
+        <form action="{{ route('submit.task.answer.store', $courseAssignment->id) }}" method="post" enctype="multipart/form-data">
+            @csrf
+            @method('POST')
+            @if ($courseAssignment->type == "link")
+            <div class="mb-3">
+                <label for="link" class="form-label">Unggah jawaban link</label>
+                <input class="form-control" type="text" id="link" name="link" value="{{ $courseAssignment->submitTasks->count() != 0 ? $courseAssignment->submitTasks[0]->link : "" }}">
+            </div>
+            @else
+            <div class="mb-3">
+                <label for="file" class="form-label">Unggah file</label>
+                <input class="form-control" type="file" id="file" name="file">
+            </div>
+            @endif
+            @if ($courseAssignment->submitTasks->count() == 0)
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            @else
+                <button type="submit" class="btn btn-warning">Ganti Jawaban</button>
+            @endif
+        </form>
         @endif
-    </form>
+    @endif
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
