@@ -13,12 +13,12 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
 {
 
     /**
+     * getAttendanceByDivision
      *
-     * @param mixed $id
+     * @param  mixed $request
      * @return mixed
-     *
      */
-    public function getAttendanceByDivision(mixed $id): mixed;
+    public function getAttendanceByDivision(Request $request): mixed;
 
     public function countActiveOflline():mixed;
     public function countPending():mixed;

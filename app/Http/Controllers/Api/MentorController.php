@@ -26,17 +26,29 @@ class MentorController extends Controller
     }
 
     /**
+     * studentOfflineAttendances
      *
-     * student attendances
+     * @param  mixed $request
      * @return JsonResponse
-     *
      */
-    public function studentAttendances(): JsonResponse
+    public function studentOfflineAttendances(Request $request): JsonResponse
     {
+        $request->merge(['division_id' => auth()->user()->mentor->division->id, 'internship_type' => InternshipTypeEnum::OFFLINE->value]);
         $attendaces = $this->student->getAttendanceByDivision(auth()->user()->mentor->division->id);
-        return response()->json([
-            'result' => $attendaces,
-        ], 200);
+        return ResponseHelper::success($attendaces);
+    }
+
+    /**
+     * studentOnlineAttendances
+     *
+     * @param  mixed $request
+     * @return JsonResponse
+     */
+    public function studentOnlineAttendances(Request $request): JsonResponse
+    {
+        $request->merge(['division_id' => auth()->user()->mentor->division->id, 'internship_type' => InternshipTypeEnum::ONLINE->value]);
+        $attendaces = $this->student->getAttendanceByDivision(auth()->user()->mentor->division->id);
+        return ResponseHelper::success($attendaces);
     }
 
     /**
