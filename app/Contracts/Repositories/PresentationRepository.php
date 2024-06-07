@@ -156,6 +156,21 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->count();
     }
 
+    /**
+     * getScheduleTodayByMentor
+     *
+     * @param  mixed $id
+     * @return void
+     */
+    public function getScheduleTodayByMentor(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->whereNull('hummatask_team_id')
+            ->whereDate('created_at', now())
+            ->whereIn('mentor_id', $id)
+            ->get();
+    }
+
     // public function getMonthlyPresentationsByStudentId(int $studentId): array
     // {
     //     $presentations = $this->model->query()
