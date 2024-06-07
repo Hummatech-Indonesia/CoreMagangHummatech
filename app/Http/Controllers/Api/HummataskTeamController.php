@@ -7,6 +7,7 @@ use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HummataskTeamRequest;
 use App\Http\Requests\StoreHummataskTeamRequest;
+use App\Http\Requests\UpdateHummataskTeamApiRequest;
 use App\Http\Resources\HummataskTeamResource;
 use App\Models\HummataskTeam;
 use App\Services\HummataskTeamService;
@@ -44,6 +45,20 @@ class HummataskTeamController extends Controller
     public function show(HummataskTeam $hummataskTeam): JsonResponse
     {
         return ResponseHelper::success(HummataskTeamResource::make($hummataskTeam));
+    }
+
+    /**
+     * update
+     *
+     * @param  mixed $request
+     * @param  mixed $hummataskTeam
+     * @return JsonResponse
+     */
+    public function update(UpdateHummataskTeamApiRequest $request, HummataskTeam $hummataskTeam): JsonResponse
+    {
+        $data = $this->service->updateApi($request, $hummataskTeam);
+        $this->hummataskTeam->update($hummataskTeam->id, $data);
+        return ResponseHelper::success(null, "Berhasil menyimpan tim");
     }
 
     /**
