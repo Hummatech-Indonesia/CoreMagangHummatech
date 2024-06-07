@@ -150,4 +150,12 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
      */
     public function getStudentAccepted(): mixed;
 
+    /**
+     * getByMentor
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getByMentor(mixed $id): mixed;
+
 }

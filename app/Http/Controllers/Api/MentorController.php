@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\JournalResource;
+use App\Http\Resources\StudentResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -67,6 +69,17 @@ class MentorController extends Controller
         return response()->json([
             'result' => JournalResource::collection($journals)
         ]);
+    }
+
+    /**
+     * listStudent
+     *
+     * @return JsonResponse
+     */
+    public function listStudent(): JsonResponse
+    {
+        $students = $this->student->getByMentor(auth()->user()->mentor->id);
+        return ResponseHelper::success(StudentResource::collection($students));
     }
 
     /**

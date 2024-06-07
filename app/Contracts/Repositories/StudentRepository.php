@@ -597,6 +597,19 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query()->where('expired' , 'alumni')->get();
     }
 
+    /**
+     * getByMentor
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getByMentor(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->whereRelation('mentorstudent', 'mentor_id', '=', $id)
+            ->get();
+    }
+
 
     // public function whereRfidNull(Request $request): mixed
     // {
