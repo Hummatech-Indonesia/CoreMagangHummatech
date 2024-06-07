@@ -186,15 +186,9 @@
                 <h5>Materi Lainnya</h5>
                 <div class="row">
                     @forelse ($course->subCourses as $data)
-                        @if ($subCourse->id != $data->id)
+
                         <div class="col-lg-12 m-0 p-0">
-                            <a href="{{ route('siswa-online.course.subcourse', ['subCourse' => $subCourse->id, 'course' => $course->id]) }}"
-                            href="javascript:void(0)"
-                                class="card card-body mb-3"
-                                style="
-                            border-left: 6px solid var(--bs-gray-300);
-                          border-left-color: var(--bs-primary);
-                        ">
+                            <a href="{{ route('siswa-online.course.subcourse', ['subCourse' => $data->id, 'course' => $course->id]) }}" class="card card-body mb-3 border-rounded @if($subCourse->id == $data->id) border-2 bg-light-primary border-primary @endif"  style="border-left: 6px solid var(--bs-gray-300); border-left-color: var(--bs-primary);">
                                 <div class="row align-items-center">
                                     <div class="col-md-4">
                                         <img alt="{{ $data->title }}" class="img-responsive w-100"
@@ -211,20 +205,18 @@
                                 </div>
                             </a>
                         </div>
-                        @else
-                            @if ($course->subCourses->count() == 1)
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="text-center">
-                                            <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
-                                                alt="No Data" height="150px" width="auto" />
-                                            <h3>Tidak Ada Data</h3>
-                                        </div>
+                        @if ($course->subCourses->count() == 1)
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
+                                            alt="No Data" height="150px" width="auto" />
+                                        <h3>Tidak Ada Data</h3>
                                     </div>
                                 </div>
                             </div>
-                            @endif
+                        </div>
                         @endif
                     @empty
                         <div class="col-12">
@@ -246,25 +238,19 @@
         </div>
     </div>
 
-    {{-- <div class="card-floating card card-body">
-        <a @if ($subCourseMeta->getPreviousAttribute()?->unlock) href="{{ route('siswa-online.course.subcourse', ['course' => $course->id, 'subCourse' => $subCourse->id + 1]) }}"
-            @else
-                href="javascript:void(0)" @endif
-            class="navigation-next @if (!$subCourseMeta->getPreviousAttribute()?->unlock) disabled @endif">
+    <div class="card-floating card card-body">
+        <a href="{{($prev != null) ? route('siswa-online.course.subcourse', ['course' => $course->id, 'subCourse' => $prev->id]) : '#' }}" class="navigation-next @if ($prev == null) disabled @endif">
             <i class="fas fa-arrow-left"></i>
             <span>Sebelumnya</span>
         </a>
         <span class="course-title">
             {{ $subCourse->title }}
         </span>
-        <a @if ($subCourseMeta->getNextAttribute()->unlock) href="{{ route('siswa-online.course.subcourse', ['course' => $course->id, 'subCourse' => $subCourse->id + 1]) }}"
-            @else
-                href="javascript:void(0)" @endif
-            class="navigation-next @if (!$subCourseMeta->getNextAttribute()->unlock) disabled @endif">
+        <a href="{{($next != null) ? route('siswa-online.course.subcourse', ['course' => $course->id, 'subCourse' => $next->id]) : '#' }}" class="navigation-next @if ($next == null) disabled @endif">
             <span>Selanjutnya</span>
             <i class="fas fa-arrow-right"></i>
         </a>
-    </div> --}}
+    </div>
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>

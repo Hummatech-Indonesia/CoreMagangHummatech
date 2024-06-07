@@ -17,6 +17,36 @@ class SubCourseRepository extends BaseRepository implements SubCourseInterface
     }
 
     /**
+     * getPrevByCourse
+     *
+     * @param  mixed $courseId
+     * @param  mixed $currentPosition
+     * @return mixed
+     */
+    public function getPrevByCourse(mixed $courseId, int $currentPosition): mixed
+    {
+        return $this->model->query()
+            ->where('course_id', $courseId)
+            ->where('position', '<', $currentPosition)
+            ->first();
+    }
+
+    /**
+     * getNextByCourse
+     *
+     * @param  mixed $courseId
+     * @param  mixed $currentPosition
+     * @return mixed
+     */
+    public function getNextByCourse(mixed $courseId, int $currentPosition): mixed
+    {
+        return $this->model->query()
+            ->where('course_id', $courseId)
+            ->where('position', '>', $currentPosition)
+            ->first();
+    }
+
+    /**
      * getByCourse
      *
      * @param  mixed $id

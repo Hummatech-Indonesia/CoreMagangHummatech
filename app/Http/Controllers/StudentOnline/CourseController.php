@@ -62,7 +62,9 @@ class CourseController extends Controller
 
     public function subCourseDetail(Course $course, SubCourse $subCourse)
     {
-        return view('student_online.course.learn-more', compact('course', 'subCourse'));
+        $prev = $this->subCourse->getPrevByCourse($course->id, $subCourse->position);
+        $next = $this->subCourse->getNextByCourse($course->id, $subCourse->position);
+        return view('student_online.course.learn-more', compact('course', 'subCourse', 'prev', 'next'));
     }
 
     /**

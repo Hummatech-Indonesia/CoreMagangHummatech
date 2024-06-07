@@ -35,4 +35,23 @@ interface SubCourseInterface extends GetInterface , StoreInterface , UpdateInter
      *
      */
     public function getLatestPositionByCourse(mixed $id): mixed;
+
+    /**
+     * getPrevByCourse
+     *
+     * @param  mixed $courseId
+     * @param  mixed $currentPosition
+     * @return mixed
+     */
+    public function getPrevByCourse(mixed $courseId, int $currentPosition): mixed;
+
+
+    /**
+     * getNextByCourse
+     *
+     * @param  mixed $courseId
+     * @param  mixed $currentPosition
+     * @return mixed
+     */
+    public function getNextByCourse(mixed $courseId, int $currentPosition): mixed;
 }
