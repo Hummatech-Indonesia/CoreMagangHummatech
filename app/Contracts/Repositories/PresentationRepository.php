@@ -167,7 +167,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
         return $this->model->query()
             ->whereNull('hummatask_team_id')
             ->whereDate('created_at', now())
-            ->whereIn('mentor_id', $id)
+            ->where('mentor_id', $id)
             ->get();
     }
 
