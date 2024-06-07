@@ -49,7 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('hummatask')->group(function () {
         Route::post('team', [HummataskTeamController::class, 'store']);
-        Route::post('team/{hummataskTeam}', [HummataskTeamController::class, 'update']);
+        Route::put('team/{hummataskTeam}', [HummataskTeamController::class, 'update']);
         Route::get('team/member/{hummataskTeam}', [HummataskTeamController::class, 'member']);
         Route::get('team/{hummataskTeam}', [HummataskTeamController::class, 'show']);
         Route::get('team', [ProfileController::class, 'studentAllTeam']);
