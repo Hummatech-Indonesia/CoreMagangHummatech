@@ -188,7 +188,7 @@
                     @forelse ($course->subCourses as $data)
 
                         <div class="col-lg-12 m-0 p-0">
-                            <a href="{{ route('siswa-online.course.subcourse', ['subCourse' => $data->id, 'course' => $course->id]) }}" class="card card-body mb-3 border-rounded @if($subCourse->id == $data->id) border-2 bg-light-primary border-primary @endif"  style="border-left: 6px solid var(--bs-gray-300); border-left-color: var(--bs-primary);">
+                            <a href="@if($subCourse->id != $data->id) {{ route('siswa-online.course.subcourse', ['subCourse' => $data->id, 'course' => $course->id]) }} @else # @endif" class="card card-body mb-3 border-rounded @if($subCourse->id == $data->id) border-2 bg-light-primary border-primary @endif"  style="border-left: 6px solid var(--bs-gray-300); border-left-color: var(--bs-primary);">
                                 <div class="row align-items-center">
                                     <div class="col-md-4">
                                         <img alt="{{ $data->title }}" class="img-responsive w-100"
