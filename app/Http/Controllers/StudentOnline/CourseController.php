@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\StudentOnline;
 
+use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\CourseUnlockInterface;
+use App\Contracts\Interfaces\SubCourseInterface;
 use App\Contracts\Interfaces\SubCourseUnlockInterface;
 use App\Contracts\Interfaces\TaskInterface;
 use App\Http\Controllers\Controller;
@@ -12,15 +14,21 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
+    private CourseInterface $course;
+    private SubCourseInterface $subCourse;
     private SubCourseUnlockInterface $subCourseStatus;
     private TaskInterface $taskInterface;
     private CourseUnlockInterface $courseInterface;
 
     public function __construct(
+        SubCourseInterface $subCourseInterface,
+        CourseInterface $course,
         SubCourseUnlockInterface $subCourseStatus,
         TaskInterface $taskInterface,
         CourseUnlockInterface $courseInterface
     ) {
+        $this->subCourse = $subCourseInterface;
+        $this->course = $course;
         $this->courseInterface = $courseInterface;
         $this->subCourseStatus = $subCourseStatus;
         $this->taskInterface = $taskInterface;
@@ -40,16 +48,13 @@ class CourseController extends Controller
 
     public function detail(Course $course, Request $request)
     {
-        $subCourses = $this->subCourseStatus->getCourseByUser($course->id, auth()->user()->student->id, $request->get('search'));
+        $course = $this->course->show($course->id);
+        $subCourses = $this->subCourse->getByCourse($course->id, $request);
         return view('student_online.course.detail', compact('course', 'subCourses'));
     }
 
     public function subCourseDetail(Course $course, SubCourse $subCourse)
     {
-        $subCourses = $this->subCourseStatus->getCourseByUser($course->id, auth()->id(), '');
-        $totalSubCourses = $this->subCourseStatus->count();
-        $subCourseMeta = $subCourse->subCourseUnlock;
-        $taskData = $this->taskInterface->getTaskBySubcourse($subCourse->id);
-        return view('student_online.course.learn-more', compact('course', 'subCourse', 'subCourses', 'totalSubCourses', 'subCourseMeta', 'taskData'));
+        return view('student_online.course.learn-more', compact('course', 'subCourse'));
     }
 }

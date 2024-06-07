@@ -27,6 +27,18 @@ class SubmitTaskController extends Controller
     }
 
     /**
+     * index
+     *
+     * @param  mixed $courseAssignment
+     * @return View
+     */
+    public function index(CourseAssignment $courseAssignment): View
+    {
+        $submitTasks = $this->submitTask->getByAssignment($courseAssignment->id);
+        return view('admin.page.answer.index', compact('submitTasks'));
+    }
+
+    /**
      * store
      *
      * @param  mixed $request

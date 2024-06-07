@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\CourseAssignmentInterface;
 use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\CourseUnlockInterface;
 use App\Contracts\Interfaces\DivisionInterface;
@@ -24,10 +25,12 @@ class CourseController extends Controller
     private UserInterface $userInterface;
     private CourseUnlockInterface $courseUnlock;
     private SubCourseUnlockInterface $subCourseUnlock;
+    private CourseAssignmentInterface $courseAssignment;
 
     public function __construct(
         CourseInterface $course ,
         CourseService $service ,
+        CourseAssignmentInterface $courseAssignmentInterface,
         SubCourseInterface $subCourse,
         DivisionInterface $division,
         UserInterface $userInterface,
@@ -35,6 +38,7 @@ class CourseController extends Controller
         CourseUnlockInterface $courseUnlock
     )
     {
+        $this->courseAssignment = $courseAssignmentInterface;
         $this->division = $division;
         $this->course = $course;
         $this->subCourseUnlock = $subCourseUnlock;
@@ -94,7 +98,8 @@ class CourseController extends Controller
         $request->merge(['course_id' => $course->id]);
         $subCourses = $this->subCourse->search($request);
 
-        return view('admin.page.course.detail' , compact('course' , 'subCourses' , 'countSub'));
+        $assignments = $this->courseAssignment->getByCourse($course->id);
+        return view('admin.page.course.detail' , compact('course' , 'subCourses' , 'countSub', 'assignments'));
 
     }
 

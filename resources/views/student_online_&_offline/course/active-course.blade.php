@@ -71,10 +71,13 @@
 
                         <p>{{ $course->description }}</p>
 
+                        @if ($position >= $course->position)
+
                         <div class=" d-flex flex-column flex-lg-row gap-2 w-100">
-                            <a href="{{ route('student.course.show', $course->id) }}"
+                            <a href="{{ route('siswa-online.course.detail', $course->id) }}"
                                 class=" btn w-100 btn-lg btn-outline-primary">Detail</a>
-                        </div>
+                                </div>
+                            @endif
                     </div>
                 </div>
                 {{-- <div class="col-md-4 col-xxl-3 position-relative">

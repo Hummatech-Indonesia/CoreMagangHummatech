@@ -50,7 +50,7 @@
                             d="M10 14.4165C8.74584 13.6924 7.32318 13.3112 5.875 13.3112C4.42682 13.3112 3.00416 13.6924 1.75 14.4165V2.49982C3.00416 1.77573 4.42682 1.39453 5.875 1.39453C7.32318 1.39453 8.74584 1.77573 10 2.49982M10 14.4165C11.2542 13.6924 12.6768 13.3112 14.125 13.3112C15.5732 13.3112 16.9958 13.6924 18.25 14.4165V2.49982C16.9958 1.77573 15.5732 1.39453 14.125 1.39453C12.6768 1.39453 11.2542 1.77573 10 2.49982M10 14.4165V2.49982"
                             stroke="#5D87FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <p class="text-muted">{{ $course->subCourse?->count() ?? 0 }} Materi</p>
+                    <p class="text-muted">{{ $subCourses->count() }} Materi</p>
                 </div>
             </div>
         </div>
@@ -60,9 +60,9 @@
         <div class="d-flex g-2 align-items-center justify-content-between">
             <h3 class="mb-3 mb-lg-0">Daftar Materi</h3>
             <form method="GET" class="d-flex gap-2">
-                <input type="text" class="form-control" id="search course" placeholder="Cari Materi" name="search"
-                    value="{{ request()->get('search') }}" />
-                <button class="btn btn-primary">Cari</button>
+                <input type="text" class="form-control" id="search course" placeholder="Cari Materi" name="title"
+                    value="{{ request()->title }}" />
+                <button type="submit" class="btn btn-primary">Cari</button>
             </form>
         </div>
     </div>
@@ -74,16 +74,16 @@
                     <div class="card border-start border-info py-3 px-4">
                         <div class="d-flex no-block align-items-center">
                             <div class="col-lg-1 col-md-10 col-sm-1">
-                                <img alt="{{ $subCourse->subCourse->title }}" class="img-responsive w-100"
-                                    src="{{ asset("storage/{$subCourse->subCourse->image_course}") }}" />
+                                <img alt="{{ $subCourse->title }}" class="img-responsive w-100"
+                                    src="{{ asset("storage/{$subCourse->image_course}") }}" />
                             </div>
                             <div class="col-lg-9 col-sm-12 px-4">
-                                <h5>{{ $subCourse->subCourse->title }}</h5>
-                                <p class="m-0">{{ Str::limit($subCourse->subCourse->description, 200) }}</p>
+                                <h5>{{ $subCourse->title }}</h5>
+                                <p class="m-0">{{ Str::limit($subCourse->description, 200) }}</p>
                             </div>
                             <div class="ms-auto flex-shrink-0">
-                                @if ($subCourse->unlock)
-                                    <a href="{{ route('siswa-online.course.subcourse', ['subCourse' => $subCourse->subCourse->id, 'course' => $course->id]) }}"
+
+                                    <a href="{{ route('siswa-online.course.subcourse', ['subCourse' => $subCourse->id, 'course' => $course->id]) }}"
                                         class="btn btn-light-primary gap-2 d-flex align-items-center text-primary">
                                         Pelajari
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -103,15 +103,7 @@
                                             <path d="M16 16l3.923 -.98" />
                                         </svg>
                                     </a>
-                                @else
-                                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12.9167 14.2083V11.625C12.9167 10.9399 13.1888 10.2828 13.6733 9.79831C14.1578 9.31384 14.8149 9.04167 15.5 9.04167C16.1851 9.04167 16.8422 9.31384 17.3267 9.79831C17.8112 10.2828 18.0833 10.9399 18.0833 11.625V14.2083M15.5 3.875C24.8 3.875 27.125 6.2 27.125 15.5C27.125 24.8 24.8 27.125 15.5 27.125C6.2 27.125 3.875 24.8 3.875 15.5C3.875 6.2 6.2 3.875 15.5 3.875ZM10.3333 15.5C10.3333 15.1574 10.4694 14.8289 10.7117 14.5867C10.9539 14.3444 11.2824 14.2083 11.625 14.2083H19.375C19.7176 14.2083 20.0461 14.3444 20.2883 14.5867C20.5306 14.8289 20.6667 15.1574 20.6667 15.5V19.375C20.6667 19.7176 20.5306 20.0461 20.2883 20.2883C20.0461 20.5306 19.7176 20.6667 19.375 20.6667H11.625C11.2824 20.6667 10.9539 20.5306 10.7117 20.2883C10.4694 20.0461 10.3333 19.7176 10.3333 19.375V15.5Z"
-                                            stroke="#5D87FF" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-                                @endif
+
                             </div>
                         </div>
                     </div>
@@ -130,8 +122,6 @@
                 </div>
             </div>
         @endforelse
-
-        {{ $subCourses->links() }}
     </section>
 @endsection
 @section('script')

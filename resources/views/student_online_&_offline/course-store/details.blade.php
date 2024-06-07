@@ -75,4 +75,26 @@
                 </div>
             </div>
         </div>
+        <hr>
+        <h1>Tugas</h1>
+        @if ($course->courseAssignments->count() > 0)
+        <h1 style="color: red;">Judul : {{ $course->courseAssignments[0]->title }}</h1>
+        <p style="color: blue;">{{ $course->courseAssignments[0]->description }}</p>
+        <p style="color: pink;">{{ $course->courseAssignments[0]->type }}</p>
+        <hr>
+        <form action="{{route('submit.task.answer.store', $course->courseAssignments[0]->id)}}" method="post" enctype="multipart/form-data">
+            @csrf
+            @method('POST')
+            <p>Upload jawaban anda untuk membuka materi selanjutnya</p>
+            @if ($course->courseAssignments[0]->type == "link")
+            <input type="text" name="link" placeholder="link">
+            @else
+            <input type="file" name="file" id="">
+            @endif
+            <button type="submit">Submit</button>
+        </form>
+        @else
+        <h1>Tidak ada tugas</h1>
+        @endif
+
         @endsection

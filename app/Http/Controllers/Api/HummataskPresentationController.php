@@ -20,6 +20,8 @@ class HummataskPresentationController extends Controller
         $this->presentation = $presentationInterface;
     }
 
+    public function store()
+
     /**
      * schedule
      *

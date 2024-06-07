@@ -284,6 +284,14 @@
     </div>
 </div>
 
+<h1>Tugas</h1>
+@foreach ($assignments as $assignment)
+<hr>
+    <h6>{{ $assignment->title }}</h6>
+    <a href="{{ route('assignment.submit-task', $assignment->id) }}">Lihat detail</a>
+<hr>
+@endforeach
+
 @include('admin.components.delete-modal-component')
 @endsection
 

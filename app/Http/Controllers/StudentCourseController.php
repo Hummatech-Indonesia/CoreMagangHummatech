@@ -38,7 +38,8 @@ class StudentCourseController extends Controller
     {
         $courses = auth()->user()->student->activeCourses;
         $subscibeCourses = $this->course->getSubscribeByDivision(auth()->user()->student->division_id);
-        $position = auth()->user()->studentCoursePosition == null ? 1 : auth()->user()->studentCoursePosition;
+        $position = auth()->user()->student->studentCoursePosition == null ? 1 : auth()->user()->student->studentCoursePosition->position;
+
         return view('student_online_&_offline.course.active-course', compact('courses', 'subscibeCourses', 'position'));
     }
 

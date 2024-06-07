@@ -13,6 +13,19 @@ class CourseAssignmentRepository extends BaseRepository implements CourseAssignm
     }
 
     /**
+     * getByCourse
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getByCourse(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('course_id', $id)
+            ->get();
+    }
+
+    /**
      * store
      * @param array $data
      * @return mixed
@@ -21,7 +34,9 @@ class CourseAssignmentRepository extends BaseRepository implements CourseAssignm
     public function store(array $data): mixed
     {
         return $this->model->query()
-            ->create($data);
+            ->updateOrCreate(
+                ['course_id' => $data['course_id']
+            ], $data);
     }
 
     /**

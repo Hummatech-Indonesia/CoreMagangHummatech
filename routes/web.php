@@ -40,6 +40,7 @@ use App\Http\Controllers\StudentOnline\ZoomScheduleController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
 use App\Http\Controllers\StudentOnline\StudentOnlineController;
 use App\Http\Controllers\SubCourseController;
+use App\Http\Controllers\SubmitTaskController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskSubmissionController;
 
@@ -142,6 +143,8 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::post('faces/create', [FaceController::class, 'store']);
     Route::delete('faces/delete/{student}', [FaceController::class, 'destroy']);
     # Course Details
+    Route::get('assignment/{courseAssignment}', [SubmitTaskController::class, 'index'])->name('assignment.submit-task');
+
     Route::get('/administrator/course/detail/{course}', [AdminCourseController::class, 'show'])->name('course.detail');
     Route::delete('administrator/subcourse/delete/{subCourse}', [SubCourseController::class, 'destroy'])->name('subCourse.destroy');
     Route::get('/administrator/subcourse/detail/{subCourse}', [SubCourseController::class, 'show'])->name('subCourse.detail');
