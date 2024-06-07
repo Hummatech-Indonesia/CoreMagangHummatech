@@ -177,6 +177,7 @@ Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(
         Route::get('/materi', 'index')->name('.course');
         Route::get('/materi/{course}', 'detail')->name('.course.detail');
         Route::get('/materi/{course}/course/{subCourse}', 'subCourseDetail')->name('.course.subcourse');
+        Route::get('course/{course}/assignment/{courseAssignment}', 'detailAssignment')->name('.course.assignment');
     });
     Route::controller(TaskSubmissionController::class)->name('.tasksubmit')->prefix('/tugas')->group(function () {
         Route::get('/', 'index')->name('.index');
