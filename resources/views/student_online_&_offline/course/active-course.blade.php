@@ -160,18 +160,5 @@
 </div>
 <!-- end isi -->
 
-
-
-<script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js">
-</script>
-<script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/libs/simplebar/dist/simplebar.min.js">
-</script>
-<script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/js/theme/app.init.js"></script>
-<script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/js/theme/theme.js"></script>
-<script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/js/theme/app.min.js"></script>
-<script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/js/theme/sidebarmenu.js"></script>
-<script src="../../../../cdn.jsdelivr.net/npm/iconify-icon%401.0.8/dist/iconify-icon.min.js"></script>
-<script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/libs/fullcalendar/index.global.min.js">
-</script>
 <script src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/js/apps/notes.js"></script>
 @endsection
