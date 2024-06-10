@@ -68,7 +68,7 @@
 
             <h3 class="mb-0">Status Pembayaran: <strong
                     class="{{ $statusLabels[$transaction->status]['class'] ?? 'text-muted' }}">
-                    {{ $statusLabels[$transaction->status]['label'] ?? 'Status Tidak Diketahui' }}
+                    {{ $transaction->status }}
                 </strong>
             </h3>
             </h3>
