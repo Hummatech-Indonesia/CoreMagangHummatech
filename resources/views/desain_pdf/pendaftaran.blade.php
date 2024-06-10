@@ -59,17 +59,17 @@
 
         <div style="text-align: left">
             {{-- <p style="font-family: 'Times New Roman', Times, serif; font-weight: 500; font-size: 23px; margin-top: 40px; text-decoration: underline; margin-bottom:0px">SURAT PERINGATAN KERJA</p> --}}
-            <p style="font-family: 'Times New Roman', Times, serif; font-size:15px; margin-top:20px;">
+            <p style="font-family: 'Times New Roman', Times, serif; font-size:15px;">
                 Nomor : {{ $data['letter_number'] }}/PKL/HMTI/{{ date('Y') }}
             </p>
-            <p style="font-family: 'Times New Roman', Times, serif; font-size:15px; margin-top:10px;">
+            <p style="font-family: 'Times New Roman', Times, serif; font-size:15px;">
                 Lamp. : -
             </p>
             <p
-                style="font-family: 'Times New Roman', Times, serif; font-size:15px; margin-top:10px; margin-bottom: 10px">
+                style="font-family: 'Times New Roman', Times, serif; font-size:15px;">
                 Perihal : <b>Praktek Kerja Lapangan</b>
             </p>
-            <p style="font-family: 'Times New Roman', Times, serif; font-size:15px; margin-top:0px;">
+            <p style="font-family: 'Times New Roman', Times, serif; font-size:15px; margin-top:20px;">
                 Kepada Yth: <br>
                 {{ $data['school'] }} <br>
                 @if ($data['school_address'] && $data['school_phone'])
@@ -123,17 +123,27 @@
                     margin-right: 20px;
                 }
             </style>
-            <p style="font-family: 'Times New Roman', Times, serif; font-size: 15px;">
-                PT HUMMA TEKNOLOGI INDONESIA</p>
-            <div style="position: relative;">
-                <img src="{{ $qrCodeImage }}" alt="QR Code">
+            <div style="display: flex; align-items: center;">
+                <div>
+                    <p style="font-family: 'Times New Roman', Times, serif; font-size: 15px;">
+                        PT HUMMA TEKNOLOGI INDONESIA
+                    </p>
+                </div>
+                <div style="margin-left: 10px; position: relative;">
+                    <img src="{{ $qrCodeImage }}" alt="QR Code" style="max-width: 100px;"> <!-- Sesuaikan lebar gambar QR Code -->
+                </div>
+                <div style="margin-left: 20px;">
+                    <div>
+                        <p style="font-family: 'Times New Roman', Times, serif; font-size: 15px; text-align: left;">
+                            {{ $directorName }}
+                        </p>
+                        <p style="font-family: 'Times New Roman', Times, serif; font-size: 15px; text-align: left; margin-top: -10px;">
+                            {{ $directorField }}
+                        </p>
+                    </div>
+                </div>
             </div>
-            {{-- <p style="font-family: 'Times New Roman', Times, serif; font-size: 15px; text-align: left;">
-                {{ $directorName }}
-            </p>
-            <p style="font-family: 'Times New Roman', Times, serif; font-size: 15px; text-align: left; margin-top: -10px;">
-                {{ $directorField }}
-            </p> --}}
+
 
         </div>
     </div>

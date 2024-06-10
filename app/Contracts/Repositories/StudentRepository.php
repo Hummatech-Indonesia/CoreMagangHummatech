@@ -66,16 +66,17 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->where('finish_date', '<', now())->count();
     }
 
-    /**
-     * get attendance by division
-     * @param mixed $id
-     * @return mixed
-     */
-    public function getAttendanceByDivision(mixed $id): mixed
+    public function getAttendanceByDivision(Request $request): mixed
     {
         return $this->model->query()
             ->whereNotNull('rfid')
-            ->where('division_id', $id)
+            ->when($request->internship_type == InternshipTypeEnum::ONLINE->value, function ($query) {
+                $query->where('internship_type', InternshipTypeEnum::ONLINE->value);
+            })
+            ->when($request->internship_type == InternshipTypeEnum::OFFLINE->value, function ($query) {
+                $query->where('internship_type', InternshipTypeEnum::OFFLINE->value);
+            })
+            ->where('division_id', $request->division_id)
             ->withCount([
                 'attendances' => function ($query) {
                     $query->whereDate('created_at', now());
@@ -595,6 +596,25 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function ListAlumni(Request $request): mixed
     {
         return $this->model->query()->where('expired' , 'alumni')->get();
+    }
+
+    /**
+     * getByMentor
+     *
+     * @param  mixed $request
+     * @return mixed
+     */
+    public function getByMentor(Request $request): mixed
+    {
+        return $this->model->query()
+            ->when($request->internship_type == InternshipTypeEnum::ONLINE->value, function ($query) {
+                $query->where('internship_type', InternshipTypeEnum::ONLINE->value);
+            })
+            ->when($request->internship_type == InternshipTypeEnum::OFFLINE->value, function ($query) {
+                $query->where('internship_type', InternshipTypeEnum::OFFLINE->value);
+            })
+            ->whereRelation('mentorstudent', 'mentor_id', '=', $request->mentor_id)
+            ->get();
     }
 
 

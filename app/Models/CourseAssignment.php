@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Base\Interfaces\HasCourse;
+use App\Base\Interfaces\HasSubmitTasks;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class CourseAssignment extends Model implements HasCourse
+class CourseAssignment extends Model implements HasCourse, HasSubmitTasks
 {
     use HasFactory;
 
@@ -26,5 +28,15 @@ class CourseAssignment extends Model implements HasCourse
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
+    }
+
+    /**
+     * submitTasks
+     *
+     * @return HasMany
+     */
+    public function submitTasks(): HasMany
+    {
+        return $this->hasMany(SubmitTask::class);
     }
 }

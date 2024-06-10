@@ -63,4 +63,17 @@ class MentorStudentRepository extends BaseRepository implements MentorStudentInt
     {
         return $this->model->query()->where('mentor_id',$id)->latest()->get();
     }
+
+    /**
+     * getByStudent
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getByStudent(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('student_id', $id)
+            ->first();
+    }
 }

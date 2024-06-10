@@ -10,6 +10,7 @@ use App\Services\Traits\UploadTrait;
 use App\Http\Requests\StoreDataAdminRequest;
 use App\Http\Requests\StoreHummataskTeamRequest;
 use App\Http\Requests\UpdateDataAdminRequest;
+use App\Http\Requests\UpdateHummataskTeamApiRequest;
 use App\Http\Requests\UpdateHummataskTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use App\Models\HummataskTeam;
@@ -48,6 +49,23 @@ class HummataskTeamService
         $data['student_id'] = auth()->user()->student->id;
         $data['division_id'] = auth()->user()->student->division_id;
         $data['slug'] = Str::slug($request->name);
+        return $data;
+    }
+
+    /**
+     * updateApi
+     *
+     * @param  mixed $request
+     * @param  mixed $hummataskTeam
+     * @return array
+     */
+    public function updateApi(UpdateHummataskTeamApiRequest $request, HummataskTeam $hummataskTeam): array
+    {
+        $data = $request->validated();
+        if ($request->hasFile('image')) {
+            if (($hummataskTeam->image) != null) $this->remove($hummataskTeam->image);
+            $data['image'] = $request->file('image')->store(TypeEnum::HUMMATASKTEAM->value, 'public');
+        }
         return $data;
     }
 

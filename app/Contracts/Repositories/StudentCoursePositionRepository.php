@@ -24,7 +24,6 @@ class StudentCoursePositionRepository extends BaseRepository implements StudentC
         return $this->model->query()
             ->updateOrCreate([
                 'student_id' => $data['student_id'],
-                'course_id' => $data['course_id']
             ], $data);
     }
 

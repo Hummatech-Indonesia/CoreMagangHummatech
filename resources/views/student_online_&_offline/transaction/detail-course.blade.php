@@ -9,15 +9,40 @@
         <div class="card-body px-4 py-3">
             <div class="row align-items-center">
                 <div class="col-9">
-                    <div>
-                        <h4 class="fw-semibold mb-8">Yeay, Tagihannya Udah Lunas!</h4>
-                        <p>Silahkan nikmati dan jelajahi semua fitur ini dan selamat belajar!</p>
-                    </div>
+                            @php
+                            $teksnya = "";
+                            switch ($transaction->status) {
+                                case "pending":
+                                    $teksnya = "Menunggu pembayaran";
+                                    break;
+                                case "paid":
+                                    $teksnya = "Yeay, Pesanan sudah di bayar";
+                                    break;
+                                case "cancelled":
+                                    $teksnya = "Pesanan anda di batalkan";
+                                    break;
+                                case "expired":
+                                    $teksnya = "Pesanan telah kadaluarsa!";
+                                    break;
+                                case "failed":
+                                    $teksnya = "Pesanan gagal!";
+                                    break;
+                                case "refund":
+                                    $teksnya = "Pesanan dikembalikan!";
+                                    break;
+                                case "unpaid":
+                                    $teksnya = "Pesanan belum di bayar!";
+                                    break;
+                            }
+                            @endphp
+                            <div>
+                                <h4 class="fw-semibold mb-8">{{ $teksnya }}</h4>
+                            </div>
                     <nav aria-label="breadcrumb mt-2">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a class="text-muted " href="/login">Dashboard</a></li>
                             <li class="breadcrumb-item"><a class="text-muted " href="/login">Pesanan Saya</a></li>
-                            <li class="breadcrumb-item" aria-current="page">MAGANG-1234</li>
+                            <li class="breadcrumb-item" aria-current="page">{{ $transaction->reference }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -68,7 +93,7 @@
 
             <h3 class="mb-0">Status Pembayaran: <strong
                     class="{{ $statusLabels[$transaction->status]['class'] ?? 'text-muted' }}">
-                    {{ $statusLabels[$transaction->status]['label'] ?? 'Status Tidak Diketahui' }}
+                    {{ $transaction->status }}
                 </strong>
             </h3>
             <div class="d-flex gap-2 align-items-center">

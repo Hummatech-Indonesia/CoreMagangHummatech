@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\StatusSubmitTaskRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateStatusSubmitTaskRequest extends FormRequest
+class UpdateHummataskTeamApiRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,7 +14,8 @@ class UpdateStatusSubmitTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => [new StatusSubmitTaskRule],
+            'name' => 'required|max:255',
+            'image' => 'nullalbe|image',
         ];
     }
 }

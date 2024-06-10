@@ -43,7 +43,7 @@ class CourseRepository extends BaseRepository implements CourseInterface
         return $this->model->query()
             ->with(['subCourses' => function ($query) {
                 $query->orderBy('position');
-            }])
+            }, 'courseAssignments'])
             ->findOrFail($id);
     }
     public function delete(mixed $id): mixed
@@ -73,6 +73,20 @@ class CourseRepository extends BaseRepository implements CourseInterface
     public function whereDivision(mixed $id): mixed
     {
         return $this->model->query()->where('division_id', $id)->get();
+    }
+
+    /**
+     * getSubscribeByDivision
+     *
+     * @param  mixed $division
+     * @return mixed
+     */
+    public function getSubscribeByDivision(mixed $division): mixed
+    {
+        return $this->model->query()
+            ->where('status', 'subcribe')
+            ->where('division_id', $division)
+            ->get();
     }
 
     /**

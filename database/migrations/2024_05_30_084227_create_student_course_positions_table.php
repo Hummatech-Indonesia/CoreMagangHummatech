@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('student_course_positions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('position')->default(1);
             $table->timestamps();
         });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\StudentCoursePositionInterface;
 use App\Contracts\Interfaces\SubmitTaskInterface;
+use App\Enum\StatusCourseEnum;
 use App\Enum\SubmitTaskStatusEnum;
 use App\Http\Requests\UpdateStatusSubmitTaskRequest;
 use App\Models\CourseAssignment;
@@ -24,6 +25,18 @@ class SubmitTaskController extends Controller
         $this->studentCoursePosition = $studentCoursePositionInterface;
         $this->service = $submitTaskService;
         $this->submitTask = $submitTaskInterface;
+    }
+
+    /**
+     * index
+     *
+     * @param  mixed $courseAssignment
+     * @return View
+     */
+    public function index(CourseAssignment $courseAssignment): View
+    {
+        $submitTasks = $this->submitTask->getByAssignment($courseAssignment->id);
+        return view('admin.page.answer.index', compact('submitTasks'));
     }
 
     /**
@@ -93,12 +106,13 @@ class SubmitTaskController extends Controller
     {
         $data = $request->validated();
         $this->submitTask->update($submitTask->id, $data);
-        if ($request->status == SubmitTaskStatusEnum::AGREE->value) {
-            $this->studentCoursePosition->store([
-                'student_id' => $submitTask->student_id,
-                'course_id' => $submitTask->courseAssignment->course_id,
-                'position' => $submitTask->courseAssignment->course->position + 1,
-            ]);
+        if ($submitTask->courseAssignment->course->status == StatusCourseEnum::SUBCRIBE->value) {
+            if ($request->status == SubmitTaskStatusEnum::AGREE->value) {
+                $this->studentCoursePosition->store([
+                    'student_id' => $submitTask->student_id,
+                    'position' => $submitTask->courseAssignment->course->position + 1,
+                ]);
+            }
         }
         return redirect()->back()->with('success', 'Berhasil menyimpan');
     }

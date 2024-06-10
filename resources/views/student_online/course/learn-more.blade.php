@@ -148,7 +148,7 @@
         </div>
         <div class="col-lg-4">
             {{-- Task List --}}
-            @if($taskData->isNotEmpty())
+            {{-- @if($taskData->isNotEmpty())
             <section id="tasklisting" class="mb-3 row">
                 <div class="col-lg-12 m-0 p-0">
                     <div class="card overflow-hidden">
@@ -179,48 +179,45 @@
                     </div>
                 </div>
             </section>
-            @endif
+            @endif --}}
 
             {{-- Other Courses --}}
             <section id="other-course">
                 <h5>Materi Lainnya</h5>
                 <div class="row">
-                    @forelse ($subCourses as $data)
+                    @forelse ($course->subCourses as $data)
+
                         <div class="col-lg-12 m-0 p-0">
-                            <a @if ($data->unlock) href="{{ route('siswa-online.course.subcourse', ['course' => $course->id, 'subCourse' => $data->subCourse->id]) }}"
-                            @else
-                            href="javascript:void(0)" @endif
-                                class="card card-body mb-3"
-                                style="
-                            border-left: 6px solid var(--bs-gray-300);
-                            @if ($data->unlock) border-left-color: var(--bs-primary); @endif
-                        ">
+                            <a href="@if($subCourse->id != $data->id) {{ route('siswa-online.course.subcourse', ['subCourse' => $data->id, 'course' => $course->id]) }} @else # @endif" class="card card-body mb-3 border-rounded @if($subCourse->id == $data->id) border-2 bg-light-primary border-primary @endif"  style="border-left: 6px solid var(--bs-gray-300); border-left-color: var(--bs-primary);">
                                 <div class="row align-items-center">
                                     <div class="col-md-4">
-                                        <img alt="{{ $data->subCourse->title }}" class="img-responsive w-100"
-                                            src="{{ asset("storage/{$data->subCourse->image_course}") }}" />
+                                        <img alt="{{ $data->title }}" class="img-responsive w-100"
+                                            src="{{ asset("storage/{$data->image_course}") }}" />
                                     </div>
                                     <div class="col-lg-8 d-flex align-items-center gap-2">
                                         <div class="d-flex flex-column gap-1">
-                                            <h3 class="m-0 mb-2 h5 fw-bolder">{{ $data->subCourse->title }}</h3>
+                                            <h3 class="m-0 mb-2 h5 fw-bolder">{{ $data->title }}</h3>
                                             <p style="font-size: 12px" class="mb-0">
-                                                {{ Str::limit($data->subCourse->description, 100) }}</p>
+                                                {{ Str::limit($data->description, 100) }}</p>
                                         </div>
-                                        @if (!$data->unlock)
-                                            <div class="leading-1">
-                                                <svg width="31" height="31" viewBox="0 0 31 31" fill="none"
-                                                    style="font-size: 5rem" xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M12.9167 14.2083V11.625C12.9167 10.9399 13.1888 10.2828 13.6733 9.79831C14.1578 9.31384 14.8149 9.04167 15.5 9.04167C16.1851 9.04167 16.8422 9.31384 17.3267 9.79831C17.8112 10.2828 18.0833 10.9399 18.0833 11.625V14.2083M15.5 3.875C24.8 3.875 27.125 6.2 27.125 15.5C27.125 24.8 24.8 27.125 15.5 27.125C6.2 27.125 3.875 24.8 3.875 15.5C3.875 6.2 6.2 3.875 15.5 3.875ZM10.3333 15.5C10.3333 15.1574 10.4694 14.8289 10.7117 14.5867C10.9539 14.3444 11.2824 14.2083 11.625 14.2083H19.375C19.7176 14.2083 20.0461 14.3444 20.2883 14.5867C20.5306 14.8289 20.6667 15.1574 20.6667 15.5V19.375C20.6667 19.7176 20.5306 20.0461 20.2883 20.2883C20.0461 20.5306 19.7176 20.6667 19.375 20.6667H11.625C11.2824 20.6667 10.9539 20.5306 10.7117 20.2883C10.4694 20.0461 10.3333 19.7176 10.3333 19.375V15.5Z"
-                                                        stroke="#5D87FF" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </svg>
-                                            </div>
-                                        @endif
+
                                     </div>
                                 </div>
                             </a>
                         </div>
+                        @if ($course->subCourses->count() == 1)
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
+                                            alt="No Data" height="150px" width="auto" />
+                                        <h3>Tidak Ada Data</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     @empty
                         <div class="col-12">
                             <div class="card">
@@ -236,26 +233,20 @@
                     @endforelse
                 </div>
 
-                {{ $subCourses->links('pagination::simple-bootstrap-5') }}
+
             </section>
         </div>
     </div>
 
     <div class="card-floating card card-body">
-        <a @if ($subCourseMeta->getPreviousAttribute()?->unlock) href="{{ route('siswa-online.course.subcourse', ['course' => $course->id, 'subCourse' => $subCourse->id + 1]) }}"
-            @else
-                href="javascript:void(0)" @endif
-            class="navigation-next @if (!$subCourseMeta->getPreviousAttribute()?->unlock) disabled @endif">
+        <a href="{{($prev != null) ? route('siswa-online.course.subcourse', ['course' => $course->id, 'subCourse' => $prev->id]) : '#' }}" class="navigation-next @if ($prev == null) disabled @endif">
             <i class="fas fa-arrow-left"></i>
             <span>Sebelumnya</span>
         </a>
         <span class="course-title">
             {{ $subCourse->title }}
         </span>
-        <a @if ($subCourseMeta->getNextAttribute()->unlock) href="{{ route('siswa-online.course.subcourse', ['course' => $course->id, 'subCourse' => $subCourse->id + 1]) }}"
-            @else
-                href="javascript:void(0)" @endif
-            class="navigation-next @if (!$subCourseMeta->getNextAttribute()->unlock) disabled @endif">
+        <a href="{{($next != null) ? route('siswa-online.course.subcourse', ['course' => $course->id, 'subCourse' => $next->id]) : '#' }}" class="navigation-next @if ($next == null) disabled @endif">
             <span>Selanjutnya</span>
             <i class="fas fa-arrow-right"></i>
         </a>

@@ -49,16 +49,21 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('hummatask')->group(function () {
         Route::post('team', [HummataskTeamController::class, 'store']);
+        Route::put('team/{hummataskTeam}', [HummataskTeamController::class, 'update']);
         Route::get('team/member/{hummataskTeam}', [HummataskTeamController::class, 'member']);
         Route::get('team/{hummataskTeam}', [HummataskTeamController::class, 'show']);
         Route::get('team', [ProfileController::class, 'studentAllTeam']);
         Route::get('presentation/schedule', [HummataskPresentationController::class, 'schedule']);
+        Route::post('presentation', [HummataskPresentationController::class, 'store']);
     });
 
 
     // api mentor
     Route::prefix('mentor')->group(function () {
-        Route::get('student-attendances', [MentorController::class, 'studentAttendances']);
+        Route::get('student-offline', [MentorController::class, 'listStudentOffline']);
+        Route::get('student-online', [MentorController::class, 'listStudentOnline']);
+        Route::get('student-offline-attendances', [MentorController::class, 'studentOfflineAttendances']);
+        Route::get('student-online-attendances', [MentorController::class, 'studentOnlineAttendances']);
         Route::get('journal-offline', [MentorController::class, 'studentJournalOffline']);
         Route::get('journal-online', [MentorController::class, 'studentJournalOnline']);
         Route::get('journals', [MentorController::class, 'studentJournal']);

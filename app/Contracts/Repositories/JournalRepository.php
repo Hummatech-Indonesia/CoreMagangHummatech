@@ -26,6 +26,7 @@ class JournalRepository extends BaseRepository implements JournalInterface
     {
         return $this->model->query()
             ->whereRelation('student', 'internship_type', InternshipTypeEnum::OFFLINE->value)
+            ->whereDate('created_at', now())
             ->get();
     }
 
@@ -54,6 +55,7 @@ class JournalRepository extends BaseRepository implements JournalInterface
     {
         return $this->model->query()
             ->whereRelation('student', 'internship_type', InternshipTypeEnum::ONLINE->value)
+            ->whereDate('created_at', now())
             ->get();
     }
 
