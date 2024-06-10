@@ -8,6 +8,7 @@ use App\Contracts\Interfaces\StudentInterface;
 use App\Enum\InternshipTypeEnum;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\JournalMentorResource;
 use App\Http\Resources\JournalResource;
 use App\Http\Resources\StudentResource;
 use Illuminate\Http\JsonResponse;
@@ -59,9 +60,7 @@ class MentorController extends Controller
     public function studentJournalOffline(): JsonResponse
     {
         $journals = $this->journal->getByStudentOffline();
-        return response()->json([
-            'result' => $journals,
-        ], 200);
+        return ResponseHelper::success(JournalMentorResource::collection($journals));
     }
 
     /**
@@ -118,8 +117,6 @@ class MentorController extends Controller
     public function studentJournalOnline(): JsonResponse
     {
         $journals = $this->journal->getByStudentOnline();
-        return response()->json([
-            'result' => $journals,
-        ], 200);
+        return ResponseHelper::success(JournalMentorResource::collection($journals));
     }
 }
