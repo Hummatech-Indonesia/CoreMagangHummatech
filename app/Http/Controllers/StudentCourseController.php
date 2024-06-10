@@ -51,6 +51,7 @@ class StudentCourseController extends Controller
      */
     public function show(Course $course): View
     {
+        if ((auth()->user()->student->studentCoursePosition == null ? 1 : auth()->user()->student->studentCoursePosition->position) < $course->position) return redirect()->back();
         $course = $this->course->show($course->id);
         return view('student_online_&_offline.course-store.details', compact('course'));
     }
