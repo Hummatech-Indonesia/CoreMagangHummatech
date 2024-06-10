@@ -42,7 +42,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a class="text-muted " href="/login">Dashboard</a></li>
                             <li class="breadcrumb-item"><a class="text-muted " href="/login">Pesanan Saya</a></li>
-                            <li class="breadcrumb-item" aria-current="page">MAGANG-1234</li>
+                            <li class="breadcrumb-item" aria-current="page">{{ $transaction->reference }}</li>
                         </ol>
                     </nav>
                 </div>
