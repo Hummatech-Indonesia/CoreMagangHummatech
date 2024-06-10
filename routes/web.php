@@ -60,7 +60,7 @@ Route::get('statement-self', [StatementController::class, 'self'])->name('statem
 Route::get('statement-parent', [StatementController::class, 'parent'])->name('statement-parent');
 
 Route::post('course-assignment/{course}', [CourseAssignmentController::class, 'store'])->name('course-assignment.store');
-Route::delete('course-assignment/{courseAassignment}', [CourseAssignmentController::class, 'destroy'])->name('course-assignment.destroy');
+Route::delete('course-assignment/{courseAssignment}', [CourseAssignmentController::class, 'destroy'])->name('course-assignment.destroy');
 
 # ================================================ Administrator Route Group ==================================================
 Route::middleware(['roles:administrator', 'auth'])->group(function () {
