@@ -24,7 +24,7 @@
 </div>
 
 <!-- tab bar start -->
-<ul class="nav nav-pills p-3 mb-3 rounded align-items-center card flex-row">
+<ul class="nav nav-pills p-3 mb-3 gap-3 rounded align-items-center card flex-row">
     <li class="nav-item">
         <a href="javascript:void(0)" class="
                       nav-link
