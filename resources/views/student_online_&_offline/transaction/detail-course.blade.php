@@ -9,9 +9,34 @@
         <div class="card-body px-4 py-3">
             <div class="row align-items-center">
                 <div class="col-9">
+                    @php
+                        $teksnya = "";
+                        switch ($transaction->status) {
+                            case "pending":
+                                $teksnya = "Menunggu pembayaran";
+                                break;
+                            case "paid":
+                                $teksnya = "Yeay, Pesanan sudah di bayar";
+                                break;
+                            case "cancelled":
+                                $teksnya = "Pesanan anda di batalkan";
+                                break;
+                            case "expired":
+                                $teksnya = "Pesanan telah kadaluarsa!";
+                                break;
+                            case "failed":
+                                $teksnya = "Pesanan gagal!";
+                                break;
+                            case "refund":
+                                $teksnya = "Pesanan dikembalikan!";
+                                break;
+                            case "unpaid":
+                                $teksnya = "Pesanan belum di bayar!";
+                                break;
+                        }
+                    @endphp
                     <div>
-                        <h4 class="fw-semibold mb-8">Yeay, Tagihannya Udah Lunas!</h4>
-                        <p>Silahkan nikmati dan jelajahi semua fitur ini dan selamat belajar!</p>
+                        <h4 class="fw-semibold mb-8">{{ $teksnya }}</h4>
                     </div>
                     <nav aria-label="breadcrumb mt-2">
                         <ol class="breadcrumb">

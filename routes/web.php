@@ -59,9 +59,6 @@ Route::post('/register/post', [StudentController::class, 'store']);
 Route::get('statement-self', [StatementController::class, 'self'])->name('statement-self');
 Route::get('statement-parent', [StatementController::class, 'parent'])->name('statement-parent');
 
-Route::post('course-assignment/{course}', [CourseAssignmentController::class, 'store'])->name('course-assignment.store');
-Route::delete('course-assignment/{courseAssignment}', [CourseAssignmentController::class, 'destroy'])->name('course-assignment.destroy');
-
 # ================================================ Administrator Route Group ==================================================
 Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('absent', [AttendanceController::class, 'index'])->name('attendance.index');
@@ -158,6 +155,10 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::delete('administrator/zoom-schedules/{zoomSchedule}', [ZoomScheduleController::class, 'destroy'])->name('zoom-schedule.destroy');
     // journal
     Route::get('journal', [AdminJournalController::class, 'index']);
+
+    // Course Assignment
+    Route::post('course-assignment/{course}', [CourseAssignmentController::class, 'store'])->name('course-assignment.store');
+    Route::delete('course-assignment/{courseAssignment}', [CourseAssignmentController::class, 'destroy'])->name('course-assignment.destroy');
 });
 
 # ================================================ Offline Student Route Group ================================================
