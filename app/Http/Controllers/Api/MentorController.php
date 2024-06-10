@@ -10,6 +10,7 @@ use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\JournalMentorResource;
 use App\Http\Resources\JournalResource;
+use App\Http\Resources\StudentAttendanceResource;
 use App\Http\Resources\StudentResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class MentorController extends Controller
     {
         $request->merge(['division_id' => auth()->user()->mentor->division->id, 'internship_type' => InternshipTypeEnum::OFFLINE->value]);
         $attendaces = $this->student->getAttendanceByDivision($request);
-        return ResponseHelper::success($attendaces);
+        return ResponseHelper::success(StudentAttendanceResource::collection($attendaces));
     }
 
     /**
