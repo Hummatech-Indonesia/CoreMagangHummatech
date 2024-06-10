@@ -69,7 +69,7 @@ class UserSeeder extends Seeder
         ]);
         $student[] = Student::factory()->create([
             'name' => 'femas akbar faturrohim',
-            'email' => 'femas@gmail.com',
+            'email' => 'femas12@gmail.com',
             'address' => 'Alamat Dummy',
             'avatar' => 'avatar.jpg',
             'birth_date' => '2000-01-01',
