@@ -97,55 +97,6 @@
         </div>
     </div>
 
-    <!-- Add Task -->
-    <div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg p-4">
-            <div class="modal-content">
-                <div class="modal-header d-flex align-items-center">
-                    <h4 class="modal-title" id="myLargeModalLabel">
-                        Tambah Tugas
-                    </h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="/create/task" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="sub_course_id" value="{{ $subCourses->id }}">
-                    <div class="modal-body">
-                        <input type="hidden" name="course_id" value="">
-                        <div class="mb-3">
-                            <label for="">Tugas</label>
-                            <input type="text" name="title" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label for="">Deskripsi</label>
-                            <textarea name="description" id="" class="form-control" rows="5" placeholder="Masukkan tugas"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="">Level</label>
-                            <select class="tambah js-example-basic-single form-select" aria-label=".form-select example"
-                                name="level">
-                                <option value="" disabled selected>Pilih level materi</option>
-                                <option value="easy">Mudah</option>
-                                <option value="normal">Biasa</option>
-                                <option value="hard">Sulit</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light shadow-none font-medium waves-effect text-start"
-                            data-bs-dismiss="modal">
-                            Tutup
-                        </button>
-                        <button type="submit" class="btn btn-primary shadow-none font-medium waves-effect text-start"
-                            data-bs-dismiss="modal">
-                            Simpan
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
     <div class="modal fade" id="detail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
