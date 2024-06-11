@@ -56,7 +56,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('presentation', [HummataskPresentationController::class, 'store']);
     });
 
-
     // api mentor
     Route::prefix('mentor')->group(function () {
         Route::get('student-offline', [MentorController::class, 'listStudentOffline']);
