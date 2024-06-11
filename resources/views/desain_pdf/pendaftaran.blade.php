@@ -134,7 +134,7 @@
                 </div>
                 <div style="margin-left: 20px;">
                     <div>
-                        <p style="font-family: 'Times New Roman', Times, serif; font-size: 15px; text-align: left;">
+                        <p style="font-family: 'Times New Roman', Times, serif; font-size: 14px; text-align: left;">
                             {{ $directorName }}
                         </p>
                         <p style="font-family: 'Times New Roman', Times, serif; font-size: 15px; text-align: left; margin-top: -10px;">
