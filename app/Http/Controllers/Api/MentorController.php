@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Enum\InternshipTypeEnum;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CourseResource;
 use App\Http\Resources\JournalMentorResource;
 use App\Http\Resources\JournalResource;
 use App\Http\Resources\StudentAttendanceResource;
@@ -18,10 +20,12 @@ use Illuminate\Http\Request;
 class MentorController extends Controller
 {
     private StudentInterface $student;
+    private CourseInterface $course;
     private JournalInterface $journal;
     private MentorStudentInterface $mentorStudent;
-    public function __construct(StudentInterface $studentInterface, JournalInterface $journalInterface, MentorStudentInterface $mentorStudentInterface)
+    public function __construct(StudentInterface $studentInterface, JournalInterface $journalInterface, MentorStudentInterface $mentorStudentInterface, CourseInterface $courseInterface)
     {
+        $this->course = $courseInterface;
         $this->mentorStudent = $mentorStudentInterface;
         $this->student = $studentInterface;
         $this->journal = $journalInterface;
@@ -128,5 +132,16 @@ class MentorController extends Controller
         ]);
         $journals = $this->journal->getByStudents($request);
         return ResponseHelper::success(JournalMentorResource::collection($journals));
+    }
+
+    /**
+     * courses
+     *
+     * @return JsonResponse
+     */
+    public function courses(): JsonResponse
+    {
+        $courses = $this->course->whereDivision(auth()->user()->mentor->division->id);
+        return ResponseHelper::success(CourseResource::collection($courses));
     }
 }

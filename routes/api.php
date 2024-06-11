@@ -7,7 +7,6 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\FaceController;
 use App\Http\Controllers\Api\JournalController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\AppointmentOfMentor;
@@ -67,6 +66,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('journal-offline', [MentorController::class, 'studentJournalOffline']);
         Route::get('journal-online', [MentorController::class, 'studentJournalOnline']);
         Route::get('journals', [MentorController::class, 'studentJournal']);
+        Route::get('courses', [MentorController::class, 'courses']);
     });
     Route::get('hummatask_team' , [ProfileController::class , 'hummataskteam']);
 });
