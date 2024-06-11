@@ -6,7 +6,6 @@ use App\Contracts\Interfaces\JournalInterface;
 use App\Enum\InternshipTypeEnum;
 use App\Enum\StatusJournalEnum;
 use App\Models\Journal;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class JournalRepository extends BaseRepository implements JournalInterface

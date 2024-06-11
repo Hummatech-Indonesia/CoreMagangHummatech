@@ -50,7 +50,7 @@ class MentorController extends Controller
     {
         $request->merge(['division_id' => auth()->user()->mentor->division->id, 'internship_type' => InternshipTypeEnum::ONLINE->value]);
         $attendaces = $this->student->getAttendanceByDivision($request);
-        return ResponseHelper::success($attendaces);
+        return ResponseHelper::success(StudentAttendanceResource::collection($attendaces));
     }
 
     /**
