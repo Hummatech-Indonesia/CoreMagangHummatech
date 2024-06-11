@@ -105,6 +105,14 @@
                         <span class="hide-menu">Materi</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('siswa-offline.my-course') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-backpack"></i>
+                        </span>
+                        <span class="hide-menu">Materi Saya</span>
+                    </a>
+                </li>
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('/siswa-offline/task') }}" aria-expanded="false">
                         <span>

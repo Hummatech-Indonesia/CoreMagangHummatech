@@ -60,11 +60,39 @@ class CourseController extends Controller
         return view('student_online.course.detail', compact('course', 'subCourses'));
     }
 
+        /**
+     * detailOffline
+     *
+     * @param  mixed $course
+     * @param  mixed $request
+     * @return ViewView
+     */
+    public function detailOffline(Course $course, Request $request): ViewView
+    {
+        $course = $this->course->show($course->id);
+        $subCourses = $this->subCourse->getByCourse($course->id, $request);
+        return view('student_offline.course.course-detail', compact('course', 'subCourses'));
+    }
+
     public function subCourseDetail(Course $course, SubCourse $subCourse)
     {
         $prev = $this->subCourse->getPrevByCourse($course->id, $subCourse->position);
         $next = $this->subCourse->getNextByCourse($course->id, $subCourse->position);
         return view('student_online.course.learn-more', compact('course', 'subCourse', 'prev', 'next'));
+    }
+
+    /**
+     * offlineSubCourseDetail
+     *
+     * @param  mixed $course
+     * @param  mixed $subCourse
+     * @return void
+     */
+    public function offlineSubCourseDetail(Course $course, SubCourse $subCourse)
+    {
+        $prev = $this->subCourse->getPrevByCourse($course->id, $subCourse->position);
+        $next = $this->subCourse->getNextByCourse($course->id, $subCourse->position);
+        return view('student_offline.sub_course.index', compact('course', 'subCourse', 'prev', 'next'));
     }
 
     /**
@@ -78,5 +106,18 @@ class CourseController extends Controller
     {
         $courseAssignment = $this->courseAssignment->show($courseAssignment->id);
         return view('student_online.course.assignment', compact('course', 'courseAssignment'));
+    }
+
+    /**
+     * offlineDetailAssignment
+     *
+     * @param  mixed $course
+     * @param  mixed $courseAssignment
+     * @return ViewView
+     */
+    public function offlineDetailAssignment(Course $course, CourseAssignment $courseAssignment): ViewView
+    {
+        $courseAssignment = $this->courseAssignment->show($courseAssignment->id);
+        return view('student_offline.assignment.index', compact('course', 'courseAssignment'));
     }
 }

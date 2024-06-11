@@ -164,6 +164,10 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
 # ================================================ Offline Student Route Group ================================================
 Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function () {
     Route::get('/', [StudentOflineController::class, 'index'])->name('.home');
+    Route::get('my-course', [StudentOflineController::class, 'myCourse'])->name('.my-course');
+    Route::get('course/{course}', [CourseController::class, 'detailOffline'])->name('.course.detail');
+    Route::get('course/{course}/sub-course/{subCourse}', [CourseController::class, 'offlineSubCourseDetail'])->name('.sub-course.detail');
+    Route::get('course/{course}/assignment/{courseAssignment}', [CourseController::class, 'offlineDetailAssignment'])->name('.assignment.detail');
     Route::get('division', function () {
         return view('student_offline.division.index');
     })->name('.class.division');
