@@ -93,7 +93,7 @@
 
             <h3 class="mb-0">Status Pembayaran: <strong
                     class="{{ $statusLabels[$transaction->status]['class'] ?? 'text-muted' }}">
-                    {{ $transaction->status }}
+                    {{ $teksnya }}
                 </strong>
             </h3>
             <div class="d-flex gap-2 align-items-center">
