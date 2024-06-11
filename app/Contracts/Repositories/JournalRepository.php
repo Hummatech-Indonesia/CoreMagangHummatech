@@ -17,18 +17,27 @@ class JournalRepository extends BaseRepository implements JournalInterface
     }
 
     /**
+     * get by student
      *
-     * get by student offline
+     * @param  mixed $request
      * @return mixed
-     *
      */
-    public function getByStudentOffline(): mixed
+    public function getByStudents(Request $request): mixed
     {
         return $this->model->query()
-            ->whereRelation('student', 'internship_type', InternshipTypeEnum::OFFLINE->value)
+            ->when($request->internship_type == InternshipTypeEnum::ONLINE->value, function ($query) {
+                $query->whereRelation('student', 'internship_type', InternshipTypeEnum::ONLINE->value);
+            })
+            ->when($request->internship_type == InternshipTypeEnum::OFFLINE->value, function ($query) {
+                $query->whereRelation('student', 'internship_type', InternshipTypeEnum::OFFLINE->value);
+            })
+            ->when($request->division_id, function ($query) use ($request) {
+                $query->whereRelation('student', 'division_id', $request->division_id);
+            })
             ->whereDate('created_at', now())
             ->get();
     }
+
 
     /**
      *
@@ -37,24 +46,10 @@ class JournalRepository extends BaseRepository implements JournalInterface
      * @return mixed
      *
      */
-    public function getByStudents(array $student_ids): mixed
+    public function getByStudentIds(array $student_ids): mixed
     {
         return $this->model->query()
             ->whereIn('student_id', $student_ids)
-            ->whereDate('created_at', now())
-            ->get();
-    }
-
-    /**
-     *
-     * get by student online
-     * @return mixed
-     *
-     */
-    public function getByStudentOnline(): mixed
-    {
-        return $this->model->query()
-            ->whereRelation('student', 'internship_type', InternshipTypeEnum::ONLINE->value)
             ->whereDate('created_at', now())
             ->get();
     }

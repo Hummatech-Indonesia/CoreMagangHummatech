@@ -54,17 +54,6 @@ class MentorController extends Controller
     }
 
     /**
-     * student journal offline
-     * @return JsonResponse
-     *
-     */
-    public function studentJournalOffline(): JsonResponse
-    {
-        $journals = $this->journal->getByStudentOffline();
-        return ResponseHelper::success(JournalMentorResource::collection($journals));
-    }
-
-    /**
      *
      * get student journal by mentor
      * @return JsonResponse
@@ -77,7 +66,7 @@ class MentorController extends Controller
         foreach ($mentorStudents as $mentorStudent) {
             $studentIds[] = $mentorStudent->student_id;
         }
-        $journals = $this->journal->getByStudents($studentIds);
+        $journals = $this->journal->getByStudentIds($studentIds);
 
         return response()->json([
             'result' => JournalResource::collection($journals)
@@ -110,14 +99,34 @@ class MentorController extends Controller
         return ResponseHelper::success(StudentResource::collection($students));
     }
 
+        /**
+     * studentJournalOffline
+     *
+     * @param  mixed $request
+     * @return JsonResponse
+     */
+    public function studentJournalOffline(Request $request): JsonResponse
+    {
+        $request->merge([
+            'division_id' => auth()->user()->mentor->division->id,
+            'internship_type' => InternshipTypeEnum::OFFLINE->value,
+        ]);
+        $journals = $this->journal->getByStudents($request);
+        return ResponseHelper::success(JournalMentorResource::collection($journals));
+    }
+
     /**
      * student journal online
      * @return JsonResponse
      *
      */
-    public function studentJournalOnline(): JsonResponse
+    public function studentJournalOnline(Request $request): JsonResponse
     {
-        $journals = $this->journal->getByStudentOnline();
+        $request->merge([
+            'division_id' => auth()->user()->mentor->division->id,
+            'internship_type' => InternshipTypeEnum::ONLINE->value,
+        ]);
+        $journals = $this->journal->getByStudents($request);
         return ResponseHelper::success(JournalMentorResource::collection($journals));
     }
 }
