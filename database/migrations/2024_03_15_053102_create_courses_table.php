@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('price')->nullable();
-            $table->enum('status' , [StatusCourseEnum::PAID->value , StatusCourseEnum::SUBCRIBE->value]);
+            $table->enum('status', [StatusCourseEnum::PAID->value, StatusCourseEnum::SUBCRIBE->value]);
             $table->string('image');
             $table->longText('description');
             $table->foreignId('division_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();

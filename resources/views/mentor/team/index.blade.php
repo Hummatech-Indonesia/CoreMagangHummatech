@@ -38,7 +38,7 @@
 
 <div class="row mt-5">
     @forelse ($teams as $team)
-        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12" style="height: 20pc">
+        <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-5 mt-3" style="height: 20pc">
             <div class="card">
                 <div class="card-body py-1 px-2">
                     <div class="d-flex justify-content-end">
@@ -61,48 +61,48 @@
                                     <img src="{{ asset('storage/' . $team->student->avatar) }}"
                                         class="rounded-circle me-n3 card-hover border border-white" width="32" height="32">
                                 @else
-                                                        @php
-                                                            $firstLetter = substr($team->student->name, 0, 1);
-                                                            $firstLetter = strtoupper($firstLetter);
-                                                            $backgroundColors = [
-                                                                '#ff5722',
-                                                                '#4caf50',
-                                                                '#2196f3',
-                                                            ];
-                                                            $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
-                                                        @endphp
-                                                        <div style="background-color: {{ $backgroundColor }}; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center;"
-                                                            class="me-n3">
-                                                            <span style="color: white; font-size: 15px;">{{ $firstLetter }}</span>
-                                                        </div>
+                                    @php
+                                        $firstLetter = substr($team->student->name, 0, 1);
+                                        $firstLetter = strtoupper($firstLetter);
+                                        $backgroundColors = [
+                                            '#ff5722',
+                                            '#4caf50',
+                                            '#2196f3',
+                                        ];
+                                        $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
+                                    @endphp
+                                    <div style="background-color: {{ $backgroundColor }}; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center;"
+                                        class="me-n3">
+                                        <span style="color: white; font-size: 15px;">{{ $firstLetter }}</span>
+                                    </div>
                                 @endif
                             </a>
                             @if ($team->category_project_id == 1)
 
                             @else
-                                        @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $student)
-                                                    <a href="#{{ $student->student->name }}" title="{{ $student->student->name }}">
-                                                        @if(Storage::disk('public')->exists($student->student->avatar))
-                                                            <img src="{{ asset('storage/' . $student->student->avatar) }}"
-                                                                class="rounded-circle me-n4 card-hover border border-white" width="32" height="32">
-                                                        @else
-                                                                        @php
-                                                                            $firstLetter = substr($student->student->name, 0, 1);
-                                                                            $firstLetter = strtoupper($firstLetter);
-                                                                            $backgroundColors = [
-                                                                                '#ff5722',
-                                                                                '#4caf50',
-                                                                                '#2196f3',
-                                                                            ];
-                                                                            $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
-                                                                        @endphp
-                                                                        <div style="background-color: {{ $backgroundColor }}; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center;"
-                                                                            class="me-n3">
-                                                                            <span style="color: white; font-size: 15px;">{{ $firstLetter }}</span>
-                                                                        </div>
-                                                        @endif
-                                                    </a>
-                                        @endforeach
+                                @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $student)
+                                    <a href="#{{ $student->student->name }}" title="{{ $student->student->name }}">
+                                        @if(Storage::disk('public')->exists($student->student->avatar))
+                                            <img src="{{ asset('storage/' . $student->student->avatar) }}"
+                                                class="rounded-circle me-n4 card-hover border border-white" width="32" height="32">
+                                        @else
+                                            @php
+                                                $firstLetter = substr($student->student->name, 0, 1);
+                                                $firstLetter = strtoupper($firstLetter);
+                                                $backgroundColors = [
+                                                    '#ff5722',
+                                                    '#4caf50',
+                                                    '#2196f3',
+                                                ];
+                                                $backgroundColor = $backgroundColors[ord($firstLetter) % count($backgroundColors)];
+                                            @endphp
+                                            <div style="background-color: {{ $backgroundColor }}; width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center;"
+                                                class="me-n3">
+                                                <span style="color: white; font-size: 15px;">{{ $firstLetter }}</span>
+                                            </div>
+                                        @endif
+                                    </a>
+                                @endforeach
                             @endif
                         </div>
                         <h5 style="font-weight: 700" class="text-capitalize">{{ $team->name }}</h5>

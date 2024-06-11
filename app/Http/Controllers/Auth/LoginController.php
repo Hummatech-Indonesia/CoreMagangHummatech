@@ -3,19 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Contracts\Interfaces\UserInterface;
-use App\Enum\RolesEnum as EnumRolesEnum;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
-use App\Enums\RolesEnum;
 use App\Helpers\ResponseHelper;
 use App\Http\Resources\UserResource;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Laravel\Sanctum\NewAccessToken;
-use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -29,6 +22,12 @@ class LoginController extends Controller
         $this->user = $user;
     }
 
+    /**
+     * ApiLogin
+     *
+     * @param  mixed $request
+     * @return JsonResponse
+     */
     public function ApiLogin(Request $request): JsonResponse
     {
         if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {

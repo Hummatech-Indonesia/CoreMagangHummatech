@@ -40,6 +40,7 @@ use App\Http\Controllers\StudentOnline\ZoomScheduleController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
 use App\Http\Controllers\StudentOnline\StudentOnlineController;
 use App\Http\Controllers\SubCourseController;
+use App\Http\Controllers\SubmitTaskController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskSubmissionController;
 
@@ -57,8 +58,6 @@ Route::post('/register/post', [StudentController::class, 'store']);
 # Statement
 Route::get('statement-self', [StatementController::class, 'self'])->name('statement-self');
 Route::get('statement-parent', [StatementController::class, 'parent'])->name('statement-parent');
-
-Route::post('course-assignment/{course}', [CourseAssignmentController::class, 'store'])->name('course-assignment.store');
 
 # ================================================ Administrator Route Group ==================================================
 Route::middleware(['roles:administrator', 'auth'])->group(function () {
@@ -142,6 +141,8 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::post('faces/create', [FaceController::class, 'store']);
     Route::delete('faces/delete/{student}', [FaceController::class, 'destroy']);
     # Course Details
+    Route::get('assignment/{courseAssignment}', [SubmitTaskController::class, 'index'])->name('assignment.submit-task');
+
     Route::get('/administrator/course/detail/{course}', [AdminCourseController::class, 'show'])->name('course.detail');
     Route::delete('administrator/subcourse/delete/{subCourse}', [SubCourseController::class, 'destroy'])->name('subCourse.destroy');
     Route::get('/administrator/subcourse/detail/{subCourse}', [SubCourseController::class, 'show'])->name('subCourse.detail');
@@ -154,6 +155,10 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::delete('administrator/zoom-schedules/{zoomSchedule}', [ZoomScheduleController::class, 'destroy'])->name('zoom-schedule.destroy');
     // journal
     Route::get('journal', [AdminJournalController::class, 'index']);
+
+    // Course Assignment
+    Route::post('course-assignment/{course}', [CourseAssignmentController::class, 'store'])->name('course-assignment.store');
+    Route::delete('course-assignment/{courseAssignment}', [CourseAssignmentController::class, 'destroy'])->name('course-assignment.destroy');
 });
 
 # ================================================ Offline Student Route Group ================================================
@@ -174,6 +179,7 @@ Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(
         Route::get('/materi', 'index')->name('.course');
         Route::get('/materi/{course}', 'detail')->name('.course.detail');
         Route::get('/materi/{course}/course/{subCourse}', 'subCourseDetail')->name('.course.subcourse');
+        Route::get('course/{course}/assignment/{courseAssignment}', 'detailAssignment')->name('.course.assignment');
     });
     Route::controller(TaskSubmissionController::class)->name('.tasksubmit')->prefix('/tugas')->group(function () {
         Route::get('/', 'index')->name('.index');

@@ -7,7 +7,6 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\FaceController;
 use App\Http\Controllers\Api\JournalController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\AppointmentOfMentor;
@@ -54,15 +53,19 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('team/{hummataskTeam}', [HummataskTeamController::class, 'show']);
         Route::get('team', [ProfileController::class, 'studentAllTeam']);
         Route::get('presentation/schedule', [HummataskPresentationController::class, 'schedule']);
+        Route::post('presentation', [HummataskPresentationController::class, 'store']);
     });
-
 
     // api mentor
     Route::prefix('mentor')->group(function () {
-        Route::get('student-attendances', [MentorController::class, 'studentAttendances']);
+        Route::get('student-offline', [MentorController::class, 'listStudentOffline']);
+        Route::get('student-online', [MentorController::class, 'listStudentOnline']);
+        Route::get('student-offline-attendances', [MentorController::class, 'studentOfflineAttendances']);
+        Route::get('student-online-attendances', [MentorController::class, 'studentOnlineAttendances']);
         Route::get('journal-offline', [MentorController::class, 'studentJournalOffline']);
         Route::get('journal-online', [MentorController::class, 'studentJournalOnline']);
         Route::get('journals', [MentorController::class, 'studentJournal']);
+        Route::get('courses', [MentorController::class, 'courses']);
     });
     Route::get('hummatask_team' , [ProfileController::class , 'hummataskteam']);
 });

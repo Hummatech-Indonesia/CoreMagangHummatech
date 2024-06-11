@@ -284,6 +284,19 @@
     </div>
 </div>
 
+<h1>Tugas</h1>
+@foreach ($assignments as $assignment)
+<hr>
+    <h6>{{ $assignment->title }}</h6>
+    <a href="{{ route('assignment.submit-task', $assignment->id) }}">Lihat detail</a>
+    <form action="{{ route('course-assignment.destroy', $assignment->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">Hapus</button>
+    </form>
+<hr>
+@endforeach
+
 @include('admin.components.delete-modal-component')
 @endsection
 

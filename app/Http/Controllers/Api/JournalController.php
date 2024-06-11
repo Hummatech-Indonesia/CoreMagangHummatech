@@ -3,26 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use Carbon\Carbon;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 use App\Models\Journal;
 use App\Services\JournalService;
 use App\Http\Requests\StoreJournalRequest;
 use App\Http\Requests\UpdateJournalRequest;
 use Illuminate\Http\JsonResponse;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Contracts\Interfaces\JournalInterface;
-use App\Contracts\Interfaces\DataAdminInterface;
-use App\Contracts\Interfaces\LetterheadsInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
-use App\Contracts\Interfaces\SignatureInterface;
-use App\Contracts\Interfaces\StudentInterface;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\JournalResource;
-use Exception;
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Request;
 
 class JournalController extends Controller
 {

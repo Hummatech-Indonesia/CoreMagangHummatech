@@ -13,6 +13,19 @@ class SubmitTaskRepository extends BaseRepository implements SubmitTaskInterface
     }
 
     /**
+     * getByAssignment
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getByAssignment(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('course_assignment_id', $id)
+            ->get();
+    }
+
+    /**
      * store
      *
      * @param  mixed $data
@@ -21,7 +34,7 @@ class SubmitTaskRepository extends BaseRepository implements SubmitTaskInterface
     public function store(array $data): mixed
     {
         return $this->model->query()
-            ->create($data);
+            ->updateOrCreate(['course_assignment_id' => $data['course_assignment_id'], 'student_id' => auth()->user()->student->id], $data);
     }
 
     /**

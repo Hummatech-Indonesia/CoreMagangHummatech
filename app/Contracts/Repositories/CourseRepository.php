@@ -43,7 +43,7 @@ class CourseRepository extends BaseRepository implements CourseInterface
         return $this->model->query()
             ->with(['subCourses' => function ($query) {
                 $query->orderBy('position');
-            }])
+            }, 'courseAssignments'])
             ->findOrFail($id);
     }
     public function delete(mixed $id): mixed
