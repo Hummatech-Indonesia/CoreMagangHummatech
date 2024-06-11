@@ -76,6 +76,7 @@ class CourseController extends Controller
 
     public function subCourseDetail(Course $course, SubCourse $subCourse)
     {
+        $course = $this->course->show($course->id);
         $prev = $this->subCourse->getPrevByCourse($course->id, $subCourse->position);
         $next = $this->subCourse->getNextByCourse($course->id, $subCourse->position);
         return view('student_online.course.learn-more', compact('course', 'subCourse', 'prev', 'next'));
@@ -90,6 +91,7 @@ class CourseController extends Controller
      */
     public function offlineSubCourseDetail(Course $course, SubCourse $subCourse)
     {
+        $course = $this->course->show($course->id);
         $prev = $this->subCourse->getPrevByCourse($course->id, $subCourse->position);
         $next = $this->subCourse->getNextByCourse($course->id, $subCourse->position);
         return view('student_offline.sub_course.index', compact('course', 'subCourse', 'prev', 'next'));
