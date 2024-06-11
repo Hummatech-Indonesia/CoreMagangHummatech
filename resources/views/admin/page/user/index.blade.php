@@ -132,7 +132,7 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item"
-                                                href="/menu-siswa/face/{{ $student->id }}">Wajah</a>
+                                                href="/faces/detail/{{ $student->id }}">Wajah</a>
                                              <button class="dropdown-item btn-reset" type="button"
                                                 data-id="{{ $student->id }}">Reset Password</button>
                                             <button class="dropdown-item btn-ban"
@@ -212,7 +212,7 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item"
-                                                href="/menu-siswa/face/{{ $studentoffline->id }}">Wajah</a>
+                                                href="/faces/detail/{{ $studentoffline->id }}">Wajah</a>
                                             <button class="dropdown-item btn-reset" type="button"
                                                 data-id="{{ $studentoffline->id }}">Reset Password</button>
                                             <button class="dropdown-item btn-ban"
@@ -296,7 +296,7 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item"
-                                                href="/menu-siswa/face/{{ $studentonline->id }}">Wajah</a>
+                                                href="/faces/detail/{{ $studentonline->id }}">Wajah</a>
                                             <button class="dropdown-item btn-reset" type="button"
                                                 data-id="{{ $studentonline->id }}">Reset Password</button>
                                             <button class="dropdown-item btn-ban"
@@ -380,7 +380,7 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item"
-                                                href="/menu-siswa/face/{{ $studentonline->id }}">Wajah</a>
+                                                href="/faces/detail/{{ $studentonline->id }}">Wajah</a>
                                             <button class="dropdown-item btn-reset" type="button"
                                                 data-id="{{ $studentonline->id }}">Reset Password</button>
                                             <button class="dropdown-item btn-ban"
