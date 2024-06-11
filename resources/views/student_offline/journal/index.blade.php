@@ -248,9 +248,9 @@
                                 {{ $message }}
                             </p>
                         @enderror
-                        <label for="" class="mt-2 mb-2">Deskripsi</label>
+                        <label for="description-edit" class="mt-2 mb-2">Deskripsi</label>
                         <textarea name="description" id="description-edit" class="form-control" oninput="countCharactersEdit(this)"></textarea>
-                        <div id="characterCountEdit" class="text-muted"></div>
+                        <div id="characterCountEdit"></div>
                         @error('description')
                             <p class="text-danger">
                                 {{ $message }}
@@ -389,15 +389,16 @@
             }
         </script>
         <script>
-        function countCharactersEdit(element) {
-            var count = element.value.length;
-            var countElement = document.getElementById('characterCountEdit');
-            countElement.innerText = count + ' characters';
-            if (count >= 150) {
-                countElement.style.color = 'green';
-            } else {
-                countElement.style.color = 'red';
+            function countCharactersEdit(element) {
+                var count = element.value.length;
+                var countElement = document.getElementById('characterCountEdit');
+                countElement.innerText = count + ' characters';
+                if (count < 150) {
+                    countElement.style.color = 'red';
+                } else {
+                    countElement.style.color = 'green';
+                }
             }
-        }
         </script>
+
     @endsection
