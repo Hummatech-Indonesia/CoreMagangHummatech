@@ -43,4 +43,11 @@ class WarningLetterRepository extends BaseRepository implements WarningLetterInt
 
         return $query;
     }
+
+    public function findByStudentIdAndStatus($studentId, $status): ?WarningLetter
+    {
+        return $this->model->where('student_id', $studentId)
+                           ->where('status', $status)
+                           ->first();
+    }
 }
