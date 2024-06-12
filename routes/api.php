@@ -20,28 +20,27 @@ use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/ApiLogin', [AuthLoginController::class, 'ApiLogin']);
-Route::get('zoom_schedule' , [DashboardController::class , 'index']);
+Route::get('zoom_schedule', [DashboardController::class, 'index']);
 Route::post('callback', [TransactionController::class, 'callback']);
 Route::middleware('auth:sanctum')->group(function () {
-    Route::put('journal/update/{journal}' , [JournalController::class , 'update']);
+    Route::put('journal/update/{journal}', [JournalController::class, 'update']);
     Route::get('users', [UserController::class, 'index']);
-    Route::post('permision' , [PermissionController::class ,'store']);
-    Route::get('profile' , [ProfileController::class , 'index']);
-    Route::get('journals' , [JournalController::class , 'index']);
-    Route::post('journal' , [JournalController::class , 'store']);
-    Route::get('mentorStudent',[DashboardController::class, 'mentorStudent']);
-    Route::get('journals/detail/{id}' , [JournalController::class , 'show']);
-    Route::get('attendace' , [AttendanceController::class , 'attendanceOffline']);
-    Route::get('countAttendace' , [AttendanceController::class , 'count']);
-    Route::get('mentor_student' , [AdminMentorController::class ,'show']);
-    Route::get('student/{student}' , [UserController::class , 'show']);
-    Route::get('mentor-journal' , [JournalController::class ,'journal']);
-    Route::get('course_mentor' , [AppointmentOfMentor::class , 'index']);
-    Route::get('count_mentor' , [DashboardController::class , 'count']);
+    Route::post('permision', [PermissionController::class, 'store']);
+    Route::get('profile', [ProfileController::class, 'index']);
+    Route::get('journals', [JournalController::class, 'index']);
+    Route::post('journal', [JournalController::class, 'store']);
+    Route::get('mentorStudent', [DashboardController::class, 'mentorStudent']);
+    Route::get('journals/detail/{id}', [JournalController::class, 'show']);
+    Route::get('attendace', [AttendanceController::class, 'attendanceOffline']);
+    Route::get('countAttendace', [AttendanceController::class, 'count']);
+    Route::get('mentor_student', [AdminMentorController::class, 'show']);
+    Route::get('student/{student}', [UserController::class, 'show']);
+    Route::get('mentor-journal', [JournalController::class, 'journal']);
+    Route::get('course_mentor', [AppointmentOfMentor::class, 'index']);
+    Route::get('count_mentor', [DashboardController::class, 'count']);
 
     Route::get('course/task/{course}', [CourseController::class, 'courseAssignment']);
     // hummatask
-    Route::get('hummateam/team/{slug}/presentation', [PresentationController::class, 'usershow'])->name('team.presentation');
     // end hummatask
     // api seluruh siswa
     Route::get('active-courses', [CourseController::class, 'activeCourses']);
@@ -50,6 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('nonactive-courses', [CourseController::class, 'nonactiveCourses']);
 
     Route::prefix('hummatask')->group(function () {
+        Route::get('team/{slug}/presentation', [PresentationController::class, 'usershow']);
         Route::post('team', [HummataskTeamController::class, 'store']);
         Route::put('team/{hummataskTeam}', [HummataskTeamController::class, 'update']);
         Route::get('team/member/{hummataskTeam}', [HummataskTeamController::class, 'member']);
@@ -71,11 +71,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('courses', [MentorController::class, 'courses']);
         Route::get('statistic', [MentorController::class, 'statistic']);
     });
-    Route::get('hummatask_team' , [ProfileController::class , 'hummataskteam']);
+    Route::get('hummatask_team', [ProfileController::class, 'hummataskteam']);
 });
 Route::post('sync', [AttendanceController::class, 'sync']);
 Route::get('students', [StudentController::class, 'getStudents']);
 Route::get('/limit', [AttendanceController::class, 'maxlate']);
 Route::get('entry-time', [AttendanceController::class, 'entryTime']);
 Route::get('face', [FaceController::class, 'index']);
-Route::get('course' , [CourseController::class , 'index']);
+Route::get('course', [CourseController::class, 'index']);
