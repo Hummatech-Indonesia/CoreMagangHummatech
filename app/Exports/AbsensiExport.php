@@ -79,7 +79,7 @@ class AbsensiExport implements FromCollection, WithHeadings, WithTitle, ShouldAu
         $row = [
             $rowNumber,
             $firstRecord->student->name,
-            $firstRecord->student->sekolah,
+            $firstRecord->student->school,
         ];
 
         for ($day = 1; $day <= $daysInMonth; $day++) {
