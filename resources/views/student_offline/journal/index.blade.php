@@ -112,7 +112,7 @@
                     <thead class="text-dark fs-4">
                         <tr>
                             <th>
-                                <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
+                                <h6 class="fs-4 fw-semibold mb-0">Judul</h6>
                             </th>
                             <th>
                                 <h6 class="fs-4 fw-semibold mb-0">Tanggal</h6>
@@ -132,10 +132,7 @@
                         @forelse($journals as $key => $journal)
                             <tr>
                                 <td>
-                                    <div class="ms-3">
-                                        <h6 class="fs-4 fw-semibold mb-0">{{ $journal->student->name }}</h6>
-                                        <span class="fw-normal">{{ $journal->student->email }}</span>
-                                    </div>
+                                    <p class="mb-0 fw-normal fs-4">{{ $journal->title }}</p>
                                 </td>
                                 <td>
                                     <p class="mb-0 fw-normal fs-4">
@@ -147,7 +144,7 @@
                                         style="object-fit: cover" alt="" srcset="">
                                 </td>
                                 <td>
-                                    <p class="">
+                                    <p class="mb-0 fw-normal fs-4">
                                         {{ Str::limit($journal->description, 50) }}
                                     </p>
                                 </td>
