@@ -16,8 +16,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('course_assignment_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('file')->nullable();
-            $table->string('link')->nullable();
+            $table->string('file');
             $table->enum('status', [SubmitTaskStatusEnum::AGREE->value, SubmitTaskStatusEnum::REJECT->value, SubmitTaskStatusEnum::PENDING->value])->default(SubmitTaskStatusEnum::PENDING->value);
             $table->timestamps();
         });
