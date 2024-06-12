@@ -17,7 +17,7 @@ class CourseAssignment extends Model implements HasCourse, HasSubmitTasks
     protected $keyType = 'char';
     public $incrementing = false;
 
-    protected $fillable = ['title', 'description', 'type', 'course_id'];
+    protected $fillable = ['title', 'description', 'course_id'];
     protected $guarded = [];
 
     /**

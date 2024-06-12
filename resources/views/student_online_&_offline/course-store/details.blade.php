@@ -86,11 +86,7 @@
             @csrf
             @method('POST')
             <p>Upload jawaban anda untuk membuka materi selanjutnya</p>
-            @if ($course->courseAssignments[0]->type == "link")
-            <input type="text" name="link" placeholder="link">
-            @else
             <input type="file" name="file" id="">
-            @endif
             <button type="submit">Submit</button>
         </form>
         @else

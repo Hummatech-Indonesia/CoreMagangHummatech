@@ -142,9 +142,7 @@ class PresentationController extends Controller
         $oldPresentation = Presentation::where('hummatask_team_id', $teamId)->first();
         $updateSuccess = false;
 
-        if ($presentation->hummatask_team_id && $presentation->hummatask_team_id !== $teamId) {
-            return back()->with('error', 'Jadwal sudah dipilih oleh tim lain');
-        }
+        if ($presentation->hummatask_team_id && $presentation->hummatask_team_id !== $teamId) return back()->with('error', 'Jadwal sudah dipilih oleh tim lain');
 
         $data = $request->validated();
         $data['hummatask_team_id'] = $teamId;

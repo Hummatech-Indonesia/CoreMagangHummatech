@@ -204,15 +204,7 @@
                         <label for="">Deskripsi</label>
                         <textarea name="description" id="" class="form-control"></textarea>
                     </div>
-                    <div class="mb-3">
-                        <label for="">Jenis</label>
-                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="type">
-                            <option selected>Jenis</option>
-                            <option value="file">File</option>
-                            <option value="image">Image</option>
-                            <option value="link">Link</option>
-                        </select>
-                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light shadow-none font-medium waves-effect text-start"

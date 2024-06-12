@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('title');
             $table->longText('description');
-            $table->enum('type', [AnswerTypeEnum::FILE->value, AnswerTypeEnum::IMAGE->value, AnswerTypeEnum::LINK->value]);
             $table->timestamps();
         });
     }

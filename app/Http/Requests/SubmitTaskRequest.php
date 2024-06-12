@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\CourseAssignmentTypeRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CourseAssignmentRequest extends FormRequest
+class SubmitTaskRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,8 +14,7 @@ class CourseAssignmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|max:255',
-            'description' => 'required',
+            'file' => 'required|mimes:zip,rar',
         ];
     }
 }

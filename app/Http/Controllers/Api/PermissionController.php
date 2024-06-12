@@ -30,6 +30,6 @@ class PermissionController extends Controller
         $data = $this->service->store($request);
         $data['student_id'] = auth()->user()->student->id;
         $this->permission->store($data);
-        return ResponseHelper::success(null , 'berhasil menambahkan izin');
+        return ResponseHelper::success(null , trans('alert.add_success'));
     }
 }

@@ -14,14 +14,14 @@
             <th>File</th>
             <th>Link</th>
             <th>status</th>
-            <th colspan="2">Aksi</th>
+            <th colspan="3">Aksi</th>
         </tr>
         @foreach ($submitTasks as $answer)
         <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $answer->student->name }}</td>
             <td>{{ $answer->file }}</td>
-            <td>{{ $answer->link }}</td>
+            <td></td>
             <td>{{ $answer->status }}</td>
             @if ($answer->status == "pending")
             <td>
@@ -40,8 +40,15 @@
                     <button type="submit">Tolak</button>
                 </form>
             </td>
+            <td>
+                <form action="{{ route('submit.task.answer.download', $answer->id) }}" method="POST">
+                    @csrf
+                    @method('post')
+                    <button type="submit">Download</button>
+                </form>
+            </td>
             @else
-            <td colspan="2"></td>
+            <td colspan="3"></td>
             @endif
 
         </tr>

@@ -14,11 +14,8 @@ use App\Models\Presentation;
 use App\Http\Requests\StorePresentationRequest;
 use App\Http\Requests\UpdatePresentationRequest;
 use App\Models\HummataskTeam;
-use App\Models\LimitPresentation;
-use App\Models\Mentor;
 use App\Models\Project;
 use App\Services\PresentationService;
-use Carbon;
 use DB;
 use Illuminate\Http\Request;
 

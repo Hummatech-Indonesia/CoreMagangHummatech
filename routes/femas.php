@@ -9,4 +9,5 @@ Route::prefix('submit-task-answer')->name('submit.task.answer.')->group(function
     Route::put('{submitTask}', [SubmitTaskController::class, 'update'])->name('update');
     Route::delete('{submitTask}', [SubmitTaskController::class, 'destroy'])->name('destroy');
     Route::patch('update-status/{submitTask}', [SubmitTaskController::class, 'updateStatus'])->name('update-status');
+    Route::post('download/{submitTask}', [SubmitTaskController::class, 'download'])->name('download');
 });

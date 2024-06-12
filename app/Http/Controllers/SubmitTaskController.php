@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\StudentCoursePositionInterface;
 use App\Contracts\Interfaces\SubmitTaskInterface;
 use App\Enum\StatusCourseEnum;
 use App\Enum\SubmitTaskStatusEnum;
+use App\Http\Requests\SubmitTaskRequest;
 use App\Http\Requests\UpdateStatusSubmitTaskRequest;
 use App\Models\CourseAssignment;
 use App\Models\SubmitTask;
@@ -46,7 +47,7 @@ class SubmitTaskController extends Controller
      * @param  mixed $courseAssignment
      * @return RedirectResponse
      */
-    public function store(Request $request, CourseAssignment $courseAssignment): RedirectResponse
+    public function store(SubmitTaskRequest $request, CourseAssignment $courseAssignment): RedirectResponse
     {
         $data = $this->service->store($request, $courseAssignment);
         $this->submitTask->store($data);
@@ -71,7 +72,7 @@ class SubmitTaskController extends Controller
      * @param  mixed $submitTask
      * @return RedirectResponse
      */
-    public function update(Request $request, SubmitTask $submitTask): RedirectResponse
+    public function update(SubmitTaskRequest $request, SubmitTask $submitTask): RedirectResponse
     {
         $data = $this->service->update($request, $submitTask);
         $this->submitTask->update($submitTask->id, $data);
@@ -113,7 +114,21 @@ class SubmitTaskController extends Controller
                     'position' => $submitTask->courseAssignment->course->position + 1,
                 ]);
             }
+            else {
+                $this->service->remove($submitTask->file);
+            }
         }
         return redirect()->back()->with('success', 'Berhasil menyimpan');
+    }
+
+    /**
+     * download
+     *
+     * @param  mixed $submitTask
+     * @return void
+     */
+    public function download(SubmitTask $submitTask)
+    {
+        return response()->download(storage_path('app/public/' . $submitTask->file));
     }
 }
