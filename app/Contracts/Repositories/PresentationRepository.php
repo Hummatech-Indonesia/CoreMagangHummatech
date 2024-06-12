@@ -24,6 +24,19 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     }
 
     /**
+     * getByTeam
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getByTeam(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('hummatask_team_id', $id)
+            ->first();
+    }
+
+    /**
      * getByDivision
      *
      * @param  mixed $id

@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCallbackRequest;
 use App\Models\Presentation;
 use App\Http\Requests\StorePresentationRequest;
+use App\Http\Requests\SubmitPresentationRequest;
 use App\Http\Requests\UpdatePresentationRequest;
 use App\Http\Resources\PresentationResource;
 use App\Models\HummataskTeam;
@@ -39,6 +40,45 @@ class PresentationController extends Controller
         $this->mentorDivision = $mentorDivision;
         $this->categoryProject = $categoryProject;
     }
+
+    /**
+     * schedule
+     *
+     * @return JsonResponse
+     */
+    public function schedule(): JsonResponse
+    {
+        $division = auth()->user()->student->division_id;
+        $presentations = $this->presentation->getByDivision($division);
+        return ResponseHelper::success(PresentationResource::collection($presentations));
+    }
+
+    /**
+     * submitPresentation
+     *
+     * @param  mixed $request
+     * @param  mixed $hummataskTeam
+     * @param  mixed $presentation
+     * @return JsonResponse
+     */
+    public function submitPresentation(SubmitPresentationRequest $request, HummataskTeam $hummataskTeam, Presentation $presentation): JsonResponse
+    {
+        $oldPresentation = $this->presentation->getByTeam($hummataskTeam->id);
+        if ($oldPresentation != null) {
+            $this->presentation->update($oldPresentation->id, [
+                'hummatask_team_id' => null,
+                'status_presentation' => null,
+                'title' => null,
+            ]);
+        }
+
+        $data = $request->validated();
+        $data['hummatask_team_id'] = $hummataskTeam->id;
+        $data['status_presentation'] = StatusPresentationEnum::PENNDING->value;
+        $this->presentation->update($presentation->id, $data);
+        return ResponseHelper::success(null, trans('alert.add_success'));
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -171,20 +211,6 @@ class PresentationController extends Controller
             return back()->with('error', 'Gagal memperbarui data');
         }
     }
-
-    /**
-     * schedule
-     *
-     * @return JsonResponse
-     */
-    public function schedule(): JsonResponse
-    {
-        $division = auth()->user()->student->division_id;
-        $presentations = $this->presentation->getByDivision($division);
-        return ResponseHelper::success(PresentationResource::collection($presentations));
-    }
-
-
 
     /**
      *
