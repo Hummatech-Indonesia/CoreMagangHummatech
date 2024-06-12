@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\AppointmentOfMentor;
 use App\Http\Controllers\Api\HummataskPresentationController;
 use App\Http\Controllers\Api\HummataskTeamController;
 use App\Http\Controllers\Api\MentorController;
+use App\Http\Controllers\Api\PresentationController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TransactionController;
@@ -39,7 +40,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('count_mentor' , [DashboardController::class , 'count']);
 
     Route::get('course/task/{course}', [CourseController::class, 'courseAssignment']);
-
+    // hummatask
+    Route::get('hummateam/team/{slug}/presentation', [PresentationController::class, 'usershow'])->name('team.presentation');
+    // end hummatask
     // api seluruh siswa
     Route::get('active-courses', [CourseController::class, 'activeCourses']);
     Route::post('attendance', [AttendanceController::class, 'storeAttendance']);
