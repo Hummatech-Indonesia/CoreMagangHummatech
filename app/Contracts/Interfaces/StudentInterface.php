@@ -158,4 +158,11 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
      */
     public function getByMentor(Request $request): mixed;
 
+    /**
+     * countByMentor
+     *
+     * @param  mixed $id
+     * @return int
+     */
+    public function countByMentor(mixed $id): int;
 }

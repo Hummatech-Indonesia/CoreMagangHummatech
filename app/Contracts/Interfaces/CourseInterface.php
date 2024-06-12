@@ -43,4 +43,12 @@ interface CourseInterface extends GetInterface, StoreInterface, DeleteInterface,
      * @return mixed
      */
     public function getSubscribeByDivision(mixed $division): mixed;
+
+    /**
+     * countByMentor
+     *
+     * @param  mixed $id
+     * @return int
+     */
+    public function countByMentor(mixed $id): int;
 }
