@@ -1,5 +1,6 @@
 @extends(auth()->user()->hasRole('siswa-online') ? 'student_online.layouts.app' : 'student_offline.layouts.app')
 
+
 @section('content')
     <div class="card bg-light-info shadow-none position-relative overflow-hidden">
         <div class="card-body px-4 py-3">
@@ -27,14 +28,13 @@
         @forelse ($courses as $course)
             <div class="col-md-4 col-xxl-3">
                 <div class="card card-body p-3">
-                    <img src="{{ asset('storage/' . $course->image) }}" class="rounded-1 mb-3 w-100" />
-
+                    <img src="{{ asset('storage/' . $course->image) }}" class="rounded-1 mb-3 w-100 img-fluid" style="height: 200px; object-fit: cover;" />
 
                     <a href="{{ url('/courses/detail') }}">
-                        <h1 class="h2 fw-bolder">{{ $course->title }}</h1>
+                        <h4 class="fw-bolder">{{ $course->title }}</h4>
                     </a>
 
-                    <p>{{ $course->description }}</p>
+                    <p>{{ Str::limit($course->description, 150, '...') }}</p>
 
                     <form action="" method="POST">
                         @csrf
