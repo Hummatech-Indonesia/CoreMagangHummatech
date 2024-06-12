@@ -46,13 +46,27 @@ class WarningLetterController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(StoreWarning_LetterRequest $request, WarningLetter $warningLetter, Student $student)
+    // {
+    //     // dd($request);
+    //     $data = $this->service->store($request, $warningLetter, $student);
+    //     $this->warningLetters->store($data);
+    //     return back()->with('success' , 'Berhasil Menambahkan data');
+    // }
+
     public function store(StoreWarning_LetterRequest $request, WarningLetter $warningLetter, Student $student)
     {
-        // dd($request);
+        $existingWarningLetter = $this->warningLetters->findByStudentIdAndStatus($request->student_id, $request->status);
+
+        if ($existingWarningLetter) {
+            return back()->withErrors(['status' => 'Siswa ini sudah memiliki SP ' . $request->status]);
+        }
+
         $data = $this->service->store($request, $warningLetter, $student);
         $this->warningLetters->store($data);
-        return back()->with('success' , 'Berhasil Menambahkan data');
+        return back()->with('success', 'Berhasil Menambahkan data');
     }
+
 
     /**
      * Display the specified resource.

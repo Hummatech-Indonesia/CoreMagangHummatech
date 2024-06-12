@@ -47,6 +47,7 @@ class JournalController extends Controller
     }
 
 
+
     public function getjournals()
     {
         $journals = $this->journal->getjournal();
@@ -114,6 +115,7 @@ class JournalController extends Controller
         $data = $this->service->update($journal, $request);
         $this->journal->update($journal->id, $data);
         return back()->with('success', 'Berhasi Memperbarui Data');
+        
     }
 
     /**

@@ -11,27 +11,35 @@
                 <div class="col-9">
                             @php
                             $teksnya = "";
+                            $statusnya = "";
                             switch ($transaction->status) {
                                 case "pending":
                                     $teksnya = "Menunggu pembayaran";
+                                    $statusnya = "Menunggu pembayaran";
                                     break;
                                 case "paid":
                                     $teksnya = "Yeay, Pesanan sudah di bayar";
+                                    $statusnya = "Pesanan sudah di bayar";
                                     break;
                                 case "cancelled":
                                     $teksnya = "Pesanan anda di batalkan";
+                                    $statusnya = "Dibatalkan";
                                     break;
                                 case "expired":
                                     $teksnya = "Pesanan telah kadaluarsa!";
+                                    $statusnya = "Kadaluarsa!";
                                     break;
                                 case "failed":
                                     $teksnya = "Pesanan gagal!";
+                                    $statusnya = "Gagal!";
                                     break;
                                 case "refund":
                                     $teksnya = "Pesanan dikembalikan!";
+                                    $statusnya = "Dikembalikan!";
                                     break;
                                 case "unpaid":
                                     $teksnya = "Pesanan belum di bayar!";
+                                    $statusnya = "Belum dibayar!";
                                     break;
                             }
                             @endphp
@@ -93,7 +101,7 @@
 
             <h3 class="mb-0">Status Pembayaran: <strong
                     class="{{ $statusLabels[$transaction->status]['class'] ?? 'text-muted' }}">
-                    {{ $teksnya }}
+                    {{ $statusnya }}
                 </strong>
             </h3>
             <div class="d-flex gap-2 align-items-center">

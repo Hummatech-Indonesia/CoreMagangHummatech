@@ -144,4 +144,16 @@ class MentorController extends Controller
         $courses = $this->course->whereDivision(auth()->user()->mentor->division->id);
         return ResponseHelper::success(CourseResource::collection($courses));
     }
+
+    /**
+     * statistic
+     *
+     * @return JsonResponse
+     */
+    public function statistic(): JsonResponse
+    {
+        $data['courses'] = $this->course->countByMentor(auth()->user()->mentor->division->id);
+        $data['students'] = $this->student->countByMentor(auth()->user()->mentor->id);
+        return ResponseHelper::success($data);
+    }
 }

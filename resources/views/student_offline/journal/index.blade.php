@@ -112,7 +112,7 @@
                     <thead class="text-dark fs-4">
                         <tr>
                             <th>
-                                <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
+                                <h6 class="fs-4 fw-semibold mb-0">Judul</h6>
                             </th>
                             <th>
                                 <h6 class="fs-4 fw-semibold mb-0">Tanggal</h6>
@@ -132,10 +132,7 @@
                         @forelse($journals as $key => $journal)
                             <tr>
                                 <td>
-                                    <div class="ms-3">
-                                        <h6 class="fs-4 fw-semibold mb-0">{{ $journal->student->name }}</h6>
-                                        <span class="fw-normal">{{ $journal->student->email }}</span>
-                                    </div>
+                                    <p class="mb-0 fw-normal fs-4">{{ $journal->title }}</p>
                                 </td>
                                 <td>
                                     <p class="mb-0 fw-normal fs-4">
@@ -147,7 +144,7 @@
                                         style="object-fit: cover" alt="" srcset="">
                                 </td>
                                 <td>
-                                    <p class="">
+                                    <p class="mb-0 fw-normal fs-4">
                                         {{ Str::limit($journal->description, 50) }}
                                     </p>
                                 </td>
@@ -248,9 +245,9 @@
                                 {{ $message }}
                             </p>
                         @enderror
-                        <label for="" class="mt-2 mb-2">Deskripsi</label>
+                        <label for="description-edit" class="mt-2 mb-2">Deskripsi</label>
                         <textarea name="description" id="description-edit" class="form-control" oninput="countCharactersEdit(this)"></textarea>
-                        <div id="characterCountEdit" class="text-muted"></div>
+                        <div id="characterCountEdit"></div>
                         @error('description')
                             <p class="text-danger">
                                 {{ $message }}
@@ -389,15 +386,16 @@
             }
         </script>
         <script>
-        function countCharactersEdit(element) {
-            var count = element.value.length;
-            var countElement = document.getElementById('characterCountEdit');
-            countElement.innerText = count + ' characters';
-            if (count >= 150) {
-                countElement.style.color = 'green';
-            } else {
-                countElement.style.color = 'red';
+            function countCharactersEdit(element) {
+                var count = element.value.length;
+                var countElement = document.getElementById('characterCountEdit');
+                countElement.innerText = count + ' characters';
+                if (count < 150) {
+                    countElement.style.color = 'red';
+                } else {
+                    countElement.style.color = 'green';
+                }
             }
-        }
         </script>
+
     @endsection

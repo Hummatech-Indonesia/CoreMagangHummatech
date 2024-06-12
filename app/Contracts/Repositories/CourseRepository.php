@@ -60,6 +60,19 @@ class CourseRepository extends BaseRepository implements CourseInterface
         return $this->model->query()->where('division_id' , $id)->where('status' , 'subcribe')->get();
     }
 
+    /**
+     * countByMentor
+     *
+     * @param  mixed $id
+     * @return int
+     */
+    public function countByMentor(mixed $id): int
+    {
+        return $this->model->query()
+            ->where('division_id', $id)
+            ->count();
+    }
+
     public function getPaid()
     {
         return $this->model->query()->where('status' , 'paid')->get();

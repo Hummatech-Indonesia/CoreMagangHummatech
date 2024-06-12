@@ -144,6 +144,7 @@
                                         <tr class="table-light">
                                             <th scope="col">No.</th>
                                             <th scope="col">Siswa</th>
+                                            <th scope="col">Divisi</th>
                                             <th scope="col">Tanggal Mulai</th>
                                             <th scope="col">Tanggal Selesai</th>
                                             <th scope="col">Email</th>
@@ -162,6 +163,7 @@
                                                         <p class="text-primary">{{ $student->school }}</p>
                                                     </div>
                                                 </td>
+                                                <td>{{$student->division->name}}</td>
                                                 <td>{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}
                                                 </td>
                                                 <td>{{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}
