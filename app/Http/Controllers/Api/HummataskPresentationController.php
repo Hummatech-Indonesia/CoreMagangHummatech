@@ -25,14 +25,4 @@ class HummataskPresentationController extends Controller
         return ResponseHelper::success(null, "Berhasil menyimpane presentasi");
     }
 
-    /**
-     * schedule
-     *
-     * @return JsonResponse
-     */
-    public function schedule(): JsonResponse
-    {
-        $schedules = $this->presentation->getScheduleTodayByMentor($this->mentorStudent->getByStudent(auth()->user()->student->id)->mentor_id);
-        return ResponseHelper::success(PresentationScheduleResource::collection($schedules));
-    }
 }

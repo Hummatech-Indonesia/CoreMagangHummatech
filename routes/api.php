@@ -58,7 +58,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('team/member/{hummataskTeam}', [HummataskTeamController::class, 'member']);
         Route::get('team/{hummataskTeam}', [HummataskTeamController::class, 'show']);
         Route::get('team', [ProfileController::class, 'studentAllTeam']);
-        Route::get('presentation/schedule', [HummataskPresentationController::class, 'schedule']);
         Route::post('presentation', [HummataskPresentationController::class, 'store']);
     });
 
