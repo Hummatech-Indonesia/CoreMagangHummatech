@@ -23,6 +23,19 @@ class PresentationRepository extends BaseRepository implements PresentationInter
         $this->model = $presentation;
     }
 
+    /**
+     * getByDivision
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getByDivision(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->whereRelation('mentor', 'division_id', '=', $id)
+            ->get();
+    }
+
     public function GetToday(): mixed
     {
         return $this->model->query()

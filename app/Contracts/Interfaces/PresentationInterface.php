@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 
 interface PresentationInterface extends GetInterface, StoreInterface, UpdateInterface, DeleteInterface
 {
+
+    /**
+     * getByDivision
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getByDivision(mixed $id): mixed;
+
     public function whereStatus(mixed $status): mixed;
     public function GetToday(): mixed;
     public function deleteAll(): mixed;

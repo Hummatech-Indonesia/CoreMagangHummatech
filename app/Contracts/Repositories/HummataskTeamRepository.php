@@ -7,7 +7,6 @@ use App\StatusProjectEnum;
 
 class HummataskTeamRepository extends BaseRepository implements HummataskTeamInterface
 {
-    private HummataskTeamInterface  $hummatask_team;
 
     public function __construct(HummataskTeam $hummatask_team)
     {

@@ -8,15 +8,18 @@ use App\Contracts\Interfaces\LimitPresentationInterface;
 use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\PresentationInterface;
 use App\Enum\StatusPresentationEnum;
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCallbackRequest;
 use App\Models\Presentation;
 use App\Http\Requests\StorePresentationRequest;
 use App\Http\Requests\UpdatePresentationRequest;
+use App\Http\Resources\PresentationResource;
 use App\Models\HummataskTeam;
 use App\Models\Project;
 use App\Services\PresentationService;
 use DB;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PresentationController extends Controller
@@ -167,6 +170,18 @@ class PresentationController extends Controller
             DB::rollback();
             return back()->with('error', 'Gagal memperbarui data');
         }
+    }
+
+    /**
+     * schedule
+     *
+     * @return JsonResponse
+     */
+    public function schedule(): JsonResponse
+    {
+        $division = auth()->user()->student->division_id;
+        $presentations = $this->presentation->getByDivision($division);
+        return ResponseHelper::success(PresentationResource::collection($presentations));
     }
 
 

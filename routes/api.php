@@ -51,6 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('nonactive-courses', [CourseController::class, 'nonactiveCourses']);
 
     Route::prefix('hummatask')->group(function () {
+        Route::get('presentation/schedule', [PresentationController::class, 'schedule']);
         Route::get('team/{slug}/presentation', [PresentationController::class, 'usershow']);
         Route::post('team', [HummataskTeamController::class, 'store']);
         Route::put('team/{hummataskTeam}', [HummataskTeamController::class, 'update']);
