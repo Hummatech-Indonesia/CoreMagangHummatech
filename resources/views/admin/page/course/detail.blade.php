@@ -55,9 +55,9 @@
                     <button class="btn btn-secondary shadow-none me-2" data-bs-toggle="modal" data-bs-target="#add">
                         Tambah Sub Materi
                     </button>
-                    <button class="btn btn-secondary shadow-none" data-bs-toggle="modal" data-bs-target="#addtask">
+                    {{-- <button class="btn btn-secondary shadow-none" data-bs-toggle="modal" data-bs-target="#addtask">
                         Tambah Tugas
-                    </button>
+                    </button> --}}
                 </div>
             </div>
         </div>
@@ -284,7 +284,7 @@
     </div>
 </div>
 
-<h1>Tugas</h1>
+{{-- <h1>Tugas</h1>
 @foreach ($assignments as $assignment)
 <hr>
     <h6>{{ $assignment->title }}</h6>
@@ -295,7 +295,70 @@
         <button type="submit" class="btn btn-danger">Hapus</button>
     </form>
 <hr>
-@endforeach
+@endforeach --}}
+
+
+
+<div class="card my-4">
+    <div class="p-3 py-2">
+        <div class="d-flex g-2 align-items-center">
+            <div class="col-sm-4">
+                <div class="p-3 d-flex gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="23" class="me-2" height="19" viewBox="0 0 23 19"
+                        fill="none">
+                        <path
+                            d="M11.5 18C9.9038 17.0547 8.09313 16.5571 6.25 16.5571C4.40686 16.5571 2.5962 17.0547 1 18V2.44294C2.5962 1.49765 4.40686 1 6.25 1C8.09313 1 9.9038 1.49765 11.5 2.44294M11.5 18C13.0962 17.0547 14.9069 16.5571 16.75 16.5571C18.5931 16.5571 20.4038 17.0547 22 18V2.44294C20.4038 1.49765 18.5931 1 16.75 1C14.9069 1 13.0962 1.49765 11.5 2.44294M11.5 18V2.44294"
+                            stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span class="h4 mb-0">Tugas</span>
+                </div>
+            </div>
+            <div class="col-sm-auto col-xl-4 ms-auto d-flex gap-4 justify-content-end">
+                <div class="list-grid-nav hstack">
+                    <button class="btn btn-secondary shadow-none" data-bs-toggle="modal" data-bs-target="#addtask">
+                        Tambah Tugas
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="tab-content text-muted">
+    <div class="tab-pane active show" id="home-1" role="tabpanel">
+        <div class="row">
+            @forelse ($assignments as $assignment)
+                <div class="col-12 mb-3">
+                    <div class="card border-start border-info py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="col-lg-9 col-sm-12 px-4">
+                                <h4>{{ $assignment->title }}</h4>
+                                <p class="mb-0">{{ $assignment->description }}</p>
+                            </div>
+                            <div class="d-flex gap-3">
+                                <a href="{{ route('assignment.submit-task', $assignment->id) }}" class="btn btn-primary">Lihat detail</a>
+                                <form action="{{ route('course-assignment.destroy', $assignment->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="d-flex justify-content-center mb-2 mt-5">
+                    <img src="{{ asset('no data.png') }}" alt="" width="300px">
+                </div>
+                <p class="fs-5 text-dark text-center">Data Masih Kosong</p>
+            @endforelse
+            {{ $subCourses->links() }}
+        </div>
+    </div>
+</div>
+
+
 
 @include('admin.components.delete-modal-component')
 @endsection
