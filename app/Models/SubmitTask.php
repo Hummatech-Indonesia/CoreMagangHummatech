@@ -20,7 +20,6 @@ class SubmitTask extends Model implements HasStudent, HasCourseAssignment
         'course_assignment_id',
         'student_id',
         'file',
-        'link',
         'status',
     ];
 

@@ -10,10 +10,12 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\AppointmentOfMentor;
+use App\Http\Controllers\Api\CourseAssignmentController;
 use App\Http\Controllers\Api\HummataskPresentationController;
 use App\Http\Controllers\Api\HummataskTeamController;
 use App\Http\Controllers\Api\MentorController;
 use App\Http\Controllers\Api\PresentationController;
+use App\Http\Controllers\Api\SubmitTaskController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TransactionController;
@@ -71,6 +73,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('courses', [MentorController::class, 'courses']);
         Route::get('statistic', [MentorController::class, 'statistic']);
     });
+
+    Route::post('submit-task/{courseAssignment}', [SubmitTaskController::class, 'store']);
+    Route::get('course-assignment/{courseAssignment}', [CourseAssignmentController::class, 'show']);
     Route::get('hummatask_team', [ProfileController::class, 'hummataskteam']);
 });
 Route::post('sync', [AttendanceController::class, 'sync']);
