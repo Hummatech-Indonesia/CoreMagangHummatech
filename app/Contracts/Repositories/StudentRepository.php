@@ -617,6 +617,19 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->get();
     }
 
+    /**
+     * countByMentor
+     *
+     * @param  mixed $id
+     * @return int
+     */
+    public function countByMentor(mixed $id): int
+    {
+        return $this->model->query()
+            ->whereRelation('mentorstudent', 'mentor_id', '=', $id)
+            ->count();
+    }
+
 
     // public function whereRfidNull(Request $request): mixed
     // {
