@@ -68,6 +68,7 @@ class CategoryBoardRepository extends BaseRepository implements CategoryBoardInt
     public function getByHummataskTeamId(mixed $id): mixed
     {
         return $this->model->query()
+            ->with('boards')
             ->where('hummatask_team_id', $id)
             ->get();
     }

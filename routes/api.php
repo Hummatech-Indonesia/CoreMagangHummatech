@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\CourseAssignmentController;
 use App\Http\Controllers\Api\HummataskPresentationController;
 use App\Http\Controllers\Api\HummataskTeamController;
 use App\Http\Controllers\Api\MentorController;
+use App\Http\Controllers\Api\NoteController;
 use App\Http\Controllers\Api\PresentationController;
 use App\Http\Controllers\Api\SubmitTaskController;
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
@@ -51,6 +52,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('nonactive-courses', [CourseController::class, 'nonactiveCourses']);
 
     Route::prefix('hummatask')->group(function () {
+
+        Route::get('notes/{hummataskTeam}', [NoteController::class, 'index']);
+
         Route::post('presentation/submit/{hummataskTeam}/{presentation}', [PresentationController::class, 'submitPresentation']);
         Route::get('presentation-history/{hummataskTeam}', [PresentationController::class, 'history']);
         Route::get('presentation/schedule', [PresentationController::class, 'schedule']);
@@ -66,7 +70,6 @@ Route::middleware('auth:sanctum')->group(function () {
     // api mentor
     Route::prefix('mentor')->group(function () {
         Route::get('presentation', [MentorController::class, 'listPresentation']);
-
         Route::get('student-offline', [MentorController::class, 'listStudentOffline']);
         Route::get('student-online', [MentorController::class, 'listStudentOnline']);
         Route::get('student-offline-attendances', [MentorController::class, 'studentOfflineAttendances']);
