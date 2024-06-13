@@ -157,7 +157,7 @@ class MentorController extends Controller
      */
     public function listPresentation(Request $request): JsonResponse
     {
-        $request->merge(['division_id' => auth()->user()->mentor->division->id, 'submission' => true]);
+        $request->merge(['division_id' => auth()->user()->mentor->division->id, 'submission' => "1"]);
         $presentations = $this->presentation->getByDivision($request);
         return ResponseHelper::success(PresentationResource::collection($presentations));
     }
