@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Contracts\Interfaces\CourseInterface;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
+use App\Contracts\Interfaces\PresentationInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Enum\InternshipTypeEnum;
 use App\Helpers\ResponseHelper;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CourseResource;
 use App\Http\Resources\JournalMentorResource;
 use App\Http\Resources\JournalResource;
+use App\Http\Resources\PresentationResource;
 use App\Http\Resources\StudentAttendanceResource;
 use App\Http\Resources\StudentResource;
 use Illuminate\Http\JsonResponse;
@@ -23,8 +25,10 @@ class MentorController extends Controller
     private CourseInterface $course;
     private JournalInterface $journal;
     private MentorStudentInterface $mentorStudent;
-    public function __construct(StudentInterface $studentInterface, JournalInterface $journalInterface, MentorStudentInterface $mentorStudentInterface, CourseInterface $courseInterface)
+    private PresentationInterface $presentation;
+    public function __construct(StudentInterface $studentInterface, JournalInterface $journalInterface, MentorStudentInterface $mentorStudentInterface, CourseInterface $courseInterface, PresentationInterface $presentationInterface)
     {
+        $this->presentation = $presentationInterface;
         $this->course = $courseInterface;
         $this->mentorStudent = $mentorStudentInterface;
         $this->student = $studentInterface;
@@ -143,6 +147,19 @@ class MentorController extends Controller
     {
         $courses = $this->course->whereDivision(auth()->user()->mentor->division->id);
         return ResponseHelper::success(CourseResource::collection($courses));
+    }
+
+    /**
+     * listPresentation
+     *
+     * @param  mixed $request
+     * @return JsonResponse
+     */
+    public function listPresentation(Request $request): JsonResponse
+    {
+        $request->merge(['division_id' => auth()->user()->mentor->division->id, 'submission' => true]);
+        $presentations = $this->presentation->getByDivision($request);
+        return ResponseHelper::success(PresentationResource::collection($presentations));
     }
 
     /**

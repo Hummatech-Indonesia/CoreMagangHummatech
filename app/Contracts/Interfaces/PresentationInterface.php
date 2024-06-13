@@ -14,10 +14,10 @@ interface PresentationInterface extends GetInterface, StoreInterface, UpdateInte
     /**
      * getByDivision
      *
-     * @param  mixed $id
+     * @param  mixed $request
      * @return mixed
      */
-    public function getByDivision(mixed $id): mixed;
+    public function getByDivision(Request $request): mixed;
 
     /**
      * get by team today
