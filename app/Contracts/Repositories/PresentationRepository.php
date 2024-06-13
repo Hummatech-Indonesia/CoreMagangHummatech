@@ -47,7 +47,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     {
         return $this->model->query()
             ->where('hummatask_team_id', $id)
-            ->first();
+            ->get();
     }
 
     /**
