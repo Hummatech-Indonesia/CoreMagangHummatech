@@ -61,6 +61,22 @@
 
 @extends('admin.layouts.app')
 
+@section('style')
+<style>
+    .custom-badge {
+        background-color: transparent !important;
+        color: black !important;
+        /* border: 1px solid #ccc !important; */
+        font-size: 12px;
+    }
+
+    .custom-icon {
+        color: rgba(255, 191, 0, 0.873) !important;
+    }
+
+</style>
+@endsection
+
 @section('content')
 
 <div class="card my-4">
@@ -92,36 +108,68 @@
 <div class="tab-content text-muted">
     <div class="tab-pane active show" id="home-1" role="tabpanel">
         <div class="row">
-            <div class="col-md-3 mb-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-center mb-4">
-                            <img src="" class="rounded-circle" alt="Profile Picture" width="150" height="150">
-                        </div>
-                        <h5 class="card-title">Panji Petualang</h5>
-                        <div class="d-flex justify-content-center align-items-center mb-2">
-                            <span class="badge bg-secondary ">
-                                <i class="fas fa-file-archive"></i> nama-file.zip
-                            </span>
-                            <a href="#" class="btn btn-light-primary p-0 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                <i class="las la-download fs-2 text-primary"></i>
-                            </a>
-                            <span class="badge bg-info-subtle text-info">Info</span>
-                        </div>
-                        <p class="card-text">Jumat, 22 Mei 2024</p>
-                        <div class="d-flex justify-content-center gap-2">
-                            <form action="#" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-danger">Tolak</button>
-                            </form>
-                            <form action="#" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-success">Terima</button>
-                            </form>
+            @forelse ($submitTasks as $answer)
+                <div class="col-md-3 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center mb-4">
+                                {{-- <img src="" class="rounded-circle" alt="Profile Picture" width="150" height="150"> --}}
+                                @if (file_exists(public_path('storage/' . $answer->student->avatar)))
+                                    <img class="rounded-circle" style="object-fit: cover;" width="50" height="50"
+                                        src="{{ asset('storage/' . $answer->student->avatar) }}">
+                                @else
+                                    <img class="rounded-circle" style="object-fit: cover" width="50" height="50"
+                                        src="{{ asset('user.webp') }}">
+                                @endif
+                            </div>
+                            <h5 class="card-title">{{ $answer->student->name }}</h5>
+                            <div class="d-flex justify-content-center align-items-center mb-2">
+                                <span class="badge custom-badge p-2">
+                                    <i class="ri-file-zip-fill custom-icon fs-5"></i> TugasBaru.zip
+                                </span>
+
+                                <form action="{{ route('submit.task.answer.download', $answer->id) }}" method="POST">
+                                    @csrf
+                                    @method('post')
+                                    <span class="badge bg-info-subtle text-info ms-2 p-2">
+                                        <button type="submit" style="border: none; background: none; padding: 0;">
+                                            <i class="las la-download text-info fs-4"></i>
+                                        </button>
+                                    </span>
+                                </form>
+                            </div>
+
+                            {{-- <p class="card-text">{{ $answer->status }}</p> --}}
+
+                            <p class="text-{{ $answer->status->color() }}">
+                                    {{ $answer->status->label() }}
+                            </p>
+                            @if ($answer->status == "pending")
+                                <div id="pending-actions" class="d-flex justify-content-center gap-2">
+                                    <form action="{{ route('submit.task.answer.update-status', $answer->id) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <input type="hidden" name="status" value="agree">
+                                        <button type="submit" class="btn btn-success">Terima</button>
+                                    </form>
+                                    <form action="{{ route('submit.task.answer.update-status', $answer->id) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <input type="hidden" name="status" value="reject">
+                                        <button type="submit" class="btn btn-danger">Tolak</button>
+                                    </form>
+                                </div>
+                            @else
+                                <div id="no-actions" class="d-flex justify-content-center gap-2">
+                                    <span></span>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
-            </div>
+            @empty
+
+            @endforelse
         </div>
     </div>
 </div>
