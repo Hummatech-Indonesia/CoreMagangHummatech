@@ -61,7 +61,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
         return $this->model->query()
             ->whereRelation('mentor', 'division_id', '=', $request->division_id)
             ->when($request->submission == true, function ($query) {
-                $query->whereNull('hummatask_team_id');
+                $query->whereNotNull('hummatask_team_id');
             })
             ->whereDate('created_at', now())
             ->get();
