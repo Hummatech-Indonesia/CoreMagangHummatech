@@ -26,6 +26,8 @@ class StudentResource extends JsonResource
             'school' => $this->school,
             'rfid' => $this->rfid,
             'gender' => $this->gender,
+            'start_date' => $this->start_date,
+            'finish_date' => $this->finish_date,
             'address' => $this->address,
             'phone_number' => $this->phone,
             'role' => $this->hasOneUser->roles->pluck('name')->toArray()[0],
