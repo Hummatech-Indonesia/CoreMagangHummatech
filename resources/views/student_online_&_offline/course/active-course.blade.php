@@ -71,47 +71,52 @@
 <!-- isi start -->
 <div class="tab-content">
     <div id="note-full-container" class="note-has-grid row">
-        <div class="col-md-4 single-note-item all-category note-business">
+        <div class="row">
             @foreach ($subscibeCourses as $course)
-            <div class="card card-body p-3 disable" style="background-color: rgba(255, 255, 255, 0.5);">
-                <div class="w-full h-full bg-black opacity-25 absol"></div>
-                <img src="{{ asset('storage/' . $course->image) }}" style="object-fit: cover;" width="20em"
-                    height="170em" class="card-img-top img-responsive w-100 mb-2" />
-                <a href="{{ url('/courses/detail')}}">
-                    <h1 class="h2 fw-bolder">{{ $course->title }}</h1>
-                </a>
+            <div class="col-md-4 mb-4">
+                <div class="card card-body p-3 position-relative" style="background-color: rgba(255, 255, 255, 0.5);">
+                    <div class="w-full h-full bg-black opacity-25 position-absolute top-0 start-0"></div>
+                    <img src="{{ asset('storage/' . $course->image) }}" style="object-fit: cover;" width="100%"
+                        height="170" class="card-img-top mb-2" />
+                    <a href="{{ url('/courses/detail')}}">
+                        <h1 class="h2 fw-bolder text-white">{{ $course->title }}</h1>
+                    </a>
+                    <p class="text-white">{{ Str::limit($course->description, 150) }}</p>
 
-                <p>{{ $course->description }}</p>
-
-                @if ($position >= $course->position)
-                <div class="d-flex flex-column flex-lg-row gap-2 w-100">
-                    <a href="{{ route('siswa-online.course.detail', $course->id) }}"
-                        class="btn w-100 btn-lg btn-outline-primary">Detail</a>
+                    @if ($position >= $course->position)
+                    <div class="d-flex flex-column flex-lg-row gap-2 w-100">
+                        <a href="{{ route('siswa-online.course.detail', $course->id) }}"
+                            class="btn btn-lg btn-outline-primary w-100">Detail</a>
+                    </div>
+                    @endif
                 </div>
-                @endif
             </div>
             @endforeach
         </div>
 
-        <div class="col-md-4 single-note-item all-category note-important">
+
+        <div class="row">
             @foreach ($courses as $course)
-            <div class="card card-body p-3" style="background-color: rgba(255, 255, 255, 0.5);">
-                <div class="w-full h-full bg-black opacity-25 absol"></div>
-                <img src="{{ asset('storage/' . $course->course->image) }}" style="object-fit: cover;" width="20em"
-                    height="170em" class="card-img-top img-responsive w-100 mb-2" />
-                <a href="{{ route('siswa-online.course.detail', $course->course->id) }}">
-                    <h1 class="h2 fw-bolder">{{ $course->course->title }}</h1>
-                </a>
+            <div class="col-md-4 mb-4">
+                <div class="card card-body p-3 position-relative" style="background-color: rgba(255, 255, 255, 0.5);">
+                    <div class="w-full h-full bg-black opacity-25 position-absolute top-0 start-0"></div>
+                    <img src="{{ asset('storage/' . $course->course->image) }}" style="object-fit: cover;" width="100%"
+                        height="170" class="card-img-top mb-2" />
+                    <a href="{{ route('siswa-online.course.detail', $course->course->id) }}">
+                        <h1 class="h2 fw-bolder text-white">{{ $course->course->title }}</h1>
+                    </a>
+                    {{-- <p class="text-white">{{ $course->course->description }}</p> --}}
+                    <p class="text-white">{{ Str::limit($course->course->description, 150) }}</p>
 
-                <p>{{ $course->course->description }}</p>
-
-                <div class="d-flex flex-column flex-lg-row gap-2 w-100">
-                    <a href="{{ route('siswa-online.course.detail', $course->course->id) }}"
-                        class="btn w-100 btn-lg btn-outline-primary">Detail</a>
+                    <div class="d-flex flex-column flex-lg-row gap-2 w-100">
+                        <a href="{{ route('siswa-online.course.detail', $course->course->id) }}"
+                            class="btn btn-lg btn-outline-primary w-100">Detail</a>
+                    </div>
                 </div>
             </div>
             @endforeach
         </div>
+
     </div>
     <!-- Modal Add notes -->
     <div class="modal fade" id="addnotesmodal" tabindex="-1" role="dialog" aria-labelledby="addnotesmodalTitle"
