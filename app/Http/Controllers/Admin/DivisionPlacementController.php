@@ -41,16 +41,37 @@ class DivisionPlacementController extends Controller
         return view('admin.page.offline-students.division-placement', compact('studentOfflines', 'divisions', 'students'));
     }
 
-    public function divisionplacement( UpdateStudentRequest $request, Student $student)
+    // public function divisionplacement( UpdateStudentRequest $request, Student $student)
+    // {
+    //     $mentorDivisions = $this->mentorDivision->whereMentorDivision($request->division_id);
+    //     foreach ($mentorDivisions as $mentor) {
+    //         $data['student_id'] = $student->id;
+    //         $data['mentor_id'] = $mentor->id;
+    //         $this->mentorStudent->store($data);
+    //     }
+    //     $this->student->update($student->id, ['division_id' => $request->division_id]);
+    //     return redirect()->back()->with(['success' => 'Berhasil menetapkan divisi']);
+    // }
+
+    public function divisionplacement(UpdateStudentRequest $request, Student $student)
     {
-        $mentorDivisions = $this->mentorDivision->whereMentorDivision($request->division_id);
-        foreach ($mentorDivisions as $mentor) {
-            $data['student_id'] = $student->id;
-            $data['mentor_id'] = $mentor->id;
-            $this->mentorStudent->store($data);
+        try {
+            $mentorDivisions = $this->mentorDivision->whereMentorDivision($request->division_id);
+
+            foreach ($mentorDivisions as $mentorDivision) {
+                $data = [
+                    'mentor_id' => $mentorDivision->id,
+                    'student_id' => $student->id,
+                ];
+                $this->mentorStudent->store($data);
+            }
+
+            $this->student->update($student->id, ['division_id' => $request->division_id]);
+
+            return redirect()->back()->with(['success' => 'Berhasil menetapkan divisi']);
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' => 'Gagal menetapkan divisi: ' . $e->getMessage()]);
         }
-        $this->student->update($student->id, ['division_id' => $request->division_id]);
-        return redirect()->back()->with(['success' => 'Berhasil menetapkan divisi']);
     }
 
     // public function divisionchange( UpdateStudentRequest $request, Student $student)
