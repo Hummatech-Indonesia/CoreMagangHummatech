@@ -52,6 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('hummatask')->group(function () {
         Route::post('presentation/submit/{hummataskTeam}/{presentation}', [PresentationController::class, 'submitPresentation']);
+        Route::get('presentation-history/{hummataskTeam}', [PresentationController::class, 'history']);
         Route::get('presentation/schedule', [PresentationController::class, 'schedule']);
         Route::get('team/{slug}/presentation', [PresentationController::class, 'usershow']);
         Route::post('team', [HummataskTeamController::class, 'store']);

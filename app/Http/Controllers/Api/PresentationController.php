@@ -54,6 +54,18 @@ class PresentationController extends Controller
     }
 
     /**
+     * history
+     *
+     * @param  mixed $hummataskTeam
+     * @return JsonResponse
+     */
+    public function history(HummataskTeam $hummataskTeam): JsonResponse
+    {
+        $histories = $this->presentation->getByTeam($hummataskTeam->id);
+        return ResponseHelper::success(PresentationResource::collection($histories));
+    }
+
+    /**
      * submitPresentation
      *
      * @param  mixed $request
@@ -63,7 +75,7 @@ class PresentationController extends Controller
      */
     public function submitPresentation(SubmitPresentationRequest $request, HummataskTeam $hummataskTeam, Presentation $presentation): JsonResponse
     {
-        $oldPresentation = $this->presentation->getByTeam($hummataskTeam->id);
+        $oldPresentation = $this->presentation->getByTeamToday($hummataskTeam->id);
         if ($oldPresentation != null) {
             $this->presentation->update($oldPresentation->id, [
                 'hummatask_team_id' => null,

@@ -20,7 +20,15 @@ interface PresentationInterface extends GetInterface, StoreInterface, UpdateInte
     public function getByDivision(mixed $id): mixed;
 
     /**
-     * getByTeam
+     * get by team today
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getByTeamToday(mixed $id): mixed;
+
+    /**
+     * get by team
      *
      * @param  mixed $id
      * @return mixed

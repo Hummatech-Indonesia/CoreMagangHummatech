@@ -24,7 +24,21 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     }
 
     /**
-     * getByTeam
+     * get by team today
+     *
+     * @param  mixed $id
+     * @return mixed
+     */
+    public function getByTeamToday(mixed $id): mixed
+    {
+        return $this->model->query()
+            ->where('hummatask_team_id', $id)
+            ->whereDate('created_at', now())
+            ->first();
+    }
+
+    /**
+     * get by team
      *
      * @param  mixed $id
      * @return mixed
@@ -33,7 +47,6 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     {
         return $this->model->query()
             ->where('hummatask_team_id', $id)
-            ->whereDate('created_at', now())
             ->first();
     }
 
