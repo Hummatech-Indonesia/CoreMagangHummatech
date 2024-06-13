@@ -56,23 +56,25 @@ class DivisionPlacementController extends Controller
     public function divisionplacement(UpdateStudentRequest $request, Student $student)
     {
         try {
-            $mentorDivisions = $this->mentorDivision->whereMentorDivision($request->division_id);
+            $divisionId = $request->division_id;
+            $mentorDivisions = $this->mentorDivision->whereMentorDivision($divisionId);
 
             foreach ($mentorDivisions as $mentorDivision) {
                 $data = [
-                    'mentor_id' => $mentorDivision->id,
+                    'mentor_id' => $mentorDivision->mentor_id,
                     'student_id' => $student->id,
                 ];
                 $this->mentorStudent->store($data);
             }
 
-            $this->student->update($student->id, ['division_id' => $request->division_id]);
+            $this->student->update($student->id, ['division_id' => $divisionId]);
 
             return redirect()->back()->with(['success' => 'Berhasil menetapkan divisi']);
         } catch (\Exception $e) {
             return redirect()->back()->with(['error' => 'Gagal menetapkan divisi: ' . $e->getMessage()]);
         }
     }
+
 
     // public function divisionchange( UpdateStudentRequest $request, Student $student)
     // {
