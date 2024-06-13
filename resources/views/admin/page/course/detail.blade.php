@@ -321,31 +321,61 @@
     <div class="tab-pane active show" id="home-1" role="tabpanel">
         <div class="row">
             @forelse ($assignments as $assignment)
-                <div class="col-12 mb-3">
-                    <div class="card border-start border-info py-3 px-4">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="col-lg-9 col-sm-12 px-4">
-                                <h4>{{ $assignment->title }}</h4>
-                                <p class="mb-0">{{ $assignment->description }}</p>
-                            </div>
-                            <div class="d-flex gap-3">
-                                <a href="{{ route('assignment.submit-task', $assignment->id) }}" class="btn btn-primary">Lihat detail</a>
-                                <form action="{{ route('course-assignment.destroy', $assignment->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Hapus</button>
-                                </form>
+            <div class="col-12">
+                <div class="card border-start border-info py-3 px-4">
+                    <div class="d-flex align-items-center no-block align-items-start">
+                        {{-- <div class="col-lg-1 col-md-10 col-sm-1">
+                            <img class="img-responsive w-100 rounded"
+                                src="{{ asset('storage/' . $subCourse->image_course) }}" />
+                        </div> --}}
+                        <div class="col-lg-9 col-sm-12 px-4">
+                            <h4>{{ $assignment->title }}</h4>
+                            <p class="mb-0">{{ Str::limit(strip_tags($assignment->description), 200) }}</p>
+                        </div>
+                        <div class="ms-auto">
+                            <div class="dropdown d-inline-block">
+                                <button class="bg-transparent border-0 fs-2 dropdown" style="margin-top: -10px"
+                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="ri-more-fill align-middle"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a href="{{ route('assignment.submit-task', $assignment->id) }}" type="button"
+                                            class="dropdown-item btn-show">
+                                            Detail
+                                        </a>
+                                    </li>
+                                    {{-- <li>
+                                        <button type="button" class="dropdown-item edit-item-btn btn-edit"
+                                            data-id="{{ $subCourse->id }}" data-title="{{ $subCourse->title }}"
+                                            data-description="{{ $subCourse->description }}"
+                                            data-image="{{ $subCourse->image_course }}"
+                                            data-file="{{ $subCourse->file_course }}"
+                                            data-video="{{ $subCourse->video_course }}">
+                                            Edit Sub Materi
+                                        </button>
+                                    </li> --}}
+                                    <li>
+                                        <form action="{{ route('course-assignment.destroy', $assignment->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-danger" style="background: none; border: none; padding: 0; margin-left: 19px;">Hapus</button>
+                                        </form>
+                                    </li>
+
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             @empty
                 <div class="d-flex justify-content-center mb-2 mt-5">
                     <img src="{{ asset('no data.png') }}" alt="" width="300px">
                 </div>
                 <p class="fs-5 text-dark text-center">Data Masih Kosong</p>
             @endforelse
-            {{ $subCourses->links() }}
+            {{-- {{ $subCourses->links() }} --}}
         </div>
     </div>
 </div>

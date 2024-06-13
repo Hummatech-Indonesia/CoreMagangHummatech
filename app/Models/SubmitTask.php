@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Base\Interfaces\HasCourseAssignment;
 use App\Base\Interfaces\HasStudent;
+use App\Enum\SubmitTaskStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -43,5 +44,9 @@ class SubmitTask extends Model implements HasStudent, HasCourseAssignment
     {
         return $this->belongsTo(CourseAssignment::class);
     }
+
+    protected $casts = [
+        'status' => SubmitTaskStatusEnum::class,
+    ];
 
 }
