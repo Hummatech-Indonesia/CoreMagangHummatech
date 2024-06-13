@@ -36,13 +36,26 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="mb-3">
+                                        {{-- <div class="mb-3">
                                             <label for="monthInput" class="form-label">Bulan</label>
                                             <select class="form-select" id="monthInput" name="month">
                                                 @foreach ($attendanceMonth as $month)
                                                     <option
                                                         value="{{ $month->month }}"{{ request()->input('month', now()->month) == $month->month ? ' selected' : '' }}>
                                                         {{ $month->month }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div> --}}
+                                        <div class="mb-3">
+                                            <label for="monthInput" class="form-label">Bulan</label>
+                                            <select class="form-select" id="monthInput" name="month">
+                                                @foreach ($attendanceMonth as $month)
+                                                    @php
+                                                        $monthName = Carbon::create()->month($month->month)->locale('id')->translatedFormat('F');
+                                                    @endphp
+                                                    <option value="{{ $month->month }}"{{ request()->input('month', now()->month) == $month->month ? ' selected' : '' }}>
+                                                        {{ ucfirst($monthName) }}
                                                     </option>
                                                 @endforeach
                                             </select>
