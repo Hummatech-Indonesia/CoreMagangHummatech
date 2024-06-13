@@ -65,6 +65,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // api mentor
     Route::prefix('mentor')->group(function () {
+        Route::get('presentation', [MentorController::class, 'listPresentation']);
+
         Route::get('student-offline', [MentorController::class, 'listStudentOffline']);
         Route::get('student-online', [MentorController::class, 'listStudentOnline']);
         Route::get('student-offline-attendances', [MentorController::class, 'studentOfflineAttendances']);

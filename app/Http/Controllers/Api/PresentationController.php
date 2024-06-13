@@ -46,10 +46,10 @@ class PresentationController extends Controller
      *
      * @return JsonResponse
      */
-    public function schedule(): JsonResponse
+    public function schedule(Request $request): JsonResponse
     {
-        $division = auth()->user()->student->division_id;
-        $presentations = $this->presentation->getByDivision($division);
+        $request->merge(['division_id' => auth()->user()->student->division_id]);
+        $presentations = $this->presentation->getByDivision($request);
         return ResponseHelper::success(PresentationResource::collection($presentations));
     }
 
