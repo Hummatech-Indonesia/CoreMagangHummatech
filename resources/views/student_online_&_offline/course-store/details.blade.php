@@ -31,8 +31,8 @@
     </div>
     <div class="col-md-7">
         <h1 class="fw-bolder">{{ $course->title }}</h1>
-        <h2 class="h4 text-primary mb-3">{{ $course->price }}</h2>
-
+        <h5>{{ $course->description }}</h5>
+        <h2 class="h4 text-primary mb-3 pt-3">Rp {{ number_format($course->price, 0, ',', '.') }}</h2>
         <div class="d-flex flex-column flex-lg-row gap-2">
             <form action="{{ url('/transaction/checkout') }}" method="">
                 <input type="hidden" name="" value="" />
@@ -42,40 +42,68 @@
     </div>
 </div>
 
-<div class="card shadow-none border">
-    <div class="card-body p-4">
+<div class="">
+    <div class="p-4">
         <div class="row">
             <div class="col-md-6">
-                <h4 class="border-bottom border-light mb-4 d-block fw-bolder"><span
-                        class="border-bottom border-primary">Deskripsi</span></h4>
+                <h4 class="border-bottom border-light mb-4 d-block fw-bolder">
+                    <span class="border-bottom border-primary">Tugas</span>
+                </h4>
 
-                <h5 class="fs-5 mb-3">
-                    {{ $course->title }}
-                </h5>
-                {{ $course->description }}
+                @if ($course->courseAssignments->count() > 0)
+                    <div class="border p-4 rounded-3" style="border-color: #DEE2E6;">
+                        <h5 class="fs-5 mb-3">
+                            {{ $course->courseAssignments[0]->title }}
+                        </h5>
+                        <p>
+                            {{ $course->courseAssignments[0]->description }}
+                        </p>
+
+                        <form action="{{ route('submit.task.answer.store', $course->courseAssignments[0]->id) }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            @method('POST')
+                            <p class="pt-3 text-danger">Upload jawaban anda untuk membuka materi selanjutnya</p>
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <input class="form-control" type="file" name="file" id="">
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                @else
+                    <div class="border border-secondary p-4">
+                        <h6>Belum ada tugas</h6>
+                    </div>
+                @endif
             </div>
+
+
             <div class="col-md-6">
                 <h4 class="border-bottom border-light mb-4 d-block fw-bolder"><span
                         class="border-bottom border-primary">Materinya</span></h4>
 
-                <div class="list-group list-group-flush" style="max-height: 300px; overflow-y: auto;">
-                    @foreach ($course->subCourses as $subCourse)
-                    <div class="list-group-item py-4 d-flex gap-2 align-items-center">
-                        <div class="row w-100 justify-content-between align-items-center">
-                            <div class="col-md-3">
-                                <img src="{{ asset('storage/' . $subCourse->image_course) }}" class="rounded-4 w-100" />
+                        <div class="list-group list-group-flush" style="max-height: 300px; overflow-y: auto;">
+                            @foreach ($course->subCourses as $subCourse)
+                            <div class="list-group-item py-4 d-flex mb-2 gap-2 align-items-center border rounded">
+                                <div class="row w-100 justify-content-between align-items-center">
+                                    <div class="col-md-3">
+                                        <img src="{{ asset('storage/' . $subCourse->image_course) }}" class="rounded-4 w-100" />
+                                    </div>
+                                    <div class="col-md-9">
+                                        <h5 class="mb-2">{{ $subCourse->title }}</h5>
+                                        <p class="mb-1">{{ Str::limit($subCourse->description, 100) }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-9">
-                                <h5 class="mb-2">{{ $subCourse->title }}</h5>
-                                <p class="mb-1">{{ $subCourse->description }}</p>
-                            </div>
+                            @endforeach
                         </div>
-                    </div>
-                    @endforeach
-                </div>
+
             </div>
         </div>
-        <hr>
+        {{-- <hr>
         <h1>Tugas</h1>
         @if ($course->courseAssignments->count() > 0)
         <h1 style="color: red;">Judul : {{ $course->courseAssignments[0]->title }}</h1>
@@ -91,6 +119,6 @@
         </form>
         @else
         <h1>Tidak ada tugas</h1>
-        @endif
+        @endif --}}
 
         @endsection
