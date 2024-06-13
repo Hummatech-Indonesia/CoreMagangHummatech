@@ -71,7 +71,7 @@
         </div>
 
         <div class="col-lg-4">
-            <div class="card">
+            <div class="card h-100">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="pt-2">
