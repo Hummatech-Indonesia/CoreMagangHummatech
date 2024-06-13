@@ -26,6 +26,7 @@ class PresentationResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'already_used' => $this->hummatask_team_id == null ? false : true,
+            'created_at' => $this->created_at,
         ];
     }
 }
