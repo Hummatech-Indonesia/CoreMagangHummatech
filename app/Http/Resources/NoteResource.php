@@ -18,7 +18,7 @@ class NoteResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'hummatask_team_id' => $this->hummatask_team_id,
-            'teams' => $this->teams,
+            'team' => $this->teams->name,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
