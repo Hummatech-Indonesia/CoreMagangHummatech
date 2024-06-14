@@ -81,7 +81,7 @@
                     <h1 class="h2 fw-bolder">{{ $course->title }}</h1>
                 </a>
 
-                <p>{{ $course->description }}</p>
+                <p>{{ Str::limit($course->description, 150) }}</p>
 
                 @if ($position >= $course->position)
                 <div class="d-flex flex-column flex-lg-row gap-2 w-100">
@@ -103,7 +103,7 @@
                     <h1 class="h2 fw-bolder">{{ $course->course->title }}</h1>
                 </a>
 
-                <p>{{ $course->course->description }}</p>
+                <p>{{ Str::limit($course->course->description, 150) }}</p>
 
                 <div class="d-flex flex-column flex-lg-row gap-2 w-100">
                     <a href="{{ route('siswa-online.course.detail', $course->course->id) }}"
