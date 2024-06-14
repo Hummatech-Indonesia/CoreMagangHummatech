@@ -15,6 +15,7 @@ use App\Models\Presentation;
 use App\Http\Requests\StorePresentationRequest;
 use App\Http\Requests\SubmitPresentationRequest;
 use App\Http\Requests\UpdatePresentationRequest;
+use App\Http\Resources\HummataskTeamResource;
 use App\Http\Resources\PresentationResource;
 use App\Models\HummataskTeam;
 use App\Models\Project;
@@ -89,6 +90,43 @@ class PresentationController extends Controller
         $data['status_presentation'] = StatusPresentationEnum::PENNDING->value;
         $this->presentation->update($presentation->id, $data);
         return ResponseHelper::success(null, trans('alert.add_success'));
+    }
+
+    /**
+     * submitPresentationByRfid
+     *
+     * @param  mixed $request
+     * @return JsonResponse
+     */
+    public function submitPresentationByRfid(Request $request): JsonResponse
+    {
+        $rfid = $request->rfid;
+        if ($team = $this->hummataskTeam->getTeamByRfidLeader($rfid)) {
+            $myTeam = $team;
+        } else if ($team = $this->hummataskTeam->getTeamByRfidMember($rfid)) {
+            $myTeam = $team;
+        }
+        else {
+            return ResponseHelper::error(null, "Tim tidak ditemukan");
+        }
+
+        if ($myPresentation = $this->presentation->getByTeamToday($myTeam->id)) {
+            if ($myPresentation->status == StatusPresentationEnum::PENNDING->value || $myPresentation->status == null) {
+                $this->presentation->update($myPresentation->id, ['status_presentation' => StatusPresentationEnum::ONGOING->value]);
+            }
+            else if ($myPresentation->status == StatusPresentationEnum::ONGOING->value) {
+                $this->presentation->update($myPresentation->id, ['status_presentation' => StatusPresentationEnum::FINISH->value]);
+            }
+            else if ($myPresentation->status == StatusPresentationEnum::FINISH->value) {
+                return ResponseHelper::error(null, "Anda sudah selesai presentasi");
+            }
+            else {
+                return ResponseHelper::error(null, "Anda tidak selesai presentasi");
+            }
+            return ResponseHelper::success(HummataskTeamResource::make($myTeam), "Berhasil presentasi");
+        } else {
+            return ResponseHelper::error(null, "Belum ada presentasi yang anda ajukan!");
+        }
     }
 
     /**

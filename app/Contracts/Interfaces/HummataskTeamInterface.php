@@ -19,4 +19,20 @@ interface HummataskTeamInterface extends GetInterface, StoreInterface, DeleteInt
      * @return mixed
      */
     public function getByStudent(mixed $id): mixed;
+
+    /**
+     * getTeamByRfidLeader
+     *
+     * @param  mixed $rfid
+     * @return mixed
+     */
+    public function getTeamByRfidLeader(mixed $rfid): mixed;
+
+    /**
+     * getTeamByRfidMember
+     *
+     * @param  mixed $rfid
+     * @return mixed
+     */
+    public function getTeamByRfidMember(mixed $rfid): mixed;
 }

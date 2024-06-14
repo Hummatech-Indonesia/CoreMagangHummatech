@@ -2,6 +2,7 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\HummataskTeamInterface;
+use App\Enum\StatusHummaTeamEnum;
 use App\Models\HummataskTeam;
 use App\StatusProjectEnum;
 
@@ -11,6 +12,35 @@ class HummataskTeamRepository extends BaseRepository implements HummataskTeamInt
     public function __construct(HummataskTeam $hummatask_team)
     {
         $this->model = $hummatask_team;
+    }
+
+
+    /**
+     * getTeamByRfidLeader
+     *
+     * @param  mixed $rfid
+     * @return mixed
+     */
+    public function getTeamByRfidLeader(mixed $rfid): mixed
+    {
+        return $this->model->query()
+            ->where('status', '=', StatusHummaTeamEnum::ACTIVE->value)
+            ->whereRelation('student', 'rfid', '=', $rfid)
+            ->first();
+    }
+
+    /**
+     * getTeamByRfidMember
+     *
+     * @param  mixed $rfid
+     * @return mixed
+     */
+    public function getTeamByRfidMember(mixed $rfid): mixed
+    {
+        return $this->model->query()
+            ->where('status', '=', StatusHummaTeamEnum::ACTIVE->value)
+            ->whereRelation('studentTeams.student_id', 'rfid', '=', $rfid)
+            ->first();
     }
 
     public function WhereTeam(): mixed
