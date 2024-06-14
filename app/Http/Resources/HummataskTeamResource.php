@@ -20,6 +20,7 @@ class HummataskTeamResource extends JsonResource
             'image' => $this->image == null ? null : asset('storage/' . $this->image),
             'category_project' => $this->categoryProject->name,
             'student' => $this->student->name,
+            'avatar' => $this->student->avatar == null ? null : asset('storage/' . $this->student->avatar),
             'division' => $this->division->name,
             'slug' => $this->slug,
             'status' => $this->status,
