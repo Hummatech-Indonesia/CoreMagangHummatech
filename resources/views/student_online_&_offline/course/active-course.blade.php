@@ -71,8 +71,8 @@
 <!-- isi start -->
 <div class="tab-content">
     <div id="note-full-container" class="note-has-grid row">
+        @foreach ($subscibeCourses as $course)
         <div class="col-md-4 single-note-item all-category note-business">
-            @foreach ($subscibeCourses as $course)
             <div class="card card-body p-3 disable" style="background-color: rgba(255, 255, 255, 0.5);">
                 <div class="w-full h-full bg-black opacity-25 absol"></div>
                 <img src="{{ asset('storage/' . $course->image) }}" style="object-fit: cover;" width="20em"
@@ -90,11 +90,11 @@
                 </div>
                 @endif
             </div>
-            @endforeach
         </div>
+        @endforeach
 
+        @foreach ($courses as $course)
         <div class="col-md-4 single-note-item all-category note-important">
-            @foreach ($courses as $course)
             <div class="card card-body p-3" style="background-color: rgba(255, 255, 255, 0.5);">
                 <div class="w-full h-full bg-black opacity-25 absol"></div>
                 <img src="{{ asset('storage/' . $course->course->image) }}" style="object-fit: cover;" width="20em"
@@ -110,8 +110,8 @@
                         class="btn w-100 btn-lg btn-outline-primary">Detail</a>
                 </div>
             </div>
-            @endforeach
         </div>
+        @endforeach
     </div>
     <!-- Modal Add notes -->
     <div class="modal fade" id="addnotesmodal" tabindex="-1" role="dialog" aria-labelledby="addnotesmodalTitle"
