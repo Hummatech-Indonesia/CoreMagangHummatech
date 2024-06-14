@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class CategoryBoard extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $guarded = [];
+    protected $fillable = ['title', 'hummatask_team_id', 'status'];
 
     public function teams()
     {
