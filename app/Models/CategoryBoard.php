@@ -12,7 +12,7 @@ class CategoryBoard extends Model
 
     public function teams()
     {
-        return $this->belongsTo(HummataskTeam::class);
+        return $this->belongsTo(HummataskTeam::class, 'hummatask_team_id');
     }
     public function boards()
     {
