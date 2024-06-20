@@ -8,6 +8,7 @@ use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NoteRequest;
 use App\Http\Resources\NoteResource;
+use App\Models\CategoryBoard;
 use App\Models\HummataskTeam;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -53,5 +54,17 @@ class NoteController extends Controller
             $this->board->store($dataBoard);
         }
         return ResponseHelper::success(null, trans('alert.add_success'));
+    }
+
+    /**
+     * destroy
+     *
+     * @param  mixed $categoryBoard
+     * @return JsonResponse
+     */
+    public function destroy(CategoryBoard $categoryBoard): JsonResponse
+    {
+        $this->categoryBoard->delete($categoryBoard->id);
+        return ResponseHelper::success(null, "Berhasil menghapus");
     }
 }

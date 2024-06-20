@@ -58,6 +58,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::get('notes/{hummataskTeam}', [NoteController::class, 'index']);
         Route::post('notes/{hummataskTeam}', [NoteController::class, 'store']);
+        Route::delete('notes/{categoryBoard}', [NoteController::class, 'destroy']);
 
         Route::post('presentation/submit/{hummataskTeam}/{presentation}', [PresentationController::class, 'submitPresentation']);
         Route::get('presentation-history/{hummataskTeam}', [PresentationController::class, 'history']);
