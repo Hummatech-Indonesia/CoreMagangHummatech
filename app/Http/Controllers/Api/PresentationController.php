@@ -101,18 +101,14 @@ class PresentationController extends Controller
     public function submitPresentationByRfid(Request $request): JsonResponse
     {
         $rfid = $request->rfid;
-        $team = $this->hummataskTeam->getTeamByRfidLeader($rfid);
-        dd($team);
-        if ($team = $this->hummataskTeam->getTeamByRfidLeader($rfid)) {
-            $myTeam = $team;
-        } else if ($team = $this->hummataskTeam->getTeamByRfidMember($rfid)) {
-            $myTeam = $team;
-        }
-        else {
+        $teamLeader = $this->hummataskTeam->getTeamByRfidLeader($rfid);
+        $teamMember = $this->hummataskTeam->getTeamByRfidMember($rfid);
+
+        if ($teamLeader == null || $teamMember == null) {
             return ResponseHelper::error(null, "Tim tidak ditemukan");
         }
 
-        if ($myPresentation = $this->presentation->getByTeamToday($myTeam->id)) {
+        if ($myPresentation = $this->presentation->getByTeamToday($teamLeader == null ? $teamMember->id : $teamLeader->id)) {
             if ($myPresentation->status == StatusPresentationEnum::PENNDING->value || $myPresentation->status == null) {
                 $this->presentation->update($myPresentation->id, ['status_presentation' => StatusPresentationEnum::ONGOING->value]);
             }
@@ -125,7 +121,7 @@ class PresentationController extends Controller
             else {
                 return ResponseHelper::error(null, "Anda tidak selesai presentasi");
             }
-            return ResponseHelper::success(HummataskTeamResource::make($myTeam), "Berhasil presentasi");
+            return ResponseHelper::success(HummataskTeamResource::make($teamLeader == null ? $teamMember : $teamLeader), "Berhasil presentasi");
         } else {
             return ResponseHelper::error(null, "Belum ada presentasi yang anda ajukan!");
         }
