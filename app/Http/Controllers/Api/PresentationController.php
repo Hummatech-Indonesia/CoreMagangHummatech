@@ -109,9 +109,10 @@ class PresentationController extends Controller
         }
 
         if ($myPresentation = $this->presentation->getByTeamToday($teamLeader == null ? $teamMember->id : $teamLeader->id)) {
-            dd($myPresentation->status);
             if ($myPresentation->status == StatusPresentationEnum::PENNDING->value || $myPresentation->status == null) {
                 $this->presentation->update($myPresentation->id, ['status_presentation' => StatusPresentationEnum::ONGOING->value]);
+                dd("Sudah update ongoing");
+                dd($myPresentation);
             }
             else if ($myPresentation->status == StatusPresentationEnum::ONGOING->value) {
                 $this->presentation->update($myPresentation->id, ['status_presentation' => StatusPresentationEnum::FINISH->value]);
