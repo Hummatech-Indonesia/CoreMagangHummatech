@@ -16,8 +16,7 @@ class NoteRequest extends ApiRequest
         return [
             'title' => 'required|max:255',
             'status' => 'required',
-            'name' => 'required|array',
-            'name.*' => 'required|max:255',
+            'name' => 'required',
         ];
     }
 
