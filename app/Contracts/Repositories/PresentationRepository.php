@@ -94,7 +94,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     public function update(mixed $id, array $data): mixed
     {
         return $this->model->query()
-            ->where('id', $id)
+            ->findOrFail($id)
             ->update($data);
     }
 
