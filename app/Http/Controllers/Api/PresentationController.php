@@ -114,6 +114,7 @@ class PresentationController extends Controller
             }
             else if ($myPresentation->status == StatusPresentationEnum::ONGOING->value) {
                 $this->presentation->update($myPresentation->id, ['status_presentation' => StatusPresentationEnum::FINISH->value]);
+                return ResponseHelper::error(null, "Anda sudah selesai presentasi");
             }
             else if ($myPresentation->status == StatusPresentationEnum::FINISH->value) {
                 return ResponseHelper::error(null, "Anda sudah selesai presentasi");
