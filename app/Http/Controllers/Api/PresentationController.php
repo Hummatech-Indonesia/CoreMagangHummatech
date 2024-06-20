@@ -109,15 +109,15 @@ class PresentationController extends Controller
         }
 
         if ($myPresentation = $this->presentation->getByTeamToday($teamLeader == null ? $teamMember->id : $teamLeader->id)) {
-            dd($myPresentation->status_presentation->value == StatusPresentationEnum::ONGOING->value, StatusPresentationEnum::ONGOING->value, $myPresentation->status_presentation);
-            if ($myPresentation->status_presentation == StatusPresentationEnum::PENNDING->value || $myPresentation->status == null) {
+
+            if ($myPresentation->status_presentation->value == StatusPresentationEnum::PENNDING->value || $myPresentation->status_presentation == StatusPresentationEnum::PENNDING->value || $myPresentation->status == null) {
                 $this->presentation->update($myPresentation->id, ['status_presentation' => StatusPresentationEnum::ONGOING->value]);
             }
-            else if ($myPresentation->status_presentation == StatusPresentationEnum::ONGOING->value) {
+            else if ($myPresentation->status_presentation == StatusPresentationEnum::ONGOING->value || $myPresentation->status_presentation->value == StatusPresentationEnum::ONGOING->value) {
                 $this->presentation->update($myPresentation->id, ['status_presentation' => StatusPresentationEnum::FINISH->value]);
                 return ResponseHelper::error(null, "Anda sudah selesai presentasi");
             }
-            else if ($myPresentation->status_presentation == StatusPresentationEnum::FINISH->value) {
+            else if ($myPresentation->status_presentation == StatusPresentationEnum::FINISH->value || $myPresentation->status_presentation->value == StatusPresentationEnum::FINISH->value) {
                 return ResponseHelper::error(null, "Anda sudah selesai presentasi");
             }
             else {
