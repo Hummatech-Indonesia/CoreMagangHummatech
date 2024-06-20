@@ -101,6 +101,8 @@ class PresentationController extends Controller
     public function submitPresentationByRfid(Request $request): JsonResponse
     {
         $rfid = $request->rfid;
+        $team = $this->hummataskTeam->getTeamByRfidLeader($rfid);
+        dd($team);
         if ($team = $this->hummataskTeam->getTeamByRfidLeader($rfid)) {
             $myTeam = $team;
         } else if ($team = $this->hummataskTeam->getTeamByRfidMember($rfid)) {
