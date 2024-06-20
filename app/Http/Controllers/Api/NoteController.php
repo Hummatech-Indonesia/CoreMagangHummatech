@@ -48,6 +48,7 @@ class NoteController extends Controller
         $data = $request->validated();
         $data['hummatask_team_id'] = $hummataskTeam->id;
         $categoryBoard = $this->categoryBoard->store($data);
+        dd($data['name']);
         foreach (json_decode($data['name']) as $title) {
             $dataBoard['name'] = $title;
             $dataBoard['category_board_id'] = $categoryBoard->id;
