@@ -39,7 +39,7 @@ class HummataskTeamRepository extends BaseRepository implements HummataskTeamInt
     {
         return $this->model->query()
             ->where('status', '=', StatusHummaTeamEnum::ACTIVE->value)
-            ->whereRelation('studentTeams.student_id', 'rfid', '=', $rfid)
+            ->whereRelation('studentTeams.student', 'rfid', '=', $rfid)
             ->first();
     }
 
