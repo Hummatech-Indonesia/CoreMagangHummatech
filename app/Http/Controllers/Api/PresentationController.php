@@ -109,8 +109,8 @@ class PresentationController extends Controller
         }
 
         if ($myPresentation = $this->presentation->getByTeamToday($teamLeader == null ? $teamMember->id : $teamLeader->id)) {
-            dd($myPresentation->status_presentation->value == StatusPresentationEnum::PENNDING->value, $myPresentation->status_presentation == StatusPresentationEnum::PENNDING->value, $myPresentation->status == null);
-            if ($myPresentation->status_presentation->value == StatusPresentationEnum::PENNDING->value || $myPresentation->status_presentation == StatusPresentationEnum::PENNDING->value || $myPresentation->status == null) {
+            dd($myPresentation->status_presentation->value == StatusPresentationEnum::PENNDING->value, $myPresentation->status_presentation == StatusPresentationEnum::PENNDING->value, $myPresentation->status_presentation == null);
+            if ($myPresentation->status_presentation->value == StatusPresentationEnum::PENNDING->value || $myPresentation->status_presentation == StatusPresentationEnum::PENNDING->value || $myPresentation->status_presentation == null) {
                 $this->presentation->update($myPresentation->id, ['status_presentation' => StatusPresentationEnum::ONGOING->value]);
                 return ResponseHelper::success(HummataskTeamResource::make($teamLeader == null ? $teamMember : $teamLeader), "Berhasil presentasi");
             }
