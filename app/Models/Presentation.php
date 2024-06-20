@@ -11,6 +11,17 @@ class Presentation extends Model
 {
     use HasFactory;
     protected  $guarded = ['id'];
+    protected $fillable = [
+        'start_date',
+        'end_date',
+        'schedule_to',
+        'hummatask_team_id',
+        'mentor_id',
+        'status_presentation',
+        'callback',
+        'title',
+        'description',
+    ];
 
     /**
      * Get the user that owns the Presentation
