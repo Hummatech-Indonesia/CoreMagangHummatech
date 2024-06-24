@@ -115,10 +115,10 @@ class PresentationController extends Controller
             }
             else if ($myPresentation->status_presentation == StatusPresentationEnum::ONGOING->value || $myPresentation->status_presentation->value == StatusPresentationEnum::ONGOING->value) {
                 $this->presentation->update($myPresentation->id, ['status_presentation' => StatusPresentationEnum::FINISH->value]);
-                return ResponseHelper::success(null, "Anda sudah selesai presentasi");
+                return ResponseHelper::success(HummataskTeamResource::make($teamLeader == null ? $teamMember : $teamLeader), "Anda sudah selesai presentasi");
             }
             else if ($myPresentation->status_presentation == StatusPresentationEnum::FINISH->value || $myPresentation->status_presentation->value == StatusPresentationEnum::FINISH->value) {
-                return ResponseHelper::error(null, "Anda sudah selesai presentasi");
+                return ResponseHelper::error(HummataskTeamResource::make($teamLeader == null ? $teamMember : $teamLeader), "Anda sudah selesai presentasi");
             }
             else {
                 return ResponseHelper::error(null, "Anda tidak selesai presentasi");
