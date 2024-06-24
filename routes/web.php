@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\MentorPlacementController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
+use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\AppointmentOfAmentorController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CourseAssignmentController;
@@ -159,6 +160,11 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     // Course Assignment
     Route::post('course-assignment/{course}', [CourseAssignmentController::class, 'store'])->name('course-assignment.store');
     Route::delete('course-assignment/{courseAssignment}', [CourseAssignmentController::class, 'destroy'])->name('course-assignment.destroy');
+
+    //user
+    Route::get('/alumni-admin', [AlumniController::class, 'index'])->name('alumni.admin');
+    Route::post('/alumni-admin/store', [AlumniController::class, 'store'])->name('alumni-admin.store');
+
 });
 
 # ================================================ Offline Student Route Group ================================================

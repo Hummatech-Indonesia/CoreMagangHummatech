@@ -2,55 +2,103 @@
 @section('content')
 <div class="card">
     <div class="card-body">
-        <div class="row g-2 align-items-center">
-            <div class="col-sm-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
                 <h4 class="mx-3">Data Alumni</h4>
             </div>
+            <button class="btn btn-success" data-toggle="modal" data-target="#tambahAlumniModal">Tambah Alumni</button>
         </div>
     </div>
 </div>
 
-<div class="row">
-    @foreach (range(1, 3) as $alumni)
-    <div class="col-12 col-md-6 col-lg-4">
-        <div class="card">
-            <div class="card-body d-flex justify-content-between">
-                <div class="d-flex gap-3 align-items-center">
-                    <div class="">
-                        <img src="{{ asset('assets/images/users/avatar-6.jpg') }}" class="avatar-xl rounded" alt="">
+<!-- Modal -->
+<div class="modal fade" id="tambahAlumniModal" tabindex="-1" aria-labelledby="tambahAlumniModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tambahAlumniModalLabel">Tambah Alumni</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <form action="{{ route('alumni-admin.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('POST')
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nama">Nama</label>
+                        <input type="text" class="form-control" id="nama" name="name" placeholder="Masukkan nama">
                     </div>
-                    <div class="">
-                        <h5 class="m-0">Tonya kobo</h5>
-                        <p class="m-1 text-muted">SMKN 1 TAMBAKBOYO</p>
-                        <div class="mt-1 d-flex  justify-content-start gap-1">
-                            <div class="w-50 m-0">
-                                <span class="badge px-4 bg-info" style="font-size: 12px">Lulus</span>
+                    <div class="form-group">
+                        <label for="sekolah">Sekolah</label>
+                        <input type="text" class="form-control" id="sekolah" name="school" placeholder="Masukkan sekolah">
+                    </div>
+                    <div class="form-group">
+                        <label for="gambar">Gambar</label>
+                        <input type="file" class="form-control" name="image" id="gambar">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    @forelse ($alumni as $alumni)
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-body d-flex justify-content-between">
+                    <div class="d-flex gap-3 align-items-center">
+                        <div class="">
+                            {{-- <img src="{{ asset('storage/' . $alumni->image) }}" class="avatar-xl rounded" alt=""> --}}
+                            @if (file_exists(public_path('storage/' . $alumni->image)))
+                                <img class="avatar-xl rounded"
+                                    style="object-fit: cover"
+                                    src="{{ asset('storage/' . $alumni->image) }}">
+                            @else
+                                <img class="avatar-xl rounded"
+                                    style="object-fit: cover"
+                                    src="{{ asset('user.webp') }}">
+                            @endif
+                        </div>
+                        <div class="">
+                            <h5 class="m-0">{{$alumni->name}}</h5>
+                            <p class="m-1 text-muted">{{$alumni->school}}</p>
+                            <div class="mt-1 d-flex  justify-content-start gap-1">
+                                <div class="w-50 m-0">
+                                    <span class="badge px-4 bg-info" style="font-size: 12px">Lulus</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <div class="dropdown card-header-dropdown">
-                        <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <span class="text-muted fs-16"><i class="mdi mdi-dots-vertical align-middle"></i></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end" style="">
-                            <button class="dropown-item bg-transparent border-0 w-100 text-start ps-3 btn-detail"
-                                data-name="Tonya kobo" data-phone="0054157785" data-address="Malang, Jawa Timur"
-                                data-birthdate="2005-10-23" data-birthplace="Malang" data-startdate="2024-07-16"
-                                data-finishdate="2024-12-16" data-school="SMKN 1 TAMBAKBOYO"
-                                data-avatar="{{ asset('assets/images/users/avatar-6.jpg') }}"
-                                data-cv="{{ asset('assets/images/error400-cover.png') }}"
-                                data-selfstatement="{{ asset('assets/images/error400-cover.png') }}"
-                                data-parentsstatement="{{ asset('assets/images/error400-cover.png') }}">Detail</button>
+                    <div>
+                        <div class="dropdown card-header-dropdown">
+                            <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                <span class="text-muted fs-16"><i class="mdi mdi-dots-vertical align-middle"></i></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" style="">
+                                <button class="dropown-item bg-transparent border-0 w-100 text-start ps-3 btn-detail"
+                                    data-name="Tonya kobo" data-phone="0054157785" data-address="Malang, Jawa Timur"
+                                    data-birthdate="2005-10-23" data-birthplace="Malang" data-startdate="2024-07-16"
+                                    data-finishdate="2024-12-16" data-school="SMKN 1 TAMBAKBOYO"
+                                    data-avatar="{{ asset('assets/images/users/avatar-6.jpg') }}"
+                                    data-cv="{{ asset('assets/images/error400-cover.png') }}"
+                                    data-selfstatement="{{ asset('assets/images/error400-cover.png') }}"
+                                    data-parentsstatement="{{ asset('assets/images/error400-cover.png') }}">Detail</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    @endforeach
+    @empty
+
+    @endforelse
 </div>
 <div class="d-flex justify-content-between px-3">
     <p>Showing 1 to 10 of 14 entries</p>
@@ -150,6 +198,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
     integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
 $(document).ready(function() {

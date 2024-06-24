@@ -31,4 +31,5 @@ enum TypeEnum : string
 
     case HUMMATASKTEAM = 'hummatask_team';
     case CHALLENGEANSWER = 'challenge_answer';
+    case ALUMNI = 'alumni';
 }

@@ -215,9 +215,9 @@
                                     class="nav-link {{ request()->is('menu-mentor*') ? 'active' : '' }}"
                                     data-key="t-form-select">Mentor</a>
                             </li>
-                            {{-- <li class="nav-item">
-                                <a href="{{ url('/alumni') }}" class="nav-link {{ request()->is('alumni*') ? 'active' : '' }}" data-key="t-checkboxs-radios">Alumni</a>
-                            </li> --}}
+                            <li class="nav-item">
+                                <a href="{{ url('/alumni-admin') }}" class="nav-link {{ request()->is('alumni*') ? 'active' : '' }}" data-key="t-checkboxs-radios">Alumni</a>
+                            </li>
                             {{-- <li class="nav-item">
                                 <a href="{{ url('/person-in-charge') }}" class="nav-link {{ request()->is('person-in-charge*') ? 'active' : '' }}" data-key="t-pickers">Penanggung Jawab</a>
                             </li> --}}
