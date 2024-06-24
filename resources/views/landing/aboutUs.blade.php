@@ -1,7 +1,8 @@
 @extends('landing.layouts.app')
 @section('content')
 
-<div class="breadcumb-wrapper" data-bg-src="assets_landing/img/about_us/tentangkami.png">
+<div class="breadcumb-wrapper" data-bg-src="assets_landing/img/about_us/tentangKami.jpg"
+    style="background-position: center 25%;">
     <div class="container">
         <div class="breadcumb-content">
             <h1 class="breadcumb-title">About Us</h1>
@@ -12,6 +13,7 @@
         </div>
     </div>
 </div>
+
 <div class="overflow-hidden space" id="about-sec">
     <div class="container">
         <div class="row align-items-center">
