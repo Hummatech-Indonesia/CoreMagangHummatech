@@ -1,6 +1,7 @@
 @extends('landing.layouts.app')
 @section('content')
-<div class="breadcumb-wrapper" data-bg-src="assets_landing/img/alumni/team.png">
+<div class="breadcumb-wrapper" data-bg-src="assets_landing/img/alumni/Alumni.jpg"
+    style="background-position: center 20%;">
     <div class="container">
         <div class="breadcumb-content">
             <h1 class="breadcumb-title">Alumni</h1>
