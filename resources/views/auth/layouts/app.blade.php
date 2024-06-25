@@ -37,7 +37,7 @@
 
 <!-- Page Styles -->
 <!-- Page -->
-<link rel="stylesheet" href="assetsLogin/vendor/css/pages/page-auth.css">
+<link rel="stylesheet" href="{{ asset('assetsLogin/vendor/css/pages/page-auth.css') }}">
 
   <!-- Include Scripts for customizer, helper, analytics, config -->
   <!-- $isFront is used to append the front layout scriptsIncludes only on the front layout otherwise the variable will be blank -->
@@ -121,35 +121,7 @@
     <link rel="stylesheet" href="{{ asset('assetsLogin/vendor/libs/animate-css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('assetsLogin/vendor/libs/sweetalert2/sweetalert2.css') }}" />
 
-    <script>
-        window.templateCustomizer = new TemplateCustomizer({
-            cssPath: '',
-            themesPath: '',
-            defaultStyle: "light",
-            defaultShowDropdownOnHover: "true",
-            displayCustomizer: "true",
-            lang: 'en',
-            pathResolver: function(path) {
-                var resolvedPaths = {
-                    // Core stylesheets
-                    'core.css': 'https://demos.pixinvent.com/vuexy-html-laravel-admin-template/demo/assets/vendor/css/rtl/core.css?id=9dd8321ea008145745a7d78e072a6e36',
-                    'core-dark.css': 'https://demos.pixinvent.com/vuexy-html-laravel-admin-template/demo/assets/vendor/css/rtl/core-dark.css?id=d661bae1d0ada9f7e9e3685a3e1f427e',
-
-                    // Themes
-                    'theme-default.css': 'https://demos.pixinvent.com/vuexy-html-laravel-admin-template/demo/assets/vendor/css/rtl/theme-default.css?id=a4539ede8fbe0ee4ea3a81f2c89f07d9',
-                    'theme-default-dark.css': 'https://demos.pixinvent.com/vuexy-html-laravel-admin-template/demo/assets/vendor/css/rtl/theme-default-dark.css?id=ce86d777a4c5030f51d0f609f202bcc5',
-                    'theme-bordered.css': 'https://demos.pixinvent.com/vuexy-html-laravel-admin-template/demo/assets/vendor/css/rtl/theme-bordered.css?id=786794ca0c68d96058e8ceeb20f4e7c5',
-                    'theme-bordered-dark.css': 'https://demos.pixinvent.com/vuexy-html-laravel-admin-template/demo/assets/vendor/css/rtl/theme-bordered-dark.css?id=e7122ef6338b22f7cea9eaff5a96aa8b',
-                    'theme-semi-dark.css': 'https://demos.pixinvent.com/vuexy-html-laravel-admin-template/demo/assets/vendor/css/rtl/theme-semi-dark.css?id=a0a317e88e943fdd62d514e00deebb22',
-                    'theme-semi-dark-dark.css': 'https://demos.pixinvent.com/vuexy-html-laravel-admin-template/demo/assets/vendor/css/rtl/theme-semi-dark-dark.css?id=e9a2f7cd6ace727264936f6bf93ab1e2',
-                }
-                return resolvedPaths[path] || path;
-            },
-            'controls': ["rtl", "style", "headerType", "contentLayout", "layoutCollapsed", "layoutNavbarOptions",
-                "themes"
-            ],
-        });
-    </script>
+   
 </head>
 
 <body style="background-color: rgb(255, 255, 255)">
