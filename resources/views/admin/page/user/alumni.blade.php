@@ -107,7 +107,7 @@
     @endforelse
 </div>
 <div class="d-flex justify-content-between px-3">
-    <p>Showing 1 to 10 of 14 entries</p>
+    {{-- <p>Showing 1 to 10 of 14 entries</p>
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-end">
             <li class="page-item disabled">
@@ -120,7 +120,7 @@
                 <a class="page-link" href="#">Next</a>
             </li>
         </ul>
-    </nav>
+    </nav> --}}
 </div>
 
 <!-- offcanvas -->
@@ -198,7 +198,9 @@
         </div>
     </div>
 </div>
-@include('admin.components.delete-modal-component')
+
+    @include('admin.components.delete-modal-component')
+
 @endsection
 
 

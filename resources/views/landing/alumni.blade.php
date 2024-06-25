@@ -47,12 +47,12 @@
 
             @endforelse
             <div class="th-pagination mt-5 text-center">
-                <ul>
+                {{-- <ul>
                     <li><a href="blog.html">1</a></li>
                     <li><a href="blog.html">2</a></li>
                     <li><a href="blog.html">3</a></li>
                     <li><a href="blog.html"><i class="far fa-arrow-right"></i></a></li>
-                </ul>
+                </ul> --}}
             </div>
         </div>
     </div>

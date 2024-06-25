@@ -17,7 +17,7 @@ class AlumniRepository extends BaseRepository implements AlumniInterface
     {
         return $this->model->query()
         ->latest()
-        ->paginate(10);
+        ->get();
     }
 
     public function store(array $data): mixed
