@@ -164,6 +164,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     //user
     Route::get('/alumni-admin', [AlumniController::class, 'index'])->name('alumni.admin');
     Route::post('/alumni-admin/store', [AlumniController::class, 'store'])->name('alumni-admin.store');
+    Route::delete('/alumni-admin/delete/{alumni}', [AlumniController::class, 'destroy'])->name('alumni-admin.destroy');
 
 });
 
@@ -288,9 +289,11 @@ Route::get('/aboutUs', function () {
     return view('landing.aboutUs');
 });
 
-Route::get('/alumniSiswa', function () {
-    return view('landing.alumni');
-});
+// Route::get('/alumniSiswa', function () {
+//     return view('landing.alumni');
+// });
+
+Route::get('/alumniSiswa', [AlumniController::class, 'landing'])->name('alumni.siswa');
 
 Route::get('/galeri', function () {
     return view('landing.galeri');

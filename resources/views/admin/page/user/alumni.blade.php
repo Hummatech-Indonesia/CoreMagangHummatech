@@ -82,14 +82,20 @@
                                 <span class="text-muted fs-16"><i class="mdi mdi-dots-vertical align-middle"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" style="">
-                                <button class="dropown-item bg-transparent border-0 w-100 text-start ps-3 btn-detail"
+                                {{-- <button class="dropown-item bg-transparent border-0 w-100 text-start ps-3 btn-detail"
                                     data-name="Tonya kobo" data-phone="0054157785" data-address="Malang, Jawa Timur"
                                     data-birthdate="2005-10-23" data-birthplace="Malang" data-startdate="2024-07-16"
                                     data-finishdate="2024-12-16" data-school="SMKN 1 TAMBAKBOYO"
                                     data-avatar="{{ asset('assets/images/users/avatar-6.jpg') }}"
                                     data-cv="{{ asset('assets/images/error400-cover.png') }}"
                                     data-selfstatement="{{ asset('assets/images/error400-cover.png') }}"
-                                    data-parentsstatement="{{ asset('assets/images/error400-cover.png') }}">Detail</button>
+                                    data-parentsstatement="{{ asset('assets/images/error400-cover.png') }}">Detail</button> --}}
+                                {{-- <button class="dropown-item bg-transparent border-0 w-100 text-start ps-3 text-danger">
+                                    Hapus
+                                </button> --}}
+                                <button class="dropdown-item btn-delete text-danger"
+                                                id="{{ $alumni->id }}"
+                                                data-id="{{ $alumni->id }}">Hapus</button>
                             </div>
                         </div>
                     </div>
@@ -101,7 +107,7 @@
     @endforelse
 </div>
 <div class="d-flex justify-content-between px-3">
-    <p>Showing 1 to 10 of 14 entries</p>
+    {{-- <p>Showing 1 to 10 of 14 entries</p>
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-end">
             <li class="page-item disabled">
@@ -114,7 +120,7 @@
                 <a class="page-link" href="#">Next</a>
             </li>
         </ul>
-    </nav>
+    </nav> --}}
 </div>
 
 <!-- offcanvas -->
@@ -192,7 +198,12 @@
         </div>
     </div>
 </div>
+
+    @include('admin.components.delete-modal-component')
+
 @endsection
+
+
 
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -203,53 +214,53 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
-$(document).ready(function() {
-    $("#message").modal('show');
-});
+    $(document).ready(function() {
+        $("#message").modal('show');
+    });
 </script>
 
 <script>
-$('.btn-detail').click(function() {
-    let id = $(this).data('id');
-    let name = $(this).data('name');
-    let avatar = $(this).data('avatar');
-    let address = $(this).data('address');
-    let phone = $(this).data('phone');
-    let birth_date = $(this).data('birthdate');
-    let birth_place = $(this).data('birthplace');
-    let start_date = $(this).data('startdate');
-    let finish_date = $(this).data('finishdate');
-    let school = $(this).data('school');
-    let cv = $(this).data('cv');
-    let self_statement = $(this).data('selfstatement');
-    let parents_statement = $(this).data('parentsstatement');
+    $('.btn-detail').click(function() {
+        let id = $(this).data('id');
+        let name = $(this).data('name');
+        let avatar = $(this).data('avatar');
+        let address = $(this).data('address');
+        let phone = $(this).data('phone');
+        let birth_date = $(this).data('birthdate');
+        let birth_place = $(this).data('birthplace');
+        let start_date = $(this).data('startdate');
+        let finish_date = $(this).data('finishdate');
+        let school = $(this).data('school');
+        let cv = $(this).data('cv');
+        let self_statement = $(this).data('selfstatement');
+        let parents_statement = $(this).data('parentsstatement');
 
-    $('.show-name').text(name);
-    $('.show-image').attr('src', avatar);
-    $('.show-address').text(address);
-    $('.show-phone').text(phone);
-    $('.show-birthday').text(birth_place + ',' + birth_date)
-    $('.show-start').text(start_date);
-    $('.show-school').text(school);
-    $('.show-finish').text(finish_date);
+        $('.show-name').text(name);
+        $('.show-image').attr('src', avatar);
+        $('.show-address').text(address);
+        $('.show-phone').text(phone);
+        $('.show-birthday').text(birth_place + ',' + birth_date)
+        $('.show-start').text(start_date);
+        $('.show-school').text(school);
+        $('.show-finish').text(finish_date);
 
-    // console.log(cv);
-    $('.show-cv').attr('src', cv);
-    $('.download-cv').attr('href', cv);
-    $('.download-cv').attr('download', cv);
+        // console.log(cv);
+        $('.show-cv').attr('src', cv);
+        $('.download-cv').attr('href', cv);
+        $('.download-cv').attr('download', cv);
 
-    // console.log(parents_statement);
-    $('.show-parent-statement').attr('src', parents_statement);
-    $('.download-parent-statement').attr('href', parents_statement);
-    $('.download-parent-statement').attr('download', parents_statement);
+        // console.log(parents_statement);
+        $('.show-parent-statement').attr('src', parents_statement);
+        $('.download-parent-statement').attr('href', parents_statement);
+        $('.download-parent-statement').attr('download', parents_statement);
 
-    // console.log(self_statement);
-    $('.show-self-statement').attr('src', self_statement);
-    $('.download-self-statement').attr('href', self_statement);
-    $('.download-self-statement').attr('download', self_statement);
+        // console.log(self_statement);
+        $('.show-self-statement').attr('src', self_statement);
+        $('.download-self-statement').attr('href', self_statement);
+        $('.download-self-statement').attr('download', self_statement);
 
-    $('#offcanvasRight').offcanvas('show');
-});
+        $('#offcanvasRight').offcanvas('show');
+    });
 </script>
 
 <script>
@@ -284,5 +295,13 @@ function zoomImage(img) {
         document.body.removeChild(overlay);
     };
 }
+</script>
+
+<script>
+    $('.btn-delete').click(function() {
+        let id = $(this).data('id');
+        $('#form-delete').attr('action', '/alumni-admin/delete/' + id);
+        $('#modal-delete').modal('show');
+    });
 </script>
 @endsection
