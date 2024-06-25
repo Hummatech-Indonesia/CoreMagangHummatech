@@ -11,13 +11,13 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="steparrow-gen-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-gen-info" type="button" role="tab"
                             aria-controls="steparrow-gen-info" aria-controls="steparrow-gen-info" aria-selected="true" data-position="0">
-                            Daftarkan RFID
+                            Data Siswa
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="steparrow-description-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-description-info" type="button" role="tab"
                             aria-controls="steparrow-description-info" aria-selected="false" data-position="1" tabindex="-1">
-                                Data Siswa
+                            Daftarkan RFID
                             </button>
                         </li>
                     </ul>
@@ -52,6 +52,95 @@
 
 <div class="tab-content">
     <div id="steparrow-gen-info" class="tab-pane fade show active">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="listjs-table"id="customerList">
+                            <div class="row g-4 mb-3">
+                                <div class="col-sm-auto">
+                                    <div class="d-flex">
+                                        <h5 class="mx-2 pt-2">Show</h5>
+                                        <select name=""class="form-select" id="expiry-month-input">
+                                            <option value="1">10</option>
+                                        </select>
+                                        <h5 class="mx-2 pt-2">entries</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive table-card mt-3 mb-1 mx-3">
+                                <table class="table align-middle table-nowrap" id="customerTable">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="sort" data-sort="number">
+                                                NO
+                                            </th>
+                                            <th class="sort" data-sort="name">
+                                                Nama
+                                            </th>
+                                            <th class="sort" data-sort="date">
+                                                Email
+                                            </th>
+                                            <th class="sort" data-sort="status">
+                                                Masa Magang
+                                            </th>
+                                            <th class="sort" data-sort="description">
+                                                Sekolah
+                                            </th>
+                                            <th class="sort" data-sort="action">
+                                                Aksi
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="list form-check-all">
+                                        @forelse ($rfidStudents as $student)
+                                            <tr>
+                                                <td class="number">{{ $loop->iteration }}</td>
+                                                <td class="name">{{ $student->name }}</td>
+                                                <td class="date">{{ $student->email }}</td>
+                                                <td class="time">{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }} -
+                                                                {{ \carbon\Carbon::parse($student->end_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}
+                                                </td>
+                                                <td class="description">{{ $student->school }}</td>
+                                                <td>
+                                                    <div class="view">
+                                                        <button class="btn btn-soft-warning  edit-rfid-btn"
+                                                        data-id="{{ $student->id }}"
+                                                        data-name="{{ $student->name }}"
+                                                        data-rfid="{{ $student->rfid }}">
+                                                            Ganti RFID
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="8">
+                                                    <div class="d-flex justify-content-center mt-3">
+                                                        <img src="{{ asset('no data.png') }}" width="200px"
+                                                            alt="">
+                                                    </div>
+                                                    <h4 class="text-center mt-2 mb-4">
+                                                        Data Masih kosong
+                                                    </h4>
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- Pagination -->
+                            {{ $rfidStudents->links() }}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="steparrow-description-info" class="tab-pane fade">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -132,95 +221,6 @@
                             <!-- Pagination -->
                             {{ $students->links() }}
 
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div id="steparrow-description-info" class="tab-pane fade">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="listjs-table"id="customerList">
-                            <div class="row g-4 mb-3">
-                                <div class="col-sm-auto">
-                                    <div class="d-flex">
-                                        <h5 class="mx-2 pt-2">Show</h5>
-                                        <select name=""class="form-select" id="expiry-month-input">
-                                            <option value="1">10</option>
-                                        </select>
-                                        <h5 class="mx-2 pt-2">entries</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="table-responsive table-card mt-3 mb-1 mx-3">
-                                <table class="table align-middle table-nowrap" id="customerTable">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th class="sort" data-sort="number">
-                                                NO
-                                            </th>
-                                            <th class="sort" data-sort="name">
-                                                Nama
-                                            </th>
-                                            <th class="sort" data-sort="date">
-                                                Email
-                                            </th>
-                                            <th class="sort" data-sort="status">
-                                                Masa Magang
-                                            </th>
-                                            <th class="sort" data-sort="description">
-                                                Sekolah
-                                            </th>
-                                            <th class="sort" data-sort="action">
-                                                Aksi
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="list form-check-all">
-                                        @forelse ($rfidStudents as $student)
-                                            <tr>
-                                                <td class="number">{{ $loop->iteration }}</td>
-                                                <td class="name">{{ $student->name }}</td>
-                                                <td class="date">{{ $student->email }}</td>
-                                                <td class="time">{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }} -
-                                                                {{ \carbon\Carbon::parse($student->end_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}
-                                                </td>
-                                                <td class="description">{{ $student->school }}</td>
-                                                <td>
-                                                    <div class="view">
-                                                        <button class="btn btn-soft-warning  edit-rfid-btn"
-                                                        data-id="{{ $student->id }}"
-                                                        data-name="{{ $student->name }}"
-                                                        data-rfid="{{ $student->rfid }}">
-                                                            Ganti RFID
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="8">
-                                                    <div class="d-flex justify-content-center mt-3">
-                                                        <img src="{{ asset('no data.png') }}" width="200px"
-                                                            alt="">
-                                                    </div>
-                                                    <h4 class="text-center mt-2 mb-4">
-                                                        Data Masih kosong
-                                                    </h4>
-                                                </td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- Pagination -->
-                            {{ $rfidStudents->links() }}
 
                         </div>
                     </div>
