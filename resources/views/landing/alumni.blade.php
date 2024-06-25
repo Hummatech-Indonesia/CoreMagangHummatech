@@ -25,140 +25,27 @@
             <h2 class="sec-title">Semua Alumni Magang <span class="text-theme">Hummatech</span></h2>
         </div>
         <div class="row gy-40">
-            <div class="col-lg-3 col-md-6">
-                <div class="th-team team-card">
-                    <div class="team-img"><img src="assets_landing/img/alumni/bang_kader.png" alt="Team"></div>
-                    <div class="team-content">
-                        <div class="box-particle" id="team-p1"></div>
-                        <div class="team-social">
-                            <a target="_blank" href="https://instagram.com/">
-                                <i class="fab fa-instagram"></i></a>
-                            <a target="_blank" href="https://linkedin.com/">
-                                <i class="fab fa-linkedin-in"></i></a>
+            @forelse ($alumni as $alumni)
+                <div class="col-lg-3 col-md-6">
+                    <div class="th-team team-card">
+                        <div class="team-img"><img src="{{ asset('storage/' . $alumni->image) }}" alt="Team"></div>
+                        <div class="team-content">
+                            <div class="box-particle" id="team-p1"></div>
+                            {{-- <div class="team-social">
+                                <a target="_blank" href="https://instagram.com/">
+                                    <i class="fab fa-instagram"></i></a>
+                                <a target="_blank" href="https://linkedin.com/">
+                                    <i class="fab fa-linkedin-in"></i></a>
+                            </div> --}}
+                            <h3 class="box-title"><a href="team-details.html">{{$alumni->name}}</a></h3><span
+                                class="team-desig">{{$alumni->school}}</span>
                         </div>
-                        <h3 class="box-title"><a href="team-details.html">Abdul Kader</a></h3><span
-                            class="team-desig">SMKN 1
-                            Kraksaan</span>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="th-team team-card">
-                    <div class="team-img"><img src="assets_landing/img/alumni/bang_kader.png" alt="Team"></div>
-                    <div class="team-content">
-                        <div class="box-particle" id="team-p2"></div>
-                        <div class="team-social">
-                            <a target="_blank" href="https://instagram.com/">
-                                <i class="fab fa-instagram"></i></a>
-                            <a target="_blank" href="https://linkedin.com/">
-                                <i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                        <h3 class="box-title"><a href="team-details.html">Abdul Kader</a></h3><span
-                            class="team-desig">SMKN 1
-                            Kraksaan</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="th-team team-card">
-                    <div class="team-img"><img src="assets_landing/img/alumni/bang_kader.png" alt="Team"></div>
-                    <div class="team-content">
-                        <div class="box-particle" id="team-p3"></div>
-                        <div class="team-social">
-                            <a target="_blank" href="https://instagram.com/"><i class="fab fa-instagram"></i></a> <a
-                                target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                        <h3 class="box-title"><a href="team-details.html">Abdul Kader</a></h3><span
-                            class="team-desig">SMKN 1
-                            Kraksaan</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="th-team team-card">
-                    <div class="team-img"><img src="assets_landing/img/alumni/bang_kader.png" alt="Team"></div>
-                    <div class="team-content">
-                        <div class="box-particle" id="team-p4"></div>
-                        <div class="team-social">
-                            <a target="_blank" href="https://instagram.com/">
-                                <i class="fab fa-instagram"></i></a>
-                            <a target="_blank" href="https://linkedin.com/">
-                                <i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                        <h3 class="box-title"><a href="team-details.html">Abdul Kader</a></h3><span
-                            class="team-desig">SMKN 1
-                            Kraksaan</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="th-team team-card">
-                    <div class="team-img"><img src="assets_landing/img/alumni/bang_kader.png" alt="Team"></div>
-                    <div class="team-content">
-                        <div class="box-particle" id="team-p5"></div>
-                        <div class="team-social">
-                            <a target="_blank" href="https://instagram.com/">
-                                <i class="fab fa-instagram"></i></a>
-                            <a target="_blank" href="https://linkedin.com/">
-                                <i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                        <h3 class="box-title"><a href="team-details.html">Abdul Kader</a></h3><span
-                            class="team-desig">SMKN 1
-                            Kraksaan</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="th-team team-card">
-                    <div class="team-img"><img src="assets_landing/img/alumni/bang_kader.png" alt="Team"></div>
-                    <div class="team-content">
-                        <div class="box-particle" id="team-p6"></div>
-                        <div class="team-social">
-                            <a target="_blank" href="https://instagram.com/">
-                                <i class="fab fa-instagram"></i></a>
-                            <a target="_blank" href="https://linkedin.com/">
-                                <i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                        <h3 class="box-title"><a href="team-details.html">Abdul Kader</a></h3><span
-                            class="team-desig">SMKN 1
-                            Kraksaan</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="th-team team-card">
-                    <div class="team-img"><img src="assets_landing/img/alumni/bang_kader.png" alt="Team"></div>
-                    <div class="team-content">
-                        <div class="box-particle" id="team-p7"></div>
-                        <div class="team-social">
-                            <a target="_blank" href="https://instagram.com/">
-                                <i class="fab fa-instagram"></i></a>
-                            <a target="_blank" href="https://linkedin.com/">
-                                <i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                        <h3 class="box-title"><a href="team-details.html">Abdul Kader</a></h3><span
-                            class="team-desig">SMKN 1
-                            Kraksaan</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="th-team team-card">
-                    <div class="team-img"><img src="assets_landing/img/alumni/bang_kader.png" alt="Team"></div>
-                    <div class="team-content">
-                        <div class="box-particle" id="team-p8"></div>
-                        <div class="team-social">
-                            <a target="_blank" href="https://instagram.com/">
-                                <i class="fab fa-instagram"></i></a>
-                            <a target="_blank" href="https://linkedin.com/">
-                                <i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                        <h3 class="box-title"><a href="team-details.html">Abdul Kader</a></h3><span
-                            class="team-desig">SMKN 1
-                            Kraksaan</span>
-                    </div>
-                </div>
-            </div>
+
+            @empty
+
+            @endforelse
             <div class="th-pagination mt-5 text-center">
                 <ul>
                     <li><a href="blog.html">1</a></li>
