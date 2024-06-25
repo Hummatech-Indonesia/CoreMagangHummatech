@@ -26,11 +26,11 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="nama">Nama</label>
-                        <input type="text" class="form-control" id="nama" name="name" placeholder="Masukkan nama">
+                        <input type="text" class="form-control mb-3" id="nama" name="name" placeholder="Masukkan nama">
                     </div>
                     <div class="form-group">
                         <label for="sekolah">Sekolah</label>
-                        <input type="text" class="form-control" id="sekolah" name="school" placeholder="Masukkan sekolah">
+                        <input type="text" class="form-control mb-3" id="sekolah" name="school" placeholder="Masukkan sekolah">
                     </div>
                     <div class="form-group">
                         <label for="gambar">Gambar</label>

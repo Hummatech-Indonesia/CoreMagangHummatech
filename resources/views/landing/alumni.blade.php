@@ -1,5 +1,26 @@
 @extends('landing.layouts.app')
+
+<style>
+    .team-img {
+    width: auto;
+    max-width: 300px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.team-img img.responsive-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+</style>
+
 @section('content')
+
+
 <div class="breadcumb-wrapper" data-bg-src="assets_landing/img/alumni/Alumni.jpg"
     style="background-position: center 20%;">
     <div class="container">
@@ -28,8 +49,9 @@
             @forelse ($alumni as $alumni)
                 <div class="col-lg-3 col-md-6">
                     <div class="th-team team-card">
-                        <div class="team-img"><img src="{{ asset('storage/' . $alumni->image) }}" alt="Team"></div>
-                        <div class="team-content">
+                        <div class="team-img">
+                            <img src="{{ asset('storage/' . $alumni->image) }}" alt="Team" class="responsive-img">
+                        </div>                        <div class="team-content">
                             <div class="box-particle" id="team-p1"></div>
                             {{-- <div class="team-social">
                                 <a target="_blank" href="https://instagram.com/">

@@ -35,6 +35,7 @@ class AlumniController extends Controller
         return view('landing.alumni', compact('alumni'));
     }
 
+    
     /**
      * Show the form for creating a new resource.
      */
