@@ -28,6 +28,13 @@ class AlumniController extends Controller
         return view('admin.page.user.alumni', compact('alumni'));
     }
 
+    public function landing()
+    {
+        $alumni = $this->alumni->get();
+
+        return view('landing.alumni', compact('alumni'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -43,7 +50,7 @@ class AlumniController extends Controller
     {
         $data = $this->service->store($request);
         $this->alumni->store($data);
-        
+
         return back()->with('success', 'Berhasil menambahkan data');
     }
 
