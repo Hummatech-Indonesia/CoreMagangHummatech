@@ -28,7 +28,7 @@
                 <div class="col-xl-4 col-md-6">
                     <div class="blog-card h-100">
                         <div class="blog-img">
-                            <img src="assets_landing/img/galeri/galeri1.jpg" alt="blog image" class="img-fluid"
+                            <img src="assets_landing/img/galeri/gallery_1.jpg" alt="blog image" class="img-fluid"
                                 style="height: 200px; object-fit: cover;">
                         </div>
                         <div class="blog-content">
@@ -44,7 +44,7 @@
                 <div class="col-xl-4 col-md-6">
                     <div class="blog-card h-100">
                         <div class="blog-img">
-                            <img src="assets_landing/img/galeri/galeri1.jpg" alt="blog image" class="img-fluid"
+                            <img src="assets_landing/img/galeri/gallery_2.jpg" alt="blog image" class="img-fluid"
                                 style="height: 200px; object-fit: cover;">
                         </div>
                         <div class="blog-content">
@@ -53,15 +53,14 @@
                                     <i class="fal fa-calendar-days"></i>15
                                     Jan, 2024</a>
                             </div>
-                            <h3 class="box-title">Liburan untuk siswa magang Hummatech</a>
-                            </h3>
+                            <h3 class="box-title">Foto Bersama setelah Magang</a></h3>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-4 col-md-6">
                     <div class="blog-card h-100">
                         <div class="blog-img">
-                            <img src="assets_landing/img/galeri/galeri1.jpg" alt="blog image" class="img-fluid"
+                            <img src="assets_landing/img/galeri/gallery_4.jpg" alt="blog image" class="img-fluid"
                                 style="height: 200px; object-fit: cover;">
                         </div>
                         <div class="blog-content">
@@ -70,15 +69,14 @@
                                     <i class="fal fa-calendar-days"></i>15
                                     Jan, 2024</a>
                             </div>
-                            <h3 class="box-title">Liburan untuk siswa magang Hummatech</a>
-                            </h3>
+                            <h3 class="box-title">Foto Bersama setelah Magang</a></h3>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-4 col-md-6">
                     <div class="blog-card h-100">
                         <div class="blog-img">
-                            <img src="assets_landing/img/galeri/galeri1.jpg" alt="blog image" class="img-fluid"
+                            <img src="assets_landing/img/galeri/gallery_4.jpg" alt="blog image" class="img-fluid"
                                 style="height: 200px; object-fit: cover;">
                         </div>
                         <div class="blog-content">
@@ -87,53 +85,18 @@
                                     <i class="fal fa-calendar-days"></i>15
                                     Jan, 2024</a>
                             </div>
-                            <h3 class="box-title">Liburan untuk siswa magang Hummatech</a>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-6">
-                    <div class="blog-card h-100">
-                        <div class="blog-img">
-                            <img src="assets_landing/img/galeri/galeri1.jpg" alt="blog image" class="img-fluid"
-                                style="height: 200px; object-fit: cover;">
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-meta">
-                                <a href="blog.html">
-                                    <i class="fal fa-calendar-days"></i>15
-                                    Jan, 2024</a>
-                            </div>
-                            <h3 class="box-title">Liburan untuk siswa magang Hummatech</a>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-6">
-                    <div class="blog-card h-100">
-                        <div class="blog-img">
-                            <img src="assets_landing/img/galeri/galeri1.jpg" alt="blog image" class="img-fluid"
-                                style="height: 200px; object-fit: cover;">
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-meta">
-                                <a href="blog.html">
-                                    <i class="fal fa-calendar-days"></i>15
-                                    Jan, 2024</a>
-                            </div>
-                            <h3 class="box-title">Liburan untuk siswa magang Hummatech</a>
-                            </h3>
+                            <h3 class="box-title">Foto Bersama setelah Magang</a></h3>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="th-pagination mt-5 text-center">
-                <ul>
+                {{-- <ul>
                     <li><a href="blog.html">1</a></li>
                     <li><a href="blog.html">2</a></li>
                     <li><a href="blog.html">3</a></li>
                     <li><a href="blog.html"><i class="far fa-arrow-right"></i></a></li>
-                </ul>
+                </ul> --}}
             </div>
         </div>
     </div>
