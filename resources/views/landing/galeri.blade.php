@@ -34,10 +34,10 @@
                         <div class="blog-content">
                             <div class="blog-meta">
                                 <a href="blog.html">
-                                    <i class="fal fa-calendar-days"></i>15
-                                    Jan, 2024</a>
+                                    <i class="fal fa-calendar-days"></i>2
+                                    Jan, 2023</a>
                             </div>
-                            <h3 class="box-title">Foto Bersama setelah Magang</a></h3>
+                            <h3 class="box-title">Siswa-siswa Magang Serius Menyusun Kode</a></h3>
                         </div>
                     </div>
                 </div>
@@ -51,9 +51,9 @@
                             <div class="blog-meta">
                                 <a href="blog.html">
                                     <i class="fal fa-calendar-days"></i>15
-                                    Jan, 2024</a>
+                                    Jan, 2023</a>
                             </div>
-                            <h3 class="box-title">Foto Bersama setelah Magang</a></h3>
+                            <h3 class="box-title">Kolaborasi Tim Dalam Pembuatan Projek</a></h3>
                         </div>
                     </div>
                 </div>
@@ -66,26 +66,10 @@
                         <div class="blog-content">
                             <div class="blog-meta">
                                 <a href="blog.html">
-                                    <i class="fal fa-calendar-days"></i>15
-                                    Jan, 2024</a>
+                                    <i class="fal fa-calendar-days"></i>18
+                                    Agustus, 2023s</a>
                             </div>
-                            <h3 class="box-title">Foto Bersama setelah Magang</a></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-6">
-                    <div class="blog-card h-100">
-                        <div class="blog-img">
-                            <img src="assets_landing/img/galeri/gallery_4.jpg" alt="blog image" class="img-fluid"
-                                style="height: 200px; object-fit: cover;">
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-meta">
-                                <a href="blog.html">
-                                    <i class="fal fa-calendar-days"></i>15
-                                    Jan, 2024</a>
-                            </div>
-                            <h3 class="box-title">Foto Bersama setelah Magang</a></h3>
+                            <h3 class="box-title">Liburan Bersama Siswa PKL Hummatech</a></h3>
                         </div>
                     </div>
                 </div>
