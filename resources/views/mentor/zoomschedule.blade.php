@@ -1,7 +1,7 @@
 @extends('mentor.layouts.app')
 @section('content')
 
-<div class="row mb-3">
+{{-- <div class="row mb-3">
     <div class="col-md-4 col-lg-2 col-xl-2">
         <select class="form-select">
             <option selected>Semua</option>
@@ -10,7 +10,7 @@
             <option value="3">Option 3</option>
         </select>
     </div>
-</div>
+</div> --}}
 
 
 
@@ -34,7 +34,7 @@
         <form action="/timetable">
             <div class="ms-auto d-flex">
                 <div class="mx-sm-2 mb-2">
-                    <input type="date" name="created_at" value="{{ request()->created_at }}" class="form-control" id="exampleInputdate">
+                    <input type="date" name="date" value="{{ request()->date }}" class="form-control" id="exampleInputdate">
                 </div>
                 <div>
                     <button class="btn btn-primary w-100" type="submit">Cari</button>
