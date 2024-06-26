@@ -1,4 +1,15 @@
 @extends('admin.layouts.app')
+
+@section('style')
+<style>
+    @media (max-width: 767.98px) {
+        .ml-mobile-100 {
+            margin-left: 100px !important;
+        }
+    }
+</style>
+@endsection
+
 @section('content')
 
 <div class="card">
@@ -112,35 +123,42 @@
                 </div>
             </div>
             <div class="col-lg-8 col-md-6 col-sm-12">
-                <div class="d-flex justify-content-end gap-2">
-                    <div class="search-box col-lg-3">
-                            <form action="/absent">
-                            <input type="text" class="form-control" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Siswa">
-                            <i class="ri-search-line search-icon"></i>
-                        </form>
-                        </div>
-                    <div class="search-box col-lg-3">
+                <div class="d-flex flex-column flex-lg-row justify-content-end gap-2">
+                    <div class="search-box col-lg-3 col-12">
                         <form action="/absent">
-                            <input type="text" class="form-control" name="date" value="{{request()->date}}" data-provider="flatpickr" placeholder="Pilih tanggal">
-                            <i class="ri-calendar-line search-icon"></i>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="name" value="{{ request()->name }}" id="searchMemberList" placeholder="Cari Siswa">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="ri-search-line"></i></span>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary d-lg-none mt-2 w-100">Cari</button>
                         </form>
                     </div>
-                    <div class="form-check form-switch d-flex justify-content-between align-items-center"
-                        style="width: 160px">
-                        <form action="{{ route('wfh.today') }}" class="d-flex align-items-center"
-                            id="toggleForm" method="POST">
+                    <div class="search-box col-lg-3 col-12">
+                        <form action="/absent">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="date" value="{{ request()->date }}" data-provider="flatpickr" placeholder="Pilih tanggal">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="ri-calendar-line"></i></span>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary d-lg-none mt-2 w-100">Cari</button>
+                        </form>
+                    </div>
+                    <div class="form-check form-switch col-lg-3 col-12 d-flex justify-content-between align-items-center mt-2 mt-lg-0" style="width: auto;">
+                        <form action="{{ route('wfh.today') }}" class="d-flex align-items-center w-100" id="toggleForm" method="POST">
                             @csrf
                             <label class="form-check-label ms-n4" for="switchSizeLargeChecked">WFO</label>
-                            <div class="" style="margin-left: 38px">
-                                <input class="form-check-input" type="checkbox" name="is_on"
-                                    style="width: 40px; height: 20px" role="switch" id="switchSizeLargeChecked" value="true"
-                                    {{ $wfh && $wfh->is_on == 1 ? 'checked' : '' }} />
+                            <div class="flex-grow-1 ml-mobile-100">
+                                <input class="form-check-input" type="checkbox" name="is_on" style="width: 40px; height: 20px" role="switch" id="switchSizeLargeChecked" value="true" {{ $wfh && $wfh->is_on == 1 ? 'checked' : '' }} />
                             </div>
                             <label class="form-check-label ms-1" for="switchSizeLargeChecked">WFH</label>
                         </form>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <div class="card-body border-top">
