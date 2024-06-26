@@ -2,7 +2,7 @@
     <!-- Sidebar scroll-->
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-            <a href="/siswa-offline" class="text-nowrap logo-img">
+            <a href="/login" class="text-nowrap logo-img">
                 <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="180" alt="" />
                 <img src="{{ asset('assets/images/logo-pkl.png') }}" class="light-logo" width="180" alt=""
                     style="display: none;" />
@@ -66,7 +66,7 @@
                                 <path d="M10.5 5.5l-5 5" />
                                 <path d="M12 6v4" />
                                 <path d="M12 14v4" />
-                              </svg>    
+                              </svg>
                             </span>
                         <span class="hide-menu">Pengajuan Projek</span>
                     </a>
