@@ -21,7 +21,7 @@ class AttendanceResource extends JsonResource
             'status' => $this->status,
             'is_admin' => $this->is_admin,
             'created_at' => $this->created_at,
-            'time' => Carbon::parse($this->created_at)->format('H:i:s'),
+            'time' => Carbon::parse($this->created_at)->format('H:i'),
             'updated_at' => $this->updated_at,
         ];
     }
