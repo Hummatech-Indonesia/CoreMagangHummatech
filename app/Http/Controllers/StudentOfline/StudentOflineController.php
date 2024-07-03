@@ -4,6 +4,7 @@ namespace App\Http\Controllers\StudentOfline;
 
 use App\Contracts\Interfaces\AttendanceInterface;
 use App\Contracts\Interfaces\CourseInterface;
+use App\Contracts\Interfaces\WorkFromHomeInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View as ViewView;
 use Illuminate\Http\Request;
@@ -13,10 +14,15 @@ class StudentOflineController extends Controller
 {
     private AttendanceInterface $attendance;
     private CourseInterface $course;
-    public function __construct(AttendanceInterface $attendance, CourseInterface $courseInterface)
+    private WorkFromHomeInterface $workFromHome;
+
+    public function __construct(AttendanceInterface $attendance, CourseInterface $courseInterface, WorkFromHomeInterface $workFromHomeInterface)
     {
         $this->course = $courseInterface;
         $this->attendance = $attendance;
+        $this->workFromHome = $workFromHomeInterface;
+
+
     }
     public function index()
     {
@@ -24,7 +30,9 @@ class StudentOflineController extends Controller
         $permissions = $this->attendance->count('izin');
         $sick = $this->attendance->count('sakit');
         $absent = $this->attendance->count('alpha');
-        return view('student_offline.index', compact('attends', 'permissions', 'sick', 'absent'));
+        $workFromHomes = $this->workFromHome->getToday();
+
+        return view('student_offline.index', compact('attends', 'permissions', 'sick', 'absent', 'workFromHomes'));
     }
 
     /**
