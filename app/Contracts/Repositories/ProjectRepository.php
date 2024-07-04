@@ -66,7 +66,7 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
     }
     public function getProjectAccepted($id): mixed
     {
-        return $this->model->query()->where('hummatask_team_id', $id)->where('status', StatusProjectEnum::ACCEPTED->value)->first();
+        return $this->model->query()->where('hummatask_team_id', $id)->where('status', '!=', StatusProjectEnum::PENDING->value)->first();
     }
 }
 

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('division_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('slug');
-            $table->enum('status', [StatusHummaTeamEnum::PENDING->value, StatusHummaTeamEnum::ACTIVE->value, StatusHummaTeamEnum::EXPIRED->value])->default(StatusHummaTeamEnum::PENDING->value);
+            $table->enum('status', [StatusHummaTeamEnum::PENDING->value, StatusHummaTeamEnum::ACTIVE->value, StatusHummaTeamEnum::SUCCESS->value, StatusHummaTeamEnum::EXPIRED->value])->default(StatusHummaTeamEnum::PENDING->value);
             $table->timestamps();
         });
     }

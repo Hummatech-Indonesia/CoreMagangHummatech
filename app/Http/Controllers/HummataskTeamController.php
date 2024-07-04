@@ -131,10 +131,15 @@ class HummataskTeamController extends Controller
     public function update(UpdateHummataskTeamRequest $request, HummataskTeam $hummataskTeam)
     {
         $data = $request->validated();
-        // dd($data);
         $this->hummatask_team->update($hummataskTeam->id, ['name' => $data['name'], 'student_id' => $data['leader'], 'status' => $data['status']]);
         $project = $this->project->getProjectAccepted($hummataskTeam->id);
-        $this->project->update($project->id, ['end_date' => $data['end_date']]);
+
+        if ($data['status'] == StatusHummaTeamEnum::SUCCESS->value) {
+            $this->project->update($project->id, ['end_date' => $data['end_date'], 'status' => $data['status']]);
+        } else {
+            $this->project->update($project->id, ['end_date' => $data['end_date']]);
+        }
+        
         $this->studentTeam->deleteByTeamId($hummataskTeam->id);
         if ($request->has('deadline')) $this->project->updateByTeamId($hummataskTeam->id, ['end_date' => $data['deadline']]);
         foreach ($request->student_id as $student_id) {
@@ -143,7 +148,7 @@ class HummataskTeamController extends Controller
                 'student_id' => $student_id,
             ]);
         }
-        return back()->with('success', 'Berhasil Memperbarui Data Team');
+        return to_route('mentor.team-detail', $hummataskTeam->slug)->with('success', 'Berhasil Memperbarui Data Team');
     }
 
     public function updateOnStudent(UpdateTeamRequest $request, HummataskTeam $hummataskTeam)
@@ -220,6 +225,8 @@ class HummataskTeamController extends Controller
         $students = $this->mentorStudent->getBymentor(auth()->user()->mentor->id);
         $project = $this->project->getProjectAccepted($team->id);
         $studentTeams = $this->studentTeam->where('hummatask_team_id', $team->id);
+
+        // dd($team);
         return view('mentor.team.edit', compact('team', 'categoryProjects', 'students', 'project', 'studentTeams'));
     }
 }
