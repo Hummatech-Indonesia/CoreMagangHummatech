@@ -142,4 +142,14 @@ class JournalRepository extends BaseRepository implements JournalInterface
         ->where('status' , 'notfilling')
         ->count();
     }
+
+    public function chart(mixed $year, mixed $month, mixed $status): mixed
+    {
+        return $this->model->query()
+            ->where('student_id' , auth()->user()->student->id)
+            ->where('status', $status)
+            ->whereYear('created_at', $year)
+            ->whereMonth('created_at', $month)
+            ->count();
+    }
 }

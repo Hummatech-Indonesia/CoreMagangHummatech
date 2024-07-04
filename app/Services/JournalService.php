@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Contracts\Interfaces\JournalInterface;
 use Carbon\Carbon;
 use App\Models\Logo;
 use App\Models\Sale;
@@ -33,6 +34,36 @@ use App\Http\Requests\UpdateStructureRequest;
 class JournalService
 {
     use UploadTrait;
+
+    private JournalInterface $journal;
+    public function __construct(JournalInterface $journal)
+    {
+        $this->journal = $journal;
+    }
+
+    public function chart(mixed $status)
+    {
+        $Curentyear = Carbon::now()->year;
+        $Curentmonth = Carbon::now()->month;
+
+        $grafikDataCollection = [];
+
+        for($month = 1; $month <= 12; $month++){
+            $date = Carbon::createFromDate($Curentyear, $month, 1);
+            $yearMonth = $date->isoFormat('MMMM');
+            $journal = $this->journal->chart($Curentyear, $month, $status);
+
+            $grafikDataCollection[] = [
+             'year' => $Curentyear,
+             'month' => $yearMonth,
+             'journal' => $journal
+            ];
+        }
+        $data  = array_values($grafikDataCollection);
+
+
+        return $data;
+    }
 
     /**
      * Handle custom upload validation.

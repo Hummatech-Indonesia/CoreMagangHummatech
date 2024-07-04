@@ -194,13 +194,16 @@
     </script>
 
     <script>
+        var fillin = @json($fillinJournal);
+        var notfillin = @json($notFillinJournal);
+
         var options = {
             series: [{
                 name: 'Mengisi',
-                data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+                data: fillin.map(item => item.journal)
             }, {
                 name: 'Tidak Mengisi',
-                data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+                data: notfillin.map(item => item.journal)
             }],
             chart: {
                 type: 'bar',
@@ -223,7 +226,7 @@
                 colors: ['transparent']
             },
             xaxis: {
-                categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                categories: fillin.map(item => item.month),
             },
             fill: {
                 opacity: 1
@@ -231,7 +234,7 @@
             tooltip: {
                 y: {
                     formatter: function(val) {
-                        return "$ " + val + " thousands"
+                        return  val + " kali"
                     }
                 }
             }
