@@ -4,9 +4,11 @@ namespace App\Contracts\Repositories;
 use App\Contracts\Interfaces\AdminJournalInterface;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Enum\StatusJournalEnum;
 use App\Models\Journal;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class AdminJournalRepository extends BaseRepository implements AdminJournalInterface
 {
@@ -32,7 +34,7 @@ class AdminJournalRepository extends BaseRepository implements AdminJournalInter
     //     ->when($request->name, function ($query) use ($request) {
     //         $query->whereRelation('student', 'name', 'LIKE', '%' . $request->name . '%');
     //     })
-    //     ->when($request->created_at, function ($query) use ($request) {
+    //     ->when($request->created_at, function ($query) use    ($request) {
     //         $query->whereDate('created_at', $request->created_at);
     //     })
     //     ->get();
@@ -62,5 +64,16 @@ class AdminJournalRepository extends BaseRepository implements AdminJournalInter
         return $this->model->query()->where('status', $status)->get();
     }
 
+    public function NotFillin(Request $request): mixed
+    {
+        $query = $this->model->query();
+        $status = StatusJournalEnum::NOTFILLING->value;
+
+        $date = $request->input('created_at', Carbon::today()->toDateString());
+
+        return $query->where('status', $status)
+                    ->whereDate('created_at', $date)
+                    ->paginate(10, ['*'], 'notfilling_page');
+    }
 
 }

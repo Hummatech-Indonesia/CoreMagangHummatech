@@ -265,7 +265,7 @@
                                                         </h4>
                                                     </td>
                                                 </tr>
-                                                
+
                                             @endforelse
                                         </tbody>
                                     </table>
@@ -354,7 +354,7 @@
                                         </tbody>
                                     </table>
                                     <div class="pt-2">
-                                        {{-- {{ $adminJournalNotFilling->appends(request()->except('notfilling_page'))->links('pagination::bootstrap-4', ['paginator' => $adminJournalNotFilling, 'pageName' => 'notfilling_page']) }} --}}
+                                        {{ $adminJournalNotFilling->appends(request()->except('notfilling_page'))->links('pagination::bootstrap-4', ['paginator' => $adminJournalNotFilling, 'pageName' => 'notfilling_page']) }}
                                     </div>
                                 </div>
                             </div>
