@@ -23,79 +23,79 @@
     </div>
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
-        <div class="modal-content">
-            <div class="modal-header d-flex align-items-center">
-                <h4 class="modal-title" id="myLargeModalLabel">
-                    Tambah Jurnal
-                </h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header d-flex align-items-center">
+                    <h4 class="modal-title" id="myLargeModalLabel">
+                        Tambah Jurnal
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/create/jurnal" method="post" enctype="multipart/form-data">
+                    @csrf
+                    @method('POST')
+                    <div class="modal-body">
+                        <label for="" class="mt-2 mb-2">Judul</label>
+                        <input type="text" name="title" class="form-control" value="{{ old('title') }}">
+                        @error('title')
+                            <p class="text-danger">
+                                {{ $message }}
+                            </p>
+                        @enderror
+                        <label for="" class="mt-2 mb-2">Bukti</label>
+                        <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
+                            <img class="img-thumbnail image-preview" itemprop="thumbnail">
+                        </figure>
+                        <input type="file" name="image" class="form-control" onchange="preview(event)">
+                        @error('image')
+                            <p class="text-danger">
+                                {{ $message }}
+                            </p>
+                        @enderror
+                        <label for="" class="mt-2 mb-2">Deskripsi</label>
+                        <textarea name="description" id="description" class="form-control" onkeyup="countCharacters(this)"></textarea>
+                        <p id="characterCount">0 characters</p>
+                        @error('description')
+                            <p class="text-danger">
+                                {{ $message }}
+                            </p>
+                        @enderror
+                    </div>
+                    <hr>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-danger text-danger font-medium waves-effect text-start"
+                            data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit"
+                            class="btn btn-light-primary text-primary font-medium waves-effect text-start"
+                            data-bs-dismiss="modal">
+                            Simpan
+                        </button>
+                    </div>
+                </form>
             </div>
-            <form action="/create/jurnal" method="post" enctype="multipart/form-data">
-                @csrf
-                @method('POST')
-                <div class="modal-body">
-                    <label for="" class="mt-2 mb-2">Judul</label>
-                    <input type="text" name="title" class="form-control" value="{{ old('title') }}">
-                    @error('title')
-                        <p class="text-danger">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                    <label for="" class="mt-2 mb-2">Bukti</label>
-                    <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
-                        <img class="img-thumbnail image-preview" itemprop="thumbnail">
-                    </figure>
-                    <input type="file" name="image" class="form-control" onchange="preview(event)">
-                    @error('image')
-                        <p class="text-danger">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                    <label for="" class="mt-2 mb-2">Deskripsi</label>
-                    <textarea name="description" id="description" class="form-control" onkeyup="countCharacters(this)"></textarea>
-                    <p id="characterCount">0 characters</p>
-                    @error('description')
-                        <p class="text-danger">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-                <hr>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light-danger text-danger font-medium waves-effect text-start"
-                        data-bs-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="submit"
-                        class="btn btn-light-primary text-primary font-medium waves-effect text-start"
-                        data-bs-dismiss="modal">
-                        Simpan
-                    </button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
 
-<style>
-    .modal-dialog {
-        max-width: 90%;
-    }
-
-    @media (min-width: 576px) {
+    <style>
         .modal-dialog {
-            max-width: 500px;
+            max-width: 90%;
         }
-    }
 
-    @media (min-width: 992px) {
-        .modal-dialog {
-            max-width: 800px;
+        @media (min-width: 576px) {
+            .modal-dialog {
+                max-width: 500px;
+            }
         }
-    }
-</style>
+
+        @media (min-width: 992px) {
+            .modal-dialog {
+                max-width: 800px;
+            }
+        }
+    </style>
     <div class="d-flex justify-content-between mb-4">
         <h4>
             Data Jurnal
@@ -154,7 +154,7 @@
                                             <button type="button" class="bg-transparent border-0 btn-edit"
                                                 data-id="{{ $journal->id }}" data-title="{{ $journal->title }}"
                                                 data-image="{{ asset('storage/' . $journal->image) }}"
-                                                data-description="{!! nl2br($journal->description) !!}">
+                                                data-description="{{ $journal->description }}">
                                                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path
@@ -203,7 +203,7 @@
                     </tbody>
                 </table>
                 <div class="pt-3">
-                    {{$journals->links()}}
+                    {{ $journals->links() }}
                 </div>
             </div>
         </div>
@@ -293,109 +293,110 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $('.btn-edit').click(function() {
+            var id = $(this).data('id');
+            var title = $(this).data('title');
+            var description = $(this).data('description').replace(/<br\s*\/?>/gi, "\n");
+            var image = $(this).data('image');
 
-    @endsection
-    @section('script')
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script>
-            $('.btn-edit').click(function() {
-                var id = $(this).data('id');
-                var title = $(this).data('title');
-                var description = $(this).data('description');
-                var image = $(this).data('image');
-                $('#form-update').attr('action', '/journal/' + id);
-                $('#title-edit').val(title);
-                $('#description-edit').val(description);
-                $('#image-edit').attr('src', image);
-                $('#modal-edit').modal('show');
-            });
+            $('#form-update').attr('action', '/journal/' + id);
+            $('#title-edit').val(title);
+            $('#description-edit').val(description);
+            $('#image-edit').attr('src', image);
+            $('#modal-edit').modal('show');
+        });
 
-            function preview(event) {
-                var input = event.target;
-                var previewImages = document.getElementsByClassName('image-preview');
 
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
+        function preview(event) {
+            var input = event.target;
+            var previewImages = document.getElementsByClassName('image-preview');
 
-                    reader.onload = function(e) {
-                        Array.from(previewImages).forEach(function(previewImage) {
-                            previewImage.src = e.target.result;
-                            previewImage.style.display = 'block';
-                        });
-                    };
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
-                    reader.readAsDataURL(input.files[0]);
-                }
+                reader.onload = function(e) {
+                    Array.from(previewImages).forEach(function(previewImage) {
+                        previewImage.src = e.target.result;
+                        previewImage.style.display = 'block';
+                    });
+                };
+
+                reader.readAsDataURL(input.files[0]);
             }
+        }
 
-            $('.btn-detail').click(function() {
-                var detail = $('#detail-content');
-                detail.empty();
-                var id = $(this).data('id');
-                var name = $(this).data('name');
-                var date = $(this).data('date');
-                var school = $(this).data('school');
-                var description = $(this).data('description');
-                var image = $(this).data('image');
-                var modalBody = $('<div class="modal-body"></div>');
-                modalBody.append('<div class="mb-2">');
-                modalBody.append('<h6 class="f-w-600">Nama</h6>');
-                modalBody.append('<p class="text-muted">' + name + '</p>');
-                modalBody.append('</div>');
-                modalBody.append('<div class="mb-2">');
-                modalBody.append('<h6 class="f-w-600">Tanggal</h6>');
-                modalBody.append('<p class="text-muted">' + date + '</p>');
-                modalBody.append('</div>');
-                modalBody.append('<div class="mb-2">');
-                modalBody.append('<h6 class="f-w-600">Sekolah</h6>');
-                modalBody.append('<p class="text-muted">' + school + '</p>');
-                modalBody.append('</div>');
-                modalBody.append('<div class="mb-2">');
-                modalBody.append('<h6 class="f-w-600">Kegiatan</h6>');
-                modalBody.append('<p style="word-wrap: break-word;">' + description + '</p>');
-                modalBody.append('</div>');
-                modalBody.append('<div class="mb-2">');
-                modalBody.append('<h6 class="f-w-600">Bukti</h6>');
-                modalBody.append('<img src="' + image + '" class="img-fluid" style="width:100%; max-width:700px; object-fit:cover"></img>');
-                modalBody.append('</div>');
-                detail.append(modalBody);
-                $('#detail').modal('show');
-            });
+        $('.btn-detail').click(function() {
+            var detail = $('#detail-content');
+            detail.empty();
+            var id = $(this).data('id');
+            var name = $(this).data('name');
+            var date = $(this).data('date');
+            var school = $(this).data('school');
+            var description = $(this).data('description');
+            var image = $(this).data('image');
+            var modalBody = $('<div class="modal-body"></div>');
+            modalBody.append('<div class="mb-2">');
+            modalBody.append('<h6 class="f-w-600">Nama</h6>');
+            modalBody.append('<p class="text-muted">' + name + '</p>');
+            modalBody.append('</div>');
+            modalBody.append('<div class="mb-2">');
+            modalBody.append('<h6 class="f-w-600">Tanggal</h6>');
+            modalBody.append('<p class="text-muted">' + date + '</p>');
+            modalBody.append('</div>');
+            modalBody.append('<div class="mb-2">');
+            modalBody.append('<h6 class="f-w-600">Sekolah</h6>');
+            modalBody.append('<p class="text-muted">' + school + '</p>');
+            modalBody.append('</div>');
+            modalBody.append('<div class="mb-2">');
+            modalBody.append('<h6 class="f-w-600">Kegiatan</h6>');
+            modalBody.append('<p style="word-wrap: break-word;">' + description + '</p>');
+            modalBody.append('</div>');
+            modalBody.append('<div class="mb-2">');
+            modalBody.append('<h6 class="f-w-600">Bukti</h6>');
+            modalBody.append('<img src="' + image +
+                '" class="img-fluid" style="width:100%; max-width:700px; object-fit:cover"></img>');
+            modalBody.append('</div>');
+            detail.append(modalBody);
+            $('#detail').modal('show');
+        });
 
 
 
-            $('.btn-delete').click(function() {
-                var id = $(this).data('id');
-                $('#form-delete').attr('action', '/division/' + id);
-                $('#modal-delete').modal('show');
-            });
-        </script>
-        <script>
-            function countCharacters(textarea) {
-                var count = textarea.value.length;
-                var countElement = document.getElementById('characterCount');
-                countElement.innerText = count + ' karakter';
-                if (count >= 150) {
-                    countElement.style.color = 'green';
-                } else {
-                    countElement.style.color = 'red';
-                }
+        $('.btn-delete').click(function() {
+            var id = $(this).data('id');
+            $('#form-delete').attr('action', '/division/' + id);
+            $('#modal-delete').modal('show');
+        });
+    </script>
+    <script>
+        function countCharacters(textarea) {
+            var count = textarea.value.length;
+            var countElement = document.getElementById('characterCount');
+            countElement.innerText = count + ' karakter';
+            if (count >= 150) {
+                countElement.style.color = 'green';
+            } else {
+                countElement.style.color = 'red';
             }
-        </script>
-        <script>
-            function countCharactersEdit(element) {
-                var count = element.value.length;
-                var countElement = document.getElementById('characterCountEdit');
-                countElement.innerText = count + ' characters';
-                if (count < 150) {
-                    countElement.style.color = 'red';
-                } else {
-                    countElement.style.color = 'green';
-                }
+        }
+    </script>
+    <script>
+        function countCharactersEdit(element) {
+            var count = element.value.length;
+            var countElement = document.getElementById('characterCountEdit');
+            countElement.innerText = count + ' characters';
+            if (count < 150) {
+                countElement.style.color = 'red';
+            } else {
+                countElement.style.color = 'green';
             }
-        </script>
-
-    @endsection
+        }
+    </script>
+@endsection
