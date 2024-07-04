@@ -377,9 +377,11 @@
     </script>
     <script>
         function countCharacters(textarea) {
-            var count = textarea.value.length;
+            var textWithoutSpaces = textarea.value.replace(/\s/g, '');
+            var count = textWithoutSpaces.length;
             var countElement = document.getElementById('characterCount');
             countElement.innerText = count + ' karakter';
+
             if (count >= 150) {
                 countElement.style.color = 'green';
             } else {
@@ -387,11 +389,14 @@
             }
         }
     </script>
+
     <script>
         function countCharactersEdit(element) {
-            var count = element.value.length;
+            var textWithoutSpaces = element.value.replace(/\s/g, '');
+            var count = textWithoutSpaces.length;
             var countElement = document.getElementById('characterCountEdit');
-            countElement.innerText = count + ' characters';
+            countElement.innerText = count + ' karakter';
+
             if (count < 150) {
                 countElement.style.color = 'red';
             } else {
