@@ -34,7 +34,9 @@ class AdminJournalController extends Controller
 
         $adminJournalAll = $adminJournalQuery->paginate(10, ['*'], 'all_page');
         $adminJournalFillIn = $adminJournalQuery->where('status', 'fillin')->paginate(10, ['*'], 'fillin_page');
-        $adminJournalNotFilling = $adminJournalQuery->where('status', '!=', 'fillin')->paginate(10, ['*'], 'notfilling_page');
+        // $adminJournalNotFilling = $adminJournalQuery->where('status', 'notfilling')->paginate(10, ['*'], 'notfilling_page');
+        $adminJournalNotFilling = $this->adminJournal->NotFillin($request);
+        // dd($notfill);
 
 
         return view('admin.page.journal', compact('adminJournalAll','adminJournalFillIn','adminJournalNotFilling'));
