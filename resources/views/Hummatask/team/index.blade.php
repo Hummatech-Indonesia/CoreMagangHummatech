@@ -39,9 +39,11 @@
                             </div>
                         </div>
                         <div class="col-auto text-end">
-                            <button class="btn btn-primary btn-add-repository" data-id="{{ $activeProject->id }}" data-slug="{{ $team->slug }}" data-link="{{ $activeProject->link }}">
-                                Tambah link repository
-                            </button>
+                            @if ($activeProject->status == 'success')
+                                <button class="btn btn-primary btn-add-repository" data-id="{{ $activeProject->id }}" data-slug="{{ $team->slug }}" data-link="{{ $activeProject->link }}">
+                                    Tambah link repository
+                                </button>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -48,14 +48,16 @@
                 <label for="deadline" class="mt-3 mb-1">Status tim</label>
                 <div class="d-flex">
                     <div class="me-3">
-                        <input type="radio" name="status" value="active"
-                            data-sider-select-id="{{ $team->status == 'active' ? 'active' : '' }}">
+                        <input type="radio" name="status" value="active" id="status-active" {{ $team->status->value == 'active' ? 'checked' : '' }}>
                         <label for="status-active">Aktif</label>
                     </div>
-                    <div>
-                        <input type="radio" name="status" value="expired"
-                            data-sider-select-id="{{ $team->status == 'expired' ? 'expired' : '' }}">
+                    <div class="me-3">
+                        <input type="radio" name="status" value="expired" id="status-expired" {{ $team->status->value == 'expired' ? 'checked' : '' }}>
                         <label for="status-expired">Tidak Aktif</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="status" value="success" id="status-success" {{ $team->status->value == 'success' ? 'checked' : '' }}>
+                        <label for="status-success">Projek selesai</label>
                     </div>
                 </div>
                 @error('status')

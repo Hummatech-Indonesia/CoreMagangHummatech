@@ -7,6 +7,7 @@ enum StatusHummaTeamEnum : string
     case PENDING = 'pending';
     case ACTIVE = 'active';
     case EXPIRED = 'expired';
+    case SUCCESS = 'success';
 
     public function label()
     {
@@ -14,6 +15,7 @@ enum StatusHummaTeamEnum : string
             self::PENDING => 'Belum aktif',
             self::ACTIVE => 'Aktif',
             self::EXPIRED => 'Tidak aktif',
+            self::SUCCESS => 'Selesai',
         };
     }
     public function color(): string
@@ -22,6 +24,7 @@ enum StatusHummaTeamEnum : string
             self::PENDING => 'warning',
             self::ACTIVE => 'success',
             self::EXPIRED => 'danger',
+            self::SUCCESS => 'primary'
         };
     }
 }
