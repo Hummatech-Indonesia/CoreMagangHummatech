@@ -73,7 +73,7 @@
 
         <tr>
             <td style="width: 100px;">
-                <img src="{{ asset('storage/image/' . $letterheads->logo) }}" alt="Logo" style="max-width: 100%; height: auto; display:flex;">
+                <img src="{{ asset('storage/'. $letterheads->logo) }}" alt="Logo" style="max-width: 100%; height: auto; display:flex;">
             </td>
             <td style="text-align: center; justify-content: center; width: 600px; margin: 0">
                 <h4 style="margin: 0">{{ $letterheads->letterhead_top }}</h4>
@@ -113,8 +113,8 @@
                             <td class="px-1 md:px-4">
                                 {{ \Carbon\Carbon::parse($item->tanggal)->locale('id')->isoFormat('D MMMM Y') }}
                             </td>
-                            <td class="px-1 md:px-4">{{ $item->siswa->name }}</td>
-                            <td class="px-1 md:px-4">{{ $item->siswa->sekolah }}</td>
+                            <td class="px-1 md:px-4">{{ $item->student->name }}</td>
+                            <td class="px-1 md:px-4">{{ $item->student->school }}</td>
                             <td class="p-1 md:px-4" style="word-break: break-word;">{{ $item->kegiatan }}</td>
                             <td >
                                 @if (file_exists(public_path('storage/image/' . $item->image)))

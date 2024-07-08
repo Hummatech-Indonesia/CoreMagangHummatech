@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryBoardController;
 use App\Http\Controllers\Mentor\AssessmentController;
 use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\JournalController as ControllersJournalController;
 use App\Http\Controllers\LimitPresentationController;
 use App\Http\Controllers\Mentor\JournalController;
 use App\Http\Controllers\MentorController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\SubCourseController;
 use App\Http\Controllers\SubCourseOfflineController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -132,6 +134,10 @@ Route::delete('administrator/permission/delete/{permission}', [PermissionControl
 
 
 // siswa offline
+Route::get('/download-pdf-JurnalSiswa', [\App\Http\Controllers\JournalController::class, 'downloadPDF']);
+
+
+
 Route::get('siswa-offline/absensi', [AttendanceController::class, 'attendanceOffline'])->middleware(['roles:siswa-offline', 'auth']);
 
 Route::get('/siswa-offline/course', [CourseOfflineController::class, 'index']);

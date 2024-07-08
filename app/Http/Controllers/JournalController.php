@@ -81,7 +81,7 @@ class JournalController extends Controller
                     return redirect()->back()->with('error', 'Hari ini adalah hari libur.');
                 }
                 $data = $this->service->store($request);
-                $this->journal->store($data); // Menggunakan metode create() untuk menyimpan data baru
+                $this->journal->store($data);
                 return redirect()->back()->with('success', 'Jurnal Berhasil Ditambahkan');
             }
         } catch (\Throwable $th) {
@@ -115,7 +115,7 @@ class JournalController extends Controller
         $data = $this->service->update($journal, $request);
         $this->journal->update($journal->id, $data);
         return back()->with('success', 'Berhasi Memperbarui Data');
-        
+
     }
 
     /**
@@ -134,12 +134,12 @@ class JournalController extends Controller
         return view('student_online.journal.index', compact('journals'));
     }
 
-    public function DownloadPdf()
+    public function downloadPDF()
     {
-        try {
+        // try {
             //code...
             $journals = $this->journal->get();
-            $header = $this->letterheads->get();
+            $header = $this->letterheads->whereauth(auth()->user()->id);
             $datastudent = $this->student->get();
 
             $months = $journals->groupBy(function ($date) {
@@ -190,8 +190,8 @@ class JournalController extends Controller
             ];
 
             return response($output, 200, $headers);
-        } catch (Exception $e) {
-            return back()->with('error' , 'Terjadi Kesalahan');
-        }
+        // } catch (Exception $e) {
+        //     return back()->with('error' , 'Terjadi Kesalahan');
+        // }
     }
 }
