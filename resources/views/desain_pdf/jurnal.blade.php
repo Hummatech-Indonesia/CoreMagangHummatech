@@ -73,7 +73,16 @@
 
         <tr>
             <td style="width: 100px;">
-                <img src="{{ asset('storage/'. $letterheads->logo) }}" alt="Logo" style="max-width: 100%; height: auto; display:flex;">
+                @php
+                    $imagePath = public_path('storage/' . $letterheads->logo);
+                    if (file_exists($imagePath)) {
+                        $imageData = base64_encode(file_get_contents($imagePath));
+                        $imageDataUri = 'data:image/png;base64,' . $imageData;
+                    }
+                @endphp
+                @if (isset($imageDataUri))
+                    <img src="{{ $imageDataUri }}" alt="Logo" style="max-width: 100%; height: auto; display:flex;">
+                @endif
             </td>
             <td style="text-align: center; justify-content: center; width: 600px; margin: 0">
                 <h4 style="margin: 0">{{ $letterheads->letterhead_top }}</h4>
@@ -111,26 +120,46 @@
                         <tr style="text-align: center; font-size: 9px">
                             <td class="px-1 md:px-4">{{ $loop->iteration }}</td>
                             <td class="px-1 md:px-4">
-                                {{ \Carbon\Carbon::parse($item->tanggal)->locale('id')->isoFormat('D MMMM Y') }}
+                                {{ \Carbon\Carbon::parse($item->created_at)->locale('id')->isoFormat('D MMMM Y') }}
                             </td>
                             <td class="px-1 md:px-4">{{ $item->student->name }}</td>
                             <td class="px-1 md:px-4">{{ $item->student->school }}</td>
-                            <td class="p-1 md:px-4" style="word-break: break-word;">{{ $item->kegiatan }}</td>
-                            <td >
-                                @if (file_exists(public_path('storage/image/' . $item->image)))
-                                <img src="{{ asset('storage/image/' . $item->image) }}" width="50px" height="50px"
-                                    alt="{{ $item->image }}">
-                            @else
-                                gambar tidak ada
-                            @endif
+                            <td class="p-1 md:px-4" style="word-break: break-word;">{{ $item->description }}</td>
+                            <td>
+                                @php
+                                    $path = storage_path('app/public/' . $item->image);
+                                    if (file_exists($path)) {
+                                        $type = pathinfo($path, PATHINFO_EXTENSION);
+                                        $data = file_get_contents($path);
+                                        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+                                    } else {
+                                        $base64 = '';
+                                    }
+                                @endphp
+                                @if ($base64)
+                                    <img src="{{ $base64 }}" width="50px" height="50px"
+                                        alt="{{ $item->image }}">
+                                @else
+                                    Gambar tidak tersedia
+                                @endif
                             </td>
                             <td class="px-1 md:px-4">
-                                <img src="{{ asset('ttd.png') }}" alt="" width="100px" srcset="">
+                                @php
+                                    $imagePath = public_path('berkas/ttd.png');
+                                @endphp
+                                @if (file_exists($imagePath))
+                                    <img src="data:image/png;base64,{{ base64_encode(file_get_contents($imagePath)) }}"
+                                        alt="Tanda Tangan" width="100px">
+                                @else
+                                    Tanda tangan tidak tersedia
+                                @endif
                             </td>
                         </tr>
                     @endforeach
+
                 </tbody>
             </table>
+
         </div>
         <div style="margin-top: 5%; padding-left: 80%">
             <div style="text-align: center">

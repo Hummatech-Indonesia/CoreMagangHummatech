@@ -659,4 +659,11 @@ class StudentRepository extends BaseRepository implements StudentInterface
     //     ->paginate(10);
 
     // }
+
+    public function first () : mixed
+    {
+        return $this->model->query()
+        ->where('id',auth()->user()->student->id)
+        ->first();
+    }
 }
