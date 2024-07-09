@@ -57,64 +57,64 @@ class AttendanceController extends Controller
      *
      * @return RedirectResponse
      */
-    // public function absentOnline(): RedirectResponse
-    // {
-    //     $time = now()->format('H:i:s');
-    //     $attendanceData = [
-    //         'student_id' => auth()->user()->student->id,
-    //         'created_at' => now(),
-    //         'updated_at' => now(),
-    //     ];
-    //     $max = $this->maxLate->get();
-    //     $ruleToday = $this->attendanceRule->getByDay(Carbon::now()->format('l'));
-    //     if (!$ruleToday) {
-    //         return back()->with('error', 'Tidak ada jam absen hari ini');
-    //     }
-    //     if (!$attendance = $this->attendance->checkAttendanceToday(['student_id' => auth()->user()->student->id, 'created_at' => now()])) {
-    //         $attendance = $this->attendance->store($attendanceData);
-    //     }
-    //     if ($time >= $ruleToday->checkin_starts && $time <= Carbon::createFromFormat('H:i:s', $ruleToday->checkin_ends)->addMinutes($max ? (int) $max->minute : 15)->format('H:i:s')) {
-    //         $this->attendanceDetail->store(['status' => 'present', 'attendance_id' => $attendance->id, 'created_at' => now(), 'updated_at' => now()]);
-    //     } else if ($time >= $ruleToday->checkout_starts && $time <= $ruleToday->checkout_ends) {
-    //         $this->attendanceDetail->store(['status' => 'return', 'attendance_id' => $attendance->id, 'created_at' => now(), 'updated_at' => now()]);
-    //     }
-    //     return redirect()->back()->with('success', "Berhasil absen");
-    // }
-
     public function absentOnline(): RedirectResponse
     {
         $time = now()->format('H:i:s');
-        $studentId = auth()->user()->student->id;
-
-        $existingAttendance = $this->attendance->checkAttendanceToday(['student_id' => $studentId]);
-
-        if ($existingAttendance) {
-            return redirect()->back()->with('error', 'Anda sudah absen hari ini');
-        }
-
         $attendanceData = [
-            'student_id' => $studentId,
+            'student_id' => auth()->user()->student->id,
             'created_at' => now(),
             'updated_at' => now(),
         ];
-
         $max = $this->maxLate->get();
         $ruleToday = $this->attendanceRule->getByDay(Carbon::now()->format('l'));
-
         if (!$ruleToday) {
             return back()->with('error', 'Tidak ada jam absen hari ini');
         }
-
-        $attendance = $this->attendance->store($attendanceData);
-
+        if (!$attendance = $this->attendance->checkAttendanceToday(['student_id' => auth()->user()->student->id, 'created_at' => now()])) {
+            $attendance = $this->attendance->store($attendanceData);
+        }
         if ($time >= $ruleToday->checkin_starts && $time <= Carbon::createFromFormat('H:i:s', $ruleToday->checkin_ends)->addMinutes($max ? (int) $max->minute : 15)->format('H:i:s')) {
             $this->attendanceDetail->store(['status' => 'present', 'attendance_id' => $attendance->id, 'created_at' => now(), 'updated_at' => now()]);
         } else if ($time >= $ruleToday->checkout_starts && $time <= $ruleToday->checkout_ends) {
             $this->attendanceDetail->store(['status' => 'return', 'attendance_id' => $attendance->id, 'created_at' => now(), 'updated_at' => now()]);
         }
-
         return redirect()->back()->with('success', "Berhasil absen");
     }
+
+    // public function absentOnline(): RedirectResponse
+    // {
+    //     $time = now()->format('H:i:s');
+    //     $studentId = auth()->user()->student->id;
+
+    //     $existingAttendance = $this->attendance->checkAttendanceToday(['student_id' => $studentId]);
+
+    //     if ($existingAttendance) {
+    //         return redirect()->back()->with('error', 'Anda sudah absen hari ini');
+    //     }
+
+    //     $attendanceData = [
+    //         'student_id' => $studentId,
+    //         'created_at' => now(),
+    //         'updated_at' => now(),
+    //     ];
+
+    //     $max = $this->maxLate->get();
+    //     $ruleToday = $this->attendanceRule->getByDay(Carbon::now()->format('l'));
+
+    //     if (!$ruleToday) {
+    //         return back()->with('error', 'Tidak ada jam absen hari ini');
+    //     }
+
+    //     $attendance = $this->attendance->store($attendanceData);
+
+    //     if ($time >= $ruleToday->checkin_starts && $time <= Carbon::createFromFormat('H:i:s', $ruleToday->checkin_ends)->addMinutes($max ? (int) $max->minute : 15)->format('H:i:s')) {
+    //         $this->attendanceDetail->store(['status' => 'present', 'attendance_id' => $attendance->id, 'created_at' => now(), 'updated_at' => now()]);
+    //     } else if ($time >= $ruleToday->checkout_starts && $time <= $ruleToday->checkout_ends) {
+    //         $this->attendanceDetail->store(['status' => 'return', 'attendance_id' => $attendance->id, 'created_at' => now(), 'updated_at' => now()]);
+    //     }
+
+    //     return redirect()->back()->with('success', "Berhasil absen");
+    // }
 
     public function absentOffline(Request $request): RedirectResponse
     {
