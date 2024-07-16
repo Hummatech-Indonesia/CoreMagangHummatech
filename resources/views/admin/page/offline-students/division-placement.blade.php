@@ -308,7 +308,6 @@
 
         $('.btn-edit').click(function() {
             var id = $(this).data('id');
-            // var division = $(this).data('division').trigger('change');
             $('#form-update-edit').attr('action', '/offline-students/division-placement/update/' + id);
             $('#edit').modal('show');
         })

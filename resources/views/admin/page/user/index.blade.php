@@ -693,13 +693,10 @@
             $('.show-school').text(school);
             $('.show-finish').text(finish_date);
 
-            // console.log(cv);
             $('.show-cv').attr('src', cv);
 
-            // console.log(parents_statement);
             $('.show-parent-statement').attr('src', parents_statement);
 
-            // console.log(self_statement);
             $('.show-self-statement').attr('src', self_statement);
 
 
@@ -746,7 +743,6 @@
 
     <script>
         function zoomImage(img) {
-            // Membuat elemen overlay
             var overlay = document.createElement('div');
             overlay.style.position = 'fixed';
             overlay.style.top = 0;
@@ -759,19 +755,15 @@
             overlay.style.alignItems = 'center';
             overlay.style.justifyContent = 'center';
 
-            // Membuat elemen gambar yang diperbesar
             var zoomedImg = document.createElement('img');
             zoomedImg.src = img.src;
             zoomedImg.style.maxWidth = '90%';
             zoomedImg.style.maxHeight = '90%';
 
-            // Menambahkan gambar ke dalam overlay
             overlay.appendChild(zoomedImg);
 
-            // Menambahkan overlay ke dalam body
             document.body.appendChild(overlay);
 
-            // Menghapus overlay saat diklik
             overlay.onclick = function() {
                 document.body.removeChild(overlay);
             };
