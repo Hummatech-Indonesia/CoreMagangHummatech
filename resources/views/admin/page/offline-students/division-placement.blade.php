@@ -173,7 +173,7 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <button type="button" class="btn bg-warning-subtle text-warning edit-item-btn btn-edit"
-                                                        data-id="{{ $student->id }}" data-division="{{ $student->division_id }}">
+                                                        data-id="{{ $student->id }}" data-divisionId="{{ $student->division_id }}">
                                                         <i class="ri-apps-2-line align-bottom me-2 text-warning"></i>
                                                         Rubah  Divisi
                                                     </button>
@@ -258,7 +258,7 @@
                     <div class="modal-body">
                         <div class="mb-1">
                             <label for="divisi" class="col-form-label">Divisi</label>
-                            <select class="tambah js-example-basic-single form-control" aria-label=".form-select example"
+                            <select class="tambah js-example-basic-single form-control" id="division-edit" aria-label=".form-select example"
                                 name="division_id">
                                 @forelse ($divisions as $division)
                                     <option value="{{ $division->id }}">{{ $division->name }}</option>
@@ -284,22 +284,10 @@
 @endsection
 @section('script')
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
 
     <script>
-        $(document).ready(function() {
-            $(".js-example-basic-single").select2({
-                dropdownParent: $("#add")
-            });
-        });
-
-        $(document).ready(function() {
-            $("#message").modal('show');
-        });
-
         $('.btn-add').click(function() {
             var id = $(this).data('id');
             $('#form-update').attr('action', '/offline-students/division-placement/' + id);
@@ -331,6 +319,7 @@
                 toggleTableResponsive();
             });
         });
+
         $(document).ready(function() {
             function toggleTableResponsive() {
                 var screenWidth = $(window).width();
