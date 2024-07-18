@@ -6,11 +6,6 @@
                     <i class="ti ti-menu-2"></i>
                 </a>
             </li>
-            <li class="nav-item d-none d-lg-block">
-                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="nav-link nav-icon-hover">
-                    <i class="ti ti-search"></i>
-                </a>
-            </li>
         </ul>
         <div class="d-block d-lg-none">
             <img src="{{ asset('logopkldark.png') }}" class="dark-logo" width="160" alt="" />
