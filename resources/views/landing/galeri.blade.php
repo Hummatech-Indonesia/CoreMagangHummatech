@@ -67,7 +67,7 @@
                             <div class="blog-meta">
                                 <a href="blog.html">
                                     <i class="fal fa-calendar-days"></i>18
-                                    Agustus, 2023s</a>
+                                    Agustus, 2023</a>
                             </div>
                             <h3 class="box-title">Liburan Bersama Siswa PKL Hummatech</a></h3>
                         </div>
