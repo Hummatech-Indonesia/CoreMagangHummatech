@@ -61,7 +61,7 @@
                     </div>
                 </div>
 
-                {{-- <div class="col-lg-4">
+                <div class="col-lg-4">
                     <div class="card h-100">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
@@ -83,7 +83,7 @@
                             <div id="chart-absen" class="pt-4"></div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>

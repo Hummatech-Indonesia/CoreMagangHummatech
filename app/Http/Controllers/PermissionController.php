@@ -44,6 +44,7 @@ class PermissionController extends Controller
         $perPageAgree = 50;
         $perPageReject = 50;
 
+        
         $pandingPermissions = $this->permission->getByStatus('pending', $request)->paginate($perPagePanding, ['*'], 'panding_page');
         $agreePermissions = $this->permission->getByStatus('agree', $request)->paginate($perPageAgree, ['*'], 'agree_page');
         $rejectPermissions = $this->permission->getByStatus('reject', $request)->paginate($perPageReject, ['*'], 'reject_page');
