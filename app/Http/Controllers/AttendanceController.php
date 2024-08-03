@@ -164,37 +164,21 @@ class AttendanceController extends Controller
      * @param  mixed $request
      * @return RedirectResponse
      */
-    // public function storeWorkFromHome(Request $request): RedirectResponse
-    // {
-    //     $wfh = $this->workFromHome->getToday();
-
-    //     if (!$wfh) {
-    //         if ($request->has('is_on')) $isOn = 1;
-    //     } elseif ($wfh->is_on == 1) {
-    //         $isOn = 0;
-    //     } elseif ($wfh->is_on == 0) {
-    //         $isOn = 1;
-    //     }
-    //     $this->workFromHome->store(['date' => now()->format('Y-m-d'), 'is_on' => $isOn]);
-
-    //     return redirect()->back()->with('success', 'Berhasil merubah status');
-    // }
-
     public function storeWorkFromHome(Request $request): RedirectResponse
     {
         $wfh = $this->workFromHome->getToday();
 
         if (!$wfh) {
-            $isOn = $request->has('is_on') ? 1 : 0;
-            $this->workFromHome->store(['date' => now()->format('Y-m-d'), 'is_on' => $isOn]);
-        } else {
-            $isOn = $request->has('is_on') ? 1 : 0;
-            $wfh->update(['is_on' => $isOn]);
+            if ($request->has('is_on')) $isOn = 1;
+        } elseif ($wfh->is_on == 1) {
+            $isOn = 0;
+        } elseif ($wfh->is_on == 0) {
+            $isOn = 1;
         }
+        $this->workFromHome->store(['date' => now()->format('Y-m-d'), 'is_on' => $isOn]);
 
         return redirect()->back()->with('success', 'Berhasil merubah status');
     }
-
 
     /**
      * index
