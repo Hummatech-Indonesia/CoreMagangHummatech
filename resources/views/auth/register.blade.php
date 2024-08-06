@@ -71,7 +71,7 @@
                                             <label class="form-label" for="multiStepsUsername">Nama Lengkap</label>
                                             <input type="text" name="name" id="multiStepsUsername"
                                                 value="{{ old('name') }}" class="form-control" placeholder="Nama Lengkap"
-                                                onkeyup="capitalizeInput(this)" />
+                                                onkeyup="capitalizeInput(this)" autocomplete="off" />
                                             @error('name')
                                                 <p class="text-danger m-0">{{ $message }}</p>
                                             @enderror
