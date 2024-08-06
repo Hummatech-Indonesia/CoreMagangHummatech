@@ -64,9 +64,13 @@
                             <div class="list-grid-nav">
                                 <form action="/menu-siswa">
                                     <select name="school" class="form-select" id="schoolFilter">
-                                        <option value="">Sekolah</option>
-                                        @forelse ($schools as $school)
-                                            <option value="{{ $school }}">{{ $school }}</option>
+                                        <option>Sekolah</option>
+                                        @forelse ($schoolOption as $school)
+                                        <option value="{{ $school }}" {{ $request->school == $school ? 'selected' : '' }}>
+                                            {{ $school }}
+                                        </option>
+
+                                            {{-- <option value="{{ $school }}">{{ $school }}</option> --}}
                                             {{-- <option value="{{ $school }}" {{ $request->school == $school ? 'selected' : '' }}>{{ $school }}</option> --}}
                                         @empty
                                             <option value="">Belum ada data</option>
@@ -81,8 +85,8 @@
                                 <form action="/menu-siswa">
                                     <select name="acepted" class="form-select" id="acceptedFilter">
                                         <option value="" disabled selected>Status</option>
-                                        <option value="1">Aktif</option>
-                                        <option value="0">Tidak Aktif</option>
+                                        <option value="1" {{ $request->acepted == 1 ? 'selected' : '' }}>Aktif</option>
+                                        <option value="0" {{ $request->acepted == 0 ? 'selected' : '' }}>Tidak Aktif</option>
                                     </select>
                                 </form>
                             </div>
@@ -93,13 +97,15 @@
                                 <form action="/menu-siswa">
                                     <select name="gender" class="form-select" id="genderFilter">
                                         <option disabled selected>Jenis Kelamin</option>
-                                        @foreach ($genders as $gender)
+                                        @foreach ($gendersOption as $gender)
                                             <option value="{{ $gender }}"
-                                                {{ request('gender') == $gender ? 'selected' : '' }}>{{ ucfirst($gender) }}
+                                                {{ request('gender') == $gender ? 'selected' : '' }}>
+                                                {{ $gender == 'male' ? 'Laki-laki' : ($gender == 'female' ? 'Perempuan' : ucfirst($gender)) }}
                                             </option>
                                         @endforeach
                                     </select>
                                 </form>
+
                             </div>
                         </div>
 

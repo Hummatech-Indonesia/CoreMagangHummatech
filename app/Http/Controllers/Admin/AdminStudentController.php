@@ -33,7 +33,11 @@ class AdminStudentController extends Controller
      */ public function index(Request $request)
     {
         $schools = $this->student->listStudent($request)->pluck('school')->unique();
+        $schoolOption = $this->student->pluck('school')->unique();
+        // dd($schoolOption);
         $genders = $this->student->listStudent($request)->pluck('gender')->unique();
+        $gendersOption = $this->student->pluck('gender')->unique();
+
         $status = $this->student->listStudent($request)->pluck('status')->unique();
 
 
@@ -50,7 +54,8 @@ class AdminStudentController extends Controller
                 'acepted' => '0'
             ]);
 
-        return view('admin.page.user.index', compact('students', 'studentOfflines', 'studentOnllines', 'divisions', 'schools', 'genders', 'status', 'Alumni'));
+
+        return view('admin.page.user.index', compact('students', 'studentOfflines', 'studentOnllines', 'divisions', 'schools', 'genders', 'status', 'Alumni', 'schoolOption', 'request', 'gendersOption'));
     }
 
     /**
