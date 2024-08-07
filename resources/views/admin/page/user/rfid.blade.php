@@ -99,7 +99,7 @@
                                                 <td class="name">{{ $student->name }}</td>
                                                 <td class="date">{{ $student->email }}</td>
                                                 <td class="time">{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }} -
-                                                                {{ \carbon\Carbon::parse($student->end_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}
+                                                                {{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}
                                                 </td>
                                                 <td class="description">{{ $student->school }}</td>
                                                 <td>
@@ -188,7 +188,7 @@
                                                 <td class="name">{{ $student->name }}</td>
                                                 <td class="date">{{ $student->email }}</td>
                                                 <td class="time">{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }} -
-                                                                {{ \carbon\Carbon::parse($student->end_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}
+                                                                {{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}
                                                 </td>
                                                 <td class="description">{{ $student->school }}</td>
                                                 <td>
