@@ -120,7 +120,17 @@
                                                         <span
                                                             class="badge bg-success-subtle text-success text-uppercase">{{ $permission->status }}</span>
                                                     </td>
-                                                    <td class="status_approval">{{ $permission->status_approval }}</td>
+                                                    <td class="status_approval">
+                                                        @if ($permission->status_approval == 'agree')
+                                                            Diterima
+                                                        @elseif($permission->status_approval == 'reject')
+                                                            Ditolak
+                                                        @elseif($permission->status_approval == 'pending')
+                                                            Menunggu Konfirmasi
+                                                        @else
+                                                            Status Tidak Dikenal
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         <div class="dropdown d-inline-block">
 
@@ -248,7 +258,17 @@
                                                         <span
                                                             class="badge bg-success-subtle text-success text-uppercase">{{ $permission->status }}</span>
                                                     </td>
-                                                    <td class="status_approval">{{ $permission->status_approval }}</td>
+                                                    <td class="status_approval">
+                                                        @if ($permission->status_approval == 'agree')
+                                                            Diterima
+                                                        @elseif($permission->status_approval == 'reject')
+                                                            Ditolak
+                                                        @elseif($permission->status_approval == 'pending')
+                                                            Menunggu Konfirmasi
+                                                        @else
+                                                            Status Tidak Dikenal
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         <div class="dropdown d-inline-block">
                                                             <button class="btn btn-soft-secondary btn-sm dropdown"
@@ -374,7 +394,17 @@
                                                         <span
                                                             class="badge bg-success-subtle text-success text-uppercase">{{ $permission->status }}</span>
                                                     </td>
-                                                    <td class="status_approval">{{ $permission->status_approval }}</td>
+                                                    <td class="status_approval">
+                                                        @if ($permission->status_approval == 'agree')
+                                                            Diterima
+                                                        @elseif($permission->status_approval == 'reject')
+                                                            Ditolak
+                                                        @elseif($permission->status_approval == 'pending')
+                                                            Menunggu Konfirmasi
+                                                        @else
+                                                            Status Tidak Dikenal
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         <div class="dropdown d-inline-block">
                                                             <button class="btn btn-soft-secondary btn-sm dropdown"
