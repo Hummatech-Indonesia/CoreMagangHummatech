@@ -138,46 +138,46 @@ Route::get('/download-pdf-JurnalSiswa', [\App\Http\Controllers\JournalController
 
 
 
-Route::get('siswa-offline/absensi', [AttendanceController::class, 'attendanceOffline'])->middleware(['roles:siswa-offline', 'auth']);
+// Route::get('siswa-offline/absensi', [AttendanceController::class, 'attendanceOffline'])->middleware(['roles:siswa-offline', 'auth']);
 
-Route::get('/siswa-offline/course', [CourseOfflineController::class, 'index']);
-Route::get('/siswa-offline/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('materi.detail');
-Route::get('/siswa-offline/course/detail/learn-more/{subCourse}', [CourseOfflineController::class, 'showSub'])->name('submateri.detail');
+// Route::get('/siswa-offline/course', [CourseOfflineController::class, 'index']);
+// Route::get('/siswa-offline/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('materi.detail');
+// Route::get('/siswa-offline/course/detail/learn-more/{subCourse}', [CourseOfflineController::class, 'showSub'])->name('submateri.detail');
 
 
-Route::get('siswa-offline/challenge', [StudentChallengeController::class, 'index']);
+// Route::get('siswa-offline/challenge', [StudentChallengeController::class, 'index']);
 
-Route::get('/siswa-offline/course/detail/answer-detail', function () {
-    return view('student_offline.course.answer-detail');
-});
-Route::get('siswa-offline/transaction/topUp', function () {
-    return view('student_offline.transaction.topUp_history');
-});
-Route::get('siswa-offline/transaction/history', function () {
-    return view('student_offline.transaction.transaction_history');
-});
-Route::get('siswa-offline/others/rules', function () {
-    return view('student_offline.others.rules');
-});
-
-Route::get('siswa-offline/others/picket', [PicketOfflineController::class, 'index']);
-
-Route::get('siswa-offline/purchase', [CourseOfflineController::class, 'shopcourse']);
-Route::get('siswa-offline/purchase/detail/{id}', [CourseOfflineController::class, 'shopCourseDetail'])->name('purchase.detail');
-
-// Route::get('siswa-offline/purchase/detail', function (){
-//     return view('student_offline.purchase.detail');
+// Route::get('/siswa-offline/course/detail/answer-detail', function () {
+//     return view('student_offline.course.answer-detail');
 // });
-Route::get('siswa-offline/certificate', function () {
-    return view('student_offline.certificate.index');
-});
+// Route::get('siswa-offline/transaction/topUp', function () {
+//     return view('student_offline.transaction.topUp_history');
+// });
+// Route::get('siswa-offline/transaction/history', function () {
+//     return view('student_offline.transaction.transaction_history');
+// });
+// Route::get('siswa-offline/others/rules', function () {
+//     return view('student_offline.others.rules');
+// });
+
+// Route::get('siswa-offline/others/picket', [PicketOfflineController::class, 'index']);
+
+// Route::get('siswa-offline/purchase', [CourseOfflineController::class, 'shopcourse']);
+// Route::get('siswa-offline/purchase/detail/{id}', [CourseOfflineController::class, 'shopCourseDetail'])->name('purchase.detail');
+
+// // Route::get('siswa-offline/purchase/detail', function (){
+// //     return view('student_offline.purchase.detail');
+// // });
+// Route::get('siswa-offline/certificate', function () {
+//     return view('student_offline.certificate.index');
+// });
 
 //Student online
-Route::get('/siswa-online/challenge', [StudentChallengeController::class, 'showOnline']);
-Route::post('/siswa-online/challenge/store', [StudentChallengeController::class, 'store'])->name('challenge_online.store');
-Route::put('/siswa-online/challenge/update/{studentChallenge}', [StudentChallengeController::class, 'update'])->name('challenge_online.update');
+// Route::get('/siswa-online/challenge', [StudentChallengeController::class, 'showOnline']);
+// Route::post('/siswa-online/challenge/store', [StudentChallengeController::class, 'store'])->name('challenge_online.store');
+// Route::put('/siswa-online/challenge/update/{studentChallenge}', [StudentChallengeController::class, 'update'])->name('challenge_online.update');
 
-Route::get('/siswa-online/absensi', [AttendanceController::class, 'attendanceOnline']);
+// Route::get('/siswa-online/absensi', [AttendanceController::class, 'attendanceOnline']);
 
 
 //Hummatask

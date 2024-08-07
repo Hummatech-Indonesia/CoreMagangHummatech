@@ -1,7 +1,9 @@
 <?php
 
 use App\Enum\RolesEnum;
+use App\Http\Controllers\Admin\AdminAbsentController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\StudentOfline\PicketOfflineController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LimitsController;
@@ -19,12 +21,20 @@ use App\Http\Controllers\VoucherSubmitController;
 use App\Http\Controllers\Admin\ApprovalController;
 use App\Http\Controllers\Admin\AdminMentorController;
 use App\Http\Controllers\Admin\AdminStudentController;
+use App\Http\Controllers\Admin\AdminStudentTeamController;
+use App\Http\Controllers\Admin\DivisionController;
+use App\Http\Controllers\Admin\DivisionPlacementController;
 use App\Http\Controllers\Admin\MentorPlacementController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
+use App\Http\Controllers\Admin\RfidController;
+use App\Http\Controllers\Admin\StudentRejectedController;
 use App\Http\Controllers\AlumniController;
+use App\Http\Controllers\Api\PresentationController;
 use App\Http\Controllers\AppointmentOfAmentorController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AttendanceRuleController;
+use App\Http\Controllers\CategoryProjectController;
 use App\Http\Controllers\CourseAssignmentController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Mentor\DashboardController;
@@ -35,7 +45,9 @@ use App\Http\Controllers\FaceController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SignatureCOController;
+use App\Http\Controllers\StudentChallengeController;
 use App\Http\Controllers\StudentCourseController;
+use App\Http\Controllers\StudentOfline\CourseOfflineController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use App\Http\Controllers\StudentOnline\ZoomScheduleController;
 use App\Http\Controllers\StudentOfline\StudentOflineController;
@@ -166,6 +178,38 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::post('/alumni-admin/store', [AlumniController::class, 'store'])->name('alumni-admin.store');
     Route::delete('/alumni-admin/delete/{alumni}', [AlumniController::class, 'destroy'])->name('alumni-admin.destroy');
 
+    Route::get('division', [DivisionController::class, 'index'])->name('division.index');
+    Route::post('division/store', [DivisionController::class, 'store'])->name('division.store');
+    Route::patch('division/{division}', [DivisionController::class, 'update'])->name('division.update');
+    Route::delete('division/{division}', [DivisionController::class, 'destroy'])->name('division.delete');
+
+    Route::get('announcement', function () {
+        return view('admin.page.announcement.index');
+    });
+
+    Route::get('administrator/category-project', [CategoryProjectController::class, 'index'])->name('category-project.index');
+    Route::post('administrator/category-project/store', [CategoryProjectController::class, 'store'])->name('category-project.store');
+    Route::patch('administrator/category-project/{categoryProject}', [CategoryProjectController::class, 'update'])->name('category-project.update');
+    Route::delete('administrator/category-project/{categoryProject}', [CategoryProjectController::class, 'destroy'])->name('category-project.destroy');
+
+    Route::get('offline-students/division-placement', [DivisionPlacementController::class, 'index']);
+    Route::post('offline-students/division-placement/{student}', [DivisionPlacementController::class, 'divisionplacement'])->name('division-placement');
+    Route::put('offline-students/division-placement/update/{student}', [DivisionPlacementController::class, 'divisionchange'])->name('division-placement.update');
+
+    Route::get('offline-students/team', [AdminStudentTeamController::class, 'index'])->name('admin.team.index');
+    Route::get('offline-students/team/{slug}', [AdminStudentTeamController::class, 'show'])->name('admin.team.show');
+    Route::get('offline-students/presentation', [PresentationController::class, 'index']);
+
+    Route::get('rfid', [RfidController::class, 'index']);
+    Route::patch('rfid/add/{student}', [RfidController::class, 'store']);
+    Route::patch('rfid/update/{student}', [RfidController::class, 'update']);
+
+    Route::get('students-rejected', [StudentRejectedController::class, 'index']);
+    Route::put('students-rejected/{student}', [StudentRejectedController::class, 'accept']);
+
+    Route::post('attendance-rule/store', [AttendanceRuleController::class, 'store'])->name('attendance-rule.store');
+
+    Route::get('administrator/absent/export/excel', [AdminAbsentController::class, 'export_excel'])->name('attendance.admin.export.excel');
 });
 
 # ================================================ Offline Student Route Group ================================================
@@ -178,7 +222,45 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
     Route::get('division', function () {
         return view('student_offline.division.index');
     })->name('.class.division');
+
+    Route::get('/download-pdf-JurnalSiswa', [JournalController::class, 'downloadPDF']);
+    Route::get('siswa-offline/absensi', [AttendanceController::class, 'attendanceOffline'])->middleware(['roles:siswa-offline', 'auth']);
+
+    Route::get('/siswa-offline/course', [CourseOfflineController::class, 'index']);
+    Route::get('/siswa-offline/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('materi.detail');
+    Route::get('/siswa-offline/course/detail/learn-more/{subCourse}', [CourseOfflineController::class, 'showSub'])->name('submateri.detail');
+
+
+    Route::get('siswa-offline/challenge', [StudentChallengeController::class, 'index']);
+
+    Route::get('/siswa-offline/course/detail/answer-detail', function () {
+        return view('student_offline.course.answer-detail');
+    });
+    Route::get('siswa-offline/transaction/topUp', function () {
+        return view('student_offline.transaction.topUp_history');
+    });
+    Route::get('siswa-offline/transaction/history', function () {
+        return view('student_offline.transaction.transaction_history');
+    });
+    Route::get('siswa-offline/others/rules', function () {
+        return view('student_offline.others.rules');
+    });
+
+    Route::get('siswa-offline/others/picket', [PicketOfflineController::class, 'index']);
+
+    Route::get('siswa-offline/purchase', [CourseOfflineController::class, 'shopcourse']);
+    Route::get('siswa-offline/purchase/detail/{id}', [CourseOfflineController::class, 'shopCourseDetail'])->name('purchase.detail');
+
+    // Route::get('siswa-offline/purchase/detail', function (){
+    //     return view('student_offline.purchase.detail');
+    // });
+    Route::get('siswa-offline/certificate', function () {
+        return view('student_offline.certificate.index');
+    });
+    Route::put('journal/{journal}', [JournalController::class, 'update']);
 })->middleware(["roles:siswa-offline", 'auth']);
+
+
 
 Route::post('permission', [PermissionController::class, 'store'])->name('permission.store');
 
@@ -204,6 +286,12 @@ Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(
     Route::post('letterhead/store', [LetterheadController::class, 'store'])->name('.letterhead.store');
 
     Route::get('/meeting', [ZoomScheduleController::class, 'indexStudent'])->name('zoom-meeting.indexStudent');
+
+    Route::get('/siswa-online/challenge', [StudentChallengeController::class, 'showOnline']);
+    Route::post('/siswa-online/challenge/store', [StudentChallengeController::class, 'store'])->name('challenge_online.store');
+    Route::put('/siswa-online/challenge/update/{studentChallenge}', [StudentChallengeController::class, 'update'])->name('challenge_online.update');
+
+    Route::get('/siswa-online/absensi', [AttendanceController::class, 'attendanceOnline']);
 });
 
 Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('.journal.download');
@@ -266,8 +354,7 @@ Route::post('wfh/store', [AttendanceController::class, 'storeWorkFromHome'])->na
 # Transaction and Payment Routing
 Route::post('transaction/save/{product}', [TransactionController::class, 'save'])->name('transaction.save');
 Route::post('transaction/save-course/{course}', [TransactionController::class, 'saveCourse'])->name('transaction.save-course');
-Route::get('transaction/checkout/{product}', [TransactionController::class, 'checkout'])->name('transaction-history.checkout');
-;
+Route::get('transaction/checkout/{product}', [TransactionController::class, 'checkout'])->name('transaction-history.checkout');;
 Route::get('transaction/checkout-course/{course}', [TransactionController::class, 'checkoutCourse'])->name('transaction.checkout-course');
 Route::get('transaction', function () {
     return view('student_online_&_offline.transaction.index');

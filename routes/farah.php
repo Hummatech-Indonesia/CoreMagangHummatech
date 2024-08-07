@@ -25,17 +25,17 @@ use App\Http\Controllers\StudentTaskController;
 use App\Http\Controllers\TaskSubmissionController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('division', [DivisionController::class, 'index'])->name('division.index');
-Route::post('division/store', [DivisionController::class, 'store'])->name('division.store');
-Route::patch('division/{division}', [DivisionController::class, 'update'])->name('division.update');
-Route::delete('division/{division}', [DivisionController::class, 'destroy'])->name('division.delete');
+// Route::get('division', [DivisionController::class, 'index'])->name('division.index');
+// Route::post('division/store', [DivisionController::class, 'store'])->name('division.store');
+// Route::patch('division/{division}', [DivisionController::class, 'update'])->name('division.update');
+// Route::delete('division/{division}', [DivisionController::class, 'destroy'])->name('division.delete');
 
-Route::get('announcement', function() {
-    return view('admin.page.announcement.index');
-});
+// Route::get('announcement', function() {
+//     return view('admin.page.announcement.index');
+// });
 
 
-Route::put('journal/{journal}', [JournalController::class, 'update']);
+// Route::put('journal/{journal}', [JournalController::class, 'update']);
 Route::get('siswa-online/jurnal', [JournalController::class, 'studentOnline']);
 
 Route::get('siswa-online/materi/detail', function() {
@@ -60,13 +60,13 @@ Route::get('person-in-charge', function() {
 Route::get('person-in-charge/detail', function() {
     return view('admin.page.user.person-in-charge-detail');
 });
-Route::get('offline-students/division-placement', [DivisionPlacementController::class, 'index']);
-Route::post('offline-students/division-placement/{student}', [DivisionPlacementController::class ,'divisionplacement'])->name('division-placement');
-Route::put('offline-students/division-placement/update/{student}', [DivisionPlacementController::class ,'divisionchange'])->name('division-placement.update');
+// Route::get('offline-students/division-placement', [DivisionPlacementController::class, 'index']);
+// Route::post('offline-students/division-placement/{student}', [DivisionPlacementController::class ,'divisionplacement'])->name('division-placement');
+// Route::put('offline-students/division-placement/update/{student}', [DivisionPlacementController::class ,'divisionchange'])->name('division-placement.update');
 
-Route::get('offline-students/team', [AdminStudentTeamController::class, 'index'])->name('admin.team.index');
-Route::get('offline-students/team/{slug}', [AdminStudentTeamController::class, 'show'])->name('admin.team.show');
-Route::get('offline-students/presentation', [PresentationController::class, 'index']);
+// Route::get('offline-students/team', [AdminStudentTeamController::class, 'index'])->name('admin.team.index');
+// Route::get('offline-students/team/{slug}', [AdminStudentTeamController::class, 'show'])->name('admin.team.show');
+// Route::get('offline-students/presentation', [PresentationController::class, 'index']);
 
 Route::get('administrator/course/detail', function() {
     return view('admin.page.course.detail');
@@ -96,12 +96,12 @@ Route::delete('picket-report/{picketingReport}', [PicketingReportController::cla
 Route::post('siswa-offline/challenge',[StudentChallengeController::class,'store']);
 Route::put('siswa-offline/challenge/{studentChallenge}',[StudentChallengeController::class,'update']);
 
-Route::get('students-rejected', [StudentRejectedController::class, 'index']);
-Route::put('students-rejected/{student}', [StudentRejectedController::class, 'accept']);
+// Route::get('students-rejected', [StudentRejectedController::class, 'index']);
+// Route::put('students-rejected/{student}', [StudentRejectedController::class, 'accept']);
 
-Route::get('rfid', [RfidController::class, 'index']);
-Route::patch('rfid/add/{student}', [RfidController::class, 'store']);
-Route::patch('rfid/update/{student}', [RfidController::class, 'update']);
+// Route::get('rfid', [RfidController::class, 'index']);
+// Route::patch('rfid/add/{student}', [RfidController::class, 'store']);
+// Route::patch('rfid/update/{student}', [RfidController::class, 'update']);
 
 Route::post('team/store', [HummataskTeamController::class, 'store'])->name('team.store');
 Route::put('team/update/{hummataskTeam}', [HummataskTeamController::class, 'update'])->name('team.update');
@@ -111,10 +111,10 @@ Route::delete('hummateam/team/{hummataskTeam}', [HummataskTeamController::class,
 Route::put('hummateam/team/{hummataskTeam}', [HummataskTeamController::class, 'updateOnStudent'])->name('team-student.update');
 Route::post('solo-team/store', [HummataskTeamController::class, 'soloTeam'])->name('soloTeam.store');
 
-Route::get('administrator/category-project', [CategoryProjectController::class, 'index'])->name('category-project.index');
-Route::post('administrator/category-project/store', [CategoryProjectController::class, 'store'])->name('category-project.store');
-Route::patch('administrator/category-project/{categoryProject}', [CategoryProjectController::class, 'update'])->name('category-project.update');
-Route::delete('administrator/category-project/{categoryProject}', [CategoryProjectController::class, 'destroy'])->name('category-project.destroy');
+// Route::get('administrator/category-project', [CategoryProjectController::class, 'index'])->name('category-project.index');
+// Route::post('administrator/category-project/store', [CategoryProjectController::class, 'store'])->name('category-project.store');
+// Route::patch('administrator/category-project/{categoryProject}', [CategoryProjectController::class, 'update'])->name('category-project.update');
+// Route::delete('administrator/category-project/{categoryProject}', [CategoryProjectController::class, 'destroy'])->name('category-project.destroy');
 
 Route::get('mentor/team', [HummataskTeamController::class, 'mentor']);
 Route::get('mentor/team/{slug}', [HummataskTeamController::class, 'mentorShow'])->name('mentor.team-detail');
@@ -127,10 +127,10 @@ Route::get('mentor/project-submission/{slug}', [ProjectController::class, 'showP
 Route::put('mentor/project-submission/{slug}/acc/{project}', [ProjectController::class, 'update'])->name('project-submission.acc');
 Route::put('mentor/project-submission/{slug}', [ProjectController::class, 'projectFromMentor'])->name('project-submission-mentor.acc');
 
-Route::post('attendance-rule/store', [AttendanceRuleController::class, 'store'])->name('attendance-rule.store');
+// Route::post('attendance-rule/store', [AttendanceRuleController::class, 'store'])->name('attendance-rule.store');
 Route::patch('mentor/presentation/callback/{presentation}', [PresentationController::class, 'callback'])->name('mentor.callback');
 
 Route::get('mentor/team/{slug}/edit', [HummataskTeamController::class, 'mentorEdit'])->name('mentor-team.edit');
 
 Route::patch('hummateam/team/{slug}/add-repository/{project}', [ProjectController::class, 'addRepository'])->name('add.repository');
-Route::get('administrator/absent/export/excel', [AdminAbsentController::class, 'export_excel'])->name('attendance.admin.export.excel');
+// Route::get('administrator/absent/export/excel', [AdminAbsentController::class, 'export_excel'])->name('attendance.admin.export.excel');
