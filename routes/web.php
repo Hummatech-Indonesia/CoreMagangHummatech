@@ -25,6 +25,8 @@ use App\Http\Controllers\Admin\AdminStudentTeamController;
 use App\Http\Controllers\Admin\DivisionController;
 use App\Http\Controllers\Admin\DivisionPlacementController;
 use App\Http\Controllers\Admin\MentorPlacementController;
+use App\Http\Controllers\Admin\PicketController;
+use App\Http\Controllers\Admin\PicketingReportController;
 use App\Http\Controllers\Admin\WarningLetterController;
 use App\Http\Controllers\Admin\ResponseLetterController;
 use App\Http\Controllers\Admin\RfidController;
@@ -42,6 +44,7 @@ use App\Http\Controllers\StudentOnline\CourseController;
 use App\Http\Controllers\CourseController as AdminCourseController;
 use App\Http\Controllers\DataCOController;
 use App\Http\Controllers\FaceController;
+use App\Http\Controllers\NotePicketController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SignatureCOController;
@@ -210,6 +213,21 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::post('attendance-rule/store', [AttendanceRuleController::class, 'store'])->name('attendance-rule.store');
 
     Route::get('administrator/absent/export/excel', [AdminAbsentController::class, 'export_excel'])->name('attendance.admin.export.excel');
+
+    Route::get('administrator/permission', [PermissionController::class, 'index']);
+    Route::put('administrator/permission/update/{permission}', [PermissionController::class, 'updateApproval'])->name('approval.izin');
+    Route::put('administrator/permission/update/reject/{permission}', [PermissionController::class, 'updateApprovalReject'])->name('approval.reject');
+    Route::delete('administrator/permission/delete/{permission}', [PermissionController::class, 'destroy'])->name('permission.delete');
+
+    Route::get('administrator/presentation', [PresentationController::class, 'show']);
+
+    Route::get('picket', [PicketController::class, 'index']);
+    Route::post('picket/store', [PicketController::class, 'store'])->name('picket.store');
+    Route::put('picket/{picket}', [PicketController::class, 'update'])->name('picket.update');
+    Route::post('note-picket/store', [NotePicketController::class, 'store'])->name('note.store');
+    Route::put('note-picket/{notePicket}', [NotePicketController::class, 'update'])->name('note.update');
+
+    Route::get('report', [PicketingReportController::class, 'index']);
 });
 
 # ================================================ Offline Student Route Group ================================================
@@ -224,40 +242,39 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
     })->name('.class.division');
 
     Route::get('/download-pdf-JurnalSiswa', [JournalController::class, 'downloadPDF']);
-    Route::get('siswa-offline/absensi', [AttendanceController::class, 'attendanceOffline'])->middleware(['roles:siswa-offline', 'auth']);
+    Route::get('absensi', [AttendanceController::class, 'attendanceOffline'])->name('.attendances');
+    Route::get('/course', [CourseOfflineController::class, 'index'])->name('.course');
+    Route::get('/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('.materi.detail');
+    Route::get('/course/detail/learn-more/{subCourse}', [CourseOfflineController::class, 'showSub'])->name('.submateri.detail');
 
-    Route::get('/siswa-offline/course', [CourseOfflineController::class, 'index']);
-    Route::get('/siswa-offline/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('materi.detail');
-    Route::get('/siswa-offline/course/detail/learn-more/{subCourse}', [CourseOfflineController::class, 'showSub'])->name('submateri.detail');
 
+    Route::get('challenge', [StudentChallengeController::class, 'index'])->name('.challenge');
 
-    Route::get('siswa-offline/challenge', [StudentChallengeController::class, 'index']);
-
-    Route::get('/siswa-offline/course/detail/answer-detail', function () {
+    Route::get('/course/detail/answer-detail', function () {
         return view('student_offline.course.answer-detail');
-    });
-    Route::get('siswa-offline/transaction/topUp', function () {
+    })->name('.answer');
+    Route::get('transaction/topUp', function () {
         return view('student_offline.transaction.topUp_history');
-    });
-    Route::get('siswa-offline/transaction/history', function () {
+    })->name('.transactions');
+    Route::get('transaction/history', function () {
         return view('student_offline.transaction.transaction_history');
-    });
-    Route::get('siswa-offline/others/rules', function () {
+    })->name('.transaction.history');
+    Route::get('others/rules', function () {
         return view('student_offline.others.rules');
-    });
+    })->name('.rules');
 
-    Route::get('siswa-offline/others/picket', [PicketOfflineController::class, 'index']);
+    Route::get('others/picket', [PicketOfflineController::class, 'index'])->name('.picket');
 
-    Route::get('siswa-offline/purchase', [CourseOfflineController::class, 'shopcourse']);
-    Route::get('siswa-offline/purchase/detail/{id}', [CourseOfflineController::class, 'shopCourseDetail'])->name('purchase.detail');
+    Route::get('purchase', [CourseOfflineController::class, 'shopcourse'])->name('.purchase');
+    Route::get('purchase/detail/{id}', [CourseOfflineController::class, 'shopCourseDetail'])->name('.purchase.detail');
 
     // Route::get('siswa-offline/purchase/detail', function (){
     //     return view('student_offline.purchase.detail');
     // });
-    Route::get('siswa-offline/certificate', function () {
+    Route::get('certificate', function () {
         return view('student_offline.certificate.index');
-    });
-    Route::put('journal/{journal}', [JournalController::class, 'update']);
+    })->name('.certificate');
+    Route::put('journal/{journal}', [JournalController::class, 'update'])->name('.journal.update');
 })->middleware(["roles:siswa-offline", 'auth']);
 
 
@@ -285,13 +302,13 @@ Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(
     Route::get('letterhead', [LetterheadController::class, 'index'])->name('.letterhead');
     Route::post('letterhead/store', [LetterheadController::class, 'store'])->name('.letterhead.store');
 
-    Route::get('/meeting', [ZoomScheduleController::class, 'indexStudent'])->name('zoom-meeting.indexStudent');
+    Route::get('/meeting', [ZoomScheduleController::class, 'indexStudent'])->name('.zoom-meeting.indexStudent');
 
-    Route::get('/siswa-online/challenge', [StudentChallengeController::class, 'showOnline']);
-    Route::post('/siswa-online/challenge/store', [StudentChallengeController::class, 'store'])->name('challenge_online.store');
-    Route::put('/siswa-online/challenge/update/{studentChallenge}', [StudentChallengeController::class, 'update'])->name('challenge_online.update');
+    Route::get('challenge', [StudentChallengeController::class, 'showOnline']);
+    Route::post('challenge/store', [StudentChallengeController::class, 'store'])->name('.challenge_online.store');
+    Route::put('challenge/update/{studentChallenge}', [StudentChallengeController::class, 'update'])->name('.challenge_online.update');
 
-    Route::get('/siswa-online/absensi', [AttendanceController::class, 'attendanceOnline']);
+    Route::get('absensi', [AttendanceController::class, 'attendanceOnline'])->name('.attendances');
 });
 
 Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('.journal.download');

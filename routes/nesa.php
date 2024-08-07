@@ -39,13 +39,13 @@ Route::get('reject', function () {
     return view('admin.page.rejected.index');
 });
 
-Route::get('picket', [PicketController::class, 'index']);
-Route::post('picket/store', [PicketController::class, 'store'])->name('picket.store');
-Route::put('picket/{picket}', [PicketController::class, 'update'])->name('picket.update');
-Route::post('note-picket/store', [NotePicketController::class, 'store'])->name('note.store');
-Route::put('note-picket/{notePicket}', [NotePicketController::class, 'update'])->name('note.update');
+// Route::get('picket', [PicketController::class, 'index']);
+// Route::post('picket/store', [PicketController::class, 'store'])->name('picket.store');
+// Route::put('picket/{picket}', [PicketController::class, 'update'])->name('picket.update');
+// Route::post('note-picket/store', [NotePicketController::class, 'store'])->name('note.store');
+// Route::put('note-picket/{notePicket}', [NotePicketController::class, 'update'])->name('note.update');
 
-Route::get('report', [PicketingReportController::class, 'index']);
+// Route::get('report', [PicketingReportController::class, 'index']);
 
 
 
@@ -96,12 +96,12 @@ Route::get('timetable', [ZoomScheduleController::class, 'show']);
 
 
 //Admin
-Route::get('administrator/presentation', [PresentationController::class, 'show']);
+// Route::get('administrator/presentation', [PresentationController::class, 'show']);
 
-Route::get('administrator/permission', [PermissionController::class, 'index']);
-Route::put('administrator/permission/update/{permission}', [PermissionController::class, 'updateApproval'])->name('approval.izin');
-Route::put('administrator/permission/update/reject/{permission}', [PermissionController::class, 'updateApprovalReject'])->name('approval.reject');
-Route::delete('administrator/permission/delete/{permission}', [PermissionController::class, 'destroy'])->name('permission.delete');
+// Route::get('administrator/permission', [PermissionController::class, 'index']);
+// Route::put('administrator/permission/update/{permission}', [PermissionController::class, 'updateApproval'])->name('approval.izin');
+// Route::put('administrator/permission/update/reject/{permission}', [PermissionController::class, 'updateApprovalReject'])->name('approval.reject');
+// Route::delete('administrator/permission/delete/{permission}', [PermissionController::class, 'destroy'])->name('permission.delete');
 
 
 
@@ -138,7 +138,6 @@ Route::get('/download-pdf-JurnalSiswa', [\App\Http\Controllers\JournalController
 
 
 
-// Route::get('siswa-offline/absensi', [AttendanceController::class, 'attendanceOffline'])->middleware(['roles:siswa-offline', 'auth']);
 
 // Route::get('/siswa-offline/course', [CourseOfflineController::class, 'index']);
 // Route::get('/siswa-offline/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('materi.detail');
@@ -177,7 +176,6 @@ Route::get('/download-pdf-JurnalSiswa', [\App\Http\Controllers\JournalController
 // Route::post('/siswa-online/challenge/store', [StudentChallengeController::class, 'store'])->name('challenge_online.store');
 // Route::put('/siswa-online/challenge/update/{studentChallenge}', [StudentChallengeController::class, 'update'])->name('challenge_online.update');
 
-// Route::get('/siswa-online/absensi', [AttendanceController::class, 'attendanceOnline']);
 
 
 //Hummatask
