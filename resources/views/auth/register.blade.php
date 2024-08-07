@@ -214,7 +214,7 @@
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsMobile">Surat Pernyataan Diri</label>
                                             <div class="input-group">
-                                                <input type="file" name="self_statement" class="form-control"/>
+                                                <input type="file" name="self_statement" class="form-control" />
                                             </div>
                                             <p class="text-danger">*Surat Pernyataan Diri Harus Berformat .jpg, .jpeg,
                                                 atau .png</p>
@@ -241,8 +241,8 @@
 
                                         <div class="col-sm-6">
                                             <label class="form-label" for="multiStepsMobile">Mulai Magang</label>
-                                            <input type="date"  name="start_date"
-                                                value="{{ old('start_date') }}" class="form-control"/>
+                                            <input type="date" name="start_date" value="{{ old('start_date') }}"
+                                                class="form-control" />
                                             @error('start_date')
                                                 <p class="text-danger m-0">{{ $message }}</p>
                                             @enderror
@@ -294,7 +294,7 @@
                                             <select name="division_id" class="form-select" id="multiStepsAddress">
                                                 <option disabled selected>Pilih Divisi</option>
                                                 @forelse ($divisions as $division)
-                                                <option value="{{ $division->id }}"
+                                                    <option value="{{ $division->id }}"
                                                         {{ old('division_id') == $division->id ? 'selected' : '' }}>
                                                         {{ $division->name }}</option>
                                                 @empty
@@ -336,17 +336,17 @@
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsAddress">Password</label>
                                             <div class="input-group input-group-merge">
-                                                <input type="password" id="multiStepsPass" name="password"
+                                                <input type="password" id="password" name="password"
                                                     class="form-control" placeholder="password"
-                                                    aria-describedby="multiStepsPass2" />
-                                                <span class="input-group-text cursor-pointer" id="multiStepsPass2"><i
+                                                    aria-describedby="togglePassword" />
+                                                <span class="input-group-text cursor-pointer" id="togglePassword"><i
                                                         class="ti ti-eye-off"></i></span>
                                             </div>
                                             @error('password')
                                                 <p class="text-danger m-0">{{ $message }}</p>
                                             @enderror
                                         </div>
-                                        <div class="col-md-6">
+                                        {{-- <div class="col-md-6">
                                             <label class="form-label" for="multiStepsAddress">konfirmasi password</label>
                                             <div class="input-group input-group-merge">
                                                 <input type="password" name="confirm_password" id="multiStepsFirstName"
@@ -358,7 +358,21 @@
                                             @error('confirm_password')
                                                 <p class="text-danger m-0">{{ $message }}</p>
                                             @enderror
+                                        </div> --}}
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="confirm_password">Konfirmasi Password</label>
+                                            <div class="input-group input-group-merge">
+                                                <input type="password" name="confirm_password" id="confirm_password"
+                                                    class="form-control" placeholder="Password"
+                                                    aria-describedby="togglePasswordConfirm" />
+                                                <span class="input-group-text cursor-pointer" id="togglePasswordConfirm"><i
+                                                        class="ti ti-eye-off"></i></span>
+                                            </div>
+                                            @error('confirm_password')
+                                                <p class="text-danger m-0">{{ $message }}</p>
+                                            @enderror
                                         </div>
+
                                         <div class="col-12 d-flex justify-content-between mt-4">
                                             <button class="btn btn-label-secondary btn-prev" type="button"> <i
                                                     class="ti ti-arrow-left ti-xs me-sm-1 me-0"></i>
@@ -681,6 +695,39 @@
             'controls': ["rtl", "style", "headerType", "contentLayout", "layoutCollapsed", "layoutNavbarOptions",
                 "themes"
             ],
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#togglePasswordConfirm').on('click', function() {
+                var passwordField = $('#confirm_password');
+                var passwordIcon = $(this).find('i');
+
+                if (passwordField.attr('type') === 'password') {
+                    passwordField.attr('type', 'text');
+                    passwordIcon.removeClass('ti-eye-off').addClass('ti-eye');
+                } else {
+                    passwordField.attr('type', 'password');
+                    passwordIcon.removeClass('ti-eye').addClass('ti-eye-off');
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#togglePassword').on('click', function() {
+                var passwordField = $('#password');
+                var passwordIcon = $(this).find('i');
+
+                if (passwordField.attr('type') === 'password') {
+                    passwordField.attr('type', 'text');
+                    passwordIcon.removeClass('ti-eye-off').addClass('ti-eye');
+                } else {
+                    passwordField.attr('type', 'password');
+                    passwordIcon.removeClass('ti-eye').addClass('ti-eye-off');
+                }
+            });
         });
     </script>
 @endsection
