@@ -89,7 +89,7 @@ class PermissionController extends Controller
                 $tanggalMulai = $izinDari;
                 $tanggalBerakhir = $izinSampai;
                 $today = now();
-                while ($tanggalMulai <= $tanggalBerakhir) {
+                while ($tanggalMulai == $tanggalBerakhir) {
                     $this->attendance->store([
                         'student_id' => $permission->student_id,
                         'status' => $permission->status,
