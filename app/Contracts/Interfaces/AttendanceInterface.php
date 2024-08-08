@@ -3,6 +3,7 @@
 namespace App\Contracts\Interfaces;
 
 use App\Contracts\Interfaces\Eloquent\CountInterface;
+use App\Contracts\Interfaces\Eloquent\DeleteInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 use Illuminate\Http\Request;
@@ -36,4 +37,5 @@ interface AttendanceInterface extends StoreInterface, UpdateInterface
     public function count($status):mixed;
     public function yearAttendances(): mixed;
     public function monthAttendances(): mixed;
+    public function delete($id, $date): mixed;
 }

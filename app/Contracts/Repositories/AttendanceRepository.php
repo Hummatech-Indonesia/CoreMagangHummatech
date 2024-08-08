@@ -94,4 +94,9 @@ class AttendanceRepository extends BaseRepository implements AttendanceInterface
     {
         return $this->model->query()->selectRaw('MONTH(created_at) as month')->groupBy('month')->orderBy('month', 'desc')->get();
     }
+
+    public function delete($id, $date): mixed
+    {
+        return $this->model->query()->where('student_id', $id)->whereDate('created_at', $date)->delete();
+    }
 }

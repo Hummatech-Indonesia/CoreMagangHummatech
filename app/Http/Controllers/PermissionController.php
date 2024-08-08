@@ -8,6 +8,7 @@ use App\Contracts\Interfaces\StudentInterface;
 use App\Enum\StatusApprovalPermissionEnum;
 use App\Http\Requests\PermissionRequest;
 use App\Http\Requests\StatusApprovalRequest;
+use App\Http\Requests\UpdatePermissionRequest;
 use App\Models\Attendance;
 use App\Models\Permission;
 use App\Services\PermissionService;
@@ -44,7 +45,7 @@ class PermissionController extends Controller
         $perPageAgree = 50;
         $perPageReject = 50;
 
-        
+
         $pandingPermissions = $this->permission->getByStatus('pending', $request)->paginate($perPagePanding, ['*'], 'panding_page');
         $agreePermissions = $this->permission->getByStatus('agree', $request)->paginate($perPageAgree, ['*'], 'agree_page');
         $rejectPermissions = $this->permission->getByStatus('reject', $request)->paginate($perPageReject, ['*'], 'reject_page');
@@ -73,31 +74,39 @@ class PermissionController extends Controller
      * @param  mixed $request
      * @return RedirectResponse
      */
-    public function updateApproval(Permission $permission, PermissionRequest $request): RedirectResponse
+    public function updateApproval(Permission $permission, UpdatePermissionRequest $request): RedirectResponse
     {
         switch ($request->status_approval) {
             case StatusApprovalPermissionEnum::AGREE->value:
-                $this->permission->update($permission->id, [
-                    'status_approval' => StatusApprovalPermissionEnum::AGREE->value,
-                ]);
                 if ($permission->start === Carbon::today()->toDateString()) {
                     $izinDari = Carbon::tomorrow();
                 } else {
                     $izinDari = Carbon::parse($permission->start);
                 }
+
                 $izinSampai = Carbon::parse($permission->end);
                 $tanggalMulai = $izinDari;
                 $tanggalBerakhir = $izinSampai;
                 $today = now();
-                while ($tanggalMulai == $tanggalBerakhir) {
-                    $this->attendance->store([
-                        'student_id' => $permission->student_id,
-                        'status' => $permission->status,
-                        'created_at' => $today,
-                    ]);
+
+                while ($tanggalMulai <= $tanggalBerakhir) {
+
+                    $exsits = $this->attendance->checkAttendanceToday(['student_id' => $permission->student_id, 'created_at' => $tanggalMulai]);
+                    if (!$exsits) {
+                        $this->attendance->store([
+                            'student_id' => $permission->student_id,
+                            'status' => $permission->status,
+                            'created_at' => $tanggalMulai,
+                        ]);
+                    }
                     $tanggalMulai->addDay();
                     $today->addDay();
                 }
+
+                $this->permission->update($permission->id, [
+                    'status_approval' => StatusApprovalPermissionEnum::AGREE->value,
+                ]);
+
                 break;
             case StatusApprovalPermissionEnum::REJECT->value:
                 $this->permission->update($permission->id, [
@@ -110,22 +119,34 @@ class PermissionController extends Controller
 
 
 
-    public function updateApprovalReject(Permission $permission, PermissionRequest $request): RedirectResponse
+    public function updateApprovalReject(Permission $permission, UpdatePermissionRequest $request): RedirectResponse
     {
-        $this->permission->update($permission->id, ['status_approval' => $request->status_approval]);
+        try {
+            if ($request->status_approval == StatusApprovalPermissionEnum::REJECT->value) {
 
-        if ($request->status_approval == StatusApprovalPermissionEnum::REJECT->value) {
-            return redirect()->back()->with('success', 'Berhasil menyimpan');
+                $izinDari = Carbon::parse($permission->start);
+                $izinSampai = Carbon::parse($permission->end);
+
+                while ($izinDari <= $izinSampai) {
+                    if ($this->attendance->checkAttendanceToday(['student_id' => $permission->student_id, 'created_at' => $izinDari])) {
+                        $this->attendance->delete($permission->student_id, $izinDari);
+                    }
+                    $izinDari->addDay();
+                }
+
+                $this->permission->update($permission->id, ['status_approval' => $request->status_approval]);
+
+                return redirect()->back()->with('success', 'Berhasil menolak izin');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Gagal menolak izin: ' . $th->getMessage());
         }
-
-
-        return redirect()->back()->with('success', 'Berhasil menyimpan');
     }
+
 
     public function destroy(Permission $permission)
     {
         $this->permission->delete($permission->id);
-        return back()->with('success' , 'Data Berhasil Dihapus');
+        return back()->with('success', 'Data Berhasil Dihapus');
     }
-
 }

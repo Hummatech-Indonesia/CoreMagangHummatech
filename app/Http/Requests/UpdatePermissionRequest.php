@@ -2,11 +2,18 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\StatusApprovalRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class PermissionRequest extends FormRequest
+class UpdatePermissionRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -15,11 +22,7 @@ class PermissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'required',
-            'proof' => 'required|image',
-            'start' => 'required',
-            'end' => 'required',
-            'status' => 'nullable'
+            'status_approval' => 'required|in:pending,agree,reject',
         ];
     }
 }
