@@ -146,7 +146,21 @@ class PermissionController extends Controller
 
     public function destroy(Permission $permission)
     {
-        $this->permission->delete($permission->id);
-        return back()->with('success', 'Data Berhasil Dihapus');
+        try {
+            $izinDari = Carbon::parse($permission->start);
+            $izinSampai = Carbon::parse($permission->end);
+
+            while ($izinDari <= $izinSampai) {
+                if ($this->attendance->checkAttendanceToday(['student_id' => $permission->student_id, 'created_at' => $izinDari])) {
+                    $this->attendance->delete($permission->student_id, $izinDari);
+                }
+                $izinDari->addDay();
+            }
+            $this->permission->delete($permission->id);
+            
+            return redirect()->back()->with('success', 'Berhasil menghapus izin');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Gagal menghapus izin: ' . $th->getMessage());
+        }
     }
 }
