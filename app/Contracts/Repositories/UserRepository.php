@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Contracts\Repositories;
 
 use App\Models\User;
@@ -8,6 +9,7 @@ use App\Contracts\Interfaces\StudentInterface;
 use App\Enum\InternshipTypeEnum;
 use App\Models\CourseUnlock;
 use App\Models\SubCourseUnlock;
+use Illuminate\Http\Request;
 
 class UserRepository extends BaseRepository implements UserInterface
 {
@@ -16,9 +18,16 @@ class UserRepository extends BaseRepository implements UserInterface
         $this->model = $user;
     }
 
-    public function get(): mixed
+    public function get(Request $request): mixed
     {
-        return $this->model->query()->get();
+        return $this->model->query()
+            ->when($request->email, function ($query) use ($request) {
+                $query->where(function ($subQuery) use ($request) {
+                    $subQuery->where('name', 'LIKE', '%' . $request->email . '%')
+                        ->orWhere('email', 'LIKE', '%' . $request->email . '%');
+                });
+            })
+            ->get();
     }
 
     public function store(array $data): mixed
@@ -41,7 +50,7 @@ class UserRepository extends BaseRepository implements UserInterface
 
     public function addCourseToSubcribedUser(int $courseId): void
     {
-        $this->model->query()->where('feature', 1)->get()->map(function($item) use ($courseId) {
+        $this->model->query()->where('feature', 1)->get()->map(function ($item) use ($courseId) {
             CourseUnlock::create([
                 'student_id' => $item->student->id,
                 'course_id' => $courseId,
@@ -52,7 +61,7 @@ class UserRepository extends BaseRepository implements UserInterface
 
     public function addSubCourseToSubcribedUser(int $courseId, mixed $subCourseId): void
     {
-        $this->model->query()->where('feature', 1)->get()->map(function($item) use ($courseId, $subCourseId) {
+        $this->model->query()->where('feature', 1)->get()->map(function ($item) use ($courseId, $subCourseId) {
             SubCourseUnlock::create([
                 'student_id' => $item->student->id,
                 'course_id' => $courseId,
