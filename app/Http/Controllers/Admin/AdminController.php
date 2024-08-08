@@ -41,8 +41,11 @@ class AdminController extends Controller
         $dataceo = $this->dataCo->get();
         $maxLateMinute = $this->maxLate->get();
         $countofflineactive = $this->student->countActiveOflline();
+        $countofflinenonactive = $this->student->countNonActiveOflline();
         $countPending = $this->student->countPending();
         $countDecline = $this->student->countDecline();
-        return view('admin.index', compact('dataadmin', 'maxLateMinute', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday','dataceo','countofflineactive','countPending','countDecline'));
+        $countOnline = $this->student->countActiveOnlineStudents();
+        $countOffline = $this->student->countActiveOfflineStudents();
+        return view('admin.index', compact('dataadmin', 'maxLateMinute', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday','dataceo','countofflineactive','countPending','countDecline', 'countofflinenonactive', 'countOnline', 'countOffline'));
     }
 }

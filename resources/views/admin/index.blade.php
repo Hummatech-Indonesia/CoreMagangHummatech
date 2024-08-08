@@ -234,12 +234,49 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <p class="fw-medium text-muted mb-0">TOTAL SISWA AKTIF</p>
+                                        <p class="fw-medium text-muted mb-0">MENUNGGU KONFIRMASI</p>
                                         <h2 class="mt-4 ff-secondary fw-semibold">
-                                            <span class="counter-value" data-target="{{ $countofflineactive }}"></span>
+                                            <span class="counter-value" data-target="{{ $countPending }}"></span>
+                                        </h2>
+                                    </div>
+                                    <div class="avatar-sm flex-shrink-0">
+                                        <span class="avatar-title rounded-3 fs-2" style="background-color: #FEF4E4">
+                                            <i class="  ri-user-settings-fill" style="color: #FFAE1F"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card-animate">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <p class="fw-medium text-muted mb-0">SISWA DITOLAK</p>
+                                        <h2 class="mt-4 ff-secondary fw-semibold">
+                                            <span class="counter-value" data-target="{{ $countDecline }}"></span>
                                         </h2>
                                         {{-- <a href="javascript:void(0)" class="text-decoration-underline">Lihat Data
                                             Siswa</a> --}}
+                                    </div>
+                                    <div class="avatar-sm flex-shrink-0">
+                                        <span class="avatar-title rounded-3 fs-2" style="background-color: #FBF2EF">
+                                            <i class=" ri-user-unfollow-fill" style="color: #DC3545"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card-animate">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <p class="fw-medium text-muted mb-0">SISWA AKTIF</p>
+                                        <h2 class="mt-4 ff-secondary fw-semibold">
+                                            <span class="counter-value" data-target="{{ $countofflineactive }}"></span>
+                                        </h2>
                                     </div>
                                     <div class="avatar-sm flex-shrink-0">
                                         <span class="avatar-title rounded-3 fs-2" style="background-color: #EDF9FF">
@@ -255,36 +292,52 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <p class="fw-medium text-muted mb-0">MENUNGGU KONFIRMASI</p>
+                                        <p class="fw-medium text-muted mb-0">SISWA TIDAK AKTIF</p>
                                         <h2 class="mt-4 ff-secondary fw-semibold">
-                                            <span class="counter-value" data-target="{{ $countPending }}"></span>
+                                            <span class="counter-value" data-target="{{ $countofflinenonactive }}"></span>
                                         </h2>
-                                        {{-- <a href="javascript:void(0)" class="text-decoration-underline">Lihat Data
-                                            Siswa</a> --}}
                                     </div>
                                     <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title rounded-3 fs-2" style="background-color: #FEF4E4">
-                                            <i class="  ri-user-settings-fill" style="color: #FFAE1F"></i>
+                                        <span class="avatar-title rounded-3 fs-2" style="background-color: #EDF9FF">
+                                            <i class=" ri-user-received-fill" style="color: #099885"></i>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="card card-animate">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <p class="fw-medium text-muted mb-0">SISWA DI TOLAK</p>
+                                        <p class="fw-medium text-muted mb-0">SISWA OFFLINE</p>
                                         <h2 class="mt-4 ff-secondary fw-semibold">
-                                            <span class="counter-value" data-target="{{ $countDecline }}"></span>
+                                            <span class="counter-value" data-target="{{ $countOffline }}"></span>
                                         </h2>
-                                        {{-- <a href="javascript:void(0)" class="text-decoration-underline">Lihat Data
-                                            Siswa</a> --}}
                                     </div>
                                     <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title rounded-3 fs-2" style="background-color: #FBF2EF">
-                                            <i class=" ri-user-unfollow-fill" style="color: #DC3545"></i>
+                                        <span class="avatar-title rounded-3 fs-2" style="background-color: #EDF9FF">
+                                            <i class=" ri-user-received-fill" style="color: #099885"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card-animate">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <p class="fw-medium text-muted mb-0">SISWA ONLINE</p>
+                                        <h2 class="mt-4 ff-secondary fw-semibold">
+                                            <span class="counter-value" data-target="{{ $countOnline }}"></span>
+                                        </h2>
+                                    </div>
+                                    <div class="avatar-sm flex-shrink-0">
+                                        <span class="avatar-title rounded-3 fs-2" style="background-color: #EDF9FF">
+                                            <i class=" ri-user-received-fill" style="color: #099885"></i>
                                         </span>
                                     </div>
                                 </div>

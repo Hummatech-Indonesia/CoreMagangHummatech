@@ -21,6 +21,7 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
     public function getAttendanceByDivision(Request $request): mixed;
 
     public function countActiveOflline():mixed;
+    public function countNonActiveOflline():mixed;
     public function countPending():mixed;
     public function countDecline():mixed;
     /**
