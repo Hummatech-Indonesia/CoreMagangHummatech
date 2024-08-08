@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Contracts\Interfaces\UserInterface;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Resources\StudentResource;
+use App\Models\User;
 use App\Services\StudentService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,12 +20,14 @@ class StudentController extends Controller
     private StudentInterface $student;
     private StudentService $servicestudent;
     private MentorStudentInterface $mentorStudent;
+    private UserInterface $user;
 
-    public function __construct(StudentService $servicestudent, StudentInterface $student, MentorStudentInterface $mentorStudent)
+    public function __construct(StudentService $servicestudent, StudentInterface $student, MentorStudentInterface $mentorStudent, UserInterface $user)
     {
         $this->student = $student;
         $this->servicestudent = $servicestudent;
         $this->mentorStudent = $mentorStudent;
+        $this->user = $user;
     }
 
     /**
@@ -112,5 +116,18 @@ class StudentController extends Controller
         $mentorStudent = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);        // dd($students);
 
         return view('mentor.student.index', compact('mentorStudent'));
+    }
+
+    public function emailUser(Request $request)
+    {
+        $users = $this->user->get($request);
+        return view('admin.page.user.email-user', compact('users'));
+    }
+
+    public function emailUserDelete(User $user)
+    {
+        $this->user->delete($user->id);
+        $this->student->emailUser($user->id);
+        return redirect()->back()->with(['success' => 'User berhasil dihapus']);
     }
 }

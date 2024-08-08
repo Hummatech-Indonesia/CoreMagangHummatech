@@ -117,6 +117,8 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::delete('voucher/delete/{voucher}', [VoucherController::class, 'destroy'])->name('voucher.delete');
     // banned
     Route::get('students-banned', [StudentController::class, 'index']);
+    Route::get('email-user', [StudentController::class, 'emailUser']);
+    Route::delete('email-user/{user}', [StudentController::class, 'emailUserDelete']);
 
     # Mentor
     Route::get('menu-mentor', [AdminMentorController::class, 'index'])->name('mentor.index');
