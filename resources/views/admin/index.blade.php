@@ -298,8 +298,8 @@
                                         </h2>
                                     </div>
                                     <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title rounded-3 fs-2" style="background-color: #EDF9FF">
-                                            <i class=" ri-user-received-fill" style="color: #099885"></i>
+                                        <span class="avatar-title rounded-3 fs-2" style="background-color: #ececec">
+                                            <i class="  ri-user-shared-fill" style="color: #7a7a7a"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -317,8 +317,8 @@
                                         </h2>
                                     </div>
                                     <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title rounded-3 fs-2" style="background-color: #EDF9FF">
-                                            <i class=" ri-user-received-fill" style="color: #099885"></i>
+                                        <span class="avatar-title rounded-3 fs-2" style="background-color: #f6edff">
+                                            <i class="  ri-account-circle-fill" style="color: #470998"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -336,8 +336,8 @@
                                         </h2>
                                     </div>
                                     <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title rounded-3 fs-2" style="background-color: #EDF9FF">
-                                            <i class=" ri-user-received-fill" style="color: #099885"></i>
+                                        <span class="avatar-title rounded-3 fs-2" style="background-color: #edf1ff">
+                                            <i class=" ri-account-box-fill" style="color: #093498"></i>
                                         </span>
                                     </div>
                                 </div>
