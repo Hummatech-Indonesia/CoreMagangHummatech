@@ -37,14 +37,17 @@
                         </thead>
                         <tbody>
                             @forelse ($users as $user)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td class="text-center">
-                                    <button class="btn btn-danger btn-delete shadow-none" data-id="{{ $user->id }}">Hapus</button>
-                                </td>
-                            </tr>
+                                @if ($user->email == auth()->user()->email)
+                                @else
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td class="text-center">
+                                            <button class="btn btn-danger btn-delete shadow-none" data-id="{{ $user->id }}">Hapus</button>
+                                        </td>
+                                    </tr>
+                                @endif
                             @empty
                             <tr>
                                 <td colspan="9">
