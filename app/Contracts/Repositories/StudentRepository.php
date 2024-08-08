@@ -28,7 +28,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
 
     public function countNonActiveOflline(): mixed
     {
-        return $this->model->query()->where('acepted' , 0)->count();
+        return $this->model->query()->where('acepted' , 0)->where('status' ,[StudentStatusEnum::ACCEPTED->value])->count();
     }
 
     public function countPending(): mixed
