@@ -19,9 +19,9 @@
                         </div>
                     </div>
                     <div class="col-sm-auto">
-                        <form action="/students-banned" class="d-flex gap-2 align-items-center">
+                        <form action="/email-user" class="d-flex gap-2 align-items-center">
                             <label for="search">Cari:</label>
-                            <input type="text" name="name" value="{{request()->name}}" id="search" class="form-control">
+                            <input type="text" name="email" value="{{request()->email}}" id="search" class="form-control">
                         </form>
                     </div>
                 </div>
