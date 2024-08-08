@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Interfaces\MentorInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\UserInterface;
@@ -21,13 +22,15 @@ class StudentController extends Controller
     private StudentService $servicestudent;
     private MentorStudentInterface $mentorStudent;
     private UserInterface $user;
+    private MentorInterface $mentor;
 
-    public function __construct(StudentService $servicestudent, StudentInterface $student, MentorStudentInterface $mentorStudent, UserInterface $user)
+    public function __construct(StudentService $servicestudent, StudentInterface $student, MentorStudentInterface $mentorStudent, UserInterface $user, MentorInterface $mentor)
     {
         $this->student = $student;
         $this->servicestudent = $servicestudent;
         $this->mentorStudent = $mentorStudent;
         $this->user = $user;
+        $this->mentor = $mentor;
     }
 
     /**
@@ -127,7 +130,14 @@ class StudentController extends Controller
     public function emailUserDelete(User $user)
     {
         $this->user->delete($user->id);
-        $this->student->emailUser($user->id);
+
+        if ($user->mentors_id) {
+            $this->mentor->delete($user->mentors_id);
+        }
+        
+        if ($user->student_id) {
+            $this->student->delete($user->student_id);
+        }
         return redirect()->back()->with(['success' => 'User berhasil dihapus']);
     }
 }
