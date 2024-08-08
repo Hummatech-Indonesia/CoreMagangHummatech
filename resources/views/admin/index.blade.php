@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-12 col-md-4">
             <h4>Selamat Datang Admin</h4>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. .</p>
+            <p>Pantau absensi dan jurnal dengan mudah. Pastikan untuk meninjau dan memproses semua permintaan izin yang tertunda.</p>
         </div>
         <div class="col-12 col-md-8">
             <div class="d-flex justify-content-end gap-2">
