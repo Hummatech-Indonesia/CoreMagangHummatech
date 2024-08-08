@@ -29,7 +29,7 @@
                     <form class="app-search d-none d-md-block w-100" action="/offline-students/division-placement">
                         <div class="position-relative">
                             <input type="text" class="form-control" placeholder="Cari..." autocomplete="off"
-                                id="search-options" name="name" value="{{request()->name}}">
+                                id="search-options" name="name" value="{{ request()->name }}">
                             <span class="mdi mdi-magnify search-widget-icon"></span>
                             <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none"
                                 id="search-close-options"></span>
@@ -90,19 +90,20 @@
                                                     {{ $studentOffline->email }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <button type="button" class="btn bg-secondary-subtle text-secondary edit-item-btn btn-add"
-                                                    data-id="{{ $studentOffline->id }}">
-                                                    <i class="ri-apps-2-line align-bottom me-2 text-secondary"></i>
-                                                    Tempatkan Divisi
-                                                </button>
+                                                    <button type="button"
+                                                        class="btn bg-secondary-subtle text-secondary edit-item-btn btn-add"
+                                                        data-id="{{ $studentOffline->id }}">
+                                                        <i class="ri-apps-2-line align-bottom me-2 text-secondary"></i>
+                                                        Tempatkan Divisi
+                                                    </button>
                                                 </td>
                                             </tr>
                                         @empty
                                             <tr>
                                                 <td colspan="8">
                                                     <div class="d-flex justify-content-center mb-3 mt-3">
-                                                        <img src="{{ asset('no data.png') }}" width="200px"
-                                                            alt="" srcset="">
+                                                        <img src="{{ asset('no data.png') }}" width="200px" alt=""
+                                                            srcset="">
                                                     </div>
                                                     <p class="text-center mb-0 fs-5">
                                                         Data Masih Kosong
@@ -163,7 +164,7 @@
                                                         <p class="text-primary">{{ $student->school }}</p>
                                                     </div>
                                                 </td>
-                                                <td>{{$student->division->name}}</td>
+                                                <td>{{ $student->division->name }}</td>
                                                 <td>{{ \carbon\Carbon::parse($student->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}
                                                 </td>
                                                 <td>{{ \carbon\Carbon::parse($student->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}
@@ -172,10 +173,12 @@
                                                     {{ $student->email }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <button type="button" class="btn bg-warning-subtle text-warning edit-item-btn btn-edit"
-                                                        data-id="{{ $student->id }}" data-divisionId="{{ $student->division_id }}">
-                                                        <i class="ri-apps-2-line align-bottom me-2 text-warning"></i>
-                                                        Rubah  Divisi
+                                                    <button type="button"
+                                                        class="btn bg-warning-subtle text-warning edit-item-btn btn-edit"
+                                                        data-id="{{ $student->id }}"
+                                                        data-division-id="{{ $student->division_id }}">
+                                                        <i class="ri-apps-2-line align-bottom me-2 text-warning"></i> Rubah
+                                                        Divisi
                                                     </button>
                                                 </td>
                                             </tr>
@@ -206,7 +209,8 @@
     </div>
 
 
-    <div class="modal fade" id="add" tabindex="-1" aria-labelledby="varyingcontentModalLabel" aria-hidden="true">
+    <div class="modal fade" id="add" tabindex="-1" aria-labelledby="varyingcontentModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -258,8 +262,8 @@
                     <div class="modal-body">
                         <div class="mb-1">
                             <label for="divisi" class="col-form-label">Divisi</label>
-                            <select class="tambah js-example-basic-single form-control" id="division-edit" aria-label=".form-select example"
-                                name="division_id">
+                            <select class="tambah js-example-basic-single form-control" id="division-edit"
+                                aria-label=".form-select example" name="division_id">
                                 @forelse ($divisions as $division)
                                     <option value="{{ $division->id }}">{{ $division->name }}</option>
                                 @empty
@@ -267,9 +271,7 @@
                                 @endforelse
                             </select>
                             @error('division_id')
-                                <p class="text-danger">
-                                    {{ $message }}
-                                </p>
+                                <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -283,8 +285,9 @@
     </div>
 @endsection
 @section('script')
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
 
     <script>
@@ -296,9 +299,17 @@
 
         $('.btn-edit').click(function() {
             var id = $(this).data('id');
+            var division_id = $(this).data('division-id');
+
+            $('#division-edit').val(division_id).trigger('change');
+
             $('#form-update-edit').attr('action', '/offline-students/division-placement/update/' + id);
             $('#edit').modal('show');
-        })
+        });
+
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
     </script>
 
     <script>
