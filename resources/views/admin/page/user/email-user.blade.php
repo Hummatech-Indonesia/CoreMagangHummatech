@@ -37,7 +37,7 @@
                         </thead>
                         <tbody>
                             @forelse ($users as $user)
-                                @if ($user->email == auth()->user()->email)
+                                @if ($user->email == auth()->user()->email || $user->email == 'pkl@hummatech.com')
                                 @else
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>

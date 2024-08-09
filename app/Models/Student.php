@@ -128,4 +128,9 @@ class Student extends Model implements HasAttendances, HasOneActiveFeature, HasA
     {
         return $this->hasOne(StudentCoursePosition::class);
     }
+
+    public function permissions(): HasMany
+    {
+        return $this->hasMany(Permission::class);
+    }
 }

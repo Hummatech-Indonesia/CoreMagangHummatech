@@ -78,12 +78,8 @@ class PermissionController extends Controller
     {
         switch ($request->status_approval) {
             case StatusApprovalPermissionEnum::AGREE->value:
-                if ($permission->start === Carbon::today()->toDateString()) {
-                    $izinDari = Carbon::tomorrow();
-                } else {
-                    $izinDari = Carbon::parse($permission->start);
-                }
-
+                
+                $izinDari = Carbon::parse($permission->start);
                 $izinSampai = Carbon::parse($permission->end);
                 $tanggalMulai = $izinDari;
                 $tanggalBerakhir = $izinSampai;
