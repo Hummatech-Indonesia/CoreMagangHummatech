@@ -52,7 +52,6 @@
                                         </tr>
                                     @endif
                                 @empty
->>>>>>> bb28e588037f7c984fb81ced5674cbb3e933336a
                                     <tr>
                                         <td colspan="9">
                                             <div class="d-flex justify-content-center mb-3 mt-3">
