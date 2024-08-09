@@ -32,4 +32,10 @@ class UpdateJournalRequest extends FormRequest
             'image.max' => 'Ukuran gambar tidak boleh lebih dari 500 KB.'
         ];
     }
+
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        session()->flash('showEditModal', true);
+        throw new \Illuminate\Validation\ValidationException($validator, redirect()->back()->withErrors($validator, 'edit'));
+    }
 }

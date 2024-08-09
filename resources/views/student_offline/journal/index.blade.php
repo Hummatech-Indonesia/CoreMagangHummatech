@@ -53,22 +53,28 @@
                     <div class="modal-body">
                         <label for="" class="mt-2 mb-2">Judul</label>
                         <input type="text" name="title" class="form-control" value="{{ old('title') }}">
-                        @error('title')
-                            <p class="text-danger">{{ $message }}</p>
+                        @error('title', 'create')
+                            <p class="text-danger error-create">
+                                {{ $message }}
+                            </p>
                         @enderror
                         <label for="" class="mt-2 mb-2">Bukti</label>
                         <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
                             <img class="img-thumbnail image-preview" itemprop="thumbnail">
                         </figure>
                         <input type="file" name="image" class="form-control" onchange="preview(event)">
-                        @error('image')
-                            <p class="text-danger">{{ $message }}</p>
+                        @error('image', 'create')
+                            <p class="text-danger error-create">
+                                {{ $message }}
+                            </p>
                         @enderror
                         <label for="" class="mt-2 mb-2">Deskripsi</label>
-                        <textarea name="description" id="description" class="form-control" rows="3" onkeyup="countCharacters(this)"></textarea>
+                        <textarea name="description" id="description" class="form-control" onkeyup="countCharacters(this)">{{ old('description') }}</textarea>
                         <p id="characterCount">0 characters</p>
-                        @error('description')
-                            <p class="text-danger">{{ $message }}</p>
+                        @error('description', 'create')
+                            <p class="text-danger error-create">
+                                {{ $message }}
+                            </p>
                         @enderror
                     </div>
                     <div class="modal-footer border border-top-gray">
@@ -233,9 +239,9 @@
                     @method('PUT')
                     <div class="modal-body">
                         <label for="" class="mt-2 mb-2">Judul</label>
-                        <input type="text" name="title" id="title-edit" class="form-control">
-                        @error('title')
-                            <p class="text-danger">
+                        <input type="text" name="title" id="title-edit" value="{{ old('title') }}" class="form-control">
+                        @error('title', 'edit')
+                            <p class="text-danger error-edit">
                                 {{ $message }}
                             </p>
                         @enderror
@@ -245,17 +251,16 @@
                         </figure>
                         <input class="form-control @error('image') is-invalid @enderror" id="image" name="image"
                             type="file" onchange="preview(event)">
-                        @error('image')
-                            <p class="text-danger">
+                        @error('image', 'edit')
+                            <p class="text-danger error-edit">
                                 {{ $message }}
                             </p>
                         @enderror
                         <label for="description-edit" class="mt-2 mb-2">Deskripsi</label>
-                        <textarea name="description" id="description-edit" class="form-control" rows="3"
-                            oninput="countCharactersEdit(this)"></textarea>
+                        <textarea name="description" id="description-edit" class="form-control" rows="3" oninput="countCharactersEdit(this)">{{ old('description') }}</textarea>
                         <div id="characterCountEdit"></div>
-                        @error('description')
-                            <p class="text-danger">
+                        @error('description', 'edit')
+                            <p class="text-danger error-edit">
                                 {{ $message }}
                             </p>
                         @enderror
@@ -304,6 +309,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cek session flash dan kesalahan untuk modal create
+            const showCreateModal = @json(session('showCreateModal'));
+            const showEditModal = @json(session('showEditModal'));
+
+            if (showCreateModal) {
+                var createModalErrors = document.querySelectorAll('.error-create');
+                if (createModalErrors.length > 0) {
+                    var createModalElement = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+                    createModalElement.show();
+                }
+            }
+
+            // Cek session flash dan kesalahan untuk modal edit
+            if (showEditModal) {
+                var editModalErrors = document.querySelectorAll('.error-edit');
+                if (editModalErrors.length > 0) {
+                    var editModalElement = new bootstrap.Modal(document.getElementById('modal-edit'));
+                    editModalElement.show();
+                }
+            }
+        });
+    </script>
+    
     <script>
         $('.btn-edit').click(function() {
             var id = $(this).data('id');
