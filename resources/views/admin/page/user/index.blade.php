@@ -154,22 +154,7 @@
                                     <p class="mt-1 m-0 text-muted">{{ $student->school }}</p>
                                     <div class="d-flex m-0 gap-2">
                                         <span
-                                            class="badge px-4 py-1 text-uppercase 
-                                            @if ($student->finish_date > Carbon::now()->format('Y-m-d'))
-                                                 bg-primary
-                                            @elseif ($student->acepted == 1)
-                                                 bg-success
-                                            @else
-                                                 bg-danger @endif
-                                            mt-1">
-                                            @if ($student->finish_date > Carbon::now()->format('Y-m-d'))
-                                                Alumni
-                                            @elseif ($student->acepted == 1)
-                                                Aktif
-                                            @else
-                                                Tidak aktif
-                                            @endif
-                                        </span>
+                                            class="badge px-4 py-1 text-uppercase {{ $student->acepted == 1 ? 'bg-success' : 'bg-danger' }} mt-1">{{ $student->acepted == '0' ? 'Tidak aktif' : 'Aktif' }}</span>
                                         <span
                                             class="badge px-4 py-1 text-uppercase {{ $student->internship_type == 'online' ? 'bg-primary' : 'bg-danger' }} mt-1">{{ $student->internship_type == 'online' ? 'online' : 'offline' }}</span>
                                     </div>
