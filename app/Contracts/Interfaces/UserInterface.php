@@ -7,8 +7,9 @@ use App\Contracts\Interfaces\Eloquent\GetWhereInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 use App\Contracts\Interfaces\Eloquent\WhereInterface;
+use Illuminate\Http\Request;
 
-interface UserInterface extends GetInterface, StoreInterface, GetWhereInterface, UpdateInterface, DeleteInterface
+interface UserInterface extends StoreInterface, GetWhereInterface, UpdateInterface, DeleteInterface
 {
     /**
      * Add course to subcribed user
@@ -27,4 +28,6 @@ interface UserInterface extends GetInterface, StoreInterface, GetWhereInterface,
      */
     public function addSubCourseToSubcribedUser(int $courseId, mixed $subCourseId): void;
     public function where(string $string, mixed $id): mixed;
+    public function get(Request $request): mixed;
+
 }
