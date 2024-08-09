@@ -66,9 +66,10 @@
                                     <select name="school" class="form-select" id="schoolFilter">
                                         <option>Sekolah</option>
                                         @forelse ($schoolOption as $school)
-                                        <option value="{{ $school }}" {{ $request->school == $school ? 'selected' : '' }}>
-                                            {{ $school }}
-                                        </option>
+                                            <option value="{{ $school }}"
+                                                {{ $request->school == $school ? 'selected' : '' }}>
+                                                {{ $school }}
+                                            </option>
 
                                             {{-- <option value="{{ $school }}">{{ $school }}</option> --}}
                                             {{-- <option value="{{ $school }}" {{ $request->school == $school ? 'selected' : '' }}>{{ $school }}</option> --}}
@@ -86,7 +87,8 @@
                                     <select name="acepted" class="form-select" id="acceptedFilter">
                                         <option value="" disabled selected>Status</option>
                                         <option value="1" {{ $request->acepted == 1 ? 'selected' : '' }}>Aktif</option>
-                                        <option value="0" {{ $request->acepted == 0 ? 'selected' : '' }}>Tidak Aktif</option>
+                                        <option value="0" {{ $request->acepted == 0 ? 'selected' : '' }}>Tidak Aktif
+                                        </option>
                                     </select>
                                 </form>
                             </div>
@@ -152,7 +154,22 @@
                                     <p class="mt-1 m-0 text-muted">{{ $student->school }}</p>
                                     <div class="d-flex m-0 gap-2">
                                         <span
-                                            class="badge px-4 py-1 text-uppercase {{ $student->acepted == 1 ? 'bg-success' : 'bg-danger' }} mt-1">{{ $student->acepted == '0' ? 'Tidak aktif' : 'Aktif' }}</span>
+                                            class="badge px-4 py-1 text-uppercase 
+                                            @if ($student->finish_date > Carbon::now()->format('Y-m-d'))
+                                                 bg-primary
+                                            @elseif ($student->acepted == 1)
+                                                 bg-success
+                                            @else
+                                                 bg-danger @endif
+                                            mt-1">
+                                            @if ($student->finish_date > Carbon::now()->format('Y-m-d'))
+                                                Alumni
+                                            @elseif ($student->acepted == 1)
+                                                Aktif
+                                            @else
+                                                Tidak aktif
+                                            @endif
+                                        </span>
                                         <span
                                             class="badge px-4 py-1 text-uppercase {{ $student->internship_type == 'online' ? 'bg-primary' : 'bg-danger' }} mt-1">{{ $student->internship_type == 'online' ? 'online' : 'offline' }}</span>
                                     </div>
