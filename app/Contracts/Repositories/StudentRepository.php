@@ -602,7 +602,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
 
     public function ListAlumni(Request $request): mixed
     {
-        return $this->model->query()->where('expired' , 'alumni')->get();
+        return $this->model->query()->where('acepted' , false)->where('status' , StudentStatusEnum::ALUMNUS->value)->get();
     }
 
     /**

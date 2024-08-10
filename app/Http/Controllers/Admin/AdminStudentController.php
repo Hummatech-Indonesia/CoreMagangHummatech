@@ -44,18 +44,18 @@ class AdminStudentController extends Controller
         $students = $this->student->listStudent($request);
         $studentOfflines = $this->student->listStudentOffline($request);
         $studentOnllines = $this->student->listStudentOnline($request);
-        $Alumni = $this->student->ListAlumni($request);
+        $alumnis = $this->student->ListAlumni($request);
         $divisions = $this->division->get();
 
-        $today = date('Y-m-d');
-        Student::where('finish_date', '<', $today)
-            ->update([
-                'expired' => 'alumni',
-                'acepted' => '0'
-            ]);
+        // $today = date('Y-m-d');
+        // Student::where('finish_date', '<', $today)
+        //     ->update([
+        //         'expired' => 'alumni',
+        //         'acepted' => '0'
+        //     ]);
 
 
-        return view('admin.page.user.index', compact('students', 'studentOfflines', 'studentOnllines', 'divisions', 'schools', 'genders', 'status', 'Alumni', 'schoolOption', 'request', 'gendersOption'));
+        return view('admin.page.user.index', compact('students', 'studentOfflines', 'studentOnllines', 'divisions', 'schools', 'genders', 'status', 'alumnis', 'schoolOption', 'request', 'gendersOption'));
     }
 
     /**
