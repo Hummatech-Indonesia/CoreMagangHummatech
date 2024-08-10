@@ -154,9 +154,24 @@
                                     <p class="mt-1 m-0 text-muted">{{ $student->school }}</p>
                                     <div class="d-flex m-0 gap-2">
                                         <span
-                                            class="badge px-4 py-1 text-uppercase {{ $student->acepted == 1 ? 'bg-success' : 'bg-danger' }} mt-1">{{ $student->acepted == '0' ? 'Tidak aktif' : 'Aktif' }}</span>
-                                        <span
-                                            class="badge px-4 py-1 text-uppercase {{ $student->internship_type == 'online' ? 'bg-primary' : 'bg-danger' }} mt-1">{{ $student->internship_type == 'online' ? 'online' : 'offline' }}</span>
+                                            class="badge px-4 py-1 text-uppercase 
+                                            @if ($student->acepted == 1)
+                                                bg-success
+                                            @elseif ($student->acepted == 0 && $student->status == 'alumnus')
+                                                bg-info
+                                            @else 
+                                                bg-danger
+                                            @endif
+                                             mt-1">
+                                            @if ($student->acepted == 1)
+                                                Aktif
+                                            @elseif ($student->acepted == 0 && $student->status == 'alumnus')
+                                                Alumni
+                                            @else 
+                                                Tidak aktif
+                                            @endif
+                                        </span>
+                                        <span class="badge px-4 py-1 text-uppercase {{ $student->internship_type == 'online' ? 'bg-primary' : 'bg-danger' }} mt-1">{{ $student->internship_type == 'online' ? 'online' : 'offline' }}</span>
                                     </div>
                                     <p class=" mt-1"><strong class="fs-6">RFID: </strong><span
                                             class="text-muted">{{ $student->rfid == null ? '-' : $student->rfid }}</span>
