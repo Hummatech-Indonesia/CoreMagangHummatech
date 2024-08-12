@@ -40,7 +40,7 @@
                 $imageFiles = ['folder.png', 'folder-2.png', 'folder-3.png', 'folder-4.png'];
                 $randomImage = $imageFiles[array_rand($imageFiles)];
             @endphp
-            <div class="col-12 col-xl-3">
+            <div class="col-12 col-xl-4">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-header justify-content-header gap-4">
