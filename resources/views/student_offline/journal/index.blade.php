@@ -95,7 +95,7 @@
             Data Jurnal
         </h4>
         <div class="d-flex">
-            {{-- <a href="/download-pdf-JurnalSiswa" class="kamu-tak-diajak w-full">
+            <a href="/download-pdf-JurnalSiswa" class="kamu-tak-diajak w-full">
                 <button type="button" class="btn mb-1 btn-light-warning text-warning btn-lg px-4 fs-4 font-medium ms-3">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5 ltr:mr-2 rtl:ml-2">
@@ -108,7 +108,7 @@
                     </svg>
                     PDF
                 </button>
-            </a> --}}
+            </a>
 
             <button type="button" class="btn mb-1 btn-light-primary text-primary btn-lg px-4 fs-4 font-medium ms-3"
                 data-bs-toggle="modal" data-bs-target="#staticBackdrop">
