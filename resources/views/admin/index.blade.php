@@ -344,6 +344,25 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="card card-animate">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <p class="fw-medium text-muted mb-0">TOTAL ALUMNI</p>
+                                        <h2 class="mt-4 ff-secondary fw-semibold">
+                                            <span class="counter-value" data-target="{{ $countAlumni }}"></span>
+                                        </h2>
+                                    </div>
+                                    <div class="avatar-sm flex-shrink-0">
+                                        <span class="avatar-title rounded-3 fs-2" style="background-color: #edf7ff">
+                                            <i class="  ri-user-3-fill" style="color: #2799fc"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
