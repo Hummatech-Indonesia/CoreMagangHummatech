@@ -12,6 +12,7 @@ use App\Models\NotePicket;
 use App\Http\Requests\StorePicketRequest;
 use App\Http\Requests\UpdatePicketRequest;
 use App\Enums\DayEnum;
+use Illuminate\Http\Request;
 
 class PicketController extends Controller
 {
@@ -30,11 +31,11 @@ class PicketController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         // $days = DayEnum::toSelectArray();
         $reports = $this->report->get();
-        $students = $this->student->get();
+        $students = $this->student->get($request);
         $pickets = $this->picket->get();
         $notes = $this->note->get();
         return view('admin.page.picket.schedule' , compact('pickets','students','reports','notes'));
