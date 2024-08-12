@@ -190,7 +190,7 @@ class AttendanceController extends Controller
     {
         $onlineAttendances = $this->student->listAttendance($request);
         $oflineAttendances = $this->student->listOfflineAttendance($request);
-        $students = $this->student->get();
+        $students = $this->student->get($request);
         $wfh = $this->workFromHome->getToday();
         $rule = $this->attendanceRule->getByDay(now()->format('l'));
         $attendanceYears = $this->attendance->yearAttendances();
