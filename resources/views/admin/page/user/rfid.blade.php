@@ -268,6 +268,8 @@
         </div>
     </div>
 
+
+
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -301,7 +303,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="showModalLabel">Daftar RFID Siswa</h5>
+                    <h5 class="modal-title" id="showModalLabel">Edit RFID Siswa</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="form-add" method="post">
@@ -330,6 +332,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var myModal = document.getElementById('showModal');
+            myModal.addEventListener('shown.bs.modal', function() {
+                var rfidInput = document.getElementById('rfid');
+                rfidInput.focus();
+            });
+        });
+    </script>
+
     <script>
         $(document).ready(function() {
             function resetActiveTab() {
