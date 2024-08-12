@@ -11,6 +11,7 @@ use App\Enum\StudentStatusEnum;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Attendance;
 use App\Models\Student;
+use Carbon\Carbon;
 
 class AdminStudentController extends Controller
 {
@@ -46,6 +47,16 @@ class AdminStudentController extends Controller
         $studentOnllines = $this->student->listStudentOnline($request);
         $alumnis = $this->student->ListAlumni($request);
         $divisions = $this->division->get();
+
+        $studentFinish = $this->student->StudentFinish();
+
+        foreach ($studentFinish as $student) {
+            $this->student->update($student->id, 
+            [
+                'acepted' => false,
+                'status' => StudentStatusEnum::ALUMNUS->value
+            ]);
+        }
 
         // $today = date('Y-m-d');
         // Student::where('finish_date', '<', $today)

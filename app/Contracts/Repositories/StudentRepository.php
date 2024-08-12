@@ -41,6 +41,12 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query()->where('status' , 'decline')->count();
 
     }
+
+    public function StudentFinish(): mixed
+    {
+        return $this->model->query()->whereDate('finish_date', now()->format('Y-m-d'))->get();
+    }   
+
     /**
      * Method countActiceStudents
      *
