@@ -169,5 +169,5 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
     public function first () : mixed;
 
     public function StudentFinish(): mixed;
-
+    public function countAlumni(): mixed;
 }

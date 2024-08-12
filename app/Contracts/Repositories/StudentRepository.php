@@ -31,6 +31,11 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query()->where('acepted' , 0)->where('status' ,[StudentStatusEnum::ACCEPTED->value])->count();
     }
 
+    public function countAlumni(): mixed
+    {
+        return $this->model->query()->where('acepted' , 0)->where('status' ,[StudentStatusEnum::ALUMNUS->value])->count();
+    }
+
     public function countPending(): mixed
     {
         return $this->model->query()->where('status' , 'pending')->count();
