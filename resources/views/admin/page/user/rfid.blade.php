@@ -330,66 +330,62 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script>
-            $(document).ready(function() {
-                function resetActiveTab() {
-                    $('.nav-link').removeClass('active');
-                    $('.tab-pane').removeClass('active show');
+    <script>
+        $(document).ready(function() {
+            function resetActiveTab() {
+                $('.nav-link').removeClass('active');
+                $('.tab-pane').removeClass('active show');
+            }
+
+            function changeTab() {
+                var hash = window.location.hash;
+                resetActiveTab();
+                var tab = null;
+                switch (hash) {
+                    case '#steparrow-description-info':
+                        tab = $('#steparrow-description-info-tab');
+                        break;
+                    case '#steparrow-gen-info':
+                    default:
+                        tab = $('#steparrow-gen-info-tab');
+                        break;
                 }
+                tab.addClass('active');
+                $(tab.attr('data-bs-target')).addClass('active show');
+            }
 
-                function changeTab() {
-                    var hash = window.location.hash;
-                    resetActiveTab();
-                    var tab = null;
-                    switch (hash) {
-                        case '#steparrow-description-info':
-                            tab = $('#steparrow-description-info-tab');
-                            break;
-                        case '#steparrow-gen-info':
-                        default:
-                            tab = $('#steparrow-gen-info-tab');
-                            break;
-                    }
-                    tab.addClass('active');
-                    $(tab.attr('data-bs-target')).addClass('active show');
-                }
+            function storeActiveTab() {
+                var activeTab = $('.nav-link.active').attr('data-bs-target');
+                localStorage.setItem('activeTab', activeTab);
+            }
 
-                function storeActiveTab() {
-                    var activeTab = $('.nav-link.active').attr('data-bs-target');
-                    localStorage.setItem('activeTab', activeTab);
-                }
-
-                $(window).on('hashchange', function() {
-                    changeTab();
-                    storeActiveTab();
-                });
-
-                $('.nav-link').on('shown.bs.tab', function() {
-                    storeActiveTab();
-                    // Update the URL hash when tab changes
-                    var target = $(this).attr('data-bs-target');
-                    window.location.hash = target;
-                });
-
-                // Initialize tab based on stored value or default to first tab
-                var storedTab = localStorage.getItem('activeTab');
-                if (storedTab) {
-                    // Ensure the tab is shown on load
-                    $(window).on('load', function() {
-                        // Remove the hash if it's not found in local storage
-                        if (storedTab) {
-                            window.location.hash = storedTab;
-                            changeTab();
-                        }
-                    });
-                } else {
-                    $('#steparrow-gen-info-tab').addClass('active');
-                    $('#steparrow-gen-info').addClass('active show');
-                }
-
-                changeTab(); // Initialize the correct tab on page load
+            $(window).on('hashchange', function() {
+                changeTab();
+                storeActiveTab();
             });
-        </script>
+
+            $('.nav-link').on('shown.bs.tab', function() {
+                storeActiveTab();
+                var target = $(this).attr('data-bs-target');
+                window.location.hash = target;
+            });
+
+            var storedTab = localStorage.getItem('activeTab');
+            if (storedTab) {
+                $(window).on('load', function() {
+                    if (storedTab) {
+                        window.location.hash = storedTab;
+                        changeTab();
+                    }
+                });
+            } else {
+                $('#steparrow-gen-info-tab').addClass('active');
+                $('#steparrow-gen-info').addClass('active show');
+            }
+
+            changeTab();
+        });
+    </script>
 
 
     <script>
