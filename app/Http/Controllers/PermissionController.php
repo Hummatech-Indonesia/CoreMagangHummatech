@@ -39,7 +39,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $students = $this->student->get();
+        $students = $this->student->get($request);
         $permissions = $this->permission->search($request)->paginate(10);
         $perPagePanding = 50;
         $perPageAgree = 50;
@@ -78,7 +78,7 @@ class PermissionController extends Controller
     {
         switch ($request->status_approval) {
             case StatusApprovalPermissionEnum::AGREE->value:
-                
+
                 $izinDari = Carbon::parse($permission->start);
                 $izinSampai = Carbon::parse($permission->end);
                 $tanggalMulai = $izinDari;
@@ -153,7 +153,7 @@ class PermissionController extends Controller
                 $izinDari->addDay();
             }
             $this->permission->delete($permission->id);
-            
+
             return redirect()->back()->with('success', 'Berhasil menghapus izin');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Gagal menghapus izin: ' . $th->getMessage());
