@@ -43,7 +43,7 @@ class CategoryBoardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($slug, HummataskTeam $hummataskTeam)
+    public function index($slug, HummataskTeam $hummataskTeam, Request $request)
     {
         $team = $this->hummataskTeam->slug($slug);
         $categoryBoards = $this->categoryBoard->getByHummataskTeamId($team->id);
@@ -53,7 +53,7 @@ class CategoryBoardController extends Controller
         foreach ($projects as $project) {
             $studentTeams = $this->studentTeam->where('project_id', $project->id);
         }
-        $students = $this->student->get();
+        $students = $this->student->get($request);
         $boardCounts = $this->boardService->getBoardCountsByCategory($team->id);
 
         return view('Hummatask.team.board' , compact('categoryBoards', 'hummataskTeam', 'boards', 'team', 'studentTeams', 'students','boardCounts'));
