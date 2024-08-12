@@ -191,7 +191,7 @@
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $student->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $student->id }}"
-                                                data-image="{{ $student->avatar }}">Ganti Profile</button>
+                                                data-image="{{ $student->avatar }}" data-name="{{ $student->name }}">Ganti Profile</button>
                                             <button class="dropdown-item btn-detail" data-name="{{ $student->name }}"
                                                 data-majors="{{ $student->major }}" data-class="{{ $student->class }}"
                                                 data-phone="{{ $student->phone }}"
@@ -269,7 +269,7 @@
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $studentoffline->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $studentoffline->id }}"
-                                                data-image="{{ $studentoffline->avatar }}">Ganti
+                                                data-image="{{ $studentoffline->avatar }}" data-name="{{ $studentoffline->name }}">Ganti
                                                 Profile</button>
                                             <button class="dropdown-item btn-detail"
                                                 data-name="{{ $studentoffline->name }}"
@@ -353,7 +353,7 @@
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $studentonline->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $studentonline->id }}"
-                                                data-image="{{ $studentonline->avatar }}">Ganti
+                                                data-image="{{ $studentonline->avatar }}" data-name="{{ $studentonline->name }}">Ganti
                                                 Profile</button>
                                             <button class="dropdown-item btn-detail"
                                                 data-name="{{ $studentonline->name }}"
@@ -437,7 +437,7 @@
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $alumni->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $alumni->id }}"
-                                                data-image="{{ $alumni->avatar }}">Ganti
+                                                data-image="{{ $alumni->avatar }}" data-name="{{ $alumni->name }}">Ganti
                                                 Profile</button>
                                             <button class="dropdown-item btn-detail"
                                                 data-name="{{ $alumni->name }}"
@@ -584,7 +584,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Ubah Foto</h5>
+                    <h5 class="modal-title" id="myModalLabel">Ubah Profile</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                 </div>
                 <form action="" method="POST" id="form-change" enctype="multipart/form-data">
@@ -596,7 +596,17 @@
                                 <img src="{{ asset('user.webp') }}"
                                     class="rounded show-image avatar-lg object-fit-cover" alt="User Profile" />
                                 <input type="file" id="image" name="avatar" class="form-control" />
+                                @error('avatar')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="name" class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="name-edit" name="name" required>
+                            @error('name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="modal-footer d-flex gap-2 justify-content-center p-0 pt-2 flex-row-reverse">
                             <button type="submit" class="btn btn-primary ">Simpan</button>
@@ -734,7 +744,10 @@
         $('.btn-change').click(function() {
             let id = $(this).data('id');
             let image = $(this).data('image');
+            let name = $(this).data('name');
+            
             $('#form-change').attr('action', '/menu-siswa/update/' + id);
+            $('#name-edit').val(name);
             $('.show-image').attr('src', image ? `{{ url('/storage') }}/${image}` : "{{ asset('user.webp') }}");
             $('#myModal').modal('show');
         });

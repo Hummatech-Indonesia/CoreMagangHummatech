@@ -23,6 +23,7 @@ class UpdateStudentRequest extends FormRequest
     {
         return [
             'avatar' => 'image|mimes:jpeg,png,jpg,gif',
+            'name' => 'nullable|max:255',
             'division_id' => 'nullable|exists:divisions,id',
         ];
     }
@@ -33,6 +34,7 @@ class UpdateStudentRequest extends FormRequest
         return [
             'avatar.image' => 'File yang diupload bukan gambar',
             'avatar.mimes' => 'File yang diupload bukan gambar',
+            'name.max' => 'Nama maksimal :max karakter',
             'division_id.exists' => 'Divisi tidak ditemukan',
         ];
     }
