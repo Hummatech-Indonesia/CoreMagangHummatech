@@ -41,9 +41,9 @@ class PermissionController extends Controller
     {
         $students = $this->student->get($request);
         $permissions = $this->permission->search($request)->paginate(10);
-        $perPagePanding = 50;
-        $perPageAgree = 50;
-        $perPageReject = 50;
+        $perPagePanding = 10;
+        $perPageAgree = 10;
+        $perPageReject = 10;
 
 
         $pandingPermissions = $this->permission->getByStatus('pending', $request)->paginate($perPagePanding, ['*'], 'panding_page');
