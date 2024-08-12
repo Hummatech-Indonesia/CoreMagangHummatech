@@ -9,7 +9,7 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 use App\Contracts\Interfaces\Eloquent\WhereInterface;
 use Illuminate\Http\Request;
 
-interface StudentInterface extends GetInterface , StoreInterface , DeleteInterface , UpdateInterface, WhereInterface, ShowInterface
+interface StudentInterface extends StoreInterface , DeleteInterface , UpdateInterface, WhereInterface, ShowInterface
 {
 
     /**
@@ -19,6 +19,9 @@ interface StudentInterface extends GetInterface , StoreInterface , DeleteInterfa
      * @return mixed
      */
     public function getAttendanceByDivision(Request $request): mixed;
+
+    public function get(Request $request): mixed;
+
 
     public function countActiveOflline():mixed;
     public function countNonActiveOflline():mixed;

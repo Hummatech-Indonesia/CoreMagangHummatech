@@ -29,10 +29,14 @@ class FaceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = $this->student->get();
-        return view('admin.page.face.index', compact('students'));
+        $students = $this->student->get($request);
+
+        $schools = $this->student->get($request)->pluck('school')->unique();
+        $schoolOption = $this->student->pluck('school')->unique();
+
+        return view('admin.page.face.index', compact('students', 'schools', 'schoolOption'));
     }
 
     /**
@@ -40,9 +44,9 @@ class FaceController extends Controller
      *
      * @return void
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        $students = $this->student->get();
+        $students = $this->student->get($request);
         return view('', compact('students'));
     }
 

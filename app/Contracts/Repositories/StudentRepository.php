@@ -45,7 +45,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function StudentFinish(): mixed
     {
         return $this->model->query()->whereDate('finish_date', now()->format('Y-m-d'))->get();
-    }   
+    }
 
     /**
      * Method countActiceStudents
@@ -224,9 +224,16 @@ class StudentRepository extends BaseRepository implements StudentInterface
      *
      * @return mixed
      */
-    public function get(): mixed
+    public function get(Request $request): mixed
     {
-        return $this->model->query()->get();
+        return $this->model->query()
+        ->when($request->name, function ($query) use ($request) {
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        })
+        ->when($request->school, function ($query) use ($request) {
+            $query->where('school', 'LIKE', '%' . $request->school . '%');
+        })
+        ->get();
     }
 
     /**
