@@ -15,11 +15,30 @@ class PermissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'required',
-            'proof' => 'required|image',
-            'start' => 'required',
-            'end' => 'required',
-            'status' => 'nullable'
+            'description' => 'required|string',
+            'proof' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'start' => 'required|date',
+            'end' => 'required|date|after_or_equal:start',
+            'status' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'description.required' => 'Deskripsi harus diisi.',
+            'description.string' => 'Deskripsi harus berupa teks.',
+            'proof.required' => 'Bukti harus diunggah.',
+            'proof.image' => 'Bukti harus berupa gambar.',
+            'proof.mimes' => 'Bukti harus berupa file gambar dengan ekstensi jpeg, png, jpg, gif, atau svg.',
+            'proof.max' => 'Ukuran file gambar tidak boleh lebih dari 2MB.',
+            'start.required' => 'Tanggal mulai harus diisi.',
+            'start.date' => 'Tanggal mulai harus berupa tanggal yang valid.',
+            'end.required' => 'Tanggal akhir harus diisi.',
+            'end.date' => 'Tanggal akhir harus berupa tanggal yang valid.',
+            'end.after_or_equal' => 'Tanggal akhir harus sama dengan atau setelah tanggal mulai.',
+            'status.required' => 'Status harus diisi.'
+        ];
+    }
+    
 }

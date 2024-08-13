@@ -411,49 +411,84 @@
                 <form action="/permission" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
+
+                        <!-- Start Date -->
                         <div class="mb-3">
                             <label for="izinStartDate" class="form-label">Dari Tanggal</label>
-                            <input type="date" class="form-control" id="izinStartDate" name="start">
+                            <input type="date" class="form-control @error('start') is-invalid @enderror"
+                                id="izinStartDate" name="start" value="{{ old('start') }}">
+                            @error('start')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
+                        <!-- End Date -->
                         <div class="mb-3">
                             <label for="izinEndDate" class="form-label">Sampai Tanggal</label>
-                            <input type="date" class="form-control" id="izinEndDate" name="end">
+                            <input type="date" class="form-control @error('end') is-invalid @enderror"
+                                id="izinEndDate" name="end" value="{{ old('end') }}">
+                            @error('end')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
+                        <!-- Proof -->
                         <div class="mb-3">
-                            <label for="izinEndDate" class="form-label">Bukti</label>
-                            <input type="file" class="form-control" id="izinEndDate" name="proof">
+                            <label for="izinProof" class="form-label">Bukti</label>
+                            <input type="file" class="form-control @error('proof') is-invalid @enderror"
+                                id="izinProof" name="proof">
+                            @error('proof')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
+                        <!-- Description -->
                         <div class="mb-3">
                             <label for="keteranganTextarea" class="form-label">Deskripsi</label>
-                            <textarea class="form-control" id="keteranganTextarea" name="description" rows="3"
-                                placeholder="Masukkan deskripsi"></textarea>
+                            <textarea class="form-control @error('description') is-invalid @enderror" id="keteranganTextarea" name="description"
+                                rows="3" placeholder="Masukkan deskripsi">{{ old('description') }}</textarea>
+                            @error('description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
+                        <!-- Status -->
                         <div class="mb-3">
                             <div>
                                 <label for="statusIzin" class="form-label">Status Izin</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status" id="izinDiterima" status
-                                    value="izin">
-                                <label class="form-check-label" for="izinDiterima">
-                                    Izin
-                                </label>
+                                <input class="form-check-input @error('status') is-invalid @enderror" type="radio"
+                                    name="status" id="izinDiterima" value="izin"
+                                    {{ old('status') == 'izin' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="izinDiterima">Izin</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status" id="izinDitolak"
-                                    value="sakit">
-                                <label class="form-check-label" for="izinDitolak">
-                                    Sakit
-                                </label>
-
+                                <input class="form-check-input @error('status') is-invalid @enderror" type="radio"
+                                    name="status" id="izinDitolak" value="sakit"
+                                    {{ old('status') == 'sakit' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="izinDitolak">Sakit</label>
                             </div>
+                            @error('status')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
                         </div>
+
+                        <!-- Modal Footer -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
+                    </div>
                 </form>
+
             </div>
         </div>
     </div>
+    
+@endsection
+
+@section('script')
+
+
 @endsection

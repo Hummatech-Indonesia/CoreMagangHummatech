@@ -23,6 +23,7 @@ class UpdatePermissionRequest extends FormRequest
     {
         return [
             'status_approval' => 'required|in:pending,agree,reject',
+            
         ];
     }
 }
