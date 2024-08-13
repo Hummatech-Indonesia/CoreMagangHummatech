@@ -6,16 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="https://cdn.tailwindcss.com%22%3E/"></script>
-    <script>
-        theme: {
-            extend: {
-                blur: {
-                    xs: '3px',
-                }
-            },
-        }
-    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .wrapper-page {
             page-break-after: always;
@@ -53,24 +44,12 @@
         .title {
             margin: 5px 0;
         }
-
-
-        /*
-        #customers th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color: #76a9fa;
-            color: white;
-        } */
     </style>
 
 </head>
 
 <body>
-    {{-- @require ('vendor/autoload.php'); --}}
     <table style="font-family: Arial, Helvetica, sans-serif;">
-
         <tr>
             <td style="width: 100px;">
                 @php
@@ -81,10 +60,10 @@
                     }
                 @endphp
                 @if (isset($imageDataUri))
-                    <img src="{{ $imageDataUri }}" alt="Logo" style="max-width: 100%; height: auto; display:flex;">
+                    <img src="{{ $imageDataUri }}" alt="Logo" style="max-width: 100%; height: auto;">
                 @endif
             </td>
-            <td style="text-align: center; justify-content: center; width: 600px; margin: 0">
+            <td style="text-align: center; width: 600px;">
                 <h4 style="margin: 0">{{ $letterheads->letterhead_top }}</h4>
                 <h3 style="margin: 0">{{ $letterheads->letterhead_middle }}</h3>
                 <h5 style="margin: 0">{{ $letterheads->letterhead_bottom }}</h5>
@@ -100,31 +79,32 @@
             </td>
         </tr>
     </table>
-    <div class="flex justify-center mt-3 mb-5" style="display: flex; justify-content: center;">
+    <div class="flex justify-center mt-3 mb-5">
         <div class="flex justify-center">
-            <table id="customers" class="data"
-                style="border: 1px solid black; border-collapse: collapse; margin-top:2%">
+            <h6>Bulan : {{ \Carbon\Carbon::create()->month((int) $month)->locale('id')->format('F') }} {{ $year }}</h6>
+
+            <table id="customers" style="border: 1px solid black; border-collapse: collapse;">
                 <thead>
                     <tr style="font-size: 12px">
-                        <th scope="col" class="px-6">No</th>
-                        <th scope="col" class="px-6">Tanggal</th>
-                        <th scope="col" class="px-6">Nama</th>
-                        <th scope="col" class="px-6">sekolah</th>
-                        <th scope="col" class="px-6">Kegiatan</th>
-                        <th scope="col" class="px-6">Bukti</th>
-                        <th scope="col" class="px-6">Paraf Pembimbing</th>
+                        <th>No</th>
+                        <th>Tanggal</th>
+                        <th>Nama</th>
+                        <th>Sekolah</th>
+                        <th>Kegiatan</th>
+                        <th>Bukti</th>
+                        <th>Paraf Pembimbing</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($data as $item)
                         <tr style="text-align: center; font-size: 9px">
-                            <td class="px-1 md:px-4">{{ $loop->iteration }}</td>
-                            <td class="px-1 md:px-4">
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
                                 {{ \Carbon\Carbon::parse($item->created_at)->locale('id')->isoFormat('D MMMM Y') }}
                             </td>
-                            <td class="px-1 md:px-4">{{ $item->student->name }}</td>
-                            <td class="px-1 md:px-4">{{ $item->student->school }}</td>
-                            <td class="p-1 md:px-4" style="word-break: break-word;">{{ $item->description }}</td>
+                            <td>{{ $item->student->name }}</td>
+                            <td>{{ $item->student->school }}</td>
+                            <td style="word-break: break-word;">{{ $item->description }}</td>
                             <td>
                                 @php
                                     $path = storage_path('app/public/' . $item->image);
@@ -143,7 +123,7 @@
                                     Gambar tidak tersedia
                                 @endif
                             </td>
-                            <td class="px-1 md:px-4">
+                            <td>
                                 @php
                                     $imagePath = public_path('berkas/ttd.png');
                                 @endphp
@@ -156,29 +136,20 @@
                             </td>
                         </tr>
                     @endforeach
-
                 </tbody>
             </table>
-
         </div>
-        <div style="margin-top: 5%; padding-left: 80%">
-            <div style="text-align: center">
+        <div style="margin-top: 5%; padding-left: 80%;">
+            <div style="text-align: center;">
                 <div style="margin-bottom: 8px">
                     Ttd Pembimbing
                 </div>
                 <img src="{{ $qrCodeImage }}" alt="QR Code">
-                <div style="margin-top: 10px; decoration: underline">
+                <div style="margin-top: 10px;">
                 </div>
             </div>
         </div>
-
-        <script>
-            // Fungsi untuk mencetak halaman
-            function printPage() {
-                window.print();
-            }
-        </script>
-
+    </div>
 </body>
 
 </html>

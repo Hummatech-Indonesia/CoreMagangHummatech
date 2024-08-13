@@ -47,7 +47,16 @@ class JournalController extends Controller
     public function index()
     {
         $journals = $this->journal->get();
-        return view('student_offline.journal.index', compact('journals'));
+
+        $years = $journals->pluck('created_at')->map(function ($date) {
+            return $date->format('Y');
+        })->unique()->sort()->values();
+
+        $months = $journals->pluck('created_at')->map(function ($date) {
+            return $date->format('m');
+        })->unique()->sort()->values();
+
+        return view('student_offline.journal.index', compact('journals', 'years', 'months'));
     }
 
 
@@ -55,7 +64,7 @@ class JournalController extends Controller
     public function getjournals()
     {
         $journals = $this->journal->getjournal();
-        return view('admin.page.journal' , compact('journals'));
+        return view('admin.page.journal', compact('journals'));
     }
 
     /**
@@ -119,7 +128,6 @@ class JournalController extends Controller
         $data = $this->service->update($journal, $request);
         $this->journal->update($journal->id, $data);
         return back()->with('success', 'Berhasi Memperbarui Data');
-
     }
 
     /**
@@ -138,21 +146,29 @@ class JournalController extends Controller
         return view('student_online.journal.index', compact('journals'));
     }
 
-    public function downloadPDF()
+    public function downloadPDF(Request $request)
     {
-        set_time_limit(0);
-        $data = Journal::where('student_id', auth()->user()->student->id)->get();
+        // Fetch the necessary data
+        $data = Journal::where('student_id', auth()->user()->student->id)
+            ->whereYear('created_at', $request->input('year'))
+            ->whereMonth('created_at', $request->input('month'))
+            ->get();
+
         $header = Letterhead::where('user_id', auth()->user()->id)->first();
         $datadiri = Student::where('id', auth()->user()->student->id)->first();
 
+        // Get the year and month from request
+        $year = $request->input('year');
+        $month = $request->input('month');
+
+        // Group data by month
         $months = $data->groupBy(function ($date) {
             return \Carbon\Carbon::parse($date->tanggal)->format('Y-m');
         });
 
-        if($header == null) {
+        if ($header == null) {
             return redirect()->back()->with('warning', 'Harap mengisi kop surat terlebih dahulu');
         } else {
-
             $dompdf = new Dompdf();
             $options = new Options();
             $options->set('isHtml5ParserEnabled', true);
@@ -160,20 +176,19 @@ class JournalController extends Controller
             $options->set('isRemoteEnabled', true);
             $dompdf->setOptions($options);
 
-
             $combinedHtml = '';
             $dataadmin = DataAdmin::query()->first();
-            // Loop through months and append HTML to the combined HTML string
+
             foreach ($months as $month => $jurnals) {
                 $signature = Signature::create([
                     'qr' => '', // Placeholder untuk QR code, akan diperbarui nanti
                     'data_admin_id' => $dataadmin->id
                 ]);
 
-                $qrCode = QrCode::size(100)->generate(url('/data-qr/' . $signature->id)); // Mengarahkan ke ID signature yang baru saja dibuat
+                $qrCode = QrCode::size(100)->generate(url('/data-qr/' . $signature->id));
                 $qrCodeImage = 'data:image/png;base64,' . base64_encode($qrCode);
 
-                $signature->qr = $qrCodeImage; // Memperbarui kolom qr dengan QR code yang baru dibuat
+                $signature->qr = $qrCodeImage;
                 $signature->save();
 
                 $html = view('desain_pdf.jurnal', [
@@ -181,7 +196,9 @@ class JournalController extends Controller
                     'months' => $month,
                     'letterheads' => $header,
                     'datadiri' => $datadiri,
-                    'qrCodeImage' => $qrCodeImage
+                    'qrCodeImage' => $qrCodeImage,
+                    'year' => $year,   // Pass year to view
+                    'month' => $month  // Pass month to view
                 ])->render();
                 $combinedHtml .= $html;
             }
@@ -192,79 +209,12 @@ class JournalController extends Controller
 
             $output = $dompdf->output();
 
-            // Set header for PDF download
             $headers = [
                 'Content-Type' => 'application/pdf',
                 'Content-Disposition' => 'attachment; filename="jurnal.pdf"'
             ];
 
             return response($output, 200, $headers);
-
         }
-
-        // try {
-        //     //code...
-        //     set_time_limit(0);
-
-        //     $journals = $this->journal->get();
-        //     $header = $this->letterheads->whereauth(auth()->user()->id);
-        //     $datastudent = $this->student->first();
-
-        //     $months = $journals->groupBy(function ($date) {
-        //         return \Carbon\Carbon::parse($date->created_at)->format('Y-m');
-        //     });
-        //     $dompdf = new Dompdf();
-        //     $options = new Options();
-        //     $options->set('isHtml5ParserEnabled', true);
-        //     $options->set('isPhpEnabled', true);
-        //     $options->set('isRemoteEnabled', true);
-        //     $dompdf->setOptions($options);
-
-        //     $combinedHtml = '';
-        //     $dataadmin = $this->dataadmin->get();
-        //     // Loop through months and append HTML to the combined HTML string
-        //     foreach ($months as $month => $jurnals) {
-        //         $signature = $this->signature->store([
-        //             'qr' => '', // Placeholder untuk QR code, akan diperbarui nanti
-        //             'data_admin_id' => $dataadmin->id
-        //         ]);
-
-        //         $qrCode = QrCode::size(100)->generate(url('/data-qr/' . $signature->id)); // Mengarahkan ke ID signature yang baru saja dibuat
-        //         $qrCodeImage = 'data:image/png;base64,' . base64_encode($qrCode);
-
-        //         $signature->qr = $qrCodeImage; // Memperbarui kolom qr dengan QR code yang baru dibuat
-        //         $signature->save();
-
-        //         $html = view('desain_pdf.jurnal', [
-        //             'data' => $jurnals,
-        //             'months' => $month,
-        //             'letterheads' => $header,
-        //             'datadiri' => $datastudent,
-        //             'qrCodeImage' => $qrCodeImage
-        //         ])->render();
-        //         $combinedHtml .= $html;
-        //     }
-
-        //     // Debug: Simpan HTML ke file untuk pemeriksaan
-        //     file_put_contents(public_path('output.html'), $combinedHtml);
-
-        //     // Load HTML ke DOMPDF dan render ke PDF
-        //     $dompdf->loadHtml($combinedHtml);
-        //     $dompdf->setPaper('A4', 'portrait');
-        //     $dompdf->render();
-
-        //     $output = $dompdf->output();
-
-        //     // Set header untuk download PDF
-        //     $headers = [
-        //         'Content-Type' => 'application/pdf',
-        //         'Content-Disposition' => 'attachment; filename="jurnal.pdf"'
-        //     ];
-
-        //     return response($output, 200, $headers);
-        // } catch (Exception $e) {
-        //     return back()->with('error', 'Terjadi Kesalahan: ' . $e->getMessage());
-        // }
     }
-
 }
