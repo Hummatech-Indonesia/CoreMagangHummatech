@@ -109,7 +109,7 @@
                     PDF
                 </button>
             </a> --}}
-            <button type="button" class="btn mb-1 btn-light-warning text-warning btn-lg px-4 fs-4 font-medium ms-3"
+            {{-- <button type="button" class="btn mb-1 btn-light-warning text-warning btn-lg px-4 fs-4 font-medium ms-3"
                 data-bs-toggle="modal" data-bs-target="#printJournalModal">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                     class="h-5 w-5 ltr:mr-2 rtl:ml-2">
@@ -120,7 +120,7 @@
                         stroke="currentColor" stroke-width="1.5" />
                 </svg>
                 PDF
-            </button>
+            </button> --}}
 
             <button type="button" class="btn mb-1 btn-light-primary text-primary btn-lg px-4 fs-4 font-medium ms-3"
                 data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -143,17 +143,19 @@
                         <div class="mb-3">
                             <label for="yearSelect" class="form-label">Tahun</label>
                             <select class="form-select" id="yearSelect" name="year">
-                                @foreach ($years as $year)
-                                    <option value="{{ $year }}">{{ $year }}</option>
+                                @foreach ($years as $yearOption)
+                                    <option value="{{ $yearOption }}" {{ $yearOption == $year ? 'selected' : '' }}>
+                                        {{ $yearOption }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="monthSelect" class="form-label">Bulan</label>
                             <select class="form-select" id="monthSelect" name="month">
-                                @foreach ($months as $month)
-                                    <option value="{{ $month }}">
-                                        {{ \Carbon\Carbon::create()->month((int) $month)->format('F') }}
+                                @foreach ($months as $monthOption)
+                                    <option value="{{ $monthOption }}" {{ $monthOption == $month ? 'selected' : '' }}>
+                                        {{ \Carbon\Carbon::create()->month((int) $monthOption)->locale('id')->format('F') }}
                                     </option>
                                 @endforeach
                             </select>
@@ -167,8 +169,6 @@
             </div>
         </div>
     </div>
-
-
 
     <div class="card">
         <div class="card-body">
