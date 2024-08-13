@@ -417,8 +417,8 @@
                             <label for="izinStartDate" class="form-label">Dari Tanggal</label>
                             <input type="date" class="form-control @error('start') is-invalid @enderror"
                                 id="izinStartDate" name="start" value="{{ old('start') }}">
-                            @error('start')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            @error('start', 'create')
+                                <div class="invalid-feedback error-create d-block">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -427,8 +427,8 @@
                             <label for="izinEndDate" class="form-label">Sampai Tanggal</label>
                             <input type="date" class="form-control @error('end') is-invalid @enderror"
                                 id="izinEndDate" name="end" value="{{ old('end') }}">
-                            @error('end')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            @error('end', 'create')
+                                <div class="invalid-feedback error-create d-block">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -437,8 +437,8 @@
                             <label for="izinProof" class="form-label">Bukti</label>
                             <input type="file" class="form-control @error('proof') is-invalid @enderror"
                                 id="izinProof" name="proof">
-                            @error('proof')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            @error('proof', 'create')
+                                <div class="invalid-feedback error-create d-block">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -447,8 +447,8 @@
                             <label for="keteranganTextarea" class="form-label">Deskripsi</label>
                             <textarea class="form-control @error('description') is-invalid @enderror" id="keteranganTextarea" name="description"
                                 rows="3" placeholder="Masukkan deskripsi">{{ old('description') }}</textarea>
-                            @error('description')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            @error('description', 'create')
+                                <div class="invalid-feedback error-create d-block">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -469,8 +469,8 @@
                                     {{ old('status') == 'sakit' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="izinDitolak">Sakit</label>
                             </div>
-                            @error('status')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @error('status', 'create')
+                                <div class="invalid-feedback error-create d-block">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -485,10 +485,25 @@
             </div>
         </div>
     </div>
-    
+
 @endsection
 
 @section('script')
-
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cek session flash dan kesalahan untuk modal create
+            const showCreateModal = @json(session('showCreateModal'));
+            if (showCreateModal) {
+                var createModalErrors = document.querySelectorAll('.error-create');
+                if (createModalErrors.length > 0) {
+                    var createModalElement = new bootstrap.Modal(document.getElementById('izinModal'));
+                    createModalElement.show();
+                }
+            }
+        });
+    </script>
 @endsection
