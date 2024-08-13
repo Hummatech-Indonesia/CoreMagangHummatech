@@ -130,7 +130,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="printJournalModal" tabindex="-1" aria-labelledby="printJournalModalLabel"
+    {{-- <div class="modal fade" id="printJournalModal" tabindex="-1" aria-labelledby="printJournalModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -168,7 +168,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="card">
         <div class="card-body">
