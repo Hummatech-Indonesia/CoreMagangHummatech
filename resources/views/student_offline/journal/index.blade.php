@@ -16,6 +16,57 @@
     }
 </style>
 
+<style>
+    .zoomed-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        cursor: pointer;
+    }
+
+    .zoomed-image img {
+        max-width: 90%;
+        max-height: 90%;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        /* Transisi zoom */
+    }
+
+    .zoomed-image img.zoomed {
+        transform: scale(1.5);
+        /* Ukuran zoom lebih besar */
+    }
+
+    .zoomed-image .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: transparent;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #fff;
+        font-size: 20px;
+    }
+
+    .zoomed-image .close-btn:before {
+        content: '×';
+    }
+</style>
+
+
 @section('content')
     <div class="card bg-light-info shadow-none position-relative overflow-hidden">
         <div class="card-body px-4 py-3">
@@ -128,7 +179,7 @@
             </button>
         </div>
     </div>
-    
+
     <!-- Modal -->
     <div class="modal fade" id="printJournalModal" tabindex="-1" aria-labelledby="printJournalModalLabel"
         aria-hidden="true">
@@ -177,8 +228,10 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary" form="printJournalForm">Cetak</button>
+                    <button type="button" class="btn btn-light-danger text-danger font-medium waves-effect"
+                        data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-light-primary text-primary font-medium waves-effect"
+                        form="printJournalForm">Cetak</button>
                 </div>
             </div>
         </div>
@@ -467,7 +520,7 @@
             modalBody.append('<div class="mb-2">');
             modalBody.append('<h6 class="f-w-600">Bukti</h6>');
             modalBody.append('<img src="' + image +
-                '" class="img-fluid" style="width:50%; max-width:300px; object-fit:cover">');
+                '" class="img-fluid zoom" style="width:50%; max-width:300px; object-fit:cover">');
             modalBody.append('</div>');
             detail.append(modalBody);
             $('#detail').modal('show');
@@ -481,6 +534,36 @@
             $('#modal-delete').modal('show');
         });
     </script>
+    <script>
+        $(document).on('click', '.zoom', function() {
+            var src = $(this).attr('src');
+            var zoomedImage = $('<div class="zoomed-image">' +
+                '<button class="close-btn"></button>' +
+                '<img src="' + src + '" class="img-fluid">' +
+                '</div>');
+            $('body').append(zoomedImage);
+
+            // Menangani zoom gambar dengan klik
+            zoomedImage.find('img').on('click', function() {
+                $(this).toggleClass('zoomed');
+            });
+
+            // Hapus tampilan zoomed saat gambar atau tombol close diklik
+            zoomedImage.on('click', function(e) {
+                // Mencegah event click pada gambar dan tombol close
+                if ($(e.target).is('img') || $(e.target).is('.close-btn')) return;
+                $(this).remove();
+            });
+
+            // Jangan hapus saat tombol close diklik
+            zoomedImage.find('.close-btn').on('click', function(e) {
+                e.stopPropagation(); // Mencegah event click pada zoomed-image parent
+                zoomedImage.remove();
+            });
+        });
+    </script>
+
+
     <script>
         function countCharacters(textarea) {
             var textWithoutSpaces = textarea.value.replace(/\s/g, '');
