@@ -38,4 +38,16 @@ class WorkFromHomeRepository extends BaseRepository implements WorkFromHomeInter
             ->whereDate('date', now()->format('Y-m-d'))
             ->first();
     }
+
+    /**
+     * getYesterday
+     *
+     * @return mixed
+     */
+    public function getYesterday(): mixed
+    {
+        return $this->model->query()
+        ->whereDate('date', now()->subDay()->format('Y-m-d'))
+        ->first();
+    }
 }

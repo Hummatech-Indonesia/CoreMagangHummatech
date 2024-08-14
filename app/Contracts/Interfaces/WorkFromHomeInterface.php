@@ -13,4 +13,5 @@ interface WorkFromHomeInterface extends StoreInterface
      * @return mixed
      */
     public function getToday(): mixed;
+    public function getYesterday(): mixed;
 }
