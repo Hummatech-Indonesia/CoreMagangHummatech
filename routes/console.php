@@ -11,3 +11,4 @@ Artisan::command('inspire', function () {
 # Schedule Journal entries for students who have not submitted
 Schedule::command('command:journal')->dailyAt('23:59');
 Schedule::command('update:alumni')->dailyAt('23:59');
+Schedule::command('run:wfh')->dailyAt('01:00');
