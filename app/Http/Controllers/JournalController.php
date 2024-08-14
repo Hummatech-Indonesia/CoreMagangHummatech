@@ -150,6 +150,9 @@ class JournalController extends Controller
 
     public function downloadPDF(Request $request)
     {
+        // Set waktu eksekusi tidak terbatas
+        ini_set('max_execution_time', 0); // atau set_time_limit(0);
+
         // Validasi data dari request
         $request->validate([
             'year' => 'required|digits:4',
@@ -227,6 +230,7 @@ class JournalController extends Controller
 
             $output = $dompdf->output();
 
+            // Nama file PDF
             $fileName = "Jurnal {$userName} - {$monthName}.pdf";
 
             $headers = [
@@ -237,4 +241,5 @@ class JournalController extends Controller
             return response($output, 200, $headers);
         }
     }
+
 }
