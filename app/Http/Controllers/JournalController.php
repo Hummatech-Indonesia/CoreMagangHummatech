@@ -56,9 +56,11 @@ class JournalController extends Controller
             return $date->format('m');
         })->unique()->sort()->values();
 
-        return view('student_offline.journal.index', compact('journals', 'years', 'months'));
-    }
+        $year = request()->get('year', $years->first());
+        $month = request()->get('month', $months->first());
 
+        return view('student_offline.journal.index', compact('journals', 'years', 'months', 'year', 'month'));
+    }
 
 
     public function getjournals()
@@ -148,7 +150,13 @@ class JournalController extends Controller
 
     public function downloadPDF(Request $request)
     {
-        // Fetch the necessary data
+        // Validasi data dari request
+        $request->validate([
+            'year' => 'required|digits:4',
+            'month' => 'required|integer|min:1|max:12',
+        ]);
+
+        // Ambil data yang diperlukan
         $data = Journal::where('student_id', auth()->user()->student->id)
             ->whereYear('created_at', $request->input('year'))
             ->whereMonth('created_at', $request->input('month'))
@@ -157,18 +165,26 @@ class JournalController extends Controller
         $header = Letterhead::where('user_id', auth()->user()->id)->first();
         $datadiri = Student::where('id', auth()->user()->student->id)->first();
 
-        // Get the year and month from request
+        // Ambil tahun dan bulan dari request
         $year = $request->input('year');
         $month = $request->input('month');
 
-        // Group data by month
+        // Konversi nomor bulan ke nama bulan
+        $monthName = \Carbon\Carbon::createFromFormat('m', $month)->format('F');
+
+        // Ambil nama pengguna
+        $userName = auth()->user()->name;
+
+        // Kelompokkan data berdasarkan bulan
         $months = $data->groupBy(function ($date) {
-            return \Carbon\Carbon::parse($date->tanggal)->format('Y-m');
+            return \Carbon\Carbon::parse($date->created_at)->format('Y-m');
         });
 
+        // Cek apakah kop surat sudah ada
         if ($header == null) {
             return redirect()->back()->with('warning', 'Harap mengisi kop surat terlebih dahulu');
         } else {
+            // Set up DOMPDF
             $dompdf = new Dompdf();
             $options = new Options();
             $options->set('isHtml5ParserEnabled', true);
@@ -179,7 +195,8 @@ class JournalController extends Controller
             $combinedHtml = '';
             $dataadmin = DataAdmin::query()->first();
 
-            foreach ($months as $month => $jurnals) {
+            foreach ($months as $monthKey => $jurnals) {
+                // Buat signature dan QR code
                 $signature = Signature::create([
                     'qr' => '', // Placeholder untuk QR code, akan diperbarui nanti
                     'data_admin_id' => $dataadmin->id
@@ -191,14 +208,15 @@ class JournalController extends Controller
                 $signature->qr = $qrCodeImage;
                 $signature->save();
 
+                // Render HTML untuk PDF
                 $html = view('desain_pdf.jurnal', [
                     'data' => $jurnals,
-                    'months' => $month,
+                    'month' => $monthKey,
                     'letterheads' => $header,
                     'datadiri' => $datadiri,
                     'qrCodeImage' => $qrCodeImage,
-                    'year' => $year,   // Pass year to view
-                    'month' => $month  // Pass month to view
+                    'year' => $year,
+                    'month' => $month
                 ])->render();
                 $combinedHtml .= $html;
             }
@@ -209,9 +227,11 @@ class JournalController extends Controller
 
             $output = $dompdf->output();
 
+            $fileName = "Jurnal {$userName} - {$monthName}.pdf";
+
             $headers = [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="jurnal.pdf"'
+                'Content-Disposition' => "attachment; filename=\"{$fileName}\""
             ];
 
             return response($output, 200, $headers);

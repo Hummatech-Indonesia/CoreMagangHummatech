@@ -109,7 +109,7 @@
                     PDF
                 </button>
             </a> --}}
-            {{-- <button type="button" class="btn mb-1 btn-light-warning text-warning btn-lg px-4 fs-4 font-medium ms-3"
+            <button type="button" class="btn mb-1 btn-light-warning text-warning btn-lg px-4 fs-4 font-medium ms-3"
                 data-bs-toggle="modal" data-bs-target="#printJournalModal">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                     class="h-5 w-5 ltr:mr-2 rtl:ml-2">
@@ -120,7 +120,7 @@
                         stroke="currentColor" stroke-width="1.5" />
                 </svg>
                 PDF
-            </button> --}}
+            </button>
 
             <button type="button" class="btn mb-1 btn-light-primary text-primary btn-lg px-4 fs-4 font-medium ms-3"
                 data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -128,9 +128,9 @@
             </button>
         </div>
     </div>
-
+    
     <!-- Modal -->
-    {{-- <div class="modal fade" id="printJournalModal" tabindex="-1" aria-labelledby="printJournalModalLabel"
+    <div class="modal fade" id="printJournalModal" tabindex="-1" aria-labelledby="printJournalModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -139,7 +139,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="printJournalForm" action="{{ url('/download-pdf-JurnalSiswa') }}" method="GET">
+                    <form id="printJournalForm" action="{{ url('/download-pdf') }}" method="GET">
                         <div class="mb-3">
                             <label for="yearSelect" class="form-label">Tahun</label>
                             <select class="form-select" id="yearSelect" name="year">
@@ -150,12 +150,26 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        @php
+                            use Carbon\Carbon;
+
+                            $months = [];
+                            for ($i = 1; $i <= 12; $i++) {
+                                $months[] = [
+                                    'value' => $i,
+                                    'name' => Carbon::create()->month($i)->locale('id')->format('F'),
+                                ];
+                            }
+                        @endphp
+
                         <div class="mb-3">
                             <label for="monthSelect" class="form-label">Bulan</label>
                             <select class="form-select" id="monthSelect" name="month">
-                                @foreach ($months as $monthOption)
-                                    <option value="{{ $monthOption }}" {{ $monthOption == $month ? 'selected' : '' }}>
-                                        {{ \Carbon\Carbon::create()->month((int) $monthOption)->locale('id')->format('F') }}
+                                @foreach ($months as $month)
+                                    <option value="{{ $month['value'] }}"
+                                        {{ $month['value'] == old('month', request('month')) ? 'selected' : '' }}>
+                                        {{ $month['name'] }}
                                     </option>
                                 @endforeach
                             </select>
@@ -168,7 +182,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     <div class="card">
         <div class="card-body">

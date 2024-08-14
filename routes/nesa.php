@@ -134,7 +134,9 @@ Route::get('timetable', [ZoomScheduleController::class, 'show']);
 
 
 // siswa offline
-Route::get('/download-pdf-JurnalSiswa', [\App\Http\Controllers\JournalController::class, 'downloadPDF']);
+// Route::get('/download-pdf-JurnalSiswa', [JournalController::class, 'downloadPDF']);
+Route::get('/download-pdf', [\App\Http\Controllers\JournalController::class, 'downloadPDF']);
+
 
 // Route::get('/journals/filter', [JournalController::class, 'showFilterModal']);
 // Route::get('/journals/pdf', [JournalController::class, 'generatePdf']);
