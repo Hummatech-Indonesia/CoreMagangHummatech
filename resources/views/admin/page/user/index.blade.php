@@ -191,7 +191,7 @@
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $student->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $student->id }}"
-                                                data-image="{{ $student->avatar }}" data-name="{{ $student->name }}">Ganti Profile</button>
+                                                data-image="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}" data-name="{{ $student->name }}">Ganti Profile</button>
                                             <button class="dropdown-item btn-detail" data-name="{{ $student->name }}"
                                                 data-majors="{{ $student->major }}" data-class="{{ $student->class }}"
                                                 data-phone="{{ $student->phone }}"
@@ -269,7 +269,7 @@
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $studentoffline->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $studentoffline->id }}"
-                                                data-image="{{ $studentoffline->avatar }}" data-name="{{ $studentoffline->name }}">Ganti
+                                                data-image="{{ file_exists(public_path('storage/' . $studentoffline->avatar)) ? asset('storage/' . $studentoffline->avatar) : asset('user.webp') }}" data-name="{{ $studentoffline->name }}">Ganti
                                                 Profile</button>
                                             <button class="dropdown-item btn-detail"
                                                 data-name="{{ $studentoffline->name }}"
@@ -353,7 +353,7 @@
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $studentonline->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $studentonline->id }}"
-                                                data-image="{{ $studentonline->avatar }}" data-name="{{ $studentonline->name }}">Ganti
+                                                data-image="{{ file_exists(public_path('storage/' . $studentonline->avatar)) ? asset('storage/' . $studentonline->avatar) : asset('user.webp') }}" data-name="{{ $studentonline->name }}">Ganti
                                                 Profile</button>
                                             <button class="dropdown-item btn-detail"
                                                 data-name="{{ $studentonline->name }}"
@@ -437,7 +437,7 @@
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $alumni->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $alumni->id }}"
-                                                data-image="{{ $alumni->avatar }}" data-name="{{ $alumni->name }}">Ganti
+                                                data-image="{{ file_exists(public_path('storage/' . $alumni->avatar)) ? asset('storage/' . $alumni->avatar) : asset('user.webp') }}" data-name="{{ $alumni->name }}">Ganti
                                                 Profile</button>
                                             <button class="dropdown-item btn-detail"
                                                 data-name="{{ $alumni->name }}"
@@ -748,7 +748,7 @@
             
             $('#form-change').attr('action', '/menu-siswa/update/' + id);
             $('#name-edit').val(name);
-            $('.show-image').attr('src', image ? `{{ url('/storage') }}/${image}` : "{{ asset('user.webp') }}");
+            $('.show-image').attr('src', image);
             $('#myModal').modal('show');
         });
 
