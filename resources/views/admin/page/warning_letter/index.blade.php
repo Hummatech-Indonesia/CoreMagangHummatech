@@ -76,8 +76,7 @@
                                                 {{ \carbon\Carbon::parse($warningLetter->start_date)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}
                                             </td>
                                             <td>{{ $warningLetter->reference_number }}</td>
-                                            {{-- <td>{{ Str::limit($warningLetter->reason, 50) }}</td> --}}
-                                            <td>{{ $warningLetter->reason }}</td>
+                                            <td>{{ Str::limit($warningLetter->reason, 50) }}</td>
                                             <td>SP {{ $warningLetter->status }}</td>
                                             <td>
                                                 <a class="btn btn-light edit-item-btn"
