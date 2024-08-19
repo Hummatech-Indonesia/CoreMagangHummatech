@@ -61,22 +61,18 @@
             &emsp; Keputusan ini terpaksa kami ambil setelah mempertimbangkan banyak hal, diantaranya : yang
             bersangkutan telah melanggar peraturan yang telah diterapkan oleh perusahaan yaitu
             <b>{{ $data['reason'] }}</b>.
-
-            @if ($data['status'] == 'WARNING_LETTER_ONE')
+            @if ($data['status'] === WarningLetterEnum::WARNING_LETTER_ONE->value)
                 Kami berharap agar yang bersangkutan bisa menerima dan memaklumi keputusan ini dan jika mengulangi
-                kembali
-                harus bersedia untuk dikembalikan dan diberhentikan sebagai siswa magang di PT Humma Teknologi
+                kembali harus bersedia untuk dikembalikan dan diberhentikan sebagai siswa magang di PT Humma Teknologi
                 Indonesia.
-            @elseif($data['status'] == 'WARNING_LETTER_TWO')
+            @elseif ($data['status'] === WarningLetterEnum::WARNING_LETTER_TWO->value)
                 Kami berharap agar yang bersangkutan bisa menerima dan memaklumi keputusan ini dan jika mengulangi
-                kembali
-                harus bersedia untuk dikembalikan dan diberhentikan sebagai siswa magang di PT Humma Teknologi
+                kembali harus bersedia untuk dikembalikan dan diberhentikan sebagai siswa magang di PT Humma Teknologi
                 Indonesia.
-            @elseif($data['status'] == 'WARNING_LETTER_THREE')
+            @elseif ($data['status'] === WarningLetterEnum::WARNING_LETTER_THREE->value)
                 Kami berharap agar yang bersangkutan bisa menerima dan memaklumi keputusan ini dan telah diberhentikan
                 sebagai siswa magang di PT Humma Teknologi Indonesia.
             @endif
-
         </p>
         <p
             style="font-family: 'Times New Roman', Times, serif; font-size: 15px;text-align: justify;   line-height: 1.5; text-indent: 2em; ">
