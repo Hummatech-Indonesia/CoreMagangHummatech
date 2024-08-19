@@ -59,9 +59,25 @@
         <p
             style="font-family: 'Times New Roman', Times, serif; font-size: 15px;text-align: justify;   line-height: 1.5;text-indent: 2em; ">
             &emsp; Keputusan ini terpaksa kami ambil setelah mempertimbangkan banyak hal, diantaranya : yang
-            bersangkutan telah melanggar peraturan yang telah diterapkan oleh perusahaan yaitu <b>{{ $data['reason'] }}</b>. Kami
-            berharap agar yang bersangkutan bisa menerima dan memaklumi keputusan ini dan jika mengulangi kembali harus
-            bersedia untuk dikembalikan dan diberhentikan sebagai siswa magang di PT Humma Teknologi Indonesia.
+            bersangkutan telah melanggar peraturan yang telah diterapkan oleh perusahaan yaitu
+            <b>{{ $data['reason'] }}</b>.
+
+            @switch($data['status'])
+                @case('WARNING_LETTER_ONE')
+                    Kami berharap agar yang bersangkutan bisa menerima dan memaklumi keputusan ini dan jika mengulangi kembali
+                    harus bersedia untuk dikembalikan dan diberhentikan sebagai siswa magang di PT Humma Teknologi Indonesia.
+                @break
+
+                @case('WARNING_LETTER_TWO')
+                    Kami berharap agar yang bersangkutan bisa menerima dan memaklumi keputusan ini dan jika mengulangi kembali
+                    harus bersedia untuk dikembalikan dan diberhentikan sebagai siswa magang di PT Humma Teknologi Indonesia.
+                @break
+
+                @case('WARNING_LETTER_THREE')
+                    Kami berharap agar yang bersangkutan bisa menerima dan memaklumi keputusan ini dan telah diberhentikan
+                    sebagai siswa magang di PT Humma Teknologi Indonesia.
+                @break
+            @endswitch
         </p>
         <p
             style="font-family: 'Times New Roman', Times, serif; font-size: 15px;text-align: justify;   line-height: 1.5; text-indent: 2em; ">
