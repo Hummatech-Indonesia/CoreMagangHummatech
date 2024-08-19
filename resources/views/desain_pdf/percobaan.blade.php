@@ -51,15 +51,29 @@
             Dengan Hormat <br>
         </p>
         <p
-            style="font-family: 'Times New Roman', Times, serif; font-size: 15px;text-align: justify; text-indent: 2em; line-height: 1.5; ">
+            style="font-family: 'Times New Roman', Times, serif; font-size: 15px;text-align: justify; text-indent: 2em; line-height: 1.5;">
             &emsp; Dengan ini kami beritahukan jika kami sudah memutuskan untuk memberikan
-            <b>SP{{ $data['status'] }}</b> kepada <b style=" text-transform: uppercase;">{{ $data['name'] }}</b> Asal <b
-                style=" text-transform: uppercase;">{{ $formattedNamaSekolah }} </b>, pada tanggal {{ $data['date'] }}.
+            @switch($data['status'])
+                @case('1')
+                    <b>SP I</b>
+                @break
+
+                @case('2')
+                    <b>SP II</b>
+                @break
+
+                @case('3')
+                    <b>SP III</b>
+                @break
+            @endswitch
+            kepada <b style="text-transform: uppercase;">{{ $data['name'] }}</b> Asal <b
+                style="text-transform: uppercase;">{{ $formattedNamaSekolah }}</b>, pada tanggal {{ $data['date'] }}.
         </p>
         <p
             style="font-family: 'Times New Roman', Times, serif; font-size: 15px;text-align: justify;   line-height: 1.5;text-indent: 2em; ">
             &emsp; Keputusan ini terpaksa kami ambil setelah mempertimbangkan banyak hal, diantaranya : yang
-            bersangkutan telah melanggar peraturan yang telah diterapkan oleh perusahaan yaitu <b>{{ $data['reason'] }}</b>. Kami
+            bersangkutan telah melanggar peraturan yang telah diterapkan oleh perusahaan yaitu
+            <b>{{ $data['reason'] }}</b>. Kami
             berharap agar yang bersangkutan bisa menerima dan memaklumi keputusan ini dan jika mengulangi kembali harus
             bersedia untuk dikembalikan dan diberhentikan sebagai siswa magang di PT Humma Teknologi Indonesia.
         </p>
