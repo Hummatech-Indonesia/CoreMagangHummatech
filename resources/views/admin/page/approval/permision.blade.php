@@ -285,11 +285,6 @@
                                                                         Bukti</button>
                                                                 </li>
                                                                 <li>
-                                                                    <a href="#"
-                                                                        class="dropdown-item btn-reset text-success btn-agree"
-                                                                        data-id="{{ $permission->id }}">Terima</a>
-                                                                </li>
-                                                                <li>
                                                                     <button
                                                                         class="dropdown-item btn-ban text-danger btn-reject"
                                                                         type="button"
@@ -424,12 +419,6 @@
                                                                     <a href="#"
                                                                         class="dropdown-item btn-reset text-success btn-agree"
                                                                         data-id="{{ $permission->id }}">Terima</a>
-                                                                </li>
-                                                                <li>
-                                                                    <button
-                                                                        class="dropdown-item btn-ban text-danger btn-reject"
-                                                                        type="button"
-                                                                        data-id="{{ $permission->id }}">Tolak</button>
                                                                 </li>
                                                                 <li>
                                                                     <button class="dropdown-item btn-ban btn-delete"
