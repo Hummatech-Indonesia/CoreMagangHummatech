@@ -18,7 +18,7 @@ class JournalCommand extends Command
      */
     protected $signature = 'command:journal';
 
-    /**
+    /** 
      * The console command description.
      *
      * @var string
@@ -33,7 +33,7 @@ class JournalCommand extends Command
         $dayNow = Carbon::now()->format('l');
         $dateNow = Carbon::now()->format('Y-m-d');
 
-        if($dayNow != 'Saturday' || $dayNow != 'Sunday') {
+        if ($dayNow != 'Saturday' && $dayNow != 'Sunday') {
             $student_Already = Journal::whereDate('created_at', $dateNow)->pluck('student_id')->toArray();
             $student_notYet = Student::query()
                 ->where('status', StudentStatusEnum::ACCEPTED->value)
@@ -52,7 +52,7 @@ class JournalCommand extends Command
                 ]);
             }
         }
-        $this->info('Jurnal entries generated successfully.');
+        $this->info('Journal entries generated successfully.');
         return 0;
     }
 }
