@@ -69,7 +69,7 @@
                             </p>
                         @enderror
                         <label for="" class="mt-2 mb-2">Deskripsi</label>
-                        <textarea name="description" id="description" class="form-control" onkeyup="countCharacters(this)">{{ old('description') }}</textarea>
+                        <textarea name="description" id="description" class="form-control" rows="3" onkeyup="countCharacters(this)">{{ old('description') }}</textarea>
                         <p id="characterCount">0 characters</p>
                         @error('description', 'create')
                             <p class="text-danger error-create">
@@ -151,8 +151,9 @@
                                     </p>
                                 </td>
                                 <td>
-                                    <img src="{{ asset('storage/' . $journal->image) }}" width="100px"
-                                        style="object-fit: cover" alt="" srcset="">
+                                    <img src="{{ asset('storage/' . $journal->image) }}"
+                                         style="width: 100px; height: 100px; object-fit: cover;"
+                                         alt="">
                                 </td>
                                 <td>
                                     <p class="mb-0 fw-normal fs-4">
@@ -334,7 +335,7 @@
             }
         });
     </script>
-    
+
     <script>
         $('.btn-edit').click(function() {
             var id = $(this).data('id');
