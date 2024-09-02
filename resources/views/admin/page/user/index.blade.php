@@ -265,7 +265,7 @@
                                             <a class="dropdown-item"
                                                 href="/faces/detail/{{ $studentoffline->id }}">Wajah</a>
                                             <button class="dropdown-item btn-reset" type="button"
-                                                data-id="{{ $studentoffline->id }}">Reset Password</button>
+                                                data-id="{{ $studentoffline->user->id }}">Reset Password</button>
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $studentoffline->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $studentoffline->id }}"
@@ -349,7 +349,7 @@
                                             <a class="dropdown-item"
                                                 href="/faces/detail/{{ $studentonline->id }}">Wajah</a>
                                             <button class="dropdown-item btn-reset" type="button"
-                                                data-id="{{ $studentonline->id }}">Reset Password</button>
+                                                data-id="{{ $studentoffline->user->id }}">Reset Password</button>
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $studentonline->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $studentonline->id }}"
@@ -766,7 +766,7 @@
 
         $('.btn-reset').click(function() {
             let id = $(this).data('id');
-            $('#form-reset').attr('action', '/menu-siswa/reset-password/' + id);
+            $('#form-reset').attr('action', '/administrator/menu-siswa/reset-password/' + id);
             $('#modal-reset').modal('show');
         });
 

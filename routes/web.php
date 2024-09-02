@@ -128,7 +128,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('menu-mentor/detail/{mentor}', [AdminMentorController::class, 'show'])->name('mentor.show');
     # Student
     Route::get('menu-siswa', [AdminStudentController::class, 'index'])->name('student.index');
-    Route::put('menu-siswa/reset-password/{student}', [AdminStudentController::class, 'reset'])->name('student.update');
+    Route::put('administrator/menu-siswa/reset-password/{user}', [AdminStudentController::class, 'reset'])->name('student.update');
     Route::put('menu-siswa/update/{student}', [AdminStudentController::class, 'update']);
     Route::get('menu-siswa/face/{student}', [AdminStudentController::class, 'face'])->name('student.show');
     Route::delete('menu-siswa/delete/{student}', [AdminStudentController::class, 'destroy'])->name('student.delete');
@@ -243,7 +243,7 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
         return view('student_offline.division.index');
     })->name('.class.division');
 
-    Route::get('/download-pdf-JurnalSiswa', [JournalController::class, 'downloadPDF']);
+    // Route::get('/download-pdf-JurnalSiswa', [JournalController::class, 'downloadPDF']);
     Route::get('absensi', [AttendanceController::class, 'attendanceOffline'])->name('.attendances');
     Route::get('/course', [CourseOfflineController::class, 'index'])->name('.course');
     Route::get('/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('.materi.detail');
