@@ -67,7 +67,7 @@
                         }
                     @endphp
                     <span class="badge bg-{{ $color }}-subtle text-{{ $color }}">{{ $team->categoryProject->name }}</span>
-                    <span class="badge bg-{{ $team->status->color() }}-subtle text-{{ $team->status->color() }}">{{ $team->status->label() }}</span>
+                    <span class="badge bg-{{ $team->teamStatus->color() }}-subtle text-{{ $team->teamStatus->color() }}">{{ $team->teamStatus->label() }}</span>
                     <span class="badge bg-secondary-subtle text-secondary">{{ $team->division->name }}</span>
                 </div>
                 <a href="{{ url('/offline-students/team/detail') }}" style="font-size: 15px" class="text-dark">
