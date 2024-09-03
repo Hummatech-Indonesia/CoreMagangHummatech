@@ -63,7 +63,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="listjs-table" id="customerList">
-                                <div class="row g-4 mb-3">
+                                {{-- <div class="row g-4 mb-3">
                                     <div class="col-sm-auto">
                                         <div class="d-flex">
                                             <h5 class="mx-2 pt-2">Show</h5>
@@ -73,7 +73,7 @@
                                             <h5 class="mx-2 pt-2">entries</h5>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="table-responsive">
                                     <table class="table align-middle table-nowrap" id="customerTable">
                                         <thead class="table-light">
