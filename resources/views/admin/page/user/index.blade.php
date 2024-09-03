@@ -155,13 +155,11 @@
                                     <div class="d-flex m-0 gap-2">
                                         <span
                                             class="badge px-4 py-1 text-uppercase
-                                            @if ($student->acepted == 1)
-                                                bg-success
+                                            @if ($student->acepted == 1) bg-success
                                             @elseif ($student->acepted == 0 && $student->status == 'alumnus')
                                                 bg-info
                                             @else
-                                                bg-danger
-                                            @endif
+                                                bg-danger @endif
                                              mt-1">
                                             @if ($student->acepted == 1)
                                                 Aktif
@@ -171,7 +169,8 @@
                                                 Tidak aktif
                                             @endif
                                         </span>
-                                        <span class="badge px-4 py-1 text-uppercase {{ $student->internship_type == 'online' ? 'bg-primary' : 'bg-danger' }} mt-1">{{ $student->internship_type == 'online' ? 'online' : 'offline' }}</span>
+                                        <span
+                                            class="badge px-4 py-1 text-uppercase {{ $student->internship_type == 'online' ? 'bg-primary' : 'bg-danger' }} mt-1">{{ $student->internship_type == 'online' ? 'online' : 'offline' }}</span>
                                     </div>
                                     <p class=" mt-1"><strong class="fs-6">RFID: </strong><span
                                             class="text-muted">{{ $student->rfid == null ? '-' : $student->rfid }}</span>
@@ -187,11 +186,13 @@
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item" href="/faces/detail/{{ $student->id }}">Wajah</a>
                                             <button class="dropdown-item btn-reset" type="button"
-                                                data-id="{{ $student->user ? $student->user->id : null }}">Reset Password</button>
+                                                data-id="{{ $student->user ? $student->user->id : null }}">Reset
+                                                Password</button>
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $student->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $student->id }}"
-                                                data-image="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}" data-name="{{ $student->name }}">Ganti Profile</button>
+                                                data-image="{{ file_exists(public_path('storage/' . $student->avatar)) ? asset('storage/' . $student->avatar) : asset('user.webp') }}"
+                                                data-name="{{ $student->name }}">Ganti Profile</button>
                                             <button class="dropdown-item btn-detail" data-name="{{ $student->name }}"
                                                 data-majors="{{ $student->major }}" data-class="{{ $student->class }}"
                                                 data-phone="{{ $student->phone }}"
@@ -265,11 +266,13 @@
                                             <a class="dropdown-item"
                                                 href="/faces/detail/{{ $studentoffline->id }}">Wajah</a>
                                             <button class="dropdown-item btn-reset" type="button"
-                                                data-id="{{ $studentoffline->user->id }}">Reset Password</button>
+                                                data-id="{{ $studentoffline->user ? $studentoffline->user->id : null }}">Reset
+                                                Password</button>
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $studentoffline->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $studentoffline->id }}"
-                                                data-image="{{ file_exists(public_path('storage/' . $studentoffline->avatar)) ? asset('storage/' . $studentoffline->avatar) : asset('user.webp') }}" data-name="{{ $studentoffline->name }}">Ganti
+                                                data-image="{{ file_exists(public_path('storage/' . $studentoffline->avatar)) ? asset('storage/' . $studentoffline->avatar) : asset('user.webp') }}"
+                                                data-name="{{ $studentoffline->name }}">Ganti
                                                 Profile</button>
                                             <button class="dropdown-item btn-detail"
                                                 data-name="{{ $studentoffline->name }}"
@@ -349,11 +352,13 @@
                                             <a class="dropdown-item"
                                                 href="/faces/detail/{{ $studentonline->id }}">Wajah</a>
                                             <button class="dropdown-item btn-reset" type="button"
-                                                data-id="{{ $studentoffline->user->id }}">Reset Password</button>
+                                                data-id="{{ $studentonline->user ? $studentonline->user->id : null }}">Reset
+                                                Password</button>
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $studentonline->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $studentonline->id }}"
-                                                data-image="{{ file_exists(public_path('storage/' . $studentonline->avatar)) ? asset('storage/' . $studentonline->avatar) : asset('user.webp') }}" data-name="{{ $studentonline->name }}">Ganti
+                                                data-image="{{ file_exists(public_path('storage/' . $studentonline->avatar)) ? asset('storage/' . $studentonline->avatar) : asset('user.webp') }}"
+                                                data-name="{{ $studentonline->name }}">Ganti
                                                 Profile</button>
                                             <button class="dropdown-item btn-detail"
                                                 data-name="{{ $studentonline->name }}"
@@ -413,8 +418,7 @@
                                     <h5 class="mt-1 m-0 fw-semibold">{{ $alumni->name }}</h5>
                                     <p class="mt-1 m-0 text-muted">{{ $alumni->school }}</p>
                                     <div class="d-flex m-0 gap-2">
-                                        <span
-                                            class="badge px-4 py-1 text-uppercase bg-info mt-1">Alumni</span>
+                                        <span class="badge px-4 py-1 text-uppercase bg-info mt-1">Alumni</span>
                                         <span
                                             class="badge px-4 py-1 text-uppercase {{ $alumni->internship_type == 'online' ? 'bg-primary' : 'bg-danger' }} mt-1">{{ $alumni->internship_type == 'online' ? 'online' : 'offline' }}</span>
                                     </div>
@@ -430,35 +434,31 @@
                                                     class="mdi mdi-dots-vertical align-center"></i></span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item"
-                                                href="/faces/detail/{{ $alumni->id }}">Wajah</a>
+                                            <a class="dropdown-item" href="/faces/detail/{{ $alumni->id }}">Wajah</a>
                                             <button class="dropdown-item btn-reset" type="button"
                                                 data-id="{{ $alumni->id }}">Reset Password</button>
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $alumni->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $alumni->id }}"
-                                                data-image="{{ file_exists(public_path('storage/' . $alumni->avatar)) ? asset('storage/' . $alumni->avatar) : asset('user.webp') }}" data-name="{{ $alumni->name }}">Ganti
+                                                data-image="{{ file_exists(public_path('storage/' . $alumni->avatar)) ? asset('storage/' . $alumni->avatar) : asset('user.webp') }}"
+                                                data-name="{{ $alumni->name }}">Ganti
                                                 Profile</button>
-                                            <button class="dropdown-item btn-detail"
-                                                data-name="{{ $alumni->name }}"
-                                                data-majors="{{ $alumni->major }}"
-                                                data-class="{{ $alumni->class }}"
+                                            <button class="dropdown-item btn-detail" data-name="{{ $alumni->name }}"
+                                                data-majors="{{ $alumni->major }}" data-class="{{ $alumni->class }}"
                                                 data-phone="{{ $alumni->phone }}"
                                                 data-address="{{ $alumni->address }}"
                                                 data-birthdate="{{ \carbon\Carbon::parse($alumni->birth_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                 data-birthplace="{{ $alumni->birth_place }}"
                                                 data-startdate="{{ \carbon\Carbon::parse($alumni->start_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
                                                 data-finishdate="{{ \carbon\Carbon::parse($alumni->finish_date)->locale('id_ID')->isoFormat('D MMMM YYYY') }}"
-                                                data-school="{{ $alumni->school }}"
-                                                data-email="{{ $alumni->email }}"
+                                                data-school="{{ $alumni->school }}" data-email="{{ $alumni->email }}"
                                                 data-avatar="{{ file_exists(public_path('storage/' . $alumni->avatar)) ? asset('storage/' . $alumni->avatar) : asset('user.webp') }}"
                                                 data-cv="{{ file_exists(public_path('storage/' . $alumni->cv)) ? asset('storage/' . $alumni->cv) : asset('no data.png') }}"
                                                 data-selfstatement="{{ file_exists(public_path('storage/' . $alumni->self_statement)) ? asset('storage/' . $alumni->self_statement) : asset('no data.png') }}"
                                                 data-parentsstatement="{{ file_exists(public_path('storage/' . $alumni->parents_statement)) ? asset('storage/' . $alumni->parents_statement) : asset('no data.png') }}"
                                                 data-identify_number="{{ $alumni->identify_number }}">Detail</button>
                                             <button class="dropdown-item btn-delete text-danger"
-                                                id="{{ $alumni->id }}"
-                                                data-id="{{ $alumni->id }}">Hapus</button>
+                                                id="{{ $alumni->id }}" data-id="{{ $alumni->id }}">Hapus</button>
                                         </div>
                                     </div>
                                 </div>
