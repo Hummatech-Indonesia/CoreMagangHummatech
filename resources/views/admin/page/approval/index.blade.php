@@ -45,6 +45,18 @@
             </div>
         </div>
     </div>
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="tab-content">
         <div id="steparrow-gen-info" class="tab-pane fade show active">
             <div class="row">
@@ -424,7 +436,7 @@
                 <div class="modal-body p-2 text-center">
                     <div class="mt-3 mx-3">
                         <h4>Nomor surat</h4>
-                        <form action="" id="form-accepted-one" method="POST">
+                        <form id="form-accepted-one" method="POST">
                             @csrf
                             @method('put')
                             <label for="">Masukan Nomer Surat</label>
@@ -588,7 +600,7 @@
                 $('.btn-reject').attr('data-id', id);
                 $('.btn-reject-reason').attr('data-id', id);
 
-                $('#form-declined').attr('action', 'approval/decline/' + id);
+                $('#form-declined').attr('action', '/approval/decline/' + id);
                 $('#offcanvasRight').offcanvas('show');
             });
 
@@ -600,13 +612,13 @@
 
             $('.btn-accept').click(function() {
                 let id = $(this).data('id');
-                $('#form-accepted-one').attr('action', 'approval/accept/' + id);
+                $('#form-accepted-one').attr('action', '/approval/accept/' + id);
                 $('#accepted-one').modal('show');
             });
 
             $('.btn-reject').click(function() {
                 let id = $(this).data('id');
-                $('#form-reject').attr('action', 'approval/decline/' + id);
+                $('#form-reject').attr('action', '/approval/decline/' + id);
                 $('#modalReject').modal('show');
             });
 

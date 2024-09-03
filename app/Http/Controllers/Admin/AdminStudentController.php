@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use App\Services\StudentService;
 use App\Http\Controllers\Controller;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Contracts\Interfaces\UserInterface;
 use App\Enum\StudentStatusEnum;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Attendance;
 use App\Models\Student;
+use App\Models\User;
 use Carbon\Carbon;
 
 class AdminStudentController extends Controller
@@ -18,15 +20,17 @@ class AdminStudentController extends Controller
     private StudentInterface $student;
     private StudentService $servicestudent;
     private DivisionInterface $division;
+    private UserInterface $user;
 
     /**
      * Create a new controller instance.
      */
-    public function __construct(StudentService $servicestudent, StudentInterface $student, DivisionInterface $division)
+    public function __construct(StudentService $servicestudent, UserInterface $user, StudentInterface $student, DivisionInterface $division)
     {
         $this->student = $student;
         $this->servicestudent = $servicestudent;
         $this->division = $division;
+        $this->user = $user;
     }
 
     /**
@@ -51,7 +55,7 @@ class AdminStudentController extends Controller
         $studentFinish = $this->student->StudentFinish();
 
         foreach ($studentFinish as $student) {
-            $this->student->update($student->id, 
+            $this->student->update($student->id,
             [
                 'acepted' => false,
                 'status' => StudentStatusEnum::ALUMNUS->value
@@ -72,9 +76,9 @@ class AdminStudentController extends Controller
     /**
      * Update The Password of the resource.
      */
-    public function reset(Student $student)
+    public function reset(User $user)
     {
-        $this->student->update($student->id, ['password' => 'password']);
+        $this->user->update($user->id, ['password' => 'password']);
         return redirect()->back()->with(['message' => 'Password Telah Di Reset, Password : password']);
     }
     /**

@@ -133,4 +133,14 @@ class Student extends Model implements HasAttendances, HasOneActiveFeature, HasA
     {
         return $this->hasMany(Permission::class);
     }
+
+    /**
+     * Get the user associated with the Student
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class);
+    }
 }

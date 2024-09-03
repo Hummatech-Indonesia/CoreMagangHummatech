@@ -271,17 +271,20 @@
                                         {{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}
                                     </p>
                                 </td>
-                                <td>
-                                    <img src="{{ asset('storage/' . $journal->image) }}"
-                                        style="width: 100px; height: 100px; object-fit: cover;" alt="">
-                                </td>
                                 {{-- <td>
+                                    @if($journal->image)
+                                        <img src="{{ asset('storage/' . $journal->image) }}"
+                                             style="width: 100px; height: 100px; object-fit: cover;" alt="">
+                                    @endif
+                                </td> --}}
+
+                                <td>
                                     <img
                                         src="{{ asset('storage/' . $journal->image) }}"
                                         onerror="this.src='{{ asset('no-data/4.png') }}';"
                                         style="width: 100px; height: 100px; object-fit: cover;"
                                         alt="Gambar jurnal">
-                                </td> --}}
+                                </td>
                                 <td>
                                     <p class="mb-0 fw-normal fs-4">
                                         {{ Str::limit($journal->description, 50) }}

@@ -154,12 +154,12 @@
                                     <p class="mt-1 m-0 text-muted">{{ $student->school }}</p>
                                     <div class="d-flex m-0 gap-2">
                                         <span
-                                            class="badge px-4 py-1 text-uppercase 
+                                            class="badge px-4 py-1 text-uppercase
                                             @if ($student->acepted == 1)
                                                 bg-success
                                             @elseif ($student->acepted == 0 && $student->status == 'alumnus')
                                                 bg-info
-                                            @else 
+                                            @else
                                                 bg-danger
                                             @endif
                                              mt-1">
@@ -167,7 +167,7 @@
                                                 Aktif
                                             @elseif ($student->acepted == 0 && $student->status == 'alumnus')
                                                 Alumni
-                                            @else 
+                                            @else
                                                 Tidak aktif
                                             @endif
                                         </span>
@@ -187,7 +187,7 @@
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <a class="dropdown-item" href="/faces/detail/{{ $student->id }}">Wajah</a>
                                             <button class="dropdown-item btn-reset" type="button"
-                                                data-id="{{ $student->id }}">Reset Password</button>
+                                                data-id="{{ $student->user->id }}">Reset Password</button>
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $student->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $student->id }}"
@@ -265,7 +265,7 @@
                                             <a class="dropdown-item"
                                                 href="/faces/detail/{{ $studentoffline->id }}">Wajah</a>
                                             <button class="dropdown-item btn-reset" type="button"
-                                                data-id="{{ $studentoffline->id }}">Reset Password</button>
+                                                data-id="{{ $studentoffline->user->id }}">Reset Password</button>
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $studentoffline->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $studentoffline->id }}"
@@ -349,7 +349,7 @@
                                             <a class="dropdown-item"
                                                 href="/faces/detail/{{ $studentonline->id }}">Wajah</a>
                                             <button class="dropdown-item btn-reset" type="button"
-                                                data-id="{{ $studentonline->id }}">Reset Password</button>
+                                                data-id="{{ $studentoffline->user->id }}">Reset Password</button>
                                             <button class="dropdown-item btn-ban"
                                                 data-id="{{ $studentonline->id }}">Banned</button>
                                             <button class="dropdown-item btn-change" data-id="{{ $studentonline->id }}"
@@ -745,7 +745,7 @@
             let id = $(this).data('id');
             let image = $(this).data('image');
             let name = $(this).data('name');
-            
+
             $('#form-change').attr('action', '/menu-siswa/update/' + id);
             $('#name-edit').val(name);
             $('.show-image').attr('src', image);
@@ -766,7 +766,7 @@
 
         $('.btn-reset').click(function() {
             let id = $(this).data('id');
-            $('#form-reset').attr('action', '/menu-siswa/reset-password/' + id);
+            $('#form-reset').attr('action', '/administrator/menu-siswa/reset-password/' + id);
             $('#modal-reset').modal('show');
         });
 
