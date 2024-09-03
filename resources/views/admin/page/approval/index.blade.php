@@ -64,15 +64,15 @@
                     <div class="card">
                         <div
                             class="card-header align-items-center d-flex justify-content-between mx-md-3 flex-column flex-md-row">
-                            {{-- <div class="d-flex gap-2 mb-2 mb-md-0">
-                                <p class="m-0 me-2">Show</p>
+                            <div class="d-flex gap-2 mb-2 mb-md-0">
+                                {{-- <p class="m-0 me-2">Show</p>
                                 <select class="form-select" id="showEntries">
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
                                 </select>
-                                <p class="m-0 ms-2">entries</p>
-                            </div> --}}
+                                <p class="m-0 ms-2">entries</p> --}}
+                            </div>
                             <div class="d-flex align-items-center justify-content-between mt-3">
                                 <!-- Tambahkan tombol submit -->
                                 <button id="submitSelected" type="button" class="btn btn-success me-3"
