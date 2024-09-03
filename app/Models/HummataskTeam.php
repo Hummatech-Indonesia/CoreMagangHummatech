@@ -15,7 +15,7 @@ class HummataskTeam extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['name', 'image', 'description', 'slug', 'category_project_id', 'student_id', 'division_id', 'status'];
     protected $guarded = ['id'];
-    public $casts = ['teamStatus' => StatusHummaTeamEnum::class];
+    protected $casts = ['teamStatus' => StatusHummaTeamEnum::class];
 
     /**
      * Get all of the comments for the HummataskTeam
