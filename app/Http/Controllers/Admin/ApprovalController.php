@@ -49,7 +49,7 @@ class ApprovalController extends Controller
 
     public function accept(AcceptedAprovalRequest $request, Student $student)
     {
-        // try {
+        try {
             if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
                 $studentCount = $this->student->countStudentOffline();
                 if ($this->limit->first()) {
@@ -65,9 +65,9 @@ class ApprovalController extends Controller
             $this->approval->update($student->id, $data);
 
             return back()->with('success', 'Berhasil Menerima Siswa Baru');
-        // } catch (\Throwable $th) {
-        //     return back()->with('error', 'Gagal Menerima Siswa Baru. Error: ' . $th->getMessage());
-        // }
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Gagal Menerima Siswa Baru. Error: ' . $th->getMessage());
+        }
     }
 
 
@@ -89,7 +89,7 @@ class ApprovalController extends Controller
             $this->service->acceptMultiple($groupedData);
             return back()->with('success', 'Berhasil menerima Siswa Baru');
         } catch (\Throwable $th) {
-            return back()->with('error', 'Gagal Menerima Siswa Baru');
+            return back()->with('error', 'Gagal Menerima Siswa Baru '.$th->getMessage());
         }
     }
 
