@@ -15,12 +15,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             // RemoveImage::class,
-            RoleSeeder::class,
-            UserSeeder::class,
-            CategoryProjectSeeder::class,
+            // RoleSeeder::class,
+            // UserSeeder::class,
+            // CategoryProjectSeeder::class,
             # =========================== Hapus seeder dibawah kalau udah mode production =========================== #
-            VoucherSeeder::class,
+            // VoucherSeeder::class,
             // CourseSeeder::class,
+
+            InstitutionSeeder::class,
         ]);
     }
 }

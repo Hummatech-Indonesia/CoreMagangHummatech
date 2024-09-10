@@ -44,6 +44,7 @@ use App\Http\Controllers\StudentOnline\CourseController;
 use App\Http\Controllers\CourseController as AdminCourseController;
 use App\Http\Controllers\DataCOController;
 use App\Http\Controllers\FaceController;
+use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\NotePicketController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
@@ -230,6 +231,8 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('note-picket/{notePicket}', [NotePicketController::class, 'update'])->name('note.update');
 
     Route::get('report', [PicketingReportController::class, 'index']);
+
+    Route::resource('administrator/institution', InstitutionController::class)->except(['show', 'create', 'edit']);
 });
 
 # ================================================ Offline Student Route Group ================================================

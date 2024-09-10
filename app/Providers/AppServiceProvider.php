@@ -73,6 +73,7 @@ use App\Contracts\Interfaces\CourseUnlockInterface;
 use App\Contracts\Interfaces\DataCOInterface;
 use App\Contracts\Interfaces\FaceInterface;
 use App\Contracts\Interfaces\HummataskTeamInterface;
+use App\Contracts\Interfaces\InstitutionInterface;
 use App\Contracts\Interfaces\LimitPresentationInterface;
 use App\Contracts\Interfaces\NotePicketInterface;
 use App\Contracts\Interfaces\OrderInterface;
@@ -117,6 +118,7 @@ use App\Contracts\Repositories\CourseUnlockRepository;
 use App\Contracts\Repositories\DataCORepository;
 use App\Contracts\Repositories\FaceRepository;
 use App\Contracts\Repositories\HummataskTeamRepository;
+use App\Contracts\Repositories\InstitutionRepository;
 use App\Contracts\Repositories\LimitPresentationRepository;
 use App\Contracts\Repositories\NotePicketRepository;
 use App\Contracts\Repositories\StudentChallengeRepository;
@@ -214,6 +216,7 @@ class AppServiceProvider extends ServiceProvider
         CourseAssignmentInterface::class => CourseAssignmentRepository::class,
         SubmitTaskInterface::class => SubmitTaskRepository::class,
         AlumniInterface::class => AlumniRepository::class,
+        InstitutionInterface::class => InstitutionRepository::class,
     ];
 
     /**

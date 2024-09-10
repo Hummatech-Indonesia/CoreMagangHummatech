@@ -165,7 +165,12 @@
                         </ul>
                     </div>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->is('administrator/institution') ? 'active' : '' }}"
+                        href="{{ route('institution.index') }}">
+                        <i class="ri-community-line"></i> <span data-key="t-dashboards">Sekolah/Universitas</span>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('division*') ? 'active' : '' }}"
                         href="{{ url('/division') }}">
