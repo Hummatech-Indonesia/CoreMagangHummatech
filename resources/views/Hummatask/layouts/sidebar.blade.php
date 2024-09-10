@@ -114,7 +114,7 @@
                             <div class="d-inline-block">
                                 <h6 class="mb-1 bg-hover-primary">{{ $hummataskTeam->name }}</h6>
                                 <div class="tb-section-2 mt-2">
-                                    <span class="bg-{{ $hummataskTeam->status->color() }} px-2  text-bg-{{ $hummataskTeam->status->color() }} fs-2 text-capitalize rounded-1 pb-1">{{  $hummataskTeam->status->label() }}</span>
+                                    <span class="bg-{{ $hummataskTeam->status->color()  }} px-2  text-bg-{{ $hummataskTeam->status->color() }} fs-2 text-capitalize rounded-1 pb-1">{{  $hummataskTeam->status->label() }}</span>
                                     <span class="bg-primary px-2  text-bg-primary fs-2 rounded-1 pb-1">{{ $hummataskTeam->categoryProject->name }}</span>
                                 </div>
                             </div>

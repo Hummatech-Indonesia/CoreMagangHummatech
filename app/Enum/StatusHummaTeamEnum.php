@@ -18,7 +18,7 @@ enum StatusHummaTeamEnum : string
             self::SUCCESS => 'Selesai',
         };
     }
-    public function color(): string
+    public function color()
     {
         return match ($this) {
             self::PENDING => 'warning',
