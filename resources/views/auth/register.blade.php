@@ -152,9 +152,16 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsURL">Sekolah / Universitas</label>
-                                            <input type="text" name="school" class="form-control"
+                                            <select name="school" id="school-input" class="form-control">
+                                                @forelse ($institutions as $institution)
+                                                <option value="{{ $institution->name }}">{{ $institution->name }}</option>
+                                            @empty
+                                                
+                                            @endforelse
+                                            </select>
+                                            {{-- <input type="text" name="school" class="form-control"
                                                 placeholder="Sekolah / Universitas" value="{{ old('school') }}"
-                                                id="school-input" onkeyup="capitalizeInput(this)">
+                                                id="school-input" onkeyup="capitalizeInput(this)"> --}}
                                             @error('school')
                                                 <p class="text-danger m-0">{{ $message }}</p>
                                             @enderror
