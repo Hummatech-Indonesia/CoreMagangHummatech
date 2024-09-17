@@ -24,6 +24,7 @@ class UserResource extends JsonResource
             'roles' => $roles,
             'school' => $this->student ? $this->student->school : null,
             'avatar' => $this->student ? asset('storage/'.$this->student->avatar) : asset('user.webp'),
+            'gender' => $this->student ? $this->student->gender : null,
         ];
     }
 }
