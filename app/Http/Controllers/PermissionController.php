@@ -40,7 +40,7 @@ class PermissionController extends Controller
     public function index(Request $request)
     {
         $students = $this->student->get($request);
-        $permissions = $this->permission->search($request)->paginate(10)->latest();
+        $permissions = $this->permission->search($request)->paginate(10);
         $perPagePanding = 10;
         $perPageAgree = 10;
         $perPageReject = 10;
