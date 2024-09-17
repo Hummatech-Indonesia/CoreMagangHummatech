@@ -83,6 +83,7 @@ class PermissionRepository extends BaseRepository implements PermissionInterface
                     $query->where('name', 'LIKE', '%' . $request->input('name') . '%');
                 });
             });
+            $query->latest();
 
         return $query;
     }
