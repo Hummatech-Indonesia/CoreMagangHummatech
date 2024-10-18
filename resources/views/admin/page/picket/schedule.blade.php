@@ -22,13 +22,6 @@
                                     Sore
                                 </button>
                             </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-experience-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-experience" type="button" role="tab"
-                                    aria-controls="pills-experience" aria-selected="false" data-position="2" tabindex="-1">
-                                    Laporan
-                                </button>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -109,11 +102,18 @@
 
                 $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
                 $siswaPagi = [
-                    'Senin' => $siswaIdsSeninPagi, // Ini adalah array berisi id siswa untuk Senin pagi
-                    'Selasa' => $siswaIdsSelasaPagi, // Dan seterusnya...
+                    'Senin' => $siswaIdsSeninPagi,
+                    'Selasa' => $siswaIdsSelasaPagi,
                     'Rabu' => $siswaIdsRabuPagi,
                     'Kamis' => $siswaIdsKamisPagi,
                     'Jumat' => $siswaIdsJumatPagi,
+                ];
+                $siswaSore = [
+                    'Senin' => $siswaIdsSeninAfternoon,
+                    'Selasa' => $siswaIdsSelasaAfternoon,
+                    'Rabu' => $siswaIdsRabuAfternoon,
+                    'Kamis' => $siswaIdsKamisAfternoon,
+                    'Jumat' => $siswaIdsJumatAfternoon,
                 ];
 
             @endphp
@@ -126,25 +126,27 @@
                             <div class="card-header text-center rounded  relative"
                                 style="background-color: #695EEF; color: white; padding: 0px;">
                                 <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">{{ $day }}</p>
-                                <button data-bs-toggle="modal" data-bs-target="#editModal"
-                                    class="btn btn-transparent text-white btn-  "
-                                    style="font-size: 15px; position:absolute; right: 0; top: 0;">
-                                    <i class="ri-ball-pen-line mx-2"></i>
-                                </button>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive mt-1">
                                     <table class="table table-striped">
                                         <tbody>
-                                            @forelse ($siswaPagi[$day] as $siswaId)
+                                            @forelse ($siswaPagi[$day] as $key => $siswaId)
                                                 @php
                                                     $siswa = \App\Models\Student::find($siswaId);
                                                 @endphp
                                                 <tr>
                                                     <td>{{ $siswa->name }}</td>
                                                     <td class="d-flex">
-                                                        <a href="#"><i class="ri-delete-bin-line fs-4"
-                                                                style="color: #DC3545"></i></a>
+                                                        <form action="{{ route('picket.delete', $key) }}" method="POST">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button class="btn btn-transparent shadow-none p-0 m-0"
+                                                                type="submit">
+                                                                <i class="ri-delete-bin-line fs-4"
+                                                                    style="color: #DC3545"></i>
+                                                            </button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             @empty
@@ -202,156 +204,46 @@
 
         <!-- Sore -->
         <div id="steparrow-description-info" class="tab-pane fade">
-            <div class="row row-cols-xxl-6 row-cols-lg-5 row-cols-1 justify-content-center">
-                <div class="col mx-3">
-                    <div class="card mx-auto" style="max-width: 300px;">
-                        <div class="card-header text-center rounded"
-                            style="background-color: #695EEF; color: white; padding: 0px;">
-                            <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Senin</p>
-                        </div>
-                        <div class="card-body text-center" style="padding: 0px;">
-                            <div class="d-flex mb-4 align-items-center justify-content-center">
-                                <div class="flex-grow-1 ms-2 pt-3 pb-3">
-                                    @forelse ($siswaIdsSeninAfternoon as $siswaId)
-                                        @php
-                                            $siswa = \App\Models\Student::find($siswaId);
-                                        @endphp
-                                        <h5 class="mb-3">{{ $siswa->name }}</h5>
-
-                                    @empty
-                                        <p>Belum Ada data</p>
-                                    @endforelse
+            <div class="row gx-3">
+                @foreach ($days as $day)
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header text-center rounded  relative"
+                                style="background-color: #695EEF; color: white; padding: 0px;">
+                                <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">{{ $day }}</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive mt-1">
+                                    <table class="table table-striped">
+                                        <tbody>
+                                            @forelse ($siswaSore[$day] as $key => $siswaId)
+                                                @php
+                                                    $siswa = \App\Models\Student::find($siswaId);
+                                                @endphp
+                                                <tr>
+                                                    <td>{{ $siswa->name }}</td>
+                                                    <td class="d-flex">
+                                                        <form action="{{ route('picket.delete', $key) }}" method="POST">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button class="btn btn-transparent shadow-none p-0 m-0"
+                                                                type="submit">
+                                                                <i class="ri-delete-bin-line fs-4"
+                                                                    style="color: #DC3545"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <p>Belum Ada data</p>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button data-bs-toggle="modal" data-bs-target="#editModal"
-                        class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center"
-                        style="font-size: 18px;">
-                        <i class="ri-ball-pen-line mx-2"></i>
-                        Edit Siswa
-                    </button>
-                </div>
-                <!-- Selasa -->
-                <div class="col mx-3">
-                    <div class="card mx-auto" style="max-width: 300px;">
-                        <div class="card-header text-center rounded"
-                            style="background-color: #695EEF; color: white; padding: 0px;">
-                            <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Selasa</p>
-                        </div>
-                        <div class="card-body text-center" style="padding: 0px;">
-                            <div class="d-flex mb-4 align-items-center justify-content-center">
-                                <div class="flex-grow-1 ms-2 pt-3 pb-3">
-                                    @forelse ($siswaIdsSelasaAfternoon as $siswaId)
-                                        @php
-                                            $siswa = \App\Models\Student::find($siswaId);
-                                        @endphp
-                                        <h5 class="mb-3">{{ $siswa->name }}</h5>
-
-                                    @empty
-                                        <p>Belum Ada data</p>
-                                    @endforelse
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button data-bs-toggle="modal" data-bs-target="#editModal"
-                        class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center"
-                        style="font-size: 18px;">
-                        <i class="ri-ball-pen-line mx-2"></i>
-                        Edit Siswa
-                    </button>
-                </div>
-                <!-- Rabu -->
-                <div class="col mx-3">
-                    <div class="card mx-auto" style="max-width: 300px;">
-                        <div class="card-header text-center rounded"
-                            style="background-color: #695EEF; color: white; padding: 0px;">
-                            <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Rabu</p>
-                        </div>
-                        <div class="card-body text-center" style="padding: 0px;">
-                            <div class="d-flex mb-4 align-items-center justify-content-center">
-                                <div class="flex-grow-1 ms-2 pt-3 pb-3">
-                                    @forelse ($siswaIdsRabuAfternoon as $siswaId)
-                                        @php
-                                            $siswa = \App\Models\Student::find($siswaId);
-                                        @endphp
-                                        <h5 class="mb-3">{{ $siswa->name }}</h5>
-
-                                    @empty
-                                        <p>Belum Ada data</p>
-                                    @endforelse
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button data-bs-toggle="modal" data-bs-target="#editModal"
-                        class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center"
-                        style="font-size: 18px;">
-                        <i class="ri-ball-pen-line mx-2"></i>
-                        Edit Siswa
-                    </button>
-                </div>
-                <!-- Kamis -->
-                <div class="col mx-3">
-                    <div class="card mx-auto" style="max-width: 300px;">
-                        <div class="card-header text-center rounded"
-                            style="background-color: #695EEF; color: white; padding: 0px;">
-                            <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Kamis</p>
-                        </div>
-                        <div class="card-body text-center" style="padding: 0px;">
-                            <div class="d-flex mb-4 align-items-center justify-content-center">
-                                <div class="flex-grow-1 ms-2 pt-3 pb-3">
-                                    @forelse ($siswaIdsKamisAfternoon as $siswaId)
-                                        @php
-                                            $siswa = \App\Models\Student::find($siswaId);
-                                        @endphp
-                                        <h5 class="mb-3">{{ $siswa->name }}</h5>
-
-                                    @empty
-                                        <p>Belum Ada data</p>
-                                    @endforelse
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button data-bs-toggle="modal" data-bs-target="#editModal"
-                        class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center"
-                        style="font-size: 18px;">
-                        <i class="ri-ball-pen-line mx-2"></i>
-                        Edit Siswa
-                    </button>
-                </div>
-                <!-- Jumat -->
-                <div class="col mx-3">
-                    <div class="card mx-auto" style="max-width: 300px;">
-                        <div class="card-header text-center rounded"
-                            style="background-color: #695EEF; color: white; padding: 0px;">
-                            <p style="font-size: 14px; margin: 0;" class="pt-2 mb-2">Jum'at</p>
-                        </div>
-                        <div class="card-body text-center" style="padding: 0px;">
-                            <div class="d-flex mb-4 align-items-center justify-content-center">
-                                <div class="flex-grow-1 ms-2 pt-3 pb-3">
-                                    @forelse ($siswaIdsJumatAfternoon as $siswaId)
-                                        @php
-                                            $siswa = \App\Models\Student::find($siswaId);
-                                        @endphp
-                                        <h5 class="mb-3">{{ $siswa->name }}</h5>
-
-                                    @empty
-                                        <p>Belum Ada data</p>
-                                    @endforelse
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button data-bs-toggle="modal" data-bs-target="#editModal"
-                        class="btn btn-soft-primary w-100 d-flex align-items-center justify-content-center"
-                        style="font-size: 18px;">
-                        <i class="ri-ball-pen-line mx-2"></i>
-                        Edit Siswa
-                    </button>
-                </div>
+                @endforeach
             </div>
             <div class="row pt-5">
                 <div class="card">

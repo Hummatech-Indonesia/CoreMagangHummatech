@@ -225,6 +225,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('administrator/presentation', [PresentationController::class, 'show']);
 
     Route::get('picket', [PicketController::class, 'index']);
+    Route::delete('picket/{picket}', [PicketController::class, 'destroy'])->name('picket.delete');
     Route::post('picket/store', [PicketController::class, 'store'])->name('picket.store');
     Route::put('picket/{picket}', [PicketController::class, 'update'])->name('picket.update');
     Route::post('note-picket/store', [NotePicketController::class, 'store'])->name('note.store');
