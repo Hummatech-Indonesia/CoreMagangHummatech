@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StorePicketRequest extends FormRequest
 {
@@ -24,16 +25,34 @@ class StorePicketRequest extends FormRequest
         return [
             'tim' => 'required',
             'day_picket' => 'required',
-            'student_id' => 'required',
+            'student_ids' => [
+                'required',
+                'array',
+                'min:1',
+            ],
+            'student_ids.*' => [
+                'required',
+                Rule::unique('pickets', 'student_id')->where(function ($query) {
+                    return $query->where('day_picket', $this->day_picket);
+                }),
+                'exists:students,id'
+            ],
         ];
     }
 
+    /**
+     * Custom messages for validation errors.
+     */
     public function messages()
     {
         return [
             'tim.required' => 'Wajib diisi',
             'day_picket.required' => 'Wajib diisi',
-            'student_id.required' => 'Wajib diisi',
+            'student_ids.required' => 'Wajib mengisi setidaknya satu student',
+            'student_ids.min' => 'Setidaknya satu student harus dipilih',
+            'student_ids.*.required' => 'Setiap student harus dipilih',
+            'student_ids.*.unique' => 'Siswa sudah terjadwal pada hari yang sama',
+            'student_ids.*.exists' => 'Student tidak ditemukan',
         ];
     }
 }

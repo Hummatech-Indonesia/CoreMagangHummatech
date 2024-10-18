@@ -38,7 +38,7 @@ class PicketController extends Controller
         $students = $this->student->get($request);
         $pickets = $this->picket->get();
         $notes = $this->note->get();
-        return view('admin.page.picket.schedule' , compact('pickets','students','reports','notes'));
+        return view('admin.page.picket.schedule', compact('pickets', 'students', 'reports', 'notes'));
     }
 
     /**
@@ -55,7 +55,7 @@ class PicketController extends Controller
     public function store(StorePicketRequest $request)
     {
         $this->picket->store($request->validated());
-        return back()->with('success' , 'Data Berhasil Ditambahkan');
+        return back()->with('success', 'Data Berhasil Ditambahkan');
     }
 
     /**
@@ -79,8 +79,9 @@ class PicketController extends Controller
      */
     public function update(UpdatePicketRequest $request, Picket $picket)
     {
-        $this->picket->update($picket->id , $request->validated());
-        return back()->with('success' , 'Data Berhasil Perbarui');
+        dd($request->all());
+        $this->picket->update($picket->id, $request->validated());
+        return back()->with('success', 'Data Berhasil Perbarui');
     }
 
     /**
@@ -89,6 +90,6 @@ class PicketController extends Controller
     public function destroy(Picket $picket)
     {
         $this->picket->delete($picket->id);
-        return back()->with('success' , 'Data Berhasil DiHapus');
+        return back()->with('success', 'Data Berhasil DiHapus');
     }
 }
