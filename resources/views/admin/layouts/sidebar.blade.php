@@ -258,7 +258,7 @@
                     <a class="nav-link menu-link" href="#siswaOffline" data-bs-toggle="collapse" role="button"
                         aria-expanded="{{ request()->is('offline-students/division-placement*') || request()->is('offline-students/team*') || request()->is('offline-students/presentation*') ? 'true' : 'false' }}"
                         aria-controls="siswaOffline">
-                        <i class="ri-user-line"></i> <span data-key="t-surat">Siswa Offline</span>
+                        <i class="ri-user-line"></i> <span data-key="t-surat">Menu Siswa</span>
                     </a>
                     <div class="collapse menu-dropdown {{ request()->is('offline-students/division-placement*') || request()->is('offline-students/team*') || request()->is('offline-students/presentation*') ? 'show' : '' }}"
                         id="siswaOffline">
@@ -280,10 +280,16 @@
                                     data-key="t-api-key">Presentasi</a>
                             </li>
 
+                            <li class="nav-item">
+                                <a href="{{ url('/online-student/menotor-placement') }}"
+                                    class="nav-link {{ request()->is('online-student/menotor-placement*') ? 'active' : '' }}"
+                                    data-key="t-chat">
+                                    Penetapan Mentor </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link" href="#siswaOnline" data-bs-toggle="collapse" role="button"
                         aria-expanded="{{ request()->is('online-student/menotor-placement*') ? 'true' : 'false' }}"
                         aria-controls="siswaOnline">
@@ -298,15 +304,15 @@
                                     data-key="t-chat">
                                     Penetapan Mentor </a>
                             </li>
-                            {{-- <li class="nav-item">
+                            <li class="nav-item">
                                 <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Tim</a>
                             </li>
                             <li class="nav-item">
                                 <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Presentasi</a>
-                            </li> --}}
+                            </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
 
                 {{-- <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ url('/announcement') }}">

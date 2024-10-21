@@ -19,7 +19,23 @@ class PicketRepository extends BaseRepository implements PicketInterface
 
     public function store(array $data): mixed
     {
-        return $this->model->query()->create($data);
+        $students = [];
+        if (is_array($data['student_ids'])) {
+            foreach ($data['student_ids'] as $student) {
+                $students[] = [
+                    'tim' => $data['tim'],
+                    'day_picket' => $data['day_picket'],
+                    'student_id' => $student
+                ];
+            }
+        } else {
+            $students[] = [
+                'tim' => $data['tim'],
+                'day_picket' => $data['day_picket'],
+                'student_id' => $data['student_ids']
+            ];
+        }
+        return $this->model->query()->insert($students);
     }
     public function update(mixed $id, array $data): mixed
     {
