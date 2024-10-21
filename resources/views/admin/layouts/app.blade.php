@@ -23,6 +23,8 @@
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Select2 Css-->
+    <link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
     @yield('style')
@@ -129,6 +131,10 @@
 
     <!-- aos js -->
     <script src="{{ asset('assets/libs/aos/aos.js') }}"></script>
+    <!-- Jquery js -->
+    <script src="{{ asset('assets/libs/jquery/jquery-3.7.1.min.js') }}"></script>
+    <!-- Select2 js -->
+    <script src="{{ asset('assets/libs/select2/select2.min.js') }}"></script>
     <!-- prismjs plugin -->
     <script src="{{ asset('assets/libs/prismjs/prism.js') }}"></script>
     <!-- animation init -->
