@@ -107,7 +107,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
                 }
             ])
             ->where('status', StudentStatusEnum::ACCEPTED->value)
-            ->orderByDesc('attendances_count')
+            ->orderBy('name','ASC')
             ->get();
     }
 
@@ -140,7 +140,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
                 }
             ])
             ->where('status', StudentStatusEnum::ACCEPTED->value)
-            ->orderByDesc('attendances_count')
+            ->orderBy('name','ASC')
             ->get();
     }
 
@@ -173,7 +173,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
                 }
             ])
             ->where('status', StudentStatusEnum::ACCEPTED->value)
-            ->orderByDesc('attendances_count')
+            ->orderBy('name','ASC')
             ->get();
     }
 
@@ -201,7 +201,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
                 }
             ])
             ->where('status', StudentStatusEnum::ACCEPTED->value)
-            ->orderByDesc('attendances_count')
+            ->orderBy('name','ASC')
             ->get();
     }
 
