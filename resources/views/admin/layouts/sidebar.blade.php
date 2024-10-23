@@ -45,7 +45,7 @@
                     </a>
                 </li>
                 <li class="menu-title"><span data-key="t-menu">Paket</span></li>
-                <li class="nav-item">
+                {{--  <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('administrator/course*') || request()->is('administrator/appointmentofmentor') ? 'active' : '' }}"
                         href="#materi" data-bs-toggle="collapse" role="button"
                         aria-expanded="{{ request()->is('administrator/course*') || request()->is('administrator/appointmentofmentor') ? 'true' : 'false' }}"
@@ -69,7 +69,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li>  --}}
 
 
                 <li class="nav-item">
