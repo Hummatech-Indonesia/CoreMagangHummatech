@@ -133,6 +133,10 @@
 
     <!-- aos js -->
     <script src="{{ asset('assets/libs/aos/aos.js') }}"></script>
+    <!-- Jquery js -->
+    <script src="{{ asset('assets/libs/jquery/jquery-3.7.1.min.js') }}"></script>
+    <!-- Select2 js -->
+    <script src="{{ asset('assets/libs/select2/select2.min.js') }}"></script>
     <!-- prismjs plugin -->
     <script src="{{ asset('assets/libs/prismjs/prism.js') }}"></script>
     <!-- animation init -->
