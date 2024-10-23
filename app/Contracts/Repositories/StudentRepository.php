@@ -2,11 +2,12 @@
 
 namespace App\Contracts\Repositories;
 
-use App\Contracts\Interfaces\StudentInterface;
-use App\Enum\InternshipTypeEnum;
-use App\Enum\StudentStatusEnum;
+use Carbon\Carbon;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Enum\StudentStatusEnum;
+use App\Enum\InternshipTypeEnum;
+use App\Contracts\Interfaces\StudentInterface;
 
 class StudentRepository extends BaseRepository implements StudentInterface
 {
@@ -86,6 +87,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
 
     public function getAttendanceByDivision(Request $request): mixed
     {
+        $finishDate = Carbon::now()->format('Y-m-d');
         return $this->model->query()
             ->whereNotNull('rfid')
             ->when($request->internship_type == InternshipTypeEnum::ONLINE->value, function ($query) {
@@ -106,6 +108,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
                     $query->whereDate('created_at', now());
                 }
             ])
+            ->whereDate('finish_date','>',$finishDate)
             ->where('status', StudentStatusEnum::ACCEPTED->value)
             ->orderBy('name','ASC')
             ->get();
@@ -120,6 +123,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function listAttendance(Request $request): mixed
     {
         $date = now();
+        $finishDate = Carbon::now()->format('Y-m-d');
         if ($request->has('date')) {
             $date = $request->date;
         }
@@ -139,6 +143,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
                     $query->whereDate('created_at', $date);
                 }
             ])
+            ->whereDate('finish_date','>',$finishDate)
             ->where('status', StudentStatusEnum::ACCEPTED->value)
             ->orderBy('name','ASC')
             ->get();
@@ -153,6 +158,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function listOfflineAttendance(Request $request): mixed
     {
         $date = now();
+        $finishDate = Carbon::now()->format('Y-m-d');
         if ($request->has('date')) {
             $date = $request->date;
         }
@@ -172,6 +178,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
                     $query->whereDate('created_at', $date);
                 }
             ])
+            ->whereDate('finish_date','>',$finishDate)
             ->where('status', StudentStatusEnum::ACCEPTED->value)
             ->orderBy('name','ASC')
             ->get();
@@ -180,6 +187,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function studentOfflineAttendance(Request $request): mixed
     {
         $date = now();
+        $finishDate = Carbon::now()->format('Y-m-d');
         if ($request->has('date')) {
             $date = $request->date;
         }
@@ -200,6 +208,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
                     $query;
                 }
             ])
+            ->whereDate('finish_date','>',$finishDate)
             ->where('status', StudentStatusEnum::ACCEPTED->value)
             ->orderBy('name','ASC')
             ->get();

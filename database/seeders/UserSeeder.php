@@ -169,7 +169,7 @@ class UserSeeder extends Seeder
             'school_phone' => '02112345678',
             'gender' => 'female',
             'start_date' => '2024-01-01',
-            'finish_date' => '2024-12-31',
+            'finish_date' => '2024-10-01',
             'class' => '12',
             'cv' => 'cv.jpg',
             'password' => 'password',
