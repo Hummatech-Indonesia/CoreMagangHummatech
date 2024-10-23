@@ -129,6 +129,7 @@
                                             <tr>
                                                 <th scope="col">No</th>
                                                 <th scope="col">Nama</th>
+                                                <th scope="col">Sekolah</th>
                                                 <th scope="col">Tanggal</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Deskripsi</th>
@@ -140,6 +141,7 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td class="name">{{ $journal->student->name }}</td>
+                                                    <td class="name">{{ $journal->student->school }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($journal->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
                                                     </td>
                                                     <td class="status">
