@@ -22,7 +22,7 @@ class UpdateNotePicketRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'note_pickets'=>'required'
+            'note_pickets'=>'nullable'
         ];
     }
 }
