@@ -7,7 +7,7 @@ use App\Models\Division;
 use App\Models\Mentor;
 use App\Models\MentorDivision;
 use App\Models\Student;
-use App\Models\User;
+use App\Models\User
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -23,6 +23,12 @@ class UserSeeder extends Seeder
             'email' => 'pkl@hummatech.com',
             'password' => bcrypt('magang2024')
         ])->assignRole(RolesEnum::ADMIN);
+
+        User::factory()->create([
+            'name' => 'Sano',
+            'email' => 'p@gmail.com',
+            'password' => bcrypt('12345678')
+        ])->assignRole(RolesEnum::OFFLINE);
 
         # Buat Data Divisi
         Division::factory()->create([

@@ -49,6 +49,7 @@
             @include('student_offline.layouts.header')
             <!--  Header End -->
             <div class="px-4" style="padding-top: calc(70px + 15px);">
+                
                 <!--  Owl carousel -->
                 @yield('content')
             </div>
