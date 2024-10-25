@@ -195,7 +195,7 @@ class UserSeeder extends Seeder
             'school_address' => 'Alamat Sekolah Dummy',
             'school_phone' => '02112345678',
             'gender' => 'female',
-            'start_date' => '2024-01-01',
+            'start_date' => '2024-09-09',
             'finish_date' => '2024-12-31',
             'class' => '12',
             'cv' => 'cv.jpg',

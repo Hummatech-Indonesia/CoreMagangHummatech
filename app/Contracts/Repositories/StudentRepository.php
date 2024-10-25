@@ -123,7 +123,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function listAttendance(Request $request): mixed
     {
         $date = now();
-        $finishDate = Carbon::now()->format('Y-m-d');
+        // $finishDate = Carbon::now()->format('Y-m-d');
         if ($request->has('date')) {
             $date = $request->date;
         }
@@ -143,7 +143,8 @@ class StudentRepository extends BaseRepository implements StudentInterface
                     $query->whereDate('created_at', $date);
                 }
             ])
-            ->whereDate('finish_date','>',$finishDate)
+            ->whereDate('finish_date','>',$date)
+            ->whereDate('start_date','<=',$date)
             ->where('status', StudentStatusEnum::ACCEPTED->value)
             ->orderBy('name','ASC')
             ->get();
@@ -158,7 +159,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function listOfflineAttendance(Request $request): mixed
     {
         $date = now();
-        $finishDate = Carbon::now()->format('Y-m-d');
+        // $finishDate = Carbon::now()->format('Y-m-d');
         if ($request->has('date')) {
             $date = $request->date;
         }
@@ -178,7 +179,8 @@ class StudentRepository extends BaseRepository implements StudentInterface
                     $query->whereDate('created_at', $date);
                 }
             ])
-            ->whereDate('finish_date','>',$finishDate)
+            ->whereDate('finish_date','>',$date)
+            ->whereDate('start_date','<=',$date)
             ->where('status', StudentStatusEnum::ACCEPTED->value)
             ->orderBy('name','ASC')
             ->get();
@@ -187,7 +189,6 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function studentOfflineAttendance(Request $request): mixed
     {
         $date = now();
-        $finishDate = Carbon::now()->format('Y-m-d');
         if ($request->has('date')) {
             $date = $request->date;
         }
@@ -208,7 +209,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
                     $query;
                 }
             ])
-            ->whereDate('finish_date','>',$finishDate)
+            // ->whereDate('finish_date','>',$finishDate)
             ->where('status', StudentStatusEnum::ACCEPTED->value)
             ->orderBy('name','ASC')
             ->get();
