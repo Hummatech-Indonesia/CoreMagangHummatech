@@ -7,10 +7,11 @@
                     <h4 class="mx-5 pt-2">Jadwal Zoom</h4>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
-                    <form  style="width: 300px; margin-top:5px;" action="/product">
+                    <form  style="width: 300px; margin-top:5px;" action="">
                         <div class="search-box mx-3">
                             <select class="js-example-basic-single" name="name">
-                                <option value="" disabled {{ request()->state ? '' : 'selected' }}>Cari Zoom...</option>
+
+                                <option value="" disabled {{ request()->state ? '' : 'selected' }}>  Cari Zoom...</option>
                                 @forelse ($zoomSchedules as $zoomSchedule)
                                     <option value="title" {{ request()->state == 'title' ? 'selected' : '' }}>
                                         {{ $zoomSchedule->title }}</option>

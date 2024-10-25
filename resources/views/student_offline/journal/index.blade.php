@@ -139,12 +139,38 @@
         </div>
     </div>
 
+    {{--  @if (session('success'))
+        const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+        }
+        });
 
+        Toast.fire({
+        icon: "success",
+        title: "Signed in successfully"
+        });
+    @endif  --}}
 
     <div class="d-flex justify-content-between mb-4">
         <h4>
             Data Jurnal
         </h4>
+        @if ($errors->all())
+            <div class="alert alert-danger">
+                <h3>Ada Kesalahan</h3>
+
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </div>
+        @endif
         <div class="d-flex">
             {{-- <a href="/download-pdf-JurnalSiswa" class="kamu-tak-diajak w-full">
                 <button type="button" class="btn mb-1 btn-light-warning text-warning btn-lg px-4 fs-4 font-medium ms-3">
@@ -272,18 +298,16 @@
                                     </p>
                                 </td>
                                 {{-- <td>
-                                    @if($journal->image)
+                                    @if ($journal->image)
                                         <img src="{{ asset('storage/' . $journal->image) }}"
                                              style="width: 100px; height: 100px; object-fit: cover;" alt="">
                                     @endif
                                 </td> --}}
 
                                 <td>
-                                    <img
-                                        src="{{ asset('storage/' . $journal->image) }}"
+                                    <img src="{{ asset('storage/' . $journal->image) }}"
                                         onerror="this.src='{{ asset('no-data/4.png') }}';"
-                                        style="width: 100px; height: 100px; object-fit: cover;"
-                                        alt="Gambar jurnal">
+                                        style="width: 100px; height: 100px; object-fit: cover;" alt="Gambar jurnal">
                                 </td>
                                 <td>
                                     <p class="mb-0 fw-normal fs-4">

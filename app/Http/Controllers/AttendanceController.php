@@ -33,7 +33,7 @@ class AttendanceController extends Controller
         $this->maxLate = $maxLateInterface;
         $this->attendanceDetail = $attendanceDetailInterface;
         $this->workFromHome = $workFromHomeInterface;
-        $this->maxLate = $maxLateInterface;
+        $this->maxLate = $maxLateInterface; 
         $this->student = $studentInterface;
         $this->attendance = $attendanceInterface;
         $this->adminAttendance = $adminAttendance;
