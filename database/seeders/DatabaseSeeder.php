@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CategoryProjectSeeder::class,
             # =========================== Hapus seeder dibawah kalau udah mode production =========================== #
-            VoucherSeeder::class,
-            CourseSeeder::class,
+            // VoucherSeeder::class,
+            // CourseSeeder::class,
 
             InstitutionSeeder::class,
         ]);

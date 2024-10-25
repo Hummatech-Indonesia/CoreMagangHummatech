@@ -7,7 +7,7 @@ use App\Models\Division;
 use App\Models\Mentor;
 use App\Models\MentorDivision;
 use App\Models\Student;
-use App\Models\User;
+use App\Models\User
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -23,6 +23,12 @@ class UserSeeder extends Seeder
             'email' => 'pkl@hummatech.com',
             'password' => bcrypt('magang2024')
         ])->assignRole(RolesEnum::ADMIN);
+
+        User::factory()->create([
+            'name' => 'Sano',
+            'email' => 'p@gmail.com',
+            'password' => bcrypt('12345678')
+        ])->assignRole(RolesEnum::OFFLINE);
 
         # Buat Data Divisi
         Division::factory()->create([
@@ -169,6 +175,60 @@ class UserSeeder extends Seeder
             'school_phone' => '02112345678',
             'gender' => 'female',
             'start_date' => '2024-01-01',
+            'finish_date' => '2024-10-01',
+            'class' => '12',
+            'cv' => 'cv.jpg',
+            'password' => 'password',
+            'internship_type' => 'offline'
+        ]);
+        $studentoffline2 = Student::factory()->create([
+            'name' => 'HAIKAL SANTOSO',
+            'email' => 'budi@gmail.com',
+            'address' => 'Alamat Dummy',
+            'avatar' => 'avatar.jpg',
+            'birth_date' => '2000-01-01',
+            'birth_place' => 'Tempat Lahir Dummy',
+            'major' => 'rpl',
+            'identify_number' => '1234582730',
+            'phone' => '081234561027',
+            'acepted' => '1',
+            'status' => 'accepted',
+            'rfid' => '8827799827',
+            'division_id' => 1,
+            'school' => 'SMKN 1 KRAKSAAN',
+            'parents_statement' => 'Pernyataan Orang Tua Dummy',
+            'self_statement' => 'Pernyataan Diri Dummy',
+            'school_address' => 'Alamat Sekolah Dummy',
+            'school_phone' => '02112345678',
+            'gender' => 'female',
+            'start_date' => '2024-09-09',
+            'finish_date' => '2024-12-31',
+            'class' => '12',
+            'cv' => 'cv.jpg',
+            'password' => 'password',
+            'internship_type' => 'offline'
+        ]);
+        $studentoffline3 = Student::factory()->create([
+            'name' => 'FERYN AULIA',
+            'email' => 'feryn@gmail.com',
+            'address' => 'Alamat Dummy',
+            'avatar' => 'avatar.jpg',
+            'birth_date' => '2000-01-01',
+            'birth_place' => 'Tempat Lahir Dummy',
+            'major' => 'rpl',
+            'identify_number' => '1234577263',
+            'phone' => '081239892376',
+            'acepted' => '1',
+            'status' => 'accepted',
+            'rfid' => '8827892893',
+            'division_id' => 1,
+            'school' => 'SMKN 1 KRAKSAAN',
+            'parents_statement' => 'Pernyataan Orang Tua Dummy',
+            'self_statement' => 'Pernyataan Diri Dummy',
+            'school_address' => 'Alamat Sekolah Dummy',
+            'school_phone' => '02112345678',
+            'gender' => 'female',
+            'start_date' => '2024-01-01',
             'finish_date' => '2024-12-31',
             'class' => '12',
             'cv' => 'cv.jpg',
@@ -267,6 +327,18 @@ class UserSeeder extends Seeder
             'email' => $studentoffline->email,
             'password' => $studentoffline->password,
             'student_id' => $studentoffline->id
+        ])->assignRole(RolesEnum::OFFLINE);
+        User::factory()->create([
+            'name' => $studentoffline2->name,
+            'email' => $studentoffline2->email,
+            'password' => $studentoffline2->password,
+            'student_id' => $studentoffline2->id
+        ])->assignRole(RolesEnum::OFFLINE);
+        User::factory()->create([
+            'name' => $studentoffline3->name,
+            'email' => $studentoffline3->email,
+            'password' => $studentoffline3->password,
+            'student_id' => $studentoffline3->id
         ])->assignRole(RolesEnum::OFFLINE);
 
         User::factory()->create([
