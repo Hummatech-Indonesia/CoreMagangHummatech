@@ -26,6 +26,7 @@ class StoreDataAdminRequest extends FormRequest
             'name' => 'required',
             'company' => 'required',
             'field' => 'required',
+            'password' => 'required',
         ];
     }
 

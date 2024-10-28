@@ -88,8 +88,8 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('administrator', [AdminController::class, 'index'])->name('.home');
     Route::patch('max-late', [AttendanceController::class, 'storeMaxLate'])->name('maxlate.store');
     # Data Admin
-    Route::post('data-admin/store', [DataAdminController::class, 'store'])->name('data-admin.store');
-    Route::put('data-admin/update/{dataAdmin}', [DataAdminController::class, 'update'])->name('data-admin.update');
+    // Route::post('data-admin/store', [DataAdminController::class, 'store'])->name('data-admin.store');
+    Route::put('data-admin/update/{datauser}', [DataAdminController::class, 'update'])->name('data-admin.update');
 
     // data ceo
     Route::post('dataceo/store', [DataCOController::class, 'store']);

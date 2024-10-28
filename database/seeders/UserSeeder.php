@@ -7,7 +7,7 @@ use App\Models\Division;
 use App\Models\Mentor;
 use App\Models\MentorDivision;
 use App\Models\Student;
-use App\Models\User
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder

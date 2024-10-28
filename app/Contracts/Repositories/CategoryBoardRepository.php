@@ -18,7 +18,7 @@ class CategoryBoardRepository extends BaseRepository implements CategoryBoardInt
 
     public function get(): mixed
     {
-        return $this->model->query()
+    return $this->model->query()
             ->get();
     }
 
