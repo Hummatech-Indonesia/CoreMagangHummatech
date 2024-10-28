@@ -42,6 +42,7 @@ return new class extends Migration
             $table->enum('class', [StudentClassEnum::TEN->value, StudentClassEnum::TWELVE->value, StudentClassEnum::ELEVEN->value, StudentClassEnum::SCHOLAR->value , StudentClassEnum::THIIRTEEN->value] );
             $table->string('cv');
             $table->string('password');
+            $table->integer('session')->default(1);
             $table->enum('internship_type', [InternshipTypeEnum::ONLINE->value, InternshipTypeEnum::OFFLINE->value]);
             $table->string('expired')->nullable();
             $table->timestamps();

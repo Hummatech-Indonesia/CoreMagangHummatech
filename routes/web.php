@@ -129,6 +129,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('menu-mentor/detail/{mentor}', [AdminMentorController::class, 'show'])->name('mentor.show');
     # Student
     Route::get('menu-siswa', [AdminStudentController::class, 'index'])->name('student.index');
+    Route::get('menu-siswa/create', [AdminStudentController::class, 'create'])->name('student.create');
     Route::put('administrator/menu-siswa/reset-password/{user}', [AdminStudentController::class, 'reset'])->name('student.update');
     Route::put('menu-siswa/update/{student}', [AdminStudentController::class, 'update']);
     Route::get('menu-siswa/face/{student}', [AdminStudentController::class, 'face'])->name('student.show');
@@ -136,6 +137,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('menu-siswa/banned/{student}', [AdminStudentController::class, 'banned'])->name('student.banned');
     Route::put('menu-siswa/division-change/{student}', [AdminStudentController::class, 'divisionchange'])->name('student.divisionchange');
     Route::put('students-banned/Open/{student}', [StudentController::class, 'Openbanned'])->name('students.banned.open');
+    Route::get('menu-siswa/manage-session', [AdminStudentController::class, 'manageSession'])->name('student.managesession');
     # Registration Limit
     Route::post('limit', [LimitsController::class, 'store'])->name('limit.store');
     Route::put('limit/update/{limits}', [LimitsController::class, 'update'])->name('limit.update');
