@@ -27,6 +27,10 @@
     <link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Datatable Css-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/5.0.3/css/fixedColumns.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/2.1.0/css/select.dataTables.css">
     @yield('style')
 </head>
 
@@ -133,6 +137,8 @@
     <script src="{{ asset('assets/libs/aos/aos.js') }}"></script>
     <!-- Jquery js -->
     <script src="{{ asset('assets/libs/jquery/jquery-3.7.1.min.js') }}"></script>
+    <!-- DataTable js -->
+
     <!-- Select2 js -->
     <script src="{{ asset('assets/libs/select2/select2.min.js') }}"></script>
     <!-- prismjs plugin -->
