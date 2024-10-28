@@ -109,4 +109,9 @@ class AdminStudentController extends Controller
         $this->student->update($student->id, ['status' => StudentStatusEnum::BANNED->value]);
         return redirect()->back()->with(['success' => 'Siswa Berhasil Dibanned']);
     }
+
+    public function manageSession()
+    {
+        return view('admin.page.manage-session.index');
+    }
 }
