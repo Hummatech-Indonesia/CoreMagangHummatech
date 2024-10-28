@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/main/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jul 2023 01:54:29 GMT -->
+{{--  <!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/main/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jul 2023 01:54:29 GMT -->  --}}
 
 <head>
     <!--  Title -->
-    <title>@hasSection('title'){{$__env->yieldContent('title')}} &mdash; &mdash; @endif{{ config('app.name') }}</title>
+    <title>
+        @hasSection('title')
+            {{ $__env->yieldContent('title') }} &mdash; &mdash;
+        @endif{{ config('app.name') }}
+    </title>
 
     <!--  Required Meta Tag -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -17,8 +21,7 @@
     <meta name="keywords" content="Mordenize" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!--  Favicon -->
-    <link rel="shortcut icon" type="image/png"
-        href="{{ asset('favicon.ico') }}" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('favicon.ico') }}" />
     <!-- Owl Carousel  -->
     <link rel="stylesheet" href="{{ asset('assets-user/dist/libs/owl.carousel/dist/assets/owl.carousel.min.css') }}">
 
@@ -34,19 +37,20 @@
     <meta property="og:url" content="{{ url('/') }}" />
     <meta property="og:type" content="website" />
     <link rel="canonical" href="{{ url('/') }}" />
+    {{--  sweet alert  --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
     @yield('style')
 </head>
 
 <body>
     <!-- Preloader -->
     <div class="preloader">
-        <img src="{{ asset('preloader.png') }}"
-            alt="loader" class="lds-ripple img-fluid" />
+        <img src="{{ asset('preloader.png') }}" alt="loader" class="lds-ripple img-fluid" />
     </div>
     <!-- Preloader -->
     <div class="preloader">
-        <img src="{{ asset('preloader.png') }}"
-            alt="loader" class="lds-ripple img-fluid" />
+        <img src="{{ asset('preloader.png') }}" alt="loader" class="lds-ripple img-fluid" />
     </div>
     <!--  Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-theme="blue_theme" data-layout="vertical" data-sidebartype="full"
@@ -72,7 +76,7 @@
                         </h4>
                         <div class="card bg-light-blue" style="background-color: #d2dbf5">
                             <div class="card-body">
-                                <div class="d-flex justify-content-center mb-3" >
+                                <div class="d-flex justify-content-center mb-3">
                                     <svg width="30" height="31" viewBox="0 0 30 31" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -116,7 +120,7 @@
                         </div>
                         <div class="card bg-light-blue" style="background-color: #d2dbf5">
                             <div class="card-body">
-                                <div class="d-flex justify-content-center mb-3" >
+                                <div class="d-flex justify-content-center mb-3">
                                     <svg width="30" height="31" viewBox="0 0 30 31" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -126,7 +130,8 @@
                                 </div>
                                 <p class="text-center text-border mb-3" style="font-weight: 600">
                                     Mohon maaf sistem ini sedang dalam masa pengembangan <br>
-                                    Silahkan presentasi dengan menggunakan website <a href="https://task.hummatech.com/" target="_blank">task.hummatech.com</a>
+                                    Silahkan presentasi dengan menggunakan website <a
+                                        href="https://task.hummatech.com/" target="_blank">task.hummatech.com</a>
                                 </p>
                             </div>
                         </div>
@@ -441,6 +446,32 @@
     <script src="{{ asset('assets-user/dist/libs/owl.carousel/dist/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets-user/dist/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets-user/dist/js/dashboard.js') }}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+    <script>
+        @if (session('success'))
+            iziToast.success({
+                title: 'Success',
+                message: "{{ session('success') }}",
+                position: 'topRight'
+            });
+        @endif
+        @if (session('error'))
+            iziToast.error({
+                title: 'Error',
+                message: "{{ session('error') }}",
+                position: 'topRight'
+            });
+        @endif
+    </script>
+    @if (session('warning'))
+    iziToast.warning({
+        title: 'Information',
+        message: "{{ session('warning') }}",
+        position: 'topRight'
+    });
+@endif
 
     @yield('script')
 </body>

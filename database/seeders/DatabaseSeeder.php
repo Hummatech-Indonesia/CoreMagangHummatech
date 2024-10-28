@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,9 +20,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CategoryProjectSeeder::class,
             # =========================== Hapus seeder dibawah kalau udah mode production =========================== #
-            // VoucherSeeder::class,
-            // CourseSeeder::class,
-
+            VoucherSeeder::class,
+            CourseSeeder::class,
             InstitutionSeeder::class,
         ]);
     }

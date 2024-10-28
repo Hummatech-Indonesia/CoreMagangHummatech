@@ -14,12 +14,40 @@
                     <h4 class="mx-5 pt-2">Daftar Paket</h4>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
-                    <form action="/product">
+                   
+                    <form  style="width: 300px; margin-top:5px;" action="/product">
                         <div class="search-box mx-3">
-                            <input type="text" class="form-control"  name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Siswa...">
-                            <i class="ri-search-line search-icon"></i>
+                            <select class="js-example-basic-single" name="name">
+                                <option value="" disabled {{ request()->state ? '' : 'selected' }}>Cari Paket</option>
+
+                                @forelse ($products as $product)
+
+                                @if ($product->division->name === 'Web Technology')
+                                <option value="" disabled >Devisi Web Technology</option>
+                                <option value="Alabama" {{ request()->state == 'Alabama' ? 'selected' : '' }}>{{ $product->name }}</option>
+                                @endif
+
+                                @if ($product->division->name === 'Digital Marketing')
+                                <option value="" disabled >Devisi Digital Marketing</option>
+                                <option value="Alabama" {{ request()->state == 'Alabama' ? 'selected' : '' }}>{{ $product->name }}</option>
+                                @endif
+
+                                @if ($product->division->name === 'Mobile Devlopment')
+                                <option value="" disabled >Devisi Mobile Devlopment</option>
+                                <option value="Alabama" {{ request()->state == 'Alabama' ? 'selected' : '' }}>{{ $product->name }}</option>
+                                @endif
+
+                                @if ($product->division->name === 'UI/UX DESIGNER')
+                                <option value="" disabled >Devisi UI/UX DESIGNER</option>
+                                <option value="Alabama" {{ request()->state == 'Alabama' ? 'selected' : '' }}>{{ $product->name }}</option>
+                                @endif
+                                @empty
+                                <option value="Alabama" {{ request()->state == 'Alabama' ? 'selected' : '' }}>Tidak Ada Paket</option>
+                                @endforelse
+                            </select>
                         </div>
                     </form>
+
                     @php
                         $unusedDivisionsExist = false;
 
@@ -89,16 +117,16 @@
             </div>
 
 
-            @empty
+        @empty
             <div class="d-flex justify-content-center mb-2 mt-5">
                 <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
             </div>
             <p class="fs-5 text-dark text-center">
                 Data Masih Kosong
             </p>
-            @endforelse
+        @endforelse
 
-            {{ $products->links() }}
+        {{ $products->links() }}
     </div>
     @include('admin.components.delete-modal-component')
 
@@ -235,7 +263,7 @@
         });
         $(document).ready(function() {
             $(".js-example-basic-single2").select2({
-                dropdownParent: $("#modal-edit")
+                dropdownParent: $("#name")
             });
         });
     </script>
@@ -288,6 +316,10 @@
             var id = $(this).data('id');
             $('#form-delete').attr('action', 'product/' + id);
             $('#modal-delete').modal('show');
+        });
+        // In your Javascript (external .js resource or <script> tag)
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
         });
     </script>
 @endsection

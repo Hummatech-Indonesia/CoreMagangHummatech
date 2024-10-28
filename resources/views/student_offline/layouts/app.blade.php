@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/main/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jul 2023 01:54:29 GMT -->
+{{--  <!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/main/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jul 2023 01:54:29 GMT -->  --}}
 
 <head>
     <!--  Title -->
@@ -16,13 +16,15 @@
     <meta name="keywords" content="Mordenize" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!--  Favicon -->
-    <link rel="shortcut icon" type="image/png"
-        href="{{ asset('mobilelogo.png') }}" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('mobilelogo.png') }}" />
     <!-- Owl Carousel  -->
     <link rel="stylesheet" href="{{ asset('assets-user/dist/libs/owl.carousel/dist/assets/owl.carousel.min.css') }}">
 
     <!-- Core Css -->
     <link id="themeColors" rel="stylesheet" href="{{ asset('assets-user/dist/css/style.min.css') }}" />
+    {{--  sweet alert  --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
     @yield('style')
 </head>
 
@@ -41,7 +43,7 @@
         <!-- Sidebar Start -->
         @include('student_offline.layouts.sidebar')
         <!--  Sidebar End -->
-                <!-- SignIn modal content -->
+        <!-- SignIn modal content -->
 
         <!--  Main wrapper -->
         <div class="body-wrapper">
@@ -49,7 +51,7 @@
             @include('student_offline.layouts.header')
             <!--  Header End -->
             <div class="px-4" style="padding-top: calc(70px + 15px);">
-                
+
                 <!--  Owl carousel -->
                 @yield('content')
             </div>
@@ -432,6 +434,7 @@
     <script src="{{ asset('assets-user/dist/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('assets-user/dist/libs/simplebar/dist/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets-user/dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+
     <!--  core files -->
     <script src="{{ asset('assets-user/dist/js/app.min.js') }}"></script>
     <script src="{{ asset('assets-user/dist/js/app.init.js') }}"></script>
@@ -442,6 +445,33 @@
     <script src="{{ asset('assets-user/dist/libs/owl.carousel/dist/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets-user/dist/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets-user/dist/js/dashboard.js') }}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+    <script>
+        @if (session('success'))
+            iziToast.success({
+                title: 'Success',
+                message: "{{ session('success') }}",
+                position: 'topRight'
+            });
+        @endif
+        @if (session('error'))
+        iziToast.error({
+            title: 'Error',
+            message: "{{ session('error') }}",
+            position: 'topRight'
+        });
+    @endif
+    @if (session('warning'))
+    iziToast.warning({
+        title: 'Warning',
+        message: "{{ session('warning') }}",
+        position: 'topRight'
+    });
+@endif
+
+    </script>
 </body>
 
 <!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/main/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jul 2023 01:55:21 GMT -->

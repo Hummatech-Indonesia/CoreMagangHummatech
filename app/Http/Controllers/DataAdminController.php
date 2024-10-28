@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\DataAdminInterface;
 use App\Models\DataAdmin;
 use App\Http\Requests\StoreDataAdminRequest;
 use App\Http\Requests\UpdateDataAdminRequest;
+use App\Models\User;
 use App\Services\DataAdminService;
 
 class DataAdminController extends Controller
@@ -39,10 +40,11 @@ class DataAdminController extends Controller
      */
     public function store(StoreDataAdminRequest $request)
     {
-        $data = $this->dataAdminService->store($request);
-        $this->dataAdminInterface->store($data);
+        // tidak digunakan
+        // $data = $this->dataAdminService->store($request);
+        // $this->dataAdminInterface->store($data);
 
-        return back()->with('success', 'Data Admin Created');
+        // return back()->with('success', 'Data Admin Created');
 
     }
 
@@ -65,10 +67,13 @@ class DataAdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDataAdminRequest $request, DataAdmin $dataAdmin)
+    public function update(UpdateDataAdminRequest $request, User $datauser)
     {
-        $data = $this->dataAdminService->update($dataAdmin, $request);
-        $this->dataAdminInterface->update($dataAdmin->id,$data);
+        // $data = $this->dataAdminService->update($datauser, $request);
+        // $this->dataAdminInterface->update($datauser->id, $data);
+
+        $validated = $request->validated();
+        $datauser->update($validated);
 
         return back()->with('success', 'Data Admin Updated');
     }

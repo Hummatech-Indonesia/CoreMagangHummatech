@@ -9,5 +9,5 @@ use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface DataAdminInterface extends GetInterface, StoreInterface, UpdateInterface, DeleteInterface
 {
-    
+
 }
