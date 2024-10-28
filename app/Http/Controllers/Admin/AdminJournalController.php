@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
+use App\Models\Journal;
+use Illuminate\Http\Request;
+use App\Services\JournalService;
+use App\Http\Controllers\Controller;
+use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\AdminJournalInterface;
 use App\Contracts\Interfaces\Eloquent\PaginationInterface;
-use App\Contracts\Interfaces\JournalInterface;
-use App\Http\Controllers\Controller;
-use App\Models\Journal;
-use App\Services\JournalService;
-use Carbon;
-use Illuminate\Http\Request;
 
 class AdminJournalController extends Controller
 {

@@ -1904,10 +1904,10 @@ File: Main Css File
 
 /*!
  * Waves v0.7.6
- * http://fian.my.id/Waves 
- * 
- * Copyright 2014-2018 Alfiana E. Sibuea and other contributors 
- * Released under the MIT license 
+ * http://fian.my.id/Waves
+ *
+ * Copyright 2014-2018 Alfiana E. Sibuea and other contributors
+ * Released under the MIT license
  * https://github.com/fians/Waves/blob/master/LICENSE */
 .waves-effect {
   position: relative;
@@ -2696,14 +2696,17 @@ File: Main Css File
   fill: rgba(33, 37, 41, 0.16);
 }
 
+
 .search-box {
   position: relative;
+
 }
 .search-box .form-control {
   padding-left: 40px;
 }
 .search-box .search-icon {
   font-size: 14px;
+  margin-top: 15px;
   position: absolute;
   left: 13px;
   top: 0;

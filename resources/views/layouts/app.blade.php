@@ -53,7 +53,7 @@
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                
+
                             </li>
                         @endguest
                     </ul>

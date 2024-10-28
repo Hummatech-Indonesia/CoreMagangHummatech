@@ -2,7 +2,7 @@
     <!-- LOGO -->
     <div class="navbar-brand-box">
         <!-- Dark Logo-->
-        <a href="index.html" class="logo logo-dark">
+        <a href="/" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="{{ asset('assets/images/logo-pkl.png') }}" alt="" height="22">
             </span>
@@ -11,7 +11,7 @@
             </span>
         </a>
         <!-- Light Logo-->
-        <a href="index.html" class="logo logo-light">
+        <a href="/" class="logo logo-light">
             <span class="logo-sm">
                 <img src="{{ asset('assets/images/logo-pkl.png') }}" alt="" height="22">
             </span>
@@ -45,7 +45,7 @@
                     </a>
                 </li>
                 <li class="menu-title"><span data-key="t-menu">Paket</span></li>
-                <li class="nav-item">
+                {{--  <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('administrator/course*') || request()->is('administrator/appointmentofmentor') ? 'active' : '' }}"
                        href="#materi" data-bs-toggle="collapse" role="button"
                        aria-expanded="{{ request()->is('administrator/course*') || request()->is('administrator/appointmentofmentor') ? 'true' : 'false' }}"
@@ -70,7 +70,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li>  --}}
 
 
                 <li class="nav-item">
@@ -89,9 +89,9 @@
                 <li class="menu-title"><span data-key="t-menu">Magang</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarApps1" data-bs-toggle="collapse" role="button"
-                       aria-expanded="{{ request()->is('approval*') ? 'true' : 'false' }}"
-                       aria-controls="sidebarApps">
-                        <i class="ri-bookmark-2-fill"></i> <span data-key="t-apps">Approval</span>
+                        aria-expanded="{{ request()->is('approval*') ? 'true' : 'false' }}"
+                        aria-controls="sidebarApps">
+                        <i class="ri-bookmark-2-fill"></i> <span data-key="t-apps">Menu Admin</span>
                     </a>
                     <div class="collapse menu-dropdown {{ request()->is('approval*') ? 'show' : '' }}"
                          id="sidebarApps1">
@@ -105,13 +105,23 @@
                                 <a href="{{ url('/administrator/permission') }}" class="nav-link"
                                    data-key="t-api-key">Izin &amp; Sakit</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/journal') }}"
+                                    class="nav-link {{ request()->is('journal*') ? 'active' : '' }}"
+                                    data-key="t-chartjs">Jurnal</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/absent') }}"
+                                    class="nav-link {{ request()->is('absent*') ? 'active' : '' }}"
+                                    data-key="t-echarts">Absensi</a>
+                            </li>
                             {{-- <li class="nav-item">
                                 <a href="{{ url('/top-up') }}" class="nav-link" data-key="t-api-key">TopUp</a>
                             </li> --}}
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarCharts1" data-bs-toggle="collapse" role="button"
                        aria-expanded="{{ request()->is('journal*') || request()->is('absent*') ? 'true' : 'false' }}"
                        aria-controls="sidebarCharts">
@@ -131,12 +141,12 @@
                                    class="nav-link {{ request()->is('absent*') ? 'active' : '' }}"
                                    data-key="t-echarts">Absensi</a>
                             </li>
-                            {{-- <li class="nav-item">
+                            <li class="nav-item">
                                 <a href="" class="nav-link" data-key="t-echarts">Report</a>
-                            </li> --}}
+                            </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button"
                        aria-expanded="{{ request()->is('response-letter*') || request()->is('warning-letter*') ? 'true' : 'false' }}"

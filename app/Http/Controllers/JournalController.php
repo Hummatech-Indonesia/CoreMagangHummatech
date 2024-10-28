@@ -100,7 +100,7 @@ class JournalController extends Controller
                 return redirect()->back()->with('success', 'Jurnal Berhasil Ditambahkan');
             }
         } catch (\Throwable $th) {
-            return back()->with('warning', 'Gagal Mengisi Jurnal, ' . $th->getMessage());
+            return back()->with('error', 'Gagal Mengisi Jurnal, ' . $th->getMessage());
         }
     }
 
