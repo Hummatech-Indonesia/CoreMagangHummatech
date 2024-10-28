@@ -51,7 +51,7 @@
             @include('student_offline.layouts.header')
             <!--  Header End -->
             <div class="px-4" style="padding-top: calc(70px + 15px);">
-                
+
                 <!--  Owl carousel -->
                 @yield('content')
             </div>
@@ -451,18 +451,25 @@
     <script>
         @if (session('success'))
             iziToast.success({
-                title: '',
+                title: 'Success',
                 message: "{{ session('success') }}",
                 position: 'topRight'
             });
         @endif
         @if (session('error'))
         iziToast.error({
-            title: '',
+            title: 'Error',
             message: "{{ session('error') }}",
             position: 'topRight'
         });
     @endif
+    @if (session('warning'))
+    iziToast.warning({
+        title: 'Warning',
+        message: "{{ session('warning') }}",
+        position: 'topRight'
+    });
+@endif
 
     </script>
 </body>

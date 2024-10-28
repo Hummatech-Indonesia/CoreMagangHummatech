@@ -89,11 +89,11 @@ class JournalController extends Controller
             } else {
                 $existingData = $this->journal->where('created_at', '>=', now()->startOfDay());
                 if ($existingData) {
-                    return redirect()->back()->with('error', 'Anda Telah Mengisi Jurnal Hari ini.');
+                    return redirect()->back()->with('warning', 'Anda Telah Mengisi Jurnal Hari ini.');
                 }
 
                 if (now()->isWeekend()) {
-                    return redirect()->back()->with('error', 'Hari ini adalah hari libur.');
+                    return redirect()->back()->with('warning', 'Hari ini adalah hari libur.');
                 }
                 $data = $this->service->store($request);
                 $this->journal->store($data);

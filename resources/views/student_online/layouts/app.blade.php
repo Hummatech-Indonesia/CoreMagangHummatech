@@ -452,19 +452,26 @@
     <script>
         @if (session('success'))
             iziToast.success({
-                title: '',
+                title: 'Success',
                 message: "{{ session('success') }}",
                 position: 'topRight'
             });
         @endif
         @if (session('error'))
             iziToast.error({
-                title: '',
+                title: 'Error',
                 message: "{{ session('error') }}",
                 position: 'topRight'
             });
         @endif
     </script>
+    @if (session('warning'))
+    iziToast.warning({
+        title: 'Information',
+        message: "{{ session('warning') }}",
+        position: 'topRight'
+    });
+@endif
 
     @yield('script')
 </body>
