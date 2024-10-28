@@ -18,7 +18,7 @@ class JournalCommand extends Command
      */
     protected $signature = 'command:journal';
 
-    /** 
+    /**
      * The console command description.
      *
      * @var string

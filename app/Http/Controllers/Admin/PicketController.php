@@ -79,7 +79,6 @@ class PicketController extends Controller
      */
     public function update(UpdatePicketRequest $request, Picket $picket)
     {
-        dd($request->all());
         $this->picket->update($picket->id, $request->validated());
         return back()->with('success', 'Data Berhasil Perbarui');
     }

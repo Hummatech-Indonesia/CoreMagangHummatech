@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Contracts\Interfaces\AlumniInterface;
+use App\Contracts\Interfaces\StudentSessionInterface;
 use App\Contracts\Repositories\AlumniRepository;
+use App\Contracts\Repositories\StudentSessionRepository;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
@@ -217,6 +219,7 @@ class AppServiceProvider extends ServiceProvider
         SubmitTaskInterface::class => SubmitTaskRepository::class,
         AlumniInterface::class => AlumniRepository::class,
         InstitutionInterface::class => InstitutionRepository::class,
+        StudentSessionInterface::class => StudentSessionRepository::class
     ];
 
     /**

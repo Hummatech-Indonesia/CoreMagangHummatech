@@ -25,7 +25,7 @@ use App\Http\Controllers\StudentTaskController;
 use App\Http\Controllers\TaskSubmissionController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('division', [DivisionController::class, 'index'])->name('division.index');
+// Route::get('division', [DivisionController::clas s, 'index'])->name('division.index');
 // Route::post('division/store', [DivisionController::class, 'store'])->name('division.store');
 // Route::patch('division/{division}', [DivisionController::class, 'update'])->name('division.update');
 // Route::delete('division/{division}', [DivisionController::class, 'destroy'])->name('division.delete');
@@ -38,26 +38,26 @@ use Illuminate\Support\Facades\Route;
 // Route::put('journal/{journal}', [JournalController::class, 'update']);
 Route::get('siswa-online/jurnal', [JournalController::class, 'studentOnline']);
 
-Route::get('siswa-online/materi/detail', function() {
+Route::get('siswa-online/materi/detail', function () {
     return view('student_online.course.detail');
 });
-Route::get('siswa-online/materi/detail/detail-jawaban', function() {
+Route::get('siswa-online/materi/detail/detail-jawaban', function () {
     return view('student_online.course.answer-detail');
 });
-Route::get('siswa-online/materi/detail/pelajari', function() {
+Route::get('siswa-online/materi/detail/pelajari', function () {
     return view('student_online.course.learn-more');
 });
 
-Route::get('top-up', function() {
+Route::get('top-up', function () {
     return view('admin.page.approval.top-up');
 });
-Route::get('alumni', function() {
+Route::get('alumni', function () {
     return view('admin.page.user.alumni');
 });
-Route::get('person-in-charge', function() {
+Route::get('person-in-charge', function () {
     return view('admin.page.user.person-in-charge');
 });
-Route::get('person-in-charge/detail', function() {
+Route::get('person-in-charge/detail', function () {
     return view('admin.page.user.person-in-charge-detail');
 });
 // Route::get('offline-students/division-placement', [DivisionPlacementController::class, 'index']);
@@ -68,10 +68,10 @@ Route::get('person-in-charge/detail', function() {
 // Route::get('offline-students/team/{slug}', [AdminStudentTeamController::class, 'show'])->name('admin.team.show');
 // Route::get('offline-students/presentation', [PresentationController::class, 'index']);
 
-Route::get('administrator/course/detail', function() {
+Route::get('administrator/course/detail', function () {
     return view('admin.page.course.detail');
 });
-Route::get('administrator/course/detail/sub-course', function() {
+Route::get('administrator/course/detail/sub-course', function () {
     return view('admin.page.course.sub-course.index');
 });
 
@@ -93,8 +93,8 @@ Route::post('picket-report', [PicketingReportController::class, 'store'])->name(
 Route::put('picket-report/{picketingReport}', [PicketingReportController::class, 'update'])->name('picket-report.update');
 Route::delete('picket-report/{picketingReport}', [PicketingReportController::class, 'destroy'])->name('picket-report.delete');
 
-Route::post('siswa-offline/challenge',[StudentChallengeController::class,'store']);
-Route::put('siswa-offline/challenge/{studentChallenge}',[StudentChallengeController::class,'update']);
+Route::post('siswa-offline/challenge', [StudentChallengeController::class, 'store']);
+Route::put('siswa-offline/challenge/{studentChallenge}', [StudentChallengeController::class, 'update']);
 
 // Route::get('students-rejected', [StudentRejectedController::class, 'index']);
 // Route::put('students-rejected/{student}', [StudentRejectedController::class, 'accept']);
