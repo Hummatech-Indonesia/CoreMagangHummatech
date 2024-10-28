@@ -96,7 +96,7 @@
                         <span class="hide-menu">Absensi</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                {{--  <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('/courses') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-backpack"></i>
@@ -111,7 +111,7 @@
                         </span>
                         <span class="hide-menu">Materi Saya</span>
                     </a>
-                </li>
+                </li>  --}}
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('/siswa-offline/task') }}" aria-expanded="false">
                 <span>
