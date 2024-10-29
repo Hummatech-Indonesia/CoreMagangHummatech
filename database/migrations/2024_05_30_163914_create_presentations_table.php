@@ -1,6 +1,9 @@
 <?php
 
-use App\Enum\StatusPresentationEnum;
+use App\Enum\{
+    StatusPresentationEnum,
+    PresentationTypeEnum
+};
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +17,7 @@ return new class extends Migration
     {
         Schema::create('presentations', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
+            $table->string('project_name')->nullable();
             $table->foreignId('mentor_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->text('description')->nullable();
             $table->date('start_date')->nullable();

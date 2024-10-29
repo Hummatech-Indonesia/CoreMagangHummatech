@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('presentation_id')->references('id')->on('presentations');
             $table->foreignId('member_id')->constrained('users');
-            $table->enum('status',[\App\Enum\StatusMemberTeam::Member->value,\App\Enum\StatusMemberTeam::Leader->value]);
+            $table->enum('status',[
+                \App\Enum\StatusMemberTeamEnum::Member->value,
+                \App\Enum\StatusMemberTeamEnum::Leader->value
+            ]);
         });
     }
 

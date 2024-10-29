@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('student_teams', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('student_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('hummatask_team_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('project_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->timestamps();
-        });
+//        Schema::create('student_teams', function (Blueprint $table) {
+//            $table->id();
+//            $table->foreignId('student_id')
+//                ->references('id')->on('users')
+//                ->cascadeOnUpdate()->cascadeOnDelete();
+//            $table->foreignId('presentation_id')
+//                ->references('id')
+//                ->on('presentations')
+//                ->cascadeOnUpdate()->cascadeOnDelete();
+//            $table->timestamps();
+//        });
     }
 
     /**
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('student_teams');
+//        Schema::dropIfExists('student_teams');
     }
 };

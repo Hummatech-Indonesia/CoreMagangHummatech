@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hummatask_teams');
+//        Schema::dropIfExists('hummatask_teams');
     }
 };

@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('boards', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->enum('label', ['frontend', 'backend', 'fullstack', 'ui/ux'])->nullable();
-            $table->enum('priority', ['biasa', 'penting', 'mendesak'])->nullable();
-            $table->enum('status', ['baru', 'dikerjakan', 'selesai'])->nullable();
-            $table->foreignId('student_team_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('category_board_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('start_date')->nullable();
-            $table->string('end_date')->nullable();
-            $table->timestamps();
-        });
+//        Schema::create('boards', function (Blueprint $table) {
+//            $table->id();
+//            $table->string('name');
+//            $table->string('description')->nullable();
+//            $table->enum('label', ['frontend', 'backend', 'fullstack', 'ui/ux'])->nullable();
+//            $table->enum('priority', ['biasa', 'penting', 'mendesak'])->nullable();
+//            $table->enum('status', ['baru', 'dikerjakan', 'selesai'])->nullable();
+//            $table->foreignId('student_team_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+//            $table->foreignId('category_board_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+//            $table->string('start_date')->nullable();
+//            $table->string('end_date')->nullable();
+//            $table->timestamps();
+//        });
     }
 
     /**
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('boards');
+//        Schema::dropIfExists('boards');
     }
 };
