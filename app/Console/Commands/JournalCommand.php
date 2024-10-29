@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Enum\StatusJournalEnum;
 use App\Enum\StudentStatusEnum;
+use App\Models\Attendance;
 use Carbon\Carbon;
 use App\Models\Journal;
 use App\Models\Student;
@@ -43,10 +44,16 @@ class JournalCommand extends Command
                 ->get();
 
             foreach ($student_notYet as $student) {
+                $attendance = Attendance::where('student_id', $student->id)
+                    ->orderBy('id', 'desc')
+                    ->first();
+
+                $title_Permission = $attendance->status ?? 'Kosong';
+
                 Journal::create([
                     'student_id' => $student->id,
-                    'title' => 'Kosong',
-                    'description' => 'Kosong',
+                    'title' => $title_Permission,
+                    'description' => $title_Permission,
                     'image' => 'Kosong.png',
                     'status' => StatusJournalEnum::NOTFILLING->value,
                 ]);
