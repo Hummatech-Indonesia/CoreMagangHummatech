@@ -707,6 +707,6 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query
             ->where('session', $session)
             ->get();
-    } 
+    }
 }
 

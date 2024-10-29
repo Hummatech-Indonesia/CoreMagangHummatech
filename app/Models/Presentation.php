@@ -12,15 +12,13 @@ class Presentation extends Model
     use HasFactory;
     protected  $guarded = ['id'];
     protected $fillable = [
+        'project_name',
+        'mentor_id',
+        'description',
         'start_date',
         'end_date',
-        'schedule_to',
-        'hummatask_team_id',
-        'mentor_id',
+        'type_project',
         'status_presentation',
-        'callback',
-        'title',
-        'description',
     ];
 
     /**
