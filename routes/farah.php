@@ -105,6 +105,7 @@ Route::put('siswa-offline/challenge/{studentChallenge}', [StudentChallengeContro
 
 Route::post('team/store', [HummataskTeamController::class, 'store'])->name('team.store');
 Route::put('team/update/{hummataskTeam}', [HummataskTeamController::class, 'update'])->name('team.update');
+
 Route::get('dashboard/task', [HummataskTeamController::class, 'index']);
 Route::get('hummateam/team/{slug}', [HummataskTeamController::class, 'show'])->name('team.show');
 Route::delete('hummateam/team/{hummataskTeam}', [HummataskTeamController::class, 'destroy'])->name('team.delete');
