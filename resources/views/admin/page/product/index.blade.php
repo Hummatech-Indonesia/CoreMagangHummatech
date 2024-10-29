@@ -13,40 +13,75 @@
                 <div class="col-sm-4">
                     <h4 class="mx-5 pt-2">Daftar Paket</h4>
                 </div>
-                <div class="col-sm-auto ms-auto d-flex">
-                   
-                    <form  style="width: 300px; margin-top:5px;" action="/product">
-                        <div class="search-box mx-3">
-                            <select class="js-example-basic-single" name="name">
-                                <option value="" disabled {{ request()->state ? '' : 'selected' }}>Cari Paket</option>
+                <div class="col-sm-auto d-flex ms-auto justify-content-evenly">
 
-                                @forelse ($products as $product)
+                    {{-- <form style="width: 300px; margin-top:5px;" action="/product" method="GET">
+                    <div class="search-box mx-3">
+                        <select class="js-example-basic-single" name="name">
+                            <option value="" disabled {{ request()->state ? '' : 'selected' }}>Cari Paket</option>
 
-                                @if ($product->division->name === 'Web Technology')
-                                <option value="" disabled >Devisi Web Technology</option>
-                                <option value="Alabama" {{ request()->state == 'Alabama' ? 'selected' : '' }}>{{ $product->name }}</option>
-                                @endif
+                            @forelse ($products as $product)
+                            @if ($product->division->name === 'Web Technology')
+                            <option value="" disabled>Devisi Web Technology</option>
+                            <option name="name" value="{{ $product->name }}">
+                                {{ $product->name }}</option>
+                            @endif
 
-                                @if ($product->division->name === 'Digital Marketing')
-                                <option value="" disabled >Devisi Digital Marketing</option>
-                                <option value="Alabama" {{ request()->state == 'Alabama' ? 'selected' : '' }}>{{ $product->name }}</option>
-                                @endif
+                            @if ($product->division->name === 'Digital Marketing')
+                            <option value="" disabled>Devisi Digital Marketing</option>
+                            <option name="name" value="{{ $product->name }}" >
+                                {{ $product->name }}</option>
+                            @endif
 
-                                @if ($product->division->name === 'Mobile Devlopment')
-                                <option value="" disabled >Devisi Mobile Devlopment</option>
-                                <option value="Alabama" {{ request()->state == 'Alabama' ? 'selected' : '' }}>{{ $product->name }}</option>
-                                @endif
+                            @if ($product->division->name === 'Mobile Devlopment')
+                            <option value="" disabled>Devisi Mobile Devlopment</option>
+                            <option name="name" value="{{ $product->name }}" >
+                                {{ $product->name }}</option>
+                            @endif
 
-                                @if ($product->division->name === 'UI/UX DESIGNER')
-                                <option value="" disabled >Devisi UI/UX DESIGNER</option>
-                                <option value="Alabama" {{ request()->state == 'Alabama' ? 'selected' : '' }}>{{ $product->name }}</option>
-                                @endif
-                                @empty
-                                <option value="Alabama" {{ request()->state == 'Alabama' ? 'selected' : '' }}>Tidak Ada Paket</option>
-                                @endforelse
-                            </select>
+                            @if ($product->division->name === 'UI/UX DESIGNER')
+                            <option value="" disabled>Devisi UI/UX DESIGNER</option>
+                            <option name="name" value="{{ $product->name }}" >
+                                {{ $product->name }}</option>
+                            @endif
+                            @empty
+                            <option value="Alabama" >Tidak Ada
+                                Paket</option>
+                            @endforelse
+                        </select>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </form> --}}
+                    <form style="width: 100%; margin-top: 5px;" action="/product" method="GET" id="search-form">
+                        <div class=" mx-3 d-flex justify-content-between align-items-center">
+                            <div>
+                                <select class="js-example-basic-single" name="name">
+                                    <option value="" @if (request()->name == '') selected @else disabled @endif>
+                                        Cari Paket
+                                    </option>
+                                    @foreach ($productsearch->groupBy('division.name') as $divisionName => $divisionProducts)
+                                        <optgroup label="{{ $divisionName }}">
+                                            @foreach ($divisionProducts as $product)
+                                                <option value="{{ $product->name }}"
+                                                    {{ request()->name == $product->name ? 'selected' : '' }}>
+                                                    {{ $product->name }}
+                                                </option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
+                                    @if ($products->isEmpty())
+                                        <option value="" disabled>Tidak Ada Paket</option>
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="ml-2">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
                         </div>
                     </form>
+
 
                     @php
                         $unusedDivisionsExist = false;
@@ -87,27 +122,28 @@
             <div class="col-sm-6 col-xl-3">
                 <div class="card mb-3">
                     <div class="d-flex justify-content-center">
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="My Image"
-                            style="width: 85%; height: auto; margin-bottom: 20px;" class="mt-4 rounded-3">
+                        <img class="rounded-3 mt-4" src="{{ asset('storage/' . $product->image) }}" alt="My Image"
+                            style="width: 85%; height: auto; margin-bottom: 20px;">
                     </div>
-                    <div class="card-body rounded-3 mb-3 bg-light" style="width: 95%; margin: 0 auto;">
+                    <div class="card-body rounded-3 bg-light mb-3" style="width: 95%; margin: 0 auto;">
                         <div class="d-flex justify-content-between">
-                            <h5 class="card-title mb-2 text-dark text-light-dark">{{ $product->name }}</h5>
-                            <h4 class="card-title mb-2 text-dark text-light-dark">IDR
+                            <h5 class="card-title text-dark text-light-dark mb-2">{{ $product->name }}</h5>
+                            <h4 class="card-title text-dark text-light-dark mb-2">IDR
                                 {{ number_format($product->price, 0, ',', '.') }} <small
-                                    class="mt-3 text-muted">/bulan</small></h4>
+                                    class="text-muted mt-3">/bulan</small>
+                            </h4>
                         </div>
-                        <p class="mt-3 text-muted">{{ $product->description }}</p>
-                        <p class="mt-3 text-muted">{{ $product->division->name }}</p>
+                        <p class="text-muted mt-3">{{ $product->description }}</p>
+                        <p class="text-muted mt-3">{{ $product->division->name }}</p>
 
                         <div class="justify-content-end d-flex">
-                            <button type="button" class="btn btn-warning mx-2 btn-edit" data-id="{{ $product->id }}"
+                            <button class="btn btn-warning btn-edit mx-2" data-id="{{ $product->id }}"
                                 data-name="{{ $product->name }}" data-price="{{ $product->price }}"
                                 data-description="{{ $product->description }}" data-image="{{ $product->image }}"
-                                data-division_id="{{ $product->division_id }}">
+                                data-division_id="{{ $product->division_id }}" type="button">
                                 Edit
                             </button>
-                            <button type="button" class="btn btn-danger btn-delete" data-id="{{ $product->id }}">
+                            <button class="btn btn-danger btn-delete" data-id="{{ $product->id }}" type="button">
                                 Hapus
                             </button>
                         </div>
@@ -116,10 +152,9 @@
                 </div>
             </div>
 
-
         @empty
             <div class="d-flex justify-content-center mb-2 mt-5">
-                <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+                <img src="{{ asset('no data.png') }}" srcset="" alt="" width="300px">
             </div>
             <p class="fs-5 text-dark text-center">
                 Data Masih Kosong
@@ -130,26 +165,25 @@
     </div>
     @include('admin.components.delete-modal-component')
 
-
     <!--Add Modal -->
-    <div class="modal fade" id="add" tabindex="-1" aria-labelledby="varyingcontentModalLabel" aria-hidden="true">
+    <div class="modal fade" id="add" aria-labelledby="varyingcontentModalLabel" aria-hidden="true" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="varyingcontentModalLabel">Tambah Daftar Paket</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Close"></button>
                 </div>
                 <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-1">
-                            <label for="name" class="col-form-label">Nama Paket</label>
-                            <input type="text" class="form-control" id="name" name="name"
+                            <label class="col-form-label" for="name">Nama Paket</label>
+                            <input class="form-control" id="name" name="name" type="text"
                                 placeholder="Masukkan Nama Paket">
                         </div>
-                        <div class="form-group mb-3 mt-3 col-md-12">
+                        <div class="form-group col-md-12 mb-3 mt-3">
                             <label for="division_id">Divisi</label>
-                            <select name="division_id" class="js-example-basic-single1 form-select">
+                            <select class="js-example-basic-single1 form-select" name="division_id">
                                 <option value="" disabled selected>Pilih Divisi</option>
                                 @foreach ($divisions as $division)
                                     @php
@@ -165,25 +199,25 @@
                             </select>
                         </div>
                         <div class="mb-1">
-                            <label for="price" class="col-form-label">Harga</label>
-                            <input type="number" class="form-control" id="price" name="price"
-                                placeholder="Masukkan Harga Paket" data-raw-value="">
+                            <label class="col-form-label" for="price">Harga</label>
+                            <input class="form-control" id="price" name="price" data-raw-value="" type="number"
+                                placeholder="Masukkan Harga Paket">
                         </div>
                         <div class="mb-1">
-                            <label for="" class="mt-2 mb-2">Deskripsi</label>
-                            <textarea name="description" id="" class="form-control" placeholder="Masukkan Deskripsi "></textarea>
+                            <label class="mb-2 mt-2" for="">Deskripsi</label>
+                            <textarea class="form-control" id="" name="description" placeholder="Masukkan Deskripsi "></textarea>
                         </div>
                         <div class="mb-1">
-                            <label for="" class="mt-2 mb-2">Gambar</label>
+                            <label class="mb-2 mt-2" for="">Gambar</label>
                             <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
                                 <img class="img-thumbnail preview" itemprop="thumbnail">
                             </figure>
-                            <input type="file" name="image" class="form-control" onchange="preview(event)">
+                            <input class="form-control" name="image" type="file" onchange="preview(event)">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-soft-danger" data-bs-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-secondary">Simpan</button>
+                        <button class="btn btn-soft-danger" data-bs-dismiss="modal" type="button">Tutup</button>
+                        <button class="btn btn-secondary" type="submit">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -191,27 +225,27 @@
     </div>
 
     <!--Edit Modal -->
-    <div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="varyingcontentModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="modal-edit" aria-labelledby="varyingcontentModalLabel" aria-hidden="true"
+        tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="varyingcontentModalLabel">Tambah Daftar Paket</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Close"></button>
                 </div>
-                <form method="POST" enctype="multipart/form-data" id="form-update">
+                <form id="form-update" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="modal-body">
                         <div class="mb-1">
-                            <label for="name" class="col-form-label">Nama Paket</label>
-                            <input type="text" class="form-control" id="name-edit" name="name"
+                            <label class="col-form-label" for="name">Nama Paket</label>
+                            <input class="form-control" id="name-edit" name="name" type="text"
                                 placeholder="Masukkan Nama Paket">
                         </div>
-                        <div class="form-group mb-3 mt-3 col-md-12">
+                        <div class="form-group col-md-12 mb-3 mt-3">
                             <label for="division_id">Divisi</label>
-                            <select name="division_id" class="js-example-basic-single2 form-select"
-                                id="division_id-edit">
+                            <select class="js-example-basic-single2 form-select" id="division_id-edit"
+                                name="division_id">
                                 <option disabled>Pilih Divisi</option>
                                 @foreach ($divisions as $division)
                                     <option value="{{ $division->id }}">{{ $division->name }}</option>
@@ -219,26 +253,26 @@
                             </select>
                         </div>
                         <div class="mb-1">
-                            <label for="price" class="col-form-label">Harga</label>
-                            <input type="number" class="form-control" id="price-edit" name="price"
+                            <label class="col-form-label" for="price">Harga</label>
+                            <input class="form-control" id="price-edit" name="price" type="number"
                                 placeholder="Masukkan Harga Paket">
                         </div>
                         <div class="mb-1">
-                            <label for="" class="mt-2 mb-2">Deskripsi</label>
-                            <textarea name="description" id="description-edit" class="form-control"></textarea>
+                            <label class="mb-2 mt-2" for="">Deskripsi</label>
+                            <textarea class="form-control" id="description-edit" name="description"></textarea>
                         </div>
                         <div class="mb-1">
-                            <label for="" class="mt-2 mb-2">Gambar</label>
-                            <input type="file" name="image" class="form-control" onchange="preview(event)"><br>
+                            <label class="mb-2 mt-2" for="">Gambar</label>
+                            <input class="form-control" name="image" type="file" onchange="preview(event)"><br>
                             <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
-                                <img class="img-thumbnail preview" itemprop="thumbnail" id="img-thumnail"
-                                    src="" />
+                                <img class="img-thumbnail preview" id="img-thumnail" src=""
+                                    itemprop="thumbnail" />
                             </figure>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-soft-danger" data-bs-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-secondary">Simpan</button>
+                        <button class="btn btn-soft-danger" data-bs-dismiss="modal" type="button">Tutup</button>
+                        <button class="btn btn-secondary" type="submit">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -247,13 +281,14 @@
 @endsection
 
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> --}}
+    <script src="{{ asset('assets/libs/jquery/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/select2/select2.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {

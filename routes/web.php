@@ -420,7 +420,6 @@ Route::get('/hubungi', function () {
 });
 
 require_once __DIR__ . '/femas.php';
-
 require_once __DIR__ . '/kader.php';
 require_once __DIR__ . '/farah.php';
 require_once __DIR__ . '/nesa.php';

@@ -28,9 +28,10 @@ class ProductController extends Controller
     {
         // $product = $this->product->get();
         $products = $this->product->search($request)->paginate(8);
+        $productsearch = $this->product->get();
         $divisions = $this->division->get();
 
-        return view('admin.page.product.index', compact('products','divisions'));
+        return view('admin.page.product.index', compact('products','divisions','productsearch'));
     }
 
     /**
