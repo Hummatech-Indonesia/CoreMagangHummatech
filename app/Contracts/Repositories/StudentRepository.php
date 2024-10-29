@@ -701,4 +701,12 @@ class StudentRepository extends BaseRepository implements StudentInterface
         ->where('id',auth()->user()->student->id)
         ->first();
     }
+
+    public function getStudentBySession(int $session): mixed
+    {
+        return $this->model->query()
+            ->where('session', $session)
+            ->get();
+    }
 }
+
