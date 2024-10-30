@@ -62,12 +62,12 @@
                                 <label for="" class="mt-4 mb-2">Kategori Project</label>
                                 <select class="form-control"
                                         placeholder="Kategori Project" value="{{ old('type_project') }}"
-                                        onchange="changeProject(this)">
+                                        onchange="changeProject(this)" name="type_project">
                                     @foreach($categoryProject as $category)
                                         <option value="{{ $category->name }}">{{ ucwords($category->name) }}</option>
                                     @endforeach
                                 </select>
-                                @error('projectCategory')
+                                @error('type_project')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
 
@@ -84,6 +84,13 @@
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+
+                                <label for="" class="mt-4 mb-2">Leader</label>
+                                <input type="text" name="leader_id" class="form-control"
+                                       placeholder="Leader" value="{{ auth()->user()->name }}" disabled>
+                                @error('leader_id')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -96,40 +103,40 @@
             </div>
         </div>
     </div>
-    {{-- modal add team end --}}
-    {{--    <div class="card w-100 bg-light-info overflow-hidden shadow-none">--}}
-    {{--        <div class="card-body position-relative">--}}
-    {{--            <div class="row">--}}
-    {{--                <div class="col-sm-8">--}}
-    {{--                    <div class="d-flex align-items-center mb-7">--}}
-    {{--                        <div class="rounded-circle overflow-hidden me-6">--}}
-    {{--                            @if(auth()->user()->student->avatar != null && Storage::disk('public')->exists(auth()->user()->student->avatar))--}}
-    {{--                                <img src="{{ asset('storage/' . auth()->user()->student->avatar) }}" alt="avatar"--}}
-    {{--                                     class="rounded-circle mb-3" width="40px" height="40px">--}}
-    {{--                            @else--}}
-    {{--                                <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle mb-3"--}}
-    {{--                                     width="40px" height="40px">--}}
-    {{--                            @endif--}}
-    {{--                        </div>--}}
-    {{--                        <h5 class="fw-semibold mb-0 fs-5 mt-1">Selamat datang!</h5>--}}
-    {{--                    </div>--}}
-    {{--                    <div class="d-flex align-items-center">--}}
-    {{--                        <div class="border-end pe-4 border-opacity-10">--}}
-    {{--                            <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">Selamat--}}
-    {{--                                datang, {{ auth()->user()->student->name }}</h3>--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--                <div class="col-sm-5">--}}
-    {{--                    <div class="welcome-bg-img mb-n7 text-end">--}}
-    {{--                        <img--}}
-    {{--                            src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/backgrounds/welcome-bg.svg"--}}
-    {{--                            alt="" class="img-fluid">--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
+{{--     modal add team end --}}
+        <div class="card w-100 bg-light-info overflow-hidden shadow-none">
+            <div class="card-body position-relative">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="d-flex align-items-center mb-7">
+                            <div class="rounded-circle overflow-hidden me-6">
+                                @if(auth()->user()->student->avatar != null && Storage::disk('public')->exists(auth()->user()->student->avatar))
+                                    <img src="{{ asset('storage/' . auth()->user()->student->avatar) }}" alt="avatar"
+                                         class="rounded-circle mb-3" width="40px" height="40px">
+                                @else
+                                    <img src="{{ asset('user.webp') }}" alt="default avatar" class="rounded-circle mb-3"
+                                         width="40px" height="40px">
+                                @endif
+                            </div>
+                            <h5 class="fw-semibold mb-0 fs-5 mt-1">Selamat datang!</h5>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="border-end pe-4 border-opacity-10">
+                                <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">Selamat
+                                    datang, {{ auth()->user()->student->name }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="welcome-bg-img mb-n7 text-end">
+                            <img
+                                src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/backgrounds/welcome-bg.svg"
+                                alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     <h5 class="fs-5  mb-4" style="font-weight: 600">
         Data Presentasi
     </h5>
@@ -137,10 +144,10 @@
         @foreach($presentations as $presentation)
             <div class="col">
                 <div class="card">
-                    <div class="card-header bg-transparent d-flex align-items-end gap-3 position-relative">
+                    <div class="card-header bg-transparent d-flex align-items-end gap-2 position-relative">
                         <div class="position-absolute d-flex gap-1" style="top:10px; right:20px">
                             <div class="urutan rounded-2 fs-2 p-2 fw-bolder text-white" style="background: #7E7E7E">
-                                #01
+                                01
                             </div>
                             <button class="btn btn-danger">
                                 <svg width="15" height="17" viewBox="0 0 15 17" fill="none"

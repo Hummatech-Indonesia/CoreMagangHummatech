@@ -13,6 +13,7 @@ use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Contracts\Interfaces\StudentTeamInterface;
 use App\Enum\StatusHummaTeamEnum;
+use App\Enum\StatusMemberTeamEnum;
 use App\Models\HummataskTeam;
 use App\Http\Requests;
 use App\Http\Requests\StoreHummataskTeamRequest;
@@ -100,10 +101,16 @@ class HummataskTeamController extends Controller
         $presentation = $this->presentation->store($validated);
         if (is_array($validated['members'])){
             $members = [];
+            $members[] = [
+                'presentation_id' => $presentation->id,
+                'member_id' => auth()->user()->id,
+                'status' => StatusMemberTeamEnum::Leader->value
+            ];
             foreach ($validated['members'] as $member){
                 $members[] = [
                     'presentation_id' => $presentation->id,
-                    'member_id' => $member
+                    'member_id' => $member,
+                    'status' => StatusMemberTeamEnum::Member->value
                 ];
             }
             $this->hummataskMemberPresentation->store($members);
