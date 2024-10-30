@@ -1,5 +1,20 @@
 @extends('admin.layouts.app')
 @section('content')
+@if ($errors->all())
+<div class="alert alert-danger">
+    <h3>Ada Kesalahan</h3>
+
+    @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+    @endforeach
+</div>
+@endif
+@if(session('success'))
+    <div class="alert alert-success" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+        {{ session('success') }}
+    </div>
+@endif
+
     <div class="row">
         <div class="col-12 col-md-4">
             <h4>Selamat Datang Admin</h4>

@@ -457,21 +457,20 @@
             });
         @endif
         @if (session('error'))
-        iziToast.error({
-            title: 'Error',
-            message: "{{ session('error') }}",
-            position: 'topRight'
-        });
-    @endif
-    @if (session('warning'))
-    iziToast.warning({
-        title: 'Warning',
-        message: "{{ session('warning') }}",
-        position: 'topRight'
-    });
-@endif
-
-    </script>
+            iziToast.error({
+                title: 'Error',
+                message: "{{ session('error') }}",
+                position: 'topRight'
+            });
+        @endif
+        @if (session('warning'))
+            iziToast.warning({
+                title: 'Information',
+                message: "{{ session('warning') }}",
+                position: 'topRight'
+            });
+        @endif
+    </script>
 </body>
 
 <!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/main/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jul 2023 01:55:21 GMT -->

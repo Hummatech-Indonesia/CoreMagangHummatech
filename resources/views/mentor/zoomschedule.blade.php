@@ -73,7 +73,7 @@
                                             {{$presentation ? $presentation->start_date : ''}} -  {{$presentation ? $presentation->end_date : ''}}
 
                                         </h6>
-                                    </td>
+                                    </td
                                     <td class="d-flex">
                                         <div class="n-chk align-self-center text-center">
                                             @if ($presentation->hummataskTeam && $presentation->hummataskTeam->hummatask_team_id && $presentation->hummataskTeam->hummatask_team)
