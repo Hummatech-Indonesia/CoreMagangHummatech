@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             // VoucherSeeder::class,
             // CourseSeeder::class,
             InstitutionSeeder::class,
+
         ]);
     }
 }

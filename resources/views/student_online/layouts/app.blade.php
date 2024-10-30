@@ -464,14 +464,15 @@
                 position: 'topRight'
             });
         @endif
-    </script>
-    @if (session('warning'))
-    iziToast.warning({
+        @if (session('warning'))
+        iziToast.warning({
         title: 'Information',
         message: "{{ session('warning') }}",
         position: 'topRight'
-    });
-@endif
+        });
+    @endif
+    </script>
+
 
     @yield('script')
 </body>

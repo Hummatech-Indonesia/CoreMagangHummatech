@@ -1,64 +1,63 @@
 @extends('Hummatask.layouts.app')
 @section('style')
-    <style>
-        .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
-            color: black;
-        }
-    </style>
+<style>
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+        color: black;
+    }
+</style>
 @endsection
 @section('content')
-    <div class="modal fade" id="add-team" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Ajukan Presentasi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('submit-presentation') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
-                            <div class="mx-3">
-                                <label for="" class="mt-1 mb-2">Nama Project</label>
-                                <input type="text" name="project_name" class="form-control"
-                                       placeholder="Masukkan Project"
-                                       value="{{ old('project_name') }}">
-                                @error('project_name')
+<div class="modal fade" id="add-team" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Ajukan Presentasi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('submit-presentation') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
+                        <div class="mx-3">
+                            <label for="" class="mt-1 mb-2">Nama Project</label>
+                            <input type="text" name="project_name" class="form-control" placeholder="Masukkan Project"
+                                value="{{ old('project_name') }}">
+                            @error('project_name')
                                 <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                                <label for="" class="mt-4 mb-2">Deskripsi</label>
-                                <textarea name="description" class="form-control" rows="3"
-                                          placeholder="Masukkan deskripsi tema anda">{{ old('description') }}</textarea>
-                                @error('description')
+                            @enderror
+                            <label for="" class="mt-4 mb-2">Deskripsi</label>
+                            <textarea name="description" class="form-control" rows="3"
+                                placeholder="Masukkan deskripsi tema anda">{{ old('description') }}</textarea>
+                            @error('description')
                                 <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                                <label for="" class="mt-4 mb-2">Link repository (opsional)</label>
-                                <input type="text" name="link" class="form-control"
-                                       placeholder="Masukkan link repositori projek" value="{{ old('link') }}">
-                                @error('link')
+                            @enderror
+                            <label for="" class="mt-4 mb-2">Link repository (opsional)</label>
+                            <input type="text" name="link" class="form-control"
+                                placeholder="Masukkan link repositori projek" value="{{ old('link') }}">
+                            @error('link')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
 
 
-                                <div class="row row-cols-2 mt-2">
-                                    <div id="startDate">
-                                        <label for="" class="mt-1 mb-2">Tanggal Mulai</label>
-                                        <input type="date" name="start_date" class="form-control"
-                                               value="{{ old('start_date') }}">
-                                        @error('start_date')
+                            <div class="row row-cols-2 mt-2">
+                                <div id="startDate">
+                                    <label for="" class="mt-1 mb-2">Tanggal Mulai</label>
+                                    <input type="date" name="start_date" class="form-control"
+                                        value="{{ old('start_date') }}">
+                                    @error('start_date')
                                         <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div id="startDate">
-                                        <label for="" class="mt-1 mb-2">Tanggal Selesai</label>
-                                        <input type="date" name="end_date" class="form-control"
-                                               value="{{ old('end_date') }}">
-                                        @error('end_date')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                    @enderror
                                 </div>
+                                <div id="startDate">
+                                    <label for="" class="mt-1 mb-2">Tanggal Selesai</label>
+                                    <input type="date" name="end_date" class="form-control"
+                                        value="{{ old('end_date') }}">
+                                    @error('end_date')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
 
 
                                 <label for="" class="mt-1 mb-2">Tanggal Presentasi</label>
@@ -77,18 +76,18 @@
                                 </select>
                                 @error('type_project')
                                 <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                            @enderror
 
 
-                                <div id="memberSection">
-                                    <label for="" class="mt-4 mb-2 d-block">Anggota Tim</label>
-                                    <select class="js-example-basic-multiple d-block w-100" name="members[]"
-                                            id="selectMembers" style="width: 100%;" multiple>
-                                        @foreach($students as $id => $student)
-                                            <option value="{{ $id }}">{{ $student }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('members')
+                            <div id="memberSection">
+                                <label for="" class="mt-4 mb-2 d-block">Anggota Tim</label>
+                                <select class="js-example-basic-multiple d-block w-100" name="members[]"
+                                    id="selectMembers" style="width: 100%;" multiple>
+                                    @foreach($students as $id => $student)
+                                        <option value="{{ $id }}">{{ $student }}</option>
+                                    @endforeach
+                                </select>
+                                @error('members')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -186,38 +185,61 @@
                                     {{ \Carbon\Carbon::parse($presentation->end_date)->format('d/m/Y') }}
                                 </span>
 
-                            </div>
-                            <div class="action">
-                                <button class="btn btn-primary p-2 px-4">Detail</button>
-                            </div>
+                        </div>
+                        <div class="action">
+                            <button class="btn btn-primary p-2 px-4">Detail</button>
                         </div>
                     </div>
                 </div>
             </div>
-        @endforeach
-    </div>
-    {{--    <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">--}}
-    {{--        <img src="{{ asset('empty-asset.png') }}" alt="" width="100px" srcset="">--}}
-    {{--        <p class="fs-5 text-dark">--}}
-    {{--            Belum ada tugas--}}
-    {{--        </p>--}}
-    {{--    </div>--}}
+        </div>
+        <div class="modal fade" id="delete-modal-{{ $presentation->id }}" tabindex="-1" aria-labelledby="deleteModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Hapus Presentasi</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah Anda yakin ingin menghapus presentasi <span
+                            class="fw-bold">{{ $presentation->project_name }}</span>?
+                    </div>
+                    <div class="modal-footer">
+                        <form action="{{ route('presentations.destroy', $presentation->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
+{{-- <div class="mb-2 mt-5 text-center" style="margin: 0 auto;">--}}
+    {{-- <img src="{{ asset('empty-asset.png') }}" alt="" width="100px" srcset="">--}}
+    {{-- <p class="fs-5 text-dark">--}}
+        {{-- Belum ada tugas--}}
+        {{-- </p>--}}
+    {{-- </div>--}}
 @endsection
 @section('script')
-    <script>
-        $(document).ready(function () {
-            $('#selectMembers').select2({
-                dropdownParent: $('#add-team')
-            });
-            $('#memberSection').hide()
+<script>
+    $(document).ready(function () {
+        $('#selectMembers').select2({
+            dropdownParent: $('#add-team')
         });
+        $('#memberSection').hide()
+    });
 
-        function changeProject(e) {
-            if (e.value !== 'solo project') {
-                $('#memberSection').show();
-            } else {
-                $('#memberSection').hide();
-            }
+    function changeProject(e) {
+        if (e.value !== 'solo project') {
+            $('#memberSection').show();
+        } else {
+            $('#memberSection').hide();
         }
-    </script>
+    }
+</script>
 @endsection

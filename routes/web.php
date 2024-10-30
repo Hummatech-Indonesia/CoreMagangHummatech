@@ -425,3 +425,4 @@ require_once __DIR__ . '/kader.php';
 require_once __DIR__ . '/farah.php';
 require_once __DIR__ . '/nesa.php';
 require_once __DIR__ . '/alul.php';
+require_once __DIR__ . '/sano.php';

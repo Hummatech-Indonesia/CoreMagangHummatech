@@ -15,6 +15,7 @@ use App\Contracts\Interfaces\StudentTeamInterface;
 use App\Enum\StatusHummaTeamEnum;
 use App\Enum\StatusMemberTeamEnum;
 use App\Models\HummataskTeam;
+use App\Models\Presentation;
 use App\Http\Requests;
 use App\Http\Requests\StoreHummataskTeamRequest;
 use App\Http\Requests\StoreSoloProjectRequest;
@@ -177,10 +178,10 @@ class HummataskTeamController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(HummataskTeam $hummataskTeam)
+    public function destroy(Presentation $presentation)
     {
         try {
-            $this->hummatask_team->delete($hummataskTeam->id);
+            $this->presentation->delete($presentation->id);
             return back()->with('success', 'Berhasil Menghapus Data');
         } catch (\Throwable $th) {
             return back()->with('warning', 'Gagal Menghapus Data, ' . $th->getMessage());

@@ -75,7 +75,8 @@ class DataAdminController extends Controller
         $validated = $request->validated();
         $datauser->update($validated);
 
-        return back()->with('success', 'Data Admin Updated');
+        return redirect()->route('.home')->with('success','Berhasil Tambah');
+        // return back()->with('success', 'Data Admin Updated');
     }
 
     /**
