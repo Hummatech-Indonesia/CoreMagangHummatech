@@ -24,28 +24,27 @@ class StudentRepository extends BaseRepository implements StudentInterface
 
     public function countActiveOflline(): mixed
     {
-        return $this->model->query()->where('acepted' , 1)->where('status' ,[StudentStatusEnum::ACCEPTED->value])->count();
+        return $this->model->query()->where('acepted', 1)->where('status', [StudentStatusEnum::ACCEPTED->value])->count();
     }
 
     public function countNonActiveOflline(): mixed
     {
-        return $this->model->query()->where('acepted' , 0)->where('status' ,[StudentStatusEnum::ACCEPTED->value])->count();
+        return $this->model->query()->where('acepted', 0)->where('status', [StudentStatusEnum::ACCEPTED->value])->count();
     }
 
     public function countAlumni(): mixed
     {
-        return $this->model->query()->where('acepted' , 0)->where('status' ,[StudentStatusEnum::ALUMNUS->value])->count();
+        return $this->model->query()->where('acepted', 0)->where('status', [StudentStatusEnum::ALUMNUS->value])->count();
     }
 
     public function countPending(): mixed
     {
-        return $this->model->query()->where('status' , 'pending')->count();
+        return $this->model->query()->where('status', 'pending')->count();
     }
 
     public function countDecline(): mixed
     {
-        return $this->model->query()->where('status' , 'decline')->count();
-
+        return $this->model->query()->where('status', 'decline')->count();
     }
 
     public function StudentFinish(): mixed
@@ -63,16 +62,16 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model
             ->query()
             ->where('finish_date', '>', now())
-            ->where('status' ,'accepted')
-            ->where('acepted' , 1)
+            ->where('status', 'accepted')
+            ->where('acepted', 1)
             ->where('internship_type', 'online')->count();
     }
     public function countActiveOfflineStudents(): mixed
     {
         return $this->model->query()
             ->where('finish_date', '>', now())
-            ->where('status' ,'accepted')
-            ->where('acepted' , 1)
+            ->where('status', 'accepted')
+            ->where('acepted', 1)
             ->where('internship_type', 'offline')->count();
     }
     /**
@@ -108,9 +107,9 @@ class StudentRepository extends BaseRepository implements StudentInterface
                     $query->whereDate('created_at', now());
                 }
             ])
-            ->whereDate('finish_date','>',$finishDate)
+            ->whereDate('finish_date', '>', $finishDate)
             ->where('status', StudentStatusEnum::ACCEPTED->value)
-            ->orderBy('name','ASC')
+            ->orderBy('name', 'ASC')
             ->get();
     }
 
@@ -143,10 +142,10 @@ class StudentRepository extends BaseRepository implements StudentInterface
                     $query->whereDate('created_at', $date);
                 }
             ])
-            ->whereDate('finish_date','>',$date)
-            ->whereDate('start_date','<=',$date)
+            ->whereDate('finish_date', '>', $date)
+            ->whereDate('start_date', '<=', $date)
             ->where('status', StudentStatusEnum::ACCEPTED->value)
-            ->orderBy('name','ASC')
+            ->orderBy('name', 'ASC')
             ->get();
     }
 
@@ -179,10 +178,10 @@ class StudentRepository extends BaseRepository implements StudentInterface
                     $query->whereDate('created_at', $date);
                 }
             ])
-            ->whereDate('finish_date','>',$date)
-            ->whereDate('start_date','<=',$date)
+            ->whereDate('finish_date', '>', $date)
+            ->whereDate('start_date', '<=', $date)
             ->where('status', StudentStatusEnum::ACCEPTED->value)
-            ->orderBy('name','ASC')
+            ->orderBy('name', 'ASC')
             ->get();
     }
 
@@ -211,7 +210,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ])
             // ->whereDate('finish_date','>',$finishDate)
             ->where('status', StudentStatusEnum::ACCEPTED->value)
-            ->orderBy('name','ASC')
+            ->orderBy('name', 'ASC')
             ->get();
     }
 
@@ -242,13 +241,13 @@ class StudentRepository extends BaseRepository implements StudentInterface
     public function get(Request $request): mixed
     {
         return $this->model->query()
-        ->when($request->name, function ($query) use ($request) {
-            $query->where('name', 'LIKE', '%' . $request->name . '%');
-        })
-        ->when($request->school, function ($query) use ($request) {
-            $query->where('school', 'LIKE', '%' . $request->school . '%');
-        })
-        ->get();
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
+            })
+            ->when($request->school, function ($query) use ($request) {
+                $query->where('school', 'LIKE', '%' . $request->school . '%');
+            })
+            ->get();
     }
 
     /**
@@ -494,14 +493,14 @@ class StudentRepository extends BaseRepository implements StudentInterface
      * @param  mixed $id
      * @return mixed
      */
-    public function getstudentmentorplacement(mixed $id,Request $request): mixed
+    public function getstudentmentorplacement(mixed $id, Request $request): mixed
     {
         return $this->model->query()
             ->where('internship_type', InternshipTypeEnum::ONLINE->value)
             ->where('status', 'accepted')
             ->whereNotIn('id', $id)
-            ->when($request->name, function ($query) use ($request){
-                $query->where('name', 'LIKE', '%' . $request->name. '%');
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
             })
             ->paginate(10);
     }
@@ -516,7 +515,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
         return $this->model->query()
             ->where('internship_type', 'offline')
             ->where('id', '!=', $id)
-            ->where('acepted' , '1')
+            ->where('acepted', '1')
             ->latest()
             ->paginate('6');
     }
@@ -550,7 +549,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->where('internship_type', InternshipTypeEnum::ONLINE->value)
             ->where('status', 'accepted')
             ->whereIn('id', $id)
-            ->when($request->name, function ($query) use ($request){
+            ->when($request->name, function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->name . '%');
             })
             ->paginate(10);
@@ -590,7 +589,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
 
         $query = $this->model->query()
             ->whereNull('rfid')
-            ->where('status' , 'accepted')
+            ->where('status', 'accepted')
             ->when($request->name, function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->name . '%');
             });
@@ -630,7 +629,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
 
     public function ListAlumni(Request $request): mixed
     {
-        return $this->model->query()->where('acepted' , false)->where('status' , StudentStatusEnum::ALUMNUS->value)->get();
+        return $this->model->query()->where('acepted', false)->where('status', StudentStatusEnum::ALUMNUS->value)->get();
     }
 
     /**
@@ -695,10 +694,21 @@ class StudentRepository extends BaseRepository implements StudentInterface
 
     // }
 
-    public function first () : mixed
+    public function first(): mixed
     {
         return $this->model->query()
-        ->where('id',auth()->user()->student->id)
-        ->first();
+            ->where('id', auth()->user()->student->id)
+            ->first();
+    }
+
+    public function getStudentBySession(int $session): mixed
+    {
+        return $this->model
+            ->with('division')
+            ->whereNotNull('rfid')
+            ->where('session', $session)
+            ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
+            ->where('status', 'accepted')
+            ->get();
     }
 }

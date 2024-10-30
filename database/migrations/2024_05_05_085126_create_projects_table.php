@@ -12,17 +12,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('projects', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('hummatask_team_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('title');
-            $table->longText('description')->nullable();
-            $table->string('link')->nullable();
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
-            $table->enum('status', [StatusProjectEnum::PENDING->value, StatusProjectEnum::ACCEPTED->value, StatusProjectEnum::SUCCESS->value])->default(StatusProjectEnum::PENDING->value);
-            $table->timestamps();
-        });
+//        Schema::create('projects', function (Blueprint $table) {
+//            $table->id();
+//            $table->foreignId('hummatask_team_id')
+//                ->constrained()
+//                ->cascadeOnUpdate()
+//                ->cascadeOnDelete();
+//            $table->string('title');
+//            $table->longText('description')->nullable();
+//            $table->string('link')->nullable();
+//            $table->date('start_date')->nullable();
+//            $table->date('end_date')->nullable();
+//            $table->enum('status', [
+//                StatusProjectEnum::PENDING->value,
+//                StatusProjectEnum::ACCEPTED->value,
+//                StatusProjectEnum::SUCCESS->value
+//            ])->default(StatusProjectEnum::PENDING->value);
+//            $table->timestamps();
+//        });
     }
 
     /**
@@ -30,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
+//        Schema::dropIfExists('projects');
     }
 };

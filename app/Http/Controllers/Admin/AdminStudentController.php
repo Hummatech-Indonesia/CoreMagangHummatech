@@ -112,6 +112,8 @@ class AdminStudentController extends Controller
 
     public function manageSession()
     {
-        return view('admin.page.manage-session.index');
+        $studentSession1 = $this->student->getStudentBySession('1');
+        $studentSession2 = $this->student->getStudentBySession('2');
+        return view('admin.page.manage-session.index', compact('studentSession1','studentSession2'));
     }
 }

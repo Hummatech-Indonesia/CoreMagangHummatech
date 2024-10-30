@@ -209,8 +209,8 @@ class UserSeeder extends Seeder
             'internship_type' => 'offline'
         ]);
         $studentoffline3 = Student::factory()->create([
-            'name' => 'FERYN AULIA',
-            'email' => 'feryn@gmail.com',
+            'name' => 'ridoq',
+            'email' => 'ridoq@gmail.com',
             'address' => 'Alamat Dummy',
             'avatar' => 'avatar.jpg',
             'birth_date' => '2000-01-01',
@@ -222,7 +222,7 @@ class UserSeeder extends Seeder
             'status' => 'accepted',
             'rfid' => '8827892893',
             'division_id' => 1,
-            'school' => 'SMKN 1 KRAKSAAN',
+            'school' => 'SMKN 2 KRAKSAAN',
             'parents_statement' => 'Pernyataan Orang Tua Dummy',
             'self_statement' => 'Pernyataan Diri Dummy',
             'school_address' => 'Alamat Sekolah Dummy',

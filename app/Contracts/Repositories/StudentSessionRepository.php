@@ -9,10 +9,14 @@ class StudentSessionRepository extends BaseRepository implements StudentSessionI
 {
     public function changeSession(mixed $data, int $session): bool
     {
-        foreach ($data as $studentId) {
-            Student::findOrFail($studentId)->update(['session' => $session]);
+        $studentIds = explode(',', $data[0]);
+        // dd($studentIds);
+        // dd($studentIds);
+        foreach ($studentIds as $studentId) {
+            Student::findOrFail(trim($studentId))->update(['session' => $session]);
         }
         return true; // Mengembalikan nilai true jika semua update berhasil
     }
+
 
 }

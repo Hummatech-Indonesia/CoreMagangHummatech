@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Interfaces\MentorInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Contracts\Interfaces\StudentSessionInterface;
 use App\Contracts\Interfaces\UserInterface;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
@@ -21,17 +22,20 @@ class StudentController extends Controller
     private StudentInterface $student;
     private StudentService $servicestudent;
     private MentorStudentInterface $mentorStudent;
+    private StudentSessionInterface $studentSession;
     private UserInterface $user;
     private MentorInterface $mentor;
 
-    public function __construct(StudentService $servicestudent, StudentInterface $student, MentorStudentInterface $mentorStudent, UserInterface $user, MentorInterface $mentor)
+    public function __construct(StudentService $servicestudent, StudentInterface $student, MentorStudentInterface $mentorStudent, StudentSessionInterface $studentSession, UserInterface $user, MentorInterface $mentor)
     {
         $this->student = $student;
         $this->servicestudent = $servicestudent;
+        $this->studentSession = $studentSession;
         $this->mentorStudent = $mentorStudent;
         $this->user = $user;
         $this->mentor = $mentor;
     }
+
 
     /**
      * getStudents
@@ -52,13 +56,22 @@ class StudentController extends Controller
         ];
         return response()->json($response, 200);
     }
+
+    public function changeSessionStudent(Request $request,int $session)
+    {
+        $studentIds = $request->input('students', '[]');
+
+        // dd($studentIds);
+        $this->studentSession->changeSession($studentIds,$session);
+        return redirect()->back()->with('success','Data sesi berhasil diubah');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         $students = $this->student->getstudentbanned($request);
-        return view('admin.page.user.students-banned' , compact('students'));
+        return view('admin.page.user.students-banned', compact('students'));
     }
 
     /**
@@ -121,6 +134,7 @@ class StudentController extends Controller
         return view('mentor.student.index', compact('mentorStudent'));
     }
 
+
     public function emailUser(Request $request)
     {
         $users = $this->user->get($request);
@@ -134,7 +148,7 @@ class StudentController extends Controller
         if ($user->mentors_id) {
             $this->mentor->delete($user->mentors_id);
         }
-        
+
         if ($user->student_id) {
             $this->student->delete($user->student_id);
         }

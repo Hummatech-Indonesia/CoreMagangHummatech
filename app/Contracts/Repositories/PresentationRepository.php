@@ -262,9 +262,18 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     public function getPresentationsByStudentId(int $studentId)
     {
         return $this->model->query()
-            ->whereHas('hummataskTeam.student', function ($query) use ($studentId) {
-                $query->where('id', $studentId);
+            ->with('members')
+            ->whereHas('members', function ($query) use ($studentId) {
+                $query->where('member_id', $studentId);
             })
+            ->whereDate('planning_date_presentation', Carbon::today())
+            ->get();
+    }
+
+    public function getPresentationWithMembers()
+    {
+        return $this->model->with('members')
+//            ->where('members.member')
             ->get();
     }
 

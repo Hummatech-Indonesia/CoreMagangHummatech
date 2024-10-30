@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Contracts\Interfaces\AlumniInterface;
+use App\Contracts\Interfaces\HummataskTeamMembersInterface;
 use App\Contracts\Interfaces\StudentSessionInterface;
 use App\Contracts\Repositories\AlumniRepository;
+use App\Contracts\Repositories\HummataskTeamMembersRepository;
 use App\Contracts\Repositories\StudentSessionRepository;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Pagination\Paginator;
@@ -219,7 +221,8 @@ class AppServiceProvider extends ServiceProvider
         SubmitTaskInterface::class => SubmitTaskRepository::class,
         AlumniInterface::class => AlumniRepository::class,
         InstitutionInterface::class => InstitutionRepository::class,
-        StudentSessionInterface::class => StudentSessionRepository::class
+        StudentSessionInterface::class => StudentSessionRepository::class,
+        HummataskTeamMembersInterface::class => HummataskTeamMembersRepository::class
     ];
 
     /**

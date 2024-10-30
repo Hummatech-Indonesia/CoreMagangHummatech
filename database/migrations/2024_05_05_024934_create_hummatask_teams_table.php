@@ -12,24 +12,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hummatask_teams', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('image')->nullable();
-            $table->longText('description')->nullable();
-            $table->foreignId('category_project_id')->default('1')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('division_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('slug');
-            $table->enum('status', [StatusHummaTeamEnum::PENDING->value, StatusHummaTeamEnum::ACTIVE->value, StatusHummaTeamEnum::SUCCESS->value, StatusHummaTeamEnum::EXPIRED->value])->default(StatusHummaTeamEnum::PENDING->value);
-            $table->timestamps();
-        });
+//        Schema::create('hummatask_teams', function (Blueprint $table) {
+//            $table->id();
+//            $table->string('name');
+//            $table->text('image')->nullable();
+//            $table->longText('description')->nullable();
+//            $table->foreignId('category_project_id')->default('1')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+//            $table->foreignId('student_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+//            $table->foreignId('division_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+//            $table->string('slug');
+//            $table->enum('status', [StatusHummaTeamEnum::PENDING->value, StatusHummaTeamEnum::ACTIVE->value, StatusHummaTeamEnum::SUCCESS->value, StatusHummaTeamEnum::EXPIRED->value])->default(StatusHummaTeamEnum::PENDING->value);
+//            $table->timestamps();
+//        });
     }
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('hummatask_teams');
+//        Schema::dropIfExists('hummatask_teams');
     }
 };

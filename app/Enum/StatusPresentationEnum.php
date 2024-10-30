@@ -8,14 +8,15 @@ enum StatusPresentationEnum : string
     case ONGOING = 'ongoing';
     case FINISH = 'finish';
     case NOTFINISH ='notfinish';
-
+    case WAITING = 'waiting';
     public function label(): string
     {
         return match ($this) {
-            self::PENNDING => 'menunggu',
+            self::PENNDING => 'ditunda',
             self::ONGOING => 'sedang presentasi',
             self::FINISH => 'selesai',
             self::NOTFINISH => 'tidak selesai',
+            self::WAITING => 'menunggu konfirmasi',
         };
     }
 
@@ -26,6 +27,7 @@ enum StatusPresentationEnum : string
             self::ONGOING => 'primary',
             self::FINISH => 'success',
             self::NOTFINISH => 'danger',
+            self::WAITING => 'warning',
         };
     }
 }

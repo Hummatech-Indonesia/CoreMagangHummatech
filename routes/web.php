@@ -138,6 +138,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('menu-siswa/division-change/{student}', [AdminStudentController::class, 'divisionchange'])->name('student.divisionchange');
     Route::put('students-banned/Open/{student}', [StudentController::class, 'Openbanned'])->name('students.banned.open');
     Route::get('menu-siswa/manage-session', [AdminStudentController::class, 'manageSession'])->name('student.managesession');
+    Route::get('/menu-siswa/manage-session/update/{session}',[StudentController::class,'changeSessionStudent'])->name('change-session-student');
     # Registration Limit
     Route::post('limit', [LimitsController::class, 'store'])->name('limit.store');
     Route::put('limit/update/{limits}', [LimitsController::class, 'update'])->name('limit.update');
@@ -423,3 +424,4 @@ require_once __DIR__ . '/femas.php';
 require_once __DIR__ . '/kader.php';
 require_once __DIR__ . '/farah.php';
 require_once __DIR__ . '/nesa.php';
+require_once __DIR__ . '/alul.php';

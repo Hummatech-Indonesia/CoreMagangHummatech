@@ -1,6 +1,9 @@
 <?php
 
-use App\Enum\StatusPresentationEnum;
+use App\Enum\{
+    StatusPresentationEnum,
+    PresentationTypeEnum
+};
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,15 +17,29 @@ return new class extends Migration
     {
         Schema::create('presentations', function (Blueprint $table) {
             $table->id();
-            $table->string('start_date');
-            $table->string('end_date');
-            $table->string('schedule_to');
-            $table->foreignId('hummatask_team_id')->nullable()->constrained();
-            $table->foreignId('mentor_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->enum('status_presentation' , [StatusPresentationEnum::FINISH->value , StatusPresentationEnum::NOTFINISH->value , StatusPresentationEnum::ONGOING->value , StatusPresentationEnum::PENNDING->value])->nullable();
-            $table->text('callback')->nullable();
-            $table->string('title')->nullable();
+            $table->integer('urutan')->default(0);
+            $table->string('project_name')->nullable();
+            $table->foreignId('mentor_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->text('description')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->enum('type_project',[
+                PresentationTypeEnum::SOLO->value,
+                PresentationTypeEnum::MINI->value,
+                PresentationTypeEnum::PREMINI->value,
+                PresentationTypeEnum::BIG->value,
+                PresentationTypeEnum::INTERVIEW->value,
+                PresentationTypeEnum::LIVECODING->value
+            ]);
+            $table->enum('status_presentation' , [
+                StatusPresentationEnum::FINISH->value ,
+                StatusPresentationEnum::NOTFINISH->value ,
+                StatusPresentationEnum::ONGOING->value ,
+                StatusPresentationEnum::PENNDING->value,
+                StatusPresentationEnum::WAITING->value
+            ])
+                ->default(StatusPresentationEnum::WAITING);
+            $table->date('planning_date_presentation');
             $table->timestamps();
         });
     }
