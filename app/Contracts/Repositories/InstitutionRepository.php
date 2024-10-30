@@ -2,8 +2,9 @@
 
 namespace App\Contracts\Repositories;
 
-use App\Contracts\Interfaces\InstitutionInterface;
 use App\Models\Institution;
+use Illuminate\Http\Request;
+use App\Contracts\Interfaces\InstitutionInterface;
 
 class InstitutionRepository extends BaseRepository implements InstitutionInterface
 {
@@ -21,7 +22,7 @@ class InstitutionRepository extends BaseRepository implements InstitutionInterfa
     {
         return $this->model->query()->create($data);
     }
-    
+
     public function update(mixed $id, array $data): mixed
     {
         return $this->model->query()->findOrFail($id)->update($data);
@@ -30,5 +31,16 @@ class InstitutionRepository extends BaseRepository implements InstitutionInterfa
     public function delete(mixed $id): mixed
     {
         return $this->model->query()->findOrFail($id)->delete();
+    }
+
+    public function search(Request $request):mixed
+    {
+        $query = $this->model->query();
+
+        $query->when($request->name, function ($query) use ($request) {
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        });
+
+        return $query;
     }
 }

@@ -10,9 +10,9 @@
                     <form  style="width: 300px; margin-top:5px;" action="/administrator/zoom-schedules">
                         <div class="search-box mx-3">
                             <select class="js-example-basic-single" name="title">
-                                <option value="" disabled {{ request()->state ? '' : 'selected' }}>  Cari Zoom...</option>
+                                <option value="" disabled {{ request()->title ? '' : 'selected' }}>  Cari Zoom...</option>
                                 @forelse ($zoomSchedulesSearch as $zoomSchedule)
-                                    <option value="{{ $zoomSchedule->title }}" {{ request()->state == 'title' ? 'selected' : '' }}>
+                                    <option value="{{ $zoomSchedule->title }}" {{ request()->title == $zoomSchedule->title ? 'selected' : '' }}>
                                         {{ $zoomSchedule->title }}</option>
                                 @empty
                                 @endforelse
@@ -226,13 +226,15 @@
 @endsection
 
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> --}}
+    <script src="{{ asset('assets/libs/jquery/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/select2/select2.min.js') }}"></script>
+    
     <script>
         // In your Javascript (external .js resource or <script> tag)
         $(document).ready(function() {

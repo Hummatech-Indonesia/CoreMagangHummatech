@@ -6,15 +6,25 @@
                 <div class="col-sm-4">
                     <h3 class="mx-3">Daftar Lembaga</h3>
                 </div>
-                <div class="col-sm-auto ms-auto d-flex justify-content-between pt-4">
+                <div class="col-sm-auto d-flex justify-content-between ms-auto pt-4">
                     <div class="search-box mx-3">
                         <form action="">
                             <div class="search-box mx-3">
                                 <select class="js-example-basic-single" name="name">
-
-                                    <option value="" disabled {{ request()->state ? '' : 'selected' }}>  Cari Zoom...</option>
-                                  ]
+                                    <option value="" disabled {{ request()->name ? '' : 'selected' }}> Cari Zoom...
+                                    </option>
+                                    @foreach ($institutionsSearch as $institution)
+                                        <option value="{{ $institution->name }}"
+                                            {{ request()->name == $institution->name ? 'selected' : '' }}>
+                                            {{ $institution->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" type="submit">
+                                    Cari
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -33,8 +43,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="listjs-table"id="customerList">
-                        <div class="table-responsive table-card mt-3 mb-1 mx-3">
-                            <table class="table align-middle table-nowrap" id="customerTable">
+                        <div class="table-responsive table-card mx-3 mb-1 mt-3">
+                            <table class="table-nowrap table align-middle" id="customerTable">
                                 <thead class="table-light">
                                     <tr>
                                         <th>
@@ -56,14 +66,15 @@
                                                 {{ $institution->name }}
                                             </td>
                                             <td>
-                                                <button type="button" class="btn-delete bg-transparent"
-                                                    style="border: none" data-id="{{ $institution->id }}">
-                                                    <i class="ri-delete-bin-fill align-bottom me-2 text-danger"></i>
+                                                <button class="btn-delete bg-transparent" data-id="{{ $institution->id }}"
+                                                    type="button" style="border: none">
+                                                    <i class="ri-delete-bin-fill text-danger me-2 align-bottom"></i>
                                                     Hapus
                                                 </button>
-                                                <button type="button" class="btn-edit bg-transparent" style="border: none"
-                                                    data-id="{{ $institution->id }}" data-name="{{ $institution->name }}">
-                                                    <i class="ri-pencil-fill align-bottom me-2 text-warning"></i>
+                                                <button class="btn-edit bg-transparent" data-id="{{ $institution->id }}"
+                                                    data-name="{{ $institution->name }}" type="button"
+                                                    style="border: none">
+                                                    <i class="ri-pencil-fill text-warning me-2 align-bottom"></i>
                                                     Edit
                                                 </button>
                                             </td>
@@ -72,10 +83,10 @@
                                         <tr>
                                             <td colspan="5">
                                                 <div class="d-flex justify-content-center mb-3 mt-3">
-                                                    <img src="{{ asset('no data.png') }}" width="200px" alt=""
-                                                        srcset="">
+                                                    <img src="{{ asset('no data.png') }}" srcset="" alt=""
+                                                        width="200px">
                                                 </div>
-                                                <p class="text-center mb-0 fs-5">
+                                                <p class="fs-5 mb-0 text-center">
                                                     Tidak ada lembaga
                                                 </p>
                                             </td>
@@ -95,11 +106,16 @@
     @include('admin.components.delete-modal-component')
 @endsection
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+    <script src="{{ asset('assets/libs/jquery/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/select2/select2.min.js') }}"></script>
 
     <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
         $('.btn-edit').click(function() {
             var id = $(this).data('id');
             var name = $(this).data('name');

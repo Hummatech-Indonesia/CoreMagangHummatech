@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\InstitutionInterface;
 use App\Models\Institution;
 use App\Http\Requests\StoreInstitutionRequest;
 use App\Http\Requests\UpdateInstitutionRequest;
+use Illuminate\Http\Request;
 
 class InstitutionController extends Controller
 {
@@ -19,10 +20,11 @@ class InstitutionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $institutions = $this->institution->get();
-        return view('admin.page.institution.index', compact('institutions'));
+        $institutions = $this->institution->search($request)->get();
+        $institutionsSearch = $this->institution->get();
+        return view('admin.page.institution.index', compact('institutions','institutionsSearch'));
     }
 
     /**
