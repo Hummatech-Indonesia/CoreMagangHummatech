@@ -121,7 +121,7 @@
 {{--                @empty--}}
 
 {{--                @endforelse--}}
-{{--                @forelse ($hummataskTeams as $hummataskTeam)--}}
+{{--                @forelse ($hummataskTeams as $hummatas  kTeam)--}}
 {{--                    <li class="sidebar-item px-2">--}}
 {{--                        <a href="{{ route('team.show', ['slug' => $hummataskTeam->slug]) }}"--}}
 {{--                           class="d-flex align-items-center">--}}

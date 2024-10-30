@@ -79,9 +79,8 @@ class HummataskTeamController extends Controller
     {
         $categoryProject = $this->categoryProject->get();
         $students = $this->student->getStudentAccepted()->pluck('name','id');
-//        $hummataskTeams = $this->hummatask_team->where('student_id', auth()->user()->student->id);
-//        $studentTeams = $this->studentTeam->where('student_id', auth()->user()->student->id);
-        return view('Hummatask.index', compact('categoryProject','students'));
+        $presentations = $this->presentation->getPresentationsByStudentId(auth()->user()->id);
+        return view('Hummatask.index', compact('categoryProject','students','presentations'));
     }
 
     /**
