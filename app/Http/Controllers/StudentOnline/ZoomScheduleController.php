@@ -32,7 +32,8 @@ class ZoomScheduleController extends Controller
     {
         // $zoomSchedules = $this->zoomSchedule->paginate(9);
         $zoomSchedules = $this->zoomSchedule->search($request)->paginate(9);
-        return view('admin.page.zoom-schedules.index' , compact('zoomSchedules'));
+        $zoomSchedulesSearch = $this->zoomSchedule->get();
+        return view('admin.page.zoom-schedules.index' , compact('zoomSchedules','zoomSchedulesSearch'));
     }
 
     public function indexStudent()

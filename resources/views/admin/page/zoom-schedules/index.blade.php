@@ -7,18 +7,18 @@
                     <h4 class="mx-5 pt-2">Jadwal Zoom</h4>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
-                    <form  style="width: 300px; margin-top:5px;" action="">
+                    <form  style="width: 300px; margin-top:5px;" action="/administrator/zoom-schedules">
                         <div class="search-box mx-3">
-                            <select class="js-example-basic-single" name="name">
-
+                            <select class="js-example-basic-single" name="title">
                                 <option value="" disabled {{ request()->state ? '' : 'selected' }}>  Cari Zoom...</option>
-                                @forelse ($zoomSchedules as $zoomSchedule)
-                                    <option value="title" {{ request()->state == 'title' ? 'selected' : '' }}>
+                                @forelse ($zoomSchedulesSearch as $zoomSchedule)
+                                    <option value="{{ $zoomSchedule->title }}" {{ request()->state == 'title' ? 'selected' : '' }}>
                                         {{ $zoomSchedule->title }}</option>
                                 @empty
                                 @endforelse
                             </select>
                         </div>
+                        <button class="btn btn-primary" type="submit">Submit</button>
                     </form>
 
 
