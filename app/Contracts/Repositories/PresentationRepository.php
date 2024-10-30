@@ -266,6 +266,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->whereHas('members', function ($query) use ($studentId) {
                 $query->where('member_id', $studentId);
             })
+            ->whereDate('planning_date_presentation', Carbon::today())
             ->get();
     }
 

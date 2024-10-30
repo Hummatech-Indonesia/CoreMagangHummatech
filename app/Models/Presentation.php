@@ -20,6 +20,7 @@ class Presentation extends Model
         'end_date',
         'type_project',
         'status_presentation',
+        'planning_date_presentation'
     ];
 
     /**
