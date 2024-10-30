@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             # =========================== Hapus seeder dibawah kalau udah mode production =========================== #
             // VoucherSeeder::class,
             // CourseSeeder::class,
-            // InstitutionSeeder::class,
+            InstitutionSeeder::class,
+
         ]);
     }
 }

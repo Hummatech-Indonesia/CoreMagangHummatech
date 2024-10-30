@@ -36,6 +36,7 @@ class StoreHummataskTeamRequest extends FormRequest
                     return !in_array(request()->input('projectCategory'), $optionalCategories);
                 }),
             ],
+            'planning_date_presentation' => 'required|date',
         ];
 //        return [
 //            'name' => 'required|max:255|unique:hummatask_teams',

@@ -17,6 +17,7 @@ return new class extends Migration
     {
         Schema::create('presentations', function (Blueprint $table) {
             $table->id();
+            $table->integer('urutan')->default(0);
             $table->string('project_name')->nullable();
             $table->foreignId('mentor_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->text('description')->nullable();
@@ -38,6 +39,7 @@ return new class extends Migration
                 StatusPresentationEnum::WAITING->value
             ])
                 ->default(StatusPresentationEnum::WAITING);
+            $table->date('planning_date_presentation');
             $table->timestamps();
         });
     }
