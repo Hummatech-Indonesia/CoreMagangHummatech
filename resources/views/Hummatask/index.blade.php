@@ -155,7 +155,7 @@
                             <div class="urutan rounded-2 fs-2 p-2 fw-bolder text-white" style="background: #7E7E7E">
                                 01
                             </div>
-                            <button class="btn btn-danger">
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal-{{ $presentation->id }}">
                                 <svg width="15" height="17" viewBox="0 0 15 17" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -189,6 +189,29 @@
                         <div class="action">
                             <button class="btn btn-primary p-2 px-4">Detail</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="delete-modal-{{ $presentation->id }}" tabindex="-1" aria-labelledby="deleteModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Hapus Presentasi</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah Anda yakin ingin menghapus presentasi <span
+                            class="fw-bold">{{ $presentation->project_name }}</span>?
+                    </div>
+                    <div class="modal-footer">
+                        <form action="{{ route('presentations.destroy', $presentation->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                        </form>
                     </div>
                 </div>
             </div>
