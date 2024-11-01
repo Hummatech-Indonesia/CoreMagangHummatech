@@ -222,7 +222,7 @@ class PresentationController extends Controller
                 'status_presentation' => $data['status_presentation'],
                 'urutan' => $maxUrutan == 0 ? 1 : $maxUrutan + 1
             ])) {
-            return back()->with('success', 'Berhasil merubah status');
+            return back()->with('success', value: 'Berhasil merubah status');
         } else {
             return back()->with('error', 'Gagal merubah status');
         }

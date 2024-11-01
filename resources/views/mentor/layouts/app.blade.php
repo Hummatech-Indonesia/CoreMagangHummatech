@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/main/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jul 2023 01:54:29 GMT -->
+{{--  <!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/main/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jul 2023 01:54:29 GMT -->  --}}
 
 <head>
     <!--  Title -->
@@ -23,6 +23,8 @@
 
     <!-- Core Css -->
     <link id="themeColors" rel="stylesheet" href="{{ asset('assets-user/dist/css/style.min.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+
     @yield('style')
 </head>
 
@@ -343,6 +345,30 @@
     <script src="{{ asset('assets-user/dist/libs/owl.carousel/dist/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets-user/dist/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets-user/dist/js/dashboard.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+    <script>
+        @if (session('success'))
+            iziToast.success({
+                title: 'Success',
+                message: "{{ session('success') }}",
+                position: 'topRight'
+            });
+        @endif
+        @if (session('error'))
+            iziToast.error({
+                title: 'Error',
+                message: "{{ session('error') }}",
+                position: 'topRight'
+            });
+        @endif
+        @if (session('warning'))
+            iziToast.warning({
+                title: 'Information',
+                message: "{{ session('warning') }}",
+                position: 'topRight'
+            });
+        @endif
+    </script>
 </body>
 
 <!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/main/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Jul 2023 01:55:21 GMT -->
