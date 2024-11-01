@@ -2,19 +2,19 @@
 
 namespace App\Contracts\Repositories;
 
-use App\Contracts\Interfaces\AttendanceInterface;
-use App\Contracts\Interfaces\CategoryBoardInterface;
-use App\Contracts\Interfaces\CodeOfConductInterface;
-use App\Contracts\Interfaces\PresentationInterface;
-use App\Contracts\Interfaces\ThesisInterface;
+use DB;
+use Carbon\Carbon;
+use App\Models\Thesis;
+use App\Models\Presentation;
+use Illuminate\Http\Request;
 use App\Models\CategoryBoard;
 use App\Models\HummataskTeam;
-use App\Models\Presentation;
-use App\Models\Thesis;
-use Carbon;
-use DB;
+use App\Contracts\Interfaces\ThesisInterface;
+use App\Contracts\Interfaces\AttendanceInterface;
+use App\Contracts\Interfaces\PresentationInterface;
+use App\Contracts\Interfaces\CategoryBoardInterface;
+use App\Contracts\Interfaces\CodeOfConductInterface;
 use Flasher\Prime\Response\Presenter\PresenterInterface;
-use Illuminate\Http\Request;
 
 class PresentationRepository extends BaseRepository implements PresentationInterface
 {
@@ -72,7 +72,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     {
         return $this->model->query()
             ->whereDate('created_at', Carbon::today())
-            ->where('mentor_id' , auth()->user()->mentor->id)
+            ->where('mentor_id', auth()->user()->mentor->id)
             ->get();
     }
 
@@ -80,7 +80,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     {
         return $this->model->query()
             ->where('mentor_id', auth()->user()->mentor->id)
-            ->whereDate('created_at' , now())
+            ->whereDate('created_at', now())
             ->delete();
     }
 
@@ -126,7 +126,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
 
     public function whereStatus(mixed $status): mixed
     {
-        return $this->model->query()
+        return $this->model->query()->with('members')
             ->where('status_presentation', $status)
             ->get();
     }
@@ -135,17 +135,16 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     {
         return $this->model->query()
             ->whereDate('created_at', Carbon::today())
-            ->where('mentor_id' , $id)
+            ->where('mentor_id', $id)
             ->get();
     }
 
     public function GetPresentationByMentor(mixed $id, Request $request): mixed
     {
         $query = $this->model->query()
-            ->whereHas('mentor', function ($query) use ($id)
-        {
-            $query->where('division_id', $id);
-        });
+            ->whereHas('mentor', function ($query) use ($id) {
+                $query->where('division_id', $id);
+            });
 
         if ($request->filled('created_at')) {
             $query->whereDate('created_at', $request->input('created_at'));
@@ -161,11 +160,11 @@ class PresentationRepository extends BaseRepository implements PresentationInter
         return $presentations;
     }
 
-    public function getPresentationsByTeam(mixed $id):mixed
+    public function getPresentationsByTeam(mixed $id): mixed
     {
         return $this->model->query()
-        ->where('hummatask_team_id', $id)
-        ->get();
+            ->where('hummatask_team_id', $id)
+            ->get();
     }
 
     public function where($parameter, $value): mixed
@@ -184,7 +183,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     {
         return $this->model->query()
 
-        ->where('hummatask_team_id', $teamId)
+            ->where('hummatask_team_id', $teamId)
             ->whereMonth('created_at', Carbon::now()->month)
             ->whereYear('created_at', Carbon::now()->year)
             ->count();
@@ -240,21 +239,21 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     {
         return $this->model->query()
             ->whereHas('hummataskTeam', function ($query) use ($studentId) {
-                $query->whereHas('studentTeams', function($q) use ($studentId) {
+                $query->whereHas('studentTeams', function ($q) use ($studentId) {
                     $q->where('student_id', $studentId);
                 });
             })
             ->whereMonth('created_at', Carbon::now()->month)
             ->whereYear('created_at', Carbon::now()->year)
             ->count();
-                // ->whereHas('hummataskTeam', function ($query) use ($studentId) {
-                //     $query->where('student_id', $studentId);
-                // })
-                // ->whereMonth('created_at', Carbon::now()->month)
-                // ->whereYear('created_at', Carbon::now()->year)
-                // ->get();
+        // ->whereHas('hummataskTeam', function ($query) use ($studentId) {
+        //     $query->where('student_id', $studentId);
+        // })
+        // ->whereMonth('created_at', Carbon::now()->month)
+        // ->whereYear('created_at', Carbon::now()->year)
+        // ->get();
 
-                // dd($presentations);
+        // dd($presentations);
         // return $presentations->values()->toArray();
 
     }
@@ -273,8 +272,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     public function getPresentationWithMembers()
     {
         return $this->model->with('members')
-//            ->where('members.member')
+            //    ->where('members.member')
             ->get();
     }
-
 }
