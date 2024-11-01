@@ -47,15 +47,15 @@ class HummataskTeamController extends Controller
     private HummataskTeamMembersInterface $hummataskMemberPresentation;
 
     public function __construct(
-        HummataskTeamInterface   $hummatask_team, HummataskTeamService $service,
-        ProjectService           $projectService, ProjectInterface $project,
-        StudentProjectService    $studentProjectService, StudentProjectInterface $studentProject,
-        CategoryProjectInterface $categoryProject,
-        StudentInterface         $student,
-        MentorDivisionInterface  $mentordivision,
-        StudentTeamInterface     $studentTeam,
-        MentorStudentInterface   $mentorStudent,
-        PresentationInterface    $presentation,
+        HummataskTeamInterface        $hummatask_team, HummataskTeamService $service,
+        ProjectService                $projectService, ProjectInterface $project,
+        StudentProjectService         $studentProjectService, StudentProjectInterface $studentProject,
+        CategoryProjectInterface      $categoryProject,
+        StudentInterface              $student,
+        MentorDivisionInterface       $mentordivision,
+        StudentTeamInterface          $studentTeam,
+        MentorStudentInterface        $mentorStudent,
+        PresentationInterface         $presentation,
         HummataskTeamMembersInterface $hummataskMemberPresentation
     )
     {
@@ -80,9 +80,9 @@ class HummataskTeamController extends Controller
     public function index()
     {
         $categoryProject = $this->categoryProject->get();
-        $students = $this->student->getStudentAccepted()->pluck('name','id');
+        $students = $this->student->getStudentAccepted()->pluck('name', 'id');
         $presentations = $this->presentation->getPresentationsByStudentId(auth()->user()->id);
-        return view('Hummatask.index', compact('categoryProject','students','presentations'));
+        return view('Hummatask.index', compact('categoryProject', 'students', 'presentations'));
     }
 
     /**
@@ -100,22 +100,24 @@ class HummataskTeamController extends Controller
     {
         $validated = $request->validated();
         $presentation = $this->presentation->store($validated);
-        if (is_array($validated['members'])){
-            $members = [];
-            $members[] = [
-                'presentation_id' => $presentation->id,
-                'member_id' => auth()->user()->id,
-                'status' => StatusMemberTeamEnum::Leader->value
-            ];
-            foreach ($validated['members'] as $member){
+//        if ($validated['members'] && is_array($validated['members'])){
+        $members = [];
+        $members[] = [
+            'presentation_id' => $presentation->id,
+            'member_id' => auth()->user()->id,
+            'status' => StatusMemberTeamEnum::Leader->value
+        ];
+        if (isset($validated['members']) && is_array($validated['members'])){
+            foreach ($validated['members'] as $member) {
                 $members[] = [
                     'presentation_id' => $presentation->id,
                     'member_id' => $member,
                     'status' => StatusMemberTeamEnum::Member->value
                 ];
             }
-            $this->hummataskMemberPresentation->store($members);
         }
+        $this->hummataskMemberPresentation->store($members);
+//        }
         return back()->with('success', 'Team baru berhasil ditambahkan');
     }
 

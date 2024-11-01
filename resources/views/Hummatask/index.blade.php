@@ -255,12 +255,15 @@
             dropdownParent: $('#add-team')
         });
         $('#memberSection').hide()
+        $('#selectMembers').prop('disabled',true)
     });
 
     function changeProject(e) {
         if (e.value !== 'solo project') {
+            $('#selectMembers').prop('disabled',false)
             $('#memberSection').show();
         } else {
+            $('#selectMembers').prop('disabled',true)
             $('#memberSection').hide();
         }
     }
