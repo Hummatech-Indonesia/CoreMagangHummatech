@@ -123,7 +123,6 @@
             </div>
         </div>
     </div>
-    @yield('script')
 
     <!-- JAVASCRIPT -->
     <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -148,6 +147,7 @@
 
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    @yield('script')
 </body>
 
 </html>
