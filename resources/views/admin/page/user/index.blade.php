@@ -60,11 +60,11 @@
 
                 <div class="col-md-8">
                     <div class="row g-2 align-items-center justify-content-end">
-                        <div class="col-sm-auto">
+                        <div class="col-sm-5">
                             <div class="list-grid-nav">
                                 <form action="/menu-siswa">
-                                    <select name="school" class="form-select" id="schoolFilter">
-                                        <option>Sekolah</option>
+                                    <select name="school" id="schoolFilter" style="width: 100%;">
+                                        <option {{ request()->school ? '' : 'selected' }}>Sekolah</option>
                                         @forelse ($schoolOption as $school)
                                             <option value="{{ $school }}"
                                                 {{ $request->school == $school ? 'selected' : '' }}>
@@ -84,7 +84,7 @@
                         <div class="col-sm-auto">
                             <div class="list-grid-nav">
                                 <form action="/menu-siswa">
-                                    <select name="acepted" class="form-select" id="acceptedFilter">
+                                    <select name="acepted"  id="acceptedFilter">
                                         <option value="" disabled selected>Status</option>
                                         <option value="1" {{ $request->acepted == 1 ? 'selected' : '' }}>Aktif</option>
                                         <option value="0" {{ $request->acepted == 0 ? 'selected' : '' }}>Tidak Aktif
@@ -97,7 +97,7 @@
                         <div class="col-sm-auto">
                             <div class="list-grid-nav">
                                 <form action="/menu-siswa">
-                                    <select name="gender" class="form-select" id="genderFilter">
+                                    <select name="gender" id="genderFilter">
                                         <option disabled selected>Jenis Kelamin</option>
                                         @foreach ($gendersOption as $gender)
                                             <option value="{{ $gender }}"
@@ -689,13 +689,22 @@
 @endsection
 
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
 
     <script>
         $(document).ready(function() {
             $("#message").modal('show');
+            $('#schoolFilter').select2({
+                width: 'style'
+            });
+            $('#acceptedFilter').select2({
+                minimumResultsForSearch: -1
+            });
+            $('#genderFilter').select2({
+                minimumResultsForSearch: -1
+            });
         });
     </script>
 
