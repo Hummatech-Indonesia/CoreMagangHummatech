@@ -48,7 +48,7 @@
                         <span class="hide-menu">Tim</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="/mentor/project-submission" aria-expanded="false">
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-topology-star-ring">
@@ -70,13 +70,13 @@
                             </span>
                         <span class="hide-menu">Pengajuan Projek</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/mentor/presentation" aria-expanded="false">
                         <span>
                             <i class="ti ti-slideshow"></i>
                         </span>
-                        <span class="hide-menu">Presentasi</span>
+                        <span class="hide-menu">Pengajuan Presentasi</span>
                     </a>
                 </li>
                 <li class="sidebar-item">

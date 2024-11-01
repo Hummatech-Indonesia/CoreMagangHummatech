@@ -11,9 +11,13 @@ class HummataskTeamMembers extends Model
     use HasFactory;
     protected $table = 'hummatask_teams_members';
     protected $guarded = ['id'];
-    
+
     public function presentation(): BelongsTo
     {
         return $this->belongsTo(Presentation::class, 'presentation_id');
+    }
+    public function users(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'member_id');
     }
 }

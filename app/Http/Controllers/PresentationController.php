@@ -52,8 +52,10 @@ class PresentationController extends Controller
     public function mentorshow()
     {
         $limits = $this->limits->get();
-        $presentations = $this->presentation->GetToday();
-        return view('mentor.presentation.index', compact('limits', 'presentations'));
+        $waitings = $this->presentation->whereStatus(StatusPresentationEnum::WAITING->value);
+        $rejected = $this->presentation->whereStatus(StatusPresentationEnum::NOTFINISH->value);
+        $ongoings = $this->presentation->whereStatus(StatusPresentationEnum::ONGOING->value);
+        return view('mentor.presentation.index', compact('limits','waitings','rejected','ongoings'));
     }
 
     /**

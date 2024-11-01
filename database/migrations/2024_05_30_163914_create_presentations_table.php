@@ -32,11 +32,11 @@ return new class extends Migration
                 PresentationTypeEnum::LIVECODING->value
             ]);
             $table->enum('status_presentation' , [
-                StatusPresentationEnum::FINISH->value ,
-                StatusPresentationEnum::NOTFINISH->value ,
-                StatusPresentationEnum::ONGOING->value ,
-                StatusPresentationEnum::PENNDING->value,
-                StatusPresentationEnum::WAITING->value
+                StatusPresentationEnum::FINISH->value , //selesai
+                StatusPresentationEnum::NOTFINISH->value , //ditolak
+                StatusPresentationEnum::ONGOING->value , //accepted
+                StatusPresentationEnum::PENNDING->value, //ditunda
+                StatusPresentationEnum::WAITING->value //mengajukan
             ])
                 ->default(StatusPresentationEnum::WAITING);
             $table->date('planning_date_presentation');
