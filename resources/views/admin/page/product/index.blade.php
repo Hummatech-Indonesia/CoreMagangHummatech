@@ -13,7 +13,7 @@
                 <div class="col-sm-4">
                     <h4 class="mx-5 pt-2">Daftar Paket</h4>
                 </div>
-                <div class="col-sm-auto d-flex ms-auto justify-content-evenly">
+                <div class="col-sm-auto d-flex justify-content-evenly ms-auto">
 
                     {{-- <form style="width: 300px; margin-top:5px;" action="/product" method="GET">
                     <div class="search-box mx-3">
@@ -54,46 +54,15 @@
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </form> --}}
-                    <form style="width: 300px; margin-top: 5px; margin-right: 15px" action="/product" method="GET"
-                        id="search-form">
-                        <div class="search-box mx-3 d-flex">
-                            <select class="js-example-basic-single" name="name">
-                                <option value="" @if (request()->name == '') selected @else disabled @endif>
-                                    Cari Paket
-                                </option>
-                                @foreach ($productsearch->groupBy('division.name') as $divisionName => $divisionProducts)
-                                    <optgroup label="{{ $divisionName }}">
-                                        @foreach ($divisionProducts as $product)
-                                            <option value="{{ $product->name }}"
-                                                {{ request()->name == $product->name ? 'selected' : '' }}>
-                                                {{ $product->name }}
-                                            </option>
-                                        @endforeach
-                                    </optgroup>
-                                @endforeach
-                                @if ($products->isEmpty())
-                                    <option value="" disabled>Tidak Ada Paket</option>
-                                @endif
-                            </select>
-
-                        <div class="ml-2">
-                            <div class="d-flex">
-                                <button class="btn btn-primary btn-sm ms-1" type="submit">Cari</button>
-                                <button class="btn btn-info btn-sm ms-1" type="button"
-                                    onclick="window.location.href='/product';"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-arrow-repeat" viewBox="0 0 16 16">
-                                        <path
-                                            d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9" />
-                                        <path fill-rule="evenodd"
-                                            d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z" />
-                                    </svg></button>
+                    <form id="search-form" action="/product"
+                        method="GET">
+                        <div class="search-box d-flex mx-3">
+                            <input class="form-control" id="searchMemberList" name="name" type="text"
+                                value="{{ request()->name }}" placeholder="Cari Paket...">
+                            <div class="ml-2"> <i class="ri-search-line search-icon"></i>
                             </div>
-
                         </div>
-                    </div>
                     </form>
-
 
                     @php
                         $unusedDivisionsExist = false;
