@@ -13,6 +13,7 @@ class Presentation extends Model
     use HasFactory;
     protected  $guarded = ['id'];
     protected $fillable = [
+        'urutan',
         'project_name',
         'mentor_id',
         'description',

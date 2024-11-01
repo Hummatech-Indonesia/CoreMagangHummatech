@@ -8,6 +8,7 @@ use App\Contracts\Interfaces\LimitPresentationInterface;
 use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\PresentationInterface;
 use App\Enum\StatusPresentationEnum;
+use App\Http\Requests\StatusPresentationRequest;
 use App\Http\Requests\StoreCallbackRequest;
 use App\Models\Presentation;
 use App\Http\Requests\StorePresentationRequest;
@@ -29,6 +30,7 @@ class PresentationController extends Controller
     private HummataskTeamInterface $hummataskTeam;
     private MentorDivisionInterface $mentorDivision;
     private CategoryProjectInterface $categoryProject;
+
     public function __construct(MentorDivisionInterface $mentorDivision, PresentationInterface $presentation, LimitPresentationInterface $limits, PresentationService $service, Project $project, HummataskTeamInterface $hummataskTeam, CategoryProjectInterface $categoryProject)
     {
         $this->presentation = $presentation;
@@ -38,6 +40,7 @@ class PresentationController extends Controller
         $this->mentorDivision = $mentorDivision;
         $this->categoryProject = $categoryProject;
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -49,6 +52,7 @@ class PresentationController extends Controller
         $limits = $this->limits->first();
         return view('admin.page.offline-students.presentation.index', compact('finisheds', 'pendings', 'ongoings', 'limits'));
     }
+
     public function mentorshow()
     {
         $limits = $this->limits->get();
@@ -56,7 +60,7 @@ class PresentationController extends Controller
         $rejected = $this->presentation->getPresentationByStatus(StatusPresentationEnum::NOTFINISH->value);
         $ongoings = $this->presentation->getPresentationByStatus(StatusPresentationEnum::ONGOING->value);
         $presentations = $this->presentation->getPresentationWithMembers();
-        return view('mentor.presentation.index', compact('limits','waitings','rejected','ongoings','presentations'));
+        return view('mentor.presentation.index', compact('limits', 'waitings', 'rejected', 'ongoings', 'presentations'));
     }
 
     /**
@@ -123,7 +127,6 @@ class PresentationController extends Controller
         }
 
 
-
         return view('admin.page.presentation.index', compact('categoryProject', 'presentations', 'monthlyPresentationCount', 'studentPresentationCount'));
     }
 
@@ -173,7 +176,6 @@ class PresentationController extends Controller
     }
 
 
-
     /**
      *
      * Remove the specified resource from storage.
@@ -200,7 +202,7 @@ class PresentationController extends Controller
 
         $histories = $this->presentation->getPresentationsByTeam($team->id);
 
-        return view('Hummatask.team.presentation', compact('hummataskTeam', 'presentations', 'limits', 'team','histories'));
+        return view('Hummatask.team.presentation', compact('hummataskTeam', 'presentations', 'limits', 'team', 'histories'));
     }
 
 
@@ -209,5 +211,20 @@ class PresentationController extends Controller
         $data = $request->validated();
         $this->presentation->update($presentation->id, $data);
         return back()->with('success', 'Berhasil memberi tanggapan');
+    }
+
+    public function changeStatus(StatusPresentationRequest $request)
+    {
+        $data = $request->validated();
+        $presentation = Presentation::find($data['presentation_id']);
+        $maxUrutan = Presentation::max('urutan');
+        if ($presentation && $presentation->update([
+                'status_presentation' => $data['status_presentation'],
+                'urutan' => $maxUrutan == 0 ? 1 : $maxUrutan + 1
+            ])) {
+            return back()->with('success', 'Berhasil merubah status');
+        } else {
+            return back()->with('error', 'Gagal merubah status');
+        }
     }
 }

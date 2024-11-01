@@ -121,9 +121,21 @@
                                         <td>{{ $waiting->end_date }}</td>
                                         <td>{{ ucwords($waiting->type_project) }}</td>
                                         <td class="d-flex gap-1">
-                                            <button class="btn btn-success"><i class="fa fa-check"></i></button>
+                                            <form action="{{ route('presentation.changeStatus') }}" method="post">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="presentation_id" value="{{ $waiting->id }}">
+                                                <input type="hidden" name="status_presentation" value="{{ \App\Enum\StatusPresentationEnum::ONGOING->value }}">
+                                                <button class="btn btn-success" type="submit"><i class="fa fa-check"></i></button>
+                                            </form>
                                             <button class="btn btn-warning"><i class="fa fa-clock"></i></button>
-                                            <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                                            <form action="{{ route('presentation.changeStatus') }}" method="post">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="presentation_id" value="{{ $waiting->id }}">
+                                                <input type="hidden" name="status_presentation" value="{{ \App\Enum\StatusPresentationEnum::NOTFINISH->value }}">
+                                                <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -161,9 +173,15 @@
                                     <td>{{ ucwords($presentation->type_project)  }}</td>
                                     <td>
                                         @if($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::FINISH->value)
-                                            <small class="p-2 rounded-pill text-success" style="background: rgba(19,222,185,.2)">Selesai</small>
+                                            <small class="p-2 rounded-pill text-success fw-bolder" style="background: rgba(19,222,185,.2)">Selesai</small>
                                         @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
                                             <small class="p-2 rounded-pill text-primary fw-bolder" style="background: rgba(93,135,255,.2)">Menunggu</small>
+                                        @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::PENNDING->value)
+                                            <small class="p-2 rounded-pill text-warning fw-bolder" style="background: rgba(255,174,31,.2)">Pending</small>
+                                        @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::NOTFINISH->value)
+                                            <small class="p-2 rounded-pill text-danger fw-bolder" style="background: rgb(250,137,107,.2)">Ditolak</small>
+                                        @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::ONGOING->value)
+                                            <small class="p-2 rounded-pill text-warning fw-bolder" style="background: rgba(255,174,31,.2)">Dalam Antrian</small>
                                         @endif
                                     </td>
                                 </tr>
