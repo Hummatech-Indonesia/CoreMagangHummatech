@@ -57,4 +57,6 @@ interface PresentationInterface extends GetInterface, StoreInterface, UpdateInte
 
     public function getPresentationWithMembers();
 
+    public function getPresentationByStatus(string $status, mixed $date): mixed;
+
 }

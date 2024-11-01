@@ -19,7 +19,7 @@ return new class extends Migration
             $table->id();
             $table->integer('urutan')->default(0);
             $table->string('project_name')->nullable();
-            $table->foreignId('mentor_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('mentor_id')->nullable()->constrained()->onDelete('set null');
             $table->text('description')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();

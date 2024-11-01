@@ -271,8 +271,17 @@ class PresentationRepository extends BaseRepository implements PresentationInter
 
     public function getPresentationWithMembers()
     {
-        return $this->model->with('members')
-            //    ->where('members.member')
+        return $this->model->with(['members','members.users'])
+            ->get();
+    }
+
+    public function getPresentationByStatus(string $status, mixed $date = null): mixed
+    {
+        $date = $date ?? Carbon::today();
+
+        return $this->model->with(['members','members.users'])
+            ->where('status_presentation', $status)
+            ->whereDate('planning_date_presentation', $date)
             ->get();
     }
 }

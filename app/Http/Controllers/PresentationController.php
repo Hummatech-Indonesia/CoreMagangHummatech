@@ -52,10 +52,11 @@ class PresentationController extends Controller
     public function mentorshow()
     {
         $limits = $this->limits->get();
-        $waitings = $this->presentation->whereStatus(StatusPresentationEnum::WAITING->value);
-        $rejected = $this->presentation->whereStatus(StatusPresentationEnum::NOTFINISH->value);
-        $ongoings = $this->presentation->whereStatus(StatusPresentationEnum::ONGOING->value);
-        return view('mentor.presentation.index', compact('limits','waitings','rejected','ongoings'));
+        $waitings = $this->presentation->getPresentationByStatus(StatusPresentationEnum::WAITING->value);
+        $rejected = $this->presentation->getPresentationByStatus(StatusPresentationEnum::NOTFINISH->value);
+        $ongoings = $this->presentation->getPresentationByStatus(StatusPresentationEnum::ONGOING->value);
+        $presentations = $this->presentation->getPresentationWithMembers();
+        return view('mentor.presentation.index', compact('limits','waitings','rejected','ongoings','presentations'));
     }
 
     /**

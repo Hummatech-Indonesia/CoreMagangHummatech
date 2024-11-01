@@ -75,15 +75,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($waitings as $waiting)
-                                    <tr data-student-id="{{ $waiting->id }}">
+                                @foreach ($ongoings as $ongoing)
+                                    <tr data-student-id="{{ $ongoing->id }}">
                                         <td></td>
-                                        <td>{{ $waiting->urutan }}</td>
-                                        <td>{{ $waiting->project_name }}</td>
-                                        <td>{{ $waiting->description }}</td>
-                                        <td>{{ $waiting->start_date }}</td>
-                                        <td>{{ $waiting->end_date }}</td>
-                                        <td>{{ $waiting->type_project }}</td>
+                                        <td>{{ $ongoing->urutan }}</td>
+                                        <td>{{ $ongoing->project_name }}</td>
+                                        <td>{{ $ongoing->description }}</td>
+                                        <td>{{ $ongoing->start_date }}</td>
+                                        <td>{{ $ongoing->end_date }}</td>
+                                        <td>{{ $ongoing->type_project }}</td>
                                         <td>...</td>
                                     </tr>
                                 @endforeach
@@ -99,7 +99,6 @@
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Urutan</th>
                                     <th>Nama Project</th>
                                     <th>Nama Ketua</th>
                                     <th>Deskripsi</th>
@@ -113,13 +112,9 @@
                                 @foreach ($waitings as $waiting)
                                     <tr data-student-id="{{ $waiting->id }}">
                                         <td></td>
-                                        <td>{{ $waiting->urutan }}</td>
                                         <td>{{ $waiting->project_name }}</td>
                                         <td>
-                                            @foreach ($waiting->members as $member)
-                                            <p>{{ $member->users->name }}</p>
-                                            @endforeach
-
+                                            {{ \App\Models\User::find(collect($waiting->members)->where('status',\App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
                                         </td>
                                         <td>{{ $waiting->description }}</td>
                                         <td>{{ $waiting->start_date }}</td>
@@ -136,104 +131,36 @@
             <div class="tab-pane" id="done" role="tabpanel">
                 <div class="card card-body">
                     <div class="table-responsive">
-                        {{-- <table class="table search-table align-middle text-nowrap">
-                            <thead class="header-item">
-                                <tr>
-                                    <th>Jadwal</th>
-                                    <th>Jam</th>
-                                    <th>Tim</th>
-                                    <th>Judul Presentasi</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
+                        <table id="dataTablePresentasion2" class="stripe row-border order-column nowrap" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nama Project</th>
+                                <th>Nama Ketua</th>
+                                <th>Deskripsi</th>
+                                <th>Tanggal Mulai</th>
+                                <th>Batas Waktu</th>
+                                <th>Tipe Project</th>
+                                <th></th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @forelse ($presentations as $presentation)
-                                    <tr class="search-items">
-                                        <td>
-                                            <h6>
-                                                {{$presentation ? $presentation->schedule_to : ''}}
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <h6>
-                                                {{$presentation ? $presentation->start_date : ''}} -  {{$presentation ? $presentation->end_date : ''}}
-
-                                            </h6>
-                                        </td>
-                                        <td class="d-flex">
-                                            <div class="n-chk align-self-center text-center">
-                                                @if ($presentation->hummataskTeam && $presentation->hummataskTeam->hummatask_team_id && $presentation->hummataskTeam->hummatask_team)
-                                                    <img src="{{ asset('storage/' . $presentation->hummataskTeam->hummatask_team) }}"
-                                                        alt="avatar" class="rounded-circle" width="35" height="35">
-                                                @elseif ($presentation->hummataskTeam && !$presentation->hummataskTeam->hummatask_team_id)
-                                                    <img src="{{ asset('user.webp') }}" alt="default avatar"
-                                                        class="rounded-circle" width="35" height="35">
-                                                @endif
-
-                                            </div>
-
-                                            <div class="ms-3">
-                                                <div class="user-meta-info">
-                                                    <h6 class="user-name mb-0" data-name="Emma Adams">
-                                                        {{ $presentation->hummataskTeam ? $presentation->hummataskTeam->name : 'Belum ada tim yang memilih' }}
-                                                    </h6>
-                                                    <span class="user-work fs-3">
-                                                        {{ $presentation->hummataskTeam && $presentation->hummataskTeam->categoryProject ? $presentation->hummataskTeam->categoryProject->name : 'Belum ada tim yang memilih' }}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h6 class="usr-email-addr">
-                                                {{$presentation ? $presentation->title : ''}}
-                                            </h6>
-                                        </td>
-                                        <td>
-                                            <h6>
-                                                @if ($presentation)
-                                                    <span class="badge bg-{{$presentation->status_presentation?->color()}}">
-                                                        {{$presentation->status_presentation?->label()}}
-                                                    </span>
-                                                @endif
-                                            </h6>
-                                        </td>
-                                        <td class=" gap-2 justify-content-center">
-                                            @if($presentation->hummatask_team_id)
-                                                <button class="text-primary show-btn badge border-0 bg-light-primary"
-                                                    data-id="{{ $presentation->id }}"
-                                                    data-title="{{ $presentation->title }}"
-                                                    data-description="{{ $presentation->description }}"
-                                                    data-date="{{ \Carbon\Carbon::parse($presentation->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}"
-                                                    data-callback="{{ $presentation->callback != null ? $presentation->callback : 'Belum ada tanggapan' }}"
-                                                    >
-                                                    <i class="ti ti-eye fs-5"></i>
-                                                </button>
-                                                <button class="text-warning callback-btn badge border-0 bg-light-warning"
-                                                    data-id="{{ $presentation->id }}"
-                                                    >
-                                                    <i class="ti ti-send fs-5"></i>
-                                                </button>
-                                            @endif
-                                        </td>
-
-                                    </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="8">
-                                        <div class="d-flex justify-content-center mt-3">
-                                            <img src="{{ asset('no data.png') }}" width="200px"
-                                                alt="">
-                                        </div>
-                                        <h4 class="text-center mt-2 mb-4">
-                                            Data Masih kosong
-                                        </h4>
+                            @foreach ($presentations as $presentation)
+                                <tr data-student-id="{{ $presentation->id }}">
+                                    <td></td>
+                                    <td>{{ $presentation->project_name }}</td>
+                                    <td>
+                                        {{ \App\Models\User::find(collect($presentation->members)->where('status',\App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
                                     </td>
+                                    <td>{{ $presentation->description }}</td>
+                                    <td>{{ $presentation->start_date }}</td>
+                                    <td>{{ $presentation->end_date }}</td>
+                                    <td>{{$presentation->type_project }}</td>
+                                    <td>...</td>
                                 </tr>
-                                @endforelse
+                            @endforeach
                             </tbody>
                         </table>
-                        {{$presentations->links()}} --}}
                     </div>
                 </div>
             </div>
