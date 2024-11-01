@@ -61,7 +61,7 @@
             <div class="tab-pane active" id="antrian" role="tabpanel">
                 <div class="card card-body">
                     <div class="table-responsive">
-                        <table id="dataTablePresentasion1" class="stripe row-border order-column nowrap" style="width:100%">
+                        <table id="dataTablePresentasion1" class="table stripe row-border order-column nowrap" style="width:100%">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -83,7 +83,7 @@
                                         <td>{{ $ongoing->description }}</td>
                                         <td>{{ $ongoing->start_date }}</td>
                                         <td>{{ $ongoing->end_date }}</td>
-                                        <td>{{ $ongoing->type_project }}</td>
+                                        <td>{{ ucwords($ongoing->type_project) }}</td>
                                         <td>...</td>
                                     </tr>
                                 @endforeach
@@ -95,7 +95,7 @@
             <div class="tab-pane" id="request" role="tabpanel">
                 <div class="card card-body">
                     <div class="table-responsive">
-                        <table id="dataTablePresentasion2" class="stripe row-border order-column nowrap" style="width:100%">
+                        <table id="dataTablePresentasion2" class="table stripe row-border order-column nowrap" style="width:100%">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -119,8 +119,12 @@
                                         <td>{{ $waiting->description }}</td>
                                         <td>{{ $waiting->start_date }}</td>
                                         <td>{{ $waiting->end_date }}</td>
-                                        <td>{{ $waiting->type_project }}</td>
-                                        <td>...</td>
+                                        <td>{{ ucwords($waiting->type_project) }}</td>
+                                        <td class="d-flex gap-1">
+                                            <button class="btn btn-success"><i class="fa fa-check"></i></button>
+                                            <button class="btn btn-warning"><i class="fa fa-clock"></i></button>
+                                            <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -131,16 +135,16 @@
             <div class="tab-pane" id="done" role="tabpanel">
                 <div class="card card-body">
                     <div class="table-responsive">
-                        <table id="dataTablePresentasion2" class="stripe row-border order-column nowrap" style="width:100%">
+                        <table id="dataTablePresentasion2" class="table stripe row-border order-column nowrap" style="width:100%">
                             <thead>
                             <tr>
                                 <th></th>
                                 <th>Nama Project</th>
                                 <th>Nama Ketua</th>
                                 <th>Deskripsi</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Batas Waktu</th>
+                                <th>Tanggal Presentasi</th>
                                 <th>Tipe Project</th>
+                                <th>Status</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -153,10 +157,15 @@
                                         {{ \App\Models\User::find(collect($presentation->members)->where('status',\App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
                                     </td>
                                     <td>{{ $presentation->description }}</td>
-                                    <td>{{ $presentation->start_date }}</td>
-                                    <td>{{ $presentation->end_date }}</td>
-                                    <td>{{$presentation->type_project }}</td>
-                                    <td>...</td>
+                                    <td>{{ $presentation->planning_date_presentation }}</td>
+                                    <td>{{ ucwords($presentation->type_project)  }}</td>
+                                    <td>
+                                        @if($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::FINISH->value)
+                                            <small class="p-2 rounded-pill text-success" style="background: rgba(19,222,185,.2)">Selesai</small>
+                                        @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
+                                            <small class="p-2 rounded-pill text-primary fw-bolder" style="background: rgba(93,135,255,.2)">Menunggu</small>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
