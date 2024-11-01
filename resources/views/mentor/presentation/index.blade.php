@@ -1,6 +1,32 @@
 @extends('mentor.layouts.app')
 @section('content')
 
+    <div class="modal fade" id="pending-date" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Tunda Presentasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('presentation.changeStatus') }}" method="post" id="pendingForm">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-body">
+                        <input type="hidden" name="presentation_id" value="" id="inputPresentationId">
+                        <input type="hidden" name="status_presentation" value="{{ \App\Enum\StatusPresentationEnum::PENNDING->value }}" />
+                        <input type="date" name="planning_presentation_date" value="" id="inputPresentationDate" class="form-control">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-danger text-danger" data-bs-dismiss="modal">Tutup
+                        </button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="container-fluid note-has-grid">
         <div class="card bg-light-info shadow-none position-relative overflow-hidden">
             <div class="card-body px-4 py-3">
@@ -128,7 +154,11 @@
                                                 <input type="hidden" name="status_presentation" value="{{ \App\Enum\StatusPresentationEnum::ONGOING->value }}">
                                                 <button class="btn btn-success" type="submit"><i class="fa fa-check"></i></button>
                                             </form>
-                                            <button class="btn btn-warning"><i class="fa fa-clock"></i></button>
+
+                                            <button class="btn btn-warning" onclick="showModalPending({{ $waiting->id }})">
+                                                <i class="fa fa-clock"></i>
+                                            </button>
+
                                             <form action="{{ route('presentation.changeStatus') }}" method="post">
                                                 @csrf
                                                 @method('PUT')
@@ -217,5 +247,13 @@
                 }
             });
         }
+
+        function showModalPending(idPresentation) {
+            // Set nilai ID presentasi di input hidden
+            $('#inputPresentationId').val(idPresentation);
+            // Tampilkan modal
+            $('#pending-date').modal('show');
+        }
+
     </script>
 @endsection

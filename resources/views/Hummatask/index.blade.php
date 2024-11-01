@@ -153,7 +153,7 @@
                     <div class="card-header bg-transparent d-flex align-items-end gap-2 position-relative">
                         <div class="position-absolute d-flex gap-1" style="top:10px; right:20px">
                             <div class="urutan rounded-2 fs-2 p-2 fw-bolder text-white" style="background: #7E7E7E">
-                                01
+                                {{ str_pad($presentation->urutan, 2, "0", STR_PAD_LEFT) }}
                             </div>
                             <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal-{{ $presentation->id }}">
                                 <svg width="15" height="17" viewBox="0 0 15 17" fill="none"
