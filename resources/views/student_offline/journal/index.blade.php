@@ -387,11 +387,11 @@
         </div>
     </div>
 </div>
-@if (session('error'))
+{{--  @if (session('error'))
     <script>
         alert('{{ session('error') }}')
     </script>
-@endif
+@endif  --}}
 <div class="modal fade" id="modal-edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">

@@ -7,21 +7,24 @@
                     <h4 class="mx-5 pt-2">Jadwal Zoom</h4>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
-                    <form  style="width: 300px; margin-top:5px;" action="/administrator/zoom-schedules">
-                        <div class="search-box mx-3">
+                    <form style="width: 300px; margin-top: 5px; margin-right: 10px" action="/administrator/zoom-schedules">
+                        <div class="search-box mx-3 d-flex">
                             <select class="js-example-basic-single" name="title">
-                                <option value="" disabled {{ request()->title ? '' : 'selected' }}>  Cari Zoom...</option>
+                                <option value="" disabled {{ request()->title ? '' : 'selected' }}>Cari Zoom...</option>
                                 @forelse ($zoomSchedulesSearch as $zoomSchedule)
                                     <option value="{{ $zoomSchedule->title }}" {{ request()->title == $zoomSchedule->title ? 'selected' : '' }}>
-                                        {{ $zoomSchedule->title }}</option>
+                                        {{ $zoomSchedule->title }}
+                                    </option>
                                 @empty
                                 @endforelse
                             </select>
+                            <button class="btn btn-primary btn-sm ms-1" type="submit">Submit</button>
+                            <button class="btn btn-info btn-sm ms-1" type="button" onclick="window.location.href='/administrator/zoom-schedules';"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9"/>
+                                <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
+                              </svg></button>
                         </div>
-                        <button class="btn btn-primary" type="submit">Submit</button>
                     </form>
-
-
                     <div class="list-grid-nav hstack gap-1">
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
                             Tambah Data
@@ -234,7 +237,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> --}}
     <script src="{{ asset('assets/libs/jquery/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/libs/select2/select2.min.js') }}"></script>
-    
+
     <script>
         // In your Javascript (external .js resource or <script> tag)
         $(document).ready(function() {
