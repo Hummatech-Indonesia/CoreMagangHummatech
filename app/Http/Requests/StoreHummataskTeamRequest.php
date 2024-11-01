@@ -33,7 +33,7 @@ class StoreHummataskTeamRequest extends FormRequest
                         PresentationTypeEnum::INTERVIEW->value,
                         PresentationTypeEnum::LIVECODING->value
                     ];
-                    return !in_array(request()->input('projectCategory'), $optionalCategories);
+                    return !in_array(request()->input('type_project'), $optionalCategories);
                 }),
             ],
             'planning_date_presentation' => 'required|date',
