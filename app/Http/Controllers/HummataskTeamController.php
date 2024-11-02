@@ -85,6 +85,12 @@ class HummataskTeamController extends Controller
         return view('Hummatask.index', compact('categoryProject', 'students', 'presentations'));
     }
 
+    public function detailPresentation(Presentation $presentation)
+    {
+        $students = $this->hummataskMemberPresentation->getStudentByPresentation($presentation);
+        return view('Hummatask.detail-presentation', compact( 'students', 'presentation'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

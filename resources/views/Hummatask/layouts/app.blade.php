@@ -14,17 +14,20 @@
     <meta name="keywords" content="Mordenize" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/png"
-        href="{{ asset('mobilelogo.png') }}" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('mobilelogo.png') }}" />
     <!-- Owl Carousel -->
     <link rel="stylesheet" href="{{ asset('assets-user/dist/libs/owl.carousel/dist/assets/owl.carousel.min.css') }}">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <!-- Core Css -->
     <link id="themeColors" rel="stylesheet" href="{{ asset('assets-user/dist/css/style.min.css') }}" />
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/5.0.3/css/fixedColumns.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/2.1.0/css/select.dataTables.css">
     @yield('style')
 </head>
 
@@ -45,7 +48,7 @@
         @include('Hummatask.layouts.header')
         <!-- Header End -->
         <!-- Sidebar Start -->
-        @include('Hummatask.layouts.sidebar')
+        @yield('sidebar')
         <!-- Sidebar End -->
         <!-- Main wrapper -->
         <div class="body-wrapper">

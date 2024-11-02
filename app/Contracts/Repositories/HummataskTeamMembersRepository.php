@@ -14,4 +14,8 @@ class HummataskTeamMembersRepository extends BaseRepository implements Hummatask
     {
         return $this->model->query()->insert($data);
     }
+    public function getStudentByPresentation(mixed $data): mixed
+    {
+        return $this->model->where('presentation_id', $data->id)->get();
+    }
 }
