@@ -2,6 +2,8 @@
 
 namespace App\Contracts\Repositories;
 
+use App\Enum\PresentationTypeEnum;
+use App\Enum\StatusPresentationEnum;
 use DB;
 use Carbon\Carbon;
 use App\Models\Thesis;
@@ -265,6 +267,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->whereHas('members', function ($query) use ($studentId) {
                 $query->where('member_id', $studentId);
             })
+            ->orderBy('created_at', 'desc')
             ->get();
     }
 
@@ -280,8 +283,46 @@ class PresentationRepository extends BaseRepository implements PresentationInter
 
         return $this->model->with(['members','members.users'])
             ->where('status_presentation', $status)
+            ->where('division_id',auth()->user()->mentor->division_id)
             ->whereDate('planning_date_presentation', $date)
             ->get();
     }
 
+    public function upcomingproject(int $userId): mixed
+    {
+        $lastProject = $this->model->query()
+            ->whereHas('members', function($query) use ($userId) {
+                $query->where('member_id', $userId);
+            })
+            ->orderBy('planning_date_presentation', 'desc')
+            ->first()->type_project ?? '';
+        switch ($lastProject) {
+            case PresentationTypeEnum::SOLO->value:
+                return 5;
+            case PresentationTypeEnum::PREMINI->value:
+                return 4;
+            case PresentationTypeEnum::INTERVIEW->value:
+                return 3;
+            case PresentationTypeEnum::LIVECODING->value:
+                return 2;
+            case PresentationTypeEnum::MINI->value:
+                return 1;
+            case PresentationTypeEnum::BIG->value:
+                return 0;
+            default:
+                return 6;
+        }
+    }
+
+    public function getQueuePresentationByUser(int $idUser)
+    {
+        return $this->model->query()
+            ->where('planning_date_presentation', Carbon::today())
+            ->where('status_presentation',StatusPresentationEnum::ONGOING->value)
+            ->whereHas('members', function($query) use ($idUser) {
+                return $query->where('member_id', $idUser);
+            })
+            ->orderBy('created_at', 'asc')
+            ->first()->urutan ?? 0;
+    }
 }

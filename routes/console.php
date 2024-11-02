@@ -12,3 +12,4 @@ Artisan::command('inspire', function () {
 Schedule::command('command:journal')->dailyAt('23:59');
 Schedule::command('update:alumni')->dailyAt('23:59');
 Schedule::command('run:wfh')->dailyAt('01:00');
+Schedule::command('app:refresh-queue-presentation')->dailyAt('23:59');
