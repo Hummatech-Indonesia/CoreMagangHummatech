@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('hummatask_teams_members', function (Blueprint $table) {
             $table->id();
             $table->foreignId('presentation_id')->references('id')->on('presentations')->cascadeOnDelete();
-            $table->foreignId('member_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('member_id')->constrained('students')->cascadeOnDelete();
             $table->enum('status',[
                 \App\Enum\StatusMemberTeamEnum::Member->value,
                 \App\Enum\StatusMemberTeamEnum::Leader->value

@@ -89,8 +89,6 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
 
-                                {{ dd($students) }}
-
                                 <div id="memberSection">
                                     <label for="" class="mt-4 mb-2 d-block">Anggota Tim</label>
                                     <select class="js-example-basic-multiple d-block w-100" name="members[]"

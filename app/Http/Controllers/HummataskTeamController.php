@@ -82,7 +82,7 @@ class HummataskTeamController extends Controller
     {
         $categoryProject = $this->categoryProject->get();
         $students = $this->student->getStudentAccepted()->pluck('name', 'id');
-        $presentations = $this->presentation->getPresentationsByStudentId(auth()->user()->id);
+        $presentations = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id);
 
         $totalPresentation = $this->presentation->getPresentationsByStudentId(auth()->user()->id)->count();
         $upcomingProject = $this->presentation->upcomingproject(auth()->user()->id);
@@ -115,9 +115,10 @@ class HummataskTeamController extends Controller
         $presentation = $this->presentation->store($validated);
 //        if ($validated['members'] && is_array($validated['members'])){
         $members = [];
+    // dd(auth()->user()->student_id);
         $members[] = [
             'presentation_id' => $presentation->id,
-            'member_id' => auth()->user()->id,
+            'member_id' => auth()->user()->student_id,
             'status' => StatusMemberTeamEnum::Leader->value
         ];
         if (isset($validated['members']) && is_array($validated['members'])){

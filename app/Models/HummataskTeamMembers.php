@@ -16,8 +16,8 @@ class HummataskTeamMembers extends Model
     {
         return $this->belongsTo(Presentation::class, 'presentation_id');
     }
-    public function users(): BelongsTo
+    public function students(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'member_id');
+        return $this->belongsTo(Student::class, 'member_id');
     }
 }
