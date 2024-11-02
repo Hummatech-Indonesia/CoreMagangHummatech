@@ -17,6 +17,7 @@ use App\Models\HummataskTeam;
 use App\Models\LimitPresentation;
 use App\Models\Mentor;
 use App\Models\Project;
+use App\Models\QueuePresentation;
 use App\Services\PresentationService;
 use Carbon;
 use DB;
@@ -56,11 +57,13 @@ class PresentationController extends Controller
     public function mentorshow()
     {
         $limits = $this->limits->get();
-        $waitings = $this->presentation->getPresentationByStatus(StatusPresentationEnum::WAITING->value);
+        $waitings = $this->presentation->getPresentationByStatus(StatusPresentationEnum::WAITING->value)
+            ->merge($this->presentation->getPresentationByStatus(StatusPresentationEnum::PENNDING->value));
         $rejected = $this->presentation->getPresentationByStatus(StatusPresentationEnum::NOTFINISH->value);
         $ongoings = $this->presentation->getPresentationByStatus(StatusPresentationEnum::ONGOING->value);
+        $finisheds = $this->presentation->getPresentationByStatus(StatusPresentationEnum::FINISH->value);
         $presentations = $this->presentation->getPresentationWithMembers();
-        return view('mentor.presentation.index', compact('limits', 'waitings', 'rejected', 'ongoings', 'presentations'));
+        return view('mentor.presentation.index', compact('limits', 'waitings', 'rejected', 'ongoings', 'presentations','finisheds'));
     }
 
     /**
@@ -217,14 +220,54 @@ class PresentationController extends Controller
     {
         $data = $request->validated();
         $presentation = Presentation::find($data['presentation_id']);
-        $maxUrutan = Presentation::max('urutan');
-        if ($presentation && $presentation->update([
-                'status_presentation' => $data['status_presentation'],
-                'urutan' => $maxUrutan == 0 ? 1 : $maxUrutan + 1
-            ])) {
-            return back()->with('success', value: 'Berhasil merubah status');
-        } else {
-            return back()->with('error', 'Gagal merubah status');
+
+        if (!$presentation) {
+            return back()->with('error', 'Data presentasi tidak ditemukan');
         }
+
+        \Illuminate\Support\Facades\DB::transaction(function () use ($presentation, $data) {
+            // Update status_presentation terlebih dahulu
+            $presentation->update([
+                'status_presentation' => $data['status_presentation'],
+                'mentor_id' => auth()->user()->id
+            ]);
+
+            if ($data['status_presentation'] == StatusPresentationEnum::ONGOING->value) {
+                // Hitung max urutan, jika tidak ada maka mulai dari 1
+                $maxUrutan = Presentation::query()
+                    ->where('planning_date_presentation', Carbon::today())
+                    ->max('urutan') ?? 0;
+                $presentation->update([
+                    'urutan' => $maxUrutan + 1
+                ]);
+
+                // Update queue dalam QueuePresentation
+                $queuePresentation = QueuePresentation::first();
+                if ($queuePresentation && $queuePresentation->queue == 0) {
+                    $queuePresentation->update([
+                        'queue' => $queuePresentation->queue + 1
+                    ]);
+                }
+            }
+        });
+
+        return back()->with('success', value: 'Berhasil merubah status');
+
+    }
+
+    public function presentationDone(Request $request, int $presentation)
+    {
+        $presentation = Presentation::find($presentation);
+        $queuePresentation = QueuePresentation::first();
+        if($presentation){
+            $presentation->update([
+                'status_presentation' => StatusPresentationEnum::FINISH->value
+            ]);
+            $queuePresentation->update([
+                'queue' => $queuePresentation->queue + 1
+            ]);
+            return back()->with('success', value: 'Berhasil merubah status');
+        }
+        return back()->with('error',  value: 'Gagal merubah status');
     }
 }

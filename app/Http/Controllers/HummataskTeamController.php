@@ -22,6 +22,7 @@ use App\Http\Requests\StoreSoloProjectRequest;
 use App\Http\Requests\UpdateHummataskTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use App\Models\MentorStudent;
+use App\Models\QueuePresentation;
 use App\Services\HummataskTeamService;
 use App\Services\ProjectService;
 use App\Services\StudentProjectService;
@@ -82,7 +83,12 @@ class HummataskTeamController extends Controller
         $categoryProject = $this->categoryProject->get();
         $students = $this->student->getStudentAccepted()->pluck('name', 'id');
         $presentations = $this->presentation->getPresentationsByStudentId(auth()->user()->id);
-        return view('Hummatask.index', compact('categoryProject', 'students', 'presentations'));
+
+        $totalPresentation = $this->presentation->getPresentationsByStudentId(auth()->user()->id)->count();
+        $upcomingProject = $this->presentation->upcomingproject(auth()->user()->id);
+        $queuePresentation = QueuePresentation::first()->queue ?? 1;
+        $myQueuePresentation = $this->presentation->getQueuePresentationByUser(auth()->user()->id);
+        return view('Hummatask.index', compact('categoryProject', 'students', 'presentations','totalPresentation','upcomingProject','queuePresentation', 'myQueuePresentation'));
     }
 
     public function detailPresentation(Presentation $presentation)
@@ -105,6 +111,7 @@ class HummataskTeamController extends Controller
     public function store(StoreHummataskTeamRequest $request)
     {
         $validated = $request->validated();
+        $validated['division_id'] = auth()->user()->student->division_id;
         $presentation = $this->presentation->store($validated);
 //        if ($validated['members'] && is_array($validated['members'])){
         $members = [];

@@ -59,4 +59,7 @@ interface PresentationInterface extends GetInterface, StoreInterface, UpdateInte
 
     public function getPresentationByStatus(string $status, mixed $date): mixed;
 
+    public function upcomingproject(int $userId): mixed;
+
+    public function getQueuePresentationByUser(int $userId);
 }
