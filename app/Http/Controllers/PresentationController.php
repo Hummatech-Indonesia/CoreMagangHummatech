@@ -251,7 +251,7 @@ class PresentationController extends Controller
             }
         });
 
-        return back()->with('success', 'Berhasil merubah status');
+        return back()->with('success', value: 'Berhasil merubah status');
 
     }
 
@@ -266,8 +266,8 @@ class PresentationController extends Controller
             $queuePresentation->update([
                 'queue' => $queuePresentation->queue + 1
             ]);
-            return back()->with('success', 'Berhasil merubah status');
+            return back()->with('success', value: 'Berhasil merubah status');
         }
-        return back()->with('error', 'Gagal merubah status');
+        return back()->with('error',  value: 'Gagal merubah status');
     }
 }

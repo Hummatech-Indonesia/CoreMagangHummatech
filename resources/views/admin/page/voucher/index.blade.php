@@ -8,14 +8,14 @@
                     <h5 class="mx-1 m-0 fw-bold h-4 align-items-center">Kode Voucher</h5>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
-                    <div class="search-box mx-2">
-                        <select name="" id="" class="form-select">
+                    <div class="search-box mx-2 mt-1">
+                        <select name="" class="search2" id="">
                             <option value="">Terbaru</option>
                             <option value="">Terlama</option>
                         </select>
                     </div>
-                    <div class="search-box mx-2">
-                        <select name="" id="" class="form-select">
+                    <div class="search-box mx-2 me-3 mt-1">
+                        <select name="" class="search2" id="">
                             <option value="">Tersedia</option>
                             <option value="">Kadaluarsa</option>
                         </select>
@@ -137,11 +137,14 @@
 @endsection
 
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
 
     <script>
+        $('.search2').select2({
+            minimumResultsForSearch: -1
+        });
         $('.btn-delete').click(function() {
             var id = $(this).data('id');
             $('#form-delete').attr('action', '/voucher/delete/' + id);
