@@ -273,7 +273,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
 
     public function getPresentationWithMembers()
     {
-        return $this->model->with(['members','members.students'])
+        return $this->model->with(['members', 'members.students'])
             ->get();
     }
 
@@ -281,9 +281,9 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     {
         $date = $date ?? Carbon::today();
 
-        return $this->model->with(['members','members.users'])
+        return $this->model->with(['students', 'students.users'])
             ->where('status_presentation', $status)
-            ->where('division_id',auth()->user()->mentor->division_id)
+            ->where('division_id', auth()->user()->mentor->division_id)
             ->whereDate('planning_date_presentation', $date)
             ->get();
     }
@@ -291,10 +291,10 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     public function upcomingproject(int $userId): mixed
     {
         $lastProject = $this->model->query()
-            ->whereHas('members', function($query) use ($userId) {
+            ->whereHas('members', function ($query) use ($userId) {
                 $query->where('member_id', $userId);
             })
-            ->orderBy('planning_date_presentation', 'desc')
+            ->orderBy('created_at', 'desc')
             ->first()->type_project ?? '';
         switch ($lastProject) {
             case PresentationTypeEnum::SOLO->value:
@@ -318,11 +318,11 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     {
         return $this->model->query()
             ->where('planning_date_presentation', Carbon::today())
-            ->where('status_presentation',StatusPresentationEnum::ONGOING->value)
-            ->whereHas('members', function($query) use ($idUser) {
+            ->where('status_presentation', StatusPresentationEnum::ONGOING->value)
+            ->whereHas('members', function ($query) use ($idUser) {
                 return $query->where('member_id', $idUser);
             })
-            ->orderBy('created_at', 'asc')
+            ->orderBy('updated_at', 'asc')
             ->first()->urutan ?? 0;
     }
 }

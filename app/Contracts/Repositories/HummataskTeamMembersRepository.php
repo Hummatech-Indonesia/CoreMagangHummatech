@@ -21,8 +21,11 @@ class HummataskTeamMembersRepository extends BaseRepository implements Hummatask
 
     public function update(mixed $id, array $data): mixed
     {
-        return $this->model->query()
-            ->findOrFail($id)
-            ->update($data);
+        foreach ($data as $value) {
+            $this->model
+                ->where('presentation_id', $id)
+                ->delete();
+        }
+        return $this->store($data);
     }
 }

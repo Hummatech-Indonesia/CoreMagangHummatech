@@ -85,10 +85,10 @@ class HummataskTeamController extends Controller
         $categoryProject = $this->categoryProject->get();
         $students = $this->student->getStudentAccepted()->where('id', '!=', auth()->user()->student_id)->pluck('name', 'id');
         $presentations = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id);
-        $totalPresentation = $this->presentation->getPresentationsByStudentId(auth()->user()->id)->count();
-        $upcomingProject = $this->presentation->upcomingproject(auth()->user()->id);
+        $totalPresentation = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id)->count();
+        $upcomingProject = $this->presentation->upcomingproject(auth()->user()->student_id);
         $queuePresentation = QueuePresentation::first()->queue ?? 1;
-        $myQueuePresentation = $this->presentation->getQueuePresentationByUser(auth()->user()->id);
+        $myQueuePresentation = $this->presentation->getQueuePresentationByUser(auth()->user()->student_id);
         return view('Hummatask.index', compact('categoryProject', 'students', 'presentations', 'totalPresentation', 'upcomingProject', 'queuePresentation', 'myQueuePresentation'));
     }
 
@@ -202,9 +202,9 @@ class HummataskTeamController extends Controller
     {
         try {
             $this->presentation->delete($presentation->id);
-            return back()->with('success', 'Berhasil Menghapus Data');
+            return redirect()->back()->with('success', 'Berhasil Menghapus Data');
         } catch (\Throwable $th) {
-            return back()->with('warning', 'Gagal Menghapus Data, ' . $th->getMessage());
+            return redirect()->back()->with('warning', 'Gagal Menghapus Data, ' . $th->getMessage());
         }
     }
 
@@ -268,14 +268,12 @@ class HummataskTeamController extends Controller
         return view('mentor.team.edit', compact('team', 'categoryProjects', 'students', 'project', 'studentTeams'));
     }
 
-    public function updatePresentation(UpdateHummataskTeamRequest $request, Presentation $presentation)
+    public function updatePresentation(UpdateHummataskTeamRequest $request)
     {
-        // dd($request);
         $validated = $request->validated();
         $validated['division_id'] = auth()->user()->student->division_id;
-
-        $this->presentation->update($presentation, $validated);
-        dd($validated);
+        $presentation = Presentation::find($request->id);
+        $presentation->update($validated);
 
         $members = [];
         $members[] = [
@@ -293,10 +291,8 @@ class HummataskTeamController extends Controller
                 ];
             }
         }
-
-        $this->hummataskMemberPresentation->update($presentation->id, $members);
-
-        return redirect()->to_route('presentation.')->with('success', 'Team berhasil diperbarui');
+        $this->hummataskMemberPresentation->update($request->id, $members);
+        return redirect()->to('dashboard/task/detail/' . $request->id)->with('success', value: 'Team berhasil diperbarui');
     }
 
 }

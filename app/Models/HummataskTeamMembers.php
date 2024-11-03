@@ -11,6 +11,7 @@ class HummataskTeamMembers extends Model
     use HasFactory;
     protected $table = 'hummatask_teams_members';
     protected $guarded = ['id'];
+    public $timestamps = false;
 
     public function presentation(): BelongsTo
     {
