@@ -18,4 +18,11 @@ class HummataskTeamMembersRepository extends BaseRepository implements Hummatask
     {
         return $this->model->where('presentation_id', $data->id)->get();
     }
+
+    public function update(mixed $id, array $data): mixed
+    {
+        return $this->model->query()
+            ->findOrFail($id)
+            ->update($data);
+    }
 }

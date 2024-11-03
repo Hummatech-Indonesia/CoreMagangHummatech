@@ -1,5 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HummataskTeamController;
 
-Route::delete('/presentations/{presentation}', [\App\Http\Controllers\HummataskTeamController::class, 'destroy'])->name('presentations.destroy');
+Route::put('presentation/update/{presentation}', [HummataskTeamController::class, 'updatePresentation'])->name('presentation-detail.update');
+Route::delete('/presentations/{presentation}', [HummataskTeamController::class, 'destroy'])->name('presentations.destroy');

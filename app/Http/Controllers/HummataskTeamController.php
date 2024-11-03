@@ -48,18 +48,20 @@ class HummataskTeamController extends Controller
     private HummataskTeamMembersInterface $hummataskMemberPresentation;
 
     public function __construct(
-        HummataskTeamInterface        $hummatask_team, HummataskTeamService $service,
-        ProjectService                $projectService, ProjectInterface $project,
-        StudentProjectService         $studentProjectService, StudentProjectInterface $studentProject,
-        CategoryProjectInterface      $categoryProject,
-        StudentInterface              $student,
-        MentorDivisionInterface       $mentordivision,
-        StudentTeamInterface          $studentTeam,
-        MentorStudentInterface        $mentorStudent,
-        PresentationInterface         $presentation,
+        HummataskTeamInterface $hummatask_team,
+        HummataskTeamService $service,
+        ProjectService $projectService,
+        ProjectInterface $project,
+        StudentProjectService $studentProjectService,
+        StudentProjectInterface $studentProject,
+        CategoryProjectInterface $categoryProject,
+        StudentInterface $student,
+        MentorDivisionInterface $mentordivision,
+        StudentTeamInterface $studentTeam,
+        MentorStudentInterface $mentorStudent,
+        PresentationInterface $presentation,
         HummataskTeamMembersInterface $hummataskMemberPresentation
-    )
-    {
+    ) {
         $this->hummatask_team = $hummatask_team;
         $this->service = $service;
         $this->mentordivision = $mentordivision;
@@ -81,20 +83,21 @@ class HummataskTeamController extends Controller
     public function index()
     {
         $categoryProject = $this->categoryProject->get();
-        $students = $this->student->getStudentAccepted()->pluck('name', 'id');
+        $students = $this->student->getStudentAccepted()->where('id', '!=', auth()->user()->student_id)->pluck('name', 'id');
         $presentations = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id);
-
         $totalPresentation = $this->presentation->getPresentationsByStudentId(auth()->user()->id)->count();
         $upcomingProject = $this->presentation->upcomingproject(auth()->user()->id);
         $queuePresentation = QueuePresentation::first()->queue ?? 1;
         $myQueuePresentation = $this->presentation->getQueuePresentationByUser(auth()->user()->id);
-        return view('Hummatask.index', compact('categoryProject', 'students', 'presentations','totalPresentation','upcomingProject','queuePresentation', 'myQueuePresentation'));
+        return view('Hummatask.index', compact('categoryProject', 'students', 'presentations', 'totalPresentation', 'upcomingProject', 'queuePresentation', 'myQueuePresentation'));
     }
 
     public function detailPresentation(Presentation $presentation)
     {
+        $categoryProject = $this->categoryProject->get();
+        $studentsData = $this->student->getStudentAccepted()->where('id', '!=', auth()->user()->student_id)->pluck('name', 'id');
         $students = $this->hummataskMemberPresentation->getStudentByPresentation($presentation);
-        return view('Hummatask.detail-presentation', compact( 'students', 'presentation'));
+        return view('Hummatask.detail-presentation', compact('students', 'presentation', 'categoryProject', 'studentsData'));
     }
 
     /**
@@ -113,15 +116,15 @@ class HummataskTeamController extends Controller
         $validated = $request->validated();
         $validated['division_id'] = auth()->user()->student->division_id;
         $presentation = $this->presentation->store($validated);
-//        if ($validated['members'] && is_array($validated['members'])){
+        //        if ($validated['members'] && is_array($validated['members'])){
         $members = [];
-    // dd(auth()->user()->student_id);
+        // dd(auth()->user()->student_id);
         $members[] = [
             'presentation_id' => $presentation->id,
             'member_id' => auth()->user()->student_id,
             'status' => StatusMemberTeamEnum::Leader->value
         ];
-        if (isset($validated['members']) && is_array($validated['members'])){
+        if (isset($validated['members']) && is_array($validated['members'])) {
             foreach ($validated['members'] as $member) {
                 $members[] = [
                     'presentation_id' => $presentation->id,
@@ -131,7 +134,7 @@ class HummataskTeamController extends Controller
             }
         }
         $this->hummataskMemberPresentation->store($members);
-//        }
+        //        }
         return back()->with('success', 'Team baru berhasil ditambahkan');
     }
 
@@ -171,7 +174,8 @@ class HummataskTeamController extends Controller
         }
 
         $this->studentTeam->deleteByTeamId($hummataskTeam->id);
-        if ($request->has('deadline')) $this->project->updateByTeamId($hummataskTeam->id, ['end_date' => $data['deadline']]);
+        if ($request->has('deadline'))
+            $this->project->updateByTeamId($hummataskTeam->id, ['end_date' => $data['deadline']]);
         foreach ($request->student_id as $student_id) {
             $this->studentTeam->store([
                 'hummatask_team_id' => $hummataskTeam->id,
@@ -263,4 +267,36 @@ class HummataskTeamController extends Controller
         // dd($team);
         return view('mentor.team.edit', compact('team', 'categoryProjects', 'students', 'project', 'studentTeams'));
     }
+
+    public function updatePresentation(UpdateHummataskTeamRequest $request, Presentation $presentation)
+    {
+        // dd($request);
+        $validated = $request->validated();
+        $validated['division_id'] = auth()->user()->student->division_id;
+
+        $this->presentation->update($presentation, $validated);
+        dd($validated);
+
+        $members = [];
+        $members[] = [
+            'presentation_id' => $presentation->id,
+            'member_id' => auth()->user()->student_id,
+            'status' => StatusMemberTeamEnum::Leader->value
+        ];
+
+        if (isset($validated['members']) && is_array($validated['members'])) {
+            foreach ($validated['members'] as $member) {
+                $members[] = [
+                    'presentation_id' => $presentation->id,
+                    'member_id' => $member,
+                    'status' => StatusMemberTeamEnum::Member->value
+                ];
+            }
+        }
+
+        $this->hummataskMemberPresentation->update($presentation->id, $members);
+
+        return redirect()->to_route('presentation.')->with('success', 'Team berhasil diperbarui');
+    }
+
 }

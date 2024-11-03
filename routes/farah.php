@@ -108,6 +108,7 @@ Route::put('team/update/{hummataskTeam}', [HummataskTeamController::class, 'upda
 
 Route::get('dashboard/task', [HummataskTeamController::class, 'index']);
 Route::get('dashboard/task/detail/{presentation}', [HummataskTeamController::class, 'detailPresentation'])->name('presentation.detail');
+// Route::put('dashboard/task/detail/{presentation}', [HummataskTeamController::class, 'updatePresentation'])->name('presentation-detail.update');
 Route::get('hummateam/team/{slug}', [HummataskTeamController::class, 'show'])->name('team.show');
 Route::delete('hummateam/team/{hummataskTeam}', [HummataskTeamController::class, 'destroy'])->name('team.delete');
 Route::put('hummateam/team/{hummataskTeam}', [HummataskTeamController::class, 'updateOnStudent'])->name('team-student.update');
