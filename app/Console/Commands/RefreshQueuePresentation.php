@@ -29,7 +29,7 @@ class RefreshQueuePresentation extends Command
     public function handle()
     {
         try {
-            QueuePresentation::query()->update(['queue' => 0]);
+            QueuePresentation::query()->update(['queue' => 1]);
             Presentation::query()
                 ->where('status_presentation', StatusPresentationEnum::ONGOING->value)
                 ->update([
