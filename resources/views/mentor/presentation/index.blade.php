@@ -16,7 +16,7 @@
                         <input type="hidden" name="presentation_id" value="" id="inputPresentationId">
                         <input type="hidden" name="status_presentation"
                                value="{{ \App\Enum\StatusPresentationEnum::PENNDING->value }}"/>
-                        <input type="date" name="planning_presentation_date" value="" id="inputPresentationDate"
+                        <input type="date" name="planning_date_presentation" value="" id="inputPresentationDate"
                                class="form-control">
                     </div>
                     <div class="modal-footer">
@@ -225,7 +225,7 @@
                                     <td></td>
                                     <td>{{ $waiting->project_name }}</td>
                                     <td>
-                                        
+
                                         {{ \App\Models\Student::find(collect($waiting->members)->where('status',\App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
                                     </td>
                                     <td>{{ $waiting->description }}</td>

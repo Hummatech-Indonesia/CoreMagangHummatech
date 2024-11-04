@@ -29,7 +29,8 @@ class StatusPresentationRequest extends FormRequest
                 'required',
                 'string',
                 new Enum(StatusPresentationEnum::class),
-            ]
+            ],
+            'planning_date_presentation' => 'required|date'
         ];
     }
 

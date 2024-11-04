@@ -229,7 +229,8 @@ class PresentationController extends Controller
             // Update status_presentation terlebih dahulu
             $presentation->update([
                 'status_presentation' => $data['status_presentation'],
-                'mentor_id' => auth()->user()->id
+                'mentor_id' => auth()->user()->id,
+                'planning_date_presentation' => $data['planning_date_presentation']
             ]);
 
             if ($data['status_presentation'] == StatusPresentationEnum::ONGOING->value) {
@@ -255,9 +256,9 @@ class PresentationController extends Controller
 
     }
 
-    public function presentationDone(Request $request, int $presentation)
+    public function presentationDone(Request $request, Presentation $presentation)
     {
-        $presentation = Presentation::find($presentation);
+        // $presentation = Presentation::find($presentation);
         $queuePresentation = QueuePresentation::first();
         if($presentation){
             $presentation->update([
