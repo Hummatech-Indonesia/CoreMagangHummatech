@@ -186,7 +186,7 @@
                                     <td>{{ $ongoing->start_date }}</td>
                                     <td>{{ $ongoing->end_date }}</td>
                                     <td>{{ ucwords($ongoing->type_project) }}</td>
-                                    <td>
+                                    <td class="d-flex gap-1">
                                         <form action="{{ route('presentation.presentationDone',$ongoing->id) }}" method="post">
                                             @csrf
                                             @method('PUT')
@@ -194,6 +194,9 @@
                                                 <i class="fa fa-check"></i>
                                             </button>
                                         </form>
+                                        <button class="btn btn-warning" onclick="showModalPending({{ $ongoing->id }})">
+                                            <i class="fa fa-clock"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -239,6 +242,7 @@
                                             <input type="hidden" name="presentation_id" value="{{ $waiting->id }}">
                                             <input type="hidden" name="status_presentation"
                                                    value="{{ \App\Enum\StatusPresentationEnum::ONGOING->value }}">
+                                                   <input type="hidden" name="planning_date_presentation" value="{{ $waiting->planning_date_presentation }}">
                                             <button class="btn btn-success" type="submit"><i class="fa fa-check"></i>
                                             </button>
                                         </form>
@@ -253,6 +257,7 @@
                                             <input type="hidden" name="presentation_id" value="{{ $waiting->id }}">
                                             <input type="hidden" name="status_presentation"
                                                    value="{{ \App\Enum\StatusPresentationEnum::NOTFINISH->value }}">
+                                                   <input type="hidden" name="planning_date_presentation" value="{{ $waiting->planning_date_presentation }}">
                                             <button class="btn btn-danger"><i class="fa fa-times"></i></button>
                                         </form>
                                     </td>
