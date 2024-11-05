@@ -25,7 +25,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Ajukan Presentasi</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Ajukan Project</h5>
                     <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Close"></button>
                 </div>
                 <form action="{{ route('submit-presentation') }}" method="POST" enctype="multipart/form-data">
@@ -234,7 +234,7 @@
         </div>
     </div>
     <h5 class="fs-5 mb-4" style="font-weight: 600">
-        Data Presentasi
+        Data Project
     </h5>
     <div class="row row-cols-3 gx-3">
         @foreach ($presentations as $presentation)
