@@ -292,7 +292,7 @@
                                style="pointer-events: none" readonly>
                         <h5 class="my-3">Tema</h5>
                         <input class="form-control" type="text"
-                               value="{{ $presentation->theme ? $presentation->theme : 'tema anda' }}"
+                               value="{{ $presentation->description ? $presentation->description : 'tema anda' }}"
                                style="pointer-events: none" readonly>
                         <h5 class="my-3">Link Repository Github (Opsional)</h5>
                         <input class="form-control" type="text"
