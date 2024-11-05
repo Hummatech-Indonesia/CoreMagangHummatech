@@ -202,8 +202,15 @@ class HummataskTeamController extends Controller
     {
         try {
             // dd($presentation);
-            $this->presentation->delete($presentation->id);
-            return redirect()->to(route('presentation.task.index'))->with('success', 'Berhasil Menghapus Data');
+            if (
+                $presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::FINISH->value ||
+                $presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::ONGOING->value
+            ) {
+                return redirect()->to(route('presentation.task.index'))->with('warning', 'Gagal Menghapus Data');
+            } else {
+                $this->presentation->delete($presentation->id);
+                return redirect()->to(route('presentation.task.index'))->with('success', 'Berhasil Menghapus Data');
+            }
         } catch (\Throwable $th) {
             return redirect()->back()->with('warning', 'Gagal Menghapus Data, ' . $th->getMessage());
         }
