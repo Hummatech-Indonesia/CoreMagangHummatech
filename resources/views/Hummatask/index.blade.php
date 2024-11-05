@@ -72,7 +72,7 @@
 
                                 <label class="mb-2 mt-1" for="">Tanggal Presentasi</label>
                                 <input class="form-control" name="planning_date_presentation" type="date"
-                                    value="{{ old('planning_date_presentation') }}">
+                                    value="{{ old('planning_date_presentation') }}" min="{{ \Carbon::today() }}">
                                 @error('planning_date_presentation')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror

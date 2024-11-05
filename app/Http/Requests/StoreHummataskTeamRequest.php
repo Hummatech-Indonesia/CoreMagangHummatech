@@ -36,14 +36,8 @@ class StoreHummataskTeamRequest extends FormRequest
                     return !in_array(request()->input('type_project'), $optionalCategories);
                 }),
             ],
-            'planning_date_presentation' => 'required|date',
+            'planning_date_presentation' => 'required|date|after_or_equal:today',
         ];
-//        return [
-//            'name' => 'required|max:255|unique:hummatask_teams',
-//            'description' => 'nullable',
-//            'image' => 'nullable',
-//            'student_id.*' => 'required',
-//        ];
     }
     public function messages()
     {
@@ -61,6 +55,10 @@ class StoreHummataskTeamRequest extends FormRequest
             'link.string' => 'Link harus berupa teks.',
             'startDate.date' => 'Tanggal mulai harus berupa tanggal yang valid.',
             'endDate.date' => 'Tanggal selesai harus berupa tanggal yang valid.',
+
+            'planning_date_presentation.required' => 'Tanggal presentasi harus diisi.',
+            'planning_date_presentation.date' => 'Tanggal presentasi harus dalam format tanggal yang valid.',
+            'planning_date_presentation.after_or_equal' => 'Tanggal presentasi harus sama atau lebih dari hari ini.',
         ];
     }
 
