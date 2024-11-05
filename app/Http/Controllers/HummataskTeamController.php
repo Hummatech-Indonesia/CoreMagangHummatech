@@ -201,8 +201,9 @@ class HummataskTeamController extends Controller
     public function destroy(Presentation $presentation)
     {
         try {
+            // dd($presentation);
             $this->presentation->delete($presentation->id);
-            return redirect()->back()->with('success', 'Berhasil Menghapus Data');
+            return redirect()->to(route('presentation.task.index'))->with('success', 'Berhasil Menghapus Data');
         } catch (\Throwable $th) {
             return redirect()->back()->with('warning', 'Gagal Menghapus Data, ' . $th->getMessage());
         }
