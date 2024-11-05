@@ -122,7 +122,7 @@
     <div class="row row-cols-4 gx-3">
         <div class="col">
             <div class="card">
-                <div class="card-body rounded-2 rounded shadow shadow-sm" style="background: #F6F9FC">
+                <div class="card-body rounded-2 rounded shadow shadow-sm" style="background: #fff">
                     <div class="d-flex align-items-center justify-content-between gap-3">
                         <div class="desc">
                             <b>Jumlah Pengajuan</b>
@@ -148,7 +148,7 @@
         </div>
         <div class="col">
             <div class="card">
-                <div class="card-body rounded-2 rounded shadow shadow-sm" style="background: #F6F9FC">
+                <div class="card-body rounded-2 rounded shadow shadow-sm" style="background: #fff">
                     <div class="d-flex align-items-center gap-3">
                         <div class="desc">
                             <b>Project Mendatang</b>
@@ -175,7 +175,7 @@
         </div>
         <div class="col">
             <div class="card">
-                <div class="card-body rounded-2 rounded shadow shadow-sm" style="background: #F6F9FC">
+                <div class="card-body rounded-2 rounded shadow shadow-sm" style="background: #fff">
                     <div class="d-flex align-items-center gap-3">
                         <div class="desc">
                             <b>Nomor Urutan Anda</b>
@@ -205,7 +205,7 @@
         </div>
         <div class="col">
             <div class="card">
-                <div class="card-body rounded-2 rounded shadow shadow-sm" style="background: #F6F9FC">
+                <div class="card-body rounded-2 rounded shadow shadow-sm" style="background: #fff">
                     <div class="d-flex align-items-center gap-3">
                         <div class="desc">
                             <b>Nomor Antrian Sekarang</b>
