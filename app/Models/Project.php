@@ -48,4 +48,9 @@ class Project extends Model
     {
         return $this->hasOne(studentTeam::class);
     }
+
+    public function presentation(): HasMany
+    {
+        return $this->hasMany(Presentation::class);
+    }
 }

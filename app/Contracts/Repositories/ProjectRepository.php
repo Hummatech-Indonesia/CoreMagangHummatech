@@ -3,6 +3,7 @@
 namespace App\Contracts\Repositories;
 
 use App\Contracts\Interfaces\ProjectInterface;
+use App\Models\Presentation;
 use App\Models\Project;
 use App\StatusProjectEnum;
 use Carbon;
@@ -34,7 +35,9 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
 
     public function get(): mixed
     {
-        return $this->model->query()->get();
+        return $this->model
+            ->with('presentation') // Eager load relasi presentation
+            ->get();
     }
 
     public function store(array $data): mixed
@@ -67,6 +70,15 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
     public function getProjectAccepted($id): mixed
     {
         return $this->model->query()->where('hummatask_team_id', $id)->where('status', '!=', StatusProjectEnum::PENDING->value)->first();
+    }
+
+    public function getQueueProjectPresentation($id): mixed
+    {
+        $data = Presentation::query()
+            ->where('project_id',$id)
+            ->orderBy('created_at','DESC')
+            ->first();
+        return $data->urutan;
     }
 }
 

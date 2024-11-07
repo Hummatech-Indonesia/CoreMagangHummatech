@@ -89,7 +89,17 @@ class HummataskTeamController extends Controller
         $upcomingProject = $this->presentation->upcomingproject(auth()->user()->student_id);
         $queuePresentation = QueuePresentation::first()->queue ?? 1;
         $myQueuePresentation = $this->presentation->getQueuePresentationByUser(auth()->user()->student_id);
-        return view('Hummatask.index', compact('categoryProject', 'students', 'presentations', 'totalPresentation', 'upcomingProject', 'queuePresentation', 'myQueuePresentation'));
+
+        $getProjects = $this->project->get();
+        $projects = [];
+        foreach ($getProjects as $getProject) {
+            $projects[] = [
+                ...$getProject->toArray(), // Mengubah objek ke array
+                'urutan' => $this->project->getQueueProjectPresentation($getProject->id)
+            ];
+        }
+
+        return view('Hummatask.index', compact('categoryProject', 'students', 'presentations', 'totalPresentation', 'upcomingProject', 'queuePresentation', 'myQueuePresentation','projects'));
     }
 
     public function detailPresentation(Presentation $presentation)

@@ -42,4 +42,4 @@ Route::get('student-offline/langganan', function () {return view('student_offlin
 
 
 // team mentor
-Route::delete('mentor/team/delete/{hummataskTeam}' , [HummataskTeamController::class , 'destroy']);
+//Route::delete('mentor/team/delete/{hummataskTeam}' , [HummataskTeamController::class , 'destroy']);

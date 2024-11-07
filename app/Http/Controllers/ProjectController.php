@@ -96,18 +96,18 @@ class ProjectController extends Controller
                 'description' => $descriptions[$i],
             ]);
         }
-        
+
         return to_route('team.show', $slug)->with('success', 'Berhasil mengajukan projek');
     }
 
-    
+
 
     /**
      * Display the specified resource.
      */
     public function show(Project $project)
     {
-        
+
     }
 
     /**
@@ -132,7 +132,7 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, $slug, Project $project)
     {
         $team = $this->hummatask_team->slug($slug);
-        
+
         $data = $request->validated();
         $this->project->accProject($project->id, $data, $team->id);
         $data['project_id'] = $project->id;
@@ -145,14 +145,14 @@ class ProjectController extends Controller
         foreach ($studentTeams as $studentTeam) {
            $this->studentTeam->update($studentTeam->id, $data);
         }
-        
+
         return back()->with('success' , 'Berhasil memilih tema');
     }
 
     public function projectFromMentor(StoreProjectFromMentorRequest $request, $slug)
     {
         $team = $this->hummatask_team->slug($slug);
-        
+
         $data = $request->validated();
         $project = $this->project->store([
             'hummatask_team_id' => $team->id,
@@ -170,7 +170,7 @@ class ProjectController extends Controller
         foreach ($studentTeams as $studentTeam) {
             $this->studentTeam->update($studentTeam->id, $data);
         }
-        
+
         return back()->with('success' , 'Berhasil memberikan tema');
     }
 
@@ -179,7 +179,12 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        try {
+            $this->project->delete($project->id);
+            return back()->with('success',value: "Berhasil menghapus project");
+        }catch (\Exception $e){
+            return back()->with('error',value: 'Gagal menghapus project');
+        }
     }
 
     public function mentor()
