@@ -106,7 +106,7 @@ Route::put('siswa-offline/challenge/{studentChallenge}', [StudentChallengeContro
 Route::post('team/store', [HummataskTeamController::class, 'store'])->name('team.store');
 Route::put('team/update/{hummataskTeam}', [HummataskTeamController::class, 'update'])->name('team.update');
 
-Route::get('dashboard/task', [HummataskTeamController::class, 'index']);
+Route::get('dashboard/task', [HummataskTeamController::class, 'index'])->name('presentation.task.index');
 Route::get('dashboard/task/detail/{presentation}', [HummataskTeamController::class, 'detailPresentation'])->name('presentation.detail');
 // Route::put('dashboard/task/detail/{presentation}', [HummataskTeamController::class, 'updatePresentation'])->name('presentation-detail.update');
 Route::get('hummateam/team/{slug}', [HummataskTeamController::class, 'show'])->name('team.show');

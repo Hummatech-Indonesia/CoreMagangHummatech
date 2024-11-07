@@ -201,8 +201,16 @@ class HummataskTeamController extends Controller
     public function destroy(Presentation $presentation)
     {
         try {
-            $this->presentation->delete($presentation->id);
-            return redirect()->back()->with('success', 'Berhasil Menghapus Data');
+            // dd($presentation);
+            if (
+                $presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::FINISH->value ||
+                $presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::ONGOING->value
+            ) {
+                return redirect()->to(route('presentation.task.index'))->with('warning', 'Gagal Menghapus Data');
+            } else {
+                $this->presentation->delete($presentation->id);
+                return redirect()->to(route('presentation.task.index'))->with('success', 'Berhasil Menghapus Data');
+            }
         } catch (\Throwable $th) {
             return redirect()->back()->with('warning', 'Gagal Menghapus Data, ' . $th->getMessage());
         }
