@@ -20,27 +20,16 @@ return new class extends Migration
             $table->integer('urutan')->default(0);
             $table->foreignId('division_id')->constrained('divisions');
             $table->foreignId('mentor_id')->nullable()->constrained('users')->onDelete('set null');
-            $table->string('project_name')->nullable();
-            $table->text('description')->nullable();
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
-            $table->enum('type_project',[
-                PresentationTypeEnum::SOLO->value,
-                PresentationTypeEnum::MINI->value,
-                PresentationTypeEnum::PREMINI->value,
-                PresentationTypeEnum::BIG->value,
-                PresentationTypeEnum::INTERVIEW->value,
-                PresentationTypeEnum::LIVECODING->value
-            ]);
-            $table->enum('status_presentation' , [
-                StatusPresentationEnum::FINISH->value , //selesai
-                StatusPresentationEnum::NOTFINISH->value , //ditolak
-                StatusPresentationEnum::ONGOING->value , //accepted
-                StatusPresentationEnum::PENNDING->value, //ditunda
-                StatusPresentationEnum::WAITING->value //mengajukan
-            ])
-                ->default(StatusPresentationEnum::WAITING);
+            $table->foreignId('project_id')->constrained('projects')->cascadeOnDelete();
             $table->date('planning_date_presentation');
+            $table->enum('status_presentation' , [
+                \App\Enum\StatusPresentationEnum::FINISH->value , //selesai
+                \App\Enum\StatusPresentationEnum::NOTFINISH->value , //ditolak
+                \App\Enum\StatusPresentationEnum::ONGOING->value , //accepted
+                \App\Enum\StatusPresentationEnum::PENNDING->value, //ditunda
+                \App\Enum\StatusPresentationEnum::WAITING->value //mengajukan
+            ])
+                ->default(\App\Enum\StatusPresentationEnum::WAITING);
             $table->timestamps();
         });
     }

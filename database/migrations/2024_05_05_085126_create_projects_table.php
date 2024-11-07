@@ -12,24 +12,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-//        Schema::create('projects', function (Blueprint $table) {
-//            $table->id();
-//            $table->foreignId('hummatask_team_id')
-//                ->constrained()
-//                ->cascadeOnUpdate()
-//                ->cascadeOnDelete();
-//            $table->string('title');
-//            $table->longText('description')->nullable();
-//            $table->string('link')->nullable();
-//            $table->date('start_date')->nullable();
-//            $table->date('end_date')->nullable();
-//            $table->enum('status', [
-//                StatusProjectEnum::PENDING->value,
-//                StatusProjectEnum::ACCEPTED->value,
-//                StatusProjectEnum::SUCCESS->value
-//            ])->default(StatusProjectEnum::PENDING->value);
-//            $table->timestamps();
-//        });
+        Schema::create('projects', function (Blueprint $table) {
+            $table->id();
+            $table->string('project_name');
+            $table->text('description');
+            $table->date('start_date')->default(Carbon::today());
+            $table->date('end_date')->default(Carbon::tomorrow());
+            $table->enum('type_project',[
+                \App\Enum\PresentationTypeEnum::SOLO->value,
+                \App\Enum\PresentationTypeEnum::MINI->value,
+                \App\Enum\PresentationTypeEnum::PREMINI->value,
+                \App\Enum\PresentationTypeEnum::BIG->value,
+                \App\Enum\PresentationTypeEnum::INTERVIEW->value,
+                \App\Enum\PresentationTypeEnum::LIVECODING->value
+            ]);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -37,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-//        Schema::dropIfExists('projects');
+        Schema::dropIfExists('projects');
     }
 };
