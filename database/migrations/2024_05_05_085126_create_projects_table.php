@@ -1,6 +1,5 @@
 <?php
 
-use App\StatusProjectEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -26,6 +25,11 @@ return new class extends Migration
                 \App\Enum\PresentationTypeEnum::INTERVIEW->value,
                 \App\Enum\PresentationTypeEnum::LIVECODING->value
             ]);
+            $table->enum('status_project',[
+                \App\Enum\ProjectAcceptStatus::ACCEPT->value,
+                \App\Enum\ProjectAcceptStatus::REJECTED->value,
+                \App\Enum\ProjectAcceptStatus::WAITING->value
+            ])->default(\App\Enum\ProjectAcceptStatus::WAITING->value);
             $table->timestamps();
         });
     }

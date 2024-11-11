@@ -55,6 +55,11 @@ class Presentation extends Model
         return $this->hasMany(HummataskTeamMembers::class, 'presentation_id');
     }
 
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
+    }
+
     protected $casts = [
         'status_presentation' => StatusPresentationEnum::class,
     ];
