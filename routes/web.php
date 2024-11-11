@@ -1,70 +1,90 @@
 <?php
 
-use App\Enum\RolesEnum;
-use App\Http\Controllers\Admin\AdminAbsentController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\StudentOfline\PicketOfflineController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LimitsController;
-use App\Http\Controllers\JournalController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\VoucherController;
-use App\Http\Controllers\DataAdminController;
-use App\Http\Controllers\StatementController;
-use App\Http\Controllers\LetterheadController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminJournalController;
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\VoucherSubmitController;
-use App\Http\Controllers\Admin\ApprovalController;
-use App\Http\Controllers\Admin\AdminMentorController;
-use App\Http\Controllers\Admin\AdminStudentController;
-use App\Http\Controllers\Admin\AdminStudentTeamController;
-use App\Http\Controllers\Admin\DivisionController;
-use App\Http\Controllers\Admin\DivisionPlacementController;
-use App\Http\Controllers\Admin\MentorPlacementController;
-use App\Http\Controllers\Admin\PicketController;
-use App\Http\Controllers\Admin\PicketingReportController;
-use App\Http\Controllers\Admin\WarningLetterController;
-use App\Http\Controllers\Admin\ResponseLetterController;
-use App\Http\Controllers\Admin\RfidController;
-use App\Http\Controllers\Admin\StudentRejectedController;
-use App\Http\Controllers\AlumniController;
-use App\Http\Controllers\Api\PresentationController;
-use App\Http\Controllers\AppointmentOfAmentorController;
-use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\AttendanceRuleController;
-use App\Http\Controllers\CategoryProjectController;
-use App\Http\Controllers\CourseAssignmentController;
-use App\Http\Controllers\LandingController;
-use App\Http\Controllers\Mentor\DashboardController;
-use App\Http\Controllers\StudentOnline\CourseController;
-use App\Http\Controllers\CourseController as AdminCourseController;
-use App\Http\Controllers\DataCOController;
-use App\Http\Controllers\FaceController;
-use App\Http\Controllers\InstitutionController;
-use App\Http\Controllers\NotePicketController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SignatureCOController;
-use App\Http\Controllers\StudentChallengeController;
-use App\Http\Controllers\StudentCourseController;
-use App\Http\Controllers\StudentOfline\CourseOfflineController;
+use Illuminate\Support\Facades\{Auth, Route};
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-use App\Http\Controllers\StudentOnline\ZoomScheduleController;
-use App\Http\Controllers\StudentOfline\StudentOflineController;
-use App\Http\Controllers\StudentOnline\StudentOnlineController;
+
+use App\Enum\RolesEnum;
+use App\Http\Controllers\{
+    StudentTaskController,
+    HummataskTeamController,
+    ReportStudentController,
+    MentorController,
+    ChallengeController,
+    LimitsController,
+    JournalController,
+    StudentController,
+    VoucherController,
+    DataAdminController,
+    StatementController,
+    LetterheadController,
+    TransactionController,
+    SubscriptionController,
+    VoucherSubmitController,
+    OrderController,
+    AppointmentOfAmentorController,
+    AttendanceController,
+    AttendanceRuleController,
+    CategoryProjectController,
+    CourseAssignmentController,
+    LandingController,
+    DataCOController,
+    FaceController,
+    InstitutionController,
+    NotePicketController,
+    PermissionController,
+    ProductController,
+    SignatureCOController,
+    StudentChallengeController,
+    StudentCourseController,
+    SubmitTaskController,
+    TaskController,
+    TaskSubmissionController
+};
+
+use App\Http\Controllers\Admin\{
+    AdminController,
+    AdminAbsentController,
+    AdminJournalController,
+    ApprovalController,
+    AdminMentorController,
+    AdminStudentController,
+    AdminStudentTeamController,
+    DivisionController,
+    DivisionPlacementController,
+    MentorPlacementController,
+    PicketController,
+    PicketingReportController,
+    WarningLetterController,
+    ResponseLetterController,
+    RfidController,
+    StudentRejectedController
+};
+
+use App\Http\Controllers\StudentOfline\{
+    PicketOfflineController,
+    CourseOfflineController,
+    StudentOflineController
+};
+
+use App\Http\Controllers\StudentOnline\{
+    CourseController,
+    ZoomScheduleController,
+    StudentOnlineController
+};
+
+use App\Http\Controllers\Mentor\AssessmentController;
+
+use App\Http\Controllers\Api\PresentationController;
+use App\Http\Controllers\Mentor\DashboardController;
+use App\Http\Controllers\CourseController as AdminCourseController;
+use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\SubCourseController;
-use App\Http\Controllers\SubmitTaskController;
-use App\Http\Controllers\TaskController;
-use App\Http\Controllers\TaskSubmissionController;
+
 
 # ==================================================== Homepage Group Route ===================================================
 Route::get('/', [LandingController::class, 'index']);
 Route::get('/hummatech/{id}', [SignatureCOController::class, 'index']);
-// Route::get('/payment-instructions/{code}', [PaymentController::class, 'paymentInstructions']);
+
 
 # ================================================ Authentication Routes Group ================================================
 Auth::routes();
@@ -88,10 +108,10 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('administrator', [AdminController::class, 'index'])->name('.home');
     Route::patch('max-late', [AttendanceController::class, 'storeMaxLate'])->name('maxlate.store');
     # Data Admin
-    // Route::post('data-admin/store', [DataAdminController::class, 'store'])->name('data-admin.store');
+
     Route::put('data-admin/update/{datauser}', [DataAdminController::class, 'update'])->name('data-admin.update');
 
-    // data ceo
+
     Route::post('dataceo/store', [DataCOController::class, 'store']);
     Route::put('dataceo/update/{dataAdmin}', [DataCOController::class, 'update']);
 
@@ -116,7 +136,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('voucher', [VoucherController::class, 'index'])->name('voucher.index');
     Route::post('voucher/store', [VoucherController::class, 'store'])->name('voucher.store');
     Route::delete('voucher/delete/{voucher}', [VoucherController::class, 'destroy'])->name('voucher.delete');
-    // banned
+
     Route::get('students-banned', [StudentController::class, 'index']);
     Route::get('email-user', [StudentController::class, 'emailUser']);
     Route::delete('email-user/{user}', [StudentController::class, 'emailUserDelete']);
@@ -138,7 +158,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('menu-siswa/division-change/{student}', [AdminStudentController::class, 'divisionchange'])->name('student.divisionchange');
     Route::put('students-banned/Open/{student}', [StudentController::class, 'Openbanned'])->name('students.banned.open');
     Route::get('menu-siswa/manage-session', [AdminStudentController::class, 'manageSession'])->name('student.managesession');
-    Route::get('/menu-siswa/manage-session/update/{session}',[StudentController::class,'changeSessionStudent'])->name('change-session-student');
+    Route::get('/menu-siswa/manage-session/update/{session}', [StudentController::class, 'changeSessionStudent'])->name('change-session-student');
     # Registration Limit
     Route::post('limit', [LimitsController::class, 'store'])->name('limit.store');
     Route::put('limit/update/{limits}', [LimitsController::class, 'update'])->name('limit.update');
@@ -151,13 +171,13 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::post('administrator/course/store', [AdminCourseController::class, 'store'])->name('course.store');
     Route::put('administrator/course/{course}', [AdminCourseController::class, 'update'])->name('course.update');
     Route::delete('administrator/course/delete/{course}', [AdminCourseController::class, 'destroy'])->name('course.destroy');
-    // AppointmenOfAmentor
+
     Route::get('administrator/appointmentofmentor', [AppointmentOfAmentorController::class, 'index']);
     Route::post('administrator/appointmentofmentor/store', [AppointmentOfAmentorController::class, 'store']);
     Route::delete('administrator/appointmentofmentor/delete/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'destroy']);
     Route::delete('administrator/appointmentofmentor/delete/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'destroy']);
     Route::put('administrator/appointmentofmentor/update/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'update']);
-    // faces
+
     Route::get('faces', [FaceController::class, 'index']);
     Route::get('faces/detail/{id}', [FaceController::class, 'show']);
     Route::post('faces/create', [FaceController::class, 'store']);
@@ -175,14 +195,14 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::post('administrator/zoom-schedules/store', [ZoomScheduleController::class, 'store'])->name('zoom-schedule.store');
     Route::put('administrator/zoom-schedules/{zoomSchedule}', [ZoomScheduleController::class, 'update'])->name('zoom-schedule.update');
     Route::delete('administrator/zoom-schedules/{zoomSchedule}', [ZoomScheduleController::class, 'destroy'])->name('zoom-schedule.destroy');
-    // journal
+
     Route::get('journal', [AdminJournalController::class, 'index']);
 
-    // Course Assignment
+
     Route::post('course-assignment/{course}', [CourseAssignmentController::class, 'store'])->name('course-assignment.store');
     Route::delete('course-assignment/{courseAssignment}', [CourseAssignmentController::class, 'destroy'])->name('course-assignment.destroy');
 
-    //user
+
     Route::get('/alumni-admin', [AlumniController::class, 'index'])->name('alumni.admin');
     Route::post('/alumni-admin/store', [AlumniController::class, 'store'])->name('alumni-admin.store');
     Route::delete('/alumni-admin/delete/{alumni}', [AlumniController::class, 'destroy'])->name('alumni-admin.destroy');
@@ -250,7 +270,7 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
         return view('student_offline.division.index');
     })->name('.class.division');
 
-    // Route::get('/download-pdf-JurnalSiswa', [JournalController::class, 'downloadPDF']);
+
     Route::get('absensi', [AttendanceController::class, 'attendanceOffline'])->name('.attendances');
     Route::get('/course', [CourseOfflineController::class, 'index'])->name('.course');
     Route::get('/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('.materi.detail');
@@ -277,15 +297,14 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
     Route::get('purchase', [CourseOfflineController::class, 'shopcourse'])->name('.purchase');
     Route::get('purchase/detail/{id}', [CourseOfflineController::class, 'shopCourseDetail'])->name('.purchase.detail');
 
-    // Route::get('siswa-offline/purchase/detail', function (){
-    //     return view('student_offline.purchase.detail');
-    // });
+
+
+
     Route::get('certificate', function () {
         return view('student_offline.certificate.index');
     })->name('.certificate');
     Route::put('journal/{journal}', [JournalController::class, 'update'])->name('.journal.update');
 })->middleware(["roles:siswa-offline", 'auth']);
-
 
 
 Route::post('permission', [PermissionController::class, 'store'])->name('permission.store');
@@ -327,9 +346,9 @@ Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name
 
 #===================================================== Mentor =================================================================
 Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function () {
-    // Route::get('/', function () {
-    //     return view('mentor.index');
-    // });
+
+
+
     Route::get('/', [DashboardController::class, 'index'])->name('.home');
 });
 
@@ -341,8 +360,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(SubscriptionController::class)->prefix('subscription')->name('subscription.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/process', 'subscribeAddCartProcess')->name('process');
-        // Route::post('/remove', 'subscribeDeleteCartProcess')->name('delete');
-        // Route::get('/checkout', 'checkout')->name('checkout');
+
+
     });
 
     # Voucher Subscription Apply
@@ -355,15 +374,6 @@ Route::middleware('auth')->group(function () {
     Route::get('courses', [StudentCourseController::class, 'index'])->name('student.course');
     Route::get('active-courses', [StudentCourseController::class, 'activeCourses'])->name('student.active-course');
     Route::get('courses/detail/{course}', [StudentCourseController::class, 'show'])->name('student.course.show');
-    // Route::controller(CourseStoreController::class)
-    //     ->middleware(['subsrcribed:online'])
-    //     ->name('course-store.')
-    //     ->prefix('courses')
-    //     ->group(function () {
-    //         Route::get('/', 'index')->name('index');
-    //         Route::get('{course}/detail', 'detail')->name('detail');
-    //         Route::post('store', 'store')->name('store');
-    //     });
 
     # Redirect based on roles
     Route::get('/home', function () {
@@ -387,13 +397,7 @@ Route::get('transaction', function () {
 })->name('transaction-history.index');
 Route::get('transaction/detail/{transaction}', [TransactionController::class, 'show'])->name('transaction-history.detail');
 Route::get('transaction/detail-course/{transaction}', [TransactionController::class, 'showCourse'])->name('transaction-history.course.detail');
-// Route::controller(TransactionController::class)->prefix('transaction')->name('transaction-history.')->group(function () {
-//     Route::get('/', 'index')->middleware(['auth'])->name('index');
-//     Route::get('checkout', 'checkout')->middleware(['auth'])->name('checkout');
-//     Route::post('tripay', 'store')->middleware(['auth'])->name('request-to-tripay');
-//     Route::any('callback', 'callback')->name('callback')->withoutMiddleware(VerifyCsrfToken::class);
-//     Route::get('detail/{reference:transaction_id}', 'detail')->middleware(['auth'])->name('detail');
-// });
+
 
 Route::get('order', [OrderController::class, 'index'])->name('my-order')->middleware(['auth']);
 
@@ -402,9 +406,6 @@ Route::get('/aboutUs', function () {
     return view('landing.aboutUs');
 });
 
-// Route::get('/alumniSiswa', function () {
-//     return view('landing.alumni');
-// });
 
 Route::get('/alumniSiswa', [AlumniController::class, 'landing'])->name('alumni.siswa');
 
@@ -419,10 +420,154 @@ Route::get('/prosedur', function () {
 Route::get('/hubungi', function () {
     return view('landing.hubungi');
 });
+Route::post('submit-presentation', [\App\Http\Controllers\HummataskTeamController::class, 'store'])->name('submit-presentation');
+Route::put('mentor/presentation/changestatus', [\App\Http\Controllers\PresentationController::class, 'changeStatus'])->name('presentation.changeStatus');
+Route::put('mentor/presentation/done/{presentation}', [\App\Http\Controllers\PresentationController::class, 'presentationDone'])->name('presentation.presentationDone');
 
-require_once __DIR__ . '/femas.php';
-require_once __DIR__ . '/kader.php';
-require_once __DIR__ . '/farah.php';
-require_once __DIR__ . '/nesa.php';
-require_once __DIR__ . '/alul.php';
-require_once __DIR__ . '/sano.php';
+Route::prefix('dashboard/task')->group(function () {
+    Route::prefix('project')->group(function () {
+        Route::delete('/{project}', [\App\Http\Controllers\ProjectController::class, 'destroy'])->name('project.destroy');
+    });
+});
+
+
+Route::post('team/store', [HummataskTeamController::class, 'store'])->name('team.store');
+Route::put('team/update/{hummataskTeam}', [HummataskTeamController::class, 'update'])->name('team.update');
+
+Route::get('dashboard/task', [HummataskTeamController::class, 'index'])->name('presentation.task.index');
+Route::get('dashboard/task/detail/{presentation}', [HummataskTeamController::class, 'detailPresentation'])->name('presentation.detail');
+
+
+Route::get('administrator/course/detail', function () {
+    return view('admin.page.course.detail');
+});
+Route::get('administrator/course/detail/sub-course', function () {
+    return view('admin.page.course.sub-course.index');
+});
+
+Route::get('siswa-offline/task', [StudentTaskController::class, 'index']);
+
+Route::get('siswa-offline/letter-head', [LetterheadController::class, 'indexOffline']);
+Route::post('letter-head', [LetterheadController::class, 'store'])->name('letterhead.store');
+Route::put('letter-head/{letterhead}', [LetterheadController::class, 'update'])->name('letterhead.update');
+Route::delete('letter-head/{letterhead}', [LetterheadController::class, 'destroy'])->name('letterhead.delete');
+
+Route::get('siswa-offline/others/student', [ReportStudentController::class, 'index']);
+Route::post('siswa-offline/others/student/report', [ReportStudentController::class, 'store'])->name('report.store');
+
+Route::post('siswa-offline/task/store', [StudentTaskController::class, 'store'])->name('task-offline.store');
+Route::patch('siswa-offline/task/update/{studentTask}', [StudentTaskController::class, 'update'])->name('task-offline.update');
+
+
+Route::post('picket-report', [PicketingReportController::class, 'store'])->name('picket-report.store');
+Route::put('picket-report/{picketingReport}', [PicketingReportController::class, 'update'])->name('picket-report.update');
+Route::delete('picket-report/{picketingReport}', [PicketingReportController::class, 'destroy'])->name('picket-report.delete');
+
+Route::post('siswa-offline/challenge', [StudentChallengeController::class, 'store']);
+Route::put('siswa-offline/challenge/{studentChallenge}', [StudentChallengeController::class, 'update']);
+
+Route::get('siswa-online/jurnal', [JournalController::class, 'studentOnline']);
+
+Route::get('siswa-online/materi/detail', function () {
+    return view('student_online.course.detail');
+});
+Route::get('siswa-online/materi/detail/detail-jawaban', function () {
+    return view('student_online.course.answer-detail');
+});
+Route::get('siswa-online/materi/detail/pelajari', function () {
+    return view('student_online.course.learn-more');
+});
+
+Route::get('top-up', function () {
+    return view('admin.page.approval.top-up');
+});
+Route::get('alumni', function () {
+    return view('admin.page.user.alumni');
+});
+Route::get('person-in-charge', function () {
+    return view('admin.page.user.person-in-charge');
+});
+Route::get('person-in-charge/detail', function () {
+    return view('admin.page.user.person-in-charge-detail');
+});
+
+Route::prefix('submit-task-answer')->name('submit.task.answer.')->group(function () {
+    Route::post('store/{courseAssignment}', [SubmitTaskController::class, 'store'])->name('store');
+    Route::get('{submitTask}', [SubmitTaskController::class, 'show'])->name('show');
+    Route::put('{submitTask}', [SubmitTaskController::class, 'update'])->name('update');
+    Route::delete('{submitTask}', [SubmitTaskController::class, 'destroy'])->name('destroy');
+    Route::patch('update-status/{submitTask}', [SubmitTaskController::class, 'updateStatus'])->name('update-status');
+    Route::post('download/{submitTask}', [SubmitTaskController::class, 'download'])->name('download');
+});
+
+
+Route::post('create/jurnal', [JournalController::class, 'store']);
+
+
+Route::get('permission', function () {
+    return view('admin.page.approval.permision');
+});
+
+Route::get('timetable', function () {
+    return view('mentor.zoomschedule');
+});
+
+
+Route::get('challenge', [CourseController::class, 'index']);
+Route::post('create/materi', [CourseController::class, 'store']);
+
+# Task
+Route::post('create/task', [TaskController::class, 'store']);
+Route::put('update/task/{task}', [TaskController::class, 'update']);
+Route::delete('delete/task/{task}', [TaskController::class, 'destroy']);
+
+# sub materi
+Route::post('create/sub-materi/{course}', [SubCourseController::class, 'store']);
+Route::get('detail/pelajari/{subCourse}', [SubCourseController::class, 'show']);
+Route::get('show/materi/{course}', [CourseController::class, 'show']);
+
+
+Route::get('student-offline/langganan', function () {
+    return view('student_offline.langganan.index');
+});
+
+
+Route::get('reject', function () {
+    return view('admin.page.rejected.index');
+});
+
+
+Route::get('student/absensi', [MentorController::class, 'indexAttendances']);
+
+Route::get('student/journal', [JournalController::class, 'index']);
+
+Route::get('student', [StudentController::class, 'mentorStudent']);
+
+Route::get('mentor/challenge', [ChallengeController::class, 'index']);
+Route::post('mentor/challenge/store', [ChallengeController::class, 'store'])->name('challenge.store');
+Route::put('mentor/challenge/{challenge}', [ChallengeController::class, 'update'])->name('challenge.update');
+Route::delete('mentor/challenge/delete/{challenge}', [ChallengeController::class, 'destroy'])->name('challenge.destroy');
+
+
+Route::get('mentor/challenge/detail', function () {
+    return view('mentor.challange.detail');
+});
+Route::get('mentor/assessment', [AssessmentController::class, 'index']);
+Route::get('mentor/assessment/task-detail/{task}', [AssessmentController::class, 'show'])->name('task.detail');
+Route::patch('mentor/assessment/update/{studentTask}', [AssessmentController::class, 'update'])->name('task-offline.assessment');
+Route::get('mentor/assessment/challenge-detail/{challenge}', [AssessmentController::class, 'showChallenge'])->name('challenge.detail');
+Route::patch('mentor/assessment/update/challenge/{studentChallenge}', [AssessmentController::class, 'updateChallenge'])->name('challenge.assessment');
+
+
+Route::get('mentor/challenge/challenge-detail/{challenge}', [AssessmentController::class, 'showChallengeStudent'])->name('tantangan.detail');
+
+Route::put('presentation/update', [HummataskTeamController::class, 'updatePresentation'])->name('presentation-detail.update');
+Route::delete('/presentations/{presentation}', [HummataskTeamController::class, 'destroy'])->name('presentations.destroy');
+
+
+
+
+
+
+
+
