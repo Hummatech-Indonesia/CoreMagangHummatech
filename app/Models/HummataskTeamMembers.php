@@ -13,11 +13,11 @@ class HummataskTeamMembers extends Model
     protected $guarded = ['id'];
     public $timestamps = false;
 
-    public function presentation(): BelongsTo
+    public function project(): BelongsTo
     {
-        return $this->belongsTo(Presentation::class, 'presentation_id');
+        return $this->belongsTo(Project::class);
     }
-    public function students(): BelongsTo
+    public function members(): BelongsTo
     {
         return $this->belongsTo(Student::class, 'member_id');
     }

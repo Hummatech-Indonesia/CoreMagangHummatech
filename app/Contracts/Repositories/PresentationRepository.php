@@ -263,8 +263,8 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     public function getPresentationsByStudentId(int $studentId)
     {
         return $this->model->query()
-            ->with('members')
-            ->whereHas('members', function ($query) use ($studentId) {
+            ->with(['project','project.members'])
+            ->whereHas('project.members', function ($query) use ($studentId) {
                 $query->where('member_id', $studentId);
             })
             ->orderBy('created_at', 'desc')
@@ -288,38 +288,12 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->get();
     }
 
-    public function upcomingproject(int $userId): mixed
-    {
-        $lastProject = $this->model->query()
-            ->whereHas('members', function ($query) use ($userId) {
-                $query->where('member_id', $userId);
-            })
-            ->orderBy('created_at', 'desc')
-            ->first()->type_project ?? '';
-        switch ($lastProject) {
-            case PresentationTypeEnum::SOLO->value:
-                return 5;
-            case PresentationTypeEnum::PREMINI->value:
-                return 4;
-            case PresentationTypeEnum::INTERVIEW->value:
-                return 3;
-            case PresentationTypeEnum::LIVECODING->value:
-                return 2;
-            case PresentationTypeEnum::MINI->value:
-                return 1;
-            case PresentationTypeEnum::BIG->value:
-                return 0;
-            default:
-                return 6;
-        }
-    }
-
     public function getQueuePresentationByUser(int $idUser)
     {
         return $this->model->query()
             ->where('planning_date_presentation', Carbon::today())
             ->where('status_presentation', StatusPresentationEnum::ONGOING->value)
-            ->whereHas('members', function ($query) use ($idUser) {
+            ->whereHas('project.members', function ($query) use ($idUser) {
                 return $query->where('member_id', $idUser);
             })
             ->orderBy('updated_at', 'asc')

@@ -123,29 +123,7 @@ class HummataskTeamController extends Controller
      */
     public function store(StoreHummataskTeamRequest $request)
     {
-        $validated = $request->validated();
-        $validated['division_id'] = auth()->user()->student->division_id;
-        $presentation = $this->presentation->store($validated);
-        //        if ($validated['members'] && is_array($validated['members'])){
-        $members = [];
-        // dd(auth()->user()->student_id);
-        $members[] = [
-            'presentation_id' => $presentation->id,
-            'member_id' => auth()->user()->student_id,
-            'status' => StatusMemberTeamEnum::Leader->value
-        ];
-        if (isset($validated['members']) && is_array($validated['members'])) {
-            foreach ($validated['members'] as $member) {
-                $members[] = [
-                    'presentation_id' => $presentation->id,
-                    'member_id' => $member,
-                    'status' => StatusMemberTeamEnum::Member->value
-                ];
-            }
-        }
-        $this->hummataskMemberPresentation->store($members);
-        //        }
-        return back()->with('success', 'Team baru berhasil ditambahkan');
+
     }
 
     /**

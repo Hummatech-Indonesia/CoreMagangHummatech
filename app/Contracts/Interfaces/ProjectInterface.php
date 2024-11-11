@@ -23,4 +23,6 @@ interface ProjectInterface extends GetInterface, StoreInterface, UpdateInterface
     public function getProjectAccepted($id): mixed;
 
     public function getQueueProjectPresentation($id): mixed;
+
+    public function upcomingproject(int $userId): mixed;
 }

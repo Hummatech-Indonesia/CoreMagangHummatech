@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\CategoryProjectInterface;
 use App\Contracts\Interfaces\HummataskTeamInterface;
+use App\Contracts\Interfaces\HummataskTeamMembersInterface;
 use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\MentorStudentInterface;
+use App\Contracts\Interfaces\PresentationInterface;
 use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Contracts\Interfaces\StudentTeamInterface;
 use App\Enum\StatusHummaTeamEnum;
+use App\Enum\StatusMemberTeamEnum;
 use App\Http\Requests\AddRepositoryRequest;
+use App\Http\Requests\StoreHummataskTeamRequest;
 use App\Http\Requests\StoreProjectFromMentorRequest;
+use App\Models\QueuePresentation;
 use App\Services\HummataskTeamService;
 use App\Services\ProjectService;
 use App\Services\StudentProjectService;
@@ -34,17 +39,24 @@ class ProjectController extends Controller
     private StudentInterface $student;
     private StudentTeamInterface $studentTeam;
     private MentorStudentInterface $mentorStudent;
+    private PresentationInterface $presentation;
+    private HummataskTeamMembersInterface $hummataskMemberPresentation;
 
     public function __construct(
-        HummataskTeamInterface $hummatask_team, HummataskTeamService $service,
-        ProjectService $projectService, ProjectInterface $project,
-        StudentProjectService $studentProjectService, StudentProjectInterface $studentProject,
-        CategoryProjectInterface $categoryProject,
-        StudentInterface $student,
-        MentorDivisionInterface $mentordivision,
-        StudentTeamInterface $studentTeam,
-        MentorStudentInterface $mentorStudent
-        )
+        HummataskTeamInterface        $hummatask_team,
+        HummataskTeamService          $service,
+        ProjectService                $projectService,
+        ProjectInterface              $project,
+        StudentProjectService         $studentProjectService,
+        StudentProjectInterface       $studentProject,
+        CategoryProjectInterface      $categoryProject,
+        StudentInterface              $student,
+        MentorDivisionInterface       $mentordivision,
+        StudentTeamInterface          $studentTeam,
+        MentorStudentInterface        $mentorStudent,
+        PresentationInterface         $presentation,
+        HummataskTeamMembersInterface $hummataskMemberPresentation
+    )
     {
         $this->hummatask_team = $hummatask_team;
         $this->service = $service;
@@ -57,15 +69,34 @@ class ProjectController extends Controller
         $this->student = $student;
         $this->studentTeam = $studentTeam;
         $this->mentorStudent = $mentorStudent;
+        $this->presentation = $presentation;
+        $this->hummataskMemberPresentation = $hummataskMemberPresentation;
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index($slug)
+    public function index()
     {
-        $team = $this->hummatask_team->slug($slug);
-        return view('Hummatask.team.submit-project', compact('team'));
+        $categoryProject = $this->categoryProject->get();
+        $students = $this->student->getStudentAccepted()->where('id', '!=', auth()->user()->student_id)->pluck('name', 'id');
+        $presentations = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id);
+        $totalPresentation = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id)->count();
+        $upcomingProject = $this->project->upcomingproject(auth()->user()->student_id);
+        $queuePresentation = QueuePresentation::first()->queue ?? 1;
+        $myQueuePresentation = $this->presentation->getQueuePresentationByUser(auth()->user()->student_id);
+
+        $getProjects = $this->project->get();
+        $projects = [];
+        foreach ($getProjects as $getProject) {
+            $projects[] = [
+                ...$getProject->toArray(), // Mengubah objek ke array
+                'urutan' => $this->project->getQueueProjectPresentation($getProject->id)
+            ];
+        }
+
+//        dd($projects);
+        return view('Hummatask.index', compact('categoryProject', 'students', 'presentations', 'totalPresentation', 'upcomingProject', 'queuePresentation', 'myQueuePresentation', 'projects'));
     }
 
     /**
@@ -79,27 +110,30 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store($slug, StoreProjectRequest $request)
+    public function store(StoreHummataskTeamRequest $request)
     {
-        $hummaTeam = $this->hummatask_team->slug($slug);
-        $titles = $request->input('title');
-        $descriptions = $request->input('description');
-
-        if (count($titles) !== count($descriptions)) {
-            return redirect()->back()->with('error', 'Jumlah judul dan deskripsi tidak sama');
+        $validated = $request->validated();
+        $validated['division_id'] = auth()->user()->student->division_id;
+        $project = $this->project->store($validated);
+        $members = [];
+        $members[] = [
+            'project_id' => $project->id,
+            'member_id' => auth()->user()->student_id,
+            'status' => StatusMemberTeamEnum::Leader->value
+        ];
+        if (isset($validated['members']) && is_array($validated['members'])) {
+            foreach ($validated['members'] as $member) {
+                $members[] = [
+                    'project_id' => $project->id,
+                    'member_id' => $member,
+                    'status' => StatusMemberTeamEnum::Member->value
+                ];
+            }
         }
-
-        for ($i = 0; $i < count($titles); $i++) {
-            $this->project->store([
-                'hummatask_team_id' => $hummaTeam->id,
-                'title' => $titles[$i],
-                'description' => $descriptions[$i],
-            ]);
-        }
-
-        return to_route('team.show', $slug)->with('success', 'Berhasil mengajukan projek');
+        $this->hummataskMemberPresentation->store($members);
+        //        }
+        return back()->with('success', 'Team baru berhasil ditambahkan');
     }
-
 
 
     /**
@@ -143,10 +177,10 @@ class ProjectController extends Controller
 
         $studentTeams = $this->studentTeam->where('hummatask_team_id', $team->id);
         foreach ($studentTeams as $studentTeam) {
-           $this->studentTeam->update($studentTeam->id, $data);
+            $this->studentTeam->update($studentTeam->id, $data);
         }
 
-        return back()->with('success' , 'Berhasil memilih tema');
+        return back()->with('success', 'Berhasil memilih tema');
     }
 
     public function projectFromMentor(StoreProjectFromMentorRequest $request, $slug)
@@ -171,7 +205,7 @@ class ProjectController extends Controller
             $this->studentTeam->update($studentTeam->id, $data);
         }
 
-        return back()->with('success' , 'Berhasil memberikan tema');
+        return back()->with('success', 'Berhasil memberikan tema');
     }
 
     /**
@@ -181,9 +215,9 @@ class ProjectController extends Controller
     {
         try {
             $this->project->delete($project->id);
-            return back()->with('success',value: "Berhasil menghapus project");
-        }catch (\Exception $e){
-            return back()->with('error',value: 'Gagal menghapus project');
+            return back()->with('success', value: "Berhasil menghapus project");
+        } catch (\Exception $e) {
+            return back()->with('error', value: 'Gagal menghapus project');
         }
     }
 
@@ -192,12 +226,13 @@ class ProjectController extends Controller
         $categoryProjects = $this->categoryProject->get();
         $mentorStudents = $this->mentorStudent->whereMentorStudent(auth()->user()->mentor->id);
         $teams = $this->hummatask_team->WhereTeam();
-        $mentors  = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
+        $mentors = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
         $acc = $this->project->where('status', StatusProjectEnum::ACCEPTED->value);
-        return view('mentor.project-submission.index', compact('categoryProjects', 'mentorStudents', 'teams' ,'mentors', 'acc'));
+        return view('mentor.project-submission.index', compact('categoryProjects', 'mentorStudents', 'teams', 'mentors', 'acc'));
     }
 
-    public function showProjectSubmission($slug){
+    public function showProjectSubmission($slug)
+    {
         $team = $this->hummatask_team->slug($slug);
         $projects = $this->project->where('hummatask_team_id', $team->id);
         $done = $this->project->getProjectAccepted($team->id);

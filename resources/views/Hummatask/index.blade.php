@@ -28,7 +28,7 @@
                     <h5 class="modal-title" id="staticBackdropLabel">Ajukan Project</h5>
                     <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('submit-presentation') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('project.submit') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="mt-n2 mx-sm-0 mx-auto flex-shrink-0">
@@ -239,11 +239,8 @@
                                  style="background: rgba(93,135,255,.5)">
                                 {{ str_pad($project['urutan'], 2, '0', STR_PAD_LEFT) }}
                             </div>
-                            @if (
-                                $project['presentation'][0]['status_presentation'] == \App\Enum\StatusPresentationEnum::FINISH->value ||
-                                    $project['presentation'][0]['status_presentation'] == \App\Enum\StatusPresentationEnum::ONGOING->value)
                                 <button class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#delete-modal-{{ $project->id }}" disabled>
+                                        data-bs-target="#delete-modal-{{ $project['id'] }}" {{ $project['status_project'] == \App\Enum\ProjectAcceptStatus::WAITING->value ? '' : 'disabled' }}>
                                     <svg width="15" height="17" viewBox="0 0 15 17" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -251,38 +248,21 @@
                                             fill="white"/>
                                     </svg>
                                 </button>
-                            @else
-                                <button class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#delete-modal-{{ $project['id'] }}">
-                                    <svg width="15" height="17" viewBox="0 0 15 17" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M5.83333 13.6C6.05435 13.6 6.26631 13.5104 6.42259 13.351C6.57887 13.1916 6.66667 12.9754 6.66667 12.75V7.65C6.66667 7.42457 6.57887 7.20836 6.42259 7.04896C6.26631 6.88955 6.05435 6.8 5.83333 6.8C5.61232 6.8 5.40036 6.88955 5.24408 7.04896C5.0878 7.20836 5 7.42457 5 7.65V12.75C5 12.9754 5.0878 13.1916 5.24408 13.351C5.40036 13.5104 5.61232 13.6 5.83333 13.6ZM14.1667 3.4H10.8333V2.55C10.8333 1.8737 10.5699 1.2251 10.1011 0.746878C9.63226 0.26866 8.99638 0 8.33333 0H6.66667C6.00363 0 5.36774 0.26866 4.8989 0.746878C4.43006 1.2251 4.16667 1.8737 4.16667 2.55V3.4H0.833333C0.61232 3.4 0.400358 3.48955 0.244078 3.64896C0.0877973 3.80837 0 4.02457 0 4.25C0 4.47543 0.0877973 4.69163 0.244078 4.85104C0.400358 5.01045 0.61232 5.1 0.833333 5.1H1.66667V14.45C1.66667 15.1263 1.93006 15.7749 2.3989 16.2531C2.86774 16.7313 3.50363 17 4.16667 17H10.8333C11.4964 17 12.1323 16.7313 12.6011 16.2531C13.0699 15.7749 13.3333 15.1263 13.3333 14.45V5.1H14.1667C14.3877 5.1 14.5996 5.01045 14.7559 4.85104C14.9122 4.69163 15 4.47543 15 4.25C15 4.02457 14.9122 3.80837 14.7559 3.64896C14.5996 3.48955 14.3877 3.4 14.1667 3.4ZM5.83333 2.55C5.83333 2.32457 5.92113 2.10837 6.07741 1.94896C6.23369 1.78955 6.44565 1.7 6.66667 1.7H8.33333C8.55435 1.7 8.76631 1.78955 8.92259 1.94896C9.07887 2.10837 9.16667 2.32457 9.16667 2.55V3.4H5.83333V2.55ZM11.6667 14.45C11.6667 14.6754 11.5789 14.8916 11.4226 15.051C11.2663 15.2104 11.0543 15.3 10.8333 15.3H4.16667C3.94565 15.3 3.73369 15.2104 3.57741 15.051C3.42113 14.8916 3.33333 14.6754 3.33333 14.45V5.1H11.6667V14.45ZM9.16667 13.6C9.38768 13.6 9.59964 13.5104 9.75592 13.351C9.9122 13.1916 10 12.9754 10 12.75V7.65C10 7.42457 9.9122 7.20836 9.75592 7.04896C9.59964 6.88955 9.38768 6.8 9.16667 6.8C8.94565 6.8 8.73369 6.88955 8.57741 7.04896C8.42113 7.20836 8.33333 7.42457 8.33333 7.65V12.75C8.33333 12.9754 8.42113 13.1916 8.57741 13.351C8.73369 13.5104 8.94565 13.6 9.16667 13.6Z"
-                                            fill="white"/>
-                                    </svg>
-                                </button>
-                            @endif
                         </div>
                         <span class="fw-semibold fs-5">{{ ucwords($project['type_project']) }}</span>
                     </div>
                     <div class="card-body pt-0">
                         <h2 class="fs-7">{{ $project['project_name'] }}</h2>
                         <div class="d-flex align-items-center gap-2">
-                            @if ($project['presentation'][0]['status_presentation'] == \App\Enum\StatusPresentationEnum::FINISH->value)
+                            @if ($project['status_project'] == \App\Enum\ProjectAcceptStatus::ACCEPT->value)
                                 <small class="rounded-pill text-success fw-bolder p-2"
-                                       style="background: rgba(19,222,185,.2)">Selesai</small>
-                            @elseif($project['presentation'][0]['status_presentation'] == \App\Enum\StatusPresentationEnum::WAITING->value)
+                                       style="background: rgba(19,222,185,.2)">Disetujui</small>
+                            @elseif($project['status_project'] == \App\Enum\ProjectAcceptStatus::WAITING->value)
                                 <small class="rounded-pill text-warning fw-bolder p-2"
                                        style="background: rgba(255,174,31,.2)">Menunggu</small>
-                            @elseif($project['presentation'][0]['status_presentation'] == \App\Enum\StatusPresentationEnum::PENNDING->value)
-                                <small class="rounded-pill text-warning fw-bolder p-2"
-                                       style="background: rgba(255,174,31,.2)">Pending</small>
-                            @elseif($roject['presentation'][0]['status_presentation'] == \App\Enum\StatusPresentationEnum::NOTFINISH->value)
+                            @elseif($roject['status_project'] == \App\Enum\ProjectAcceptStatus::REJECTED->value)
                                 <small class="rounded-pill text-danger fw-bolder p-2"
                                        style="background: rgb(250,137,107,.2)">Ditolak</small>
-                            @elseif($project['presentation'][0]['status_presentation'] == \App\Enum\StatusPresentationEnum::ONGOING->value)
-                                <small class="rounded-pill text-primary fw-bolder p-2"
-                                       style="background: rgba(93,135,255,.2)">Dalam Antrian</small>
                             @endif
                             <small class="rounded-pill text-primary fw-bolder p-2"
                                    style="background: rgba(93,135,255,.2)">{{ \Carbon\Carbon::parse($project['presentation'][0]['planning_date_presentation'] ?? null)->format('d F Y') }}</small>
@@ -324,7 +304,7 @@
                                 class="fw-bold">{{ $project['project_name'] }}</span>?
                         </div>
                         <div class="modal-footer">
-                            <form action="{{ route('project.destroy', $project['presentation'][0]['id']) }}"
+                            <form action="{{ route('project.destroy', $project['id']) }}"
                                   method="POST">
                                 @csrf
                                 @method('DELETE')
