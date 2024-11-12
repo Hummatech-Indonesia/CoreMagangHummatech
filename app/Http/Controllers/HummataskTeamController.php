@@ -22,6 +22,7 @@ use App\Http\Requests\StoreSoloProjectRequest;
 use App\Http\Requests\UpdateHummataskTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use App\Models\MentorStudent;
+use App\Models\Project;
 use App\Models\QueuePresentation;
 use App\Services\HummataskTeamService;
 use App\Services\ProjectService;
@@ -102,12 +103,8 @@ class HummataskTeamController extends Controller
         return view('Hummatask.index', compact('categoryProject', 'students', 'presentations', 'totalPresentation', 'upcomingProject', 'queuePresentation', 'myQueuePresentation','projects'));
     }
 
-    public function detailPresentation(Presentation $presentation)
+    public function detailProject(Project $project)
     {
-        $categoryProject = $this->categoryProject->get();
-        $studentsData = $this->student->getStudentAccepted()->where('id', '!=', auth()->user()->student_id)->pluck('name', 'id');
-        $students = $this->hummataskMemberPresentation->getStudentByPresentation($presentation);
-        return view('Hummatask.detail-presentation', compact('students', 'presentation', 'categoryProject', 'studentsData'));
     }
 
     /**

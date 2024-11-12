@@ -37,7 +37,7 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
     public function get(): mixed
     {
         return $this->model
-            ->with('presentation') // Eager load relasi presentation
+            ->with('presentation')
             ->get();
     }
 
@@ -108,5 +108,11 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
                 return 6;
         }
     }
-}
 
+    public function show($id): mixed
+    {
+        return $this->model->query()
+            ->with(['presentation','members','members.members'])
+            ->findOrFail($id);
+    }
+}

@@ -238,4 +238,10 @@ class ProjectController extends Controller
         $done = $this->project->getProjectAccepted($team->id);
         return view('mentor.project-submission.detail', compact('team', 'projects', 'done'));
     }
+
+    public function detailProject(Project $project)
+    {
+        $project = $this->project->show($project->id);
+        return view('Hummatask.project-detail', compact('project'));
+    }
 }
