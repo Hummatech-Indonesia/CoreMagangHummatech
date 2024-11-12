@@ -30,6 +30,7 @@ return new class extends Migration
                 \App\Enum\ProjectAcceptStatus::REJECTED->value,
                 \App\Enum\ProjectAcceptStatus::WAITING->value
             ])->default(\App\Enum\ProjectAcceptStatus::WAITING->value);
+            $table->text('reason')->nullable();
             $table->timestamps();
         });
     }

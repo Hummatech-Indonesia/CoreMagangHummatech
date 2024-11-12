@@ -260,7 +260,7 @@
                             @elseif($project['status_project'] == \App\Enum\ProjectAcceptStatus::WAITING->value)
                                 <small class="rounded-pill text-warning fw-bolder p-2"
                                        style="background: rgba(255,174,31,.2)">Menunggu</small>
-                            @elseif($roject['status_project'] == \App\Enum\ProjectAcceptStatus::REJECTED->value)
+                            @elseif($project['status_project'] == \App\Enum\ProjectAcceptStatus::REJECTED->value)
                                 <small class="rounded-pill text-danger fw-bolder p-2"
                                        style="background: rgb(250,137,107,.2)">Ditolak</small>
                             @endif

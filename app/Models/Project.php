@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use App\StatusProjectEnum;
+use App\Enum\PresentationTypeEnum;
+use App\Enum\ProjectAcceptStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Project extends Model
 {
@@ -15,9 +14,9 @@ class Project extends Model
 
     protected $guarded = ['id'];
     protected $casts = [
-        'status' => StatusProjectEnum::class,
+        'type_project' => PresentationTypeEnum::class,
+        'status_project' => ProjectAcceptStatus::class,
     ];
-
     public function presentation(): HasMany
     {
         return $this->hasMany(Presentation::class);

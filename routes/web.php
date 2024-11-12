@@ -471,7 +471,7 @@ Route::put('mentor/presentation/done/{presentation}', [\App\Http\Controllers\Pre
 
 # Dashboard-Task-Presentation
 Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'index'])->name('presentation.task.index');
-Route::get('dashboard/task/detail/{presentation}', [\App\Http\Controllers\ProjectController::class, 'detailProject'])->name('presentation.detail');
+Route::get('dashboard/task/detail/{project}', [\App\Http\Controllers\ProjectController::class, 'detailProject'])->name('presentation.detail');
 
 # Dashboard-Task-Project
 Route::post('dashboard/task/submit-project',[\App\Http\Controllers\ProjectController::class,'store'])->name('project.submit');
@@ -486,10 +486,6 @@ Route::prefix('dashboard/task')->group(function () {
 # Team
 Route::post('team/store', [HummataskTeamController::class, 'store'])->name('team.store');
 Route::put('team/update/{hummataskTeam}', [HummataskTeamController::class, 'update'])->name('team.update');
-
-Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'index'])->name('presentation.task.index');
-Route::get('dashboard/task/detail/{project}', [\App\Http\Controllers\ProjectController::class, 'detailProject'])->name('project.detail');
-
 
 Route::get('administrator/course/detail', function () {
     return view('admin.page.course.detail');
