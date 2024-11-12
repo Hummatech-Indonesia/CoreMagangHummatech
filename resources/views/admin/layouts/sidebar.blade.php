@@ -245,11 +245,11 @@
                                     class="nav-link {{ request()->is('students-banned*') ? 'active' : '' }}"
                                     data-key="t-range-slider">Banned Siswa</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="{{ url('/email-user') }}"
                                     class="nav-link {{ request()->is('email-user*') ? 'active' : '' }}"
                                     data-key="t-range-slider">Email user</a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </li>
