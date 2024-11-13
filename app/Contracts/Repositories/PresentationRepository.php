@@ -299,4 +299,11 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->orderBy('updated_at', 'asc')
             ->first()->urutan ?? 0;
     }
+
+    public function getPresentationByProject(int $idProject)
+    {
+        return $this->model->query()
+            ->where('project_id',$idProject)
+            ->get();
+    }
 }

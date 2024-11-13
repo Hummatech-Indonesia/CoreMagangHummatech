@@ -470,8 +470,8 @@ Route::put('mentor/presentation/changestatus', [\App\Http\Controllers\Presentati
 Route::put('mentor/presentation/done/{presentation}', [\App\Http\Controllers\PresentationController::class, 'presentationDone'])->name('presentation.presentationDone');
 
 # Dashboard-Task-Presentation
-Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'index'])->name('presentation.task.index');
-Route::get('dashboard/task/detail/{project}', [\App\Http\Controllers\ProjectController::class, 'detailProject'])->name('presentation.detail');
+Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'index'])->name('project.task.index');
+Route::get('dashboard/task/detail/{project}', [\App\Http\Controllers\ProjectController::class, 'detailProject'])->name('project.detail');
 Route::get('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'presentationProject'])->name('project.presentation');
 
 

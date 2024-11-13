@@ -284,7 +284,7 @@
                                     <button class="btn btn-primary p-2 px-4" type="submit">Detail</button>
                                 </form> --}}
                                 <a class="btn btn-primary p-2 px-4"
-                                   href="{{ route('presentation.detail', $project['id']) }}">Detail</a>
+                                   href="{{ route('project.detail', $project['id']) }}">Detail</a>
                             </div>
                         </div>
                     </div>
