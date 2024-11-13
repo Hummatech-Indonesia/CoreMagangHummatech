@@ -262,8 +262,15 @@
                                 @forelse ($students as $index => $student)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
-                                        <td>{{ $student->members->name }}</td>
-                                        <td>{{ $student->status }}</td>
+                                        <td class="d-flex gap-2 align-items-center">
+                                            <img src="{{ isset($student->members->faces->first()->photo) ? asset('storage/' . $student->members->faces->first()->photo) : asset('user.webp') }}" alt="" width="35" height="35" class="rounded rounded-circle border">
+                                            {{ $student->members->name }}
+                                        </td>
+                                        <td>
+                                            <b class="{{ $student->status == \App\Enum\StatusMemberTeamEnum::Leader->value ? 'text-warning' : 'text-primary' }}">
+                                                {{ $student->status }}
+                                            </b>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr colspan="999">

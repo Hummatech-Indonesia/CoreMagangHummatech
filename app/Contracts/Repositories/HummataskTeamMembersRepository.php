@@ -18,7 +18,7 @@ class HummataskTeamMembersRepository extends BaseRepository implements Hummatask
     {
         return $this->model
             ->query()
-            ->with('members')
+            ->with(['members','members.faces'])
             ->where('project_id', $data)->get();
     }
 
