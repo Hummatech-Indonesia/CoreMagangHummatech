@@ -45,6 +45,10 @@ class Presentation extends Model
         return $this->belongsTo(Mentor::class);
     }
 
+    public function division(): BelongsTo
+    {
+        return $this->belongsTo(Division::class);
+    }
     public function students(): BelongsTo
     {
         return $this->belongsTo(Student::class);

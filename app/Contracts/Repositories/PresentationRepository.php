@@ -303,6 +303,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     public function getPresentationByProject(int $idProject)
     {
         return $this->model->query()
+            ->with(['mentor','project','division'])
             ->where('project_id',$idProject)
             ->get();
     }

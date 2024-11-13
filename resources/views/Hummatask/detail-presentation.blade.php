@@ -83,64 +83,6 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-8">
-                        <div class="d-md-flex align-items-center mb-9">
-                            <div>
-                                <ul class="nav nav-tabs " role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link active" data-bs-toggle="tab" href="#date-by-day" role="tab"
-                                           aria-selected="true">
-                                            <span class="fs-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                     class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-month">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                    <path
-                                                        d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
-                                                    <path d="M16 3v4" />
-                                                    <path d="M8 3v4" />
-                                                    <path d="M4 11h16" />
-                                                    <path d="M7 14h.013" />
-                                                    <path d="M10.01 14h.005" />
-                                                    <path d="M13.01 14h.005" />
-                                                    <path d="M16.015 14h.005" />
-                                                    <path d="M13.015 17h.005" />
-                                                    <path d="M7.01 17h.005" />
-                                                    <path d="M10.01 17h.005" />
-                                                </svg>
-                                                Date By Day
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <a class="nav-link" data-bs-toggle="tab" href="#date-by-month" role="tab"
-                                           aria-selected="false" tabindex="-1">
-                                            <span class="fs-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                     class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-month">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                    <path
-                                                        d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
-                                                    <path d="M16 3v4" />
-                                                    <path d="M8 3v4" />
-                                                    <path d="M4 11h16" />
-                                                    <path d="M7 14h.013" />
-                                                    <path d="M10.01 14h.005" />
-                                                    <path d="M13.01 14h.005" />
-                                                    <path d="M16.015 14h.005" />
-                                                    <path d="M13.015 17h.005" />
-                                                    <path d="M7.01 17h.005" />
-                                                    <path d="M10.01 17h.005" />
-                                                </svg>
-                                                Date By Month
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                     <div class="col-4 ">
                         <div class="d-flex align-items-center justify-content-end">
@@ -177,181 +119,44 @@
                                 <thead>
                                 <tr>
                                     <th class="ps-0 text">No</th>
-                                    <th class="text-center">Nama Project</th>
-                                    <th class="text-center">Devisi</th>
+                                    <th class="text-center">Tanggal Presentation</th>
+                                    <th class="text-center">Mentor</th>
                                     <th class="text-center">Jenis Project</th>
                                     <th class="text-center">Antrian</th>
                                     <th class="text-center">Opsi</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="ps-0 text">
-                                        <span>1.</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Hummatask</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Web</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Big Project</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">#001</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">
-                                            <a href="/revision">
-                                                <button class="btn btn-primary">Detail</button>
-                                            </a>
-                                        </h6>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-0 text">
-                                        <span>1.</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Hummatask</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Web</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Big Project</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">#002</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">
-                                            <a href="">
-                                                <button class="btn btn-primary">Detail</button>
-                                            </a>
-                                        </h6>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-0 text">
-                                        <span>1.</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Hummatask</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Web</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Big Project</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">#003</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">
-                                            <a href="">
-                                                <button class="btn btn-primary">Detail</button>
-                                            </a>
-                                        </h6>
-                                    </td>
-                                </tr>
+                                    @foreach($presentations as $presentation)
+                                        <tr>
+                                            <td class="ps-0 text">
+                                                <span>{{ $loop->iteration }}.</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <h6 class="mb-0">{{ $presentation->planning_date_presentation }}</h6>
+                                            </td>
+                                            <td class="text-center">
+                                                <h6 class="mb-0">{{ $presentation->mentor->name ?? '-' }}</h6>
+                                            </td>
+                                            <td class="text-center">
+                                                <h6 class="mb-0">{{ isset($presentation->project->type_project) ? ucwords($presentation->project->type_project->value) : '-'  }}</h6>
+                                            </td>
+                                            <td class="text-center">
+                                                <h6 class="mb-0">#{{ sprintf('%02d', $presentation->urutan) }}</h6>
+                                            </td>
+                                            <td class="text-center">
+                                                <h6 class="mb-0">
+                                                    <a href="/revision">
+                                                        <button class="btn btn-primary">Detail</button>
+                                                    </a>
+                                                </h6>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="tab-pane" id="date-by-month" role="tabpanel">
-                        <div class="table-responsive">
-                            <table class="table align-middle mb-0 text-nowrap">
-                                <thead>
-                                <tr>
-                                    <th class="ps-0 text">No</th>
-                                    <th class="text-center">Nama Project</th>
-                                    <th class="text-center">Devisi</th>
-                                    <th class="text-center">Jenis Project</th>
-                                    <th class="text-center">Antrian</th>
-                                    <th class="text-center">Opsi</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="ps-0 text">
-                                        <span>1.</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Echommer</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Web</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Big Project</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">#001</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">
-                                            <a href="">
-                                                <button class="btn btn-primary">Detail</button>
-                                            </a>
-                                        </h6>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-0 text">
-                                        <span>1.</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Echommer</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Web</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Big Project</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">#002</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">
-                                            <a href="">
-                                                <button class="btn btn-primary">Detail</button>
-                                            </a>
-                                        </h6>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-0 text">
-                                        <span>1.</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Echommer</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Web</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">Big Project</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">#003</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <h6 class="mb-0">
-                                            <a href="">
-                                                <button class="btn btn-primary">Detail</button>
-                                            </a>
-                                        </h6>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>

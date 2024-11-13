@@ -250,7 +250,7 @@ class ProjectController extends Controller
 
     public function presentationProject(Project $project)
     {
-        $presentation = $this->presentation->getPresentationByProject($project->id);
-        return view('Hummatask.detail-presentation',  compact('project','presentation'));
+        $presentations = $this->presentation->getPresentationByProject($project->id);
+        return view('Hummatask.detail-presentation',  compact('project','presentations'));
     }
 }
