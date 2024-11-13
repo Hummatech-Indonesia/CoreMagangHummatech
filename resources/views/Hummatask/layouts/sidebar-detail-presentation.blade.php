@@ -20,7 +20,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item px-2">
-                    <a class="sidebar-link" href="" aria-expanded="false">
+                    <a class="sidebar-link" href="#" aria-expanded="false">
                         <span>
 
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -35,7 +35,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item px-2">
-                    <a class="sidebar-link" href="/dashboard/task" aria-expanded="false">
+                    <a class="sidebar-link" href="/presentasi" aria-expanded="false">
                         <span>
 
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

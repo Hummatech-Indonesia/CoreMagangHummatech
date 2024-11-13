@@ -31,8 +31,6 @@
             box-shadow: 0 2px 8px rgba(99, 98, 98, 0.1);
             /* Sesuaikan intensitas shadow */
         }
-
-
     </style>
 @endsection
 @section('sidebar')
@@ -83,67 +81,94 @@
 
         <div class="card">
             <div class="card-body">
-                <div class="d-md-flex align-items-center mb-9">
-                    <div>
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link active" data-bs-toggle="tab" href="#date-by-day" role="tab" aria-selected="true">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-month">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
-                                            <path d="M16 3v4" />
-                                            <path d="M8 3v4" />
-                                            <path d="M4 11h16" />
-                                            <path d="M7 14h.013" />
-                                            <path d="M10.01 14h.005" />
-                                            <path d="M13.01 14h.005" />
-                                            <path d="M16.015 14h.005" />
-                                            <path d="M13.015 17h.005" />
-                                            <path d="M7.01 17h.005" />
-                                            <path d="M10.01 17h.005" />
-                                          </svg>
-                                        Date By Day
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link" data-bs-toggle="tab" href="#date-by-month" role="tab" aria-selected="false"
-                                    tabindex="-1">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-month">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
-                                            <path d="M16 3v4" />
-                                            <path d="M8 3v4" />
-                                            <path d="M4 11h16" />
-                                            <path d="M7 14h.013" />
-                                            <path d="M10.01 14h.005" />
-                                            <path d="M13.01 14h.005" />
-                                            <path d="M16.015 14h.005" />
-                                            <path d="M13.015 17h.005" />
-                                            <path d="M7.01 17h.005" />
-                                            <path d="M10.01 17h.005" />
-                                          </svg>
-                                        Date By Month
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="ms-auto mt-4 mt-md-0">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <div class="nav-item ms-auto">
-                                <form class="position-relative">
-                                    <input type="text" class="form-control product-search ps-5" id="input-search"
-                                        placeholder="Search Presentasi...">
-                                    <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
-                                </form>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="d-md-flex align-items-center mb-9">
+                            <div>
+                                <ul class="nav nav-tabs " role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#date-by-day" role="tab"
+                                            aria-selected="true">
+                                            <span class="fs-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-month">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path
+                                                        d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
+                                                    <path d="M16 3v4" />
+                                                    <path d="M8 3v4" />
+                                                    <path d="M4 11h16" />
+                                                    <path d="M7 14h.013" />
+                                                    <path d="M10.01 14h.005" />
+                                                    <path d="M13.01 14h.005" />
+                                                    <path d="M16.015 14h.005" />
+                                                    <path d="M13.015 17h.005" />
+                                                    <path d="M7.01 17h.005" />
+                                                    <path d="M10.01 17h.005" />
+                                                </svg>
+                                                Date By Day
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#date-by-month" role="tab"
+                                            aria-selected="false" tabindex="-1">
+                                            <span class="fs-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-month">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path
+                                                        d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
+                                                    <path d="M16 3v4" />
+                                                    <path d="M8 3v4" />
+                                                    <path d="M4 11h16" />
+                                                    <path d="M7 14h.013" />
+                                                    <path d="M10.01 14h.005" />
+                                                    <path d="M13.01 14h.005" />
+                                                    <path d="M16.015 14h.005" />
+                                                    <path d="M13.015 17h.005" />
+                                                    <path d="M7.01 17h.005" />
+                                                    <path d="M10.01 17h.005" />
+                                                </svg>
+                                                Date By Month
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
-                        </ul>
+                        </div>
+                    </div>
+                    <div class="col-4 ">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <div class="ms-auto mt-4 mt-md-0">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <div class="nav-item ms-auto">
+                                        <form class="position-relative">
+                                            <input type="text" class="form-control product-search ps-5 fs-2"
+                                                id="input-search" placeholder="Cari Presentasi...">
+                                            <i
+                                                class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-3 text-dark ms-3"></i>
+                                        </form>
+                                    </div>
+                                </ul>
+                            </div>
+                            <div class="ms-auto mt-4 mt-md-0">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <div class="nav-item ms-auto">
+                                        <button class="btn btn-primary fs-2" data-bs-toggle="modal"
+                                            data-bs-target="#submit-a-presentation">
+                                            Ajukan Presentasi
+                                        </button>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
                 <!-- Tab panes -->
                 <div class="tab-content mt-3">
                     <div class="tab-pane active show" id="date-by-day" role="tabpanel">
@@ -332,3 +357,33 @@
         </div>
     </div>
 @endsection
+
+{{--  modal  --}}
+<div class="modal fade" id="submit-a-presentation" tabindex="-1" aria-labelledby="submit-a-presentationLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="#" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h1 class="modal-title fs-4" id="submit-a-presentationLabel">Ajukan Presentasi</h1>
+                    <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="startDate">
+                        <label class="mb-2 mt-1 fs-2" for="">Tanggal Presentasi</label>
+                        <input class="form-control" name="#" type="date" value="{{ old('#') }}">
+                        @error('#')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success btn-sm">Kirim</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

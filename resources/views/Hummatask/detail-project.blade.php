@@ -34,7 +34,7 @@
 
 @section('content')
     <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false"
-         aria-labelledby="editModalLabel"
+         aria-labelledby="editModalLabel
          aria-hidden="true" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
