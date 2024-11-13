@@ -29,7 +29,7 @@
 @endsection
 
 @section('sidebar')
-    @include('Hummatask.layouts.sidebar-detail-presentation', ['project' => $project])
+    @include('Hummatask.layouts.sidebar-detail-presentation')
 @endsection
 
 @section('content')
