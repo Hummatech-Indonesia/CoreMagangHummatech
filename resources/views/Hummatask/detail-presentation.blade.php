@@ -169,7 +169,8 @@
             <form class="ms-2 p-0" action="{{ route('presentations.destroy', $project->id) }}" method="post">
                 @csrf
                 @method('DELETE')
-                <button class="btn h-100 px-3" style="background: #FBF2EF" {{ $project->status_project->value == \App\Enum\ProjectAcceptStatus::WAITING->value }}>
+                <button class="btn h-100 px-3"
+                        style="background: #FBF2EF" {{ $project->status_project->value == \App\Enum\ProjectAcceptStatus::WAITING->value }}>
                     <svg width="22" height="26" viewBox="0 0 27 31" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -182,6 +183,60 @@
     </div>
     <div class="row">
         <div class="col-12 col-lg-7">
+            <div class="card" style="border:1px solid rgba(0,0,0,.03);">
+                <div class="card-content">
+                    <div class="card-body d-flex justify-content-start align-items-center m-0 p-3 text-center">
+                        <h5 class="m-0 p-0">
+                            Informasi Project</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="border:1px solid rgba(0,0,0,.03);">
+                <div class="card-content">
+                    <div class="card-body d-flex flex-column align-items-start justify-content-start">
+                        <h5 class="my-3">Status</h5>
+                        @if ($project->status_project->value == \App\Enum\ProjectAcceptStatus::ACCEPT->value)
+                            <small class="rounded-pill text-success fw-bolder p-2"
+                                   style="background: rgba(19,222,185,.2)">Disetujui</small>
+                        @elseif($project->status_project->value == \App\Enum\ProjectAcceptStatus::WAITING->value)
+                            <small class="rounded-pill text-warning fw-bolder p-2"
+                                   style="background: rgba(255,174,31,.2)">Menunggu</small>
+                        @elseif($project->status_project->value == \App\Enum\ProjectAcceptStatus::REJECTED->value)
+                            <small class="rounded-pill text-danger fw-bolder p-2"
+                                   style="background: rgb(250,137,107,.2)">Ditolak</small>
+                        @endif
+                        <h5 class="my-3">Kategori Project</h5>
+                        <input class="form-control" type="text" value="{{ ucwords($project->type_project->value ) }}"
+                               style="pointer-events: none" readonly>
+                        <h5 class="my-3">Deskripsi</h5>
+                        <textarea class="form-control" type="text"
+                               style="pointer-events: none" readonly rows="4">{{ $project->description ? $project->description : 'tema anda' }}</textarea>
+                        <h5 class="my-3">Link Repository Github (Opsional)</h5>
+                        <input class="form-control" type="text"
+                               value="{{ $project->link ? $project->link : 'https://....' }}"
+                               style="pointer-events: none" readonly>
+                        <h5 class="my-3">Waktu Pengerjaan</h5>
+                        <input class="form-control" type="text" value="{{ $project->start_date . " - ". $project->end_date }}"
+                               style="pointer-events: none" readonly>
+
+                        @if ($project->status_project->value === \App\Enum\ProjectAcceptStatus::WAITING->value)
+                        @elseif($project->status_project->value === \App\Enum\ProjectAcceptStatus::REJECTED->value)
+                            <h5 class="my-3">Alasan Ditolak</h5>
+                            <textarea class="form-control" style="pointer-events: none;resize:none;" cols="20" rows="5"
+                                      readonly
+                                      placeholder="{{ $project->reason ? $project->reason : 'Alasan ditolak...' }}"></textarea>
+                        @elseif($project->status_project->value === 'ongoing')
+                            <h5 class="my-3">Alasan Ditolak</h5>
+                            <textarea class="form-control" style="pointer-events: none;resize:none;" cols="20" rows="5"
+                                      readonly
+                                      placeholder="{{ $project->reason ? $project->reason : 'Alasan ditolak...' }}"></textarea>
+                        @endif
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-5">
             <div class="card" style="border:1px solid rgba(0,0,0,.03);">
                 <div class="card-content">
                     <div class="card-body d-flex justify-content-between align-items-center m-0 p-3">
@@ -222,58 +277,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-5">
-            <div class="card" style="border:1px solid rgba(0,0,0,.03);">
-                <div class="card-content">
-                    <div class="card-body d-flex justify-content-start align-items-center m-0 p-3 text-center">
-                        <h5 class="m-0 p-0">
-                            Informasi Project</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="card" style="border:1px solid rgba(0,0,0,.03);">
-                <div class="card-content">
-                    <div class="card-body d-flex flex-column align-items-start justify-content-start">
-                        @if ($project->status_project->value == \App\Enum\ProjectAcceptStatus::ACCEPT->value)
-                            <small class="rounded-pill text-success fw-bolder p-2"
-                                   style="background: rgba(19,222,185,.2)">Disetujui</small>
-                        @elseif($project->status_project->value == \App\Enum\ProjectAcceptStatus::WAITING->value)
-                            <small class="rounded-pill text-warning fw-bolder p-2"
-                                   style="background: rgba(255,174,31,.2)">Menunggu</small>
-                        @elseif($project->status_project->value == \App\Enum\ProjectAcceptStatus::REJECTED->value)
-                            <small class="rounded-pill text-danger fw-bolder p-2"
-                                   style="background: rgb(250,137,107,.2)">Ditolak</small>
-                        @endif
-                        <h5 class="my-3">Kategori Project</h5>
-                        <input class="form-control" type="text" value="{{ ucwords($project->type_project->value ) }}"
-                               style="pointer-events: none" readonly>
-                        <h5 class="my-3">Tema</h5>
-                        <input class="form-control" type="text"
-                               value="{{ $project->description ? $project->description : 'tema anda' }}"
-                               style="pointer-events: none" readonly>
-                        <h5 class="my-3">Link Repository Github (Opsional)</h5>
-                        <input class="form-control" type="text"
-                               value="{{ $project->link ? $project->link : 'https://....' }}"
-                               style="pointer-events: none" readonly>
-
-                        @if ($project->status_project->value === 'waiting')
-                        @elseif($project->status_project->value === 'rejected')
-                            <h5 class="my-3">Alasan Ditolak</h5>
-                            <textarea class="form-control" style="pointer-events: none;resize:none;" cols="20" rows="5"
-                                      readonly
-                                      placeholder="{{ $project->reason ? $project->reason : 'Alasan ditolak...' }}"></textarea>
-                        @elseif($project->status_project->value === 'ongoing')
-                            <h5 class="my-3">Alasan Ditolak</h5>
-                            <textarea class="form-control" style="pointer-events: none;resize:none;" cols="20" rows="5"
-                                      readonly
-                                      placeholder="{{ $project->reason ? $project->reason : 'Alasan ditolak...' }}"></textarea>
-                        @endif
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     </div>
     <script src="{{ asset('assets/libs/jquery/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/libs/select2/select2.min.js') }}"></script>

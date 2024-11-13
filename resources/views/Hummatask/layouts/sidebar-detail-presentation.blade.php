@@ -46,7 +46,7 @@
                             </svg>
 
                         </span>
-                        <span class="hide-menu">Catatan</span>
+                        <span class="hide-menu">Presentation</span>
                     </a>
                 </li>
                 {{--                @forelse ($studentTeams as $studentTeam) --}}
