@@ -636,6 +636,9 @@ Route::delete('/presentations/{presentation}', [HummataskTeamController::class, 
 Route::get('/presentasi', function () {
     return view('Hummatask.detail-presentation');
 });
+Route::get('/revision', function () {
+    return view('Hummatask.revision');
+});
 
 //require_once _DIR_ . '/femas.php';
 //require_once _DIR_ . '/kader.php';

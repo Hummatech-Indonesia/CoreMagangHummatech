@@ -203,7 +203,7 @@
                                         </td>
                                         <td class="text-center">
                                             <h6 class="mb-0">
-                                                <a href="">
+                                                <a href="/revision">
                                                     <button class="btn btn-primary">Detail</button>
                                                 </a>
                                             </h6>
