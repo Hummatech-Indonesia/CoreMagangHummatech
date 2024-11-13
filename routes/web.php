@@ -472,6 +472,8 @@ Route::put('mentor/presentation/done/{presentation}', [\App\Http\Controllers\Pre
 # Dashboard-Task-Presentation
 Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'index'])->name('presentation.task.index');
 Route::get('dashboard/task/detail/{project}', [\App\Http\Controllers\ProjectController::class, 'detailProject'])->name('presentation.detail');
+Route::get('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'presentationProject'])->name('project.presentation');
+
 
 # Dashboard-Task-Project
 Route::post('dashboard/task/submit-project',[\App\Http\Controllers\ProjectController::class,'store'])->name('project.submit');
