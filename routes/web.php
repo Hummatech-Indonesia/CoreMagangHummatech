@@ -631,16 +631,8 @@ Route::patch('mentor/assessment/update/challenge/{studentChallenge}', [Assessmen
 Route::put('presentation/update', [HummataskTeamController::class, 'updatePresentation'])->name('presentation-detail.update');
 Route::delete('/presentations/{presentation}', [HummataskTeamController::class, 'destroy'])->name('presentations.destroy');
 
-
-Route::get('/test', function () {
-    return view('Hummatask.index');
-});
-
-Route::get('/detail', function () {
-    return view('Hummatask.project-detail');
-});
 Route::get('/presentasi', function () {
-    return view('Hummatask.presentation');
+    return view('Hummatask.detail-presentation');
 });
 
 //require_once _DIR_ . '/femas.php';

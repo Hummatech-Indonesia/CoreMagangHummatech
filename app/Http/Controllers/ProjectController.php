@@ -245,6 +245,6 @@ class ProjectController extends Controller
         $categoryProject = $this->categoryProject->get();
         $studentsData = $this->student->getStudentAccepted();
         $students = $this->hummataskMemberPresentation->getStudentByPresentation($project->id);
-        return view('Hummatask.detail-presentation', compact('project','categoryProject','studentsData','students'));
+        return view('Hummatask.detail-project', compact('project','categoryProject','studentsData','students'));
     }
 }
