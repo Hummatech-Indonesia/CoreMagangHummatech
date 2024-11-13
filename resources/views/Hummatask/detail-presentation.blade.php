@@ -123,6 +123,7 @@
                                     <th class="text-center">Mentor</th>
                                     <th class="text-center">Jenis Project</th>
                                     <th class="text-center">Antrian</th>
+                                    <th class="text-center">Status</th>
                                     <th class="text-center">Opsi</th>
                                 </tr>
                                 </thead>
@@ -143,6 +144,21 @@
                                             </td>
                                             <td class="text-center">
                                                 <h6 class="mb-0">#{{ sprintf('%02d', $presentation->urutan) }}</h6>
+                                            </td>
+                                            <td class="text-center">
+                                                @if($project->status_project->value == \App\Enum\ProjectAcceptStatus::WAITING->value)
+                                                    <small class="bg-label-warning p-2 rounded-pill">
+                                                        {{ ucwords($project->status_project->value) }}
+                                                    </small>
+                                                @elseif($project->status_project->value == \App\Enum\ProjectAcceptStatus::REJECTED->value)
+                                                    <small class="bg-label-danger p-2 rounded-pill">
+                                                        {{ ucwords($project->status_project->value) }}
+                                                    </small>
+                                                @elseif($project->status_project->value == \App\Enum\ProjectAcceptStatus::ACCEPT->value)
+                                                    <small class="bg-label-primary p-2 rounded-pill">
+                                                        {{ ucwords($project->status_project->value) }}
+                                                    </small>
+                                                @endif
                                             </td>
                                             <td class="text-center">
                                                 <h6 class="mb-0">
