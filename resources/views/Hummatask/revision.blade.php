@@ -462,52 +462,43 @@
                                 <div class="container rounded-1 bg-light-primary position-relative p-3">
                                     <div class="d-flex">
                                         <div class="mt-2 flex-grow-1">
-                                            <p class="fw-semibold fs-1 mb-2 mt-2" style="color: #0da8ff">
-                                                Super awesome, Vue coming s awesome, Vue coming s awesome, Vue coming s
-                                                awesome, Vue coming sooawesome, Vue coming sooawesome, Vue coming
-                                                sooawesome, Vue coming soo n!
+                                            <p id="textContent" class="fw-semibold fs-1 mb-2 mt-2" style="color: #0da8ff">
+                                                Super awesome, Vue coming soon!
                                             </p>
+                                            <input type="text" id="editInput" class="form-control d-none FS-2" value="Super awesome, Vue coming soon!">
                                         </div>
-                                        <a href="#" class=" position-absolute" style="top: 10px; right: 10px;"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-three-dots-vertical"
-                                                viewBox="0 0 16 16">
-                                                <path
-                                                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                        <a href="#" class="position-absolute" style="top: 10px; right: 10px;" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
                                             </svg>
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a class="dropdown-item fs-2" href="#">
+                                                <a class="dropdown-item fs-2" href="#" id="editButton">
                                                     Edit
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item fs-2"  data-bs-toggle="modal" data-bs-target="#submit-a-presentation" href="#">
+                                                <a class="dropdown-item fs-2" href="#" data-bs-toggle="modal" data-bs-target="#submit-a-presentation">
                                                     Hapus
                                                 </a>
                                             </li>
                                         </ul>
                                     </div>
+                                    <div id="saveCancelButtons" class="d-none MT-2">
+                                        <button class="btn btn-primary btn-sm" id="saveButton">Save</button>
+                                        <button class="btn btn-secondary btn-sm" id="cancelButton">Cancel</button>
+                                    </div>
                                     <div class="d-flex justify-content-end">
                                         <ul class="hstack mb-2">
                                             <li class="ms-n8">
-                                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" aria-label="gito"
-                                                    data-bs-original-title="gito">
-                                                    <img src="assets-user/dist/images/profile/user-2.jpg"
-                                                        class="rounded-circle border border-2 border-white" width="33"
-                                                        height="33" alt="">
+                                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="gito" data-bs-original-title="gito">
+                                                    <img src="assets-user/dist/images/profile/user-2.jpg" class="rounded-circle border border-2 border-white" width="33" height="33" alt="">
                                                 </a>
                                             </li>
                                             <li class="ms-n8">
-                                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" aria-label="sugiren"
-                                                    data-bs-original-title="sugiren">
-                                                    <img src="assets-user/dist/images/profile/user-3.jpg"
-                                                        class="rounded-circle border border-2 border-white" width="33"
-                                                        height="33" alt="">
+                                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="sugiren" data-bs-original-title="sugiren">
+                                                    <img src="assets-user/dist/images/profile/user-3.jpg" class="rounded-circle border border-2 border-white" width="33" height="33" alt="">
                                                 </a>
                                             </li>
                                         </ul>
@@ -515,6 +506,31 @@
                                 </div>
                             </div>
                         </div>
+
+                        <script>
+                        document.getElementById('editButton').addEventListener('click', function(event) {
+                            event.preventDefault();
+                            document.getElementById('textContent').classList.add('d-none');
+                            document.getElementById('editInput').classList.remove('d-none');
+                            document.getElementById('saveCancelButtons').classList.remove('d-none');
+                        });
+
+                        document.getElementById('saveButton').addEventListener('click', function() {
+                            var editedText = document.getElementById('editInput').value;
+                            document.getElementById('textContent').innerText = editedText;
+                            document.getElementById('textContent').classList.remove('d-none');
+                            document.getElementById('editInput').classList.add('d-none');
+                            document.getElementById('saveCancelButtons').classList.add('d-none');
+                        });
+
+                        document.getElementById('cancelButton').addEventListener('click', function() {
+                            document.getElementById('editInput').value = document.getElementById('textContent').innerText;
+                            document.getElementById('textContent').classList.remove('d-none');
+                            document.getElementById('editInput').classList.add('d-none');
+                            document.getElementById('saveCancelButtons').classList.add('d-none');
+                        });
+                        </script>
+
 
                         <div class="row mt-3">
                             <div class="col-12">
