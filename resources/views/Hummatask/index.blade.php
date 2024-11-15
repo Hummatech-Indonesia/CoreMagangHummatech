@@ -315,7 +315,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="delete-modal-{{ $project['id'] }}" aria-labelledby="deleteModalLabel"
+            {{--  <div class="modal fade" id="delete-modal-{{ $project['id'] }}" aria-labelledby="deleteModalLabel"
                  aria-hidden="true" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -338,7 +338,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>  --}}
         @endforeach
     </div>
     {{-- <div class="mb-2 mt-5 text-center" style="margin: 0 auto;"> --}}

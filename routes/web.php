@@ -473,6 +473,7 @@ Route::put('mentor/presentation/done/{presentation}', [\App\Http\Controllers\Pre
 Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'index'])->name('project.task.index');
 Route::get('dashboard/task/detail/{project}', [\App\Http\Controllers\ProjectController::class, 'detailProject'])->name('project.detail');
 Route::get('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'presentationProject'])->name('project.presentation');
+Route::get('dashboard/task/detail/{project}/presentation/{presentation}/revision', [\App\Http\Controllers\ProjectController::class, 'revisionProject'])->name('project.presentation.revision');
 
 
 # Dashboard-Task-Project
@@ -635,6 +636,9 @@ Route::delete('/presentations/{presentation}', [HummataskTeamController::class, 
 
 Route::get('/presentasi', function () {
     return view('Hummatask.detail-presentation');
+});
+Route::get('/revision', function () {
+    return view('Hummatask.revision');
 });
 
 //require_once _DIR_ . '/femas.php';

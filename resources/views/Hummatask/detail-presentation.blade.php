@@ -91,7 +91,7 @@
                                     <div class="nav-item ms-auto">
                                         <form class="position-relative">
                                             <input type="text" class="form-control product-search ps-5 fs-2"
-                                                   id="input-search" placeholder="Cari Presentasi...">
+                                                id="input-search" placeholder="Cari Presentasi...">
                                             <i
                                                 class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-3 text-dark ms-3"></i>
                                         </form>
@@ -102,7 +102,7 @@
                                 <ul class="nav nav-tabs" role="tablist">
                                     <div class="nav-item ms-auto">
                                         <button class="btn btn-primary fs-2" data-bs-toggle="modal"
-                                                data-bs-target="#submit-a-presentation">
+                                            data-bs-target="#submit-a-presentation">
                                             Ajukan Presentasi
                                         </button>
                                     </div>
@@ -181,7 +181,7 @@
 
 {{--  modal  --}}
 <div class="modal fade" id="submit-a-presentation" tabindex="-1" aria-labelledby="submit-a-presentationLabel"
-     aria-hidden="true">
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="#" method="POST">
@@ -195,7 +195,7 @@
                         <label class="mb-2 mt-1 fs-2" for="">Tanggal Presentasi</label>
                         <input class="form-control" name="#" type="date" value="{{ old('#') }}">
                         @error('#')
-                        <div class="text-danger">{{ $message }}</div>
+                            <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>

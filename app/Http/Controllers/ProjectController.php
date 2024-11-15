@@ -24,6 +24,7 @@ use App\Services\StudentProjectService;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\ProjectRevision;
 use App\StatusProjectEnum;
 
 class ProjectController extends Controller
@@ -252,5 +253,10 @@ class ProjectController extends Controller
     {
         $presentations = $this->presentation->getPresentationByProject($project->id);
         return view('Hummatask.detail-presentation',  compact('project','presentations'));
+    }
+    public function revisionProject(Project $project, ProjectRevision $presentation)
+    {
+        $presentation = $this->presentation->getPresentationByProject($project->id);
+        return view('Hummatask.revision',  compact('project','presentation'));
     }
 }
