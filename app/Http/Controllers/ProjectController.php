@@ -257,6 +257,7 @@ class ProjectController extends Controller
     public function revisionProject(Project $project, ProjectRevision $presentation)
     {
         $presentation = $this->presentation->getPresentationByProject($project->id);
+        dd($presentation);
         return view('Hummatask.revision',  compact('project','presentation'));
     }
 }
