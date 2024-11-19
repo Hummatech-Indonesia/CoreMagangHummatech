@@ -29,10 +29,11 @@ return new class extends Migration
                 \App\Enum\PresentationTypeEnum::LIVECODING->value
             ]);
             $table->enum('status_project',[
-                \App\Enum\ProjectAcceptStatus::ACCEPT->value,
-                \App\Enum\ProjectAcceptStatus::REJECTED->value,
-                \App\Enum\ProjectAcceptStatus::WAITING->value
-            ])->default(\App\Enum\ProjectAcceptStatus::WAITING->value);
+                \App\Enum\TaskStatusEnum::PENDING->value,
+                \App\Enum\TaskStatusEnum::INPROGRESS->value,
+                \App\Enum\TaskStatusEnum::REVISION->value,
+                \App\Enum\TaskStatusEnum::COMPLETED->value,
+            ])->default(\App\Enum\TaskStatusEnum::PENDING->value);
             $table->text('reason')->nullable();
             $table->timestamps();
         });

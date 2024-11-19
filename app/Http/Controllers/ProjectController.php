@@ -27,6 +27,7 @@ use App\Http\Requests\StoreProjectFromMentorRequest;
 use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Contracts\Interfaces\HummataskTeamMembersInterface;
+use App\Enum\TaskStatusEnum;
 
 class ProjectController extends Controller
 {
@@ -45,21 +46,20 @@ class ProjectController extends Controller
     private HummataskTeamMembersInterface $hummataskMemberPresentation;
 
     public function __construct(
-        HummataskTeamInterface        $hummatask_team,
-        HummataskTeamService          $service,
-        ProjectService                $projectService,
-        ProjectInterface              $project,
-        StudentProjectService         $studentProjectService,
-        StudentProjectInterface       $studentProject,
-        CategoryProjectInterface      $categoryProject,
-        StudentInterface              $student,
-        MentorDivisionInterface       $mentordivision,
-        StudentTeamInterface          $studentTeam,
-        MentorStudentInterface        $mentorStudent,
-        PresentationInterface         $presentation,
+        HummataskTeamInterface $hummatask_team,
+        HummataskTeamService $service,
+        ProjectService $projectService,
+        ProjectInterface $project,
+        StudentProjectService $studentProjectService,
+        StudentProjectInterface $studentProject,
+        CategoryProjectInterface $categoryProject,
+        StudentInterface $student,
+        MentorDivisionInterface $mentordivision,
+        StudentTeamInterface $studentTeam,
+        MentorStudentInterface $mentorStudent,
+        PresentationInterface $presentation,
         HummataskTeamMembersInterface $hummataskMemberPresentation
-    )
-    {
+    ) {
         $this->hummatask_team = $hummatask_team;
         $this->service = $service;
         $this->mentordivision = $mentordivision;
@@ -82,11 +82,15 @@ class ProjectController extends Controller
     {
         $categoryProject = $this->categoryProject->get();
         $students = $this->student->getStudentAccepted()->where('id', '!=', auth()->user()->student_id)->pluck('name', 'id');
-        $presentations = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id);
-        $totalPresentation = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id)->count();
-        $upcomingProject = $this->project->upcomingproject(auth()->user()->student_id);
-        $queuePresentation = QueuePresentation::first()->queue ?? 1;
-        $myQueuePresentation = $this->presentation->getQueuePresentationByUser(auth()->user()->student_id);
+        // $presentations = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id);
+        // $totalPresentation = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id)->count();
+        // $upcomingProject = $this->project->upcomingproject(auth()->user()->student_id);
+        // $queuePresentation = QueuePresentation::first()->queue ?? 1;
+        // $myQueuePresentation = $this->presentation->getQueuePresentationByUser(auth()->user()->student_id);
+        $pending = $this->project->where('status_project', TaskStatusEnum::PENDING->value)->count();
+        $inprogress = $this->project->where('status_project', TaskStatusEnum::INPROGRESS->value)->count();
+        $revision = $this->project->where('status_project', TaskStatusEnum::REVISION->value)->count();
+        $completed = $this->project->where('status_project', TaskStatusEnum::COMPLETED->value)->count();
         $getProjects = $this->project->get();
         $projects = [];
         foreach ($getProjects as $getProject) {
@@ -96,8 +100,8 @@ class ProjectController extends Controller
             ];
         }
 
-//        dd($projects);
-        return view('Hummatask.index', compact('categoryProject', 'students', 'presentations', 'totalPresentation', 'upcomingProject', 'queuePresentation', 'myQueuePresentation', 'projects', 'getProjects'));
+        // dd($pending);
+        return view('Hummatask.index', compact('categoryProject', 'students', 'pending', 'inprogress', 'revision', 'completed', 'getProjects'));
     }
 
     /**
@@ -133,7 +137,7 @@ class ProjectController extends Controller
         }
         $this->hummataskMemberPresentation->store($members);
         //        }
-        return back()->with('success', 'Team baru berhasil ditambahkan');
+        return back()->with('success', 'project baru berhasil ditambahkan');
     }
 
 
@@ -246,19 +250,19 @@ class ProjectController extends Controller
         $categoryProject = $this->categoryProject->get();
         $studentsData = $this->student->getStudentAccepted();
         $students = $this->hummataskMemberPresentation->getStudentByPresentation($project->id);
-        return view('Hummatask.detail-project', compact('project','categoryProject','studentsData','students'));
+        return view('Hummatask.detail-project', compact('project', 'categoryProject', 'studentsData', 'students'));
     }
 
     public function presentationProject(Project $project)
     {
         $presentations = $this->presentation->getPresentationByProject($project->id);
-        return view('Hummatask.detail-presentation',  compact('project','presentations'));
+        return view('Hummatask.detail-presentation', compact('project', 'presentations'));
     }
     public function revisionProject(Project $project, ProjectRevision $presentation)
     {
         $presentation = $this->presentation->getPresentationByProject($project->id);
         dd($presentation);
-        return view('Hummatask.revision',  compact('project','presentation'));
+        return view('Hummatask.revision', compact('project', 'presentation'));
     }
 
     public function storePresentation(StorePresentationRequest $request)
@@ -266,9 +270,9 @@ class ProjectController extends Controller
 
         try {
             $this->presentation->store($request->validated());
-        return redirect()->route('project.presentation',parameters: $request->project_id)->with('success', 'Berhasil menambahkan jadwal presentasi');
+            return redirect()->route('project.presentation', parameters: $request->project_id)->with('success', 'Berhasil menambahkan jadwal presentasi');
         } catch (\Exception $e) {
-            return redirect()->route('project.presentation',parameters: $request->project_id)->with('error', value: 'Gagal menambahkan jadwal presentasi');
+            return redirect()->route('project.presentation', parameters: $request->project_id)->with('error', value: 'Gagal menambahkan jadwal presentasi');
         }
 
     }

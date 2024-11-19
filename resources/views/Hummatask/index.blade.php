@@ -2,9 +2,8 @@
 @section('style')
     <style>
         /* * {
-            border: 1px solid #f00;
-        } */
-
+                                    border: 1px solid #f00;
+                                } */
         .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
             color: black;
         }
@@ -415,9 +414,37 @@
                                     <p class="mb-0">Deadline :
                                         {{ \carbon\Carbon::parse($project->start_date)->diffInDays(\carbon\Carbon::parse($project->end_date)) }}
                                         hari</p>
-                                    <p class="my-0">Revisi : 0</p>
+                                    @isset($project->reason)
+                                        <p class="my-0">Revisi : 0</p>
+                                    @endisset
                                     <p class="">Kategori : {{ $project->type_project }}</p>
-                                    <span class="badge rounded-pill bg-blue fw-bold">{{ $project->status_project }}</span>
+                                    {{-- <span class="badge rounded-pill bg-blue fw-bold">c</span> --}}
+                                    @switch($project->status_project->value)
+                                        @case('pending')
+                                            <small class="rounded-pill text-primary fw-bolder p-2"
+                                                style="background: #d9ebff; color: #008ffb;">Belum selesai</small>
+                                        @break
+
+                                        @case('inprogress')
+                                            <small class="rounded-pill text-warning fw-bolder p-2"
+                                                style="background: #fff5e3; color: #ffaa05;">Sedang dikerjakan</small>
+                                        @break
+
+                                        @case('revision')
+                                            <small class="rounded-pill text-danger fw-bolder p-2"
+                                                style="background: #fbf2ef; color: #e12d5b;">Revisi</small>
+                                        @break
+
+                                        @case('completed')
+                                            <small class="rounded-pill text-success fw-bolder p-2"
+                                                style="background: #d9ebff; color: #008ffb;">Selesai</small>
+                                        @break
+
+                                        @default
+                                            <small class="rounded-pill text-success fw-bolder p-2"
+                                                style="background: #d9ebff; color: #0ab39c;">{{ $project->status_project }}</small>
+                                        @break
+                                    @endswitch
                                     <a class="btn btn-primary DButton px-4"
                                         href="{{ route('project.detail', $project->id) }}">Detail</a>
                                 </div>
@@ -427,10 +454,10 @@
                 </div>
             </div>
             <div class="col-4">
-                <div class="card h-100">
+                <div class="card">
                     <div class="card-body">
                         <h5 class="text-bold">Progress Tugas</h5>
-                        <div id="donutChart" width="100%" height="100%"></div>
+                        <div id="donutChart"></div>
                     </div>
                 </div>
             </div>
@@ -446,9 +473,27 @@
             chart: {
                 type: 'donut'
             },
-            series: [44, 55, 13, 33],
+            dataLabels: {
+                enabled: true,
+                formatter: function(val) {
+                    return Math.round(val) + '%';
+                },
+                style: {
+                    // fontSize: '20px',
+                    fontFamily: 'Helvetica, sans-serif',
+                }
+            },
+            series: [
+                {{ $getProjects->count() == null ? 99 : $pending }},
+                {{ $getProjects->count() == null ? 99 : $inprogress }},
+                {{ $getProjects->count() == null ? 99 : $revision }},
+                {{ $getProjects->count() == null ? 99 : $completed }}
+            ],
+            colors: ['#5d87ff', '#ffcc00', '#ff0000', '#42bd53'],
             labels: ['Tugas Belum Selesai', 'Dikerjakan', 'Revisi', 'Selesai'],
             legend: {
+                colors: ['#5d87ff', '#ffcc00', '#ff0000', '#42bd53'],
+                useSeriesColors: true,
                 position: 'bottom',
                 fontWeight: 700,
             },
