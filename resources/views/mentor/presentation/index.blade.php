@@ -181,11 +181,11 @@
                                 <tr data-student-id="{{ $ongoing->id }}">
                                     <td></td>
                                     <td>{{ $ongoing->urutan }}</td>
-                                    <td>{{ $ongoing->project_name }}</td>
-                                    <td>{{ $ongoing->description }}</td>
+                                    <td>{{ $ongoing->project->project_name }}</td>
+                                    <td>{{ $ongoing->project->description }}</td>
                                     <td>{{ $ongoing->start_date }}</td>
                                     <td>{{ $ongoing->end_date }}</td>
-                                    <td>{{ ucwords($ongoing->type_project) }}</td>
+                                    <td>{{ ucwords($ongoing->project->type_project->value) }}</td>
                                     <td class="d-flex gap-1">
                                         <form action="{{ route('presentation.presentationDone',$ongoing->id) }}" method="post">
                                             @csrf
@@ -226,15 +226,15 @@
                             @foreach ($waitings as $waiting)
                                 <tr data-student-id="{{ $waiting->id }}">
                                     <td></td>
-                                    <td>{{ $waiting->project_name }}</td>
+                                    <td>{{ $waiting->project->project_name }}</td>
                                     <td>
 
                                         {{ \App\Models\Student::find(collect($waiting->project->members)->where('status',\App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
                                     </td>
-                                    <td>{{ $waiting->description }}</td>
+                                    <td>{{ $waiting->project->description }}</td>
                                     <td>{{ $waiting->start_date }}</td>
                                     <td>{{ $waiting->end_date }}</td>
-                                    <td>{{ ucwords($waiting->type_project) }}</td>
+                                    <td>{{ ucwords($waiting->project->type_project->value) }}</td>
                                     <td class="d-flex gap-1">
                                         <form action="{{ route('presentation.changeStatus') }}" method="post">
                                             @csrf
@@ -289,13 +289,13 @@
                             @foreach ($presentations as $presentation)
                                 <tr data-student-id="{{ $presentation->id }}">
                                     <td></td>
-                                    <td>{{ $presentation->project_name }}</td>
+                                    <td>{{ $presentation->project->project_name }}</td>
                                     <td>
                                         {{ \App\Models\Student::find(collect($presentation->project->members)->where('status',\App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
                                     </td>
-                                    <td>{{ $presentation->description }}</td>
+                                    <td>{{ $presentation->project->description }}</td>
                                     <td>{{ $presentation->planning_date_presentation }}</td>
-                                    <td>{{ ucwords($presentation->type_project)  }}</td>
+                                    <td>{{ ucwords($presentation->project->type_project->value)  }}</td>
                                     <td>
                                         @if($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::FINISH->value)
                                             <small class="p-2 rounded-pill text-success fw-bolder"
