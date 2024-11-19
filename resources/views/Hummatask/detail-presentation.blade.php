@@ -146,17 +146,17 @@
                                                 <h6 class="mb-0">#{{ sprintf('%02d', $presentation->urutan) }}</h6>
                                             </td>
                                             <td class="text-center">
-                                                @if($project->status_project->value == \App\Enum\ProjectAcceptStatus::WAITING->value)
+                                                @if($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
                                                     <small class="bg-label-warning p-2 rounded-pill">
-                                                        {{ ucwords($project->status_project->value) }}
+                                                        {{ ucwords($presentation->status_presentation->value) }}
                                                     </small>
-                                                @elseif($project->status_project->value == \App\Enum\ProjectAcceptStatus::REJECTED->value)
+                                                @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::PENNDING->value)
                                                     <small class="bg-label-danger p-2 rounded-pill">
-                                                        {{ ucwords($project->status_project->value) }}
+                                                        {{ ucwords($presentation->status_presentation->value) }}
                                                     </small>
-                                                @elseif($project->status_project->value == \App\Enum\ProjectAcceptStatus::ACCEPT->value)
+                                                @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::FINISH->value)
                                                     <small class="bg-label-primary p-2 rounded-pill">
-                                                        {{ ucwords($project->status_project->value) }}
+                                                        {{ ucwords($presentation->status_presentation->value) }}
                                                     </small>
                                                 @endif
                                             </td>
