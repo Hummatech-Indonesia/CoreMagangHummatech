@@ -26,7 +26,6 @@ use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Http\Requests\StoreProjectFromMentorRequest;
 use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
-use App\Contracts\Interfaces\CategoryProjectInterface;
 use App\Contracts\Interfaces\HummataskTeamMembersInterface;
 
 class ProjectController extends Controller

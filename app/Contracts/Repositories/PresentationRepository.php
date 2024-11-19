@@ -8,6 +8,7 @@ use DB;
 use Carbon\Carbon;
 use App\Models\Thesis;
 use App\Models\Presentation;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use App\Models\CategoryBoard;
 use App\Models\HummataskTeam;
@@ -284,7 +285,9 @@ class PresentationRepository extends BaseRepository implements PresentationInter
 
         return $this->model->with(['students', 'students.users'])
             ->where('status_presentation', $status)
-            ->where('division_id', auth()->user()->mentor->division_id)
+            ->whereHas('project', function ($query){
+                $query->where('division_id', auth()->user()->mentor->division_id);
+            })
             ->whereDate('planning_date_presentation', $date)
             ->get();
     }
