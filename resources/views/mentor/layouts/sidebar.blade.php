@@ -87,14 +87,14 @@
                         <span class="hide-menu">Pengajuan Presentasi</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/timetable" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-calendar-event"></i>
-                        </span>
-                        <span class="hide-menu">Jadwal</span>
-                    </a>
-                </li>
+{{--                <li class="sidebar-item">--}}
+{{--                    <a class="sidebar-link" href="/timetable" aria-expanded="false">--}}
+{{--                        <span>--}}
+{{--                            <i class="ti ti-calendar-event"></i>--}}
+{{--                        </span>--}}
+{{--                        <span class="hide-menu">Jadwal</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('/mentor/assessment') }}" aria-expanded="false">
                         <span>
@@ -111,22 +111,22 @@
                         <span class="hide-menu">Tantangan</span>
                     </a>
                 </li> --}}
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/student/absensi" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-presentation-analytics"></i>
-                        </span>
-                        <span class="hide-menu">Absensi Siswa</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/student/journal" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-list-details"></i>
-                        </span>
-                        <span class="hide-menu">Jurnal Siswa</span>
-                    </a>
-                </li>
+{{--                <li class="sidebar-item">--}}
+{{--                    <a class="sidebar-link" href="/student/absensi" aria-expanded="false">--}}
+{{--                        <span>--}}
+{{--                            <i class="ti ti-presentation-analytics"></i>--}}
+{{--                        </span>--}}
+{{--                        <span class="hide-menu">Absensi Siswa</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                <li class="sidebar-item">--}}
+{{--                    <a class="sidebar-link" href="/student/journal" aria-expanded="false">--}}
+{{--                        <span>--}}
+{{--                            <i class="ti ti-list-details"></i>--}}
+{{--                        </span>--}}
+{{--                        <span class="hide-menu">Jurnal Siswa</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/student" aria-expanded="false">
                         <span>
