@@ -100,7 +100,7 @@ class ProjectController extends Controller
             ];
         }
 
-        // dd($pending);
+        // dd($getProject);
         return view('Hummatask.index', compact('categoryProject', 'students', 'pending', 'inprogress', 'revision', 'completed', 'getProjects'));
     }
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Project;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('project_revisions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('revision_id')->constrained('project_revisions');
+            $table->foreignIdFor(Project::class);
             $table->text('revision');
             $table->enum('status', [
                 \App\Enum\RevisionStatusEnum::Todo->value,

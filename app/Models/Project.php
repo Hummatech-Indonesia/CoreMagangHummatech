@@ -38,4 +38,9 @@ class Project extends Model
     {
         return $this->belongsTo(Project::class);
     }
+
+    public function revision(): HasMany
+    {
+        return $this->hasMany(ProjectRevision::class);
+    }
 }

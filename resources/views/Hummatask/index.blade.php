@@ -414,9 +414,9 @@
                                     <p class="mb-0">Deadline :
                                         {{ \carbon\Carbon::parse($project->start_date)->diffInDays(\carbon\Carbon::parse($project->end_date)) }}
                                         hari</p>
-                                    @isset($project->reason)
-                                        <p class="my-0">Revisi : 0</p>
-                                    @endisset
+                                    @if ($project->revision->count() > 0)
+                                        <p class="my-0">Revisi : {{ $project->revision->count() }}</p>
+                                    @endif
                                     <p class="">Kategori : {{ $project->type_project }}</p>
                                     {{-- <span class="badge rounded-pill bg-blue fw-bold">c</span> --}}
                                     @switch($project->status_project->value)
