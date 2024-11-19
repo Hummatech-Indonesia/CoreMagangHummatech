@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('division_id')->constrained('divisions');
+            $table->foreignId('mentor_id')->nullable()->constrained('users')->onDelete('set null');
             $table->string('project_name');
             $table->text('description');
             $table->date('start_date')->default(Carbon::today());
             $table->date('end_date')->default(Carbon::tomorrow());
+
             $table->enum('type_project',[
                 \App\Enum\PresentationTypeEnum::SOLO->value,
                 \App\Enum\PresentationTypeEnum::MINI->value,
