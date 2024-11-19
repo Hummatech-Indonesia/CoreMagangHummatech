@@ -243,6 +243,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('offline-students/team/{slug}', [AdminStudentTeamController::class, 'show'])->name('admin.team.show');
     Route::get('offline-students/presentation', [PresentationController::class, 'index']);
 
+
     #Rfid
     Route::get('rfid', [RfidController::class, 'index']);
     Route::patch('rfid/add/{student}', [RfidController::class, 'store']);
@@ -471,6 +472,7 @@ Route::put('mentor/presentation/done/{presentation}', [\App\Http\Controllers\Pre
 Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'index'])->name('project.task.index');
 Route::get('dashboard/task/detail/{project}', [\App\Http\Controllers\ProjectController::class, 'detailProject'])->name('project.detail');
 Route::get('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'presentationProject'])->name('project.presentation');
+Route::post('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'storePresentation'])->name('project.presentation.save');
 Route::get('dashboard/task/detail/{project}/presentation/{presentation}/revision', [\App\Http\Controllers\ProjectController::class, 'revisionProject'])->name('project.presentation.revision');
 
 

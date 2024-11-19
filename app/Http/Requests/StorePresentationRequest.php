@@ -22,22 +22,15 @@ class StorePresentationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'start_date' => 'required|array|min:1',
-            'start_date.*' => 'required',
-            'schedule_to' => 'required|array|min:1',
-            'schedule_to.*' => 'required',
-            'end_date' => 'required|array|min:1',
-            'end_date.*' => 'required',
-            'callback' => 'nullable',
-            'mentor_id' => 'required',
+            'planning_date_presentation' => 'required',
+            'project_id' => 'required',
         ];
     }
     public function messages()
     {
         return [
-            'start_date.required' => 'Waktu awal harus diisi',
-            'end_date.required' => 'Waktu akhir harus diisi',
-
+            'planning_date_presentation.required' => 'Waktu awal harus diisi',
+            'project_id.required' => 'Mentor harus diisi',
         ];
     }
 }

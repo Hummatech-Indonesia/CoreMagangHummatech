@@ -74,7 +74,7 @@
                 </div>
             </a>
             <div class="bg-label-primary w-100 d-flex justify-content-center align-items-center text-center">
-                <h2 class="text-primary fw-bolder fs-4">Hummatask</h2>
+                <h2 class="text-primary fw-bolder fs-4">{{ $project->project_name }}</h2>
             </div>
         </div>
 
@@ -179,12 +179,12 @@
     </div>
 @endsection
 
-{{--  modal  --}}
+{{--  modal ajukan presentation  --}}
 <div class="modal fade" id="submit-a-presentation" tabindex="-1" aria-labelledby="submit-a-presentationLabel"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="#" method="POST">
+            <form action="{{ route('project.presentation.save',$project->id) }}" method="POST">
                 @csrf
                 <div class="modal-header">
                     <h1 class="modal-title fs-4" id="submit-a-presentationLabel">Ajukan Presentasi</h1>
@@ -193,7 +193,8 @@
                 <div class="modal-body">
                     <div id="startDate">
                         <label class="mb-2 mt-1 fs-2" for="">Tanggal Presentasi</label>
-                        <input class="form-control" name="#" type="date" value="{{ old('#') }}">
+                        <input class="form-control" name="planning_date_presentation" type="date" value="{{ old('planning_date_presentation') }}">
+                        <input class="form-control" name="project_id" type="hidden" value="{{ $project->id }}">
                         @error('#')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
