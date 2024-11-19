@@ -74,8 +74,7 @@ use App\Http\Controllers\StudentOnline\{
 
 use App\Http\Controllers\Mentor\AssessmentController;
 
-use App\Http\Controllers\Api\PresentationController;
-use App\Http\Controllers\Mentor\DashboardController;
+use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\CourseController as AdminCourseController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\SubCourseController;
@@ -392,7 +391,8 @@ Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name
 #===================================================== Mentor =================================================================
 Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function () {
     # Home
-    Route::get('/', [DashboardController::class, 'index'])->name('.home');
+    Route::get('/', [\App\Http\Controllers\Mentor\DashboardController::class, 'index'])->name('.home');
+    Route::get('/presentation',[PresentationController::class, 'mentorshow'])->name('.mentor.presentation');
 });
 
 #================================================= End Mentor ====================================================================
@@ -403,8 +403,6 @@ Route::middleware('auth')->group(function () {
     Route::controller(SubscriptionController::class)->prefix('subscription')->name('subscription.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/process', 'subscribeAddCartProcess')->name('process');
-
-
     });
 
     # Voucher Subscription Apply

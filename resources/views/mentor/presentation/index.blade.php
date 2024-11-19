@@ -229,7 +229,7 @@
                                     <td>{{ $waiting->project_name }}</td>
                                     <td>
 
-                                        {{ \App\Models\Student::find(collect($waiting->members)->where('status',\App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
+                                        {{ \App\Models\Student::find(collect($waiting->project->members)->where('status',\App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
                                     </td>
                                     <td>{{ $waiting->description }}</td>
                                     <td>{{ $waiting->start_date }}</td>
@@ -291,7 +291,7 @@
                                     <td></td>
                                     <td>{{ $presentation->project_name }}</td>
                                     <td>
-                                        {{ \App\Models\Student::find(collect($presentation->members)->where('status',\App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
+                                        {{ \App\Models\Student::find(collect($presentation->project->members)->where('status',\App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
                                     </td>
                                     <td>{{ $presentation->description }}</td>
                                     <td>{{ $presentation->planning_date_presentation }}</td>

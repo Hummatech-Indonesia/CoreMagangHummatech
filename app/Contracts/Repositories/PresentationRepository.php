@@ -273,7 +273,8 @@ class PresentationRepository extends BaseRepository implements PresentationInter
 
     public function getPresentationWithMembers()
     {
-        return $this->model->with(['members', 'members.students'])
+        return $this->model->query()
+            ->with(['project','project.members'])
             ->get();
     }
 

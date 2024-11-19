@@ -72,6 +72,14 @@
                     </a>
                 </li> --}}
                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="/mentor/project" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-slideshow"></i>
+                        </span>
+                        <span class="hide-menu">Pengajuan Project</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="/mentor/presentation" aria-expanded="false">
                         <span>
                             <i class="ti ti-slideshow"></i>
