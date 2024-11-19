@@ -3,29 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\CategoryProjectInterface;
-use App\Contracts\Interfaces\HummataskTeamInterface;
-use App\Contracts\Interfaces\HummataskTeamMembersInterface;
-use App\Contracts\Interfaces\MentorDivisionInterface;
-use App\Contracts\Interfaces\MentorStudentInterface;
-use App\Contracts\Interfaces\PresentationInterface;
+use App\Models\Project;
+use App\StatusProjectEnum;
+use App\Models\ProjectRevision;
+use App\Services\ProjectService;
+use App\Enum\StatusHummaTeamEnum;
+use App\Models\QueuePresentation;
+use App\Enum\StatusMemberTeamEnum;
+use App\Services\HummataskTeamService;
+use App\Services\StudentProjectService;
+use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\AddRepositoryRequest;
+use App\Http\Requests\UpdateProjectRequest;
 use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\StudentInterface;
-use App\Contracts\Interfaces\StudentProjectInterface;
-use App\Contracts\Interfaces\StudentTeamInterface;
-use App\Enum\StatusHummaTeamEnum;
-use App\Enum\StatusMemberTeamEnum;
-use App\Http\Requests\AddRepositoryRequest;
+use App\Http\Requests\StorePresentationRequest;
 use App\Http\Requests\StoreHummataskTeamRequest;
+use App\Contracts\Interfaces\StudentTeamInterface;
+use App\Contracts\Interfaces\PresentationInterface;
+use App\Contracts\Interfaces\HummataskTeamInterface;
+use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Http\Requests\StoreProjectFromMentorRequest;
-use App\Models\QueuePresentation;
-use App\Services\HummataskTeamService;
-use App\Services\ProjectService;
-use App\Services\StudentProjectService;
-use App\Models\Project;
-use App\Http\Requests\StoreProjectRequest;
-use App\Http\Requests\UpdateProjectRequest;
-use App\Models\ProjectRevision;
-use App\StatusProjectEnum;
+use App\Contracts\Interfaces\MentorDivisionInterface;
+use App\Contracts\Interfaces\StudentProjectInterface;
+use App\Contracts\Interfaces\HummataskTeamMembersInterface;
 
 class ProjectController extends Controller
 {
@@ -86,7 +87,6 @@ class ProjectController extends Controller
         $upcomingProject = $this->project->upcomingproject(auth()->user()->student_id);
         $queuePresentation = QueuePresentation::first()->queue ?? 1;
         $myQueuePresentation = $this->presentation->getQueuePresentationByUser(auth()->user()->student_id);
-
         $getProjects = $this->project->get();
         $projects = [];
         foreach ($getProjects as $getProject) {
@@ -259,5 +259,17 @@ class ProjectController extends Controller
         $presentation = $this->presentation->getPresentationByProject($project->id);
         dd($presentation);
         return view('Hummatask.revision',  compact('project','presentation'));
+    }
+
+    public function storePresentation(StorePresentationRequest $request)
+    {
+
+        try {
+            $this->presentation->store($request->validated());
+        return redirect()->route('project.presentation',parameters: $request->project_id)->with('success', 'Berhasil menambahkan jadwal presentasi');
+        } catch (\Exception $e) {
+            return redirect()->route('project.presentation',parameters: $request->project_id)->with('error', value: 'Gagal menambahkan jadwal presentasi');
+        }
+
     }
 }

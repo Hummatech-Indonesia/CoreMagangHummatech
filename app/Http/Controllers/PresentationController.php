@@ -85,19 +85,9 @@ class PresentationController extends Controller
 
     public function store(StorePresentationRequest $request)
     {
-
-        $i = 0;
-        $this->presentation->deleteAll();
-        foreach ($request->start_date as $start) {
-            $this->presentation->store([
-                'mentor_id' => $request['mentor_id'],
-                'schedule_to' => $request['schedule_to'][$i],
-                'start_date' => $start,
-                'end_date' => $request['end_date'][$i],
-            ]);
-            $i++;
-        }
-        return redirect()->back()->with('success', 'Berhasil menambahkan jadwal presentasi');
+        dd($request->all());
+        $this->presentation->store($request->validated());
+        return redirect()->route('project.presentation',$request->id)->with('success', 'Berhasil menambahkan jadwal presentasi');
     }
 
     /**

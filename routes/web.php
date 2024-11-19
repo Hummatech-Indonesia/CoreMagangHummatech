@@ -74,8 +74,7 @@ use App\Http\Controllers\StudentOnline\{
 
 use App\Http\Controllers\Mentor\AssessmentController;
 
-use App\Http\Controllers\Api\PresentationController;
-use App\Http\Controllers\Mentor\DashboardController;
+use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\CourseController as AdminCourseController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\SubCourseController;
@@ -244,6 +243,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('offline-students/team/{slug}', [AdminStudentTeamController::class, 'show'])->name('admin.team.show');
     Route::get('offline-students/presentation', [PresentationController::class, 'index']);
 
+
     #Rfid
     Route::get('rfid', [RfidController::class, 'index']);
     Route::patch('rfid/add/{student}', [RfidController::class, 'store']);
@@ -392,7 +392,8 @@ Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name
 #===================================================== Mentor =================================================================
 Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function () {
     # Home
-    Route::get('/', [DashboardController::class, 'index'])->name('.home');
+    Route::get('/', [\App\Http\Controllers\Mentor\DashboardController::class, 'index'])->name('.home');
+    Route::get('/presentation',[PresentationController::class, 'mentorshow'])->name('.mentor.presentation');
 });
 
 #================================================= End Mentor ====================================================================
@@ -403,8 +404,6 @@ Route::middleware('auth')->group(function () {
     Route::controller(SubscriptionController::class)->prefix('subscription')->name('subscription.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/process', 'subscribeAddCartProcess')->name('process');
-
-
     });
 
     # Voucher Subscription Apply
@@ -473,6 +472,7 @@ Route::put('mentor/presentation/done/{presentation}', [\App\Http\Controllers\Pre
 Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'index'])->name('project.task.index');
 Route::get('dashboard/task/detail/{project}', [\App\Http\Controllers\ProjectController::class, 'detailProject'])->name('project.detail');
 Route::get('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'presentationProject'])->name('project.presentation');
+Route::post('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'storePresentation'])->name('project.presentation.save');
 Route::get('dashboard/task/detail/{project}/presentation/{presentation}/revision', [\App\Http\Controllers\ProjectController::class, 'revisionProject'])->name('project.presentation.revision');
 
 

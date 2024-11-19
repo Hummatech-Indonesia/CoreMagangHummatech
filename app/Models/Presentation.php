@@ -12,18 +12,7 @@ class Presentation extends Model
 {
     use HasFactory;
     protected  $guarded = ['id'];
-    protected $fillable = [
-        'division_id',
-        'urutan',
-        'project_name',
-        'mentor_id',
-        'description',
-        'start_date',
-        'end_date',
-        'type_project',
-        'status_presentation',
-        'planning_date_presentation'
-    ];
+
 
     /**
      * Get the user that owns the Presentation
