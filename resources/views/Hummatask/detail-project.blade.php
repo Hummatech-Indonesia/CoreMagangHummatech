@@ -166,7 +166,7 @@
                         stroke="#FFAE1F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
-            <form class="ms-2 p-0" action="{{ route('presentations.destroy', $project->id) }}" method="post">
+            <form class="ms-2 p-0" action="{{ route('project.destroy', $project->id) }}" method="post">
                 @csrf
                 @method('DELETE')
                 <button class="btn h-100 px-3"

@@ -220,9 +220,9 @@ class ProjectController extends Controller
     {
         try {
             $this->project->delete($project->id);
-            return back()->with('success', value: "Berhasil menghapus project");
+            return to_route('project.task.index')->with('success', value: "Berhasil menghapus project");
         } catch (\Exception $e) {
-            return back()->with('error', value: 'Gagal menghapus project');
+            return to_route('project.task.index')->with('error', value: 'Gagal menghapus project');
         }
     }
 
