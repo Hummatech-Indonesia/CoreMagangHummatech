@@ -170,8 +170,8 @@
                                 <th>Urutan</th>
                                 <th>Nama Project</th>
                                 <th>Deskripsi</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Batas Waktu</th>
+{{--                                <th>Tanggal Mulai</th>--}}
+{{--                                <th>Batas Waktu</th>--}}
                                 <th>Tipe Project</th>
                                 <th></th>
                             </tr>
@@ -183,8 +183,8 @@
                                     <td>{{ $ongoing->urutan }}</td>
                                     <td>{{ $ongoing->project->project_name }}</td>
                                     <td>{{ $ongoing->project->description }}</td>
-                                    <td>{{ $ongoing->start_date }}</td>
-                                    <td>{{ $ongoing->end_date }}</td>
+{{--                                    <td>{{ $ongoing->start_date }}</td>--}}
+{{--                                    <td>{{ $ongoing->end_date }}</td>--}}
                                     <td>{{ ucwords($ongoing->project->type_project->value) }}</td>
                                     <td class="d-flex gap-1">
                                         <form action="{{ route('presentation.presentationDone',$ongoing->id) }}" method="post">
@@ -216,8 +216,8 @@
                                 <th>Nama Project</th>
                                 <th>Nama Ketua</th>
                                 <th>Deskripsi</th>
-                                <th>Tanggal Mulai</th>
-                                <th>Batas Waktu</th>
+{{--                                <th>Tanggal Mulai</th>--}}
+{{--                                <th>Batas Waktu</th>--}}
                                 <th>Tipe Project</th>
                                 <th></th>
                             </tr>
@@ -232,8 +232,8 @@
                                         {{ \App\Models\Student::find(collect($waiting->project->members)->where('status',\App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
                                     </td>
                                     <td>{{ $waiting->project->description }}</td>
-                                    <td>{{ $waiting->start_date }}</td>
-                                    <td>{{ $waiting->end_date }}</td>
+{{--                                    <td>{{ $waiting->start_date }}</td>--}}
+{{--                                    <td>{{ $waiting->end_date }}</td>--}}
                                     <td>{{ ucwords($waiting->project->type_project->value) }}</td>
                                     <td class="d-flex gap-1">
                                         <form action="{{ route('presentation.changeStatus') }}" method="post">
