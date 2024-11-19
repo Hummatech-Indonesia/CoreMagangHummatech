@@ -22,14 +22,15 @@ class StorePresentationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'planning_date_presentation' => 'required',
+            'planning_date_presentation' => 'required|after:yesterday|date',
             'project_id' => 'required',
         ];
     }
     public function messages()
     {
         return [
-            'planning_date_presentation.required' => 'Waktu awal harus diisi',
+            'planning_date_presentation.required' => 'Waktu presentasi harus diisi',
+            'planning_date_presentation.after' => 'Waktu presentasi harus lewat hari kemarin',
             'project_id.required' => 'Mentor harus diisi',
         ];
     }
