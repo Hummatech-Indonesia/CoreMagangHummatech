@@ -260,9 +260,16 @@ class ProjectController extends Controller
         dd($presentation);
         return view('Hummatask.revision',  compact('project','presentation'));
     }
+
     public function storePresentation(StorePresentationRequest $request)
     {
-        $this->presentation->store($request->validated());
+
+        try {
+            $this->presentation->store($request->validated());
         return redirect()->route('project.presentation',parameters: $request->project_id)->with('success', 'Berhasil menambahkan jadwal presentasi');
+        } catch (\Exception $e) {
+            return redirect()->route('project.presentation',parameters: $request->project_id)->with('error', value: 'Gagal menambahkan jadwal presentasi');
+        }
+
     }
 }
