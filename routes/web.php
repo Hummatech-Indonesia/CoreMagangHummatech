@@ -36,6 +36,7 @@ use App\Http\Controllers\{
     SignatureCOController,
     StudentChallengeController,
     StudentCourseController,
+    StudentProgressController,
     SubmitTaskController,
     TaskController,
     TaskSubmissionController
@@ -73,6 +74,7 @@ use App\Http\Controllers\StudentOnline\{
 };
 
 use App\Http\Controllers\Mentor\AssessmentController;
+use App\Http\Controllers\Mentor\ProjectSubmissionController;
 
 use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\CourseController as AdminCourseController;
@@ -168,6 +170,10 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('students-banned/Open/{student}', [StudentController::class, 'Openbanned'])->name('students.banned.open');
     Route::get('menu-siswa/manage-session', [AdminStudentController::class, 'manageSession'])->name('student.managesession');
     Route::get('/menu-siswa/manage-session/update/{session}', [StudentController::class, 'changeSessionStudent'])->name('change-session-student');
+    
+    # Student Progress
+    Route::get('progress-siswa/presentasi',[StudentProgressController::class,'index']);
+
     # Courses
     Route::get('administrator/course', [AdminCourseController::class, 'index']);
     Route::post('administrator/course/store', [AdminCourseController::class, 'store'])->name('course.store');
