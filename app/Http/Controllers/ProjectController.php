@@ -103,7 +103,7 @@ class ProjectController extends Controller
         }
 
         // dd($getProject);
-        return view('Hummatask.index', compact('categoryProject', 'students', 'pending', 'inprogress', 'revision', 'completed', 'getProjects','presentations','queuePresentation','myQueuePresentation','upcomingProject','totalPresentation'));
+        return view('Hummatask.index', compact('categoryProject', 'students', 'pending', 'inprogress', 'revision', 'completed', 'getProjects','presentations','queuePresentation','myQueuePresentation','upcomingProject','totalPresentation','projects'));
     }
 
     /**
