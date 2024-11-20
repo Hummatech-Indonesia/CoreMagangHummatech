@@ -76,6 +76,7 @@ use App\Http\Controllers\Mentor\AssessmentController;
 
 use App\Http\Controllers\Api\PresentationController;
 use App\Http\Controllers\Mentor\DashboardController;
+use App\Http\Controllers\Mentor\ProjectSubmissionController;
 use App\Http\Controllers\CourseController as AdminCourseController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\SubCourseController;
@@ -392,6 +393,8 @@ Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name
 Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function () {
     # Home
     Route::get('/', [DashboardController::class, 'index'])->name('.home');
+
+    Route::get('/project-submissions', [ProjectSubmissionController::class, 'index'])->name('mentor.project-submissions2.index');
 });
 
 #================================================= End Mentor ====================================================================
