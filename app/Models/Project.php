@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enum\PresentationTypeEnum;
 use App\Enum\ProjectAcceptStatus;
+use App\Enum\TaskStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,7 +17,7 @@ class Project extends Model
     protected $guarded = ['id'];
     protected $casts = [
         'type_project' => PresentationTypeEnum::class,
-        'status_project' => ProjectAcceptStatus::class,
+        'status_project' => TaskStatusEnum::class,
     ];
     public function presentation(): HasMany
     {
@@ -36,5 +37,10 @@ class Project extends Model
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function revision(): HasMany
+    {
+        return $this->hasMany(ProjectRevision::class);
     }
 }

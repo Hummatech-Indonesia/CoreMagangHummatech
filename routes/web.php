@@ -145,12 +145,10 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('menu-mentor/update/{mentor}', [AdminMentorController::class, 'update'])->name('mentor.update');
     Route::delete('menu-mentor/delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('mentor.delete');
     Route::get('menu-mentor/detail/{mentor}', [AdminMentorController::class, 'show'])->name('mentor.show');
-
     # Mentor Placement
     Route::get('online-student/menotor-placement', [MentorPlacementController::class, 'index'])->name('placement.index');
     Route::post('online-student/menotor-placement/post/{student}', [MentorPlacementController::class, 'store'])->name('placement.update');
     Route::put('online-student/menotor-placement/edit/{student}', [MentorPlacementController::class, 'update'])->name('placement.delete');
-
     #AppointmentOfMentor
     Route::get('administrator/appointmentofmentor', [AppointmentOfAmentorController::class, 'index']);
     Route::post('administrator/appointmentofmentor/store', [AppointmentOfAmentorController::class, 'store']);
@@ -170,7 +168,6 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('students-banned/Open/{student}', [StudentController::class, 'Openbanned'])->name('students.banned.open');
     Route::get('menu-siswa/manage-session', [AdminStudentController::class, 'manageSession'])->name('student.managesession');
     Route::get('/menu-siswa/manage-session/update/{session}', [StudentController::class, 'changeSessionStudent'])->name('change-session-student');
-
     # Courses
     Route::get('administrator/course', [AdminCourseController::class, 'index']);
     Route::post('administrator/course/store', [AdminCourseController::class, 'store'])->name('course.store');
@@ -190,7 +187,6 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     # Registration Limit
     Route::post('limit', [LimitsController::class, 'store'])->name('limit.store');
     Route::put('limit/update/{limits}', [LimitsController::class, 'update'])->name('limit.update');
-
     # Student-Banned
     Route::get('students-banned', [StudentController::class, 'index']);
     Route::get('email-user', [StudentController::class, 'emailUser']);
@@ -242,7 +238,6 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('offline-students/team', [AdminStudentTeamController::class, 'index'])->name('admin.team.index');
     Route::get('offline-students/team/{slug}', [AdminStudentTeamController::class, 'show'])->name('admin.team.show');
     Route::get('offline-students/presentation', [PresentationController::class, 'index']);
-
 
     #Rfid
     Route::get('rfid', [RfidController::class, 'index']);
@@ -296,7 +291,6 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
     Route::get('/course', [CourseOfflineController::class, 'index'])->name('.course');
     Route::get('/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('.materi.detail');
     Route::get('/course/detail/learn-more/{subCourse}', [CourseOfflineController::class, 'showSub'])->name('.submateri.detail');
-
     # Divisions
     Route::get('division', function () {
         return view('student_offline.division.index');
@@ -342,7 +336,6 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
 
 # Otherss
 Route::post('permission', [PermissionController::class, 'store'])->name('permission.store');
-
 Route::get('student/data/journal', [JournalController::class, 'index'])->name('journal.index');
 
 # ================================================ Online Student Route Group =================================================
@@ -368,7 +361,6 @@ Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(
         Route::get('/{task}/download/{taskSubmission}', 'download')->name('.download');
         Route::post('/submit', 'store')->name('.submit');
     });
-
     # LetterHead
     Route::get('letterhead', [LetterheadController::class, 'index'])->name('.letterhead');
     Route::post('letterhead/store', [LetterheadController::class, 'store'])->name('.letterhead.store');
@@ -394,6 +386,7 @@ Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function () {
     # Home
     Route::get('/', [\App\Http\Controllers\Mentor\DashboardController::class, 'index'])->name('.home');
     Route::get('/presentation',[PresentationController::class, 'mentorshow'])->name('.mentor.presentation');
+    Route::get('/project-submissions', [ProjectSubmissionController::class, 'index'])->name('mentor.project-submissions2.index');
 });
 
 #================================================= End Mentor ====================================================================

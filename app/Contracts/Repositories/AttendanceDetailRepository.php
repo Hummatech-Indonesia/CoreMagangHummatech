@@ -45,4 +45,12 @@ class AttendanceDetailRepository extends BaseRepository implements AttendanceDet
                 ['status' => $data['status'], 'created_at' => $data['created_at'], 'updated_at' => $data['updated_at']]
             );
     }
+
+    public function getByAttendanceAndStatus($attendanceId, $statuses)
+    {
+        return AttendanceDetail::where('attendance_id', $attendanceId)
+                    ->whereIn('status', (array) $statuses)
+                    ->whereDate('created_at', now()->toDateString()) 
+                    ->get();
+    }
 }

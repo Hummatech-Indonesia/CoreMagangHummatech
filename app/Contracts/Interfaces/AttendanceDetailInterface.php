@@ -15,4 +15,6 @@ interface AttendanceDetailInterface extends StoreInterface
      * @return mixed
      */
     public function storeOnline(array $data): mixed;
+
+    public function getByAttendanceAndStatus($attendanceId, $statuses);
 }

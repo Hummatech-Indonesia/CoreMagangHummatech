@@ -6,13 +6,15 @@ enum TaskStatusEnum: string
 {
     case PENDING = 'pending';
     case INPROGRESS = 'inprogress';
+    case REVISION = 'revision';
     case COMPLETED = 'completed';
 
     public function label(): string
     {
         return match ($this) {
-            self::PENDING => 'Belum Dikerjakan',
-            self::INPROGRESS => 'Proses Kurasi',
+            self::PENDING => 'Belum Selesai',
+            self::INPROGRESS => 'Sedang dikerjakan',
+            self::REVISION => 'Revisi',
             self::COMPLETED => 'Selesai',
         };
     }
@@ -22,6 +24,7 @@ enum TaskStatusEnum: string
         return match ($this) {
             self::PENDING => 'warning',
             self::INPROGRESS => 'info',
+            self::REVISION => 'danger',
             self::COMPLETED => 'success',
         };
     }
