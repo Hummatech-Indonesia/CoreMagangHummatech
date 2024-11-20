@@ -639,6 +639,9 @@ Route::get('/presentasi', function () {
 Route::get('/revision', function () {
     return view('Hummatask.revision');
 });
+Route::get('/approval-project', function () {
+    return view('mentor.approval-project.index');
+});
 
 //require_once _DIR_ . '/femas.php';
 //require_once _DIR_ . '/kader.php';
