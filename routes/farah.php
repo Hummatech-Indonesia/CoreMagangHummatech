@@ -109,31 +109,31 @@ Route::put('team/update/{hummataskTeam}', [HummataskTeamController::class, 'upda
 Route::get('dashboard/task', [HummataskTeamController::class, 'index'])->name('presentation.task.index');
 Route::get('dashboard/task/detail/{presentation}', [HummataskTeamController::class, 'detailPresentation'])->name('presentation.detail');
 // Route::put('dashboard/task/detail/{presentation}', [HummataskTeamController::class, 'updatePresentation'])->name('presentation-detail.update');
-Route::get('hummateam/team/{slug}', [HummataskTeamController::class, 'show'])->name('team.show');
-Route::delete('hummateam/team/{hummataskTeam}', [HummataskTeamController::class, 'destroy'])->name('team.delete');
-Route::put('hummateam/team/{hummataskTeam}', [HummataskTeamController::class, 'updateOnStudent'])->name('team-student.update');
-Route::post('solo-team/store', [HummataskTeamController::class, 'soloTeam'])->name('soloTeam.store');
+//Route::get('hummateam/team/{slug}', [HummataskTeamController::class, 'show'])->name('team.show');
+//Route::delete('hummateam/team/{hummataskTeam}', [HummataskTeamController::class, 'destroy'])->name('team.delete');
+//Route::put('hummateam/team/{hummataskTeam}', [HummataskTeamController::class, 'updateOnStudent'])->name('team-student.update');
+//Route::post('solo-team/store', [HummataskTeamController::class, 'soloTeam'])->name('soloTeam.store');
 
 // Route::get('administrator/category-project', [CategoryProjectController::class, 'index'])->name('category-project.index');
 // Route::post('administrator/category-project/store', [CategoryProjectController::class, 'store'])->name('category-project.store');
 // Route::patch('administrator/category-project/{categoryProject}', [CategoryProjectController::class, 'update'])->name('category-project.update');
 // Route::delete('administrator/category-project/{categoryProject}', [CategoryProjectController::class, 'destroy'])->name('category-project.destroy');
 
-Route::get('mentor/team', [HummataskTeamController::class, 'mentor']);
-Route::get('mentor/team/{slug}', [HummataskTeamController::class, 'mentorShow'])->name('mentor.team-detail');
-
-Route::get('hummateam/team/{slug}/submit-project', [ProjectController::class, 'index'])->name('project.index');
-Route::post('hummateam/team/{slug}/submit-project', [ProjectController::class, 'store'])->name('project.store');
-
-Route::get('mentor/project-submission', [ProjectController::class, 'mentor'])->name('project-submission.index');
-Route::get('mentor/project-submission/{slug}', [ProjectController::class, 'showProjectSubmission'])->name('project-submission.detail');
-Route::put('mentor/project-submission/{slug}/acc/{project}', [ProjectController::class, 'update'])->name('project-submission.acc');
-Route::put('mentor/project-submission/{slug}', [ProjectController::class, 'projectFromMentor'])->name('project-submission-mentor.acc');
+//Route::get('mentor/team', [HummataskTeamController::class, 'mentor']);
+//Route::get('mentor/team/{slug}', [HummataskTeamController::class, 'mentorShow'])->name('mentor.team-detail');
+//
+//Route::get('hummateam/team/{slug}/submit-project', [ProjectController::class, 'index'])->name('project.index');
+//Route::post('hummateam/team/{slug}/submit-project', [ProjectController::class, 'store'])->name('project.store');
+//
+//Route::get('mentor/project-submission', [ProjectController::class, 'mentor'])->name('project-submission.index');
+//Route::get('mentor/project-submission/{slug}', [ProjectController::class, 'showProjectSubmission'])->name('project-submission.detail');
+//Route::put('mentor/project-submission/{slug}/acc/{project}', [ProjectController::class, 'update'])->name('project-submission.acc');
+//Route::put('mentor/project-submission/{slug}', [ProjectController::class, 'projectFromMentor'])->name('project-submission-mentor.acc');
 
 // Route::post('attendance-rule/store', [AttendanceRuleController::class, 'store'])->name('attendance-rule.store');
-Route::patch('mentor/presentation/callback/{presentation}', [PresentationController::class, 'callback'])->name('mentor.callback');
+//Route::patch('mentor/presentation/callback/{presentation}', [PresentationController::class, 'callback'])->name('mentor.callback');
 
-Route::get('mentor/team/{slug}/edit', [HummataskTeamController::class, 'mentorEdit'])->name('mentor-team.edit');
+//Route::get('mentor/team/{slug}/edit', [HummataskTeamController::class, 'mentorEdit'])->name('mentor-team.edit');
 
-Route::patch('hummateam/team/{slug}/add-repository/{project}', [ProjectController::class, 'addRepository'])->name('add.repository');
+//Route::patch('hummateam/team/{slug}/add-repository/{project}', [ProjectController::class, 'addRepository'])->name('add.repository');
 // Route::get('administrator/absent/export/excel', [AdminAbsentController::class, 'export_excel'])->name('attendance.admin.export.excel');

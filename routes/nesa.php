@@ -74,9 +74,9 @@ Route::patch('mentor/assessment/update/challenge/{studentChallenge}', [Assessmen
 
 Route::get('mentor/challenge/challenge-detail/{challenge}', [AssessmentController::class, 'showChallengeStudent'])->name('tantangan.detail');
 
-Route::get('mentor/presentation', [PresentationController::class, 'mentorshow']);
-Route::post('mentor/presentation/store', [PresentationController::class, 'store'])->name('presentation.store');
-Route::post('mentor/limit/presentation/store', [LimitPresentationController::class, 'storeOrUpdate'])->name('limitpresentation.store');
+//Route::get('mentor/presentation', [PresentationController::class, 'mentorshow']);
+//Route::post('mentor/presentation/store', [PresentationController::class, 'store'])->name('presentation.store');
+//Route::post('mentor/limit/presentation/store', [LimitPresentationController::class, 'storeOrUpdate'])->name('limitpresentation.store');
 // Route::put('mentor/limit/presentation/{limitPresentation}', [LimitPresentationController::class,'update'])->name('limitpresentation.update');
 
 

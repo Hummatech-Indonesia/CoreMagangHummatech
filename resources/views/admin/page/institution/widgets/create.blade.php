@@ -10,8 +10,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="">Nama Lembaga</label>
-                        <input type="text" name="name" id=""
-                            onkeyup="this.value = this.value.toUpperCase();" placeholder="Masukkan nama lembaga"
+                        <input type="text" name="name" id="" placeholder="Masukkan nama lembaga"
                             class="form-control">
                     </div>
                 </div>

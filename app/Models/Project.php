@@ -2,50 +2,45 @@
 
 namespace App\Models;
 
-use App\StatusProjectEnum;
+use App\Enum\PresentationTypeEnum;
+use App\Enum\ProjectAcceptStatus;
+use App\Enum\TaskStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Project extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $fillable = ['hummatask_team_id', 'title', 'description', 'link', 'start_date', 'end_date', 'status'];
     protected $casts = [
-        'status' => StatusProjectEnum::class,
+        'type_project' => PresentationTypeEnum::class,
+        'status_project' => TaskStatusEnum::class,
     ];
-
-    /**
-     * Get the hummataskTeam that owns the Project
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function hummataskTeam(): BelongsTo
+    public function presentation(): HasMany
     {
-        return $this->belongsTo(HummataskTeam::class);
+        return $this->hasMany(Presentation::class);
     }
 
-      /**
-     * Get all of the studentProjects for the Student
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function studentProjects(): HasMany
+    public function members(): HasMany
     {
-        return $this->hasMany(StudentProject::class);
+        return $this->hasMany(HummataskTeamMembers::class);
     }
 
-    /**
-     * Get the studentTeam associated with the Project
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function studentTeam(): HasOne
+    public function division(): BelongsTo
     {
-        return $this->hasOne(studentTeam::class);
+        return $this->belongsTo(Division::class);
+    }
+
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function revision(): HasMany
+    {
+        return $this->hasMany(ProjectRevision::class);
     }
 }

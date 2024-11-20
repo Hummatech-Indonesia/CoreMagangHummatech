@@ -74,9 +74,7 @@ use App\Http\Controllers\StudentOnline\{
 
 use App\Http\Controllers\Mentor\AssessmentController;
 
-use App\Http\Controllers\Api\PresentationController;
-use App\Http\Controllers\Mentor\DashboardController;
-use App\Http\Controllers\Mentor\ProjectSubmissionController;
+use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\CourseController as AdminCourseController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\SubCourseController;
@@ -99,25 +97,9 @@ Route::get('statement-parent', [StatementController::class, 'parent'])->name('st
 
 # ================================================ Administrator Route Group ==================================================
 Route::middleware(['roles:administrator', 'auth'])->group(function () {
-    # Dashboard Home
-    Route::get('administrator', [AdminController::class, 'index'])->name('.home');
-    
-    # Data Admin
-    Route::put('data-admin/update/{datauser}', [DataAdminController::class, 'update'])->name('data-admin.update');
-
-    # Data CEO
-    Route::post('dataceo/store', [DataCOController::class, 'store']);
-    Route::put('dataceo/update/{dataAdmin}', [DataCOController::class, 'update']);
-    
     # Attendances
     Route::get('absent', [AttendanceController::class, 'index'])->name('attendance.index');
     Route::patch('max-late', [AttendanceController::class, 'storeMaxLate'])->name('maxlate.store');
-
-    # Faces
-    Route::get('faces', [FaceController::class, 'index']);
-    Route::get('faces/detail/{id}', [FaceController::class, 'show']);
-    Route::post('faces/create', [FaceController::class, 'store']);
-    Route::delete('faces/delete/{student}', [FaceController::class, 'destroy']);
 
     # Products
     Route::get('product', [ProductController::class, 'index']);
@@ -125,10 +107,15 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('product/{product}', [ProductController::class, 'update'])->name('product.update');
     Route::delete('product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
 
-    # Voucher
-    Route::get('voucher', [VoucherController::class, 'index'])->name('voucher.index');
-    Route::post('voucher/store', [VoucherController::class, 'store'])->name('voucher.store');
-    Route::delete('voucher/delete/{voucher}', [VoucherController::class, 'destroy'])->name('voucher.delete');
+    # Dashboard Home
+    Route::get('administrator', [AdminController::class, 'index'])->name('.home');
+
+    # Data Admin
+    Route::put('data-admin/update/{datauser}', [DataAdminController::class, 'update'])->name('data-admin.update');
+
+    # Data CEO
+    Route::post('dataceo/store', [DataCOController::class, 'store']);
+    Route::put('dataceo/update/{dataAdmin}', [DataCOController::class, 'update']);
 
     # Approval
     Route::get('approval', [ApprovalController::class, 'index'])->name('.approval.index');
@@ -147,18 +134,21 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('response-letter', [ResponseLetterController::class, 'index'])->name('response-letter.index');
     Route::get('show/student/{responseLetter}', [ResponseLetterController::class, 'show'])->name('response-letter.show');
 
+    # Voucher
+    Route::get('voucher', [VoucherController::class, 'index'])->name('voucher.index');
+    Route::post('voucher/store', [VoucherController::class, 'store'])->name('voucher.store');
+    Route::delete('voucher/delete/{voucher}', [VoucherController::class, 'destroy'])->name('voucher.delete');
+
     # Mentor
     Route::get('menu-mentor', [AdminMentorController::class, 'index'])->name('mentor.index');
     Route::post('menu-mentor/store', [AdminMentorController::class, 'store'])->name('mentor.store');
     Route::put('menu-mentor/update/{mentor}', [AdminMentorController::class, 'update'])->name('mentor.update');
     Route::delete('menu-mentor/delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('mentor.delete');
     Route::get('menu-mentor/detail/{mentor}', [AdminMentorController::class, 'show'])->name('mentor.show');
-    
     # Mentor Placement
     Route::get('online-student/menotor-placement', [MentorPlacementController::class, 'index'])->name('placement.index');
     Route::post('online-student/menotor-placement/post/{student}', [MentorPlacementController::class, 'store'])->name('placement.update');
     Route::put('online-student/menotor-placement/edit/{student}', [MentorPlacementController::class, 'update'])->name('placement.delete');
-    
     #AppointmentOfMentor
     Route::get('administrator/appointmentofmentor', [AppointmentOfAmentorController::class, 'index']);
     Route::post('administrator/appointmentofmentor/store', [AppointmentOfAmentorController::class, 'store']);
@@ -178,7 +168,6 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('students-banned/Open/{student}', [StudentController::class, 'Openbanned'])->name('students.banned.open');
     Route::get('menu-siswa/manage-session', [AdminStudentController::class, 'manageSession'])->name('student.managesession');
     Route::get('/menu-siswa/manage-session/update/{session}', [StudentController::class, 'changeSessionStudent'])->name('change-session-student');
-    
     # Courses
     Route::get('administrator/course', [AdminCourseController::class, 'index']);
     Route::post('administrator/course/store', [AdminCourseController::class, 'store'])->name('course.store');
@@ -198,11 +187,16 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     # Registration Limit
     Route::post('limit', [LimitsController::class, 'store'])->name('limit.store');
     Route::put('limit/update/{limits}', [LimitsController::class, 'update'])->name('limit.update');
-    
     # Student-Banned
     Route::get('students-banned', [StudentController::class, 'index']);
     Route::get('email-user', [StudentController::class, 'emailUser']);
     Route::delete('email-user/{user}', [StudentController::class, 'emailUserDelete']);
+
+    # Faces
+    Route::get('faces', [FaceController::class, 'index']);
+    Route::get('faces/detail/{id}', [FaceController::class, 'show']);
+    Route::post('faces/create', [FaceController::class, 'store']);
+    Route::delete('faces/delete/{student}', [FaceController::class, 'destroy']);
 
     # Zoom Schedule
     Route::get('administrator/zoom-schedules', [ZoomScheduleController::class, 'index']);
@@ -297,7 +291,6 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
     Route::get('/course', [CourseOfflineController::class, 'index'])->name('.course');
     Route::get('/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('.materi.detail');
     Route::get('/course/detail/learn-more/{subCourse}', [CourseOfflineController::class, 'showSub'])->name('.submateri.detail');
-    
     # Divisions
     Route::get('division', function () {
         return view('student_offline.division.index');
@@ -305,7 +298,7 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
 
     # Attendances
     Route::get('absensi', [AttendanceController::class, 'attendanceOffline'])->name('.attendances');
-    
+
     # Pickets
     Route::get('others/picket', [PicketOfflineController::class, 'index'])->name('.picket');
 
@@ -368,7 +361,6 @@ Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(
         Route::get('/{task}/download/{taskSubmission}', 'download')->name('.download');
         Route::post('/submit', 'store')->name('.submit');
     });
-    
     # LetterHead
     Route::get('letterhead', [LetterheadController::class, 'index'])->name('.letterhead');
     Route::post('letterhead/store', [LetterheadController::class, 'store'])->name('.letterhead.store');
@@ -392,8 +384,8 @@ Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name
 #===================================================== Mentor =================================================================
 Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function () {
     # Home
-    Route::get('/', [DashboardController::class, 'index'])->name('.home');
-
+    Route::get('/', [\App\Http\Controllers\Mentor\DashboardController::class, 'index'])->name('.home');
+    Route::get('/presentation',[PresentationController::class, 'mentorshow'])->name('.mentor.presentation');
     Route::get('/project-submissions', [ProjectSubmissionController::class, 'index'])->name('mentor.project-submissions2.index');
 });
 
@@ -405,8 +397,6 @@ Route::middleware('auth')->group(function () {
     Route::controller(SubscriptionController::class)->prefix('subscription')->name('subscription.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/process', 'subscribeAddCartProcess')->name('process');
-
-
     });
 
     # Voucher Subscription Apply
@@ -472,8 +462,12 @@ Route::put('mentor/presentation/changestatus', [\App\Http\Controllers\Presentati
 Route::put('mentor/presentation/done/{presentation}', [\App\Http\Controllers\PresentationController::class, 'presentationDone'])->name('presentation.presentationDone');
 
 # Dashboard-Task-Presentation
-Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'index'])->name('presentation.task.index');
-Route::get('dashboard/task/detail/{presentation}', [HummataskTeamController::class, 'detailPresentation'])->name('presentation.detail');
+Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'index'])->name('project.task.index');
+Route::get('dashboard/task/detail/{project}', [\App\Http\Controllers\ProjectController::class, 'detailProject'])->name('project.detail');
+Route::get('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'presentationProject'])->name('project.presentation');
+Route::post('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'storePresentation'])->name('project.presentation.save');
+Route::get('dashboard/task/detail/{project}/presentation/{presentation}/revision', [\App\Http\Controllers\ProjectController::class, 'revisionProject'])->name('project.presentation.revision');
+
 
 # Dashboard-Task-Project
 Route::post('dashboard/task/submit-project',[\App\Http\Controllers\ProjectController::class,'store'])->name('project.submit');
@@ -489,7 +483,6 @@ Route::prefix('dashboard/task')->group(function () {
 Route::post('team/store', [HummataskTeamController::class, 'store'])->name('team.store');
 Route::put('team/update/{hummataskTeam}', [HummataskTeamController::class, 'update'])->name('team.update');
 
-# Courses-Detail
 Route::get('administrator/course/detail', function () {
     return view('admin.page.course.detail');
 });
@@ -634,20 +627,16 @@ Route::patch('mentor/assessment/update/challenge/{studentChallenge}', [Assessmen
 Route::put('presentation/update', [HummataskTeamController::class, 'updatePresentation'])->name('presentation-detail.update');
 Route::delete('/presentations/{presentation}', [HummataskTeamController::class, 'destroy'])->name('presentations.destroy');
 
-Route::get('/test', function () {
-    return view('Hummatask.index');
-});
-
-Route::get('/detail', function () {
-    return view('Hummatask.project-detail');
-});
 Route::get('/presentasi', function () {
-    return view('Hummatask.presentation');
+    return view('Hummatask.detail-presentation');
+});
+Route::get('/revision', function () {
+    return view('Hummatask.revision');
 });
 
-require_once __DIR__ . '/femas.php';
-require_once __DIR__ . '/kader.php';
-require_once __DIR__ . '/farah.php';
-require_once __DIR__ . '/nesa.php';
-require_once __DIR__ . '/alul.php';
-require_once __DIR__ . '/sano.php';
+//require_once _DIR_ . '/femas.php';
+//require_once _DIR_ . '/kader.php';
+//require_once _DIR_ . '/farah.php';
+//require_once _DIR_ . '/nesa.php';
+//require_once _DIR_ . '/alul.php';
+//require_once _DIR_ . '/sano.php';

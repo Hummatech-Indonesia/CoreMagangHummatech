@@ -12,18 +12,7 @@ class Presentation extends Model
 {
     use HasFactory;
     protected  $guarded = ['id'];
-    protected $fillable = [
-        'division_id',
-        'urutan',
-        'project_name',
-        'mentor_id',
-        'description',
-        'start_date',
-        'end_date',
-        'type_project',
-        'status_presentation',
-        'planning_date_presentation'
-    ];
+
 
     /**
      * Get the user that owns the Presentation
@@ -45,6 +34,10 @@ class Presentation extends Model
         return $this->belongsTo(Mentor::class);
     }
 
+    public function division(): BelongsTo
+    {
+        return $this->belongsTo(Division::class);
+    }
     public function students(): BelongsTo
     {
         return $this->belongsTo(Student::class);
@@ -53,6 +46,11 @@ class Presentation extends Model
     public function members(): HasMany
     {
         return $this->hasMany(HummataskTeamMembers::class, 'presentation_id');
+    }
+
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
     }
 
     protected $casts = [

@@ -2,7 +2,7 @@
     <!-- LOGO -->
     <div class="navbar-brand-box">
         <!-- Dark Logo-->
-        <a class="logo logo-dark" href="/">
+        <a href="index.html" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="{{ asset('assets/images/logo-pkl.png') }}" alt="" height="22">
             </span>
@@ -11,7 +11,7 @@
             </span>
         </a>
         <!-- Light Logo-->
-        <a class="logo logo-light" href="/">
+        <a href="index.html" class="logo logo-light">
             <span class="logo-sm">
                 <img src="{{ asset('assets/images/logo-pkl.png') }}" alt="" height="22">
             </span>
@@ -19,8 +19,8 @@
                 <img src="{{ asset('assets/images/logo-pkl.png') }}" alt="" height="71px">
             </span>
         </a>
-        <button class="btn btn-sm fs-20 header-item float-end btn-vertical-sm-hover p-0" id="vertical-hover"
-            type="button">
+        <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
+            id="vertical-hover">
             <i class="ri-record-circle-line"></i>
         </button>
     </div>
@@ -41,75 +41,68 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('administrator/zoom-schedules') ? 'active' : '' }}"
                         href="{{ url('/administrator/zoom-schedules') }}">
-                        <i class="ri-vidicon-line"></i> <span data-key="t-dashboards">Jadwal Zoom</span>
+                        <i class=" ri-vidicon-line"></i> <span data-key="t-dashboards">Jadwal Zoom</span>
                     </a>
                 </li>
                 <li class="menu-title"><span data-key="t-menu">Paket</span></li>
-                {{--  <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('administrator/course*') || request()->is('administrator/appointmentofmentor') ? 'active' : '' }}"
-                       href="#materi" data-bs-toggle="collapse" role="button"
-                       aria-expanded="{{ request()->is('administrator/course*') || request()->is('administrator/appointmentofmentor') ? 'true' : 'false' }}"
-                       aria-controls="sidebarApps">
+                        href="#materi" data-bs-toggle="collapse" role="button"
+                        aria-expanded="{{ request()->is('administrator/course*') || request()->is('administrator/appointmentofmentor') ? 'true' : 'false' }}"
+                        aria-controls="sidebarApps">
                         <i class="ri-book-open-line"></i> <span data-key="t-apps">Materi</span>
                     </a>
-                    <div
-                        class="collapse menu-dropdown {{ request()->is('administrator/course*') || request()->is('administrator/appointmentofmentor') ? 'show' : '' }}"
+                    <div class="collapse menu-dropdown {{ request()->is('administrator/course*') || request()->is('administrator/appointmentofmentor') ? 'show' : '' }}"
                         id="materi">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ url('/administrator/course') }}"
-                                   class="nav-link {{ request()->is('administrator/course*') ? 'active' : '' }}"
-                                   data-key="t-chat">Materi
+                                    class="nav-link {{ request()->is('administrator/course*') ? 'active' : '' }}"
+                                    data-key="t-chat">Materi
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="/administrator/appointmentofmentor"
-                                   class="nav-link {{ request()->is('administrator/appointmentofmentor') ? 'active' : '' }}"
-                                   data-key="t-chat">Penetapan Mentor Materi
+                                    class="nav-link {{ request()->is('administrator/appointmentofmentor') ? 'active' : '' }}"
+                                    data-key="t-chat">Penetapan Mentor Materi
                                 </a>
                             </li>
                         </ul>
                     </div>
-                </li>  --}}
+                </li>
+
 
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('product*') ? 'active' : '' }}"
                         href="{{ url('/product') }}">
-                        <i class="ri-price-tag-2-line"></i> <span data-key="t-dashboards">Daftar Paket</span>
+                        <i class=" ri-price-tag-2-line"></i> <span data-key="t-dashboards">Daftar Paket</span>
                     </a>
                 </li>
 
                 <li class="nav-item {{ request()->is('/voucher') ? 'active' : '' }}">
                     <a class="nav-link menu-link {{ request()->is('voucher*') ? 'active' : '' }}"
                         href="{{ url('/voucher') }}">
-                        <i class="las la-ticket-alt"></i> <span data-key="t-dashboards">Kode Kupon</span>
+                        <i class=" las la-ticket-alt"></i> <span data-key="t-dashboards">Kode Kupon</span>
                     </a>
                 </li>
                 <li class="menu-title"><span data-key="t-menu">Magang</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" data-bs-toggle="collapse" href="#sidebarApps1" role="button"
+                    <a class="nav-link menu-link" href="#sidebarApps1" data-bs-toggle="collapse" role="button"
                         aria-expanded="{{ request()->is('approval*') ? 'true' : 'false' }}"
                         aria-controls="sidebarApps">
-                        <i class="ri-bookmark-2-fill"></i> <span data-key="t-apps">Menu Admin</span>
+                        <i class="ri-bookmark-2-fill"></i> <span data-key="t-apps">Approval</span>
                     </a>
-                    <div class="menu-dropdown {{ request()->is('approval*') ? 'show' : '' }} collapse"
+                    <div class="collapse menu-dropdown {{ request()->is('approval*') ? 'show' : '' }}"
                         id="sidebarApps1">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('approval*') ? 'active' : '' }}" data-key="t-chat"
-                                    href="{{ url('/approval') }}">Pendaftaran</a>
+                                <a href="{{ url('/approval') }}"
+                                    class="nav-link {{ request()->is('approval*') ? 'active' : '' }}"
+                                    data-key="t-chat">Pendaftaran</a>
                             </li>
                             <li class="nav-item {{ request()->is('administrator/permission*') ? 'active' : '' }}">
-                                <a class="nav-link" data-key="t-api-key"
-                                    href="{{ url('/administrator/permission') }}">Izin &amp; Sakit</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ request()->is('journal*') ? 'active' : '' }}"
-                                    data-key="t-chartjs" href="{{ url('/journal') }}">Jurnal</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ request()->is('absent*') ? 'active' : '' }}" data-key="t-echarts"
-                                    href="{{ url('/absent') }}">Absensi</a>
+                                <a href="{{ url('/administrator/permission') }}" class="nav-link"
+                                    data-key="t-api-key">Izin &amp; Sakit</a>
                             </li>
                             {{-- <li class="nav-item">
                                 <a href="{{ url('/top-up') }}" class="nav-link" data-key="t-api-key">TopUp</a>
@@ -117,44 +110,44 @@
                         </ul>
                     </div>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarCharts1" data-bs-toggle="collapse" role="button"
-                       aria-expanded="{{ request()->is('journal*') || request()->is('absent*') ? 'true' : 'false' }}"
-                       aria-controls="sidebarCharts">
+                        aria-expanded="{{ request()->is('journal*') || request()->is('absent*') ? 'true' : 'false' }}"
+                        aria-controls="sidebarCharts">
                         <i class="ri-article-line"></i> <span data-key="t-charts">Pendataan Admin</span>
                     </a>
-                    <div
-                        class="collapse menu-dropdown {{ request()->is('journal*') || request()->is('absent*') ? 'show' : '' }}"
+                    <div class="collapse menu-dropdown {{ request()->is('journal*') || request()->is('absent*') ? 'show' : '' }}"
                         id="sidebarCharts1">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ url('/journal') }}"
-                                   class="nav-link {{ request()->is('journal*') ? 'active' : '' }}"
-                                   data-key="t-chartjs">Jurnal</a>
+                                    class="nav-link {{ request()->is('journal*') ? 'active' : '' }}"
+                                    data-key="t-chartjs">Jurnal</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ url('/absent') }}"
-                                   class="nav-link {{ request()->is('absent*') ? 'active' : '' }}"
-                                   data-key="t-echarts">Absensi</a>
+                                    class="nav-link {{ request()->is('absent*') ? 'active' : '' }}"
+                                    data-key="t-echarts">Absensi</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="" class="nav-link" data-key="t-echarts">Report</a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
-                </li> --}}
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" data-bs-toggle="collapse" href="#sidebarApps" role="button"
+                    <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button"
                         aria-expanded="{{ request()->is('response-letter*') || request()->is('warning-letter*') ? 'true' : 'false' }}"
                         aria-controls="sidebarApps">
                         <i class="ri-file-list-3-line"></i> <span data-key="t-surat">Surat</span>
                     </a>
-                    <div class="menu-dropdown {{ request()->is('response-letter*') || request()->is('warning-letter*') ? 'show' : '' }} collapse"
+                    <div class="collapse menu-dropdown {{ request()->is('response-letter*') || request()->is('warning-letter*') ? 'show' : '' }}"
                         id="sidebarApps">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('response-letter*') ? 'active' : '' }}"
-                                    data-key="t-chat" href="{{ url('/response-letter') }}">
+                                <a href="{{ url('/response-letter') }}"
+                                    class="nav-link {{ request()->is('response-letter*') ? 'active' : '' }}"
+                                    data-key="t-chat">
                                     Pendaftaran </a>
                             </li>
                             {{-- <li class="nav-item">
@@ -165,8 +158,9 @@
                                 <a href="" class="nav-link" data-key="t-api-key">TopUp</a>
                             </li> --}}
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('warning-letter*') ? 'active' : '' }}"
-                                    data-key="t-api-key" href="{{ url('/warning-letter') }}">SP</a>
+                                <a href="{{ url('/warning-letter') }}"
+                                    class="nav-link {{ request()->is('warning-letter*') ? 'active' : '' }}"
+                                    data-key="t-api-key">SP</a>
                             </li>
                         </ul>
                     </div>
@@ -180,7 +174,7 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('division*') ? 'active' : '' }}"
                         href="{{ url('/division') }}">
-                        <i class="ri-apps-line"></i> <span data-key="t-dashboards">Divisi</span>
+                        <i class=" ri-apps-line"></i> <span data-key="t-dashboards">Divisi</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -210,30 +204,27 @@
                 </li>
                 <li class="menu-title"><span data-key="t-menu">Siswa</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" data-bs-toggle="collapse" href="#sidebarForms" role="button"
+                    <a class="nav-link menu-link" href="#sidebarForms" data-bs-toggle="collapse" role="button"
                         aria-expanded="{{ request()->is('menu-siswa*') || request()->is('menu-mentor*') || request()->is('students-rejected*') || request()->is('students-banned*') ? 'true' : 'false' }}"
                         aria-controls="sidebarForms">
                         <i class="ri-account-circle-line"></i> <span data-key="t-forms">User</span>
                     </a>
-                    <div class="menu-dropdown {{ request()->is('menu-siswa*') || request()->is('menu-mentor*') || request()->is('students-rejected*') || request()->is('students-banned*') ? 'show' : '' }} collapse"
+                    <div class="collapse menu-dropdown {{ request()->is('menu-siswa*') || request()->is('menu-mentor*') || request()->is('students-rejected*') || request()->is('students-banned*') ? 'show' : '' }}"
                         id="sidebarForms">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('*menu-siswa') ? 'active' : '' }}"
-                                    data-key="t-basic-elements" href="/menu-siswa">Siswa</a>
+                                <a href="/menu-siswa"
+                                    class="nav-link {{ request()->is('menu-siswa*') ? 'active' : '' }}"
+                                    data-key="t-basic-elements">Siswa</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('*manage-session*') ? 'active' : '' }}"
-                                    data-key="t-basic-elements" href="{{ route('student.managesession') }}">Kelola
-                                    Sesi</a>
+                                <a href="/faces" class="nav-link {{ request()->is('faces*') ? 'active' : '' }}"
+                                    data-key="t-basic-elements">Data Wajah</a>
                             </li>
-                            {{--                            <li class="nav-item"> --}}
-                            {{--                                <a href="/faces" class="nav-link {{ request()->is('faces*') ? 'active' : '' }}" --}}
-                            {{--                                    data-key="t-basic-elements">Data Wajah</a> --}}
-                            {{--                            </li> --}}
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('menu-mentor*') ? 'active' : '' }}"
-                                    data-key="t-form-select" href="/menu-mentor">Mentor</a>
+                                <a href="/menu-mentor"
+                                    class="nav-link {{ request()->is('menu-mentor*') ? 'active' : '' }}"
+                                    data-key="t-form-select">Mentor</a>
                             </li>
                             {{-- <li class="nav-item">
                                 <a href="{{ url('/alumni-admin') }}"
@@ -245,54 +236,54 @@
                             </li> --}}
 
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('students-rejected*') ? 'active' : '' }}"
-                                    data-key="t-advanced" href="{{ url('/students-rejected') }}">Siswa Ditolak</a>
+                                <a href="{{ url('/students-rejected') }}"
+                                    class="nav-link {{ request()->is('students-rejected*') ? 'active' : '' }}"
+                                    data-key="t-advanced">Siswa Ditolak</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('students-banned*') ? 'active' : '' }}"
-                                    data-key="t-range-slider" href="{{ url('/students-banned') }}">Banned Siswa</a>
+                                <a href="{{ url('/students-banned') }}"
+                                    class="nav-link {{ request()->is('students-banned*') ? 'active' : '' }}"
+                                    data-key="t-range-slider">Banned Siswa</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ request()->is('email-user*') ? 'active' : '' }}"
-                                    data-key="t-range-slider" href="{{ url('/email-user') }}">Email user</a>
-                            </li>
+                            {{-- <li class="nav-item">
+                                <a href="{{ url('/email-user') }}"
+                                    class="nav-link {{ request()->is('email-user*') ? 'active' : '' }}"
+                                    data-key="t-range-slider">Email user</a>
+                            </li> --}}
                         </ul>
                     </div>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" data-bs-toggle="collapse" href="#siswaOffline" role="button"
+                    <a class="nav-link menu-link" href="#siswaOffline" data-bs-toggle="collapse" role="button"
                         aria-expanded="{{ request()->is('offline-students/division-placement*') || request()->is('offline-students/team*') || request()->is('offline-students/presentation*') ? 'true' : 'false' }}"
                         aria-controls="siswaOffline">
-                        <i class="ri-user-line"></i> <span data-key="t-surat">Menu Siswa</span>
+                        <i class="ri-user-line"></i> <span data-key="t-surat">Siswa Offline</span>
                     </a>
-                    <div class="menu-dropdown {{ request()->is('offline-students/division-placement*') || request()->is('offline-students/team*') || request()->is('offline-students/presentation*') ? 'show' : '' }} collapse"
+                    <div class="collapse menu-dropdown {{ request()->is('offline-students/division-placement*') || request()->is('offline-students/team*') || request()->is('offline-students/presentation*') ? 'show' : '' }}"
                         id="siswaOffline">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('offline-students/division-placement*') ? 'active' : '' }}"
-                                    data-key="t-chat" href="{{ url('/offline-students/division-placement') }}">
+                                <a href="{{ url('/offline-students/division-placement') }}"
+                                    class="nav-link {{ request()->is('offline-students/division-placement*') ? 'active' : '' }}"
+                                    data-key="t-chat">
                                     Penempatan Divisi </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('offline-students/team*') ? 'active' : '' }}"
-                                    data-key="t-api-key" href="{{ url('/offline-students/team') }}">Tim</a>
+                                <a href="{{ url('/offline-students/team') }}"
+                                    class="nav-link {{ request()->is('offline-students/team*') ? 'active' : '' }}"
+                                    data-key="t-api-key">Tim</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->is('offline-students/presentation*') ? 'active' : '' }}"
-                                    data-key="t-api-key"
-                                    href="{{ url('/offline-students/presentation') }}">Presentasi</a>
+                                <a href="{{ url('/offline-students/presentation') }}"
+                                    class="nav-link {{ request()->is('offline-students/presentation*') ? 'active' : '' }}"
+                                    data-key="t-api-key">Presentasi</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link {{ request()->is('online-student/menotor-placement*') ? 'active' : '' }}"
-                                    data-key="t-chat" href="{{ url('/online-student/menotor-placement') }}">
-                                    Penetapan Mentor </a>
-                            </li>
                         </ul>
                     </div>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#siswaOnline" data-bs-toggle="collapse" role="button"
                         aria-expanded="{{ request()->is('online-student/menotor-placement*') ? 'true' : 'false' }}"
                         aria-controls="siswaOnline">
@@ -307,15 +298,15 @@
                                     data-key="t-chat">
                                     Penetapan Mentor </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Tim</a>
                             </li>
                             <li class="nav-item">
                                 <a href="javascript:void(0)" class="nav-link" data-key="t-api-key">Presentasi</a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
-                </li> --}}
+                </li>
 
                 {{-- <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ url('/announcement') }}">
@@ -323,20 +314,21 @@
                     </a>
                 </li> --}}
 
+
                 <li class="nav-item">
-                    <a class="nav-link menu-link" data-bs-toggle="collapse" href="#sidebarCharts2" role="button"
+                    <a class="nav-link menu-link" href="#sidebarCharts2" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarCharts">
-                        <i class="ri-pencil-ruler-2-line"></i> <span data-key="t-charts">Piket</span>
+                        <i class=" ri-pencil-ruler-2-line"></i> <span data-key="t-charts">Piket</span>
                     </a>
-                    <div class="menu-dropdown collapse" id="sidebarCharts2">
+                    <div class="collapse menu-dropdown" id="sidebarCharts2">
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
-                                <a class="nav-link" data-key="t-chartjs" href="/picket">
+                                <a href="/picket" class="nav-link" data-key="t-chartjs">
                                     Jadwal Piket </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-key="t-echarts" href="{{ url('/report') }}"> Laporan Piket
+                                <a href="{{ url('/report') }}" class="nav-link" data-key="t-echarts"> Laporan Piket
                                 </a>
                             </li>
                         </ul>

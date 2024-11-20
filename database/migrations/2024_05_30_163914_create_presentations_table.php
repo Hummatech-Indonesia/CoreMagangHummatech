@@ -18,7 +18,6 @@ return new class extends Migration
         Schema::create('presentations', function (Blueprint $table) {
             $table->id();
             $table->integer('urutan')->default(0);
-            $table->foreignId('division_id')->constrained('divisions');
             $table->foreignId('mentor_id')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('project_id')->constrained('projects')->cascadeOnDelete();
             $table->date('planning_date_presentation');
