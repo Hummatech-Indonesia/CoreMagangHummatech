@@ -164,7 +164,7 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="row row-cols-4 gx-3">
+        <div class="row row-cols-4 gx-3">
         <div class="col">
             <div class="card">
                 <div class="card-body rounded-2 rounded shadow shadow-sm" style="background: #fff">
@@ -277,7 +277,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div> 
         {{-- <h6 class="fs-5 mb-4" style="font-weight: 600; margin-left: 1%">
         Project Anda
     </h6> --}}
