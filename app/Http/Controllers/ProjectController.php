@@ -82,11 +82,13 @@ class ProjectController extends Controller
     {
         $categoryProject = $this->categoryProject->get();
         $students = $this->student->getStudentAccepted()->where('id', '!=', auth()->user()->student_id)->pluck('name', 'id');
-        // $presentations = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id);
-        // $totalPresentation = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id)->count();
-        // $upcomingProject = $this->project->upcomingproject(auth()->user()->student_id);
-        // $queuePresentation = QueuePresentation::first()->queue ?? 1;
-        // $myQueuePresentation = $this->presentation->getQueuePresentationByUser(auth()->user()->student_id);
+
+         $presentations = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id);
+         $totalPresentation = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id)->count();
+         $upcomingProject = $this->project->upcomingproject(auth()->user()->student_id);
+         $queuePresentation = QueuePresentation::first()->queue ?? 1;
+         $myQueuePresentation = $this->presentation->getQueuePresentationByUser(auth()->user()->student_id);
+
         $pending = $this->project->where('status_project', TaskStatusEnum::PENDING->value)->count();
         $inprogress = $this->project->where('status_project', TaskStatusEnum::INPROGRESS->value)->count();
         $revision = $this->project->where('status_project', TaskStatusEnum::REVISION->value)->count();
@@ -101,7 +103,7 @@ class ProjectController extends Controller
         }
 
         // dd($getProject);
-        return view('Hummatask.index', compact('categoryProject', 'students', 'pending', 'inprogress', 'revision', 'completed', 'getProjects'));
+        return view('Hummatask.index', compact('categoryProject', 'students', 'pending', 'inprogress', 'revision', 'completed', 'getProjects','presentations','queuePresentation','myQueuePresentation','upcomingProject','totalPresentation','projects'));
     }
 
     /**
