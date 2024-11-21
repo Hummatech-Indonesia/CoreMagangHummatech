@@ -4,6 +4,7 @@ namespace App\Contracts\Repositories;
 
 use App\Enum\PresentationTypeEnum;
 use App\Enum\StatusPresentationEnum;
+use App\Models\MentorDivision;
 use DB;
 use Carbon\Carbon;
 use App\Models\Thesis;
@@ -29,7 +30,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     /**
      * get by team today
      *
-     * @param  mixed $id
+     * @param mixed $id
      * @return mixed
      */
     public function getByTeamToday(mixed $id): mixed
@@ -43,7 +44,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     /**
      * get by team
      *
-     * @param  mixed $id
+     * @param mixed $id
      * @return mixed
      */
     public function getByTeam(mixed $id): mixed
@@ -56,7 +57,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     /**
      * getByDivision
      *
-     * @param  mixed $request
+     * @param mixed $request
      * @return mixed
      */
     public function getByDivision(Request $request): mixed
@@ -104,7 +105,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     /**
      * store
      *
-     * @param  mixed $data
+     * @param mixed $data
      * @return mixed
      */
     public function store(array $data): mixed
@@ -112,10 +113,11 @@ class PresentationRepository extends BaseRepository implements PresentationInter
         return $this->model->query()
             ->create($data);
     }
+
     /**
      * checkAttendanceStudent
      *
-     * @param  mixed $studentId
+     * @param mixed $studentId
      * @return void
      */
 
@@ -185,7 +187,6 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     public function countMonthlyPresentationsByTeamId(int $teamId): int
     {
         return $this->model->query()
-
             ->where('hummatask_team_id', $teamId)
             ->whereMonth('created_at', Carbon::now()->month)
             ->whereYear('created_at', Carbon::now()->year)
@@ -195,7 +196,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     /**
      * getScheduleTodayByMentor
      *
-     * @param  mixed $id
+     * @param mixed $id
      * @return void
      */
     public function getScheduleTodayByMentor(mixed $id): mixed
@@ -264,7 +265,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     public function getPresentationsByStudentId(int $studentId)
     {
         return $this->model->query()
-            ->with(['project','project.members'])
+            ->with(['project', 'project.members'])
             ->whereHas('project.members', function ($query) use ($studentId) {
                 $query->where('member_id', $studentId);
             })
@@ -275,7 +276,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     public function getPresentationWithMembers()
     {
         return $this->model->query()
-            ->with(['project','project.members'])
+            ->with(['project', 'project.members'])
             ->get();
     }
 
@@ -285,11 +286,17 @@ class PresentationRepository extends BaseRepository implements PresentationInter
 
         return $this->model->with(['students', 'students.users'])
             ->where('status_presentation', $status)
-            ->whereHas('project', function ($query){
-                $query->where('division_id', auth()->user()->mentor->division_id);
+            ->whereHas('project', function ($query) {
+                // Ambil semua division_id yang relevan
+                $mentorDivisionIds = MentorDivision::where('mentor_id', auth()->user()->mentor->id)
+                    ->pluck('division_id');
+
+                // Filter berdasarkan division_id
+                $query->whereIn('division_id', $mentorDivisionIds);
             })
             ->whereDate('planning_date_presentation', $date)
             ->get();
+
     }
 
     public function getQueuePresentationByUser(int $idUser)
@@ -307,8 +314,8 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     public function getPresentationByProject(int $idProject)
     {
         return $this->model->query()
-            ->with(['mentor','project','division'])
-            ->where('project_id',$idProject)
+            ->with(['mentor', 'project', 'division'])
+            ->where('project_id', $idProject)
             ->get();
     }
 }
