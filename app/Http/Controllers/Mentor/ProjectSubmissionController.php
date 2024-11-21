@@ -33,6 +33,11 @@ class ProjectSubmissionController extends Controller
         return view('mentor.project-submission2.index', compact('projects', 'search'));
     }
 
+    public function show()
+    {
+        return view('mentor.project-submission2.detail');
+    }
+
     public function accept($id)
     {
         $project = Project::findOrFail($id);
@@ -50,4 +55,6 @@ class ProjectSubmissionController extends Controller
 
         return redirect()->back()->with('error', 'Proyek telah ditolak.');
     }
+
+
 }

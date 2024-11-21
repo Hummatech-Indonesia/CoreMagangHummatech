@@ -402,6 +402,7 @@ Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function () {
     Route::get('/', [\App\Http\Controllers\Mentor\DashboardController::class, 'index'])->name('.home');
     Route::get('/presentation', [PresentationController::class, 'mentorshow'])->name('.mentor.presentation');
     Route::get('/project-submissions', [ProjectSubmissionController::class, 'index'])->name('mentor.project-submissions2.index');
+    Route::get('/project-submissions/detail', [ProjectSubmissionController::class, 'show'])->name('mentor.project-submissions.show');
 });
 
 #================================================= End Mentor ====================================================================

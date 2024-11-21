@@ -1,127 +1,227 @@
 @extends('mentor.layouts.app')
 @section('content')
-    <div class="modal fade" id="pending-date" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Tunda Presentasi</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="{{ route('presentation.changeStatus') }}" method="post" id="pendingForm">
-                @csrf
-                @method('PUT')
-                <div class="modal-body">
-                    <input type="hidden" name="presentation_id" value="" id="inputPresentationId">
-                    <input type="hidden" name="status_presentation"
-                        value="{{ \App\Enum\StatusPresentationEnum::PENNDING->value }}"/>
-                    <input type="date" name="planning_date_presentation" value="" id="inputPresentationDate"
-                        class="form-control">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light-danger text-danger" data-bs-dismiss="modal">Tutup
-                    </button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    </div>
-
     <div class="container-fluid note-has-grid">
-        <div class="card bg-light-info shadow-none position-relative overflow-hidden">
-            <div class="card-body px-4 py-3">
-                <div class="row align-items-center">
-                    <div class="col-9">
-                        <h4 class="fw-semibold mb-8">Pengajuan Projek</h4>
-                        <nav aria-label="breadcrumb mt-2">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a class="text-muted " href="/siswa-offline">Dashboard</a>
-                                </li>
-                                <li class="breadcrumb-item" aria-current="page">Pengajuan Projek</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="col-3">
-                        <div class="text-center mb-n5">
-                            <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt=""
-                                 class="img-fluid mb-n4">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <ul class="nav nav-pills p-3 mb-3 rounded align-items-center card flex-row">
+            <li class="nav-item">
+                <a data-bs-toggle="tab" href="#project-submissions" role="tab"
+                    class="nav-link note-link d-flex align-items-center justify-content-center active px-3 px-md-3 me-0 me-md-2 text-body-color"
+                    id="all-category">
+                    <i class="ti ti-presentation fill-white me-0 me-md-1 fs-7"></i>
+                    <span class="d-none d-md-block font-weight-medium">Pengajuan Project</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a data-bs-toggle="tab" href="#history-submissions" role="tab"
+                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color"
+                    id="note-business">
+                    <i class="ti ti-history fill-white me-0 me-md-1 fs-7"></i>
+                    <span class="d-none d-md-block font-weight-medium">Riwayat Pengajuan Project</span>
+                </a>
+            </li>
+        </ul>
 
-        <div class="row mb-4">
-        <div class="col-12 d-flex align-items-center">
-            <!-- Search Bar -->
-            <div class="d-flex mx-3" style="width: 30%;">
-                <input type="text" class="form-control" placeholder="Cari Tim" id="search">
-            </div>
-            <!-- Filter Button -->
-            <button class="btn btn-outline-primary">
-                <i class="bi bi-filter"></i> Filter
-            </button>
-        </div>
-
-        {{-- CARD --}}
-        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-            @foreach($projects as $project)
-                <div class="col">
-                    <div class="card h-100 shadow-sm position-relative">
-                        <!-- Placeholder Image -->
-                        <div class="card-body text-center">
-
-                            <div class="d-flex justify-content-center">
-                                <div class="mb-3">
-                                    <div class="rounded-circle bg-primary d-flex justify-content-center align-items-center"
-                                        style="width: 100px; height: 100px; color: white; font-size: 1.2rem;">
+        <div class="tab-content">
+            <!-- Tab 1 -->
+            <div class="tab-pane active" id="project-submissions" role="tabpanel">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-4">
+                    <div class="col">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="badge bg-light-primary text-primary px-3 py-2 rounded-2 fw-bolder">
+                                        Solo Project
+                                    </span>
+                                    <div class="d-flex gap-1">
+                                        <a href="/mentor/project-submissions/detail" class="btn btn-primary text-white p-1">
+                                            <i class="ti ti-eye fs-7"></i>
+                                        </a>
+                                        <button class="btn text-white p-1" style="background-color: #f73164">
+                                            <i class="ti ti-trash fs-7"></i>
+                                        </button>
                                     </div>
                                 </div>
+                                <h5 class="fw-semibold">Web Jawa Hitam</h5>
+                                <p class="text-muted mb-1">By Kelompok Jawir</p>
+                                <div class="mb-4">
+                                    <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" alt="Avatar"
+                                        class="rounded-circle shadow-sm img-fluid" width="33" height="33">
+                                </div>
+                                <p class="card-text">Pembuatan website menggunakan Laravel</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p class="fw-bold text-black mb-0">Kondisi Project:</p>
+                                    <span class="badge bg-light-warning text-warning px-3 py-1 rounded-2">Menunggu</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-1">
+                                    <p class="text-black mb-0">Deadline:</p>
+                                    <small class="text-success fw-semibold">20/11/2024 - 25/11/2024</small>
+                                </div>
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button class="btn btn-light-danger text-danger w-50 me-2">Tolak</button>
+                                    <button class="btn btn-light-success text-success w-50 ms-2">Terima</button>
+                                </div>
                             </div>
-                            <!-- Team Name -->
-                            <h5 class="card-title">{{ $project->name }}</h5>
-                            <!-- Description -->
-                            <p class="card-text text-muted">{{ $project->description }}</p>
-                            <!-- Date -->
-                            <p class="text-muted">{{ \Carbon\Carbon::parse($project->date)->translatedFormat('l, d F Y') }}</p>
-                            <!-- Avatars -->
-                            <div class="d-flex justify-content-center mb-3">
-                                @foreach($project->members as $member)
-                                    <img src="{{ asset('storage/'.$member->members->avatar) }}" alt="{{ $member->members->name }}"
-                                        class="rounded-circle border border-white shadow-sm"
-                                        style="width: 30px; height: 30px; margin-left: -10px;">
-                                @endforeach
-                            </div>
-                            <!-- Detail Button -->
-                            <a href="" class="btn btn-primary w-100">Lihat Detail</a>
                         </div>
+                    </div>
 
-                        <!-- Action Buttons -->
-                        <div class="position-absolute top-0 end-0 p-2 d-flex gap-2">
-                            <!-- Accept Button -->
-                            <form action="" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <button type="submit" class="btn btn-success btn-sm" title="Terima">
-                                    <i class="bi bi-check-lg"></i>
-                                </button>
-                            </form>
-                            <!-- Reject Button -->
-                            <form action="" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <button type="submit" class="btn btn-danger btn-sm" title="Tolak">
-                                    <i class="bi bi-x-lg"></i>
-                                </button>
-                            </form>
+                    <div class="col">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="badge bg-light-primary text-primary px-3 py-2 rounded-2 fw-bolder">
+                                        Solo Project
+                                    </span>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-primary text-white p-1">
+                                            <i class="ti ti-eye fs-7"></i>
+                                        </button>
+                                        <button class="btn text-white p-1" style="background-color: #f73164">
+                                            <i class="ti ti-trash fs-7"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <h5 class="fw-semibold">Web Jawa Hitam</h5>
+                                <p class="text-muted mb-1">By Kelompok Jawir</p>
+                                <div class="mb-3    ">
+                                    <div class="d-flex justify-content-start">
+                                        <ul class="hstack mb-2">
+                                            <li>
+                                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" aria-label="gito" data-bs-original-title="gito">
+                                                    <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}"
+                                                        class="rounded-circle border border-2 border-white" width="33"
+                                                        height="33" alt="">
+                                                </a>
+                                            </li>
+                                            <li class="ms-n8">
+                                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" aria-label="sugiren"
+                                                    data-bs-original-title="sugiren">
+                                                    <img src="{{ asset('assets-user/dist/images/profile/user-3.jpg') }}"
+                                                        class="rounded-circle border border-2 border-white" width="33"
+                                                        height="33" alt="">
+                                                </a>
+                                            </li>
+                                            <li class="ms-n8">
+                                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" aria-label="mustafa"
+                                                    data-bs-original-title="mustafa">
+                                                    <img src="{{ asset('assets-user/dist/images/profile/user-4.jpg') }}"
+                                                        class="rounded-circle border border-2 border-white" width="33"
+                                                        height="33" alt="">
+                                                </a>
+                                            </li>
+                                            <li class="ms-n8">
+                                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" aria-label="Mark Smith"
+                                                    data-bs-original-title="Mark Smith">
+                                                    <img src="{{ asset('assets-user/dist/images/profile/user-5.jpg') }}"
+                                                        class="rounded-circle border border-2 border-white" width="33"
+                                                        height="33" alt="">
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p class="card-text">Pembuatan website menggunakan Laravel</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p class="fw-bold text-black mb-0">Kondisi Project:</p>
+                                    <span class="badge bg-light-warning text-warning px-3 py-1 rounded-2">Menunggu</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-1">
+                                    <p class="text-black mb-0">Deadline:</p>
+                                    <small class="text-success fw-semibold">20/11/2024 - 25/11/2024</small>
+                                </div>
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button class="btn btn-light-danger text-danger w-50 me-2">Tolak</button>
+                                    <button class="btn btn-light-success text-success w-50 ms-2">Terima</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            @endforeach
+            </div>
+
+
+            <!-- Tab 2 -->
+            <div class="tab-pane" id="history-submissions" role="tabpanel">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-4">
+                    <div class="col">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="badge bg-light-primary text-primary px-3 py-2 rounded-2 fw-bolder">
+                                        Solo Project
+                                    </span>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-primary text-white p-1">
+                                            <i class="ti ti-eye fs-7"></i>
+                                        </button>
+                                        <button class="btn text-white p-1" style="background-color: #f73164">
+                                            <i class="ti ti-trash fs-7"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <h5 class="fw-semibold">Web Jawa Hitam</h5>
+                                <p class="text-muted mb-1">By Kelompok Jawir</p>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-start">
+                                        <ul class="hstack mb-2">
+                                            <li>
+                                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" aria-label="gito" data-bs-original-title="gito">
+                                                    <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}"
+                                                        class="rounded-circle border border-2 border-white" width="33"
+                                                        height="33" alt="">
+                                                </a>
+                                            </li>
+                                            <li class="ms-n8">
+                                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" aria-label="sugiren"
+                                                    data-bs-original-title="sugiren">
+                                                    <img src="{{ asset('assets-user/dist/images/profile/user-3.jpg') }}"
+                                                        class="rounded-circle border border-2 border-white" width="33"
+                                                        height="33" alt="">
+                                                </a>
+                                            </li>
+                                            <li class="ms-n8">
+                                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" aria-label="mustafa"
+                                                    data-bs-original-title="mustafa">
+                                                    <img src="{{ asset('assets-user/dist/images/profile/user-4.jpg') }}"
+                                                        class="rounded-circle border border-2 border-white" width="33"
+                                                        height="33" alt="">
+                                                </a>
+                                            </li>
+                                            <li class="ms-n8">
+                                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" aria-label="Mark Smith"
+                                                    data-bs-original-title="Mark Smith">
+                                                    <img src="{{ asset('assets-user/dist/images/profile/user-5.jpg') }}"
+                                                        class="rounded-circle border border-2 border-white" width="33"
+                                                        height="33" alt="">
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p class="card-text">Pembuatan website menggunakan Laravel</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p class="fw-bold text-black mb-0">Kondisi Project:</p>
+                                    <span class="badge bg-light-danger text-danger px-4 py-1 rounded-1">Ditolak</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-1">
+                                    <p class="text-black mb-0">Deadline:</p>
+                                    <small class="text-success fw-semibold">20/11/2024 - 25/11/2024</small>
+                                </div>
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button class="btn btn-light-danger text-danger w-50 me-2">Tolak</button>
+                                    <button class="btn btn-light-success text-success w-50 ms-2">Terima</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    </div>
-
 @endsection
