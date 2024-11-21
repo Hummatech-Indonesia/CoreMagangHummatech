@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Mentor\ProjectSubmissionController;
 use Illuminate\Support\Facades\{Auth, Route};
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 
@@ -385,7 +386,7 @@ Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name
 Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function () {
     # Home
     Route::get('/', [\App\Http\Controllers\Mentor\DashboardController::class, 'index'])->name('.home');
-    Route::get('/presentation',[PresentationController::class, 'mentorshow'])->name('.mentor.presentation');
+    Route::get('/presentation', [PresentationController::class, 'mentorshow'])->name('.mentor.presentation');
     Route::get('/project-submissions', [ProjectSubmissionController::class, 'index'])->name('mentor.project-submissions2.index');
 });
 
@@ -470,7 +471,7 @@ Route::get('dashboard/task/detail/{project}/presentation/{presentation}/revision
 
 
 # Dashboard-Task-Project
-Route::post('dashboard/task/submit-project',[\App\Http\Controllers\ProjectController::class,'store'])->name('project.submit');
+Route::post('dashboard/task/submit-project', [\App\Http\Controllers\ProjectController::class, 'store'])->name('project.submit');
 
 # Dashboard-Project-Task
 Route::prefix('dashboard/task')->group(function () {

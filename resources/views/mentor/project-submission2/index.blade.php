@@ -66,34 +66,37 @@
 
         {{-- CARD --}}
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-            @foreach($projects as $p)
+            @foreach($projects as $project)
                 <div class="col">
                     <div class="card h-100 shadow-sm position-relative">
                         <!-- Placeholder Image -->
                         <div class="card-body text-center">
-                            <div class="mb-3">
-                                <div class="rounded-circle bg-primary d-flex justify-content-center align-items-center" 
-                                    style="width: 100px; height: 100px; color: white; font-size: 1.2rem;">
+
+                            <div class="d-flex justify-content-center">
+                                <div class="mb-3">
+                                    <div class="rounded-circle bg-primary d-flex justify-content-center align-items-center"
+                                        style="width: 100px; height: 100px; color: white; font-size: 1.2rem;">
+                                    </div>
                                 </div>
                             </div>
                             <!-- Team Name -->
-                            <h5 class="card-title">{{ $p->name }}</h5>
+                            <h5 class="card-title">{{ $project->name }}</h5>
                             <!-- Description -->
-                            <p class="card-text text-muted">{{ $p->description }}</p>
+                            <p class="card-text text-muted">{{ $project->description }}</p>
                             <!-- Date -->
-                            <p class="text-muted">{{ \Carbon\Carbon::parse($p->date)->translatedFormat('l, d F Y') }}</p>
+                            <p class="text-muted">{{ \Carbon\Carbon::parse($project->date)->translatedFormat('l, d F Y') }}</p>
                             <!-- Avatars -->
                             <div class="d-flex justify-content-center mb-3">
-                                @foreach($p->members as $member)
-                                    <img src="{{ $member->avatar_url }}" alt="{{ $member->name }}" 
-                                        class="rounded-circle border border-white shadow-sm" 
+                                @foreach($project->members as $member)
+                                    <img src="{{ asset('storage/'.$member->members->avatar) }}" alt="{{ $member->members->name }}"
+                                        class="rounded-circle border border-white shadow-sm"
                                         style="width: 30px; height: 30px; margin-left: -10px;">
                                 @endforeach
                             </div>
                             <!-- Detail Button -->
                             <a href="" class="btn btn-primary w-100">Lihat Detail</a>
                         </div>
-        
+
                         <!-- Action Buttons -->
                         <div class="position-absolute top-0 end-0 p-2 d-flex gap-2">
                             <!-- Accept Button -->
