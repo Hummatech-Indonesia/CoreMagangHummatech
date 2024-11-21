@@ -338,7 +338,9 @@
 
                         {{--  bottom  --}}
                         <div class="mb-4 mt-4">
-                            <a href="" style="color: gray; display: flex; align-items: center;">
+                            <a href="" style="color: gray; display: flex; align-items: center;"  data-bs-toggle="modal"
+                               data-bs-target="#addRevisionInProgress
+                               ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                      stroke-linecap="round" stroke-linejoin="round"
@@ -465,7 +467,8 @@
 
                         {{--  bottom  --}}
                         <div class="mb-4 mt-4">
-                            <a href="" style="color: gray; display: flex; align-items: center;">
+                            <a href="" style="color: gray; display: flex; align-items: center;"  data-bs-toggle="modal"
+                               data-bs-target="#addRevisionDone">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                      stroke-linecap="round" stroke-linejoin="round"
@@ -503,6 +506,68 @@
                     <input type="hidden" name="status" value="{{ \App\Enum\RevisionStatusEnum::Todo->value }}">
                     <div class="modal-header">
                         <h1 class="modal-title fs-4" id="addRevisionTodoLabel">Tambah Revisi</h1>
+                        <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="startDate">
+                            <label class="mb-2 mt-1 fs-2" for="">Revisi</label>
+                            <textarea name="revision" class="form-control"></textarea>
+                            @error('revision')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-success btn-sm">Kirim</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addRevisionInProgress" tabindex="-1" aria-labelledby="addRevisionInProgressLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('project.presentation.revision.saveRevision',['project' => $project->id,'presentation' => $presentation->id]) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="status" value="{{ \App\Enum\RevisionStatusEnum::InProgress->value }}">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-4" id="addRevisionInProgressLabel">Tambah Revisi</h1>
+                        <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="startDate">
+                            <label class="mb-2 mt-1 fs-2" for="">Revisi</label>
+                            <textarea name="revision" class="form-control"></textarea>
+                            @error('revision')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-success btn-sm">Kirim</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addRevisionDone" tabindex="-1" aria-labelledby="addRevisionDoneLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('project.presentation.revision.saveRevision',['project' => $project->id,'presentation' => $presentation->id]) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="status" value="{{ \App\Enum\RevisionStatusEnum::Completed->value }}">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-4" id="addRevisionDoneLabel">Tambah Revisi</h1>
                         <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>
