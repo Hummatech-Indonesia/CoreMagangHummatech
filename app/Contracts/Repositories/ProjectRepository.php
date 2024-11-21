@@ -2,12 +2,14 @@
 
 namespace App\Contracts\Repositories;
 
-use App\Contracts\Interfaces\ProjectInterface;
-use App\Enum\PresentationTypeEnum;
-use App\Models\Presentation;
 use App\Models\Project;
 use App\StatusProjectEnum;
-use Carbon;
+use App\Models\Presentation;
+use Illuminate\Support\Carbon;
+use App\Enum\ProjectAcceptStatus;
+use App\Enum\PresentationTypeEnum;
+use Illuminate\Support\Facades\Auth;
+use App\Contracts\Interfaces\ProjectInterface;
 
 class ProjectRepository extends BaseRepository implements ProjectInterface
 {
@@ -37,7 +39,7 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
     public function get(): mixed
     {
         return $this->model
-            ->with(['presentation','members','members.members'])
+            ->with(['presentation', 'members', 'members.members'])
             ->get();
     }
 
@@ -61,13 +63,18 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
         return $this->model->query()->where($parameter, $value)->get();
     }
 
-    public function accProject(mixed $id, array $data, $hummataskTeam): mixed
+    public function whereIn($parameter, array $values): mixed
+    {
+        return $this->model->query()->whereIn($parameter, $values)->get();
+    }
+
+    public function accProject(mixed $id, array $data): mixed
     {
         $data['start_date'] = Carbon::now()->toDateString();
-        $data['status'] = StatusProjectEnum::ACCEPTED->value;
+        $data['status'] = ProjectAcceptStatus::ACCEPT->value;
+        $data['mentor_id'] = Auth::user()->mentors_id;
 
         $this->model->query()
-            ->where('hummatask_team_id', $hummataskTeam)
             ->where('id', '!=', $id)
             ->delete();
         return $this->model->query()->findOrFail($id)->update($data);

@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Enum\ProjectAcceptStatus;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -16,6 +18,7 @@ return new class extends Migration
             $table->foreignId('division_id')->constrained('divisions');
             $table->foreignId('mentor_id')->nullable()->constrained('users')->onDelete('set null');
             $table->string('project_name');
+            $table->string('link');
             $table->text('description');
             $table->date('start_date')->default(Carbon::today());
             $table->date('end_date')->default(Carbon::tomorrow());
@@ -28,6 +31,13 @@ return new class extends Migration
                 \App\Enum\PresentationTypeEnum::INTERVIEW->value,
                 \App\Enum\PresentationTypeEnum::LIVECODING->value
             ]);
+
+            $table->enum('status',[
+                ProjectAcceptStatus::ACCEPT->value,
+                ProjectAcceptStatus::REJECTED->value,
+                ProjectAcceptStatus::WAITING->value,
+            ])->default(ProjectAcceptStatus::WAITING->value);
+
             $table->enum('status_project',[
                 \App\Enum\TaskStatusEnum::PENDING->value,
                 \App\Enum\TaskStatusEnum::INPROGRESS->value,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Mentor;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Services\ProjectService;
+use App\Enum\ProjectAcceptStatus;
 use App\Http\Controllers\Controller;
 use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\HummataskTeamInterface;
@@ -28,24 +29,35 @@ class ProjectSubmissionController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $projects = $this->project->get($search);
-        // dd($projects);
-        return view('mentor.project-submission2.index', compact('projects', 'search'));
+        $waiting_projects = $this->project->where('status', 'waiting');
+        $history_projects = $this->project->whereIn('status', ['accept', 'rejected']);
+
+        // dd($history_projects);
+
+        return view('mentor.project-submission2.index', compact('waiting_projects', 'history_projects', 'search'));
     }
 
-    public function show()
+    public function show(Project $project)
     {
-        return view('mentor.project-submission2.detail');
+        $project->load('members.members');
+        return view('mentor.project-submission2.detail', compact('project'));
     }
 
-    public function accept($id)
+    public function accept(Project $project)
     {
-        $project = Project::findOrFail($id);
-        $project->status = 'accepted';
-        $project->save();
+        try {
+            $data = [];
+            $this->project->accProject($project->id, $data);
 
-        return redirect()->back()->with('success', 'Proyek telah diterima.');
+            return redirect()->back()
+                ->with('success', 'Proyek berhasil diterima dan data telah diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Terjadi kesalahan saat menerima proyek: ' . $e->getMessage());
+        }
     }
+
+
 
     public function reject($id)
     {
@@ -55,6 +67,4 @@ class ProjectSubmissionController extends Controller
 
         return redirect()->back()->with('error', 'Proyek telah ditolak.');
     }
-
-
 }

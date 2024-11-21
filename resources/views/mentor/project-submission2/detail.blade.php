@@ -4,7 +4,7 @@
     <div class="container-fluid">
 
         <div class="d-flex justify-content-between w-100 mb-4 gap-2 navbar-shadow">
-            <a class="text-decoration-none" href="/dashboard/task">
+            <a class="text-decoration-none" href="/mentor/project-submissions">
                 <div class="back bg-light-info rounded p-3">
                     <svg width="32" height="24" viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -30,24 +30,30 @@
                 <div class="card card-body">
                     <div class="col-md-3 mb-3">
                         <h6 class="fw-semibold">Status</h6>
-                        <span class="badge bg-light-warning text-warning rounded-pill">Menunggu Persetujuan</span>
+                        <span class="{{ $project->getStatus()->color() }}  px-2 py-1 rounded-pill">
+                            {{ $project->getStatus()->label() }}
+                        </span>
                     </div>
 
                     <div class="mb-3">
                         <h6 class="fw-semibold">Kategori Project</h6>
-                        <input type="text" class="form-control" value="Solo Project" />
+                        <input type="text" class="form-control" value="{{ $project->type_project }}" />
                     </div>
                     <div class="mb-3">
                         <h6 class="fw-semibold">Descripsi Project Project</h6>
-                        <textarea class="form-control" rows="5"></textarea>
+                        <textarea class="form-control" rows="5">{{ $project->description }}</textarea>
                     </div>
                     <div class="mb-3">
                         <h6 class="fw-semibold">Link Repository Github (Opsional)</h6>
-                        <input type="text" class="form-control" value="" placeholder="https://...." />
+                        <input type="text" class="form-control" value="{{ $project->link }}"
+                            placeholder="https://...." />
                     </div>
                     <div class="mb-3">
                         <h6 class="fw-semibold">Waktu Pengerjaan</h6>
-                        <p class="fs-3">23/10/2024 - 30/10/2024</p>
+                        <p class="fs-3">
+                            {{ \Carbon\Carbon::parse($project->start_date)->format('d/m/Y') }} -
+                            {{ \Carbon\Carbon::parse($project->end_date)->format('d/m/Y') }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -72,17 +78,30 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-black">
-                                        <tr>
-                                            <td class="ps-0 text-black">1. </td>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3 fw-semibold text-dark">
-                                                    <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" class="rounded-circle"
-                                                        alt="user" width="40"/>
-                                                        <span>Alan Walker Origins</span>
-                                                </div>
-                                            </td>
-                                            <td class="text-warning">Ketua</td>
-                                        </tr>
+                                        @forelse ($project->members as $member)
+                                            <tr>
+
+                                                <td class="ps-0 text-black">{{ $loop->iteration }}. </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center gap-3 fw-semibold text-dark">
+                                                        <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
+                                                            class="rounded-circle" alt="user" width="40" />
+                                                        <span>{{ $member->members->name }}</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span @class([
+                                                        'text-warning' => $member->status == 'Leader',
+                                                        'text-primary' => $member->status == 'Member',
+                                                    ])>
+                                                        @php($array = ['Leader' => 'Ketua', 'Member' => 'Anggota'])
+
+                                                        {{ $array[$member->status] }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                        @endforelse
 
                                     </tbody>
                                 </table>

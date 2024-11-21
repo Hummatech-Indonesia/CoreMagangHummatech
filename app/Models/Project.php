@@ -17,6 +17,7 @@ class Project extends Model
     protected $guarded = ['id'];
     protected $casts = [
         'type_project' => PresentationTypeEnum::class,
+        'accept_status' => ProjectAcceptStatus::class,
         'status_project' => TaskStatusEnum::class,
     ];
     public function presentation(): HasMany
@@ -42,5 +43,10 @@ class Project extends Model
     public function revision(): HasMany
     {
         return $this->hasMany(ProjectRevision::class);
+    }
+
+    public function getStatus(): ProjectAcceptStatus
+    {
+        return ProjectAcceptStatus::tryFrom($this->status) ?? ProjectAcceptStatus::WAITING;
     }
 }

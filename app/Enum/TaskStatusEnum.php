@@ -22,10 +22,10 @@ enum TaskStatusEnum: string
     public function color(): string
     {
         return match ($this) {
-            self::PENDING => 'warning',
-            self::INPROGRESS => 'info',
-            self::REVISION => 'danger',
-            self::COMPLETED => 'success',
+            self::PENDING => 'bg-light-warning text-warning',
+            self::INPROGRESS => 'bg-light-info text-info',
+            self::REVISION => 'bg-light-danger text-danger',
+            self::COMPLETED => 'bg-light-success text-success',
         };
     }
 }
