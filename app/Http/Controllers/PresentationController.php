@@ -7,6 +7,7 @@ use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Contracts\Interfaces\LimitPresentationInterface;
 use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\PresentationInterface;
+use App\Contracts\Repositories\QueuePresentationInterface;
 use App\Enum\StatusPresentationEnum;
 use App\Http\Requests\StatusPresentationRequest;
 use App\Http\Requests\StoreCallbackRequest;
@@ -31,8 +32,8 @@ class PresentationController extends Controller
     private HummataskTeamInterface $hummataskTeam;
     private MentorDivisionInterface $mentorDivision;
     private CategoryProjectInterface $categoryProject;
-
-    public function __construct(MentorDivisionInterface $mentorDivision, PresentationInterface $presentation, LimitPresentationInterface $limits, PresentationService $service, Project $project, HummataskTeamInterface $hummataskTeam, CategoryProjectInterface $categoryProject)
+    private QueuePresentationInterface $queuePresentation;
+    public function __construct(MentorDivisionInterface $mentorDivision, PresentationInterface $presentation, LimitPresentationInterface $limits, PresentationService $service, Project $project, HummataskTeamInterface $hummataskTeam, CategoryProjectInterface $categoryProject, QueuePresentationInterface $queuePresentation)
     {
         $this->presentation = $presentation;
         $this->limits = $limits;
@@ -40,6 +41,7 @@ class PresentationController extends Controller
         $this->hummataskTeam = $hummataskTeam;
         $this->mentorDivision = $mentorDivision;
         $this->categoryProject = $categoryProject;
+        $this->queuePresentation = $queuePresentation;
     }
 
     /**
@@ -248,13 +250,13 @@ class PresentationController extends Controller
 
     public function presentationDone(Request $request, Presentation $presentation)
     {
-        // $presentation = Presentation::find($presentation);
-        $queuePresentation = QueuePresentation::first();
+        $project = $this->project->find($request->project_id);
+        $queuePresentation = $this->queuePresentation->getQueueByDivision($project->division_id);
         if($presentation){
             $presentation->update([
                 'status_presentation' => StatusPresentationEnum::FINISH->value
             ]);
-            $queuePresentation->update([
+            $this->queuePresentation->update($queuePresentation->id, [
                 'queue' => $queuePresentation->queue + 1
             ]);
             return back()->with('success', value: 'Berhasil merubah status');

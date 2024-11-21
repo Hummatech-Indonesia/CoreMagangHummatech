@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\CategoryProjectInterface;
+use App\Contracts\Repositories\QueuePresentationInterface;
 use App\Models\Project;
 use App\StatusProjectEnum;
 use App\Models\ProjectRevision;
@@ -44,6 +45,7 @@ class ProjectController extends Controller
     private MentorStudentInterface $mentorStudent;
     private PresentationInterface $presentation;
     private HummataskTeamMembersInterface $hummataskMemberPresentation;
+    private QueuePresentationInterface $queuePresentation;
 
     public function __construct(
         HummataskTeamInterface $hummatask_team,
@@ -58,7 +60,8 @@ class ProjectController extends Controller
         StudentTeamInterface $studentTeam,
         MentorStudentInterface $mentorStudent,
         PresentationInterface $presentation,
-        HummataskTeamMembersInterface $hummataskMemberPresentation
+        HummataskTeamMembersInterface $hummataskMemberPresentation,
+        QueuePresentationInterface $queuePresentation
     ) {
         $this->hummatask_team = $hummatask_team;
         $this->service = $service;
@@ -73,6 +76,7 @@ class ProjectController extends Controller
         $this->mentorStudent = $mentorStudent;
         $this->presentation = $presentation;
         $this->hummataskMemberPresentation = $hummataskMemberPresentation;
+        $this->queuePresentation = $queuePresentation;
     }
 
     /**
@@ -86,7 +90,7 @@ class ProjectController extends Controller
          $presentations = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id);
          $totalPresentation = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id)->count();
          $upcomingProject = $this->project->upcomingproject(auth()->user()->student_id);
-         $queuePresentation = QueuePresentation::first()->queue ?? 1;
+         $queuePresentation = $this->queuePresentation->getQueueByDivision(auth()->user()->student->division_id)?->queue ?? 1;
          $myQueuePresentation = $this->presentation->getQueuePresentationByUser(auth()->user()->student_id);
 
         $pending = $this->project->where('status_project', TaskStatusEnum::PENDING->value)->count();

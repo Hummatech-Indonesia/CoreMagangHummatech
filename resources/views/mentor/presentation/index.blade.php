@@ -190,6 +190,7 @@
                                         <form action="{{ route('presentation.presentationDone',$ongoing->id) }}" method="post">
                                             @csrf
                                             @method('PUT')
+                                            <input type="hidden" name="project_id" value="{{ $ongoing->project_id }}">
                                             <button class="btn btn-success">
                                                 <i class="fa fa-check"></i>
                                             </button>
