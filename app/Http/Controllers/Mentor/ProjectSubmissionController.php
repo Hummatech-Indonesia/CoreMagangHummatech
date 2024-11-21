@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers\Mentor;
 
@@ -13,23 +13,23 @@ use App\Contracts\Interfaces\CategoryProjectInterface;
 
 class ProjectSubmissionController extends Controller
 {
-    private ProjectInterface $projectInterface;
+    private ProjectInterface $project;
     private Project $projects;
     private HummataskTeamInterface $hummataskTeam;
     private MentorDivisionInterface $mentorDivision;
     private CategoryProjectInterface $categoryProject;
-    protected $projectService;
 
-    public function __construct(ProjectService $projectService)
+
+    public function __construct(ProjectInterface $projectInterface)
     {
-        $this->projectService = $projectService;
+        $this->project = $projectInterface;
     }
 
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $projects = $this->projectService->getProjectsWithSearch($search);
-
+        $projects = $this->project->get($search);
+        // dd($projects);
         return view('mentor.project-submission2.index', compact('projects', 'search'));
     }
 

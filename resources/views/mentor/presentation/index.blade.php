@@ -57,10 +57,10 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body shadow shadow-sm rounded rounded-2" style="background: #F6F9FC">
-                        <div class="d-flex align-items-center gap-3">
+                        <div class="d-flex align-items-center gap-3 justify-content-between">
                             <div class="desc">
                                 <b>Jumlah Antrian Presentasi</b>
-                                <h3>{{ count($ongoings) }} Siswa Aktif</h3>
+                                <h4 >{{ count($ongoings) }} Siswa Aktif</h4>
                             </div>
                             <div class="icon">
                                 <div class="p-3 rounded-circle d-flex justify-content-center align-items-center" style="background:rgba(231,233,237,1); width:75px; height:75px">
@@ -77,10 +77,10 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body shadow shadow-sm rounded rounded-2" style="background: #F6F9FC">
-                        <div class="d-flex align-items-center gap-3">
+                        <div class="d-flex align-items-center gap-3 justify-content-between">
                             <div class="desc">
                                 <b>Menunggu Konfirmasi</b>
-                                <h3>{{ count($waitings) }} Siswa Aktif</h3>
+                                <h4 >{{ count($waitings) }} Siswa Aktif</h4>
                             </div>
                             <div class="icon">
                                 <div class="p-3 rounded-circle d-flex justify-content-center" style="background:rgba(255, 170, 5, .23); width:75px; height:75px">
@@ -98,10 +98,10 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body shadow shadow-sm rounded rounded-2" style="background: #F6F9FC">
-                        <div class="d-flex align-items-center gap-3">
+                        <div class="d-flex align-items-center gap-3 justify-content-between">
                             <div class="desc">
                                 <b>Siswa Selesai</b>
-                                <h3>{{ count($finisheds) }} Siswa Aktif</h3>
+                                <h4 >{{ count($finisheds) }} Siswa Aktif</h4>
                             </div>
                             <div class="icon">
                                 <div class="p-3 rounded-circle d-flex justify-content-center align-items-center" style="background:rgba(10, 179, 156,.23); width:75px; height:75px">

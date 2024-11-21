@@ -72,7 +72,7 @@
                     </a>
                 </li> --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/mentor/project" aria-expanded="false">
+                    <a class="sidebar-link" href="/mentor/project-submissions" aria-expanded="false">
                         <span>
                             <i class="ti ti-slideshow"></i>
                         </span>
