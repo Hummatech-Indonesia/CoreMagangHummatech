@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('queue_presentations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('division_id')->constrained('divisions');
             $table->integer('queue')->default(1);
         });
     }
