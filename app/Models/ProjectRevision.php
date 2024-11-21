@@ -14,8 +14,8 @@ class ProjectRevision extends Model
     protected $table = 'project_revisions';
     protected $guarded = ['id'];
 
-    public function project(): BelongsTo
+    public function presentation(): BelongsTo
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsTo(Presentation::class);
     }
 }

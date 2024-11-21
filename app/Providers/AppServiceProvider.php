@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\Interfaces\ProjectRevisionInterface;
+use App\Contracts\Repositories\ProjectRevisionRepository;
+use App\Contracts\Repositories\QueuePresentationInterface;
+use App\Contracts\Repositories\QueuePresentationRepository;
 use App\Models\SubCourse;
 use App\Models\SubmitTask;
 use App\Models\CourseAssignment;
@@ -226,6 +230,8 @@ class AppServiceProvider extends ServiceProvider
         StudentSessionInterface::class => StudentSessionRepository::class,
         HummataskTeamMembersInterface::class => HummataskTeamMembersRepository::class,
         ProjectSubmissionInterface::class => ProjectSubmissionRepository::class,
+        QueuePresentationInterface::class => QueuePresentationRepository::class,
+        ProjectRevisionInterface::class => ProjectRevisionRepository::class
     ];
 
     /**

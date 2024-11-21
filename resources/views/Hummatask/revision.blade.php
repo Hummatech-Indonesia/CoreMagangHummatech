@@ -60,9 +60,9 @@
         }
     </style>
 @endsection
-{{--@section('sidebar')--}}
-{{--    @include('Hummatask.layouts.sidebar-detail-presentation')--}}
-{{--@endsection--}}
+@section('sidebar')
+    @include('Hummatask.layouts.sidebar-detail-presentation')
+@endsection
 @section('content')
     <div class="container-fluid">
         <div class="card bg-light-info shadow-none position-relative overflow-hidden">
@@ -116,89 +116,96 @@
                     <div class="container">
                         <h5 class="fw-semibold mt-3">Revisi</h5>
                         {{--  content  --}}
-                        <div class="revision-panel">
-                            <div class="row mt-3" id="item">
-                                <div class="col-12">
-                                    <div class="container rounded-1 bg-light-primary position-relative p-3">
-                                        <div class="d-flex">
-                                            <div class="mt-2 flex-grow-1">
-                                                <p class="fw-semibold fs-3 mb-2 mt-2" style="color: #0da8ff">
-                                                    Super awesome, Vue coming s awesome, Vue coming s awesome, Vue
-                                                    coming s
-                                                    awesome, Vue coming sooawesome, Vue coming sooawesome, Vue coming
-                                                    sooawesome, Vue coming soo n!
-                                                </p>
+                        <div class="revision-panel" status-panel="{{ \App\Enum\RevisionStatusEnum::Todo->value }}">
+                            @foreach($revisionTodo as $revision)
+                                <div class="row mt-3" id="item" id-revision="{{ $revision->id }}">
+                                    <div class="col-12">
+                                        <div class="container rounded-1 bg-light-primary position-relative p-3">
+                                            <div class="d-flex">
+                                                <div class="mt-2 flex-grow-1">
+                                                    <p class="fw-semibold fs-3 mb-2 mt-2" style="color: #0da8ff">
+                                                        {{ $revision->revision }}
+                                                    </p>
+                                                </div>
+                                                <a href="#" class=" position-absolute" style="top: 10px; right: 10px;"
+                                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                         fill="currentColor" class="bi bi-three-dots-vertical"
+                                                         viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+                                                    </svg>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item fs-2" href="#">
+                                                            Edit
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item fs-2" data-bs-toggle="modal"
+                                                           data-bs-target="#submit-a-presentation" href="#">
+                                                            Hapus
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <a href="#" class=" position-absolute" style="top: 10px; right: 10px;"
-                                               data-bs-toggle="dropdown" aria-expanded="false">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                     fill="currentColor" class="bi bi-three-dots-vertical"
-                                                     viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
-                                                </svg>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a class="dropdown-item fs-2" href="#">
-                                                        Edit
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item fs-2" data-bs-toggle="modal"
-                                                       data-bs-target="#submit-a-presentation" href="#">
-                                                        Hapus
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <ul class="hstack mb-2">
-                                                <li class="ms-n8">
-                                                    <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
-                                                       data-bs-placement="top" aria-label="gito"
-                                                       data-bs-original-title="gito">
-                                                        <img src="assets-user/dist/images/profile/user-2.jpg"
-                                                             class="rounded-circle border border-2 border-white"
-                                                             width="33"
-                                                             height="33" alt="">
-                                                    </a>
-                                                </li>
-                                                <li class="ms-n8">
-                                                    <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
-                                                       data-bs-placement="top" aria-label="sugiren"
-                                                       data-bs-original-title="sugiren">
-                                                        <img src="assets-user/dist/images/profile/user-3.jpg"
-                                                             class="rounded-circle border border-2 border-white"
-                                                             width="33"
-                                                             height="33" alt="">
-                                                    </a>
-                                                </li>
-                                                <li class="ms-n8">
-                                                    <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
-                                                       data-bs-placement="top" aria-label="mustafa"
-                                                       data-bs-original-title="mustafa">
-                                                        <img src="assets-user/dist/images/profile/user-4.jpg"
-                                                             class="rounded-circle border border-2 border-white"
-                                                             width="33"
-                                                             height="33" alt="">
-                                                    </a>
-                                                </li>
-                                                <li class="ms-n8">
-                                                    <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
-                                                       data-bs-placement="top" aria-label="Mark Smith"
-                                                       data-bs-original-title="Mark Smith">
-                                                        <img src="assets-user/dist/images/profile/user-5.jpg"
-                                                             class="rounded-circle border border-2 border-white"
-                                                             width="33"
-                                                             height="33" alt="">
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                            <div class="d-flex justify-content-end">
+                                                <ul class="hstack mb-2">
+                                                    <li class="ms-n8">
+                                                        <a href="javascript:void(0)" class="me-1"
+                                                           data-bs-toggle="tooltip"
+                                                           data-bs-placement="top" aria-label="gito"
+                                                           data-bs-original-title="gito">
+                                                            <img
+                                                                src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}"
+                                                                class="rounded-circle border border-2 border-white"
+                                                                width="33"
+                                                                height="33" alt="">
+                                                        </a>
+                                                    </li>
+                                                    <li class="ms-n8">
+                                                        <a href="javascript:void(0)" class="me-1"
+                                                           data-bs-toggle="tooltip"
+                                                           data-bs-placement="top" aria-label="sugiren"
+                                                           data-bs-original-title="sugiren">
+                                                            <img
+                                                                src="{{ asset('assets-user/dist/images/profile/user-3.jpg') }}"
+                                                                class="rounded-circle border border-2 border-white"
+                                                                width="33"
+                                                                height="33" alt="">
+                                                        </a>
+                                                    </li>
+                                                    <li class="ms-n8">
+                                                        <a href="javascript:void(0)" class="me-1"
+                                                           data-bs-toggle="tooltip"
+                                                           data-bs-placement="top" aria-label="mustafa"
+                                                           data-bs-original-title="mustafa">
+                                                            <img
+                                                                src="{{ asset('assets-user/dist/images/profile/user-4.jpg') }}"
+                                                                class="rounded-circle border border-2 border-white"
+                                                                width="33"
+                                                                height="33" alt="">
+                                                        </a>
+                                                    </li>
+                                                    <li class="ms-n8">
+                                                        <a href="javascript:void(0)" class="me-1"
+                                                           data-bs-toggle="tooltip"
+                                                           data-bs-placement="top" aria-label="Mark Smith"
+                                                           data-bs-original-title="Mark Smith">
+                                                            <img
+                                                                src="{{ asset('assets-user/dist/images/profile/user-5.jpg') }}"
+                                                                class="rounded-circle border border-2 border-white"
+                                                                width="33"
+                                                                height="33" alt="">
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
                         <div class="mb-4 mt-4">
                             <a href="" style="color: gray; display: flex; align-items: center;">
@@ -235,8 +242,97 @@
                         <h5 class="fw-semibold mt-3">Dikerjakan</h5>
 
                         {{--  content  --}}
-                        <div class="onprogress-panel">
-
+                        <div class="onprogress-panel"
+                             status-panel="{{ \App\Enum\RevisionStatusEnum::InProgress->value }}">
+                            @foreach($revisionInProgress as $revision)
+                                <div class="row mt-3" id="item" id-revision="{{ $revision->id }}">
+                                    <div class="col-12">
+                                        <div class="container rounded-1 bg-light-primary position-relative p-3">
+                                            <div class="d-flex">
+                                                <div class="mt-2 flex-grow-1">
+                                                    <p class="fw-semibold fs-3 mb-2 mt-2" style="color: #0da8ff">
+                                                        {{ $revision->revision }}
+                                                    </p>
+                                                </div>
+                                                <a href="#" class=" position-absolute" style="top: 10px; right: 10px;"
+                                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                         fill="currentColor" class="bi bi-three-dots-vertical"
+                                                         viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+                                                    </svg>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item fs-2" href="#">
+                                                            Edit
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item fs-2" data-bs-toggle="modal"
+                                                           data-bs-target="#submit-a-presentation" href="#">
+                                                            Hapus
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="d-flex justify-content-end">
+                                                <ul class="hstack mb-2">
+                                                    <li class="ms-n8">
+                                                        <a href="javascript:void(0)" class="me-1"
+                                                           data-bs-toggle="tooltip"
+                                                           data-bs-placement="top" aria-label="gito"
+                                                           data-bs-original-title="gito">
+                                                            <img
+                                                                src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}"
+                                                                class="rounded-circle border border-2 border-white"
+                                                                width="33"
+                                                                height="33" alt="">
+                                                        </a>
+                                                    </li>
+                                                    <li class="ms-n8">
+                                                        <a href="javascript:void(0)" class="me-1"
+                                                           data-bs-toggle="tooltip"
+                                                           data-bs-placement="top" aria-label="sugiren"
+                                                           data-bs-original-title="sugiren">
+                                                            <img
+                                                                src="{{ asset('assets-user/dist/images/profile/user-3.jpg') }}"
+                                                                class="rounded-circle border border-2 border-white"
+                                                                width="33"
+                                                                height="33" alt="">
+                                                        </a>
+                                                    </li>
+                                                    <li class="ms-n8">
+                                                        <a href="javascript:void(0)" class="me-1"
+                                                           data-bs-toggle="tooltip"
+                                                           data-bs-placement="top" aria-label="mustafa"
+                                                           data-bs-original-title="mustafa">
+                                                            <img
+                                                                src="{{ asset('assets-user/dist/images/profile/user-4.jpg') }}"
+                                                                class="rounded-circle border border-2 border-white"
+                                                                width="33"
+                                                                height="33" alt="">
+                                                        </a>
+                                                    </li>
+                                                    <li class="ms-n8">
+                                                        <a href="javascript:void(0)" class="me-1"
+                                                           data-bs-toggle="tooltip"
+                                                           data-bs-placement="top" aria-label="Mark Smith"
+                                                           data-bs-original-title="Mark Smith">
+                                                            <img
+                                                                src="{{ asset('assets-user/dist/images/profile/user-5.jpg') }}"
+                                                                class="rounded-circle border border-2 border-white"
+                                                                width="33"
+                                                                height="33" alt="">
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
 
                         {{--  bottom  --}}
@@ -274,8 +370,96 @@
                         <h5 class="fw- mt-3">Selesai</h5>
 
                         {{--  content  --}}
-                        <div class="done-panel">
-
+                        <div class="done-panel" status-panel="{{ \App\Enum\RevisionStatusEnum::Completed->value }}">
+                            @foreach($revisionDone as $revision)
+                                <div class="row mt-3" id="item" id-revision="{{ $revision->id }}">
+                                    <div class="col-12">
+                                        <div class="container rounded-1 bg-light-primary position-relative p-3">
+                                            <div class="d-flex">
+                                                <div class="mt-2 flex-grow-1">
+                                                    <p class="fw-semibold fs-3 mb-2 mt-2" style="color: #0da8ff">
+                                                        {{ $revision->revision }}
+                                                    </p>
+                                                </div>
+                                                <a href="#" class=" position-absolute" style="top: 10px; right: 10px;"
+                                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                         fill="currentColor" class="bi bi-three-dots-vertical"
+                                                         viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+                                                    </svg>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item fs-2" href="#">
+                                                            Edit
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item fs-2" data-bs-toggle="modal"
+                                                           data-bs-target="#submit-a-presentation" href="#">
+                                                            Hapus
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="d-flex justify-content-end">
+                                                <ul class="hstack mb-2">
+                                                    <li class="ms-n8">
+                                                        <a href="javascript:void(0)" class="me-1"
+                                                           data-bs-toggle="tooltip"
+                                                           data-bs-placement="top" aria-label="gito"
+                                                           data-bs-original-title="gito">
+                                                            <img
+                                                                src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}"
+                                                                class="rounded-circle border border-2 border-white"
+                                                                width="33"
+                                                                height="33" alt="">
+                                                        </a>
+                                                    </li>
+                                                    <li class="ms-n8">
+                                                        <a href="javascript:void(0)" class="me-1"
+                                                           data-bs-toggle="tooltip"
+                                                           data-bs-placement="top" aria-label="sugiren"
+                                                           data-bs-original-title="sugiren">
+                                                            <img
+                                                                src="{{ asset('assets-user/dist/images/profile/user-3.jpg') }}"
+                                                                class="rounded-circle border border-2 border-white"
+                                                                width="33"
+                                                                height="33" alt="">
+                                                        </a>
+                                                    </li>
+                                                    <li class="ms-n8">
+                                                        <a href="javascript:void(0)" class="me-1"
+                                                           data-bs-toggle="tooltip"
+                                                           data-bs-placement="top" aria-label="mustafa"
+                                                           data-bs-original-title="mustafa">
+                                                            <img
+                                                                src="{{ asset('assets-user/dist/images/profile/user-4.jpg') }}"
+                                                                class="rounded-circle border border-2 border-white"
+                                                                width="33"
+                                                                height="33" alt="">
+                                                        </a>
+                                                    </li>
+                                                    <li class="ms-n8">
+                                                        <a href="javascript:void(0)" class="me-1"
+                                                           data-bs-toggle="tooltip"
+                                                           data-bs-placement="top" aria-label="Mark Smith"
+                                                           data-bs-original-title="Mark Smith">
+                                                            <img
+                                                                src="{{ asset('assets-user/dist/images/profile/user-5.jpg') }}"
+                                                                class="rounded-circle border border-2 border-white"
+                                                                width="33"
+                                                                height="33" alt="">
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
 
                         {{--  bottom  --}}
@@ -311,6 +495,7 @@
 @include('Hummatask.partials.modal-delete')
 
 @section('script')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script type="module">
         import 'https://cdn.interactjs.io/v1.9.20/auto-start/index.js'
         import 'https://cdn.interactjs.io/v1.9.20/actions/drag/index.js'
@@ -340,19 +525,19 @@
                 })
             ],
             autoScroll: true,
-            listeners: { move: dragMoveListener }
+            listeners: {move: dragMoveListener}
         });
 
         // Fungsi dropzone untuk panel-panel target
-        ['.revision-panel','.onprogress-panel', '.done-panel'].forEach(selector => {
+        ['.revision-panel', '.onprogress-panel', '.done-panel'].forEach(selector => {
             interact(selector).dropzone({
                 accept: '#item',
                 overlap: 0.75,
-                ondropactivate: function(event) {
+                ondropactivate: function (event) {
                     // console.log(event)
                     event.target.classList.add('drop-active');
                 },
-                ondragenter: function(event) {
+                ondragenter: function (event) {
                     let draggableElement = event.relatedTarget;
                     let dropzoneElement = event.target;
 
@@ -381,25 +566,62 @@
                     draggableElement.classList.add('can-drop');
                 },
 
-                ondragleave: function(event) {
+                ondragleave: function (event) {
                     // console.log(event)
                     event.target.classList.remove('drop-target');
                     event.relatedTarget.classList.remove('can-drop');
                 },
-                ondrop: function(event) {
+                ondrop: function (event) {
                     const draggableElement = event.relatedTarget;
                     const dropzoneElement = event.target;
 
                     // Pindahkan elemen ke dalam dropzone
                     dropzoneElement.appendChild(draggableElement);
 
+                    // Ambil nilai atribut custom dari elemen
+                    const idRevision = draggableElement.getAttribute('id-revision');
+                    const statusPanel = dropzoneElement.getAttribute('status-panel');
+
+                    console.log(idRevision);
+                    console.log(statusPanel);
+
                     // Reset posisi elemen
                     draggableElement.style.transform = 'translate(0px, 0px)';
                     draggableElement.setAttribute('data-x', 0);
                     draggableElement.setAttribute('data-y', 0);
+
+                    // URL endpoint
+                    const url = "{{ route('project.presentation.revision.changestatus', ['project' => $project->id,'presentation' => $presentation->id]) }}"
+
+                    // Request AJAX menggunakan Fetch API
+                    fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Laravel CSRF Token
+                        },
+                        body: JSON.stringify({
+                            id_revision: idRevision,
+                            status: statusPanel // Kirim status baru
+                        })
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json();
+                            }
+                            throw new Error('Network response was not ok.');
+                        })
+                        .then(data => {
+                            console.log('Response:', data);
+                            alert('Status successfully updated!');
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Failed to update status.');
+                        });
                 },
 
-                ondropdeactivate: function(event) {
+                ondropdeactivate: function (event) {
                     // console.log(event)
                     event.target.classList.remove('drop-active');
                     event.target.classList.remove('drop-target');
