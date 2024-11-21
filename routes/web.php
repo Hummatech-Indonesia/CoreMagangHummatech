@@ -58,7 +58,9 @@ use App\Http\Controllers\Admin\{
     WarningLetterController,
     ResponseLetterController,
     RfidController,
-    StudentRejectedController
+    StudentRejectedController,
+    StudentProgressPresentationController,
+    StudentProgressProjectController
 };
 
 use App\Http\Controllers\StudentOfline\{
@@ -171,8 +173,15 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('menu-siswa/manage-session', [AdminStudentController::class, 'manageSession'])->name('student.managesession');
     Route::get('/menu-siswa/manage-session/update/{session}', [StudentController::class, 'changeSessionStudent'])->name('change-session-student');
     
-    # Student Progress
-    Route::get('progress-siswa/presentasi',[StudentProgressController::class,'index']);
+    # Student Progress Presentation
+    Route::get('student-progress/presentation',[StudentProgressPresentationController::class,'index']);
+    // TODO nanti ini diganti by status yaa
+    Route::get('student-progress/presentation/detaildone',[StudentProgressPresentationController::class,'show']); 
+
+    # Student Progress Project
+    Route::get('student-progress/project',[StudentProgressProjectController::class,'index']);
+    // TODO nanti ini diganti by status yaa
+    Route::get('student-progress/project/detail',[StudentProgressProjectController::class,'show']);
 
     # Courses
     Route::get('administrator/course', [AdminCourseController::class, 'index']);
