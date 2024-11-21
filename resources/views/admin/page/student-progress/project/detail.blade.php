@@ -1,13 +1,17 @@
 @extends('admin.layouts.app')
 @section('content')
-    <div class="d-flex align-items-center mb-4">
+    <div class="d-flex align-items-center justify-content-between mb-4">
         <!-- Tombol Kembali -->
-        <button class="btn btn-primary py-3  me-3">
-            <i class="ri-arrow-left-line"></i> 
+        <button class="btn btn-back py-3 px-3 me-3 d-flex align-items-center custom-card shadow-sm" style="background-color: #EAE9FF; border-radius: 8px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="#695EEF">
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path>
+            </svg>
         </button>
 
         <!-- Header Judul -->
-        <div class="bg-primary text-light text-center text-9xl w-100 py-3 rounded">
+        <div class="flex-grow-1 text-center py-3 px-3 rounded fw-bold custom-card shadow-sm" 
+            style="background-color: #EAE9FF; color: #695EEF; border-radius: 8px; ">
             Detail Project
         </div>
     </div>
@@ -18,7 +22,7 @@
             <div class="d-flex flex-column h-50">
                 <div class="card">
                     <div class="row align-items-end">
-                        <div class="card-body mx-3">
+                        <div class="card-body mx-3 fw-semibold">
                             <span>Informasi Project</span>
                         </div>
                     </div>
@@ -30,7 +34,7 @@
             <div class="d-flex flex-column h-50">
                 <div class="card">
                     <div class="row align-items-end">
-                        <div class="card-body mx-3">
+                        <div class="card-body mx-3 fw-semibold">
                             <span>Anggota</span>
                         </div>
                     </div>
