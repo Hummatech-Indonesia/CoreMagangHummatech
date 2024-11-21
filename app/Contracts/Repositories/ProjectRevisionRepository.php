@@ -40,4 +40,8 @@ class ProjectRevisionRepository extends BaseRepository implements ProjectRevisio
             ->get();
     }
 
+    public function store(array $data): mixed
+    {
+        return $this->model->query()->create($data);
+    }
 }

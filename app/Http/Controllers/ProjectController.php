@@ -313,7 +313,6 @@ class ProjectController extends Controller
 
     public function storePresentation(StorePresentationRequest $request)
     {
-
         try {
             $this->presentation->store($request->validated());
             return redirect()->route('project.presentation', parameters: $request->project_id)->with('success', 'Berhasil menambahkan jadwal presentasi');
@@ -321,5 +320,20 @@ class ProjectController extends Controller
             return redirect()->route('project.presentation', parameters: $request->project_id)->with('error', value: 'Gagal menambahkan jadwal presentasi');
         }
 
+    }
+
+    public function addRevision(Project $project, Presentation $presentation, Request $request)
+    {
+        $validated = $request->validate([
+            'revision' => 'required',
+            'status' => 'required|string'
+        ]);
+        try{
+            $validated['presentation_id'] = $presentation->id;
+            $this->projectRevision->store($validated);
+            return to_route('project.presentation.revision', ['project' => $presentation->project->id,'presentation' => $presentation->id])->with('success', value: "Berhasil menambah revisi");
+        }catch (\Exception $e) {
+            return to_route('project.presentation.revision', ['project' => $presentation->project->id,'presentation' => $presentation->id])->with('error', value: "Gagal menambah revisi");
+        }
     }
 }
