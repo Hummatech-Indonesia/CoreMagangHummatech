@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('project_revisions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Project::class);
+            $table->foreignId('presentation_id')->constrained('presentations');
             $table->text('revision');
             $table->enum('status', [
                 \App\Enum\RevisionStatusEnum::Todo->value,

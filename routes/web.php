@@ -172,11 +172,11 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::put('students-banned/Open/{student}', [StudentController::class, 'Openbanned'])->name('students.banned.open');
     Route::get('menu-siswa/manage-session', [AdminStudentController::class, 'manageSession'])->name('student.managesession');
     Route::get('/menu-siswa/manage-session/update/{session}', [StudentController::class, 'changeSessionStudent'])->name('change-session-student');
-    
+
     # Student Progress Presentation
     Route::get('student-progress/presentation',[StudentProgressPresentationController::class,'index']);
     // TODO nanti ini diganti by status yaa
-    Route::get('student-progress/presentation/detaildone',[StudentProgressPresentationController::class,'show']); 
+    Route::get('student-progress/presentation/detaildone',[StudentProgressPresentationController::class,'show']);
 
     # Student Progress Project
     Route::get('student-progress/project',[StudentProgressProjectController::class,'index']);
@@ -481,7 +481,8 @@ Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'i
 Route::get('dashboard/task/detail/{project}', [\App\Http\Controllers\ProjectController::class, 'detailProject'])->name('project.detail');
 Route::get('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'presentationProject'])->name('project.presentation');
 Route::post('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'storePresentation'])->name('project.presentation.save');
-Route::get('dashboard/task/detail/{project}/presentation/{presentation}/revision', [\App\Http\Controllers\ProjectController::class, 'revisionProject'])->name('project.presentation.revision');
+Route::get('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'revisionProject'])->name('project.presentation.revision');
+Route::put('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'changeStatusRevision'])->name('project.presentation.revision.changestatus');
 
 
 # Dashboard-Task-Project
@@ -645,9 +646,9 @@ Route::delete('/presentations/{presentation}', [HummataskTeamController::class, 
 Route::get('/presentasi', function () {
     return view('Hummatask.detail-presentation');
 });
-Route::get('/revision', function () {
-    return view('Hummatask.revision');
-});
+//Route::get('/revision', function () {
+//    return view('Hummatask.revision');
+//});
 Route::get('/approval-project', function () {
     return view('mentor.approval-project.index');
 });

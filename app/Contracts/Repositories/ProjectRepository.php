@@ -37,7 +37,7 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
     public function get(): mixed
     {
         return $this->model
-            ->with(['presentation','revision','members','members.members'])
+            ->with(['presentation','members','members.members'])
             ->get();
     }
 

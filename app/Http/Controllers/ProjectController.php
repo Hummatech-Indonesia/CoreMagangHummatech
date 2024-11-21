@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\Interfaces\CategoryProjectInterface;
+use App\Contracts\Interfaces\ProjectRevisionInterface;
 use App\Contracts\Repositories\QueuePresentationInterface;
+use App\Enum\RevisionStatusEnum;
+use App\Models\Presentation;
 use App\Models\Project;
 use App\StatusProjectEnum;
 use App\Models\ProjectRevision;
@@ -29,6 +32,8 @@ use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Contracts\Interfaces\HummataskTeamMembersInterface;
 use App\Enum\TaskStatusEnum;
+use http\Env\Response;
+use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
@@ -46,6 +51,7 @@ class ProjectController extends Controller
     private PresentationInterface $presentation;
     private HummataskTeamMembersInterface $hummataskMemberPresentation;
     private QueuePresentationInterface $queuePresentation;
+    private ProjectRevisionInterface $projectRevision;
 
     public function __construct(
         HummataskTeamInterface $hummatask_team,
@@ -61,7 +67,8 @@ class ProjectController extends Controller
         MentorStudentInterface $mentorStudent,
         PresentationInterface $presentation,
         HummataskTeamMembersInterface $hummataskMemberPresentation,
-        QueuePresentationInterface $queuePresentation
+        QueuePresentationInterface $queuePresentation,
+        ProjectRevisionInterface $projectRevision
     ) {
         $this->hummatask_team = $hummatask_team;
         $this->service = $service;
@@ -77,6 +84,7 @@ class ProjectController extends Controller
         $this->presentation = $presentation;
         $this->hummataskMemberPresentation = $hummataskMemberPresentation;
         $this->queuePresentation = $queuePresentation;
+        $this->projectRevision = $projectRevision;
     }
 
     /**
@@ -264,12 +272,44 @@ class ProjectController extends Controller
         $presentations = $this->presentation->getPresentationByProject($project->id);
         return view('Hummatask.detail-presentation', compact('project', 'presentations'));
     }
-    public function revisionProject(Project $project, ProjectRevision $presentation)
+    public function revisionProject(Project $project, Presentation $presentation)
     {
-        $presentation = $this->presentation->getPresentationByProject($project->id);
-        dd($presentation);
-        return view('Hummatask.revision', compact('project', 'presentation'));
+        $revisionTodo = $this->projectRevision->getRevisionByPresentation($presentation->id, RevisionStatusEnum::Todo->value);
+        $revisionInProgress = $this->projectRevision->getRevisionByPresentation($presentation->id, RevisionStatusEnum::InProgress->value);
+        $revisionDone = $this->projectRevision->getRevisionByPresentation($presentation->id, RevisionStatusEnum::Completed->value);
+        return view('Hummatask.revision', compact('project', 'presentation','revisionTodo','revisionInProgress','revisionDone'));
     }
+    public function changeStatusRevision(Project $project, Presentation $presentation, Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'id_revision' => 'required|exists:project_revisions,id',
+            'status' => 'required|string'
+        ]);
+
+        try {
+            // Cari revision berdasarkan ID
+            $revision = ProjectRevision::findOrFail($request->id_revision);
+
+            // Update status
+            $revision->status = $request->status;
+            $revision->save();
+
+            // Kembalikan response sukses
+            return response()->json([
+                'message' => 'Status updated successfully.',
+                'data' => $revision
+            ], 200);
+
+        } catch (\Exception $e) {
+            // Tangani error
+            return response()->json([
+                'message' => 'Failed to update status.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
 
     public function storePresentation(StorePresentationRequest $request)
     {
