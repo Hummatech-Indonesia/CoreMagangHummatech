@@ -77,7 +77,6 @@ use App\Http\Controllers\StudentOnline\{
 };
 
 use App\Http\Controllers\Mentor\AssessmentController;
-use App\Http\Controllers\Mentor\ProjectSubmissionController;
 
 use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\CourseController as AdminCourseController;
