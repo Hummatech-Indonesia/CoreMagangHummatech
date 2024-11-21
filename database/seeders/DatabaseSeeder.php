@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Division;
 use App\Models\QueuePresentation;
 use App\Models\User;
 
@@ -15,7 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        QueuePresentation::query()->create(['queue' => 1]);
         $this->call([
             RemoveImage::class,
             RoleSeeder::class,
@@ -25,7 +25,13 @@ class DatabaseSeeder extends Seeder
                 // VoucherSeeder::class,
                 // CourseSeeder::class,
             InstitutionSeeder::class,
-
         ]);
+        foreach(Division::get() as $division) {
+            QueuePresentation::query()
+                ->create([
+                    'division_id' => $division->id,
+                    'queue' => 1
+                ]);
+        }
     }
 }
