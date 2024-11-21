@@ -6,21 +6,22 @@
             <div class="card card-height-100">
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3">
-                        <div>
+                        <div class="d-flex">
                             {{-- tipe project --}}
                             <h6 class="bg-primary text-light p-2 rounded">
                                 Solo Project</h6>
                         </div>
                         <div>
-                            {{-- nomor antrian dan button delete --}}
+                            {{-- Nomor antrian dan tombol delete --}}
                             <div class="d-flex flex-shrink-0 align-items-center justify-content-center">
+                                <!-- Nomor Antrian -->
                                 <h6 class="bg-dark text-light p-2 m-1 rounded">01</h6>
-
-                                <button class="bg-primary border-0 btn-delete p-1 m-1 rounded" data-id="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-                                        viewBox="0 0 20 20" fill="none">
-                                        <path d="M15 4H20V6H18V19C18 19.5523 17.5523 20 17 20H3C2.44772 20 2 19.5523 2 19V6H0V4H5V1C5 0.44772 5.44772 0 6 0H14C14.5523 0 15 0.44772 15 1V4ZM7 9V15H9V9H7ZM11 9V15H13V9H11ZM7 2V4H13V2H7Z"
-                                            fill="#FFFFFF" />
+                        
+                                <!-- Tombol Delete -->
+                                <button class="bg-primary text-white border-0 p-2 m-1 rounded d-flex align-items-center justify-content-center" data-id="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                                        <path fill="none" d="M0 0h24v24H0z"></path>
+                                        <path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z"></path>
                                     </svg>
                                 </button>
                             </div>
@@ -53,12 +54,12 @@
                     </div>
 
                     {{-- deskripsi proyek --}}
-                    <div class="d-flex justify-content-between mx-3 my-2">
+                    <div class="d-flex justify-content-between mt-4 mb-2">
                         <h6 class="">Project yang mengerjakan web rental mobil</h6>
                     </div>
 
                     {{-- body  --}}
-                    <div class="d-flex justify-content-between mx-3">
+                    <div class="d-flex justify-content-between">
                         <h6> Kondisi Proyek</h6>
                         <div class="gap-2">
                             <span class="badge bg-success p-2"> Aktif</span>
@@ -70,7 +71,7 @@
                         </div>
                     </div> 
                     
-                    <div class="d-flex justify-content-between mx-3 pl-0 mt-1 mb-2">
+                    <div class="d-flex justify-content-between pl-0 mt-1 mb-2">
                         <h6> Deadline</h6>
                         <div class="gap-2">
                             <span class="text-success"> Senin, 25 November 2024</span>
@@ -81,7 +82,7 @@
                             @endif --}}
                         </div>
                     </div> 
-                    <button class="btn btn-primary btn-detail text-light w-100">Lihat Detail</button>
+                    <button class="btn btn-primary btn-detail text-light w-100 rounded">Lihat Detail</button>
                 </div>
             </div>
         </div>
