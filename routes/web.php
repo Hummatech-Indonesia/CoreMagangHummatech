@@ -397,11 +397,14 @@ Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name
 # ==================================================== Another Route Group ====================================================
 
 #===================================================== Mentor =================================================================
-Route::prefix('mentor')->name(RolesEnum::MENTOR->value)->group(function () {
+Route::prefix('mentor')->name(RolesEnum::MENTOR->value.".")->group(function () {
     # Home
-    Route::get('/', [\App\Http\Controllers\Mentor\DashboardController::class, 'index'])->name('.home');
-    Route::get('/presentation', [PresentationController::class, 'mentorshow'])->name('.mentor.presentation');
-    Route::get('/project-submissions', [ProjectSubmissionController::class, 'index'])->name('mentor.project-submissions2.index');
+    Route::get('/', [\App\Http\Controllers\Mentor\DashboardController::class, 'index'])->name('home');
+    Route::get('/presentation', [PresentationController::class, 'mentorshow'])->name('presentation');
+    Route::get('/project-submissions', [ProjectSubmissionController::class, 'index'])->name('project-submissions.index');
+    Route::get('/project-submissions/{project}/detail', [ProjectSubmissionController::class, 'show'])->name('project-submissions.show');
+    Route::patch('/project-submissions/{project}/accept', [ProjectSubmissionController::class, 'accept'])->name('project-submissions.accept');
+    Route::patch('/project-submissions/{project}/reject', [ProjectSubmissionController::class, 'reject'])->name('project-submissions.reject');
 });
 
 #================================================= End Mentor ====================================================================
@@ -483,6 +486,7 @@ Route::get('dashboard/task/detail/{project}/presentation', [\App\Http\Controller
 Route::post('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'storePresentation'])->name('project.presentation.save');
 Route::get('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'revisionProject'])->name('project.presentation.revision');
 Route::put('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'changeStatusRevision'])->name('project.presentation.revision.changestatus');
+Route::post('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'addRevision'])->name('project.presentation.revision.saveRevision');
 
 
 # Dashboard-Task-Project

@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('12345678')
         ])->assignRole(RolesEnum::OFFLINE);
 
-        # Buat Data Divisi
+        # Buat `D`ata Divisi
         Division::factory()->create([
             'name' => 'Web Technology',
         ]);

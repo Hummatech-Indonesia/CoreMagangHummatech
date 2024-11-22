@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Project extends Model
 {
@@ -17,11 +18,12 @@ class Project extends Model
     protected $guarded = ['id'];
     protected $casts = [
         'type_project' => PresentationTypeEnum::class,
+        'accept_status' => ProjectAcceptStatus::class,
         'status_project' => TaskStatusEnum::class,
     ];
-    public function presentation(): HasMany
+    public function presentation(): HasOne
     {
-        return $this->hasMany(Presentation::class);
+        return $this->hasOne(Presentation::class);
     }
 
     public function members(): HasMany
@@ -39,8 +41,13 @@ class Project extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function revision(): HasMany
+    // public function revision(): HasMany
+    // {
+    //     return $this->hasMany(ProjectRevision::class);
+    // }
+
+    public function getStatus(): ProjectAcceptStatus
     {
-        return $this->hasMany(ProjectRevision::class);
+        return ProjectAcceptStatus::tryFrom($this->status) ?? ProjectAcceptStatus::WAITING;
     }
 }
