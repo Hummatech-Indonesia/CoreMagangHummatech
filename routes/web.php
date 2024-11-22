@@ -404,6 +404,7 @@ Route::prefix('mentor')->name(RolesEnum::MENTOR->value.".")->group(function () {
     Route::get('/project-submissions', [ProjectSubmissionController::class, 'index'])->name('project-submissions.index');
     Route::get('/project-submissions/{project}/detail', [ProjectSubmissionController::class, 'show'])->name('project-submissions.show');
     Route::patch('/project-submissions/{project}/accept', [ProjectSubmissionController::class, 'accept'])->name('project-submissions.accept');
+    Route::patch('/project-submissions/{project}/reject', [ProjectSubmissionController::class, 'reject'])->name('project-submissions.reject');
 });
 
 #================================================= End Mentor ====================================================================
