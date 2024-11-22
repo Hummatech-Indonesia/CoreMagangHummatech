@@ -2,8 +2,8 @@
 @section('style')
     <style>
         /* * {
-                                                            border: 1px solid #f00;
-                                                        } */
+                                                                border: 1px solid #f00;
+                                                            } */
         .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
             color: black;
         }
@@ -33,7 +33,7 @@
     </style>
 @endsection
 @section('sidebar')
-    @include('Hummatask.layouts.sidebar')
+    @include('Hummatask.layouts.sidebar-project-progress')
 @endsection
 @section('content')
     @if (session('errors'))
@@ -51,10 +51,10 @@
             <div class="card-body px-4 py-3">
                 <div class="row align-items-center">
                     <div class="col-9">
-                        <h4 class="fw-semibold mb-8">Dashboard</h4>
+                        <h4 class="fw-semibold mb-8">Management Progress</h4>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a class="text-muted">Dashboard</a>
+                                <li class="breadcrumb-item"><a class="text-muted">Management Progress</a>
                                 </li>
                                 <li class="breadcrumb-item" aria-current="page">Catatan</li>
                             </ol>
@@ -164,7 +164,7 @@
                 </div>
             </div>
         </div>
-        <div class="row row-cols-4 gx-3">
+        {{-- <div class="row row-cols-4 gx-3">
             <div class="col">
                 <div class="card">
                     <div class="card-body rounded-2 rounded shadow shadow-sm" style="background: #fff">
@@ -277,7 +277,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <style>
             .bg-light-primary {
                 padding: 0;
@@ -300,9 +300,10 @@
                 gap: 0;
             }
         </style>
-        <div class="row row-cols-4">
-            <div class="col">
-                @foreach ($projects as $project)
+        <div class="row">
+            <div class="col-8">
+                <div class="row row-cols-2">
+                    @foreach ($projects as $project)
                         <div class="col">
                             <div class="card card-body rounded-2">
                                 <div class="bg-light-primary rounded-2">
@@ -338,21 +339,21 @@
                                         <h2 class="fs-7">{{ $project['project_name'] }}</h2>
                                         <div class="d-flex align-items-center gap-2 pt-1">
                                             {{--  @if ($project['status_project'] == \App\Enum\ProjectAcceptStatus::ACCEPT->value)
-                                            <small class="rounded-pill text-success fw-bolder p-2"
-                                                style="background: rgba(19,222,185,.2)">Disetujui</small>
-                                        @elseif($project['status_project'] == \App\Enum\ProjectAcceptStatus::WAITING->value)
-                                            <small class="rounded-pill text-warning fw-bolder p-2"
-                                                style="background: rgba(255,174,31,.2)">Menunggu</small>
-                                        @elseif($project['status_project'] == \App\Enum\ProjectAcceptStatus::REJECTED->value)
-                                            <small class="rounded-pill text-danger fw-bolder p-2"
-                                                style="background: rgb(250,137,107,.2)">Ditolak</small>
-                                        @endif  --}}
+                                                <small class="rounded-pill text-success fw-bolder p-2"
+                                                    style="background: rgba(19,222,185,.2)">Disetujui</small>
+                                            @elseif($project['status_project'] == \App\Enum\ProjectAcceptStatus::WAITING->value)
+                                                <small class="rounded-pill text-warning fw-bolder p-2"
+                                                    style="background: rgba(255,174,31,.2)">Menunggu</small>
+                                            @elseif($project['status_project'] == \App\Enum\ProjectAcceptStatus::REJECTED->value)
+                                                <small class="rounded-pill text-danger fw-bolder p-2"
+                                                    style="background: rgb(250,137,107,.2)">Ditolak</small>
+                                            @endif  --}}
                                             <div class="d-flex gap-2">
                                                 <small class="rounded-pill fs-1 text-primary fw-bolder p-2"
                                                     style="background: rgba(93,135,255,.2)">Sedang dikerjakan
                                                 </small>
                                                 @if ($project['revision_count'] > 0)
-                                                    <small class="rounded-pill fs-1 text-light fw-bolder p-2 bg-danger"
+                                                    <small class="rounded-pill fs-1 text-light fw-bolder bg-danger p-2"
                                                         style="background: rgba(77, 78, 79, 0.2)">
                                                         Revisi ({{ $project['revision_count'] }})
                                                     </small>
@@ -379,8 +380,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" id="delete-modal-{{ $project['id'] }}"
-                            aria-labelledby="deleteModalLabel" aria-hidden="true" tabindex="-1">
+                        <div class="modal fade" id="delete-modal-{{ $project['id'] }}" aria-labelledby="deleteModalLabel"
+                            aria-hidden="true" tabindex="-1">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -405,8 +406,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" id="delete-modal-{{ $project['id'] }}"
-                            aria-labelledby="deleteModalLabel" aria-hidden="true" tabindex="-1">
+                        <div class="modal fade" id="delete-modal-{{ $project['id'] }}" aria-labelledby="deleteModalLabel"
+                            aria-hidden="true" tabindex="-1">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -419,8 +420,7 @@
                                             class="fw-bold">{{ $project['project_name'] }}</span>?
                                     </div>
                                     <div class="modal-footer">
-                                        <form action="{{ route('presentations.destroy', $project['id']) }}"
-                                            method="POST">
+                                        <form action="{{ route('presentations.destroy', $project['id']) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
@@ -433,156 +433,61 @@
                             </div>
                         </div>
                     @endforeach
+                </div>
             </div>
-            {{-- <div class="col-4">
+            <div class="col-4">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="text-bold">Progress Tugas</h5>
                         <div id="donutChart"></div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </div>
-
-        {{-- <div class="mb-2 mt-5 text-center" style="margin: 0 auto;"> --}}
-        {{-- <img src="{{ asset('empty-asset.png') }}" alt="" width="100px" srcset=""> --}}
-        {{-- <p class="fs-5 text-dark"> --}}
-        {{-- Belum ada tugas --}}
-        {{-- </p> --}}
-        {{-- </div> --}}
-
-        {{--        <div class="row"> --}}
-        {{--            <div class="col-8"> --}}
-        {{--                <div class="row row-cols-2"> --}}
-        {{--                    --}}{{-- @dd($getProjects) --}}
-        {{--                    @foreach ($getProjects as $project) --}}
-        {{--                        <div class="col"> --}}
-        {{--                            <div class="card"> --}}
-        {{--                                <div class="card-body"> --}}
-        {{--                                    <h6 class="card-subtitle text-bold my-3">Project anda</h6> --}}
-        {{--                                    <h5 class="card-title fw-semibold">{{ $project->project_name }}</h5> --}}
-        {{--                                    <p class="mb-0">Deadline : --}}
-        {{--                                        {{ \carbon\Carbon::parse($project->start_date)->diffInDays(\carbon\Carbon::parse($project->end_date)) }} --}}
-        {{--                                        hari</p> --}}
-        {{--                                    @if ($project->revision->count() > 0) --}}
-        {{--                                        <p class="my-0">Revisi : {{ $project->revision->count() }}</p> --}}
-        {{--                                    @endif --}}
-        {{--                                    <p class="">Kategori : {{ $project->type_project }}</p> --}}
-        {{--                                    --}}{{-- <span class="badge rounded-pill bg-blue fw-bold">c</span> --}}
-        {{--                                    @switch($project->status_project->value) --}}
-        {{--                                        @case('pending') --}}
-        {{--                                            <small class="rounded-pill text-primary fw-bolder p-2" --}}
-        {{--                                                   style="background: #d9ebff; color: #008ffb;">Belum selesai</small> --}}
-        {{--                                            @break --}}
-
-        {{--                                        @case('inprogress') --}}
-        {{--                                            <small class="rounded-pill text-warning fw-bolder p-2" --}}
-        {{--                                                   style="background: #fff5e3; color: #ffaa05;">Sedang --}}
-        {{--                                                dikerjakan</small> --}}
-        {{--                                            @break --}}
-
-        {{--                                        @case('revision') --}}
-        {{--                                            <small class="rounded-pill text-danger fw-bolder p-2" --}}
-        {{--                                                   style="background: #fbf2ef; color: #e12d5b;">Revisi</small> --}}
-        {{--                                            @break --}}
-
-        {{--                                        @case('completed') --}}
-        {{--                                            <small class="rounded-pill text-success fw-bolder p-2" --}}
-        {{--                                                   style="background: #d9ebff; color: #008ffb;">Selesai</small> --}}
-        {{--                                            @break --}}
-
-        {{--                                        @default --}}
-        {{--                                            <small class="rounded-pill text-success fw-bolder p-2" --}}
-        {{--                                                   style="background: #d9ebff; color: #0ab39c;">{{ $project->status_project }}</small> --}}
-        {{--                                            @break --}}
-        {{--                                    @endswitch --}}
-        {{--                                    <a class="btn btn-primary DButton px-4" --}}
-        {{--                                       href="{{ route('project.detail', $project->id) }}">Detail</a> --}}
-        {{--                                </div> --}}
-        {{--                            </div> --}}
-        {{--                        </div> --}}
-        {{--                    @endforeach --}}
-        {{--                </div> --}}
-        {{--            </div> --}}
-        {{--            <div class="col-4"> --}}
-        {{--                <div class="card"> --}}
-        {{--                    <div class="card-body"> --}}
-        {{--                        <h5 class="text-bold">Progress Tugas</h5> --}}
-        {{--                        <div id="donutChart"></div> --}}
-        {{--                    </div> --}}
-        {{--                </div> --}}
-        {{--            </div> --}}
-        {{--        </div> --}}
     </div>
 @endsection
 @section('script')
     <script>
-        // const startDateInput = document.getElementById('start_date');
-        // const endDateInput = document.getElementById('end_date');
-
-        // startDateInput.addEventListener('change', () => {
-        //     const startDate = startDateInput.value;
-        //     if (startDate) {
-        //         endDateInput.min = startDate;
-        //     }
-        // });
-
-        // var options = {
-        //     // width: 300,
-        //     height: 800,
-        //     chart: {
-        //         type: 'donut'
-        //     },
-        //     dataLabels: {
-        //         enabled: true,
-        //         formatter: function(val) {
-        //             return Math.round(val) + '%';
-        //         },
-        //         style: {
-        //             // fontSize: '20px',
-        //             fontFamily: 'Helvetica, sans-serif',
-        //         }
-        //     },
-        //     series: [
-        //     ],
-        //     colors: ['#5d87ff', '#ffcc00', '#ff0000', '#42bd53'],
-        //     labels: ['Tugas Belum Selesai', 'Dikerjakan', 'Revisi', 'Selesai'],
-        //     legend: {
-        //         colors: ['#5d87ff', '#ffcc00', '#ff0000', '#42bd53'],
-        //         useSeriesColors: true,
-        //         position: 'bottom',
-        //         fontWeight: 700,
-        //     },
-        //     plotOptions: {
-        //         pie: {
-        //             customScale: 1,
-        //             donut: {
-        //                 size: '60%',
-        //             }
-        //         }
-        //     }
-        // }
-
-        // var chart = new ApexCharts(document.querySelector("#donutChart"), options);
-
-        // chart.render();
-
-        $(document).ready(function() {
-            $('#selectMembers').select2({
-                dropdownParent: $('#add-team')
-            });
-            $('#memberSection').hide()
-            $('#selectMembers').prop('disabled', true)
-        });
-
-        function changeProject(e) {
-            if (e.value !== 'solo project') {
-                $('#selectMembers').prop('disabled', false)
-                $('#memberSection').show();
-            } else {
-                $('#selectMembers').prop('disabled', true)
-                $('#memberSection').hide();
+        var options = {
+            // width: 300,
+            height: 800,
+            chart: {
+                type: 'donut'
+            },
+            dataLabels: {
+                enabled: true,
+                formatter: function(val) {
+                    return Math.round(val) + '%';
+                },
+                style: {
+                    // fontSize: '20px',
+                    fontFamily: 'Helvetica, sans-serif',
+                }
+            },
+            series: [
+                {{ $pending }},
+                {{ $inprogress }},
+                {{ $revision }},
+                {{ $completed }}
+            ],
+            colors: ['#5d87ff', '#ffcc00', '#ff0000', '#42bd53'],
+            labels: ['Tugas Belum Selesai', 'Dikerjakan', 'Revisi', 'Selesai'],
+            legend: {
+                colors: ['#5d87ff', '#ffcc00', '#ff0000', '#42bd53'],
+                useSeriesColors: true,
+                position: 'bottom',
+                fontWeight: 700,
+            },
+            plotOptions: {
+                pie: {
+                    customScale: 1,
+                    donut: {
+                        size: '60%',
+                    }
+                }
             }
         }
+        var chart = new ApexCharts(document.querySelector("#donutChart"), options);
+        chart.render();
     </script>
 @endsection
