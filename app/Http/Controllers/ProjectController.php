@@ -110,7 +110,8 @@ class ProjectController extends Controller
         foreach ($getProjects as $getProject) {
             $projects[] = [
                 ...$getProject->toArray(), // Mengubah objek ke array
-                'urutan' => $this->project->getQueueProjectPresentation($getProject->id)
+                'urutan' => $this->project->getQueueProjectPresentation($getProject->id),
+                'revision_count' => $this->project->getProjectRevision($getProject->id)
             ];
         }
 

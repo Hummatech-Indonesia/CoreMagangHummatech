@@ -2,8 +2,8 @@
 @section('style')
     <style>
         /* * {
-                                                border: 1px solid #f00;
-                                            } */
+                                                            border: 1px solid #f00;
+                                                        } */
         .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
             color: black;
         }
@@ -106,15 +106,15 @@
                                     <div class="row row-cols-2 mt-2">
                                         <div id="startDate">
                                             <label class="mb-2 mt-1" for="">Tanggal Mulai</label>
-                                            <input class="form-control" name="start_date" type="date"
+                                            <input class="form-control" id="start_date" name="start_date" type="date"
                                                 value="{{ old('start_date') }}">
                                             @error('start_date')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
-                                        <div id="startDate">
+                                        <div id="endDate">
                                             <label class="mb-2 mt-1" for="">Tanggal Selesai</label>
-                                            <input class="form-control" name="end_date" type="date"
+                                            <input class="form-control" id="end_date" name="end_date" type="date"
                                                 value="{{ old('end_date') }}">
                                             @error('end_date')
                                                 <div class="text- danger">{{ $message }}</div>
@@ -299,12 +299,11 @@
                 padding-left: 9px;
                 gap: 0;
             }
-
-
         </style>
         <div class="row">
             <div class="col-8">
                 <div class="row row-cols-2 gx-3">
+                    {{-- @dd($projects) --}}
                     @foreach ($projects as $project)
                         <div class="col">
                             <div class="card card-body rounded-2">
@@ -354,17 +353,19 @@
                                                 <small class="rounded-pill fs-1 text-primary fw-bolder p-2"
                                                     style="background: rgba(93,135,255,.2)">Sedang dikerjakan
                                                 </small>
-                                                <small class="rounded-pill fs-1 text-muted fw-bolder p-2"
-                                                    style="background: rgba(77, 78, 79, 0.2)">
-                                                    Revisi(10)
-                                                </small>
+                                                @if ($project['revision_count'] > 0)
+                                                    <small class="rounded-pill fs-1 text-light fw-bolder p-2 bg-danger"
+                                                        style="background: rgba(77, 78, 79, 0.2)">
+                                                        Revisi ({{ $project['revision_count'] }})
+                                                    </small>
+                                                @endif
                                             </div>
 
                                         </div>
 
                                     </div>
                                 </div>
-                                <div class="mt-2 d-flex justify-content-between">
+                                <div class="d-flex justify-content-between mt-2">
                                     <div class="deadline">
                                         <b class="d-block">Deadline</b>
                                         <span class="fw-bold text-dark">
@@ -519,6 +520,16 @@
 @endsection
 @section('script')
     <script>
+        const startDateInput = document.getElementById('start_date');
+        const endDateInput = document.getElementById('end_date');
+
+        startDateInput.addEventListener('change', () => {
+            const startDate = startDateInput.value;
+            if (startDate) {
+                endDateInput.min = startDate;
+            }
+        });
+
         var options = {
             // width: 300,
             height: 800,

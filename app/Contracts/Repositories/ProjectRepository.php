@@ -39,7 +39,7 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
     public function get(): mixed
     {
         return $this->model
-            ->with(['presentation', 'members', 'members.members'])
+            ->with(['presentation.revision', 'members', 'members.members'])
             ->get();
     }
 
@@ -120,5 +120,12 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
         return $this->model->query()
             ->with(['presentation', 'members', 'members.members'])
             ->findOrFail($id);
+    }
+
+    public function getProjectRevision(int $projectId): mixed
+    {
+        $project = Project::with('presentation.revision')->find($projectId);
+
+        return $project?->presentation?->revision->count() ?? 0;
     }
 }

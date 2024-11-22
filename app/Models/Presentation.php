@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\ProjectRevision;
 use App\Enum\StatusPresentationEnum;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Presentation extends Model
 {
@@ -51,6 +52,11 @@ class Presentation extends Model
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function revision(): HasMany
+    {
+        return $this->hasMany(ProjectRevision::class, 'presentation_id');
     }
 
     protected $casts = [
