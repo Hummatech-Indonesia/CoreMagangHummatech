@@ -56,15 +56,17 @@ class ProjectSubmissionController extends Controller
                 ->with('error', 'Terjadi kesalahan saat menerima proyek: ' . $e->getMessage());
         }
     }
-
-
-
-    public function reject($id)
+    public function reject(Project $project)
     {
-        $project = Project::findOrFail($id);
-        $project->status = 'rejected';
-        $project->save();
+        try {
+            $data = [];
+            $this->project->rejectProject($project->id, $data);
 
-        return redirect()->back()->with('error', 'Proyek telah ditolak.');
+            return redirect()->back()
+                ->with('success', 'Proyek berhasil ditolak dan data telah diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Terjadi kesalahan saat menerima proyek: ' . $e->getMessage());
+        }
     }
 }

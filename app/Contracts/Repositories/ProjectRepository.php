@@ -80,6 +80,18 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
         return $this->model->query()->findOrFail($id)->update($data);
     }
 
+    public function rejectProject(mixed $id, array $data): mixed
+    {
+        $data['start_date'] = Carbon::now()->toDateString();
+        $data['status'] = ProjectAcceptStatus::REJECTED->value;
+        $data['mentor_id'] = Auth::user()->mentors_id;
+
+        $this->model->query()
+            ->where('id', '!=', $id)
+            ->delete();
+        return $this->model->query()->findOrFail($id)->update($data);
+    }
+
     public function getProjectAccepted($id): mixed
     {
         return $this->model->query()->where('hummatask_team_id', $id)->where('status', '!=', StatusProjectEnum::PENDING->value)->first();

@@ -24,6 +24,7 @@ interface ProjectInterface extends GetInterface, StoreInterface, UpdateInterface
     public function whereIn($parameter, array $values): mixed;
 
     public function accProject(mixed $id, array $data): mixed;
+    public function rejectProject(mixed $id, array $data): mixed;
     public function getProjectAccepted($id): mixed;
 
     public function getQueueProjectPresentation($id): mixed;

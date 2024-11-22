@@ -37,16 +37,16 @@
 
                     <div class="mb-3">
                         <h6 class="fw-semibold">Kategori Project</h6>
-                        <input type="text" class="form-control" value="{{ $project->type_project }}" />
+                        <input type="text" class="form-control" value="{{ $project->type_project }}" disabled />
                     </div>
                     <div class="mb-3">
                         <h6 class="fw-semibold">Descripsi Project Project</h6>
-                        <textarea class="form-control" rows="5">{{ $project->description }}</textarea>
+                        <textarea class="form-control" rows="5" disabled>{{ $project->description }}</textarea>
                     </div>
                     <div class="mb-3">
                         <h6 class="fw-semibold">Link Repository Github (Opsional)</h6>
                         <input type="text" class="form-control" value="{{ $project->link }}"
-                            placeholder="https://...." />
+                            placeholder="https://...." disabled/>
                     </div>
                     <div class="mb-3">
                         <h6 class="fw-semibold">Waktu Pengerjaan</h6>

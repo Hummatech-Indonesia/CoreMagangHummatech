@@ -37,9 +37,6 @@
                                                 class="btn btn-primary text-white p-1">
                                                 <i class="ti ti-eye fs-7"></i>
                                             </a>
-                                            <button class="btn text-white p-1" style="background-color: #f73164">
-                                                <i class="ti ti-trash fs-7"></i>
-                                            </button>
                                         </div>
                                     </div>
                                     <h5 class="fw-semibold">{{ $project->project_name }}</h5>
@@ -91,10 +88,11 @@
                                     </div>
 
                                     <div class="d-flex justify-content-between mt-4">
-                                        <button class="btn btn-light-danger text-danger w-50 me-2">Tolak</button>
-                                        <button class="btn btn-light-success text-success w-50 ms-2"
-                                        data-bs-toggle="modal" data-bs-target="#completeModal{{ $project->id }}"
-                                        type="button">Terima</button>
+                                        <button class="btn btn-light-danger text-danger w-50 me-2" data-bs-toggle="modal"
+                                            data-bs-target="#rejectModal{{ $project->id }}" type="button">Tolak</button>
+                                        <button class="btn btn-light-success text-success w-50 ms-2" data-bs-toggle="modal"
+                                            data-bs-target="#completeModal{{ $project->id }}"
+                                            type="button">Terima</button>
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +101,7 @@
                         <!-- Modal Accept -->
                         <div class="modal fade" id="completeModal{{ $project->id }}" tabindex="-1"
                             aria-labelledby="completeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-dialog modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header d-flex align-items-center">
                                         <h5 class="modal-title" id="completeModalLabel">Konfirmasi</h5>
@@ -121,8 +119,38 @@
                                             method="post">
                                             @csrf
                                             @method('PATCH')
-                                            <button class="btn btn-light-success text-success" type="submit">Ya, proyek telah
+                                            <button class="btn btn-light-success text-success" type="submit">Ya, proyek
+                                                telah
                                                 Diterima</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal reject -->
+                        <div class="modal fade" id="rejectModal{{ $project->id }}" tabindex="-1"
+                            aria-labelledby="rejectModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header d-flex align-items-center">
+                                        <h5 class="modal-title" id="completeModalLabel">Konfirmasi</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Apakah anda yakin?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button"
+                                            class="btn btn-light-danger text-danger font-medium waves-effect text-start"
+                                            data-bs-dismiss="modal">Batal</button>
+                                        <form action="{{ route('mentor.project-submissions.reject', $project->id) }}"
+                                            method="post">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button class="btn btn-light-danger text-danger" type="submit">Ya, proyek
+                                                ditolak</button>
                                         </form>
                                     </div>
                                 </div>
@@ -159,13 +187,11 @@
                                                 class="btn btn-primary text-white p-1">
                                                 <i class="ti ti-eye fs-7"></i>
                                             </a>
-                                            <button class="btn text-white p-1" style="background-color: #f73164">
-                                                <i class="ti ti-trash fs-7"></i>
-                                            </button>
                                         </div>
                                     </div>
                                     <h5 class="fw-semibold">{{ $project->project_name }}</h5>
-                                    <p class="text-muted mb-1">By Kelompok {{ $project->members->first()?->members->name }}
+                                    <p class="text-muted mb-1">By Kelompok
+                                        {{ $project->members->first()?->members->name }}
                                     </p>
                                     <div class="mb-4">
                                         @php($members = $project->members)
@@ -173,8 +199,8 @@
                                         @if ($members->count() === 1)
                                             <div class="d-flex justify-content-start">
                                                 <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}"
-                                                    alt="Avatar" class="rounded-circle shadow-sm img-fluid" width="33"
-                                                    height="33">
+                                                    alt="Avatar" class="rounded-circle shadow-sm img-fluid"
+                                                    width="33" height="33">
                                             </div>
                                         @elseif ($members->count() > 1)
                                             <div class="d-flex justify-content-start">
@@ -212,47 +238,10 @@
                                         </small>
                                     </div>
 
-                                    <div class="d-flex justify-content-between mt-4">
-                                        <button class="btn btn-light-danger text-danger w-50 me-2">Tolak</button>
-                                        <button class="btn btn-light-success text-success w-50 ms-2"
-                                            data-bs-toggle="modal" data-bs-target="#completeModal{{ $project->id }}"
-                                            type="button">Terima</button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        
-
-                        
-                        <!-- Modal Accept -->
-                        <div class="modal fade" id="completeModal{{ $project->id }}" tabindex="-1"
-                            aria-labelledby="completeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header d-flex align-items-center">
-                                        <h5 class="modal-title" id="completeModalLabel">Konfirmasi</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Apakah anda yakin?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button"
-                                            class="btn btn-light-danger text-danger font-medium waves-effect text-start"
-                                            data-bs-dismiss="modal">Batal</button>
-                                        <form action="{{ route('mentor.project-submissions.accept', $project->id) }}"
-                                            method="post">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button class="btn btn-light-success text-success" type="submit">Ya, proyek telah
-                                                Diterima</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                     @empty
                         <div class="d-flex justify-content-center align-items-center"
