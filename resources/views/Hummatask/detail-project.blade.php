@@ -195,14 +195,14 @@
                 <div class="card-content">
                     <div class="card-body d-flex flex-column align-items-start justify-content-start">
                         <h5 class="my-3">Status</h5>
-                        @if ($project->status_project->value == \App\Enum\ProjectAcceptStatus::ACCEPT->value)
-                            <small class="rounded-pill text-success fw-bolder p-2"
+                        @if ($project->status == 'accept')
+                            <small class="rounded-2 text-success fw-bolder p-2"
                                    style="background: rgba(19,222,185,.2)">Disetujui</small>
-                        @elseif($project->status_project->value == \App\Enum\ProjectAcceptStatus::WAITING->value)
-                            <small class="rounded-pill text-warning fw-bolder p-2"
+                        @elseif($project->status == 'waiting')
+                            <small class="rounded-2 text-waiting fw-bolder p-2"
                                    style="background: rgba(255,174,31,.2)">Menunggu</small>
-                        @elseif($project->status_project->value == \App\Enum\ProjectAcceptStatus::REJECTED->value)
-                            <small class="rounded-pill text-danger fw-bolder p-2"
+                        @elseif($project->status == 'rejected')
+                            <small class="rounded-2 text-danger fw-bolder p-2"
                                    style="background: rgb(250,137,107,.2)">Ditolak</small>
                         @endif
                         <h5 class="my-3">Kategori Project</h5>
