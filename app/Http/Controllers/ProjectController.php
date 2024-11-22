@@ -101,6 +101,28 @@ class ProjectController extends Controller
          $queuePresentation = $this->queuePresentation->getQueueByDivision(auth()->user()->student->division_id)?->queue ?? 1;
          $myQueuePresentation = $this->presentation->getQueuePresentationByUser(auth()->user()->student_id);
 
+        // $pending = $this->project->where('status_project', TaskStatusEnum::PENDING->value)->count();
+        // $inprogress = $this->project->where('status_project', TaskStatusEnum::INPROGRESS->value)->count();
+        // $revision = $this->project->where('status_project', TaskStatusEnum::REVISION->value)->count();
+        // $completed = $this->project->where('status_project', TaskStatusEnum::COMPLETED->value)->count();
+        $getProjects = $this->project->get();
+        $projects = [];
+        foreach ($getProjects as $getProject) {
+            $projects[] = [
+                ...$getProject->toArray(), // Mengubah objek ke array
+                'urutan' => $this->project->getQueueProjectPresentation($getProject->id),
+                'revision_count' => $this->project->getProjectRevision($getProject->id)
+            ];
+        }
+
+        // dd($getProject);
+        return view('Hummatask.index', compact('categoryProject', 'students','presentations','queuePresentation','myQueuePresentation','upcomingProject','totalPresentation','projects'));
+    }
+
+    public function managementProject()
+    {
+        $categoryProject = $this->categoryProject->get();
+        $students = $this->student->getStudentAccepted()->where('id', '!=', auth()->user()->student_id)->pluck('name', 'id');
         $pending = $this->project->where('status_project', TaskStatusEnum::PENDING->value)->count();
         $inprogress = $this->project->where('status_project', TaskStatusEnum::INPROGRESS->value)->count();
         $revision = $this->project->where('status_project', TaskStatusEnum::REVISION->value)->count();
@@ -110,12 +132,12 @@ class ProjectController extends Controller
         foreach ($getProjects as $getProject) {
             $projects[] = [
                 ...$getProject->toArray(), // Mengubah objek ke array
-                'urutan' => $this->project->getQueueProjectPresentation($getProject->id)
+                'urutan' => $this->project->getQueueProjectPresentation($getProject->id),
+                'revision_count' => $this->project->getProjectRevision($getProject->id)
             ];
         }
 
-        // dd($getProject);
-        return view('Hummatask.index', compact('categoryProject', 'students', 'pending', 'inprogress', 'revision', 'completed', 'getProjects','presentations','queuePresentation','myQueuePresentation','upcomingProject','totalPresentation','projects'));
+        return view('Hummatask.management-project', compact('categoryProject', 'students', 'pending', 'inprogress', 'revision', 'completed', 'projects'));
     }
 
     /**
