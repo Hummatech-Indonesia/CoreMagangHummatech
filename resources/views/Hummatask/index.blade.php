@@ -301,7 +301,7 @@
                 gap: 0;
             }
         </style>
-        <div class="row row-cols-4">
+        <div class="row row-cols-3">
             <div class="col">
                 @foreach ($projects as $project)
                         <div class="col">
@@ -338,16 +338,16 @@
                                     <div class="card-body pt-0">
                                         <h2 class="fs-7">{{ $project['project_name'] }}</h2>
                                         <div class="d-flex align-items-center gap-2 pt-1">
-                                            {{--  @if ($project['status_project'] == \App\Enum\ProjectAcceptStatus::ACCEPT->value)
+                                            @if ($project['status'] == \App\Enum\ProjectAcceptStatus::ACCEPT->value)
                                             <small class="rounded-pill text-success fw-bolder p-2"
                                                 style="background: rgba(19,222,185,.2)">Disetujui</small>
-                                        @elseif($project['status_project'] == \App\Enum\ProjectAcceptStatus::WAITING->value)
+                                        @elseif($project['status'] == \App\Enum\ProjectAcceptStatus::WAITING->value)
                                             <small class="rounded-pill text-warning fw-bolder p-2"
                                                 style="background: rgba(255,174,31,.2)">Menunggu</small>
-                                        @elseif($project['status_project'] == \App\Enum\ProjectAcceptStatus::REJECTED->value)
+                                        @elseif($project['status'] == \App\Enum\ProjectAcceptStatus::REJECTED->value)
                                             <small class="rounded-pill text-danger fw-bolder p-2"
                                                 style="background: rgb(250,137,107,.2)">Ditolak</small>
-                                        @endif  --}}
+                                        @endif
                                             <div class="d-flex gap-2">
                                                 <small class="rounded-pill fs-1 text-primary fw-bolder p-2"
                                                     style="background: rgba(93,135,255,.2)">Sedang dikerjakan
