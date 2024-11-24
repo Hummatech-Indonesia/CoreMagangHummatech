@@ -56,6 +56,7 @@ class ProjectSubmissionController extends Controller
                 ->with('error', 'Terjadi kesalahan saat menerima proyek: ' . $e->getMessage());
         }
     }
+
     public function reject(Project $project)
     {
         try {
@@ -68,5 +69,11 @@ class ProjectSubmissionController extends Controller
             return redirect()->back()
                 ->with('error', 'Terjadi kesalahan saat menerima proyek: ' . $e->getMessage());
         }
+    }
+
+    public function revision(Project $project)
+    {
+        $revisions = $this->project->getProjectWithRevision($project->id);
+        return view('mentor.project-submission2.revision', compact('project', 'revisions'));
     }
 }
