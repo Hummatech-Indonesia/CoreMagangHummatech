@@ -33,4 +33,6 @@ interface ProjectInterface extends GetInterface, StoreInterface, UpdateInterface
 
     public function getProjectRevision(int $projectId): mixed;
 
+    public function getProjectWithRevision(int $projectId);
+
 }

@@ -140,4 +140,11 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
 
         return $project?->presentation?->revision->count() ?? 0;
     }
+
+    public function getProjectWithRevision(int $projectId)
+    {
+        return $this->model->query()
+            ->with('presentation.revision')
+            ->find($projectId);
+    }
 }
