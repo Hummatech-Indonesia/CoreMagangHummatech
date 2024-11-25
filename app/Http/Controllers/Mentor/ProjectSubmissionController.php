@@ -29,12 +29,17 @@ class ProjectSubmissionController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $waiting_projects = $this->project->where('status', 'waiting');
-        $history_projects = $this->project->whereIn('status', ['accept', 'rejected']);
-
-        // dd($history_projects);
-
-        return view('mentor.project-submission2.index', compact('waiting_projects', 'history_projects', 'search'));
+    
+        $waiting_projects = $this->project
+            ->where('status', 'waiting', 3, ['*'], 'waiting_page');
+    
+        $history_projects = $this->project
+            ->whereIn('status', ['accept', 'rejected'], 3, ['*'], 'history_page');
+    
+        $complete_projects = $this->project
+            ->where('status_project', 'completed', 3, ['*'], 'complete_page'); 
+    
+        return view('mentor.project-submission2.index', compact('waiting_projects', 'history_projects', 'search', 'complete_projects'));
     }
 
     public function show(Project $project)

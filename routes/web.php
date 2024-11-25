@@ -174,14 +174,14 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     Route::get('/menu-siswa/manage-session/update/{session}', [StudentController::class, 'changeSessionStudent'])->name('change-session-student');
 
     # Student Progress Presentation
-    Route::get('student-progress/presentation',[StudentProgressPresentationController::class,'index']);
+    Route::get('administrator/student-progress/presentation',[StudentProgressPresentationController::class,'index']);
     // TODO nanti ini diganti by status yaa
-    Route::get('student-progress/presentation/detaildone',[StudentProgressPresentationController::class,'show']);
+    Route::get('administrator/student-progress/presentation/detaildone',[StudentProgressPresentationController::class,'show']);
 
     # Student Progress Project
-    Route::get('student-progress/project',[StudentProgressProjectController::class,'index']);
+    Route::get('administrator/student-progress/project',[StudentProgressProjectController::class,'index']);
     // TODO nanti ini diganti by status yaa
-    Route::get('student-progress/project/detail',[StudentProgressProjectController::class,'show']);
+    Route::get('administrator/student-progress/project/detail',[StudentProgressProjectController::class,'show']);
 
     # Courses
     Route::get('administrator/course', [AdminCourseController::class, 'index']);
