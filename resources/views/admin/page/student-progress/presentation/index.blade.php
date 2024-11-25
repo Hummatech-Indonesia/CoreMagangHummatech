@@ -2,6 +2,26 @@
 @section('style')
     <style>
 
+        .bg-label-primary {
+            background-color: #eff3ff !important;
+            color: #557be8 !important;
+        }
+
+        .bg-label-info {
+            background-color: #d9ebff !important;
+            color: #0da8ff !important;
+        }
+
+        .bg-label-warning {
+            background-color: #fef5e5 !important;
+            color: #ffaa05 !important;
+        }
+
+        .bg-label-danger {
+            background-color: #fbf2ef !important;
+            color: #e12d5b !important;
+        }
+
         .nav-link.active .icon-tab {
             fill: #fff;
         }
@@ -109,7 +129,7 @@
                                     <path
                                         d="M14 14.252V16.3414C13.3744 16.1203 12.7013 16 12 16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14C12.6906 14 13.3608 14.0875 14 14.252ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM19 17.5858L21.1213 15.4645L22.5355 16.8787L20.4142 19L22.5355 21.1213L21.1213 22.5355L19 20.4142L16.8787 22.5355L15.4645 21.1213L17.5858 19L15.4645 16.8787L16.8787 15.4645L19 17.5858Z"></path>
                                 </svg>
-                                <span class="d-none d-md-block font-weight-medium mx-1">Siswa Belum Presentasi</span>
+                                <span class="d-none d-md-block font-weight-medium mx-1">Project Belum Presentasi</span>
                             </a>
                         </li>
                     </div>
@@ -166,22 +186,37 @@
                                 <th>Divisi</th>
                                 <th>Jenis Project</th>
                                 <th>No Antrean</th>
+                                <th>Status Presentasi</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <td>1</td>
-                            <td>Rental Mobil</td>
-                            <td>Divisi Web</td>
-                            <td>Pre Mini Project</td>
-                            <td>001</td>
-                            <td>
-                                <button class="btn btn-detail "
-                                        style="text-decoration: none; color: white; border: none; background-color:rgba(105, 94, 239, 1)">
-                                    <span>Lihat Detail</span>
-                                </button>
-                            </td>
-                            </tr>
+                            @foreach($presentationsToday as $presentation)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $presentation->project->project_name }}</td>
+                                    <td>{{ $presentation->project->division->name }}</td>
+                                    <td>{{ ucwords($presentation->project->type_project->value) }}</td>
+                                    <td>{{ $presentation->urutan == 0 ? '-' : sprintf('%02d', $presentation->urutan) }}</td>
+                                    <td>
+                                        @if ($presentation->status_presentation == \App\Enum\StatusPresentationEnum::WAITING)
+                                            <small class="bg-label-warning p-2 rounded-pill">Menunggu Konfirmasi</small>
+                                        @elseif($presentation->status_presentation == \App\Enum\StatusPresentationEnum::ONGOING)
+                                            <small class="bg-label-info p-2 rounded-pill">Dalam Presentatasi</small>
+                                        @elseif($presentation->status_presentation == \App\Enum\StatusPresentationEnum::PENNDING)
+                                            <small class="bg-label-warning p-2 rounded-pill">Ditunda</small>
+                                        @elseif($presentation->status_presentation == \App\Enum\StatusPresentationEnum::FINISH)
+                                            <small class="bg-label-primary p-2 rounded-pill">Selesai</small>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-detail"
+                                                style="text-decoration: none; color: white; border: none; background-color:rgba(105, 94, 239, 1)">
+                                            <span>Lihat Detail</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -204,31 +239,32 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <td>1</td>
-                            <td>Rental Mobil</td>
-                            <td>Divisi Web</td>
-                            <td>Pre Mini Project</td>
-                            <td>001</td>
-                            <td>
-                                <span class="badge text-success px-5 py-2 mt-1 fw-bolder"
-                                      style="background-color: rgba(230, 255, 250, 1);  border-radius:4px; font-size:small;">Selesai</span>
-                            </td>
-
-                            {{-- TODO <td>
-                                @if ()
-                                    <span class="badge text-success px-5 py-2 mt-1 fw-bolder" style="background-color: rgba(230, 255, 250, 1);  border-radius:4px; font-size:small;">Selesai</span>
-                                @else
-                                    <span class="badge text-danger px-4 py-2 mt-1 fw-bolder" style="background-color: rgba(251, 242, 239, 1);  border-radius:4px; font-size:small;">Belum Presentasi</span>
-                                @endif
-                            TODO </td> --}}
-                            <td>
-                                <button class="btn btn-detail"
-                                        style="text-decoration: none; color: white; border: none; background-color:rgba(105, 94, 239, 1)"
-                                ">
-                                <span>Lihat Detail</span>
-                                </button>
-                            </td>
-                            </tr>
+                            @foreach($presentations as $presentation)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $presentation->project->project_name }}</td>
+                                    <td>{{ $presentation->project->division->name }}</td>
+                                    <td>{{ ucwords($presentation->project->type_project->value) }}</td>
+                                    <td>{{ $presentation->urutan == 0 ? '-' : sprintf('%02d', $presentation->urutan) }}</td>
+                                    <td>
+                                        @if ($presentation->status_presentation == \App\Enum\StatusPresentationEnum::WAITING)
+                                            <small class="bg-label-warning p-2 rounded-pill">Menunggu Konfirmasi</small>
+                                        @elseif($presentation->status_presentation == \App\Enum\StatusPresentationEnum::ONGOING)
+                                            <small class="bg-label-info p-2 rounded-pill">Dalam Presentatasi</small>
+                                        @elseif($presentation->status_presentation == \App\Enum\StatusPresentationEnum::PENNDING)
+                                            <small class="bg-label-warning p-2 rounded-pill">Ditunda</small>
+                                        @elseif($presentation->status_presentation == \App\Enum\StatusPresentationEnum::FINISH)
+                                            <small class="bg-label-primary p-2 rounded-pill">Selesai</small>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-detail"
+                                                style="text-decoration: none; color: white; border: none; background-color:rgba(105, 94, 239, 1)">
+                                            <span>Lihat Detail</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -246,27 +282,31 @@
                                 <th>Nama Project</th>
                                 <th>Divisi</th>
                                 <th>Jenis Project</th>
-                                <th>No Antrean</th>
+                                <th>Deadline</th>
                                 <th>Status Presentasi</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <td>1</td>
-                            <td>Rental Mobil</td>
-                            <td>Divisi Web</td>
-                            <td>Pre Mini Project</td>
-                            <td>001</td>
-                            <td>
+                            @foreach($unpresentedProject as $project)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $project->project_name }}</td>
+                                    <td>{{ $project->division->name }}</td>
+                                    <td>{{ ucwords($project->type_project->value) }}</td>
+                                    <td>{{ $project->end_date }}</td>
+                                    <td>
                                     <span class="badge text-danger px-4 py-2 mt-1 fw-bolder"
                                           style="background-color: rgba(251, 242, 239, 1);  border-radius:4px; font-size:small;">Belum Presentasi</span>
-                            </td>
-                            <td>
-                                <button class="btn btn-detail"
-                                        style="text-decoration: none; color: white; border: none; background-color:rgba(105, 94, 239, 1)">
-                                    <span>Lihat Detail</span>
-                                </button>
-                            </td>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-detail"
+                                                style="text-decoration: none; color: white; border: none; background-color:rgba(105, 94, 239, 1)">
+                                            <span>Lihat Detail</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

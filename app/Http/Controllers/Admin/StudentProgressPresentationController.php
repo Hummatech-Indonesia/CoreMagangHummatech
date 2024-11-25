@@ -2,17 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Contracts\Interfaces\PresentationInterface;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class StudentProgressPresentationController extends Controller
 {
+    private PresentationInterface $presentations;
+    public function __construct(
+        PresentationInterface $presentation
+    )
+    {
+        $this->presentations = $presentation;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.page.student-progress.presentation.index');
+        $presentationsToday = $this->presentations->get();
+        $presentations = $this->presentations->getPresentationWithMembers();
+        $unpresentedProject = $this->presentations->getUnpresentedProject();
+        return view('admin.page.student-progress.presentation.index', compact('presentationsToday','presentations','unpresentedProject'));
     }
 
     /**

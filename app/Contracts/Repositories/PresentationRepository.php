@@ -3,8 +3,11 @@
 namespace App\Contracts\Repositories;
 
 use App\Enum\PresentationTypeEnum;
+use App\Enum\ProjectAcceptStatus;
 use App\Enum\StatusPresentationEnum;
 use App\Models\MentorDivision;
+use App\Models\Project;
+use App\StatusProjectEnum;
 use DB;
 use Carbon\Carbon;
 use App\Models\Thesis;
@@ -19,6 +22,7 @@ use App\Contracts\Interfaces\PresentationInterface;
 use App\Contracts\Interfaces\CategoryBoardInterface;
 use App\Contracts\Interfaces\CodeOfConductInterface;
 use Flasher\Prime\Response\Presenter\PresenterInterface;
+use phpseclib3\Math\BigInteger\Engines\OpenSSL;
 
 class PresentationRepository extends BaseRepository implements PresentationInterface
 {
@@ -91,7 +95,8 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     public function get(): mixed
     {
         return $this->model->query()
-            ->where('created_at', now())
+            ->with(['project', 'project.members', 'project.division'])
+            ->where('planning_date_presentation', Carbon::today())
             ->get();
     }
 
@@ -276,7 +281,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     public function getPresentationWithMembers()
     {
         return $this->model->query()
-            ->with(['project', 'project.members'])
+            ->with(['project', 'project.members', 'project.division'])
             ->get();
     }
 
@@ -318,4 +323,26 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->where('project_id', $idProject)
             ->get();
     }
+
+    public function getUnpresentedProject()
+    {
+        $unpresentedProjectByDeadline = Project::query()
+            ->with(['presentation','division'])
+            ->where('end_date', '<=', Carbon::today())
+            ->whereHas('presentation', function ($query) {
+                $query->whereNot('status_presentation', StatusPresentationEnum::FINISH);
+            })
+            ->get();
+
+        $unpresentedProjectByPresentation = Project::query()
+            ->with(['presentation','division'])
+            ->where('status', ProjectAcceptStatus::ACCEPT)
+            ->doesntHave('presentation')
+            ->get();
+
+        $unpresentedProjects = $unpresentedProjectByDeadline->merge($unpresentedProjectByPresentation);
+
+        return $unpresentedProjects;
+    }
+
 }
