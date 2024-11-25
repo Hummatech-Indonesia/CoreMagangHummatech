@@ -167,7 +167,8 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('administrator/institution') ? 'active' : '' }}"
-                        href="{{ route('institution.index') }}">
+                        {{-- href="{{ route('institution.index') }}"> --}}
+                        href="{{ url('/institution') }}">
                         <i class="ri-community-line"></i> <span data-key="t-dashboards">Sekolah/Universitas</span>
                     </a>
                 </li>
@@ -317,7 +318,7 @@
                 <li class="menu-title"><span data-key="t-menu">Progres Siswa</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('administrator') ? 'active' : '' }}"
-                        href="{{ url('/administrator/student-progress/presentation') }}">
+                        href="{{ url('administrator/student-progress/presentation') }}">
                         <i class="ri-user-line"></i> <span data-key="t-dashboards">Presentasi</span>
                     </a>
                 </li>
