@@ -183,6 +183,7 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     // TODO nanti ini diganti by status yaa
     Route::get('administrator/student-progress/project/detail',[StudentProgressProjectController::class,'show']);
 
+
     # Courses
     Route::get('administrator/course', [AdminCourseController::class, 'index']);
     Route::post('administrator/course/store', [AdminCourseController::class, 'store'])->name('course.store');
