@@ -1,6 +1,15 @@
 @extends('mentor.layouts.app')
 
+@section('style')
+    <style>
+        .bg-label-warning {
+            background-color: #fef5e5 !important;
+            color: #ffaa05 !important;
+        }
+    </style>
+@endsection
 @section('content')
+
     <div class="container-fluid">
 
         <div class="d-flex justify-content-between w-100 mb-4 gap-2 navbar-shadow">
@@ -15,6 +24,12 @@
             </a>
             <div class="bg-light-info w-100 d-flex justify-content-center align-items-center text-center rounded-2">
                 <h2 class="text-primary fw-bolder fs-4">Detail Project</h2>
+            </div>
+
+            <div class="presentation-action d-flex gap-2">
+                <a class="btn px-3 d-flex justify-content-center align-items-center" style="background: #FFF5E3" href="/mentor/project-submissions/{{ $project->id }}/revision">
+                    <svg width="25px" height="25px" viewBox="0 0 1.5 1.5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>list_check_3_line</title><g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Editor" transform="translate(-48 -192)"><g id="list_check_3_line" transform="translate(48 192)"><path d="M1.5 0v1.5H0V0zM0.787 1.454l-0.001 0 -0.004 0.002 -0.001 0 -0.001 0 -0.004 -0.002q-0.001 0 -0.002 0l0 0.001 -0.001 0.027 0 0.001 0.001 0.001 0.006 0.005 0.001 0 0.001 0 0.006 -0.005 0.001 -0.001 0 -0.001 -0.001 -0.027q0 -0.001 -0.001 -0.001m0.017 -0.007 -0.001 0 -0.012 0.006 -0.001 0.001 0 0.001 0.001 0.027 0 0.001 0.001 0 0.013 0.006q0.001 0 0.002 -0.001l0 -0.001 -0.002 -0.038q0 -0.001 -0.001 -0.001m-0.045 0a0.001 0.001 0 0 0 -0.002 0l0 0.001 -0.002 0.038q0 0.001 0.001 0.002l0.001 0 0.013 -0.006 0.001 -0.001 0 -0.001 0.001 -0.027 0 -0.001 -0.001 -0.001z" id="MingCute" fill-rule="nonzero"/><path d="M0.438 0.813a0.125 0.125 0 0 1 0.125 0.116L0.563 0.938v0.188a0.125 0.125 0 0 1 -0.116 0.125L0.438 1.25H0.25a0.125 0.125 0 0 1 -0.125 -0.116L0.125 1.125v-0.188a0.125 0.125 0 0 1 0.116 -0.125L0.25 0.813zm0.563 0.25a0.063 0.063 0 0 1 0.007 0.125L1 1.188h-0.25a0.063 0.063 0 0 1 -0.007 -0.125L0.75 1.063zm-0.563 -0.125H0.25v0.188h0.188zm0.813 -0.125a0.063 0.063 0 1 1 0 0.125h-0.5a0.063 0.063 0 1 1 0 -0.125zM0.438 0.188a0.125 0.125 0 0 1 0.125 0.125v0.188a0.125 0.125 0 0 1 -0.125 0.125H0.25a0.125 0.125 0 0 1 -0.125 -0.125V0.313a0.125 0.125 0 0 1 0.125 -0.125zm0.563 0.25a0.063 0.063 0 0 1 0.007 0.125L1 0.563h-0.25a0.063 0.063 0 0 1 -0.007 -0.125L0.75 0.438zM0.438 0.313H0.25v0.188h0.188zm0.813 -0.125a0.063 0.063 0 0 1 0.007 0.125L1.25 0.313h-0.5a0.063 0.063 0 0 1 -0.007 -0.125L0.75 0.188z" id="形状" fill="#FFAE1F"/></g></g></g></svg>
+                </a>
             </div>
         </div>
         <div class="row">
@@ -91,12 +106,10 @@
                                                 </td>
                                                 <td>
                                                     <span @class([
-                                                        'text-warning' => $member->status == 'Leader',
-                                                        'text-primary' => $member->status == 'Member',
+                                                        'text-warning' => $member->status == \App\Enum\StatusMemberTeamEnum::Leader->value,
+                                                        'text-primary' => $member->status == \App\Enum\StatusMemberTeamEnum::Member->value,
                                                     ])>
-                                                        @php($array = ['Leader' => 'Ketua', 'Member' => 'Anggota'])
-
-                                                        {{ $array[$member->status] }}
+                                                        {{ $member->status }}
                                                     </span>
                                                 </td>
                                             </tr>

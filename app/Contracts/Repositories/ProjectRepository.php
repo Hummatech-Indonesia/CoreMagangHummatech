@@ -58,15 +58,21 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
         return $this->model->query()->findOrFail($id)->delete($id);
     }
 
-    public function where($parameter, $value): mixed
+    public function where($parameter, $value, $perPage = 15, $columns = ['*'], $pageName = 'page'): mixed
     {
-        return $this->model->query()->where($parameter, $value)->get();
+        return $this->model->query()
+            ->where($parameter, $value)
+            ->paginate($perPage, $columns, $pageName);
     }
 
-    public function whereIn($parameter, array $values): mixed
+    public function whereIn($parameter, array $values, $perPage = 15, $columns = ['*'], $pageName = 'page'): mixed
     {
-        return $this->model->query()->whereIn($parameter, $values)->get();
+        return $this->model->query()
+            ->whereIn($parameter, $values)
+            ->paginate($perPage, $columns, $pageName);
     }
+
+
 
     public function accProject(mixed $id, array $data): mixed
     {
@@ -139,5 +145,12 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
         $project = Project::with('presentation.revision')->find($projectId);
 
         return $project?->presentation?->revision->count() ?? 0;
+    }
+
+    public function getProjectWithRevision(int $projectId)
+    {
+        return $this->model->query()
+            ->with('presentation.revision')
+            ->find($projectId);
     }
 }

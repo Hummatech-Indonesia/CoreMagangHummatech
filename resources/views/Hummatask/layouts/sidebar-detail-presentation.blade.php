@@ -32,6 +32,7 @@
                     </a>
                 </li>
                 {{-- Presentasi --}}
+                @if ($project->status != 'rejected' && $project->status != 'waiting')
                 <li class="sidebar-item px-2">
                     <a class="sidebar-link" href="{{ route('project.presentation', $project->id) }}" aria-expanded="false">
                         <span>
@@ -48,6 +49,9 @@
                         <span class="hide-menu">Presentation</span>
                     </a>
                 </li>
+                @endif
+
+
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

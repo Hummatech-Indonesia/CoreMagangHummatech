@@ -50,4 +50,11 @@ class Project extends Model
     {
         return ProjectAcceptStatus::tryFrom($this->status) ?? ProjectAcceptStatus::WAITING;
     }
+
+    public function getProjectStatus(): TaskStatusEnum
+    {
+        return $this->status_project instanceof TaskStatusEnum
+            ? $this->status_project
+            : TaskStatusEnum::tryFrom($this->status_project) ?? TaskStatusEnum::PENDING;
+    }
 }

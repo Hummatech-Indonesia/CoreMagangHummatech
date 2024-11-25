@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('start_date')->default(Carbon::today());
             $table->date('end_date')->default(Carbon::tomorrow());
 
-            $table->enum('type_project',[
+            $table->enum('type_project',allowed: [
                 \App\Enum\PresentationTypeEnum::SOLO->value,
                 \App\Enum\PresentationTypeEnum::MINI->value,
                 \App\Enum\PresentationTypeEnum::PREMINI->value,
