@@ -188,14 +188,6 @@
                                     <td>
                                         <span class="badge text-success px-5 py-2 mt-1 fw-bolder" style="background-color: rgba(230, 255, 250, 1);  border-radius:4px; font-size:small;">Selesai</span>
                                     </td>
-                                    
-                                    {{-- TODO <td>
-                                        @if ()
-                                            <span class="badge text-success px-5 py-2 mt-1 fw-bolder" style="background-color: rgba(230, 255, 250, 1);  border-radius:4px; font-size:small;">Selesai</span>
-                                        @else
-                                            <span class="badge text-danger px-4 py-2 mt-1 fw-bolder" style="background-color: rgba(251, 242, 239, 1);  border-radius:4px; font-size:small;">Belum Presentasi</span>
-                                        @endif
-                                    TODO </td> --}}
                                     <td>
                                         <button class="btn btn-detail" style="text-decoration: none; color: white; border: none; background-color:rgba(105, 94, 239, 1)"">
                                             <span>Lihat Detail</span>

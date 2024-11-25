@@ -314,6 +314,20 @@
                     </a>
                 </li> --}}
 
+                <li class="menu-title"><span data-key="t-menu">Progress Siswa</span></li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->is('administrator') ? 'active' : '' }}"
+                        href="{{ url('/administrator/student-progress/presentation') }}">
+                        <i class="ri-user-line"></i> <span data-key="t-dashboards">Presentasi</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->is('administrator/zoom-schedules') ? 'active' : '' }}"
+                        href="{{ url('administrator/student-progress/project') }}">
+                        <i class=" ri-user-line"></i> <span data-key="t-dashboards">Proyek</span>
+                    </a>
+                </li>
+
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarCharts2" data-bs-toggle="collapse" role="button"

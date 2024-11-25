@@ -17,6 +17,26 @@
             box-shadow: 0 4px 8px rgba(223, 221, 221, 0.267);
             border: none;
         }
+        .status-badge{
+            border-radius:34px; 
+            font-size:12px; 
+            color: ;
+            width: 145px;
+            height: 30px;
+            padding-top: 12px;
+            padding-bottom: 0px;
+            font-weight: 100;
+        }
+        .category-badge{
+            background-color: rgba(93, 135, 255, 0.1); 
+            border-radius:34px; 
+            font-size:12px; 
+            color: rgba(93, 135, 255, 1);
+            width: 145px;
+            height: 30px;
+            padding-top: 9px;
+            font-weight: 100;
+        }
     </style>
 @endsection
 @section('content')
@@ -73,11 +93,11 @@
                         <div class="mb-3">
                             <label class="form-label text-9xl">Status</label>
                             <div>
-                                <span class="badge text-success px-3 py-2" style="background-color: rgba(230, 255, 250, 1); border-radius:34px;">Selesai Presentasi</span>
+                                <span class="badge text-success px-3 py-2 status-badge" style="background-color: rgba(230, 255, 250, 1)">Selesai Presentasi</span>
                             {{-- @if ()
-                                    <span class="badge text-success px-3 py-2" style="background-color: rgba(230, 255, 250, 1);  border-radius:34px;">Selesai Presentasi</span>
+                                    <span class="badge text-success px-3 py-2" style="background-color: rgba(230, 255, 250, 1);">Selesai Presentasi</span>
                                 @else
-                                    <span class="badge text-danger px-3 py-2" style="background-color: rgba(251, 242, 239, 1); border-radius:34px;">Belum Presentasi</span>
+                                    <span class="badge text-danger px-3 py-2" style="background-color: rgba(251, 242, 239, 1);">Belum Presentasi</span>
                                 @endif --}}
                             </div>
                         </div>
@@ -85,13 +105,17 @@
                         <!-- Kategori Project -->
                         <div class="mb-3">
                             <label class="form-label">Kategori Project</label>
-                            <input type="text" class="form-control" value="Solo Project">
+                            <div>
+                                <span class="badge category-badge">Solo Project</span>
+                            </div>
+                            {{-- <input type="text" class="form-control" value="Solo Project"> --}}
                         </div>
     
                         <!-- Deskripsi Project -->
                         <div class="mb-3">
                             <label class="form-label">Deskripsi Project</label>
-                            <textarea class="form-control" rows="3" readonly>Tema Project Anda</textarea>
+                            <textarea class="form-control" rows="3" style="border:none">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                            </textarea>
                         </div>
     
                         <!-- Link Repository Github -->
@@ -104,18 +128,6 @@
                         <div class="mb-3">
                             <label class="form-label">Waktu Pengerjaan</label>
                             <input type="text" class="form-control" value="23/10/2024 - 30/10/2024" readonly>
-                        </div>
-    
-                        <!-- Waktu Presentasi -->
-                        <div class="mb-3">
-                            <label class="form-label">Waktu Presentasi</label>
-                            <input type="text" class="form-control" value="23/10/2024" readonly>
-                        </div>
-    
-                        <!-- Nomor Antrian -->
-                        <div class="mb-3">
-                            <label class="form-label">Nomor Antrian</label>
-                            <input type="text" class="form-control" value="Antrian Ke 101" readonly>
                         </div>
                     </div>
                 </div>
