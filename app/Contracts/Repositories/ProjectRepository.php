@@ -92,9 +92,9 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
         $data['status'] = ProjectAcceptStatus::REJECTED->value;
         $data['mentor_id'] = Auth::user()->mentors_id;
 
-        $this->model->query()
-            ->where('id', '!=', $id)
-            ->delete();
+        // $this->model->query()
+        //     ->where('id', '!=', $id)
+        //     ->delete();
         return $this->model->query()->findOrFail($id)->update($data);
     }
 
