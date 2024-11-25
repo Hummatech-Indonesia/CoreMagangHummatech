@@ -314,7 +314,7 @@
                     </a>
                 </li> --}}
 
-                <li class="menu-title"><span data-key="t-menu">Progress Siswa</span></li>
+                <li class="menu-title"><span data-key="t-menu">Progres Siswa</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('administrator') ? 'active' : '' }}"
                         href="{{ url('/administrator/student-progress/presentation') }}">
