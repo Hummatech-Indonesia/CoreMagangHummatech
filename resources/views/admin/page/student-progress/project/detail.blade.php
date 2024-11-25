@@ -17,6 +17,69 @@
             box-shadow: 0 4px 8px rgba(223, 221, 221, 0.267);
             border: none;
         }
+        .status-badge{
+            border-radius:34px; 
+            font-size:12px; 
+            color: ;
+            min-width: 140px;
+            min-height: 30px;
+            padding-top: 12px;
+            padding-bottom: 0px;
+            font-weight: 100;
+        }
+        .detail-badge{
+            background-color: rgba(93, 135, 255, 0.1);
+            border-radius:6px; 
+            font-size:12px; 
+            color: rgba(93, 135, 255, 1);
+            min-width: 122px;
+            min-height: 30px;
+            padding-top: 8px;
+            padding-bottom: 0px;
+            font-weight: 100;
+            justify-content: end;
+            align-items: flex-end
+        }
+        .category-badge{
+            background-color: rgba(93, 135, 255, 0.1); 
+            border-radius:34px; 
+            font-size:12px; 
+            color: rgba(93, 135, 255, 1);
+            min-width: 145px;
+            min-height: 30px;
+            padding-top: 9px;
+            font-weight: 100;
+        }
+        .status-container {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; 
+            width: 100%; 
+            }
+
+        .form-label {
+            font-size: 16px; 
+            font-weight: bold; 
+        }
+        .status-badge-container {
+            display: flex;
+            align-items: center; 
+            justify-content: flex-end; 
+        }
+
+        .detail-badge {
+            display: inline-flex;
+            align-items: center; 
+            justify-content: center;
+            background-color: rgba(93, 135, 255, 0.1);
+            border-radius: 6px;
+            font-size: 12px;
+            color: rgba(93, 135, 255, 1);
+            min-width: 122px;
+            height: 30px; 
+            padding: 0 8px;
+            font-weight: 500; 
+        }
     </style>
 @endsection
 @section('content')
@@ -70,27 +133,51 @@
                     <div class="card-body">
                         <!-- Status -->
                         <div class="mb-3">
-                            <label class="form-label text-9xl">Status</label>
                             <div>
-                                <span class="badge px-3 py-2" style="background-color: rgba(93, 135, 255, 0.1); border-radius:34px; color: rgba(13, 168, 255, 1); ">Sedang Dikerjakan</span>
-                            {{-- @if ()
-                                    <span class="badge text-success px-3 py-2" style="background-color: rgba(230, 255, 250, 1);  border-radius:34px;">Selesai Presentasi</span>
-                                @else
-                                    <span class="badge text-danger px-3 py-2" style="background-color: rgba(251, 242, 239, 1); border-radius:34px;">Belum Presentasi</span>
-                                @endif --}}
+                                <div class="status-container">
+                                    <label class="form-label">Status</label>
+                                    <div class="status-badge-container">
+                                        <span class="badge detail-badge">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="rgba(93,135,255,1)">
+                                            <path fill="none" d="M0 0h24v24H0z"></path>
+                                            <path d="M12.0003 3C17.3924 3 21.8784 6.87976 22.8189 12C21.8784 17.1202 17.3924 21 12.0003 21C6.60812 21 2.12215 17.1202 1.18164 12C2.12215 6.87976 6.60812 3 12.0003 3ZM12.0003 19C16.2359 19 19.8603 16.052 20.7777 12C19.8603 7.94803 16.2359 5 12.0003 5C7.7646 5 4.14022 7.94803 3.22278 12C4.14022 16.052 7.7646 19 12.0003 19ZM12.0003 16.5C9.51498 16.5 7.50026 14.4853 7.50026 12C7.50026 9.51472 9.51498 7.5 12.0003 7.5C14.4855 7.5 16.5003 9.51472 16.5003 12C16.5003 14.4853 14.4855 16.5 12.0003 16.5ZM12.0003 14.5C13.381 14.5 14.5003 13.3807 14.5003 12C14.5003 10.6193 13.381 9.5 12.0003 9.5C10.6196 9.5 9.50026 10.6193 9.50026 12C9.50026 13.3807 10.6196 14.5 12.0003 14.5Z"></path>
+                                            </svg>
+                                            Lihat Revisi
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                        <span class="badge text-success px-3 py-2 status-badge" style="background-color: rgba(230, 255, 250, 1)">Project Diselesaikan</span>
+                                    {{-- @if ()
+                                        <span class="badge text-success px-3 py-2 mx-3 status-badge" style="background-color: rgba(230, 255, 250, 1)">Project Diselesaikan</span>
+                                    @else
+                                        <span class="badge text-danger px-3 py-2 mx-3 status-badge" style="background-color: rgba(251, 242, 239, 1)">Project Belum Selesai</span>
+                                    @endif --}}
+
+                                    <span class="badge text-success px-3 py-2 mx-3 status-badge" style="background-color: rgba(230, 255, 250, 1)">Selesai Sebelum Deadline</span>
+                                {{-- @if ()
+                                        <span class="badge text-success px-3 py-2 mx-3 status-badge" style="background-color: rgba(230, 255, 250, 1)">Selesai Sebelum Deadline</span>
+                                    @else
+                                        <span class="badge text-danger px-3 py-2 mx-3 status-badge" style="background-color: rgba(251, 242, 239, 1)">Melewati Batas Deadline</span>
+                                    @endif --}}
+                                    
+                                </div>
                             </div>
                         </div>
     
                         <!-- Kategori Project -->
                         <div class="mb-3">
                             <label class="form-label">Kategori Project</label>
-                            <input type="text" class="form-control" value="Solo Project">
+                            <div>
+                                <span class="badge category-badge">Solo Project</span>
+                            </div>
                         </div>
     
                         <!-- Deskripsi Project -->
                         <div class="mb-3">
                             <label class="form-label">Deskripsi Project</label>
-                            <textarea class="form-control" rows="3" readonly>Tema Project Anda</textarea>
+                            <textarea class="form-control" rows="3" style="border:none">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                            </textarea>
                         </div>
     
                         <!-- Link Repository Github -->
@@ -104,18 +191,7 @@
                             <label class="form-label">Waktu Pengerjaan</label>
                             <input type="text" class="form-control" value="23/10/2024 - 30/10/2024" readonly>
                         </div>
-    
-                        <!-- Waktu Presentasi -->
-                        <div class="mb-3">
-                            <label class="form-label">Waktu Presentasi</label>
-                            <input type="text" class="form-control" value="23/10/2024" readonly>
-                        </div>
-    
-                        <!-- Nomor Antrian -->
-                        <div class="mb-3">
-                            <label class="form-label">Nomor Antrian</label>
-                            <input type="text" class="form-control" value="Antrian Ke 101" readonly>
-                        </div>
+
                     </div>
                 </div>
             </div>

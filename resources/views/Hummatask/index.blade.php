@@ -518,15 +518,15 @@
 @endsection
 @section('script')
     <script>
-        // const startDateInput = document.getElementById('start_date');
-        // const endDateInput = document.getElementById('end_date');
+        const startDateInput = document.getElementById('start_date');
+        const endDateInput = document.getElementById('end_date');
 
-        // startDateInput.addEventListener('change', () => {
-        //     const startDate = startDateInput.value;
-        //     if (startDate) {
-        //         endDateInput.min = startDate;
-        //     }
-        // });
+        startDateInput.addEventListener('change', () => {
+            const startDate = startDateInput.value;
+            if (startDate) {
+                endDateInput.min = startDate;
+            }
+        });
 
         // var options = {
         //     // width: 300,

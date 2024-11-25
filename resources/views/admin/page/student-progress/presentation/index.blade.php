@@ -175,7 +175,7 @@
         <!-- Tab Content -->
         <div class="tab-content">
             <div class="tab-pane active" id="todaypresentation" role="tabpanel">
-                <div class="card card-body">
+                <div class="card-body">
                     <div class="table-responsive">
                         <table id="dataTableStudentProgress1" class="table stripe row-border order-column nowrap"
                                style="width:100%">

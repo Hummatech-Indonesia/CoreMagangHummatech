@@ -403,7 +403,6 @@ Route::prefix('mentor')->name(RolesEnum::MENTOR->value.".")->group(function () {
     Route::get('/presentation', [PresentationController::class, 'mentorshow'])->name('presentation');
     Route::get('/project-submissions', [ProjectSubmissionController::class, 'index'])->name('project-submissions.index');
     Route::get('/project-submissions/{project}/detail', [ProjectSubmissionController::class, 'show'])->name('project-submissions.show');
-    Route::get('/project-submissions/{project}/revision', [ProjectSubmissionController::class, 'revision'])->name('project-submissions.revision');
     Route::patch('/project-submissions/{project}/accept', [ProjectSubmissionController::class, 'accept'])->name('project-submissions.accept');
     Route::patch('/project-submissions/{project}/reject', [ProjectSubmissionController::class, 'reject'])->name('project-submissions.reject');
 });
@@ -482,7 +481,6 @@ Route::put('mentor/presentation/done/{presentation}', [\App\Http\Controllers\Pre
 
 # Dashboard-Task-Presentation
 Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'index'])->name('project.task.index');
-Route::get('dashboard/task/management', [\App\Http\Controllers\ProjectController::class, 'managementProject'])->name('project.management');
 Route::get('dashboard/task/detail/{project}', [\App\Http\Controllers\ProjectController::class, 'detailProject'])->name('project.detail');
 Route::get('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'presentationProject'])->name('project.presentation');
 Route::post('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'storePresentation'])->name('project.presentation.save');
