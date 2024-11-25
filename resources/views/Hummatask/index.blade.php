@@ -2,8 +2,8 @@
 @section('style')
     <style>
         /* * {
-                                                                                        border: 1px solid #f00;
-                                                                                    } */
+                                                                                            border: 1px solid #f00;
+                                                                                        } */
         .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
             color: black;
         }
@@ -315,7 +315,7 @@
                                     </div>
                                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#delete-modal-{{ $project['id'] }}"
-                                        {{ $project['status_project'] == \App\Enum\ProjectAcceptStatus::WAITING->value ? '' : 'disabled' }}>
+                                        {{ $project['status'] == \App\Enum\ProjectAcceptStatus::WAITING->value || $project['status'] == \App\Enum\ProjectAcceptStatus::REJECTED->value ? '' : 'disabled' }}>
                                         <svg width="15" height="17" viewBox="0 0 15 17" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -349,15 +349,9 @@
                                     <div class="d-flex gap-2">
                                         @if ($project['status'] == \App\Enum\ProjectAcceptStatus::ACCEPT->value)
                                             @switch($project['status_project'])
-                                                @case(\App\Enum\TaskStatusEnum::PENDING->value)
+                                                @case(\App\Enum\TaskStatusEnum::INPROGRESS->value)
                                                     <small class="rounded-pill text-primary fw-bolder p-2"
                                                         style="background: #d1e4ff">Sedang dikerjakan
-                                                    </small>
-                                                @break
-
-                                                @case(\App\Enum\TaskStatusEnum::INPROGRESS->value)
-                                                    <small class="rounded-pill text-warning fw-bolder p-2"
-                                                        style="background: rgba(255,174,31,.2)">Sedang dikerjakan
                                                     </small>
                                                 @break
 

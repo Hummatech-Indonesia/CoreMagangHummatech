@@ -39,11 +39,10 @@ return new class extends Migration
             ])->default(ProjectAcceptStatus::WAITING->value);
 
             $table->enum('status_project',[
-                \App\Enum\TaskStatusEnum::PENDING->value,
                 \App\Enum\TaskStatusEnum::INPROGRESS->value,
                 \App\Enum\TaskStatusEnum::REVISION->value,
                 \App\Enum\TaskStatusEnum::COMPLETED->value,
-            ])->default(\App\Enum\TaskStatusEnum::PENDING->value);
+            ])->default(\App\Enum\TaskStatusEnum::INPROGRESS->value);
             $table->text('reason')->nullable();
             $table->timestamps();
         });
