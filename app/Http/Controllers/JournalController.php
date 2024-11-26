@@ -152,8 +152,9 @@ class JournalController extends Controller
     public function downloadPDF(Request $request)
     {
         // Set waktu eksekusi tidak terbatas
-        ini_set('max_execution_time', 0);
-        ini_set('memory_limit', '256M');
+        ini_set('max_execution_time', 300); // 5 menit
+        ini_set('memory_limit', '512M');
+
 
         // Validasi data dari request
         $request->validate([
