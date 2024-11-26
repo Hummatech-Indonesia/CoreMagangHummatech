@@ -2,17 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Contracts\Interfaces\ProjectInterface;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class StudentProgressProjectController extends Controller
 {
+    private ProjectInterface $project;
+
+    public function __construct(
+        ProjectInterface $project
+    ) {
+        $this->project = $project;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.page.student-progress.project.index');
+        $projects = $this->project->get();
+        return view('admin.page.student-progress.project.index', compact('projects'));
     }
 
     /**
@@ -34,17 +45,19 @@ class StudentProgressProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(int $project)
     {
-        return view('admin.page.student-progress.project.detail');
+        $project = $this->project->show($project);
+        return view('admin.page.student-progress.project.detail', compact('project'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function revision(Project $project)
     {
-        //
+        $revisions = $this->project->getProjectWithRevision($project->id);
+        return view('admin.page.student-progress.project.revision', compact('project', 'revisions'));
     }
 
     /**
