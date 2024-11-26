@@ -21,6 +21,7 @@ use App\Models\Signature;
 use App\Models\Student;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class JournalController extends Controller
 {
@@ -150,17 +151,14 @@ class JournalController extends Controller
 
     public function downloadPDF(Request $request)
     {
-        // Set waktu eksekusi tidak terbatas
         ini_set('max_execution_time', 0);
         ini_set('memory_limit', '256M');
 
-        // Validasi data dari request
         $request->validate([
             'year' => 'required|digits:4',
             'month' => 'required|integer|min:1|max:12',
         ]);
 
-        // Ambil data yang diperlukan
         $data = Journal::where('student_id', auth()->user()->student->id)
             ->whereYear('created_at', $request->input('year'))
             ->whereMonth('created_at', $request->input('month'))
@@ -169,18 +167,6 @@ class JournalController extends Controller
         $header = Letterhead::where('user_id', auth()->user()->id)->first();
         $datadiri = Student::where('id', auth()->user()->student->id)->first();
 
-        // Ambil tahun dan bulan dari request
-        $year = $request->input('year');
-        $month = $request->input('month');
-        $monthName = \Carbon\Carbon::createFromFormat('m', $month)->format('F');
-        $userName = auth()->user()->name;
-
-        // Kelompokkan data berdasarkan bulan
-        $months = $data->groupBy(function ($date) {
-            return \Carbon\Carbon::parse($date->created_at)->format('Y-m');
-        });
-
-        // Cek apakah kop surat sudah ada
         if ($header == null) {
             return redirect()->back()->with('warning', 'Harap mengisi kop surat terlebih dahulu');
         }
@@ -192,58 +178,36 @@ class JournalController extends Controller
         $options->set('isRemoteEnabled', true);
         $dompdf->setOptions($options);
 
-        $outputFiles = []; // Array untuk menyimpan hasil PDF tiap bulan
-        $dataadmin = DataAdmin::query()->first();
-
-        foreach ($months as $monthKey => $jurnals) {
-            // Buat signature dan QR code
-            $signature = Signature::create([
-                'qr' => '',
-                'data_admin_id' => $dataadmin->id
-            ]);
-
-            $qrCode = QrCode::size(100)->generate(url('/data-qr/' . $signature->id));
-            $qrCodeImage = 'data:image/png;base64,' . base64_encode($qrCode);
-
-            $signature->qr = $qrCodeImage;
-            $signature->save();
-
-            // Render HTML untuk PDF
-            $html = view('desain_pdf.jurnal', [
-                'data' => $jurnals,
-                'month' => $monthKey,
-                'letterheads' => $header,
-                'datadiri' => $datadiri,
-                'qrCodeImage' => $qrCodeImage,
-                'year' => $year,
-                'month' => $month
-            ])->render();
-
-            // Render PDF untuk bulan ini
+        $tempFiles = [];
+        foreach (
+            $data->groupBy(function ($date) {
+                return \Carbon\Carbon::parse($date->created_at)->format('Y-m');
+            }) as $monthKey => $jurnals
+        ) {
+            $html = view('desain_pdf.jurnal', compact('jurnals', 'header', 'datadiri'))->render();
             $dompdf->loadHtml($html);
             $dompdf->setPaper('A4', 'portrait');
             $dompdf->render();
 
-            // Simpan hasil render ke array
-            $outputFiles[] = $dompdf->output();
-
-            // Bersihkan memori
-            unset($html, $signature, $qrCode, $qrCodeImage, $jurnals);
+            $tempPath = 'temp_pdf/' . uniqid() . '.pdf';
+            Storage::disk('local')->put($tempPath, $dompdf->output());
+            $tempFiles[] = $tempPath;
+            $dompdf->clear();
         }
 
-        // Gabungkan semua hasil PDF
-        $combinedOutput = implode('', $outputFiles);
+        $combinedPdf = new Fpdi();
+        foreach ($tempFiles as $tempPath) {
+            $pageCount = $combinedPdf->setSourceFile(Storage::disk('local')->path($tempPath));
+            for ($page = 1; $page <= $pageCount; $page++) {
+                $templateId = $combinedPdf->importPage($page);
+                $combinedPdf->addPage();
+                $combinedPdf->useTemplate($templateId);
+            }
+        }
 
-        // Bersihkan memori
-        unset($outputFiles);
+        $outputPath = 'combined_pdf/journal_combined.pdf';
+        Storage::disk('local')->put($outputPath, $combinedPdf->output('S'));
 
-        // Nama file PDF
-        $fileName = "Jurnal {$userName} - {$monthName}.pdf";
-
-        // Kembalikan respons dengan file PDF
-        return response($combinedOutput, 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => "attachment; filename=\"{$fileName}\""
-        ]);
+        return response()->download(Storage::disk('local')->path($outputPath))->deleteFileAfterSend();
     }
 }
