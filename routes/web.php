@@ -181,7 +181,8 @@ Route::middleware(['roles:administrator', 'auth'])->group(function () {
     # Student Progress Project
     Route::get('administrator/student-progress/project',[StudentProgressProjectController::class,'index']);
     // TODO nanti ini diganti by status yaa
-    Route::get('administrator/student-progress/project/detail',[StudentProgressProjectController::class,'show']);
+    Route::get('administrator/student-progress/project/detail/{project}',[StudentProgressProjectController::class,'show']);
+    Route::get('administrator/student-progress/project/detail/{project}/revision',[StudentProgressProjectController::class,'revision']);
 
 
     # Courses
@@ -406,6 +407,7 @@ Route::prefix('mentor')->name(RolesEnum::MENTOR->value.".")->group(function () {
     Route::get('/project-submissions/{project}/detail', [ProjectSubmissionController::class, 'show'])->name('project-submissions.show');
     Route::patch('/project-submissions/{project}/accept', [ProjectSubmissionController::class, 'accept'])->name('project-submissions.accept');
     Route::patch('/project-submissions/{project}/reject', [ProjectSubmissionController::class, 'reject'])->name('project-submissions.reject');
+    Route::get('/project-submissions/{project}/revision', [ProjectSubmissionController::class, 'revision'])->name('project-submissions.revision');
 });
 
 #================================================= End Mentor ====================================================================
@@ -488,6 +490,7 @@ Route::post('dashboard/task/detail/{project}/presentation', [\App\Http\Controlle
 Route::get('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'revisionProject'])->name('project.presentation.revision');
 Route::put('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'changeStatusRevision'])->name('project.presentation.revision.changestatus');
 Route::post('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'addRevision'])->name('project.presentation.revision.saveRevision');
+Route::get('dashboard/task/management', [\App\Http\Controllers\ProjectController::class, 'managementProject'])->name('project.management');
 
 
 # Dashboard-Task-Project
