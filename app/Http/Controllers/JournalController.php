@@ -21,6 +21,7 @@ use App\Models\Signature;
 use App\Models\Student;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class JournalController extends Controller
 {
@@ -192,58 +193,47 @@ class JournalController extends Controller
         $options->set('isRemoteEnabled', true);
         $dompdf->setOptions($options);
 
-        $outputFiles = []; // Array untuk menyimpan hasil PDF tiap bulan
         $dataadmin = DataAdmin::query()->first();
 
-        foreach ($months as $monthKey => $jurnals) {
-            // Buat signature dan QR code
-            $signature = Signature::create([
-                'qr' => '',
-                'data_admin_id' => $dataadmin->id
-            ]);
+        // Buat QR code sekali saja (untuk mengurangi beban loop)
+        $qrCode = QrCode::size(100)->generate(url('/data-qr/sample'));
+        $qrCodeImage = 'data:image/png;base64,' . base64_encode($qrCode);
 
-            $qrCode = QrCode::size(100)->generate(url('/data-qr/' . $signature->id));
-            $qrCodeImage = 'data:image/png;base64,' . base64_encode($qrCode);
+        // Gunakan streaming untuk menghindari timeout
+        return Response::streamDownload(function () use (
+            $months,
+            $dompdf,
+            $header,
+            $datadiri,
+            $qrCodeImage,
+            $year,
+            $month
+        ) {
+            foreach ($months as $monthKey => $jurnals) {
+                // Render HTML untuk PDF
+                $html = view('desain_pdf.jurnal', [
+                    'data' => $jurnals,
+                    'month' => $monthKey,
+                    'letterheads' => $header,
+                    'datadiri' => $datadiri,
+                    'qrCodeImage' => $qrCodeImage,
+                    'year' => $year,
+                    'month' => $month
+                ])->render();
 
-            $signature->qr = $qrCodeImage;
-            $signature->save();
+                // Render PDF untuk bulan ini
+                $dompdf->loadHtml($html);
+                $dompdf->setPaper('A4', 'portrait');
+                $dompdf->render();
 
-            // Render HTML untuk PDF
-            $html = view('desain_pdf.jurnal', [
-                'data' => $jurnals,
-                'month' => $monthKey,
-                'letterheads' => $header,
-                'datadiri' => $datadiri,
-                'qrCodeImage' => $qrCodeImage,
-                'year' => $year,
-                'month' => $month
-            ])->render();
+                // Kirim output PDF ke browser
+                echo $dompdf->output();
 
-            // Render PDF untuk bulan ini
-            $dompdf->loadHtml($html);
-            $dompdf->setPaper('A4', 'portrait');
-            $dompdf->render();
-
-            // Simpan hasil render ke array
-            $outputFiles[] = $dompdf->output();
-
-            // Bersihkan memori
-            unset($html, $signature, $qrCode, $qrCodeImage, $jurnals);
-        }
-
-        // Gabungkan semua hasil PDF
-        $combinedOutput = implode('', $outputFiles);
-
-        // Bersihkan memori
-        unset($outputFiles);
-
-        // Nama file PDF
-        $fileName = "Jurnal {$userName} - {$monthName}.pdf";
-
-        // Kembalikan respons dengan file PDF
-        return response($combinedOutput, 200, [
+                // Bersihkan memori untuk iterasi berikutnya
+                unset($html, $jurnals);
+            }
+        }, "Jurnal {$userName} - {$monthName}.pdf", [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => "attachment; filename=\"{$fileName}\""
         ]);
     }
 }
