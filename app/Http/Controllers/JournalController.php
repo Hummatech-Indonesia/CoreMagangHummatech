@@ -19,10 +19,8 @@ use App\Models\DataAdmin;
 use App\Models\Letterhead;
 use App\Models\Signature;
 use App\Models\Student;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 
 class JournalController extends Controller
 {
@@ -153,8 +151,8 @@ class JournalController extends Controller
     public function downloadPDF(Request $request)
     {
         // Set waktu eksekusi tidak terbatas
-        ini_set('max_execution_time', 300); // 5 menit
-        ini_set('memory_limit', '512M');
+        ini_set('max_execution_time', 0);
+        ini_set('memory_limit', '256M');
 
         // Validasi data dari request
         $request->validate([
@@ -171,10 +169,7 @@ class JournalController extends Controller
         $header = Letterhead::where('user_id', auth()->user()->id)->first();
         $datadiri = Student::where('id', auth()->user()->student->id)->first();
 
-        if ($header == null) {
-            return redirect()->back()->with('warning', 'Harap mengisi kop surat terlebih dahulu');
-        }
-
+        // Ambil tahun dan bulan dari request
         $year = $request->input('year');
         $month = $request->input('month');
         $monthName = \Carbon\Carbon::createFromFormat('m', $month)->format('F');
@@ -185,27 +180,70 @@ class JournalController extends Controller
             return \Carbon\Carbon::parse($date->created_at)->format('Y-m');
         });
 
-        // Buat QR code hanya sekali
-        $qrCode = QrCode::size(100)->generate(url('/data-qr/sample'));
-        $qrCodeImage = 'data:image/png;base64,' . base64_encode($qrCode);
+        // Cek apakah kop surat sudah ada
+        if ($header == null) {
+            return redirect()->back()->with('warning', 'Harap mengisi kop surat terlebih dahulu');
+        }
 
-        // Render HTML untuk semua data sekaligus
-        $html = view('desain_pdf.jurnal', [
-            'dataGroupedByMonth' => $months,
-            'letterheads' => $header,
-            'datadiri' => $datadiri,
-            'qrCodeImage' => $qrCodeImage,
-            'year' => $year,
-            'month' => $month,
-        ])->render();
+        $dompdf = new Dompdf();
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $dompdf->setOptions($options);
 
-        // Buat PDF
-        $pdf = Pdf::loadHTML($html)->setPaper('A4', 'portrait');
+        $outputFiles = []; // Array untuk menyimpan hasil PDF tiap bulan
+        $dataadmin = DataAdmin::query()->first();
 
-        // Beri nama file PDF
-        $fileName = "Jurnal_{$userName}_{$monthName}.pdf";
+        foreach ($months as $monthKey => $jurnals) {
+            // Buat signature dan QR code
+            $signature = Signature::create([
+                'qr' => '',
+                'data_admin_id' => $dataadmin->id
+            ]);
 
-        // Unduh PDF
-        return $pdf->download($fileName);
+            $qrCode = QrCode::size(100)->generate(url('/data-qr/' . $signature->id));
+            $qrCodeImage = 'data:image/png;base64,' . base64_encode($qrCode);
+
+            $signature->qr = $qrCodeImage;
+            $signature->save();
+
+            // Render HTML untuk PDF
+            $html = view('desain_pdf.jurnal', [
+                'data' => $jurnals,
+                'month' => $monthKey,
+                'letterheads' => $header,
+                'datadiri' => $datadiri,
+                'qrCodeImage' => $qrCodeImage,
+                'year' => $year,
+                'month' => $month
+            ])->render();
+
+            // Render PDF untuk bulan ini
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+
+            // Simpan hasil render ke array
+            $outputFiles[] = $dompdf->output();
+
+            // Bersihkan memori
+            unset($html, $signature, $qrCode, $qrCodeImage, $jurnals);
+        }
+
+        // Gabungkan semua hasil PDF
+        $combinedOutput = implode('', $outputFiles);
+
+        // Bersihkan memori
+        unset($outputFiles);
+
+        // Nama file PDF
+        $fileName = "Jurnal {$userName} - {$monthName}.pdf";
+
+        // Kembalikan respons dengan file PDF
+        return response($combinedOutput, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => "attachment; filename=\"{$fileName}\""
+        ]);
     }
 }
