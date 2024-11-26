@@ -100,202 +100,226 @@ Route::get('statement-self', [StatementController::class, 'self'])->name('statem
 Route::get('statement-parent', [StatementController::class, 'parent'])->name('statement-parent');
 
 # ================================================ Administrator Route Group ==================================================
-Route::middleware(['roles:administrator', 'auth'])->group(function () {
-    # Attendances
-    Route::get('absent', [AttendanceController::class, 'index'])->name('attendance.index');
-    Route::patch('max-late', [AttendanceController::class, 'storeMaxLate'])->name('maxlate.store');
-
-    # Products
-    Route::get('product', [ProductController::class, 'index']);
-    Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
-    Route::put('product/{product}', [ProductController::class, 'update'])->name('product.update');
-    Route::delete('product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
+Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function () {
 
     # Dashboard Home
-    Route::get('administrator', [AdminController::class, 'index'])->name('.home');
+    Route::get('/', [AdminController::class, 'index'])->name('.home');
 
     # Data Admin
     Route::put('data-admin/update/{datauser}', [DataAdminController::class, 'update'])->name('data-admin.update');
-
+    
     # Data CEO
-    Route::post('dataceo/store', [DataCOController::class, 'store']);
-    Route::put('dataceo/update/{dataAdmin}', [DataCOController::class, 'update']);
-
-    # Approval
-    Route::get('approval', [ApprovalController::class, 'index'])->name('.approval.index');
-    Route::put('approval/accept/{student}', [ApprovalController::class, 'accept'])->name('approval.accept');
-    Route::put('approval/accept-multiple', [ApprovalController::class, 'acceptMultiple'])->name('approval.acceptMultiple');
-    Route::put('approval/decline/{student}', [ApprovalController::class, 'decline'])->name('approval.decline');
-    Route::delete('approval/delete/{student}', [ApprovalController::class, 'destroy'])->name('approval.delete');
-
-    # Warning letter
-    Route::get('warning-letter', [WarningLetterController::class, 'index'])->name('warning-letter.index');
-    Route::post('warning-letter/store', [WarningLetterController::class, 'store'])->name('warning-letter.store');
-    Route::get('warning-letter/show/{WarningLetter}', [WarningLetterController::class, 'show'])->name('warning-letter.show');
-    Route::delete('warning-letter/delete/{WarningLetter}', [WarningLetterController::class, 'destroy'])->name('warning-letter.delete');
-
-    # Response letter
-    Route::get('response-letter', [ResponseLetterController::class, 'index'])->name('response-letter.index');
-    Route::get('show/student/{responseLetter}', [ResponseLetterController::class, 'show'])->name('response-letter.show');
-
-    # Voucher
-    Route::get('voucher', [VoucherController::class, 'index'])->name('voucher.index');
-    Route::post('voucher/store', [VoucherController::class, 'store'])->name('voucher.store');
-    Route::delete('voucher/delete/{voucher}', [VoucherController::class, 'destroy'])->name('voucher.delete');
-
-    # Mentor
-    Route::get('menu-mentor', [AdminMentorController::class, 'index'])->name('mentor.index');
-    Route::post('menu-mentor/store', [AdminMentorController::class, 'store'])->name('mentor.store');
-    Route::put('menu-mentor/update/{mentor}', [AdminMentorController::class, 'update'])->name('mentor.update');
-    Route::delete('menu-mentor/delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('mentor.delete');
-    Route::get('menu-mentor/detail/{mentor}', [AdminMentorController::class, 'show'])->name('mentor.show');
-    # Mentor Placement
-    Route::get('online-student/menotor-placement', [MentorPlacementController::class, 'index'])->name('placement.index');
-    Route::post('online-student/menotor-placement/post/{student}', [MentorPlacementController::class, 'store'])->name('placement.update');
-    Route::put('online-student/menotor-placement/edit/{student}', [MentorPlacementController::class, 'update'])->name('placement.delete');
-    #AppointmentOfMentor
-    Route::get('administrator/appointmentofmentor', [AppointmentOfAmentorController::class, 'index']);
-    Route::post('administrator/appointmentofmentor/store', [AppointmentOfAmentorController::class, 'store']);
-    Route::delete('administrator/appointmentofmentor/delete/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'destroy']);
-    Route::delete('administrator/appointmentofmentor/delete/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'destroy']);
-    Route::put('administrator/appointmentofmentor/update/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'update']);
-
-    # Student
-    Route::get('menu-siswa', [AdminStudentController::class, 'index'])->name('student.index');
-    Route::get('menu-siswa/create', [AdminStudentController::class, 'create'])->name('student.create');
-    Route::put('administrator/menu-siswa/reset-password/{user}', [AdminStudentController::class, 'reset'])->name('student.update');
-    Route::put('menu-siswa/update/{student}', [AdminStudentController::class, 'update']);
-    Route::get('menu-siswa/face/{student}', [AdminStudentController::class, 'face'])->name('student.show');
-    Route::delete('menu-siswa/delete/{student}', [AdminStudentController::class, 'destroy'])->name('student.delete');
-    Route::put('menu-siswa/banned/{student}', [AdminStudentController::class, 'banned'])->name('student.banned');
-    Route::put('menu-siswa/division-change/{student}', [AdminStudentController::class, 'divisionchange'])->name('student.divisionchange');
-    Route::put('students-banned/Open/{student}', [StudentController::class, 'Openbanned'])->name('students.banned.open');
-    Route::get('menu-siswa/manage-session', [AdminStudentController::class, 'manageSession'])->name('student.managesession');
-    Route::get('/menu-siswa/manage-session/update/{session}', [StudentController::class, 'changeSessionStudent'])->name('change-session-student');
-
-    # Student Progress Presentation
-    Route::get('administrator/student-progress/presentation',[StudentProgressPresentationController::class,'index']);
-    // TODO nanti ini diganti by status yaa
-    Route::get('administrator/student-progress/presentation/detaildone',[StudentProgressPresentationController::class,'show']);
-
-    # Student Progress Project
-    Route::get('administrator/student-progress/project',[StudentProgressProjectController::class,'index']);
-    // TODO nanti ini diganti by status yaa
-    Route::get('administrator/student-progress/project/detail',[StudentProgressProjectController::class,'show']);
-
-
-    # Courses
-    Route::get('administrator/course', [AdminCourseController::class, 'index']);
-    Route::post('administrator/course/store', [AdminCourseController::class, 'store'])->name('course.store');
-    Route::put('administrator/course/{course}', [AdminCourseController::class, 'update'])->name('course.update');
-    Route::delete('administrator/course/delete/{course}', [AdminCourseController::class, 'destroy'])->name('course.destroy');
-
-    # Course Details
-    Route::get('assignment/{courseAssignment}', [SubmitTaskController::class, 'index'])->name('assignment.submit-task');
-    Route::get('/administrator/course/detail/{course}', [AdminCourseController::class, 'show'])->name('course.detail');
-    Route::delete('administrator/subcourse/delete/{subCourse}', [SubCourseController::class, 'destroy'])->name('subCourse.destroy');
-    Route::get('/administrator/subcourse/detail/{subCourse}', [SubCourseController::class, 'show'])->name('subCourse.detail');
-    Route::put('/administrator/subcourse/edit/{subCourse}', [SubCourseController::class, 'update'])->name('subCourse.update');
-    Route::post('administrator/task/store', [TaskController::class, 'store'])->name('task.store');
-    Route::post('course-assignment/{course}', [CourseAssignmentController::class, 'store'])->name('course-assignment.store');
-    Route::delete('course-assignment/{courseAssignment}', [CourseAssignmentController::class, 'destroy'])->name('course-assignment.destroy');
-
-    # Registration Limit
-    Route::post('limit', [LimitsController::class, 'store'])->name('limit.store');
-    Route::put('limit/update/{limits}', [LimitsController::class, 'update'])->name('limit.update');
-    # Student-Banned
-    Route::get('students-banned', [StudentController::class, 'index']);
-    Route::get('email-user', [StudentController::class, 'emailUser']);
-    Route::delete('email-user/{user}', [StudentController::class, 'emailUserDelete']);
-
-    # Faces
-    Route::get('faces', [FaceController::class, 'index']);
-    Route::get('faces/detail/{id}', [FaceController::class, 'show']);
-    Route::post('faces/create', [FaceController::class, 'store']);
-    Route::delete('faces/delete/{student}', [FaceController::class, 'destroy']);
-
-    # Zoom Schedule
-    Route::get('administrator/zoom-schedules', [ZoomScheduleController::class, 'index']);
-    Route::post('administrator/zoom-schedules/store', [ZoomScheduleController::class, 'store'])->name('zoom-schedule.store');
-    Route::put('administrator/zoom-schedules/{zoomSchedule}', [ZoomScheduleController::class, 'update'])->name('zoom-schedule.update');
-    Route::delete('administrator/zoom-schedules/{zoomSchedule}', [ZoomScheduleController::class, 'destroy'])->name('zoom-schedule.destroy');
-
+    Route::post('dataceo/store', [DataCOController::class, 'store'])->name('data-ceo.store');
+    Route::put('dataceo/update/{dataAdmin}', [DataCOController::class, 'update'])->name('data-ceo.update');
+    
     # Journals
     Route::get('journal', [AdminJournalController::class, 'index']);
-
-    # Admin-Alumni
-    Route::get('/alumni-admin', [AlumniController::class, 'index'])->name('alumni.admin');
-    Route::post('/alumni-admin/store', [AlumniController::class, 'store'])->name('alumni-admin.store');
-    Route::delete('/alumni-admin/delete/{alumni}', [AlumniController::class, 'destroy'])->name('alumni-admin.destroy');
-
+    
     # Announcement
     Route::get('announcement', function () {
         return view('admin.page.announcement.index');
     });
-
-    # Admin Category-Project
-    Route::get('administrator/category-project', [CategoryProjectController::class, 'index'])->name('category-project.index');
-    Route::post('administrator/category-project/store', [CategoryProjectController::class, 'store'])->name('category-project.store');
-    Route::patch('administrator/category-project/{categoryProject}', [CategoryProjectController::class, 'update'])->name('category-project.update');
-    Route::delete('administrator/category-project/{categoryProject}', [CategoryProjectController::class, 'destroy'])->name('category-project.destroy');
-
-    # Divisions
-    Route::get('division', [DivisionController::class, 'index'])->name('division.index');
-    Route::post('division/store', [DivisionController::class, 'store'])->name('division.store');
-    Route::patch('division/{division}', [DivisionController::class, 'update'])->name('division.update');
-    Route::delete('division/{division}', [DivisionController::class, 'destroy'])->name('division.delete');
-
-    # Divisions-Placement
-    Route::get('offline-students/division-placement', [DivisionPlacementController::class, 'index']);
-    Route::post('offline-students/division-placement/{student}', [DivisionPlacementController::class, 'divisionplacement'])->name('division-placement');
-    Route::put('offline-students/division-placement/update/{student}', [DivisionPlacementController::class, 'divisionchange'])->name('division-placement.update');
-
-    # Students-Team
-    Route::get('offline-students/team', [AdminStudentTeamController::class, 'index'])->name('admin.team.index');
-    Route::get('offline-students/team/{slug}', [AdminStudentTeamController::class, 'show'])->name('admin.team.show');
-    Route::get('offline-students/presentation', [PresentationController::class, 'index']);
-
-    #Rfid
-    Route::get('rfid', [RfidController::class, 'index']);
-    Route::patch('rfid/add/{student}', [RfidController::class, 'store']);
-    Route::patch('rfid/update/{student}', [RfidController::class, 'update']);
-
-    # Student-Rejected
-    Route::get('students-rejected', [StudentRejectedController::class, 'index']);
-    Route::put('students-rejected/{student}', [StudentRejectedController::class, 'accept']);
-
-    # Attendances-Rule
-    Route::post('attendance-rule/store', [AttendanceRuleController::class, 'store'])->name('attendance-rule.store');
-
-    # Attendances-Export
-    Route::get('administrator/absent/export/excel', [AdminAbsentController::class, 'export_excel'])->name('attendance.admin.export.excel');
-
-    # Attendances-Permissions
-    Route::get('administrator/permission', [PermissionController::class, 'index']);
-    Route::put('administrator/permission/update/{permission}', [PermissionController::class, 'updateApproval'])->name('approval.izin');
-    Route::put('administrator/permission/update/reject/{permission}', [PermissionController::class, 'updateApprovalReject'])->name('approval.reject');
-    Route::delete('administrator/permission/delete/{permission}', [PermissionController::class, 'destroy'])->name('permission.delete');
-
+    
     # Presentations
-    Route::get('administrator/presentation', [PresentationController::class, 'show']);
-
-    # Pickets
-    Route::get('picket', [PicketController::class, 'index']);
-    Route::delete('picket/{picket}', [PicketController::class, 'destroy'])->name('picket.delete');
-    Route::post('picket/store', [PicketController::class, 'store'])->name('picket.store');
-    Route::put('picket/{picket}', [PicketController::class, 'update'])->name('picket.update');
-    Route::post('note-picket/store', [NotePicketController::class, 'store'])->name('note.store');
-    Route::put('note-picket/{notePicket}', [NotePicketController::class, 'update'])->name('note.update');
-
-    # Pickets-Report
-    Route::get('report', [PicketingReportController::class, 'index']);
-
+    Route::get('presentation', [PresentationController::class, 'show']);
+    
     # Institutions
-    Route::resource('administrator/institution', InstitutionController::class)->except(['show', 'create', 'edit']);
-});
+    Route::resource('institution', InstitutionController::class)->except(['show', 'create', 'edit']);
+
+    # Rule Attendance
+    Route::post('attendance-rule/store', [AttendanceRuleController::class, 'store'])->name('.attendance-rule.store');
+
+    # Course Details
+    Route::get('assignment/{courseAssignment}', [SubmitTaskController::class, 'index'])->name('.assignment.submit-task');
+    Route::get('/course/detail/{course}', [AdminCourseController::class, 'show'])->name('.course.detail');
+
+    Route::delete('/subcourse/delete/{subCourse}', [SubCourseController::class, 'destroy'])->name('.subCourse.destroy');
+    Route::get('/subcourse/detail/{subCourse}', [SubCourseController::class, 'show'])->name('.subCourse.detail');
+    Route::put('/subcourse/edit/{subCourse}', [SubCourseController::class, 'update'])->name('.subCourse.update');
+
+    Route::post('/task/store', [TaskController::class, 'store'])->name('.task.store');
+
+    Route::post('course-assignment/{course}', [CourseAssignmentController::class, 'store'])->name('.course-assignment.store');
+    Route::delete('course-assignment/{courseAssignment}', [CourseAssignmentController::class, 'destroy'])->name('.course-assignment.destroy');
+
+
+
+    
+    Route::prefix('absent')->name('.absent.')->group(function () {
+        Route::get('/', [AttendanceController::class, 'index'])->name('index');
+        Route::patch('max-late', [AttendanceController::class, 'storeMaxLate'])->name('maxlate.store');
+        Route::get('export/excel', [AdminAbsentController::class, 'export_excel'])->name('export.excel');        
+    });
+
+    Route::prefix('permission')->name('.permission.')->group(function () {
+        Route::get('/', [PermissionController::class, 'index']);
+        Route::put('update/{permission}', [PermissionController::class, 'updateApproval'])->name('approval.izin');
+        Route::put('update/reject/{permission}', [PermissionController::class, 'updateApprovalReject'])->name('approval.reject');
+        Route::delete('delete/{permission}', [PermissionController::class, 'destroy'])->name('permission.delete');
+    });
+
+    Route::prefix('product')->name('.product.')->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('index');
+        Route::post('store', [ProductController::class, 'store'])->name('store');
+        Route::put('/{product}', [ProductController::class, 'update'])->name('update');
+        Route::delete('/{product}', [ProductController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('approval')->name('.approval.')->group(function () {
+        Route::get('/', [ApprovalController::class, 'index'])->name('index');
+        Route::put('accept/{student}', [ApprovalController::class, 'accept'])->name('accept');
+        Route::put('accept-multiple', [ApprovalController::class, 'acceptMultiple'])->name('acceptMultiple');
+        Route::put('decline/{student}', [ApprovalController::class, 'decline'])->name('approval.decline');
+        Route::delete('delete/{student}', [ApprovalController::class, 'destroy'])->name('approval.delete');
+    });
+    
+    Route::prefix('warning-letter')->name('.warning-letter.')->group(function () {
+        Route::get('/', [WarningLetterController::class, 'index'])->name('warning-letter.index');
+        Route::post('store', [WarningLetterController::class, 'store'])->name('warning-letter.store');
+        Route::get('show/{WarningLetter}', [WarningLetterController::class, 'show'])->name('warning-letter.show');
+        Route::delete('delete/{WarningLetter}', [WarningLetterController::class, 'destroy'])->name('warning-letter.delete');
+    });
+
+    Route::prefix('voucher')->name('.voucher.')->group(function () {
+        Route::get('/', [VoucherController::class, 'index'])->name('voucher.index');
+        Route::post('/store', [VoucherController::class, 'store'])->name('voucher.store');
+        Route::delete('delete/{voucher}', [VoucherController::class, 'destroy'])->name('voucher.delete');
+    });
+    
+    Route::prefix('response-letter')->name('.response-letter.')->group(function () {
+        Route::get('/', [ResponseLetterController::class, 'index'])->name('response-letter.index');
+        Route::get('show/student/{responseLetter}', [ResponseLetterController::class, 'show'])->name('response-letter.show');
+    });
+    
+    Route::prefix('online-student')->name('.online-student.')->group(function () {
+        Route::get('mentor-placement', [MentorPlacementController::class, 'index'])->name('placement.index');
+        Route::post('mentor-placement/post/{student}', [MentorPlacementController::class, 'store'])->name('placement.update');
+        Route::put('mentor-placement/edit/{student}', [MentorPlacementController::class, 'update'])->name('placement.delete');
+    });
+
+    Route::prefix('appointmentofmentor')->name('.appointmentofmentor.')->group(function () {
+        Route::get('/', [AppointmentOfAmentorController::class, 'index']);
+        Route::post('store', [AppointmentOfAmentorController::class, 'store']);
+        Route::delete('delete/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'destroy']);
+        Route::put('update/{appointmentOfAmentor}', [AppointmentOfAmentorController::class, 'update']);
+    });
+
+    Route::prefix('menu-siswa')->name('.menu-siswa.')->group(function () {
+        Route::get('/', [AdminStudentController::class, 'index'])->name('student.index');
+        Route::get('create', [AdminStudentController::class, 'create'])->name('student.create');
+        Route::put('administrator/menu-siswa/reset-password/{user}', [AdminStudentController::class, 'reset'])->name('student.update');
+        Route::put('update/{student}', [AdminStudentController::class, 'update']);
+        Route::get('face/{student}', [AdminStudentController::class, 'face'])->name('student.show');
+        Route::delete('delete/{student}', [AdminStudentController::class, 'destroy'])->name('student.delete');
+        Route::put('banned/{student}', [AdminStudentController::class, 'banned'])->name('student.banned');
+        Route::put('division-change/{student}', [AdminStudentController::class, 'divisionchange'])->name('student.divisionchange');
+        Route::put('students-banned/Open/{student}', [StudentController::class, 'Openbanned'])->name('students.banned.open');
+        Route::get('manage-session', [AdminStudentController::class, 'manageSession'])->name('student.managesession');
+        Route::get('manage-session/update/{session}', [StudentController::class, 'changeSessionStudent'])->name('change-session-student');
+    });
+    
+    Route::prefix('students-banned')->name('.students-banned.')->group(function () {
+        Route::get('/', [StudentController::class, 'index'])->name('index');
+        Route::get('email-user', [StudentController::class, 'emailUser'])->name('email-user');
+        Route::delete('email-user/{user}', [StudentController::class, 'emailUserDelete'])->name('email-user.delete');
+    });
+
+    Route::prefix('faces')->name('.faces.')->group(function () {
+        Route::get('/', [FaceController::class, 'index'])->name('index');
+        Route::get('detail/{id}', [FaceController::class, 'show'])->name('detail');
+        Route::post('create', [FaceController::class, 'store'])->name('create');
+        Route::delete('delete/{student}', [FaceController::class, 'destroy'])->name('delete');
+    });
+    
+    Route::prefix('students-rejected')->name('.students-rejected.')->group(function () {
+        Route::get('/', [StudentRejectedController::class, 'index'])->name('index');
+        Route::put('/{student}', [StudentRejectedController::class, 'accept'])->name('accept');
+    });
+
+    Route::prefix('menu-mentor')->name('.menu-mentor.')->group(function () {
+        Route::get('/', [AdminMentorController::class, 'index'])->name('mentor.index');
+        Route::post('store', [AdminMentorController::class, 'store'])->name('mentor.store');
+        Route::put('update/{mentor}', [AdminMentorController::class, 'update'])->name('mentor.update');
+        Route::delete('delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('mentor.delete');
+        Route::get('detail/{mentor}', [AdminMentorController::class, 'show'])->name('mentor.show');
+    });
+
+    Route::prefix('student-progress')->name('.student-progress.')->group(function () {
+        Route::get('presentation',[StudentProgressPresentationController::class,'index'])->name('presentation');
+        Route::get('presentation/detaildone',[StudentProgressPresentationController::class,'show'])->name('presentation.detaildone');
+        Route::get('project',[StudentProgressProjectController::class,'index'])->name('project');
+        Route::get('project/detail',[StudentProgressProjectController::class,'show'])->name('project.detail');
+    });
+
+    Route::prefix('course')->name('.course.')->group(function () {
+        Route::get('/', [AdminCourseController::class, 'index'])->name('home');
+        Route::post('store', [AdminCourseController::class, 'store'])->name('store');
+        Route::put('{course}', [AdminCourseController::class, 'update'])->name('course.update');
+        Route::delete('delete/{course}', [AdminCourseController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('limit')->name('.limit.')->group(function () {
+        Route::post('/', [LimitsController::class, 'store'])->name('store');
+        Route::put('update/{limits}', [LimitsController::class, 'update'])->name('update');
+    });
+
+    Route::prefix('zoom-schedules')->name('.zoom-schedules.')->group(function () {
+        Route::get('/', [ZoomScheduleController::class, 'index'])->name('home');
+        Route::post('store', [ZoomScheduleController::class, 'store'])->name('store');
+        Route::put('/{zoomSchedule}', [ZoomScheduleController::class, 'update'])->name('update');
+        Route::delete('/{zoomSchedule}', [ZoomScheduleController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('alumni-admin')->name('.alumni-admin.')->group(function () {
+        Route::get('/', [AlumniController::class, 'index']);
+        Route::post('store', [AlumniController::class, 'store'])->name('store');
+        Route::delete('delete/{alumni}', [AlumniController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('category-project')->name('.category-project.')->group(function () {
+        Route::get('/', [CategoryProjectController::class, 'index'])->name('index');
+        Route::post('store', [CategoryProjectController::class, 'store'])->name('store');
+        Route::patch('/{categoryProject}', [CategoryProjectController::class, 'update'])->name('update');
+        Route::delete('/{categoryProject}', [CategoryProjectController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('division')->name('.division.')->group(function () {
+        Route::get('/', [DivisionController::class, 'index'])->name('index');
+        Route::post('store', [DivisionController::class, 'store'])->name('store');
+        Route::patch('/{division}', [DivisionController::class, 'update'])->name('update');
+        Route::delete('/{division}', [DivisionController::class, 'destroy'])->name('delete');
+    });
+
+    Route::prefix('offline-students')->name('.offline-students.')->group(function () {
+        Route::get('division-placement', [DivisionPlacementController::class, 'index']);
+        Route::post('division-placement/{student}', [DivisionPlacementController::class, 'divisionplacement'])->name('division-placement');
+        Route::put('division-placement/update/{student}', [DivisionPlacementController::class, 'divisionchange'])->name('division-placement.update');
+        Route::get('team', [AdminStudentTeamController::class, 'index'])->name('admin.team.index');
+        Route::get('team/{slug}', [AdminStudentTeamController::class, 'show'])->name('admin.team.show');
+        Route::get('presentation', [PresentationController::class, 'presentation']);
+    });
+
+    Route::prefix('rfid')->name('.rfid.')->group(function () {
+        Route::get('/', [RfidController::class, 'index']);
+        Route::patch('add/{student}', [RfidController::class, 'store']);
+        Route::patch('update/{student}', [RfidController::class, 'update']);
+    });
+
+    
+    Route::prefix('picket')->name('.picket.')->group(function () {
+        Route::get('/', [PicketController::class, 'index']);
+        Route::delete('/{picket}', [PicketController::class, 'destroy'])->name('delete');
+        Route::post('store', [PicketController::class, 'store'])->name('store');
+        Route::put('/{picket}', [PicketController::class, 'update'])->name('update');
+        Route::post('note-picket/store', [NotePicketController::class, 'store'])->name('note.store');
+        Route::put('note-picket/{notePicket}', [NotePicketController::class, 'update'])->name('note.update');
+        Route::get('report', [PicketingReportController::class, 'index'])->name('report');
+    });
+
+})->middleware(['roles:administrator', 'auth']);
 
 # ================================================ Offline Student Route Group ================================================
-Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function () {
+Route::prefix('student-offline')->name(RolesEnum::OFFLINE->value)->group(function () {
     # Home
     Route::get('/', [StudentOflineController::class, 'index'])->name('.home');
 
@@ -307,6 +331,7 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
     Route::get('/course', [CourseOfflineController::class, 'index'])->name('.course');
     Route::get('/course/detail/{course}', [CourseOfflineController::class, 'show'])->name('.materi.detail');
     Route::get('/course/detail/learn-more/{subCourse}', [CourseOfflineController::class, 'showSub'])->name('.submateri.detail');
+
     # Divisions
     Route::get('division', function () {
         return view('student_offline.division.index');
@@ -314,9 +339,6 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
 
     # Attendances
     Route::get('absensi', [AttendanceController::class, 'attendanceOffline'])->name('.attendances');
-
-    # Pickets
-    Route::get('others/picket', [PicketOfflineController::class, 'index'])->name('.picket');
 
     # Challenges
     Route::get('challenge', [StudentChallengeController::class, 'index'])->name('.challenge');
@@ -347,15 +369,45 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value)->group(function 
     })->name('.certificate');
 
     #Journal
+    Route::get('data/journal', [JournalController::class, 'index'])->name('.journal.index');
     Route::put('journal/{journal}', [JournalController::class, 'update'])->name('.journal.update');
-})->middleware(["roles:siswa-offline", 'auth']);
 
-# Otherss
-Route::post('permission', [PermissionController::class, 'store'])->name('permission.store');
-Route::get('student/data/journal', [JournalController::class, 'index'])->name('journal.index');
+    Route::prefix('task-offline')->name('.task-offline.')->group(function () {
+        Route::get('/', [StudentTaskController::class, 'index'])->name('index');
+        Route::post('store', [StudentTaskController::class, 'store'])->name('store');
+        Route::patch('task/update/{studentTask}', [StudentTaskController::class, 'update'])->name('update');
+    });
+
+    Route::prefix('letterhead')->name('.letterhead.')->group(function () {
+        Route::get('/', [LetterheadController::class, 'indexOffline']);
+        Route::post('letter-head', [LetterheadController::class, 'store'])->name('store');
+        Route::put('letter-head/{letterhead}', [LetterheadController::class, 'update'])->name('update');
+        Route::delete('letter-head/{letterhead}', [LetterheadController::class, 'destroy'])->name('delete');
+    });
+
+    Route::prefix('others')->name('.others.')->group(function () {
+        Route::get('student', [ReportStudentController::class, 'index']);
+        Route::post('student/report', [ReportStudentController::class, 'store'])->name('report.store');
+        Route::get('picket', [PicketOfflineController::class, 'index'])->name('.picket');
+        Route::post('permission', [PermissionController::class, 'store'])->name('.permission.store');
+        Route::get('order', [OrderController::class, 'index'])->name('.my-order');
+    });
+
+    Route::prefix('picket-report')->name('.picket-report.')->group(function () {
+        Route::post('/', [PicketingReportController::class, 'store'])->name('store');
+        Route::put('/{picketingReport}', [PicketingReportController::class, 'update'])->name('update');
+        Route::delete('/{picketingReport}', [PicketingReportController::class, 'destroy'])->name('.delete');
+    });
+
+    Route::prefix('challenge')->name('.challenge.')->group(function () {
+        Route::post('/', [StudentChallengeController::class, 'store']);
+        Route::put('/{studentChallenge}', [StudentChallengeController::class, 'update']);
+    });
+
+})->middleware(["roles:student-offline", 'auth']);
 
 # ================================================ Online Student Route Group =================================================
-Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(RolesEnum::ONLINE->value)->group(function () {
+Route::prefix('student-online')->name(RolesEnum::ONLINE->value)->group(function () {
     # Home
     Route::get('/', [StudentOnlineController::class, 'index'])->name('.home');
 
@@ -388,7 +440,8 @@ Route::prefix('siswa-online')->middleware(['roles:siswa-online', 'auth'])->name(
     Route::get('challenge', [StudentChallengeController::class, 'showOnline']);
     Route::post('challenge/store', [StudentChallengeController::class, 'store'])->name('.challenge_online.store');
     Route::put('challenge/update/{studentChallenge}', [StudentChallengeController::class, 'update'])->name('.challenge_online.update');
-});
+
+})->middleware(['roles:siswa-online', 'auth']);
 
 # Jurnal
 Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('.journal.download');
@@ -488,6 +541,7 @@ Route::post('dashboard/task/detail/{project}/presentation', [\App\Http\Controlle
 Route::get('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'revisionProject'])->name('project.presentation.revision');
 Route::put('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'changeStatusRevision'])->name('project.presentation.revision.changestatus');
 Route::post('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'addRevision'])->name('project.presentation.revision.saveRevision');
+Route::get('dashboard/task/management', [\App\Http\Controllers\ProjectController::class, 'managementProject'])->name('project.management');
 
 
 # Dashboard-Task-Project

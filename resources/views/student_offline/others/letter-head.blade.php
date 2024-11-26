@@ -25,7 +25,7 @@
         </div>
         <div class="col-12">
             @if ($letterheads == null)
-            <form action="{{route('letterhead.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('student-offline.letterhead.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-6">

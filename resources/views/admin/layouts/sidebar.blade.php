@@ -40,7 +40,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('administrator/zoom-schedules') ? 'active' : '' }}"
-                        href="{{ url('/administrator/zoom-schedules') }}">
+                        href="{{ url('administrator/zoom-schedules') }}">
                         <i class=" ri-vidicon-line"></i> <span data-key="t-dashboards">Jadwal Zoom</span>
                     </a>
                 </li>
@@ -56,13 +56,13 @@
                         id="materi">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ url('/administrator/course') }}"
+                                <a href="{{ url('administrator/course') }}"
                                     class="nav-link {{ request()->is('administrator/course*') ? 'active' : '' }}"
                                     data-key="t-chat">Materi
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/administrator/appointmentofmentor"
+                                <a href="{{ url('administrator/appointmentofmentor') }}"
                                     class="nav-link {{ request()->is('administrator/appointmentofmentor') ? 'active' : '' }}"
                                     data-key="t-chat">Penetapan Mentor Materi
                                 </a>
@@ -73,31 +73,35 @@
 
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('product*') ? 'active' : '' }}"
-                        href="{{ url('/product') }}">
+                    {{-- <a class="nav-link menu-link {{ request()->routeIs('administrator.product*') ? 'active' : '' }}"
+                        href="{{ route('administrator.product') }}">
                         <i class=" ri-price-tag-2-line"></i> <span data-key="t-dashboards">Daftar Paket</span>
+                    </a> --}}
+                    <a class="nav-link menu-link {{ request()->routeIs('administrator.product.index') ? 'active' : '' }}"
+                        href="{{ route('administrator.product.index') }}">
+                        <i class="ri-price-tag-2-line"></i> <span data-key="t-dashboards">Daftar Paket</span>
                     </a>
                 </li>
 
-                <li class="nav-item {{ request()->is('/voucher') ? 'active' : '' }}">
-                    <a class="nav-link menu-link {{ request()->is('voucher*') ? 'active' : '' }}"
-                        href="{{ url('/voucher') }}">
+                <li class="nav-item {{ request()->is('administrator/voucher') ? 'active' : '' }}">
+                    <a class="nav-link menu-link {{ request()->is('administrator/voucher*') ? 'active' : '' }}"
+                        href="{{ url('administrator/voucher') }}">
                         <i class=" las la-ticket-alt"></i> <span data-key="t-dashboards">Kode Kupon</span>
                     </a>
                 </li>
                 <li class="menu-title"><span data-key="t-menu">Magang</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarApps1" data-bs-toggle="collapse" role="button"
-                        aria-expanded="{{ request()->is('approval*') ? 'true' : 'false' }}"
+                        aria-expanded="{{ request()->is('administrator/approval*') ? 'true' : 'false' }}"
                         aria-controls="sidebarApps">
                         <i class="ri-bookmark-2-fill"></i> <span data-key="t-apps">Approval</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ request()->is('approval*') ? 'show' : '' }}"
+                    <div class="collapse menu-dropdown {{ request()->is('administrator/approval*') ? 'show' : '' }}"
                         id="sidebarApps1">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ url('/approval') }}"
-                                    class="nav-link {{ request()->is('approval*') ? 'active' : '' }}"
+                                <a href="{{ url('administrator/approval') }}"
+                                    class="nav-link {{ request()->is('administrator/approval*') ? 'active' : '' }}"
                                     data-key="t-chat">Pendaftaran</a>
                             </li>
                             <li class="nav-item {{ request()->is('administrator/permission*') ? 'active' : '' }}">
@@ -112,21 +116,21 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarCharts1" data-bs-toggle="collapse" role="button"
-                        aria-expanded="{{ request()->is('journal*') || request()->is('absent*') ? 'true' : 'false' }}"
+                        aria-expanded="{{ request()->is('administrator/journal*') || request()->is('administrator/absent*') ? 'true' : 'false' }}"
                         aria-controls="sidebarCharts">
                         <i class="ri-article-line"></i> <span data-key="t-charts">Pendataan Admin</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ request()->is('journal*') || request()->is('absent*') ? 'show' : '' }}"
+                    <div class="collapse menu-dropdown {{ request()->is('administrator/journal*') || request()->is('administrator/absent*') ? 'show' : '' }}"
                         id="sidebarCharts1">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ url('/journal') }}"
-                                    class="nav-link {{ request()->is('journal*') ? 'active' : '' }}"
+                                <a href="{{ url('administrator/journal') }}"
+                                    class="nav-link {{ request()->is('administrator/journal*') ? 'active' : '' }}"
                                     data-key="t-chartjs">Jurnal</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/absent') }}"
-                                    class="nav-link {{ request()->is('absent*') ? 'active' : '' }}"
+                                <a href="{{ url('administrator/absent') }}"
+                                    class="nav-link {{ request()->is('administrator/absent*') ? 'active' : '' }}"
                                     data-key="t-echarts">Absensi</a>
                             </li>
                             {{-- <li class="nav-item">
@@ -137,16 +141,16 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button"
-                        aria-expanded="{{ request()->is('response-letter*') || request()->is('warning-letter*') ? 'true' : 'false' }}"
+                        aria-expanded="{{ request()->is('administrator/response-letter*') || request()->is('administrator/warning-letter*') ? 'true' : 'false' }}"
                         aria-controls="sidebarApps">
                         <i class="ri-file-list-3-line"></i> <span data-key="t-surat">Surat</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ request()->is('response-letter*') || request()->is('warning-letter*') ? 'show' : '' }}"
+                    <div class="collapse menu-dropdown {{ request()->is('administrator/response-letter*') || request()->is('administrator/warning-letter*') ? 'show' : '' }}"
                         id="sidebarApps">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ url('/response-letter') }}"
-                                    class="nav-link {{ request()->is('response-letter*') ? 'active' : '' }}"
+                                <a href="{{ url('administrator/response-letter') }}"
+                                    class="nav-link {{ request()->is('administrator/response-letter*') ? 'active' : '' }}"
                                     data-key="t-chat">
                                     Pendaftaran </a>
                             </li>
@@ -158,8 +162,8 @@
                                 <a href="" class="nav-link" data-key="t-api-key">TopUp</a>
                             </li> --}}
                             <li class="nav-item">
-                                <a href="{{ url('/warning-letter') }}"
-                                    class="nav-link {{ request()->is('warning-letter*') ? 'active' : '' }}"
+                                <a href="{{ url('administrator/warning-letter') }}"
+                                    class="nav-link {{ request()->is('administrator/warning-letter*') ? 'active' : '' }}"
                                     data-key="t-api-key">SP</a>
                             </li>
                         </ul>
@@ -168,19 +172,19 @@
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('administrator/institution') ? 'active' : '' }}"
                         {{-- href="{{ route('institution.index') }}"> --}}
-                        href="{{ url('/institution') }}">
+                        href="{{ url('administrator/institution') }}">
                         <i class="ri-community-line"></i> <span data-key="t-dashboards">Sekolah/Universitas</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('division*') ? 'active' : '' }}"
-                        href="{{ url('/division') }}">
+                    <a class="nav-link menu-link {{ request()->is('administrator/division*') ? 'active' : '' }}"
+                        href="{{ url('administrator/division') }}">
                         <i class=" ri-apps-line"></i> <span data-key="t-dashboards">Divisi</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('rfid*') ? 'active' : '' }}"
-                        href="{{ url('/rfid') }}">
+                    <a class="nav-link menu-link {{ request()->is('administrator/rfid*') ? 'active' : '' }}"
+                        href="{{ url('administrator/rfid') }}">
                         <i class="ri-bank-card-line"></i> <span data-key="t-dashboards">RFID</span>
                     </a>
                 </li>
@@ -206,78 +210,79 @@
                 <li class="menu-title"><span data-key="t-menu">Siswa</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarForms" data-bs-toggle="collapse" role="button"
-                        aria-expanded="{{ request()->is('menu-siswa*') || request()->is('menu-mentor*') || request()->is('students-rejected*') || request()->is('students-banned*') ? 'true' : 'false' }}"
+                        aria-expanded="{{ request()->routeIs('administrator.menu-siswa.student.index') || request()->routeIs('administrator.menu-mentor.mentor.index') || request()->routeIs('administrator.students-rejected.index') || request()->routeIs('administrator.students-banned.index') ? 'true' : 'false' }}"
                         aria-controls="sidebarForms">
                         <i class="ri-account-circle-line"></i> <span data-key="t-forms">User</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ request()->is('menu-siswa*') || request()->is('menu-mentor*') || request()->is('students-rejected*') || request()->is('students-banned*') ? 'show' : '' }}"
+                    <div class="collapse menu-dropdown {{ request()->routeIs('administrator.menu-siswa.student.index') || request()->routeIs('administrator.menu-mentor.mentor.index') || request()->routeIs('administrator.students-rejected.index') || request()->routeIs('administrator.students-banned.index') ? 'show' : '' }}"
                         id="sidebarForms">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="/menu-siswa"
-                                    class="nav-link {{ request()->is('menu-siswa*') ? 'active' : '' }}"
+                                <a href="{{ route('administrator.menu-siswa.student.index') }}"
+                                    class="nav-link {{ request()->routeIs('administrator.menu-siswa.student.index') ? 'active' : '' }}"
                                     data-key="t-basic-elements">Siswa</a>
                             </li>
                             <li class="nav-item">
-                                <a href="/faces" class="nav-link {{ request()->is('faces*') ? 'active' : '' }}"
+                                <a href="{{ route('administrator.faces.index') }}"
+                                    class="nav-link {{ request()->routeIs('administrator.faces.index') ? 'active' : '' }}"
                                     data-key="t-basic-elements">Data Wajah</a>
                             </li>
                             <li class="nav-item">
-                                <a href="/menu-mentor"
-                                    class="nav-link {{ request()->is('menu-mentor*') ? 'active' : '' }}"
+                                <a href="{{ route('administrator.menu-mentor.mentor.index') }}"
+                                    class="nav-link {{ request()->routeIs('administrator.menu-mentor.mentor.index') ? 'active' : '' }}"
                                     data-key="t-form-select">Mentor</a>
                             </li>
                             {{-- <li class="nav-item">
                                 <a href="{{ url('/alumni-admin') }}"
-                                    class="nav-link {{ request()->is('alumni*') ? 'active' : '' }}"
+                                    class="nav-link {{ request()->routeIs('alumni*') ? 'active' : '' }}"
                                     data-key="t-checkboxs-radios">Alumni</a>
                             </li> --}}
                             {{-- <li class="nav-item">
-                                <a href="{{ url('/person-in-charge') }}" class="nav-link {{ request()->is('person-in-charge*') ? 'active' : '' }}" data-key="t-pickers">Penanggung Jawab</a>
+                                <a href="{{ url('/person-in-charge') }}" class="nav-link {{ request()->routeIs('person-in-charge*') ? 'active' : '' }}" data-key="t-pickers">Penanggung Jawab</a>
                             </li> --}}
-
                             <li class="nav-item">
-                                <a href="{{ url('/students-rejected') }}"
-                                    class="nav-link {{ request()->is('students-rejected*') ? 'active' : '' }}"
+                                <a href="{{ route('administrator.students-rejected.index') }}"
+                                    class="nav-link {{ request()->routeIs('administrator.students-rejected.index') ? 'active' : '' }}"
                                     data-key="t-advanced">Siswa Ditolak</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/students-banned') }}"
-                                    class="nav-link {{ request()->is('students-banned*') ? 'active' : '' }}"
+                                <a href="{{ route('administrator.students-banned.index') }}"
+                                    class="nav-link {{ request()->routeIs('administrator.students-banned.index') ? 'active' : '' }}"
                                     data-key="t-range-slider">Banned Siswa</a>
                             </li>
                             {{-- <li class="nav-item">
                                 <a href="{{ url('/email-user') }}"
-                                    class="nav-link {{ request()->is('email-user*') ? 'active' : '' }}"
+                                    class="nav-link {{ request()->routeIs('email-user*') ? 'active' : '' }}"
                                     data-key="t-range-slider">Email user</a>
                             </li> --}}
                         </ul>
                     </div>
                 </li>
+                
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#siswaOffline" data-bs-toggle="collapse" role="button"
-                        aria-expanded="{{ request()->is('offline-students/division-placement*') || request()->is('offline-students/team*') || request()->is('offline-students/presentation*') ? 'true' : 'false' }}"
+                        aria-expanded="{{ request()->is('administrator/offline-students/division-placement*') || request()->is('administrator/offline-students/team*') || request()->is('administrator/offline-students/presentation*') ? 'true' : 'false' }}"
                         aria-controls="siswaOffline">
                         <i class="ri-user-line"></i> <span data-key="t-surat">Siswa Offline</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ request()->is('offline-students/division-placement*') || request()->is('offline-students/team*') || request()->is('offline-students/presentation*') ? 'show' : '' }}"
+                    <div class="collapse menu-dropdown {{ request()->is('administrator/offline-students/division-placement*') || request()->is('administrator/offline-students/team*') || request()->is('administrator/offline-students/presentation*') ? 'show' : '' }}"
                         id="siswaOffline">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ url('/offline-students/division-placement') }}"
-                                    class="nav-link {{ request()->is('offline-students/division-placement*') ? 'active' : '' }}"
+                                <a href="{{ url('administrator/offline-students/division-placement') }}"
+                                    class="nav-link {{ request()->is('administrator/offline-students/division-placement*') ? 'active' : '' }}"
                                     data-key="t-chat">
                                     Penempatan Divisi </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/offline-students/team') }}"
-                                    class="nav-link {{ request()->is('offline-students/team*') ? 'active' : '' }}"
+                                <a href="{{ url('administrator/offline-students/team') }}"
+                                    class="nav-link {{ request()->is('administrator/offline-students/team*') ? 'active' : '' }}"
                                     data-key="t-api-key">Tim</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/offline-students/presentation') }}"
-                                    class="nav-link {{ request()->is('offline-students/presentation*') ? 'active' : '' }}"
+                                <a href="{{ url('administrator/offline-students/presentation') }}"
+                                    class="nav-link {{ request()->is('administrator/offline-students/presentation*') ? 'active' : '' }}"
                                     data-key="t-api-key">Presentasi</a>
                             </li>
 
@@ -286,16 +291,16 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#siswaOnline" data-bs-toggle="collapse" role="button"
-                        aria-expanded="{{ request()->is('online-student/menotor-placement*') ? 'true' : 'false' }}"
+                        aria-expanded="{{ request()->is('administrator/online-student/mentor-placement*') ? 'true' : 'false' }}"
                         aria-controls="siswaOnline">
                         <i class="ri-user-line"></i> <span data-key="t-surat">Siswa Online</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ request()->is('online-student/menotor-placement*') ? 'show' : '' }}"
+                    <div class="collapse menu-dropdown {{ request()->is('administrator/online-student/mentor-placement*') ? 'show' : '' }}"
                         id="siswaOnline">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ url('/online-student/menotor-placement') }}"
-                                    class="nav-link {{ request()->is('online-student/menotor-placement*') ? 'active' : '' }}"
+                                <a href="{{ url('administrator/online-student/mentor-placement') }}"
+                                    class="nav-link {{ request()->is('administrator/online-student/mentor-placement*') ? 'active' : '' }}"
                                     data-key="t-chat">
                                     Penetapan Mentor </a>
                             </li>
@@ -317,17 +322,18 @@
 
                 <li class="menu-title"><span data-key="t-menu">Progres Siswa</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('administrator') ? 'active' : '' }}"
-                        href="{{ url('administrator/student-progress/presentation') }}">
+                    <a class="nav-link menu-link {{ request()->routeIs('administrator.student-progress.presentation') ? 'active' : '' }}"
+                        href="{{ route('administrator.student-progress.presentation') }}">
                         <i class="ri-user-line"></i> <span data-key="t-dashboards">Presentasi</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('administrator/zoom-schedules') ? 'active' : '' }}"
-                        href="{{ url('administrator/student-progress/project') }}">
-                        <i class=" ri-user-line"></i> <span data-key="t-dashboards">Proyek</span>
+                    <a class="nav-link menu-link {{ request()->routeIs('administrator.student-progress.project') ? 'active' : '' }}"
+                        href="{{ route('administrator.student-progress.project') }}">
+                        <i class="ri-user-line"></i> <span data-key="t-dashboards">Proyek</span>
                     </a>
                 </li>
+
 
 
                 <li class="nav-item">
@@ -339,11 +345,11 @@
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
-                                <a href="/picket" class="nav-link" data-key="t-chartjs">
+                                <a href="{{ route('administrator.picket.') }}" class="nav-link" data-key="t-chartjs">
                                     Jadwal Piket </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/report') }}" class="nav-link" data-key="t-echarts"> Laporan Piket
+                                <a href="{{ route('administrator.picket.report') }}" class="nav-link" data-key="t-echarts"> Laporan Piket
                                 </a>
                             </li>
                         </ul>

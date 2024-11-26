@@ -274,7 +274,7 @@ class UserSeeder extends Seeder
             'phone' => '0812900685',
             'acepted' => '1',
             'status' => 'accepted',
-            'division_id' => null,
+            'division_id' => '1',
             'school' => 'SMKN 1 KEPANJEN',
             'parents_statement' => 'Pernyataan Orang Tua Dummy',
             'self_statement' => 'Pernyataan Diri Dummy',

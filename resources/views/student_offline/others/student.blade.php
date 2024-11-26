@@ -114,7 +114,7 @@
                 <h5 class="modal-title" id="laporModalLabel">Laporkan Masalah</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('report.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('student-offline.picket-report.store') }}" method="POST" enctype="multipart/form-data">
             <div class="modal-body">
                     @csrf
                     <div class="mb-3">

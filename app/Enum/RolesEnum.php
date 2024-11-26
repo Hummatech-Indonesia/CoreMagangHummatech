@@ -6,8 +6,8 @@ enum RolesEnum: string
 {
     case ADMIN = 'administrator';
     case MENTOR = 'mentor';
-    case ONLINE = 'siswa-online';
-    case OFFLINE = 'siswa-offline';
+    case ONLINE = 'student-online';
+    case OFFLINE = 'student-offline';
     case SCHOOL = 'sekolah';
 
     public function color(): string

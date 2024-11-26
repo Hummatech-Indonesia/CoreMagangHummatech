@@ -140,7 +140,7 @@
                     <h5 class="modal-title" id="varyingcontentModalLabel">Kategori Projek Baru</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('category-project.store') }}" method="POST">
+                <form action="{{ route('administrator.category-project.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-1">

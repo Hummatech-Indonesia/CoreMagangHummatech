@@ -345,7 +345,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('picket.store') }}" method="POST">
+                    <form action="{{ route('administrator.picket.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">Waktu</label>
@@ -461,7 +461,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('note.store') }}" method="POST">
+                    <form action="{{ route('administrator.picket.note.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="noteText">Catatan</label>

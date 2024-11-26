@@ -264,7 +264,7 @@
                         <div class="card">
                             <div class="row align-items-end">
                                 <div class="card-body mx-3">
-                                    <form action="{{ route('maxlate.store') }}" method="POST">
+                                    <form action="{{ route('administrator.absent.maxlate.store') }}" method="POST">
                                         @csrf
                                         @method('PATCH')
                                         <label class="form-label" for="valueInput" style="font-size: 16px">Atur Maksimal
@@ -457,7 +457,7 @@
                         <div class="card-body">
                             <div class="tab-content p-0">
                                 <div class="tab-pane active" id="monday" role="tabpanel">
-                                    <form action="{{ route('attendance-rule.store') }}" method="post">
+                                    <form action="{{ route('administrator.attendance-rule.store') }}" method="post">
                                         @csrf
                                         <input name="day" type="hidden" value="monday">
                                         <label class="form-label" for="exampleInputtime">Masuk :</label>
@@ -524,7 +524,7 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane" id="tuesday" role="tabpanel">
-                                    <form action="{{ route('attendance-rule.store') }}" method="post">
+                                    <form action="{{ route('administrator.attendance-rule.store') }}" method="post">
                                         @csrf
                                         <input name="day" type="hidden" value="tuesday">
                                         <label class="form-label" for="exampleInputtime">Masuk :</label>
@@ -591,7 +591,7 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane" id="wednesday" role="tabpanel">
-                                    <form action="{{ route('attendance-rule.store') }}" method="post">
+                                    <form action="{{ route('administrator.attendance-rule.store') }}" method="post">
                                         @csrf
                                         <input name="day" type="hidden" value="wednesday">
                                         <label class="form-label" for="exampleInputtime">Masuk :</label>
@@ -658,7 +658,7 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane" id="thursday" role="tabpanel">
-                                    <form action="{{ route('attendance-rule.store') }}" method="post">
+                                    <form action="{{ route('administrator.attendance-rule.store') }}" method="post">
                                         @csrf
                                         <input name="day" type="hidden" value="thursday">
                                         <label class="form-label" for="exampleInputtime">Masuk :</label>
@@ -725,7 +725,7 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane" id="friday" role="tabpanel">
-                                    <form action="{{ route('attendance-rule.store') }}" method="post">
+                                    <form action="{{ route('administrator.attendance-rule.store') }}" method="post">
                                         @csrf
                                         <input name="day" type="hidden" value="friday">
                                         <label class="form-label" for="exampleInputtime">Masuk :</label>

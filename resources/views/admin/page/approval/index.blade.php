@@ -459,7 +459,7 @@
                 <div class="modal-body p-2 text-center">
                     <div class="mt-3 mx-3">
                         <h4>Nomor surat</h4>
-                        <form action="{{ route('approval.acceptMultiple') }}" id="form-accepted" method="POST">
+                        <form action="{{ route('administrator.approval.acceptMultiple') }}" id="form-accepted" method="POST">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="selected_ids" id="selected_ids">

@@ -33,7 +33,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <form action="{{ route('attendance.admin.export.excel') }}" method="get">
+                                <form action="{{ route('administrator.absent.export.excel') }}" method="get">
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <label for="yearInput" class="form-label">Tahun</label>

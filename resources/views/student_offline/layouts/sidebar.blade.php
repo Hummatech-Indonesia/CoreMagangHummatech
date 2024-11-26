@@ -73,7 +73,7 @@
                 <!-- Dashboard -->
                 <!-- =================== -->
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/siswa-offline" aria-expanded="false">
+                    <a class="sidebar-link" href="/student-offline" aria-expanded="false">
                         <span>
                             <i class="ti ti-aperture"></i>
                         </span>
@@ -81,7 +81,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/student/data/journal" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('student-offline.journal.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-calendar"></i>
                         </span>
@@ -89,7 +89,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ url('/siswa-offline/absensi') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ url('/student-offline/absensi') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-presentation-analytics"></i>
                         </span>
@@ -137,7 +137,7 @@
                 </a>
                 </li> --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('my-order') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ url ('student-offline/order') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-list"></i>
                         </span>
@@ -161,7 +161,7 @@
                     </a>
                     <ul class="collapse first-level">
                         <li class="sidebar-item">
-                            <a href="{{ url('siswa-offline/transaction/topUp') }}" class="sidebar-link">
+                            <a href="{{ url('student-offline/transaction/topUp') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
@@ -169,7 +169,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{ url('siswa-offline/transaction/history') }}" class="sidebar-link">
+                            <a href="{{ url('student-offline/transaction/history') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
@@ -179,7 +179,7 @@
                     </ul>
                 </li> -->
                 <li class="sidebar-item">
-                    <a href="{{ url('/siswa-offline/letter-head') }}" class="sidebar-link">
+                    <a href="{{ url('student-offline/letterhead') }}" class="sidebar-link">
                         <div class="round-16 d-flex align-items-center justify-content-center">
                             <i class="ti ti-notes"></i>
                         </div>
@@ -204,7 +204,7 @@
                             </a>
                         </li> -->
                         <li class="sidebar-item">
-                            <a href="{{ url('siswa-offline/others/picket') }}" class="sidebar-link">
+                            <a href="{{ url('student-offline/others/picket') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
@@ -212,7 +212,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{ url('siswa-offline/others/student') }}" class="sidebar-link">
+                            <a href="{{ url('student-offline/others/student') }}" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
