@@ -137,7 +137,7 @@
                 </a>
                 </li> --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ url ('student-offline/order') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ url ('order') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-list"></i>
                         </span>

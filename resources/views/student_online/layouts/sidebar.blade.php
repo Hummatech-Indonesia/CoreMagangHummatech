@@ -86,7 +86,7 @@
                 <!-- Dashboard -->
                 <!-- =================== -->
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/siswa-online" aria-expanded="false">
+                    <a class="sidebar-link" href="/student-online" aria-expanded="false">
                         <span>
                             <i class="ti ti-dashboard"></i>
                         </span>
