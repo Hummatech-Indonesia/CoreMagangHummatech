@@ -19,6 +19,7 @@ use App\Models\DataAdmin;
 use App\Models\Letterhead;
 use App\Models\Signature;
 use App\Models\Student;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -155,7 +156,6 @@ class JournalController extends Controller
         ini_set('max_execution_time', 300); // 5 menit
         ini_set('memory_limit', '512M');
 
-
         // Validasi data dari request
         $request->validate([
             'year' => 'required|digits:4',
@@ -171,7 +171,10 @@ class JournalController extends Controller
         $header = Letterhead::where('user_id', auth()->user()->id)->first();
         $datadiri = Student::where('id', auth()->user()->student->id)->first();
 
-        // Ambil tahun dan bulan dari request
+        if ($header == null) {
+            return redirect()->back()->with('warning', 'Harap mengisi kop surat terlebih dahulu');
+        }
+
         $year = $request->input('year');
         $month = $request->input('month');
         $monthName = \Carbon\Carbon::createFromFormat('m', $month)->format('F');
@@ -182,59 +185,27 @@ class JournalController extends Controller
             return \Carbon\Carbon::parse($date->created_at)->format('Y-m');
         });
 
-        // Cek apakah kop surat sudah ada
-        if ($header == null) {
-            return redirect()->back()->with('warning', 'Harap mengisi kop surat terlebih dahulu');
-        }
-
-        $dompdf = new Dompdf();
-        $options = new Options();
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isPhpEnabled', true);
-        $options->set('isRemoteEnabled', true);
-        $dompdf->setOptions($options);
-
-        $dataadmin = DataAdmin::query()->first();
-
-        // Buat QR code sekali saja (untuk mengurangi beban loop)
+        // Buat QR code hanya sekali
         $qrCode = QrCode::size(100)->generate(url('/data-qr/sample'));
         $qrCodeImage = 'data:image/png;base64,' . base64_encode($qrCode);
 
-        // Gunakan streaming untuk menghindari timeout
-        return Response::streamDownload(function () use (
-            $months,
-            $dompdf,
-            $header,
-            $datadiri,
-            $qrCodeImage,
-            $year,
-            $month
-        ) {
-            foreach ($months as $monthKey => $jurnals) {
-                // Render HTML untuk PDF
-                $html = view('desain_pdf.jurnal', [
-                    'data' => $jurnals,
-                    'month' => $monthKey,
-                    'letterheads' => $header,
-                    'datadiri' => $datadiri,
-                    'qrCodeImage' => $qrCodeImage,
-                    'year' => $year,
-                    'month' => $month
-                ])->render();
+        // Render HTML untuk semua data sekaligus
+        $html = view('desain_pdf.jurnal', [
+            'dataGroupedByMonth' => $months,
+            'letterheads' => $header,
+            'datadiri' => $datadiri,
+            'qrCodeImage' => $qrCodeImage,
+            'year' => $year,
+            'month' => $month,
+        ])->render();
 
-                // Render PDF untuk bulan ini
-                $dompdf->loadHtml($html);
-                $dompdf->setPaper('A4', 'portrait');
-                $dompdf->render();
+        // Buat PDF
+        $pdf = Pdf::loadHTML($html)->setPaper('A4', 'portrait');
 
-                // Kirim output PDF ke browser
-                echo $dompdf->output();
+        // Beri nama file PDF
+        $fileName = "Jurnal_{$userName}_{$monthName}.pdf";
 
-                // Bersihkan memori untuk iterasi berikutnya
-                unset($html, $jurnals);
-            }
-        }, "Jurnal {$userName} - {$monthName}.pdf", [
-            'Content-Type' => 'application/pdf',
-        ]);
+        // Unduh PDF
+        return $pdf->download($fileName);
     }
 }
