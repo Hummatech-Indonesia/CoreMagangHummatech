@@ -103,14 +103,14 @@ Route::get('statement-parent', [StatementController::class, 'parent'])->name('st
 Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function () {
 
     # Dashboard Home
-    Route::get('administrator', [AdminController::class, 'index'])->name('.home');
+    Route::get('/', [AdminController::class, 'index'])->name('.dashboard.home');
 
     # Data Admin
-    Route::put('data-admin/update/{datauser}', [DataAdminController::class, 'update'])->name('data-admin.update');
+    Route::put('data-admin/update/{datauser}', [DataAdminController::class, 'update'])->name('.data-admin.update');
 
     # Data CEO
-    Route::post('dataceo/store', [DataCOController::class, 'store']);
-    Route::put('dataceo/update/{dataAdmin}', [DataCOController::class, 'update']);
+    Route::post('dataceo/store', [DataCOController::class, 'store'])->name('.data-ceo.store');
+    Route::put('dataceo/update/{dataAdmin}', [DataCOController::class, 'update'])->name('.data-ceo.update');
 
     # Journals
     Route::get('journal', [AdminJournalController::class, 'index']);
@@ -118,10 +118,10 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
     # Announcement
     Route::get('announcement', function () {
         return view('admin.page.announcement.index');
-    });
+    })->name('.announcement');
     
     # Presentations
-    Route::get('presentation', [PresentationController::class, 'show']);
+    Route::get('presentation', [PresentationController::class, 'show'])->name('.presentation');
     
     # Institutions
     Route::resource('institution', InstitutionController::class)->except(['show', 'create', 'edit']);
