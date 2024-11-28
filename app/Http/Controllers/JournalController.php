@@ -160,11 +160,17 @@ class JournalController extends Controller
             'month' => 'required|integer|min:1|max:12',
         ]);
 
-        // Ambil data
-        $data = Journal::where('student_id', auth()->user()->student->id)
+        // Ambil data dalam potongan kecil untuk efisiensi
+        $months = [];
+        Journal::where('student_id', auth()->user()->student->id)
             ->whereYear('created_at', $request->input('year'))
             ->whereMonth('created_at', $request->input('month'))
-            ->get();
+            ->chunk(100, function ($jurnals) use (&$months) {
+                foreach ($jurnals as $journal) {
+                    $monthKey = \Carbon\Carbon::parse($journal->created_at)->format('Y-m');
+                    $months[$monthKey][] = $journal;
+                }
+            });
 
         $header = Letterhead::where('user_id', auth()->user()->id)->first();
         $datadiri = Student::where('id', auth()->user()->student->id)->first();
@@ -174,11 +180,6 @@ class JournalController extends Controller
             return redirect()->back()->with('warning', 'Harap mengisi kop surat terlebih dahulu');
         }
 
-        // Kelompokkan data berdasarkan bulan
-        $months = $data->groupBy(function ($date) {
-            return \Carbon\Carbon::parse($date->created_at)->format('Y-m');
-        });
-
         // Siapkan Dompdf
         $dompdf = new Dompdf();
         $options = new Options();
@@ -187,7 +188,7 @@ class JournalController extends Controller
         $options->set('isRemoteEnabled', true);
         $dompdf->setOptions($options);
 
-        $outputFiles = []; // Untuk menyimpan path file PDF sementara
+        $combinedHtml = ''; // Untuk menggabungkan semua halaman PDF
         $dataadmin = DataAdmin::query()->first();
 
         // Proses setiap bulan
@@ -204,7 +205,7 @@ class JournalController extends Controller
             $signature->qr = $qrCodeImage;
             $signature->save();
 
-            // Render HTML untuk PDF
+            // Render HTML untuk bulan ini
             $html = view('desain_pdf.jurnal', [
                 'data' => $jurnals,
                 'month' => $monthKey,
@@ -215,38 +216,29 @@ class JournalController extends Controller
                 'month' => $request->input('month')
             ])->render();
 
-            // Render PDF
-            $dompdf->loadHtml($html);
-            $dompdf->setPaper('A4', 'portrait');
-            $dompdf->render();
-
-            // Simpan PDF sementara
-            $filePath = storage_path("app/public/pdf/{$monthKey}.pdf");
-            file_put_contents($filePath, $dompdf->output());
-            $outputFiles[] = $filePath;
+            // Tambahkan HTML ke dokumen gabungan
+            $combinedHtml .= $html;
 
             // Bersihkan memori
             unset($html, $signature, $qrCode, $qrCodeImage, $jurnals);
         }
 
-        // Gabungkan semua file PDF ke dalam ZIP
-        $zipPath = storage_path("app/public/pdf/journal_" . auth()->user()->name . ".zip");
-        $zip = new \ZipArchive();
-        if ($zip->open($zipPath, \ZipArchive::CREATE) === true) {
-            foreach ($outputFiles as $file) {
-                $zip->addFile($file, basename($file)); // Tambahkan file ke ZIP
-            }
-            $zip->close();
-        }
+        // Render HTML gabungan menjadi PDF
+        $dompdf->loadHtml($combinedHtml);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
 
-        // Hapus file PDF sementara
-        foreach ($outputFiles as $file) {
-            if (file_exists($file)) {
-                unlink($file);
-            }
-        }
+        // Nama file PDF
+        $year = $request->input('year');
+        $month = $request->input('month');
+        $monthName = \Carbon\Carbon::createFromFormat('m', $month)->format('F');
+        $userName = auth()->user()->name;
+        $fileName = "Jurnal_{$userName}_{$year}_{$monthName}.pdf";
 
-        // Kembalikan file ZIP untuk diunduh
-        return response()->download($zipPath)->deleteFileAfterSend();
+        // Kembalikan file PDF untuk diunduh
+        return response($dompdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => "attachment; filename=\"{$fileName}\""
+        ]);
     }
 }
