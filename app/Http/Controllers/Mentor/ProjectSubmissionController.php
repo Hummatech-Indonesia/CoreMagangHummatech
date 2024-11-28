@@ -31,13 +31,13 @@ class ProjectSubmissionController extends Controller
         $search = $request->input('search');
     
         $waiting_projects = $this->project
-            ->where('status', 'waiting', 3, ['*'], 'waiting_page');
+            ->where('status', 'waiting', 6, ['*'], 'waiting_page');
     
         $history_projects = $this->project
-            ->whereIn('status', ['accept', 'rejected'], 3, ['*'], 'history_page');
+            ->whereIn('status', ['accept', 'rejected'], 6, ['*'], 'history_page');
     
         $complete_projects = $this->project
-            ->where('status_project', 'completed', 3, ['*'], 'complete_page'); 
+            ->where('status_project', 'completed', 6, ['*'], 'complete_page'); 
     
         return view('mentor.project-submission2.index', compact('waiting_projects', 'history_projects', 'search', 'complete_projects'));
     }

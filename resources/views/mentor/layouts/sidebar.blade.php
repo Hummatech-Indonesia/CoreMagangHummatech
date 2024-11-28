@@ -71,7 +71,7 @@
                         <span class="hide-menu">Pengajuan Projek</span>
                     </a>
                 </li> --}}
-                <li class="sidebar-item {{ Route::is('mentor.project-submissions.index', 'mentor.project-submissions.show') ? 'selected' : '' }}">
+                <li class="sidebar-item {{ Route::is('mentor.project-submissions.index', 'mentor.project-submissions.show', 'mentor.project-submissions.revision') ? 'selected' : '' }}">
                     <a class="sidebar-link" href="{{ route('mentor.project-submissions.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-slideshow"></i>
