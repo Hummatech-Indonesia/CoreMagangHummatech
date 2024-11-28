@@ -150,17 +150,17 @@ class JournalController extends Controller
 
     public function downloadPDF(Request $request)
     {
-        // Set waktu eksekusi tidak terbatas
-        ini_set('max_execution_time', 0);
-        ini_set('memory_limit', '256M');
+        // Set waktu eksekusi dan memori
+        ini_set('max_execution_time', 300); // 5 menit
+        ini_set('memory_limit', '512M'); // 512MB
 
-        // Validasi data dari request
+        // Validasi input
         $request->validate([
             'year' => 'required|digits:4',
             'month' => 'required|integer|min:1|max:12',
         ]);
 
-        // Ambil data yang diperlukan
+        // Ambil data
         $data = Journal::where('student_id', auth()->user()->student->id)
             ->whereYear('created_at', $request->input('year'))
             ->whereMonth('created_at', $request->input('month'))
@@ -169,22 +169,17 @@ class JournalController extends Controller
         $header = Letterhead::where('user_id', auth()->user()->id)->first();
         $datadiri = Student::where('id', auth()->user()->student->id)->first();
 
-        // Ambil tahun dan bulan dari request
-        $year = $request->input('year');
-        $month = $request->input('month');
-        $monthName = \Carbon\Carbon::createFromFormat('m', $month)->format('F');
-        $userName = auth()->user()->name;
+        // Cek kop surat
+        if (!$header) {
+            return redirect()->back()->with('warning', 'Harap mengisi kop surat terlebih dahulu');
+        }
 
         // Kelompokkan data berdasarkan bulan
         $months = $data->groupBy(function ($date) {
             return \Carbon\Carbon::parse($date->created_at)->format('Y-m');
         });
 
-        // Cek apakah kop surat sudah ada
-        if ($header == null) {
-            return redirect()->back()->with('warning', 'Harap mengisi kop surat terlebih dahulu');
-        }
-
+        // Siapkan Dompdf
         $dompdf = new Dompdf();
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
@@ -192,11 +187,12 @@ class JournalController extends Controller
         $options->set('isRemoteEnabled', true);
         $dompdf->setOptions($options);
 
-        $outputFiles = []; // Array untuk menyimpan hasil PDF tiap bulan
+        $outputFiles = []; // Untuk menyimpan path file PDF sementara
         $dataadmin = DataAdmin::query()->first();
 
+        // Proses setiap bulan
         foreach ($months as $monthKey => $jurnals) {
-            // Buat signature dan QR code
+            // Generate QR code
             $signature = Signature::create([
                 'qr' => '',
                 'data_admin_id' => $dataadmin->id
@@ -215,35 +211,42 @@ class JournalController extends Controller
                 'letterheads' => $header,
                 'datadiri' => $datadiri,
                 'qrCodeImage' => $qrCodeImage,
-                'year' => $year,
-                'month' => $month
+                'year' => $request->input('year'),
+                'month' => $request->input('month')
             ])->render();
 
-            // Render PDF untuk bulan ini
+            // Render PDF
             $dompdf->loadHtml($html);
             $dompdf->setPaper('A4', 'portrait');
             $dompdf->render();
 
-            // Simpan hasil render ke array
-            $outputFiles[] = $dompdf->output();
+            // Simpan PDF sementara
+            $filePath = storage_path("app/public/pdf/{$monthKey}.pdf");
+            file_put_contents($filePath, $dompdf->output());
+            $outputFiles[] = $filePath;
 
             // Bersihkan memori
             unset($html, $signature, $qrCode, $qrCodeImage, $jurnals);
         }
 
-        // Gabungkan semua hasil PDF
-        $combinedOutput = implode('', $outputFiles);
+        // Gabungkan semua file PDF ke dalam ZIP
+        $zipPath = storage_path("app/public/pdf/journal_" . auth()->user()->name . ".zip");
+        $zip = new \ZipArchive();
+        if ($zip->open($zipPath, \ZipArchive::CREATE) === true) {
+            foreach ($outputFiles as $file) {
+                $zip->addFile($file, basename($file)); // Tambahkan file ke ZIP
+            }
+            $zip->close();
+        }
 
-        // Bersihkan memori
-        unset($outputFiles);
+        // Hapus file PDF sementara
+        foreach ($outputFiles as $file) {
+            if (file_exists($file)) {
+                unlink($file);
+            }
+        }
 
-        // Nama file PDF
-        $fileName = "Jurnal {$userName} - {$monthName}.pdf";
-
-        // Kembalikan respons dengan file PDF
-        return response($combinedOutput, 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => "attachment; filename=\"{$fileName}\""
-        ]);
+        // Kembalikan file ZIP untuk diunduh
+        return response()->download($zipPath)->deleteFileAfterSend();
     }
 }
