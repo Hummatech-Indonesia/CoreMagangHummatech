@@ -58,24 +58,19 @@
                 </div>
 
                 <div class="card card-body">
-                    @if ($project->getProjectStatus()->label() === \App\Enum\TaskStatusEnum::COMPLETED)
-                        <div class="col-md-12 mb-3">
-                            <h6 class="fw-semibold">Status</h6>
+                    <div class="col-md-3 mb-3">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore, saepe quo tenetur earum voluptate distinctio vitae voluptatem dolores nesciunt? Animi doloremque recusandae ducimus velit, ipsum nisi beatae pariatur sequi laboriosam?                       <h6 class="fw-semibold">Status</h6>
 
-                                <span class="{{ $project->getProjectStatus()->color() }} px-2 py-1 rounded-pill">
-                                    {{ $project->getProjectStatus()->label() }}
-                                </span>
-
-                        </div>
-                    @else
-                        <div class="col-md-3 mb-3">
-                            <h6 class="fw-semibold">Status</h6>
+                        @if ($project->getProjectStatus()->label() === \App\Enum\TaskStatusEnum::COMPLETED)
+                            <span class="{{ $project->getProjectStatus()->color() }} px-2 py-1 rounded-pill">
+                                {{ $project->getProjectStatus()->label() }}
+                            </span>
+                        @else
                             <span class="{{ $project->getStatus()->color() }} px-2 py-1 rounded-pill">
                                 {{ $project->getStatus()->label() }}
                             </span>
-                        </div>
-                    @endif
-
+                        @endif
+                    </div>
 
                     <div class="mb-3">
                         <h6 class="fw-semibold">Kategori Project</h6>
