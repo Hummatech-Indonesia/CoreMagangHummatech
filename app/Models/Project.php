@@ -55,6 +55,6 @@ class Project extends Model
     {
         return $this->status_project instanceof TaskStatusEnum
             ? $this->status_project
-            : TaskStatusEnum::tryFrom($this->status_project) ?? TaskStatusEnum::PENDING;
+            : TaskStatusEnum::tryFrom($this->status_project) ?? TaskStatusEnum::INPPROGRESS;
     }
 }
