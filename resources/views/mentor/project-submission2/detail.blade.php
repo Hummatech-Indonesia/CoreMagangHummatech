@@ -59,8 +59,7 @@
 
                 <div class="card card-body">
                     <div class="col-md-3 mb-3">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore, saepe quo tenetur earum voluptate distinctio vitae voluptatem dolores nesciunt? Animi doloremque recusandae ducimus velit, ipsum nisi beatae pariatur sequi laboriosam?                       <h6 class="fw-semibold">Status</h6>
-
+        
                         @if ($project->getProjectStatus()->label() === \App\Enum\TaskStatusEnum::COMPLETED)
                             <span class="{{ $project->getProjectStatus()->color() }} px-2 py-1 rounded-pill">
                                 {{ $project->getProjectStatus()->label() }}

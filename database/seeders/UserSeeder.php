@@ -127,6 +127,7 @@ class UserSeeder extends Seeder
             'password' => 'password',
             'internship_type' => 'online'
         ]);
+        
         $student[] = Student::factory()->create([
             'name' => 'FEMAS AKBAR FATURROHIM',
             'email' => 'femas@gmail.com',
@@ -154,6 +155,7 @@ class UserSeeder extends Seeder
             'password' => 'password',
             'internship_type' => 'online'
         ]);
+
         $studentoffline = Student::factory()->create([
             'name' => 'AHMAD JAILANI',
             'email' => 'ahmad@gmail.com',
