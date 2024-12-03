@@ -80,9 +80,9 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
         $data['status'] = ProjectAcceptStatus::ACCEPT->value;
         $data['mentor_id'] = Auth::user()->mentors_id;
 
-//        $this->model->query()
-//            ->where('id', '!=', $id)
-//            ->delete();
+        //        $this->model->query()
+        //            ->where('id', '!=', $id)
+        //            ->delete();
         return $this->model->query()->findOrFail($id)->update($data);
     }
 
@@ -149,19 +149,12 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
 
     public function getProjectWithRevision(int $projectId, $parameter = null, $value = null)
     {
-
-        $query = $this->model->query()
-            ->with('presentation.revision')
-            ->where('id', $projectId);
-
-
-        if ($parameter && $value) {
-            $query->whereHas('presentation.revision', function ($query) use ($parameter, $value) {
-                $query->where($parameter, $value);
-            });
-        }
-
-        return $query->first();
-
+        return $this->model->query()
+            ->with(['presentation.revision' => function ($query) use ($parameter, $value) {
+                if ($parameter && $value) {
+                    $query->where($parameter, $value);
+                }
+            }])
+            ->find($projectId);
     }
 }

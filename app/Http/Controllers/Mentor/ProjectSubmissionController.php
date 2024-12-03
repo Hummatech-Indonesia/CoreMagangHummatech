@@ -81,11 +81,14 @@ class ProjectSubmissionController extends Controller
     {
 
         $revisions = $this->project->getProjectWithRevision($project->id);
+
         $todo_revisions = $this->project->getProjectWithRevision($project->id, 'status', RevisionStatusEnum::Todo->value);
+
         $inprogress_revisions = $this->project->getProjectWithRevision($project->id, 'status', RevisionStatusEnum::InProgress->value);
         $complete_revisions = $this->project->getProjectWithRevision($project->id, 'status', RevisionStatusEnum::Completed->value);
 
+        // dd($complete_revisions->presentation->revision );
 
-        return view('mentor.project-submission2.revision', compact('project', 'revisions'));
+        return view('mentor.project-submission2.revision', compact('project', 'revisions', 'todo_revisions', 'inprogress_revisions', 'complete_revisions'));
     }
 }

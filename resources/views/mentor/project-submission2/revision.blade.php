@@ -41,14 +41,14 @@
         </div>
         <ul class="nav nav-pills p-3 mb-3 rounded align-items-center card flex-row">
             <li class="nav-item">
-                <a data-bs-toggle="tab" href="#project-submissions" role="tab"
-                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color {{ request()->has('waiting_page') || !request()->hasAny(['waiting_page', 'history_page', 'complete_page']) ? 'active' : '' }}">
+                <a data-bs-toggle="tab" href="#all-revisions" role="tab"
+                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color active">
                     <i class="ti ti-list fill-white me-0 me-md-1  fs-7"></i>
                     <span class="d-none d-md-block font-weight-medium">Semua</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a data-bs-toggle="tab" href="#project-submissions" role="tab"
+                <a data-bs-toggle="tab" href="#todo-revisions" role="tab"
                     class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color">
                     <i class="ti ti-clock-hour-3 fill-white me-0 me-md-1  fs-7"></i>
                     <span class="d-none d-md-block font-weight-medium">Menunggu</span>
@@ -73,8 +73,9 @@
         <div class="card card-body">
             <div class="table-responsive">
 
+                <div class="tab-content">
                 {{-- Semua Revisi --}}
-                <div class="tab-pane {{ request()->has('waiting_page') || !request()->hasAny(['waiting_page', 'history_page', 'complete_page']) ? 'active' : '' }}">
+                <div class="tab-pane active" id="all-revisions" role="tabpanel">
                     <table class="table mb-0 align-middle text-nowrap ">
                         <thead>
                             <tr>
@@ -127,6 +128,7 @@
 
                 <!-- completed revision -->
                 @include('mentor.project-submission2.partials.complete-revision')
+            </div>
             </div>
         </div>
     </div>
