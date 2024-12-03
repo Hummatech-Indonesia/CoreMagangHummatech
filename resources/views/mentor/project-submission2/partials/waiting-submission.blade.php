@@ -1,4 +1,4 @@
-<div class="tab-pane {{ request()->has('waiting_page') || !request()->hasAny(['waiting_page', 'history_page', 'complete_page']) ? 'active' : '' }}"
+    <div class="tab-pane {{ request()->has('waiting_page') || !request()->hasAny(['waiting_page', 'history_page', 'complete_page']) ? 'active' : '' }}"
     id="project-submissions" role="tabpanel">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-4">
         @forelse ($waiting_projects as $project)

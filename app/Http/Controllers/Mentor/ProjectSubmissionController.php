@@ -11,6 +11,7 @@ use App\Contracts\Interfaces\ProjectInterface;
 use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\CategoryProjectInterface;
+use App\Enum\RevisionStatusEnum;
 
 class ProjectSubmissionController extends Controller
 {
@@ -29,16 +30,16 @@ class ProjectSubmissionController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-    
+
         $waiting_projects = $this->project
             ->where('status', 'waiting', 6, ['*'], 'waiting_page');
-    
+
         $history_projects = $this->project
             ->whereIn('status', ['accept', 'rejected'], 6, ['*'], 'history_page');
-    
+
         $complete_projects = $this->project
-            ->where('status_project', 'completed', 6, ['*'], 'complete_page'); 
-    
+            ->where('status_project', 'completed', 6, ['*'], 'complete_page');
+
         return view('mentor.project-submission2.index', compact('waiting_projects', 'history_projects', 'search', 'complete_projects'));
     }
 
@@ -78,7 +79,13 @@ class ProjectSubmissionController extends Controller
 
     public function revision(Project $project)
     {
+
         $revisions = $this->project->getProjectWithRevision($project->id);
+        $todo_revisions = $this->project->getProjectWithRevision($project->id, 'status', RevisionStatusEnum::Todo->value);
+        $inprogress_revisions = $this->project->getProjectWithRevision($project->id, 'status', RevisionStatusEnum::InProgress->value);
+        $complete_revisions = $this->project->getProjectWithRevision($project->id, 'status', RevisionStatusEnum::Completed->value);
+
+
         return view('mentor.project-submission2.revision', compact('project', 'revisions'));
     }
 }
