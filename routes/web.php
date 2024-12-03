@@ -114,15 +114,15 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
 
     # Journals
     Route::get('journal', [AdminJournalController::class, 'index']);
-    
+
     # Announcement
     Route::get('announcement', function () {
         return view('admin.page.announcement.index');
     })->name('.announcement');
-    
+
     # Presentations
     Route::get('presentation', [PresentationController::class, 'show'])->name('.presentation');
-    
+
     # Institutions
     Route::resource('institution', InstitutionController::class)->except(['show', 'create', 'edit']);
 
@@ -143,11 +143,11 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
     Route::delete('course-assignment/{courseAssignment}', [CourseAssignmentController::class, 'destroy'])->name('.course-assignment.destroy');
 
 
-    
+
     Route::prefix('absent')->name('.absent.')->group(function () {
         Route::get('/', [AttendanceController::class, 'index'])->name('index');
         Route::patch('max-late', [AttendanceController::class, 'storeMaxLate'])->name('maxlate.store');
-        Route::get('export/excel', [AdminAbsentController::class, 'export_excel'])->name('export.excel');        
+        Route::get('export/excel', [AdminAbsentController::class, 'export_excel'])->name('export.excel');
     });
 
     Route::prefix('permission')->name('.permission.')->group(function () {
@@ -171,7 +171,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
         Route::put('decline/{student}', [ApprovalController::class, 'decline'])->name('approval.decline');
         Route::delete('delete/{student}', [ApprovalController::class, 'destroy'])->name('approval.delete');
     });
-    
+
     Route::prefix('warning-letter')->name('.warning-letter.')->group(function () {
         Route::get('/', [WarningLetterController::class, 'index'])->name('warning-letter.index');
         Route::post('store', [WarningLetterController::class, 'store'])->name('warning-letter.store');
@@ -184,12 +184,12 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
         Route::post('/store', [VoucherController::class, 'store'])->name('voucher.store');
         Route::delete('delete/{voucher}', [VoucherController::class, 'destroy'])->name('voucher.delete');
     });
-    
+
     Route::prefix('response-letter')->name('.response-letter.')->group(function () {
         Route::get('/', [ResponseLetterController::class, 'index'])->name('response-letter.index');
         Route::get('show/student/{responseLetter}', [ResponseLetterController::class, 'show'])->name('response-letter.show');
     });
-    
+
     Route::prefix('online-student')->name('.online-student.')->group(function () {
         Route::get('mentor-placement', [MentorPlacementController::class, 'index'])->name('placement.index');
         Route::post('mentor-placement/post/{student}', [MentorPlacementController::class, 'store'])->name('placement.update');
@@ -216,7 +216,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
         Route::get('manage-session', [AdminStudentController::class, 'manageSession'])->name('student.managesession');
         Route::get('manage-session/update/{session}', [StudentController::class, 'changeSessionStudent'])->name('change-session-student');
     });
-    
+
     Route::prefix('students-banned')->name('.students-banned.')->group(function () {
         Route::get('/', [StudentController::class, 'index'])->name('index');
         Route::get('email-user', [StudentController::class, 'emailUser'])->name('email-user');
@@ -229,7 +229,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
         Route::post('create', [FaceController::class, 'store'])->name('create');
         Route::delete('delete/{student}', [FaceController::class, 'destroy'])->name('delete');
     });
-    
+
     Route::prefix('students-rejected')->name('.students-rejected.')->group(function () {
         Route::get('/', [StudentRejectedController::class, 'index'])->name('index');
         Route::put('/{student}', [StudentRejectedController::class, 'accept'])->name('accept');
@@ -243,11 +243,14 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
         Route::get('detail/{mentor}', [AdminMentorController::class, 'show'])->name('mentor.show');
     });
 
-    Route::prefix('student-progress')->name('.student-progress.')->group(function () {
+    Route::prefix('student-progress')->name(value: '.student-progress.')->group(function () {
         Route::get('presentation',[StudentProgressPresentationController::class,'index'])->name('presentation');
+        Route::get('presentation/{presentation}/detail',[StudentProgressPresentationController::class,'show'])->name('presentation.detail');
+        Route::get('presentation/{presentation}/detail/revision',[StudentProgressPresentationController::class,'showRevision'])->name('presentation.detail.revision');
         Route::get('presentation/detaildone',[StudentProgressPresentationController::class,'show'])->name('presentation.detaildone');
         Route::get('project',[StudentProgressProjectController::class,'index'])->name('project');
-        Route::get('project/detail',[StudentProgressProjectController::class,'show'])->name('project.detail');
+        Route::get('project/detail/{project}',[StudentProgressProjectController::class,'show'])->name('project.detail');
+        Route::get('project/detail/{project}/revision',[StudentProgressProjectController::class,'showRevision'])->name('project.detail.revision');
     });
 
     Route::prefix('course')->name('.course.')->group(function () {
@@ -304,7 +307,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
         Route::patch('update/{student}', [RfidController::class, 'update']);
     });
 
-    
+
     Route::prefix('picket')->name('.picket.')->group(function () {
         Route::get('/', [PicketController::class, 'index']);
         Route::delete('/{picket}', [PicketController::class, 'destroy'])->name('delete');

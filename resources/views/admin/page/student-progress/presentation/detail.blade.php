@@ -18,8 +18,8 @@
             border: none;
         }
         .status-badge{
-            border-radius:34px; 
-            font-size:12px; 
+            border-radius:34px;
+            font-size:12px;
             color: ;
             width: 145px;
             height: 30px;
@@ -28,9 +28,9 @@
             font-weight: 100;
         }
         .category-badge{
-            background-color: rgba(93, 135, 255, 0.1); 
-            border-radius:34px; 
-            font-size:12px; 
+            background-color: rgba(93, 135, 255, 0.1);
+            border-radius:34px;
+            font-size:12px;
             color: rgba(93, 135, 255, 1);
             width: 145px;
             height: 30px;
@@ -50,12 +50,12 @@
         </button>
 
         <!-- Header Judul -->
-        <div class="flex-grow-1 text-center py-3 px-3 rounded fw-bold custom-card shadow-sm" 
+        <div class="flex-grow-1 text-center py-3 px-3 rounded fw-bold custom-card shadow-sm"
             style="background-color: rgba(234, 233, 255, 1); color: rgba(105, 94, 239, 1); border-radius: 8px; ">
-            Detail Presentasi
+            Detail Presentasi {{ $presentation_projects->project->project_name }}
         </div>
     </div>
-    
+
 
 
     <div class="row">
@@ -91,49 +91,79 @@
                     <div class="card-body">
                         <!-- Status -->
                         <div class="mb-3">
-                            <label class="form-label text-9xl">Status</label>
+                            <div class="d-flex">
+                                <label class="form-label text-9xl">Status</label>
+                                <div style="margin-left: 420px" class=" d-flex justify-content-end">
+                                    <a href="/administrator/student-progress/presentation/{{ $presentation_projects->project->id }}/detail/revision">
+                                        
+                                      <span class="badge bg-light-primary category-badge rounded-2 px-3 py-2" style="background-color: rgba(230, 255, 250, 1)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16"
+                                             height="16" fill="rgba(93,135,255,1)">
+                                            <path fill="none" d="M0 0h24v24H0z"></path>
+                                            <path
+                                                d="M12.0003 3C17.3924 3 21.8784 6.87976 22.8189 12C21.8784 17.1202 17.3924 21 12.0003 21C6.60812 21 2.12215 17.1202 1.18164 12C2.12215 6.87976 6.60812 3 12.0003 3ZM12.0003 19C16.2359 19 19.8603 16.052 20.7777 12C19.8603 7.94803 16.2359 5 12.0003 5C7.7646 5 4.14022 7.94803 3.22278 12C4.14022 16.052 7.7646 19 12.0003 19ZM12.0003 16.5C9.51498 16.5 7.50026 14.4853 7.50026 12C7.50026 9.51472 9.51498 7.5 12.0003 7.5C14.4855 7.5 16.5003 9.51472 16.5003 12C16.5003 14.4853 14.4855 16.5 12.0003 16.5ZM12.0003 14.5C13.381 14.5 14.5003 13.3807 14.5003 12C14.5003 10.6193 13.381 9.5 12.0003 9.5C10.6196 9.5 9.50026 10.6193 9.50026 12C9.50026 13.3807 10.6196 14.5 12.0003 14.5Z">
+                                            </path>
+                                        </svg>
+                                        Lihat Revisi
+                                      </span>
+                                    </a>
+                                </div>
+                            </div>
                             <div>
-                                <span class="badge text-success px-3 py-2 status-badge" style="background-color: rgba(230, 255, 250, 1)">Selesai Presentasi</span>
+                                <span class="badge text-success rounded-2 px-3 py-2 status-badge" style="background-color: rgba(230, 255, 250, 1)">{{ $presentation_projects->status_presentation}}</span>
                             {{-- @if ()
                                     <span class="badge text-success px-3 py-2" style="background-color: rgba(230, 255, 250, 1);">Selesai Presentasi</span>
                                 @else
                                     <span class="badge text-danger px-3 py-2" style="background-color: rgba(251, 242, 239, 1);">Belum Presentasi</span>
                                 @endif --}}
                             </div>
+                           
                         </div>
-    
+
                         <!-- Kategori Project -->
                         <div class="mb-3">
                             <label class="form-label">Kategori Project</label>
                             <div>
-                                <span class="badge category-badge">Solo Project</span>
+                                <span class="badge category-badge rounded-2">{{ $presentation_projects->project->type_project }}</span>
                             </div>
-                            {{-- <input type="text" class="form-control" value="Solo Project"> --}}
                         </div>
-    
+
                         <!-- Deskripsi Project -->
                         <div class="mb-3">
-                            <label class="form-label">Deskripsi Project</label>
-                            <textarea class="form-control" rows="3" style="border:none">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                            </textarea>
+                            <div class="d-flex">
+                                <label class="form-label ">Deskripsi Project</label>
+
+                            </div>
+                            <span class="">{{ $presentation_projects->project->description}}</span>
+
                         </div>
-    
+
                         <!-- Link Repository Github -->
                         <div class="mb-3">
                             <label class="form-label">Link Repository Github (Opsional)</label>
-                            <input type="url" class="form-control" value="https://....." readonly>
+                            <div>
+                                <a href="{{ $presentation_projects->project->link ? $presentation_projects->project->link : '#'}}">
+
+                                <span class="badge bg-primary">{{ $presentation_projects->project->link ? $presentation_projects->project->link : 'https://....'}}</span>
+
+                            </a>
+                            </div>
+
                         </div>
-    
+
                         <!-- Waktu Pengerjaan -->
                         <div class="mb-3">
-                            <label class="form-label">Waktu Pengerjaan</label>
-                            <input type="text" class="form-control" value="23/10/2024 - 30/10/2024" readonly>
+                            <div class="d-flex">
+                                <label class="form-label">Waktu Pengerjaan</label>
+                            </div>
+                            <span class="badge bg-warning">{{ \Carbon::parse($presentation_projects->project->start_date)->format('d/m/Y') . ' - ' . \Carbon::parse($presentation_projects->project->end_date)->format('d/m/Y') }}</span>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    
+
         <!-- Kolom Samping -->
         <div class="col-lg-4">
             <div class="card">
@@ -155,7 +185,7 @@
                                     <span class="text-warning">Ketua</span>
                                 @else
                                     <span class="text-secondary">Anggota</span>
-                                @endif 
+                                @endif
                             </td> --}}
                         </tbody>
                     </table>

@@ -23,7 +23,11 @@ class StudentProgressProjectController extends Controller
     public function index()
     {
         $projects = $this->project->get();
-        return view('admin.page.student-progress.project.index', compact('projects'));
+        $acceptAndrejected_projects = $this->project->wherein('status', ['accept','rejected']);
+        $waiting_projects = $this->project->where('status','waiting');
+        $completed_projects = $this->project->where('status_project','completed');
+
+        return view('admin.page.student-progress.project.index', compact('projects','acceptAndrejected_projects','waiting_projects','completed_projects'));
     }
 
     /**
@@ -50,15 +54,19 @@ class StudentProgressProjectController extends Controller
         $project = $this->project->show($project);
         return view('admin.page.student-progress.project.detail', compact('project'));
     }
+    public function showRevision(int $project)
+    {
+        $project = $this->project->show($project);
+        $revisions = $this->project->getProjectWithRevision($project->id);
+        $todo_revisions = $this->project->getProjectWithRevision($project->id,'status','todo');
+        $inprogress_revisions = $this->project->getProjectWithRevision($project->id,'status','in progress');
+        $completed_revisions = $this->project->getProjectWithRevision($project->id,'status','completed');
+        return view('admin.page.student-progress.project.revision', compact('project','revisions','todo_revisions','inprogress_revisions','completed_revisions'));
+    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function revision(Project $project)
-    {
-        $revisions = $this->project->getProjectWithRevision($project->id);
-        return view('admin.page.student-progress.project.revision', compact('project', 'revisions'));
-    }
 
     /**
      * Update the specified resource in storage.

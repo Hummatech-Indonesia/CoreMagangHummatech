@@ -212,7 +212,11 @@
                                     <td>
                                         <button class="btn btn-detail"
                                                 style="text-decoration: none; color: white; border: none; background-color:rgba(105, 94, 239, 1)">
-                                            <span>Lihat Detail</span>
+                                            <span>
+                                                <a href="presentation/{{ $presentation->project->id }}/detail">
+                                                    Lihat Detail
+                                                </a>
+                                            </span>
                                         </button>
                                     </td>
                                 </tr>

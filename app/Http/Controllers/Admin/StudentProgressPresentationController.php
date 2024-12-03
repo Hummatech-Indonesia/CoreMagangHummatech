@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Contracts\Interfaces\PresentationInterface;
+use App\Models\Presentation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Contracts\Interfaces\PresentationInterface;
+use App\Contracts\Interfaces\ProjectInterface;
 
 class StudentProgressPresentationController extends Controller
 {
+
+    private ProjectInterface $project;
     private PresentationInterface $presentations;
     public function __construct(
+        ProjectInterface $project,
         PresentationInterface $presentation
     )
     {
+        $this->project = $project;
         $this->presentations = $presentation;
     }
     /**
@@ -45,9 +51,20 @@ class StudentProgressPresentationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(int $presentation)
     {
-        return view('admin.page.student-progress.presentation.detail');
+        $presentation_projects = Presentation::findOrFail($presentation);
+        return view('admin.page.student-progress.presentation.detail',compact('presentation_projects'));
+    }
+
+    public function showRevision(int $project)
+    {
+        $project = $this->project->show($project);
+        $revisions = $this->project->getProjectWithRevision($project->id);
+        $todo_revisions = $this->project->getProjectWithRevision($project->id,'status','todo');
+        $inprogress_revisions = $this->project->getProjectWithRevision($project->id,'status','in progress');
+        $completed_revisions = $this->project->getProjectWithRevision($project->id,'status','completed');
+        return view('admin.page.student-progress.project.revision', compact('project','revisions','todo_revisions','inprogress_revisions','completed_revisions'));
     }
 
     /**
