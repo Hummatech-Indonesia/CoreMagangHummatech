@@ -55,16 +55,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a data-bs-toggle="tab" href="#history-submissions" role="tab"
-                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color {{ request()->has('history_page') ? 'active' : '' }}"
-                    id="note-business">
+                <a data-bs-toggle="tab" href="#inprogress-revisions" role="tab"
+                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color">
                     <i class="ti ti-history-toggle fill-white me-0 me-md-1 fs-7"></i>
                     <span class="d-none d-md-block font-weight-medium">Dikerjakan</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a data-bs-toggle="tab" href="#complete-project" role="tab"
-                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color {{ request()->has('complete_page') ? 'active' : '' }}">
+                <a data-bs-toggle="tab" href="#complete-revisions" role="tab"
+                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color ">
                     <i class="ti ti-list-check fill-white me-0 me-md-1 fs-7"></i>
                     <span class="d-none d-md-block font-weight-medium">Selesai</span>
                 </a>
@@ -92,11 +91,11 @@
                                         <td>{{ $revision->revision }}</td>
                                         <td>
                                             <span @class([
-                                                'bg-label-danger px-2 py-1 rounded-pill' =>
+                                                'bg-light-danger text-danger px-2 py-1 rounded-pill' =>
                                                     $revision->status == \App\Enum\RevisionStatusEnum::Todo->value,
-                                                'bg-label-warning px-2 text-sm py-1 rounded-pill' =>
+                                                'bg-light-warning text-warning px-2 text-sm py-1 rounded-pill' =>
                                                     $revision->status == \App\Enum\RevisionStatusEnum::InProgress->value,
-                                                'bg-label-primary px-2 py-1 rounded-pill' =>
+                                                'bg-light-success text-success px-2 py-1 rounded-pill' =>
                                                     $revision->status == \App\Enum\RevisionStatusEnum::Completed->value,
                                             ])>
                                                 {{ ucwords($revision->status) }}

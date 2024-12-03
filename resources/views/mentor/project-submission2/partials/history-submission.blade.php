@@ -1,5 +1,5 @@
 <div class="tab-pane {{ request()->has('history_page') ? 'active' : '' }}" id="history-submissions" role="tabpanel">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-4" >
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-4">
         @forelse ($history_projects as $project)
             <div class="col">
                 <div class="card shadow-sm border-0">
@@ -24,18 +24,22 @@
 
                             @if ($members->count() === 1)
                                 <div class="d-flex justify-content-start">
-                                    <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}"
-                                        alt="Avatar" class="rounded-circle shadow-sm img-fluid"
-                                        width="33" height="33">
+                                    <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        aria-label="{{ $project->members->first()?->members->name }}"
+                                        data-bs-original-title="{{ $project->members->first()?->members->name }}">
+                                        <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}"
+                                            alt="Avatar" class="rounded-circle shadow-sm img-fluid" width="33"
+                                            height="33">
+                                    </a>
                                 </div>
                             @elseif ($members->count() > 1)
                                 <div class="d-flex justify-content-start">
                                     <ul class="hstack mb-0">
                                         @foreach ($members as $index => $member)
                                             <li class="{{ $index > 0 ? 'ms-n8' : '' }}">
-                                                <a href="javascript:void(0)" class="me-1"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    aria-label="{{ $member->members->name }}"
+                                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" aria-label="{{ $member->members->name }}"
                                                     data-bs-original-title="{{ $member->members->name }}">
                                                     <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
                                                         class="rounded-circle border border-2 border-white"
@@ -70,11 +74,10 @@
 
 
         @empty
-            <div class="d-flex justify-content-center align-items-center"
-                style="min-height: 300px; width: 100%;">
+            <div class="d-flex justify-content-center align-items-center" style="min-height: 300px; width: 100%;">
                 <div class="text-center">
-                    <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
-                        alt="No Data" height="120px" />
+                    <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" alt="No Data"
+                        height="120px" />
                     <h3 class="mt-3">Data Masih Kosong</h3>
                 </div>
             </div>

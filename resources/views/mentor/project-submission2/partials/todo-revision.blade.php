@@ -15,12 +15,8 @@
                         <td>{{ $revision->revision }}</td>
                         <td>
                             <span @class([
-                                'bg-label-danger px-2 py-1 rounded-pill' =>
+                                'bg-light-danger text-danger px-2 py-1 rounded-pill' =>
                                     $revision->status == \App\Enum\RevisionStatusEnum::Todo->value,
-                                'bg-label-warning px-2 text-sm py-1 rounded-pill' =>
-                                    $revision->status == \App\Enum\RevisionStatusEnum::InProgress->value,
-                                'bg-label-primary px-2 py-1 rounded-pill' =>
-                                    $revision->status == \App\Enum\RevisionStatusEnum::Completed->value,
                             ])>
                                 {{ ucwords($revision->status) }}
                             </span>

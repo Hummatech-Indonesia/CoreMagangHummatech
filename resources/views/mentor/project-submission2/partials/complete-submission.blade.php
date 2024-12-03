@@ -23,8 +23,13 @@
 
                             @if ($members->count() === 1)
                                 <div class="d-flex justify-content-start">
-                                    <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}" alt="Avatar"
-                                        class="rounded-circle shadow-sm img-fluid" width="33" height="33">
+                                    <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
+                                        data-bs-placement="top" aria-label="{{ $project->members->first()?->members->name }}"
+                                        data-bs-original-title="{{ $project->members->first()?->members->name }}">
+                                        <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}"
+                                            alt="Avatar" class="rounded-circle shadow-sm img-fluid" width="33"
+                                            height="33">
+                                    </a>
                                 </div>
                             @elseif ($members->count() > 1)
                                 <div class="d-flex justify-content-start">

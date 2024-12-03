@@ -28,6 +28,7 @@
             <div class="presentation-action d-flex gap-2">
                 <a class="btn px-3 d-flex justify-content-center align-items-center" style="background: #FFF5E3"
                     href="/mentor/project-submissions/{{ $project->id }}/revision">
+
                     <svg width="25px" height="25px" viewBox="0 0 1.5 1.5" version="1.1"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <title>list_check_3_line</title>
@@ -59,7 +60,7 @@
 
                 <div class="card card-body">
                     <div class="col-md-3 mb-3">
-        
+
                         @if ($project->getProjectStatus()->label() === \App\Enum\TaskStatusEnum::COMPLETED)
                             <span class="{{ $project->getProjectStatus()->color() }} px-2 py-1 rounded-pill">
                                 {{ $project->getProjectStatus()->label() }}
@@ -83,7 +84,9 @@
                     </div>
                     <div class="mb-3">
                         <h6 class="fw-semibold">Link Repository Github (Opsional)</h6>
-                        <p>{{ $project->link ? $project->link : 'https://....' }}</p>
+                        <a href="{{ $project->link ? $project->link : '' }}">
+                            <p class="text-dark">{{ $project->link ? $project->link : 'https://....' }}</p>
+                        </a>
                     </div>
                     <div class="mb-3">
                         <h6 class="fw-semibold">Waktu Pengerjaan</h6>
