@@ -96,7 +96,7 @@
                         <button class="nav-link active" id="online-tab" data-bs-toggle="pill" data-bs-target="#all"
                             type="button" role="tab" aria-controls="offline" aria-selected="false" data-position="2"
                             tabindex="-1">
-                            semua
+                            Semua
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">

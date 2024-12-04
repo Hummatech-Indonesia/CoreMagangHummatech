@@ -37,7 +37,7 @@
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="init">
             <ul id="sidebarnav">
                 <li class="nav-item mb-0 mt-2">
-                    <a href="/dashboard/task" aria-expanded="false">
+                    <a href="/student-offline/dashboard/task" aria-expanded="false">
                         <div class="myElement py-2 px-3 rounded gradient-bg">
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex  gap-2">

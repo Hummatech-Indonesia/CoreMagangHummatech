@@ -322,14 +322,14 @@
 
                 <li class="menu-title"><span data-key="t-menu">Progres Siswa</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('administrator.student-progress.presentation') ? 'active' : '' }}"
-                        href="{{ route('administrator.student-progress.presentation') }}">
+                    <a class="nav-link menu-link {{ request()->is('administrator/student-progress/presentation') ? 'active' : '' }}"
+                        href="{{ url('administrator/student-progress/presentation') }}">
                         <i class="ri-user-line"></i> <span data-key="t-dashboards">Presentasi</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('administrator.student-progress.project') ? 'active' : '' }}"
-                        href="{{ route('administrator.student-progress.project') }}">
+                    <a class="nav-link menu-link {{ request()->is('administrator/student-progress/project') ? 'active' : '' }}"
+                        href="{{ url('administrator/student-progress/project') }}">
                         <i class="ri-user-line"></i> <span data-key="t-dashboards">Proyek</span>
                     </a>
                 </li>
