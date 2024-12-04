@@ -337,9 +337,9 @@ class ProjectController extends Controller
     {
         try {
             $this->presentation->store($request->validated());
-            return redirect()->route('project.presentation', parameters: $request->project_id)->with('success', 'Berhasil menambahkan jadwal presentasi');
+            return redirect()->route('student-offline.project.presentation', parameters: $request->project_id)->with('success', 'Berhasil menambahkan jadwal presentasi');
         } catch (\Exception $e) {
-            return redirect()->route('project.presentation', parameters: $request->project_id)->with('error', value: 'Gagal menambahkan jadwal presentasi');
+            return redirect()->route('student-offline.project.presentation', parameters: $request->project_id)->with('error', value: 'Gagal menambahkan jadwal presentasi');
         }
 
     }
@@ -353,9 +353,9 @@ class ProjectController extends Controller
         try{
             $validated['presentation_id'] = $presentation->id;
             $this->projectRevision->store($validated);
-            return to_route('project.presentation.revision', ['project' => $presentation->project->id,'presentation' => $presentation->id])->with('success', value: "Berhasil menambah revisi");
+            return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id,'presentation' => $presentation->id])->with('success', value: "Berhasil menambah revisi");
         }catch (\Exception $e) {
-            return to_route('project.presentation.revision', ['project' => $presentation->project->id,'presentation' => $presentation->id])->with('error', value: "Gagal menambah revisi");
+            return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id,'presentation' => $presentation->id])->with('error', value: "Gagal menambah revisi");
         }
     }
 }

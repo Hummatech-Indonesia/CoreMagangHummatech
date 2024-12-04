@@ -15,7 +15,7 @@
                 <!-- Dashboard -->
                 <!-- =================== -->
                 <li class="sidebar-item px-2">
-                    <a class="sidebar-link " href="/dashboard/task" aria-expanded="false">
+                    <a class="sidebar-link " href="/student-offline/dashboard/task" aria-expanded="false">
                         <span>
 
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

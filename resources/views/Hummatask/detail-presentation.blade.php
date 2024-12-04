@@ -64,7 +64,7 @@
         </div>
 
         <div class="d-flex justify-content-between w-100 mb-4 gap-2 navbar-shadow">
-            <a class="text-decoration-none" href="/dashboard/task">
+            <a class="text-decoration-none" href="/student-offline/dashboard/task">
                 <div class="back bg-label-primary rounded p-3">
                     <svg width="32" height="24" viewBox="0 0 36 28" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
@@ -174,7 +174,7 @@
                                         </td>
                                         <td class="text-center">
                                             <h6 class="mb-0">
-                                                <a href="{{ route('project.presentation.revision',['project' => $presentation->project->id,'presentation' => $presentation->id]) }}">
+                                                <a href="{{ route('student-offline.project.presentation.revision',['project' => $presentation->project->id,'presentation' => $presentation->id]) }}">
                                                     <button class="btn btn-primary">Detail</button>
                                                 </a>
                                             </h6>
@@ -196,7 +196,7 @@
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('project.presentation.save', $project->id) }}" method="POST">
+            <form action="{{ route('student-offline.project.presentation.save', $project->id) }}" method="POST">
                 @csrf
                 <div class="modal-header">
                     <h1 class="modal-title fs-4" id="submit-a-presentationLabel">Ajukan Presentasi</h1>
