@@ -25,7 +25,8 @@
                                 @if ($members->count() === 1)
                                     <div class="d-flex justify-content-start">
                                         <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
-                                            data-bs-placement="top" aria-label="{{ $project->members->first()?->members->name }}"
+                                            data-bs-placement="top"
+                                            aria-label="{{ $project->members->first()?->members->name }}"
                                             data-bs-original-title="{{ $project->members->first()?->members->name }}">
                                             <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}"
                                                 alt="Avatar" class="rounded-circle shadow-sm img-fluid" width="33"
@@ -111,29 +112,32 @@
                 <!-- Modal reject -->
                 <div class="modal fade" id="rejectModal{{ $project->id }}" tabindex="-1"
                     aria-labelledby="rejectModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header d-flex align-items-center">
-                                <h5 class="modal-title" id="completeModalLabel">Konfirmasi</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                    <div class="modal-dialog modal-lg">
+                        <form action="{{ route('mentor.project-submissions.reject', $project->id) }}" method="post">
+                            @csrf
+                            @method('PUT')
+                            <div class="modal-content">
+                                <div class="modal-header d-flex align-items-center">
+                                    <h5 class="modal-title" id="completeModalLabel">Konfirmasi</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Apakah anda yakin untuk menolak project ini? Jika IYA maka sertakan alasannya!</p>
+                                    <label for="">Masukkan Alasan</label>
+                                    <textarea name="reason" class="form-control" id="" cols="10" rows="5"></textarea>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button"
+                                        class="btn btn-light-primary text-muted font-medium waves-effect text-start"
+                                        data-bs-dismiss="modal">Batal</button>
+
+                                    <button class="btn btn-light-danger text-danger" type="submit">Tolak Project</button>
+
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <p>Apakah anda yakin?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button"
-                                    class="btn btn-light-danger text-danger font-medium waves-effect text-start"
-                                    data-bs-dismiss="modal">Batal</button>
-                                <form action="{{ route('mentor.project-submissions.reject', $project->id) }}"
-                                    method="post">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button class="btn btn-light-danger text-danger" type="submit">Ya, proyek
-                                        ditolak</button>
-                                </form>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
 

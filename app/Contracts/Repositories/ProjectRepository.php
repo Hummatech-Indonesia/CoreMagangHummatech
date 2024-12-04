@@ -5,6 +5,7 @@ namespace App\Contracts\Repositories;
 use App\Models\Project;
 use App\StatusProjectEnum;
 use App\Models\Presentation;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Enum\ProjectAcceptStatus;
 use App\Enum\PresentationTypeEnum;
@@ -86,17 +87,20 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
         return $this->model->query()->findOrFail($id)->update($data);
     }
 
-    public function rejectProject(mixed $id, array $data): mixed
+    public function rejectProject(mixed $id, array $data, Request $request): mixed
     {
+
         $data['start_date'] = Carbon::now()->toDateString();
         $data['status'] = ProjectAcceptStatus::REJECTED->value;
         $data['mentor_id'] = Auth::user()->mentors_id;
 
-        // $this->model->query()
-        //     ->where('id', '!=', $id)
-        //     ->delete();
+        if ($request->has('reason')) {
+            $data['reason'] = $request->input('reason');
+        }
+
         return $this->model->query()->findOrFail($id)->update($data);
     }
+
 
     public function getProjectAccepted($id): mixed
     {

@@ -63,11 +63,15 @@ class ProjectSubmissionController extends Controller
         }
     }
 
-    public function reject(Project $project)
+    public function reject(Project $project, Request $request)
     {
         try {
-            $data = [];
-            $this->project->rejectProject($project->id, $data);
+
+            $data = [
+                'reason' => $request->input('reason'),
+            ];
+
+            $this->project->rejectProject($project->id, $data, $request);
 
             return redirect()->back()
                 ->with('success', 'Proyek berhasil ditolak dan data telah diperbarui.');
@@ -76,6 +80,7 @@ class ProjectSubmissionController extends Controller
                 ->with('error', 'Terjadi kesalahan saat menerima proyek: ' . $e->getMessage());
         }
     }
+
 
     public function revision(Project $project)
     {

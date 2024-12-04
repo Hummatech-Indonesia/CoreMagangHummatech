@@ -29,6 +29,7 @@ return new class extends Migration
                 \App\Enum\StatusPresentationEnum::WAITING->value //mengajukan
             ])
                 ->default(\App\Enum\StatusPresentationEnum::WAITING);
+            $table->text('reason')->nullable();
             $table->timestamps();
         });
     }
