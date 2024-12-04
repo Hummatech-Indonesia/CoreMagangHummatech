@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('description');
             $table->date('start_date')->default(Carbon::today());
             $table->date('end_date')->default(Carbon::tomorrow());
+            
 
             $table->enum('type_project',allowed: [
                 \App\Enum\PresentationTypeEnum::SOLO->value,

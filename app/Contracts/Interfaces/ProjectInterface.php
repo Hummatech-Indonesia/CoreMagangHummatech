@@ -1,10 +1,11 @@
 <?php
 namespace App\Contracts\Interfaces;
 
-use App\Contracts\Interfaces\Eloquent\DeleteInterface;
+use Illuminate\Http\Request;
 use App\Contracts\Interfaces\Eloquent\GetInterface;
 use App\Contracts\Interfaces\Eloquent\ShowInterface;
 use App\Contracts\Interfaces\Eloquent\StoreInterface;
+use App\Contracts\Interfaces\Eloquent\DeleteInterface;
 use App\Contracts\Interfaces\Eloquent\UpdateInterface;
 
 interface ProjectInterface extends GetInterface, StoreInterface, UpdateInterface, DeleteInterface, ShowInterface
@@ -24,7 +25,7 @@ interface ProjectInterface extends GetInterface, StoreInterface, UpdateInterface
     public function whereIn($parameter, array $values): mixed;
 
     public function accProject(mixed $id, array $data): mixed;
-    public function rejectProject(mixed $id, array $data): mixed;
+    public function rejectProject(mixed $id, array $data, Request $request): mixed;
     public function getProjectAccepted($id): mixed;
 
     public function getQueueProjectPresentation($id): mixed;
