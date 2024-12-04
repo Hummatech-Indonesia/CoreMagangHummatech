@@ -144,7 +144,7 @@
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item fs-2" data-bs-toggle="modal"
-                                                           data-bs-target="#submit-a-presentation" href="#">
+                                                           data-bs-target="#delete" href="#">
                                                             Hapus
                                                         </a>
                                                     </li>
@@ -272,7 +272,7 @@
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item fs-2" data-bs-toggle="modal"
-                                                           data-bs-target="#submit-a-presentation" href="#">
+                                                           data-bs-target="#delete" href="#">
                                                             Hapus
                                                         </a>
                                                     </li>
@@ -401,7 +401,7 @@
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item fs-2" data-bs-toggle="modal"
-                                                           data-bs-target="#submit-a-presentation" href="#">
+                                                           data-bs-target="#delete" href="#">
                                                             Hapus
                                                         </a>
                                                     </li>
@@ -592,7 +592,6 @@
 
 
 @endsection
-@include('Hummatask.partials.modal-delete')
 
 @section('script')
     <meta name="csrf-token" content="{{ csrf_token() }}">

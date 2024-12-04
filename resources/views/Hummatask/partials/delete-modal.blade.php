@@ -1,4 +1,4 @@
-<div class="modal fade" id="submit-a-presentation" tabindex="-1" aria-labelledby="submit-a-presentationLabel"
+v<div class="modal fade" id="delete" tabindex="-1" aria-labelledby="deleteLabel"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -24,7 +24,7 @@
                         <hp>Tindakan Tidak Dapat Dibatalkan</hp>
                     </div>
                     <div class="d-flex justify-content-center gap-4">
-                        <button type="button" class="btn btn-light-warning text-warning btn-sm">Batalkan</button>
+                        <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn btn-light-warning text-warning btn-sm">Batalkan</button>
                         <button type="submit" class="btn btn-light-danger text-danger btn-sm">Hapus</button>
                     </div>
                 </div>

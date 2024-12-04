@@ -527,6 +527,12 @@
     @yield('script')
 </body>
 
-<!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Mar 2024 02:26:54 GMT -->
+{{--   modal submit  --}}
+@include('Hummatask.partials.submit-modal')
+{{--  modal delete  --}}
+@include('Hummatask.partials.delete-modal')
+
+
+
 
 </html>
