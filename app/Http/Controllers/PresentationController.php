@@ -221,9 +221,11 @@ class PresentationController extends Controller
             // Update status_presentation terlebih dahulu
             $presentation->update([
                 'status_presentation' => $data['status_presentation'],
+                'reason' => $data['reason'] ?? null,
                 'mentor_id' => auth()->user()->id,
                 'planning_date_presentation' => $data['planning_date_presentation']
             ]);
+
 
             if ($data['status_presentation'] == StatusPresentationEnum::ONGOING->value) {
                 // Hitung max urutan, jika tidak ada maka mulai dari 1

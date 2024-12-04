@@ -29,37 +29,15 @@
     </div>
 
     <div class="container-fluid note-has-grid">
-        <div class="card bg-light-info shadow-none position-relative overflow-hidden">
-            <div class="card-body px-4 py-3">
-                <div class="row align-items-center">
-                    <div class="col-9">
-                        <h4 class="fw-semibold mb-8">Presentasi</h4>
-                        <nav aria-label="breadcrumb mt-2">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a class="text-muted " href="/siswa-offline">Dashboard</a>
-                                </li>
-                                <li class="breadcrumb-item" aria-current="page">Presentasi</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="col-3">
-                        <div class="text-center mb-n5">
-                            <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt=""
-                                class="img-fluid mb-n4">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="row row-cols-3 gx-3">
+        <div class="row row-cols-1 row-cols-md-3 gx-3">
             <div class="col">
                 <div class="card">
                     <div class="card-body shadow shadow-sm rounded rounded-2" style="background: #F6F9FC">
                         <div class="d-flex align-items-center gap-3 justify-content-between">
                             <div class="desc">
                                 <b>Jumlah Antrian Presentasi</b>
-                                <h4>{{ count($ongoings) }} Siswa Aktif</h4>
+                                <h4>{{ count($ongoings) }} </h4>
                             </div>
                             <div class="icon">
                                 <div class="p-3 rounded-circle d-flex justify-content-center align-items-center"
@@ -85,7 +63,7 @@
                         <div class="d-flex align-items-center gap-3 justify-content-between">
                             <div class="desc">
                                 <b>Menunggu Konfirmasi</b>
-                                <h4>{{ count($waitings) }} Siswa Aktif</h4>
+                                <h4>{{ count($waitings) }} </h4>
                             </div>
                             <div class="icon">
                                 <div class="p-3 rounded-circle d-flex justify-content-center"
@@ -111,8 +89,8 @@
                     <div class="card-body shadow shadow-sm rounded rounded-2" style="background: #F6F9FC">
                         <div class="d-flex align-items-center gap-3 justify-content-between">
                             <div class="desc">
-                                <b>Siswa Selesai</b>
-                                <h4>{{ count($finisheds) }} Siswa Aktif</h4>
+                                <b>Presentasi Selesai</b>
+                                <h4>{{ count($finisheds) }} </h4>
                             </div>
                             <div class="icon">
                                 <div class="p-3 rounded-circle d-flex justify-content-center align-items-center"
@@ -138,7 +116,7 @@
                 <a data-bs-toggle="tab" href="#antrian" role="tab"
                     class="nav-link note-link d-flex align-items-center justify-content-center active px-3 px-md-3 me-0 me-md-2 text-body-color"
                     id="all-category">
-                    <i class="ti ti-list fill-white me-0 me-md-1"></i>
+                    <i class="ti ti-presentation fill-white me-0 me-md-1 fs-7"></i>
                     <span class="d-none d-md-block font-weight-medium">Antrian</span>
                 </a>
             </li>
@@ -146,7 +124,7 @@
                 <a data-bs-toggle="tab" href="#request" role="tab"
                     class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color "
                     id="note-business">
-                    <i class="ti ti-list fill-white me-0 me-md-1"></i>
+                    <i class="ti ti-list fill-white me-0 me-md-1 fs-7"></i>
                     <span class="d-none d-md-block font-weight-medium">Pengajuan Presentasi</span>
                 </a>
             </li>
@@ -154,200 +132,38 @@
                 <a data-bs-toggle="tab" href="#done" role="tab"
                     class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color "
                     id="note-business">
-                    <i class="ti ti-agenda fill-white me-0 me-md-1"></i>
+                    <i class="ti ti-history fill-white me-0 me-md-1 fs-7"></i>
                     <span class="d-none d-md-block font-weight-medium">History Presentasi</span>
                 </a>
             </li>
             <li class="nav-item ms-auto">
-                <form action="/timetable">
+                <form action="/mentor/presentation">
                     <div class="ms-auto d-flex">
-                        <div class="mx-sm-2 mb-2">
-                            <input type="date" name="date" value="{{ request()->date }}" class="form-control"
-                                id="exampleInputdate">
-                        </div>
-                        <div>
-                            <button class="btn btn-primary w-100" type="submit">Cari</button>
-                        </div>
+                            <div class="mx-sm-2 mb-2">
+                                <input type="date" name="date" value="{{ request()->date }}" class="form-control"
+                                    id="exampleInputdate">
+                            </div>
+                            <div>
+                                <button class="btn btn-primary w-100" type="submit">Cari</button>
+                            </div>
                     </div>
                 </form>
             </li>
         </ul>
 
         <div class="tab-content">
-            <div class="tab-pane active" id="antrian" role="tabpanel">
-                <div class="card card-body">
-                    <div class="table-responsive">
-                        <table id="dataTablePresentasion1" class="table stripe row-border order-column nowrap"
-                            style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Urutan</th>
-                                    <th>Nama Project</th>
-                                    <th>Deskripsi</th>
-                                    {{--                                <th>Tanggal Mulai</th> --}}
-                                    {{--                                <th>Batas Waktu</th> --}}
-                                    <th>Tipe Project</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($ongoings as $ongoing)
-                                    <tr data-student-id="{{ $ongoing->id }}">
-                                        <td></td>
-                                        <td>{{ $ongoing->urutan }}</td>
-                                        <td>{{ $ongoing->project->project_name }}</td>
-                                        <td>{{ $ongoing->project->description }}</td>
-                                        {{--                                    <td>{{ $ongoing->start_date }}</td> --}}
-                                        {{--                                    <td>{{ $ongoing->end_date }}</td> --}}
-                                        <td>{{ ucwords($ongoing->project->type_project->value) }}</td>
-                                        <td class="d-flex gap-1">
-                                            <form action="{{ route('presentation.presentationDone', $ongoing->id) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('PUT')
-                                                <input type="hidden" name="project_id"
-                                                    value="{{ $ongoing->project_id }}">
-                                                <button class="btn btn-success">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                            </form>
-                                            <button class="btn btn-warning"
-                                                onclick="showModalPending({{ $ongoing->id }})">
-                                                <i class="fa fa-clock"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane" id="request" role="tabpanel">
-                <div class="card card-body">
-                    <div class="table-responsive">
-                        <table id="dataTablePresentasion2" class="table stripe row-border order-column nowrap"
-                            style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Nama Project</th>
-                                    <th>Nama Ketua</th>
-                                    <th>Deskripsi</th>
-                                    {{--                                <th>Tanggal Mulai</th> --}}
-                                    {{--                                <th>Batas Waktu</th> --}}
-                                    <th>Tipe Project</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($waitings as $waiting)
-                                    <tr data-student-id="{{ $waiting->id }}">
-                                        <td></td>
-                                        <td>{{ $waiting->project->project_name }}</td>
-                                        <td>
+            {{--  ongoing --}}
+            @include('mentor.presentation.partials.ongoing-presentation')
 
-                                            {{ \App\Models\Student::find(collect($waiting->project->members)->where('status', \App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
-                                        </td>
-                                        <td>{{ $waiting->project->description }}</td>
-                                        {{--                                    <td>{{ $waiting->start_date }}</td> --}}
-                                        {{--                                    <td>{{ $waiting->end_date }}</td> --}}
-                                        <td>{{ ucwords($waiting->project->type_project->value) }}</td>
-                                        <td class="d-flex gap-1">
-                                            <form action="{{ route('presentation.changeStatus') }}" method="post">
-                                                @csrf
-                                                @method('PUT')
-                                                <input type="hidden" name="presentation_id"
-                                                    value="{{ $waiting->id }}">
-                                                <input type="hidden" name="status_presentation"
-                                                    value="{{ \App\Enum\StatusPresentationEnum::ONGOING->value }}">
-                                                <input type="hidden" name="planning_date_presentation"
-                                                    value="{{ $waiting->planning_date_presentation }}">
-                                                <button class="btn btn-success" type="submit"><i
-                                                        class="fa fa-check"></i>
-                                                </button>
-                                            </form>
+            {{-- pending --}}
+            @include('mentor.presentation.partials.pending-presentation')
 
-                                            <button class="btn btn-warning"
-                                                onclick="showModalPending({{ $waiting->id }})">
-                                                <i class="fa fa-clock"></i>
-                                            </button>
+            {{-- complete --}}
+            @include('mentor.presentation.partials.complete-presentation')
 
-                                            <form action="{{ route('presentation.changeStatus') }}" method="post">
-                                                @csrf
-                                                @method('PUT')
-                                                <input type="hidden" name="presentation_id"
-                                                    value="{{ $waiting->id }}">
-                                                <input type="hidden" name="status_presentation"
-                                                    value="{{ \App\Enum\StatusPresentationEnum::NOTFINISH->value }}">
-                                                <input type="hidden" name="planning_date_presentation"
-                                                    value="{{ $waiting->planning_date_presentation }}">
-                                                <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane" id="done" role="tabpanel">
-                <div class="card card-body">
-                    <div class="table-responsive">
-                        <table id="dataTablePresentasion2" class="table stripe row-border order-column nowrap"
-                            style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Nama Project</th>
-                                    <th>Nama Ketua</th>
-                                    <th>Deskripsi</th>
-                                    <th>Tanggal Presentasi</th>
-                                    <th>Tipe Project</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($presentations as $presentation)
-                                    <tr data-student-id="{{ $presentation->id }}">
-                                        <td></td>
-                                        <td>{{ $presentation->project->project_name }}</td>
-                                        <td>
-                                            {{ \App\Models\Student::find(collect($presentation->project->members)->where('status', \App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
-                                        </td>
-                                        <td>{{ $presentation->project->description }}</td>
-                                        <td>{{ $presentation->planning_date_presentation }}</td>
-                                        <td>{{ ucwords($presentation->project->type_project->value) }}</td>
-                                        <td>
-                                            @if ($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::FINISH->value)
-                                                <small class="p-2 rounded-pill text-success fw-bolder"
-                                                    style="background: rgba(19,222,185,.2)">Selesai</small>
-                                            @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
-                                                <small class="p-2 rounded-pill text-primary fw-bolder"
-                                                    style="background: rgba(93,135,255,.2)">Menunggu</small>
-                                            @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::PENNDING->value)
-                                                <small class="p-2 rounded-pill text-warning fw-bolder"
-                                                    style="background: rgba(255,174,31,.2)">Pending</small>
-                                            @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::NOTFINISH->value)
-                                                <small class="p-2 rounded-pill text-danger fw-bolder"
-                                                    style="background: rgb(250,137,107,.2)">Ditolak</small>
-                                            @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::ONGOING->value)
-                                                <small class="p-2 rounded-pill text-warning fw-bolder"
-                                                    style="background: rgba(255,174,31,.2)">Dalam Antrian</small>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
+
     <script>
         for (let i = 1; i < 4; i++) { // Use 'let' instead of 'var' for block scope
             const table = new DataTable('#dataTablePresentasion' + i, {

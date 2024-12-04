@@ -32,22 +32,22 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
-{{--                <li class="sidebar-item">--}}
-{{--                    <a class="sidebar-link" href="/mentor/team" aria-expanded="false">--}}
-{{--                        <span>--}}
-{{--                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-users-group">--}}
-{{--                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />--}}
-{{--                                <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />--}}
-{{--                                <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" />--}}
-{{--                                <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />--}}
-{{--                                <path d="M17 10h2a2 2 0 0 1 2 2v1" />--}}
-{{--                                <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />--}}
-{{--                                <path d="M3 13v-1a2 2 0 0 1 2 -2h2" />--}}
-{{--                              </svg>--}}
-{{--                            </span>--}}
-{{--                        <span class="hide-menu">Tim</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="sidebar-item"> --}}
+                {{--                    <a class="sidebar-link" href="/mentor/team" aria-expanded="false"> --}}
+                {{--                        <span> --}}
+                {{--                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-users-group"> --}}
+                {{--                                <path stroke="none" d="M0 0h24v24H0z" fill="none" /> --}}
+                {{--                                <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /> --}}
+                {{--                                <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" /> --}}
+                {{--                                <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /> --}}
+                {{--                                <path d="M17 10h2a2 2 0 0 1 2 2v1" /> --}}
+                {{--                                <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /> --}}
+                {{--                                <path d="M3 13v-1a2 2 0 0 1 2 -2h2" /> --}}
+                {{--                              </svg> --}}
+                {{--                            </span> --}}
+                {{--                        <span class="hide-menu">Tim</span> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="/mentor/project-submission" aria-expanded="false">
                         <span>
@@ -71,30 +71,32 @@
                         <span class="hide-menu">Pengajuan Projek</span>
                     </a>
                 </li> --}}
-                <li class="sidebar-item {{ Route::is('mentor.project-submissions.index', 'mentor.project-submissions.show', 'mentor.project-submissions.revision') ? 'selected' : '' }}">
-                    <a class="sidebar-link" href="{{ route('mentor.project-submissions.index') }}" aria-expanded="false">
+                <li
+                    class="sidebar-item {{ Route::is('mentor.project-submissions.index', 'mentor.project-submissions.show', 'mentor.project-submissions.revision') ? 'selected' : '' }}">
+                    <a class="sidebar-link" href="{{ route('mentor.project-submissions.index') }}"
+                        aria-expanded="false">
                         <span>
                             <i class="ti ti-slideshow"></i>
                         </span>
                         <span class="hide-menu">Pengajuan Project</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/mentor/presentation" aria-expanded="false">
+                <li class="sidebar-item {{ Route::is('mentor.presentation') ? 'selected' : '' }}">
+                    <a class="sidebar-link" href="{{ route('mentor.presentation') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-slideshow"></i>
                         </span>
                         <span class="hide-menu">Pengajuan Presentasi</span>
                     </a>
                 </li>
-{{--                <li class="sidebar-item">--}}
-{{--                    <a class="sidebar-link" href="/timetable" aria-expanded="false">--}}
-{{--                        <span>--}}
-{{--                            <i class="ti ti-calendar-event"></i>--}}
-{{--                        </span>--}}
-{{--                        <span class="hide-menu">Jadwal</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="sidebar-item"> --}}
+                {{--                    <a class="sidebar-link" href="/timetable" aria-expanded="false"> --}}
+                {{--                        <span> --}}
+                {{--                            <i class="ti ti-calendar-event"></i> --}}
+                {{--                        </span> --}}
+                {{--                        <span class="hide-menu">Jadwal</span> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('/mentor/assessment') }}" aria-expanded="false">
                         <span>
@@ -111,30 +113,34 @@
                         <span class="hide-menu">Tantangan</span>
                     </a>
                 </li> --}}
-{{--                <li class="sidebar-item">--}}
-{{--                    <a class="sidebar-link" href="/student/absensi" aria-expanded="false">--}}
-{{--                        <span>--}}
-{{--                            <i class="ti ti-presentation-analytics"></i>--}}
-{{--                        </span>--}}
-{{--                        <span class="hide-menu">Absensi Siswa</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="sidebar-item">--}}
-{{--                    <a class="sidebar-link" href="/student/journal" aria-expanded="false">--}}
-{{--                        <span>--}}
-{{--                            <i class="ti ti-list-details"></i>--}}
-{{--                        </span>--}}
-{{--                        <span class="hide-menu">Jurnal Siswa</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="sidebar-item"> --}}
+                {{--                    <a class="sidebar-link" href="/student/absensi" aria-expanded="false"> --}}
+                {{--                        <span> --}}
+                {{--                            <i class="ti ti-presentation-analytics"></i> --}}
+                {{--                        </span> --}}
+                {{--                        <span class="hide-menu">Absensi Siswa</span> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
+                {{--                <li class="sidebar-item"> --}}
+                {{--                    <a class="sidebar-link" href="/student/journal" aria-expanded="false"> --}}
+                {{--                        <span> --}}
+                {{--                            <i class="ti ti-list-details"></i> --}}
+                {{--                        </span> --}}
+                {{--                        <span class="hide-menu">Jurnal Siswa</span> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
                 <li class="sidebar-item">
                     <a class="sidebar-link" href=" /mentor/student" aria-expanded="false">
                         <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-hexagon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-user-hexagon">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M12 13a3 3 0 1 0 0 -6a3 3 0 0 0 0 6z" />
                                 <path d="M6.201 18.744a4 4 0 0 1 3.799 -2.744h4a4 4 0 0 1 3.798 2.741" />
-                                <path d="M19.875 6.27c.7 .398 1.13 1.143 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z" />
+                                <path
+                                    d="M19.875 6.27c.7 .398 1.13 1.143 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z" />
                             </svg>
                         </span>
                         <span class="hide-menu">Siswa</span>

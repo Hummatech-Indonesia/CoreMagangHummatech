@@ -501,7 +501,7 @@
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{ route('project.presentation.revision.saveRevision',['project' => $project->id,'presentation' => $presentation->id]) }}" method="POST">
+                <form action="{{ route('student-offline.project.presentation.revision.saveRevision',['project' => $project->id,'presentation' => $presentation->id]) }}" method="POST">
                     @csrf
                     <input type="hidden" name="status" value="{{ \App\Enum\RevisionStatusEnum::Todo->value }}">
                     <div class="modal-header">
@@ -532,7 +532,7 @@
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{ route('project.presentation.revision.saveRevision',['project' => $project->id,'presentation' => $presentation->id]) }}" method="POST">
+                <form action="{{ route('student-offline.project.presentation.revision.saveRevision',['project' => $project->id,'presentation' => $presentation->id]) }}" method="POST">
                     @csrf
                     <input type="hidden" name="status" value="{{ \App\Enum\RevisionStatusEnum::InProgress->value }}">
                     <div class="modal-header">
@@ -563,7 +563,7 @@
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{ route('project.presentation.revision.saveRevision',['project' => $project->id,'presentation' => $presentation->id]) }}" method="POST">
+                <form action="{{ route('student-offline.project.presentation.revision.saveRevision',['project' => $project->id,'presentation' => $presentation->id]) }}" method="POST">
                     @csrf
                     <input type="hidden" name="status" value="{{ \App\Enum\RevisionStatusEnum::Completed->value }}">
                     <div class="modal-header">
@@ -691,7 +691,7 @@
                     draggableElement.setAttribute('data-y', 0);
 
                     // URL endpoint
-                    const url = "{{ route('project.presentation.revision.changestatus', ['project' => $project->id,'presentation' => $presentation->id]) }}"
+                    const url = "{{ route('student-offline.project.presentation.revision.changestatus', ['project' => $project->id,'presentation' => $presentation->id]) }}"
 
                     // Request AJAX menggunakan Fetch API
                     fetch(url, {
