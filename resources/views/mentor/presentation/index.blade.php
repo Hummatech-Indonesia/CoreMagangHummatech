@@ -145,8 +145,7 @@
                                 <option value="" {{ request('status') === null ? 'selected' : '' }}>Semua</option>
                                 <option value="finish" {{ request('status') == 'finish' ? 'selected' : '' }}>Selesai</option>
                                 <option value="notfinish" {{ request('status') == 'notfinish' ? 'selected' : '' }}>Ditolak</option>
-                                <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                                <option value="waiting" {{ request('status') == 'waiting' ? 'selected' : '' }}>Menunggu</option>
+                                <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Ditunda</option>
                             </select>
                         </div>
 
