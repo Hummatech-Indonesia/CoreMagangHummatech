@@ -56,7 +56,7 @@ class PresentationController extends Controller
         return view('admin.page.offline-students.presentation.index', compact('finisheds', 'pendings', 'ongoings', 'limits'));
     }
 
-    public function mentorshow()
+    public function mentorshow(Request $request)
     {
         $limits = $this->limits->get();
         $waitings = $this->presentation->getPresentationByStatus(StatusPresentationEnum::WAITING->value)
@@ -64,7 +64,16 @@ class PresentationController extends Controller
         $rejected = $this->presentation->getPresentationByStatus(StatusPresentationEnum::NOTFINISH->value);
         $ongoings = $this->presentation->getPresentationByStatus(StatusPresentationEnum::ONGOING->value);
         $finisheds = $this->presentation->getPresentationByStatus(StatusPresentationEnum::FINISH->value);
-        $presentations = $this->presentation->getPresentationWithMembers();
+
+
+        $date = $request->get('date');
+        $status = $request->get('status');
+        $search = $request->get('search');
+
+        $presentations = $this->presentation->getPresentationWithMembers($status, $date, $search);
+
+        // dd($presentations);
+
         return view('mentor.presentation.index', compact('limits', 'waitings', 'rejected', 'ongoings', 'presentations','finisheds'));
     }
 

@@ -114,7 +114,7 @@
         <ul class="nav nav-pills p-3 mb-3 rounded align-items-center card flex-row">
             <li class="nav-item">
                 <a data-bs-toggle="tab" href="#antrian" role="tab"
-                    class="nav-link note-link d-flex align-items-center justify-content-center active px-3 px-md-3 me-0 me-md-2 text-body-color"
+                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color {{ request()->hasAny(['status', 'date', 'page', 'search']) ? '' : 'active' }}"
                     id="all-category">
                     <i class="ti ti-presentation fill-white me-0 me-md-1 fs-7"></i>
                     <span class="d-none d-md-block font-weight-medium">Antrian</span>
@@ -130,25 +130,46 @@
             </li>
             <li class="nav-item">
                 <a data-bs-toggle="tab" href="#done" role="tab"
-                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color "
+                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color {{ request()->hasAny(['status', 'date', 'page', 'search']) ? 'active' : '' }}"
                     id="note-business">
                     <i class="ti ti-history fill-white me-0 me-md-1 fs-7"></i>
                     <span class="d-none d-md-block font-weight-medium">History Presentasi</span>
                 </a>
             </li>
             <li class="nav-item ms-auto">
-                <form action="/mentor/presentation">
-                    <div class="ms-auto d-flex">
-                            <div class="mx-sm-2 mb-2">
-                                <input type="date" name="date" value="{{ request()->date }}" class="form-control"
-                                    id="exampleInputdate">
-                            </div>
-                            <div>
-                                <button class="btn btn-primary w-100" type="submit">Cari</button>
-                            </div>
+                <form action="{{ route('mentor.presentation') }}">
+                    <div class="d-flex justify-content-end gap-3">
+                        <!-- Dropdown Status -->
+                        <div class="mb-2">
+                            <select class="form-select" name="status" onchange="this.form.submit()">
+                                <option value="" {{ request('status') === null ? 'selected' : '' }}>Semua</option>
+                                <option value="finish" {{ request('status') == 'finish' ? 'selected' : '' }}>Selesai</option>
+                                <option value="notfinish" {{ request('status') == 'notfinish' ? 'selected' : '' }}>Ditolak</option>
+                                <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                                <option value="waiting" {{ request('status') == 'waiting' ? 'selected' : '' }}>Menunggu</option>
+                            </select>
+                        </div>
+
+                        <!-- Input Date -->
+                        <div class="mb-2">
+                            <input type="date" name="date" value="{{ request()->date }}" class="form-control" id="exampleInputdate">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <!-- Search Input -->
+                        <div class="mb-2">
+                            <input type="search" style="width: 265px" name="search" value="{{ request()->search }}" class="form-control" placeholder="Cari Nama member atau project...">
+                        </div>
+
+                        <!-- Search Button -->
+                        <div>
+                            <button class="btn btn-primary" type="submit">Cari</button>
+                        </div>
                     </div>
                 </form>
             </li>
+
         </ul>
 
         <div class="tab-content">

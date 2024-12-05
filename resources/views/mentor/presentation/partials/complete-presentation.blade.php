@@ -1,4 +1,4 @@
-<div class="tab-pane" id="done" role="tabpanel">
+<div class="tab-pane {{ request()->hasAny(['status', 'date', 'page', 'search']) ? 'active' : '' }}" id="done" role="tabpanel">
     <div class="card card-body">
         <div class="table-responsive">
             <table id="dataTablePresentasion2" class="table stripe row-border order-column nowrap" style="width:100%">
@@ -58,4 +58,5 @@
             </table>
         </div>
     </div>
+    {{ $presentations->links() }}
 </div>
