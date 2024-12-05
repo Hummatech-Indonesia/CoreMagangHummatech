@@ -143,7 +143,7 @@
                             <div class="d-flex justify-content-end gap-3">
                                 <!-- Dropdown Status -->
                                 <div class="mb-2">
-                                    <select class="form-select" name="status" onchange="this.form.submit()">
+                                    <select class="" style="font-size: 10px; padding: 10px; width: 100px;" name="status" onchange="this.form.submit()">
                                         <option value="" {{ request('status') === null ? 'selected' : '' }}>Semua
                                         </option>
                                         <option value="finish" {{ request('status') == 'finish' ? 'selected' : '' }}>Selesai
@@ -155,7 +155,6 @@
                                         <option value="waiting" {{ request('status') == 'waiting' ? 'selected' : '' }}>
                                             Menunggu</option>
                                     </select>
-
                                 </div>
 
                                 <!-- Input Date -->
@@ -170,9 +169,11 @@
                                                 </path>
                                             </svg>
                                         </span>
-                                        <input type="date" name="date" value="{{ request()->date }}" class="form-control" id="exampleInputdate">
+                                        <input style="" type="date" name="date" value="{{ request()->date }}" class="form-control" id="exampleInputdate">
+
                                     </div>
                                 </div>
+
                             </div>
 
                             <div class="d-flex justify-content-end gap-2">
