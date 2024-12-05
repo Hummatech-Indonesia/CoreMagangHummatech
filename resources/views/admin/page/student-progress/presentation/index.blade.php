@@ -142,7 +142,7 @@
                         <form style="max-width: 180px;" action="{{ route('administrator.student-progress.presentation') }}">
                             <div class="d-flex justify-content-end gap-3">
                                 <!-- Dropdown Status -->
-                                <div class="mb-2">
+                                <div class="mb-2 d-flex gap-2" style="margin-left: -80px">
                                     <select class="" style="font-size: 10px; padding: 10px; width: 100px;" name="status" onchange="this.form.submit()">
                                         <option value="" {{ request('status') === null ? 'selected' : '' }}>Semua
                                         </option>
@@ -155,24 +155,15 @@
                                         <option value="waiting" {{ request('status') == 'waiting' ? 'selected' : '' }}>
                                             Menunggu</option>
                                     </select>
-                                </div>
-
-                                <!-- Input Date -->
-                                <div class="mb-2">
-                                    <div class="input-group me-3" style="max-width: 250px;">
-                                        <span class="input-group-text custom-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"
-                                                fill="rgba(255,255,255,1)">
-                                                <path fill="none" d="M0 0h24v24H0z"></path>
-                                                <path
-                                                    d="M9 1V3H15V1H17V3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3 2 3 3 3H7V1H9ZM20 11H4V19H20V11ZM8 13V15H6V13H8ZM13 13V15H11V13H13ZM18 13V15H16V13H18ZM7 5H4V9H20V5H17V7H15V5H9V7H7V5Z">
-                                                </path>
-                                            </svg>
-                                        </span>
-                                        <input style="" type="date" name="date" value="{{ request()->date }}" class="form-control" id="exampleInputdate">
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-primary text-white"><i class="ri-calendar-line"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control flatpickr-input" name="date" value="{{ request()->date }}" data-provider="flatpickr" placeholder="Pilih tanggal" readonly="readonly">
 
                                     </div>
                                 </div>
+
 
                             </div>
 
