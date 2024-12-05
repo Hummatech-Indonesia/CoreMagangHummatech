@@ -24,10 +24,14 @@ class StudentProgressPresentationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $date = $request->get('date');
+        $status = $request->get('status');
+        $search = $request->get('search');
+
         $presentationsToday = $this->presentations->get();
-        $presentations = $this->presentations->getPresentationWithMembers();
+        $presentations = $this->presentations->getPresentationWithMembers($status, $date, $search);
         $unpresentedProject = $this->presentations->getUnpresentedProject();
         return view('admin.page.student-progress.presentation.index', compact('presentationsToday','presentations','unpresentedProject'));
     }

@@ -159,7 +159,7 @@
                     <div class="d-flex justify-content-end gap-2">
                         <!-- Search Input -->
                         <div class="mb-2">
-                            <input type="search" style="width: 265px" name="search" value="{{ request()->search }}" class="form-control" placeholder="Cari Nama member atau project...">
+                            <input type="search" style="width: 280px" name="search" value="{{ request()->search }}" class="form-control p-2" placeholder="Cari by nama project atau member...">
                         </div>
 
                         <!-- Search Button -->
