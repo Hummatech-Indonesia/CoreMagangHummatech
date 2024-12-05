@@ -529,8 +529,9 @@ Route::get('/aboutUs', function () {
     return view('landing.aboutUs');
 });
 
+
 Route::get('/alumniSiswa', [AlumniController::class, 'landing'])->name('alumni.siswa');
-F
+
 Route::get('/galeri', function () {
     return view('landing.galeri');
 });

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained('students')->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('status', ['masuk', 'izin', 'sakit', 'alpha'])->default('masuk');
+            $table->enum('attendance_type',['offline','online'])->default('offline');
             $table->boolean('is_admin')->nullable();
             $table->timestamps();
         });

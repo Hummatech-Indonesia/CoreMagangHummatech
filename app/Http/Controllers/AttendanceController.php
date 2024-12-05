@@ -33,7 +33,7 @@ class AttendanceController extends Controller
         $this->maxLate = $maxLateInterface;
         $this->attendanceDetail = $attendanceDetailInterface;
         $this->workFromHome = $workFromHomeInterface;
-        $this->maxLate = $maxLateInterface; 
+        $this->maxLate = $maxLateInterface;
         $this->student = $studentInterface;
         $this->attendance = $attendanceInterface;
         $this->adminAttendance = $adminAttendance;
@@ -86,8 +86,9 @@ class AttendanceController extends Controller
     {
         $time = now()->format('H:i:s');
         $max = $this->maxLate->get();
-        
+
         $attendanceData = [
+            'attendance_type' => 'online',
             'student_id' => auth()->user()->student->id,
             'created_at' => now(),
             'updated_at' => now(),
