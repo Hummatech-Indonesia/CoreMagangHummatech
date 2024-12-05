@@ -590,6 +590,8 @@
         </div>
     </div>
 
+    @include('Hummatask.partials.delete-modal')
+
 
 @endsection
 

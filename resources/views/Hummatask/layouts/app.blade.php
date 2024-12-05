@@ -527,12 +527,4 @@
     @yield('script')
 </body>
 
-{{--   modal submit  --}}
-@include('Hummatask.partials.submit-modal')
-{{--  modal delete  --}}
-@include('Hummatask.partials.delete-modal')
-
-
-
-
 </html>
