@@ -29,7 +29,6 @@ class StudentProgressPresentationController extends Controller
         $date = $request->get('date');
         $status = $request->get('status');
         $search = $request->get('search');
-
         $presentationsToday = $this->presentations->get();
         $presentations = $this->presentations->getPresentationWithMembers($status, $date, $search);
         $unpresentedProject = $this->presentations->getUnpresentedProject();
