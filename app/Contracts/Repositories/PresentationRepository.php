@@ -100,6 +100,15 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->get();
     }
 
+    public function getByCategory(string $category): mixed
+    {
+        return $this->model->query()
+            ->with(['project', 'project.members', 'project.division'])
+            ->where('planning_date_presentation', Carbon::today())
+            ->where('category_presentation', $category)
+            ->get();
+    }
+
     public function update(mixed $id, array $data): mixed
     {
         return $this->model->query()

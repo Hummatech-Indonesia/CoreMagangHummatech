@@ -139,7 +139,7 @@
                     <!-- Pencarian -->
                     <li class="nav-item ms-auto d-flex align-items-center">
 
-                        <form style="max-width: 180px;" action="{{ route('administrator.student-progress.presentation') }}">
+                        <form style="max-width: 180px;" action="{{ route('administrator.student-progress.presentation.online') }}">
                             <div class="d-flex justify-content-end gap-3">
                                 <!-- Dropdown Status -->
                                 <div class="mb-2 d-flex gap-2" style="margin-left: -80px">
@@ -212,9 +212,8 @@
                                     <th>Nama Project</th>
                                     <th>Divisi</th>
                                     <th>Jenis Project</th>
-                                    <th>No Antrean</th>
                                     <th>Status Presentasi</th>
-                                    <th></th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -224,24 +223,22 @@
                                         <td>{{ $presentation->project->project_name }}</td>
                                         <td>{{ $presentation->project->division->name }}</td>
                                         <td>{{ ucwords($presentation->project->type_project->value) }}</td>
-                                        <td>{{ $presentation->urutan == 0 ? '-' : sprintf('%02d', $presentation->urutan) }}
-                                        </td>
                                         <td>
                                             @if ($presentation->status_presentation == \App\Enum\StatusPresentationEnum::WAITING)
-                                                <small class="bg-label-warning p-2 rounded-pill">Menunggu Konfirmasi</small>
+                                                <small class="bg-label-warning p-2 rounded-3">Menunggu Konfirmasi</small>
                                             @elseif($presentation->status_presentation == \App\Enum\StatusPresentationEnum::ONGOING)
-                                                <small class="bg-label-info p-2 rounded-pill">Dalam Presentatasi</small>
+                                                <small class="bg-label-info p-2 rounded-3">Dalam Presentatasi</small>
                                             @elseif($presentation->status_presentation == \App\Enum\StatusPresentationEnum::PENNDING)
-                                                <small class="bg-label-warning p-2 rounded-pill">Ditunda</small>
+                                                <small class="bg-label-warning p-2 rounded-3">Ditunda</small>
                                             @elseif($presentation->status_presentation == \App\Enum\StatusPresentationEnum::FINISH)
-                                                <small class="bg-label-primary p-2 rounded-pill">Selesai</small>
+                                                <small class="bg-label-primary p-2 rounded-3">Selesai</small>
                                             @endif
                                         </td>
                                         <td>
                                             <button class="btn btn-detail"
-                                                style="text-decoration: none; color: white; border: none; background-color:rgba(105, 94, 239, 1)">
+                                                style="text-decoration: none; border: none; background-color:rgba(105, 94, 239, 1)">
                                                 <span>
-                                                    <a href="presentation/{{ $presentation->project->id }}/detail">
+                                                    <a href="{{ route('administrator.student-progress.presentation.detail', $presentation->id) }}" class="text-white">
                                                         Lihat Detail
                                                     </a>
                                                 </span>
@@ -254,6 +251,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="tab-pane {{ request()->hasAny(['status', 'date', 'page', 'search']) ? 'active' : '' }}" id="presentationhistory" role="tabpanel">
                 <div class="card-body">
                     <div class="table-responsive">
@@ -265,9 +263,8 @@
                                     <th>Nama Project</th>
                                     <th>Divisi</th>
                                     <th>Jenis Project</th>
-                                    <th>No Antrean</th>
                                     <th>Status Presentasi</th>
-                                    <th></th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -277,25 +274,23 @@
                                         <td>{{ $presentation->project->project_name }}</td>
                                         <td>{{ $presentation->project->division->name }}</td>
                                         <td>{{ ucwords($presentation->project->type_project->value) }}</td>
-                                        <td>{{ $presentation->urutan == 0 ? '-' : sprintf('%02d', $presentation->urutan) }}
-                                        </td>
                                         <td>
                                             @if ($presentation->status_presentation == \App\Enum\StatusPresentationEnum::WAITING)
-                                                <small class="bg-label-warning p-2 rounded-pill">Menunggu
+                                                <small class="bg-label-warning p-2 rounded-3">Menunggu
                                                     Konfirmasi</small>
                                             @elseif($presentation->status_presentation == \App\Enum\StatusPresentationEnum::ONGOING)
-                                                <small class="bg-label-info p-2 rounded-pill">Dalam Presentatasi</small>
+                                                <small class="bg-label-info p-2 rounded-3">Dalam Presentatasi</small>
                                             @elseif($presentation->status_presentation == \App\Enum\StatusPresentationEnum::PENNDING)
-                                                <small class="bg-label-warning p-2 rounded-pill">Ditunda</small>
+                                                <small class="bg-label-warning p-2 rounded-3">Ditunda</small>
                                             @elseif($presentation->status_presentation == \App\Enum\StatusPresentationEnum::FINISH)
-                                                <small class="bg-label-primary p-2 rounded-pill">Selesai</small>
+                                                <small class="bg-label-primary p-2 rounded-3">Selesai</small>
                                             @endif
                                         </td>
                                         <td>
                                             <button class="btn btn-detail"
-                                                style="text-decoration: none; color: white; border: none; background-color:rgba(105, 94, 239, 1)">
+                                                style="text-decoration: none; border: none; background-color:rgba(105, 94, 239, 1)">
                                                 <span>
-                                                    <a href="presentation/{{ $presentation->project->id }}/detail">
+                                                    <a href="{{ route('administrator.student-progress.presentation.detail', $presentation->id) }}" class="text-white">
                                                         Lihat Detail
                                                     </a>
                                                 </span>
@@ -321,7 +316,7 @@
                                     <th>Jenis Project</th>
                                     <th>Deadline</th>
                                     <th>Status Presentasi</th>
-                                    <th></th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -333,15 +328,15 @@
                                         <td>{{ ucwords($project->type_project->value) }}</td>
                                         <td>{{ $project->end_date }}</td>
                                         <td>
-                                            <span class="badge text-danger px-4 py-2 mt-1 fw-bolder"
-                                                style="background-color: rgba(251, 242, 239, 1);  border-radius:4px; font-size:small;">Belum
-                                                Presentasi</span>
+                                            <span class="bg-label-danger p-2 rounded-1">
+                                                Belum Presentasi
+                                            </span>
                                         </td>
                                         <td>
                                             <button class="btn btn-detail"
                                                 style="text-decoration: none; color: white; border: none; background-color:rgba(105, 94, 239, 1)">
                                                 <span>
-                                                    <a href="presentation/{{ $presentation->project->id }}/detail">
+                                                    <a href="{{ route('administrator.student-progress.presentation.detail', $presentation->id) }}" class="text-white">
                                                         Lihat Detail
                                                     </a>
                                                 </span>

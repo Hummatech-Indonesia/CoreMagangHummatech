@@ -55,6 +55,8 @@ interface PresentationInterface extends GetInterface, StoreInterface, UpdateInte
      */
     public function getScheduleTodayByMentor(mixed $id): mixed;
 
+    public function getByCategory(string $category): mixed;
+
     public function getPresentationWithMembers(string $status, string $category, mixed $date, string $search);
 
     public function getPresentationByStatus(string $status, string $category, mixed $date): mixed;

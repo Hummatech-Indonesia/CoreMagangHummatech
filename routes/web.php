@@ -244,7 +244,10 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
     });
 
     Route::prefix('student-progress')->name('.student-progress.')->group(function () {
+        //Online and offline prsentation Admin
         Route::get('presentation',[StudentProgressPresentationController::class,'index'])->name('presentation');
+        Route::get('presentation/online',[StudentProgressPresentationController::class,'getOnlinePresentations'])->name('presentation.online');
+
         Route::get('presentation/{presentation}/detail',[StudentProgressPresentationController::class,'show'])->name('presentation.detail');
         Route::get('presentation/{presentation}/detail/revision',[StudentProgressPresentationController::class,'showRevision'])->name('presentation.detail.revision');
         Route::get('presentation/detaildone',[StudentProgressPresentationController::class,'show'])->name('presentation.detaildone');
