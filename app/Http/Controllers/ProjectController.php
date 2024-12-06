@@ -95,11 +95,11 @@ class ProjectController extends Controller
         $categoryProject = $this->categoryProject->get();
         $students = $this->student->getStudentAccepted()->where('id', '!=', auth()->user()->student_id)->pluck('name', 'id');
 
-         $presentations = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id);
-         $totalPresentation = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id)->count();
-         $upcomingProject = $this->project->upcomingproject(auth()->user()->student_id);
-         $queuePresentation = $this->queuePresentation->getQueueByDivision(auth()->user()->student->division_id)?->queue ?? 1;
-         $myQueuePresentation = $this->presentation->getQueuePresentationByUser(auth()->user()->student_id);
+        $presentations = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id);
+        $totalPresentation = $this->presentation->getPresentationsByStudentId(auth()->user()->student_id)->count();
+        $upcomingProject = $this->project->upcomingproject(auth()->user()->student_id);
+        $queuePresentation = $this->queuePresentation->getQueueByDivision(auth()->user()->student->division_id)?->queue ?? 1;
+        $myQueuePresentation = $this->presentation->getQueuePresentationByUser(auth()->user()->student_id);
 
         // $pending = $this->project->where('status_project', TaskStatusEnum::PENDING->value)->count();
         // $inprogress = $this->project->where('status_project', TaskStatusEnum::INPROGRESS->value)->count();
@@ -116,7 +116,7 @@ class ProjectController extends Controller
         }
 
         // dd($getProject);
-        return view('Hummatask.index', compact('categoryProject', 'students','presentations','queuePresentation','myQueuePresentation','upcomingProject','totalPresentation','projects'));
+        return view('Hummatask.index', compact('categoryProject', 'students', 'presentations', 'queuePresentation', 'myQueuePresentation', 'upcomingProject', 'totalPresentation', 'projects'));
     }
 
     public function managementProject()
@@ -180,10 +180,7 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
-    {
-
-    }
+    public function show(Project $project) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -299,7 +296,7 @@ class ProjectController extends Controller
         $revisionTodo = $this->projectRevision->getRevisionByPresentation($presentation->id, RevisionStatusEnum::Todo->value);
         $revisionInProgress = $this->projectRevision->getRevisionByPresentation($presentation->id, RevisionStatusEnum::InProgress->value);
         $revisionDone = $this->projectRevision->getRevisionByPresentation($presentation->id, RevisionStatusEnum::Completed->value);
-        return view('Hummatask.revision', compact('project', 'presentation','revisionTodo','revisionInProgress','revisionDone'));
+        return view('Hummatask.revision', compact('project', 'presentation', 'revisionTodo', 'revisionInProgress', 'revisionDone'));
     }
     public function changeStatusRevision(Project $project, Presentation $presentation, Request $request)
     {
@@ -322,7 +319,6 @@ class ProjectController extends Controller
                 'message' => 'Status updated successfully.',
                 'data' => $revision
             ], 200);
-
         } catch (\Exception $e) {
             // Tangani error
             return response()->json([
@@ -336,12 +332,12 @@ class ProjectController extends Controller
     public function storePresentation(StorePresentationRequest $request)
     {
         try {
-            $this->presentation->store($request->validated());
-            return redirect()->route('student-offline.project.presentation', parameters: $request->project_id)->with('success', 'Berhasil menambahkan jadwal presentasi');
-        } catch (\Exception $e) {
-            return redirect()->route('student-offline.project.presentation', parameters: $request->project_id)->with('error', value: 'Gagal menambahkan jadwal presentasi');
-        }
 
+            $this->presentation->store($request->validated());
+            return redirect()->route('student-offline.project.presentation',  $request->project_id)->with('success', 'Berhasil mengajukan presentasi');
+        } catch (\Exception $e) {
+            return redirect()->route('student-offline.project.presentation',  $request->project_id)->with('error', 'Gagal mengajukan presentasi' . $e->getMessage());
+        }
     }
 
     public function addRevision(Project $project, Presentation $presentation, Request $request)
@@ -350,12 +346,12 @@ class ProjectController extends Controller
             'revision' => 'required',
             'status' => 'required|string'
         ]);
-        try{
+        try {
             $validated['presentation_id'] = $presentation->id;
             $this->projectRevision->store($validated);
-            return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id,'presentation' => $presentation->id])->with('success', value: "Berhasil menambah revisi");
-        }catch (\Exception $e) {
-            return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id,'presentation' => $presentation->id])->with('error', value: "Gagal menambah revisi");
+            return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('success', value: "Berhasil menambah revisi");
+        } catch (\Exception $e) {
+            return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('error', value: "Gagal menambah revisi");
         }
     }
 }

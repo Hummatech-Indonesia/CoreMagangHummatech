@@ -112,8 +112,12 @@
                                 <ul class="nav nav-tabs" role="tablist">
                                     <div class="nav-item ms-auto">
                                         <button class="btn btn-primary fs-2" data-bs-toggle="modal"
-                                                data-bs-target="#submit-a-presentation">
-                                            Ajukan Presentasi
+                                                data-bs-target="#submit-a-presentation-online">
+                                            Ajukan Presentasi Online
+                                        </button>
+                                        <button class="btn btn-primary fs-2" data-bs-toggle="modal"
+                                                data-bs-target="#submit-a-presentation-offline">
+                                            Ajukan Presentasi Offline
                                         </button>
                                     </div>
                                 </ul>

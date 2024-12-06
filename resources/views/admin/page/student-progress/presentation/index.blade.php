@@ -83,7 +83,7 @@
             color: #fff;
         }
 
-        .custom-search-icon {
+        .custom-search-icon {  nnnnnnnnnnnnnnnnnnnnnnnnnncv
             color: rgba(105, 94, 239, 1);
         }
     </style>
