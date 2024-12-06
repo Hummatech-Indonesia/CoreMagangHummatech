@@ -353,7 +353,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     {
         return $this->model->query()
             ->with(['mentor', 'project', 'division'])
-            ->where('category_presentation','offline')
+            ->where('category_presentation','online')
             ->where('project_id', $idProject)
             ->get();
     }
