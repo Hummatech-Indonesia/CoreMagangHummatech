@@ -105,7 +105,7 @@ class ProjectController extends Controller
         // $inprogress = $this->project->where('status_project', TaskStatusEnum::INPROGRESS->value)->count();
         // $revision = $this->project->where('status_project', TaskStatusEnum::REVISION->value)->count();
         // $completed = $this->project->where('status_project', TaskStatusEnum::COMPLETED->value)->count();
-        $getProjects = $this->project->get();
+        $getProjects = $this->project->getProjectByStudent(auth()->user()->student_id);
         $projects = [];
         foreach ($getProjects as $getProject) {
             $projects[] = [

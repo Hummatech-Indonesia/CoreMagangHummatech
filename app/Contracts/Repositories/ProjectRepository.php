@@ -5,6 +5,7 @@ namespace App\Contracts\Repositories;
 use App\Models\Project;
 use App\StatusProjectEnum;
 use App\Models\Presentation;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Enum\ProjectAcceptStatus;
@@ -113,9 +114,10 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
             ->whereHas('presentation', function ($query) use ($id) {
                 $query->where('project_id', $id);
             })
-            ->orderBy('created_at', 'DESC')
+            ->with('presentation')
+            ->orderBy('created_at', 'ASC')
             ->first();
-        return $data->urutan ?? 0;
+        return $data->presentation->urutan ?? 0;
     }
 
     public function upcomingproject(int $userId): mixed
@@ -159,5 +161,15 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
                 }
             }])
             ->find($projectId);
+    }
+
+    public function getProjectByStudent(mixed $id)
+    {
+        return $this->model
+            ->whereHas('members', function ($query) use ($id) {
+                $query->where('member_id', $id);
+            })
+            ->with(['presentation.revision', 'members', 'members.members'])
+            ->get();
     }
 }
