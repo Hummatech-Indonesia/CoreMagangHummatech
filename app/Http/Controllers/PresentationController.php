@@ -2,27 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Interfaces\CategoryProjectInterface;
-use App\Contracts\Interfaces\HummataskTeamInterface;
-use App\Contracts\Interfaces\LimitPresentationInterface;
-use App\Contracts\Interfaces\MentorDivisionInterface;
-use App\Contracts\Interfaces\PresentationInterface;
-use App\Contracts\Repositories\QueuePresentationInterface;
-use App\Enum\StatusPresentationEnum;
-use App\Http\Requests\StatusPresentationRequest;
-use App\Http\Requests\StoreCallbackRequest;
-use App\Models\Presentation;
-use App\Http\Requests\StorePresentationRequest;
-use App\Http\Requests\UpdatePresentationRequest;
-use App\Models\HummataskTeam;
-use App\Models\LimitPresentation;
+use DB;
 use App\Models\Mentor;
 use App\Models\Project;
-use App\Models\QueuePresentation;
-use App\Services\PresentationService;
-use Carbon;
-use DB;
+use App\Models\Presentation;
 use Illuminate\Http\Request;
+use App\Models\HummataskTeam;
+use Illuminate\Support\Carbon;
+use App\Models\LimitPresentation;
+use App\Models\QueuePresentation;
+use App\Enum\StatusPresentationEnum;
+use App\Services\PresentationService;
+use App\Http\Requests\StoreCallbackRequest;
+use App\Enum\StatusCategoryPresentationEnum;
+use App\Http\Requests\StorePresentationRequest;
+use App\Http\Requests\StatusPresentationRequest;
+use App\Http\Requests\UpdatePresentationRequest;
+use App\Contracts\Interfaces\PresentationInterface;
+use App\Contracts\Interfaces\HummataskTeamInterface;
+use App\Contracts\Interfaces\MentorDivisionInterface;
+use App\Contracts\Interfaces\CategoryProjectInterface;
+use App\Contracts\Interfaces\LimitPresentationInterface;
+use App\Contracts\Repositories\QueuePresentationInterface;
 
 class PresentationController extends Controller
 {
@@ -56,25 +57,48 @@ class PresentationController extends Controller
         return view('admin.page.offline-students.presentation.index', compact('finisheds', 'pendings', 'ongoings', 'limits'));
     }
 
-    public function mentorshow(Request $request)
+    public function getMentorOfflinePresentations(Request $request)
     {
+        $date = Carbon::today();
         $limits = $this->limits->get();
-        $waitings = $this->presentation->getPresentationByStatus(StatusPresentationEnum::WAITING->value)
-            ->merge($this->presentation->getPresentationByStatus(StatusPresentationEnum::PENNDING->value));
-        $rejected = $this->presentation->getPresentationByStatus(StatusPresentationEnum::NOTFINISH->value);
-        $ongoings = $this->presentation->getPresentationByStatus(StatusPresentationEnum::ONGOING->value);
-        $finisheds = $this->presentation->getPresentationByStatus(StatusPresentationEnum::FINISH->value);
+        $waitings = $this->presentation->getPresentationByStatus(StatusPresentationEnum::WAITING->value, StatusCategoryPresentationEnum::OFFLINE->value, $date)
+            ->merge($this->presentation->getPresentationByStatus(StatusPresentationEnum::PENNDING->value, StatusCategoryPresentationEnum::OFFLINE->value, $date));
+        $rejected = $this->presentation->getPresentationByStatus(StatusPresentationEnum::NOTFINISH->value, StatusCategoryPresentationEnum::OFFLINE->value, $date);
+        $ongoings = $this->presentation->getPresentationByStatus(StatusPresentationEnum::ONGOING->value,  StatusCategoryPresentationEnum::OFFLINE->value, $date);
+        $finisheds = $this->presentation->getPresentationByStatus(StatusPresentationEnum::FINISH->value,  StatusCategoryPresentationEnum::OFFLINE->value, $date);
 
 
         $date = $request->get('date');
         $status = $request->get('status');
         $search = $request->get('search');
 
-        $presentations = $this->presentation->getPresentationWithMembers($status, $date, $search);
+        $presentations = $this->presentation->getPresentationWithMembers($status,StatusCategoryPresentationEnum::OFFLINE->value,  $date, $search);
 
         // dd($presentations);
 
-        return view('mentor.presentation.index', compact('limits', 'waitings', 'rejected', 'ongoings', 'presentations','finisheds'));
+        return view('mentor.presentation.offline.index', compact('limits', 'waitings', 'rejected', 'ongoings', 'presentations','finisheds'));
+    }
+
+    public function getMentorOnlinePresentations(Request $request)
+    {
+        $date = Carbon::today();
+        $limits = $this->limits->get();
+        $waitings = $this->presentation->getPresentationByStatus(StatusPresentationEnum::WAITING->value, StatusCategoryPresentationEnum::ONLINE->value, $date)
+            ->merge($this->presentation->getPresentationByStatus(StatusPresentationEnum::PENNDING->value, StatusCategoryPresentationEnum::ONLINE->value, $date));
+        $rejected = $this->presentation->getPresentationByStatus(StatusPresentationEnum::NOTFINISH->value, StatusCategoryPresentationEnum::ONLINE->value, $date);
+        $ongoings = $this->presentation->getPresentationByStatus(StatusPresentationEnum::ONGOING->value, StatusCategoryPresentationEnum::ONLINE->value, $date);
+        $finisheds = $this->presentation->getPresentationByStatus(StatusPresentationEnum::FINISH->value, StatusCategoryPresentationEnum::ONLINE->value, $date);
+
+
+        $date = $request->get('date');
+        $status = $request->get('status');
+        $search = $request->get('search');
+
+        $presentations = $this->presentation->getPresentationWithMembers($status, StatusCategoryPresentationEnum::ONLINE->value, $date, $search);
+
+        // dd($presentations);
+
+        return view('mentor.presentation.online.index', compact('limits', 'waitings', 'rejected', 'ongoings', 'presentations','finisheds'));
     }
 
     /**

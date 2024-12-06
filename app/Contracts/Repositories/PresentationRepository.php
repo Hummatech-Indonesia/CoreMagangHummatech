@@ -278,13 +278,14 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->get();
     }
 
-    public function getPresentationWithMembers(?string $status, mixed $date = null, ?string $search): mixed
+    public function getPresentationWithMembers(?string $status, string $category, mixed $date = null, ?string $search): mixed
     {
         $query = $this->model->query()
+            ->where('category_presentation', $category)
             ->with(['project', 'project.members', 'project.division']);
 
         if ($date) {
-            $query->whereDate('created_at', $date);
+            $query->whereDate('planning_date_presentation', $date);
         }
 
         if ($status) {
@@ -309,12 +310,13 @@ class PresentationRepository extends BaseRepository implements PresentationInter
         return $query->paginate(10);
     }
 
-    public function getPresentationByStatus(string $status, mixed $date = null): mixed
+    public function getPresentationByStatus(string $status, string $category, mixed $date = null): mixed
     {
         $date = $date ?? Carbon::today();
 
         return $this->model->with(['students', 'students.users'])
             ->where('status_presentation', $status)
+            ->where('category_presentation', $category)
             ->whereHas('project', function ($query) {
                 // Ambil semua division_id yang relevan
                 $mentorDivisionIds = MentorDivision::where('mentor_id', auth()->user()->mentor->id)

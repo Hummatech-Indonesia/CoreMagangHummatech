@@ -113,16 +113,8 @@
 
         <ul class="nav nav-pills p-3 mb-3 rounded align-items-center card flex-row">
             <li class="nav-item">
-                <a data-bs-toggle="tab" href="#antrian" role="tab"
-                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color {{ request()->hasAny(['status', 'date', 'page', 'search']) ? '' : 'active' }}"
-                    id="all-category">
-                    <i class="ti ti-presentation fill-white me-0 me-md-1 fs-7"></i>
-                    <span class="d-none d-md-block font-weight-medium">Antrian</span>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a data-bs-toggle="tab" href="#request" role="tab"
-                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color "
+                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color {{ request()->hasAny(['status', 'date', 'page']) ? '' : 'active' }}"
                     id="note-business">
                     <i class="ti ti-list fill-white me-0 me-md-1 fs-7"></i>
                     <span class="d-none d-md-block font-weight-medium">Pengajuan Presentasi</span>
@@ -136,8 +128,10 @@
                     <span class="d-none d-md-block font-weight-medium">History Presentasi</span>
                 </a>
             </li>
+
+            <!-- Filter Section -->
             <li class="nav-item ms-auto">
-                <form action="{{ route('mentor.presentation') }}">
+                <form action="{{ route('mentor.presentation.online') }}">
                     <div class="d-flex justify-content-end gap-3">
                         <!-- Dropdown Status -->
                         <div class="mb-2">
@@ -172,14 +166,12 @@
         </ul>
 
         <div class="tab-content">
-            {{--  ongoing --}}
-            @include('mentor.presentation.partials.ongoing-presentation')
 
             {{-- pending --}}
-            @include('mentor.presentation.partials.pending-presentation')
+            @include('mentor.presentation.online.partials.pending-presentation')
 
             {{-- complete --}}
-            @include('mentor.presentation.partials.complete-presentation')
+            @include('mentor.presentation.online.partials.complete-presentation')
 
         </div>
     </div>
@@ -216,4 +208,5 @@
             $('#pending-date').modal('show');
         }
     </script>
+
 @endsection

@@ -465,7 +465,8 @@ Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name
 Route::prefix('mentor')->name(RolesEnum::MENTOR->value.".")->group(function () {
     # Home
     Route::get('/', [\App\Http\Controllers\Mentor\DashboardController::class, 'index'])->name('home');
-    Route::get('/presentation', [PresentationController::class, 'mentorshow'])->name('presentation');
+    Route::get('/presentation', [PresentationController::class, 'getMentorOfflinePresentations'])->name('presentation');
+    Route::get('/presentation/online', [PresentationController::class, 'getMentorOnlinePresentations'])->name('presentation.online');
     Route::get('/project-submissions', [ProjectSubmissionController::class, 'index'])->name('project-submissions.index');
     Route::get('/project-submissions/{project}/detail', [ProjectSubmissionController::class, 'show'])->name('project-submissions.show');
     Route::patch('/project-submissions/{project}/accept', [ProjectSubmissionController::class, 'accept'])->name('project-submissions.accept');

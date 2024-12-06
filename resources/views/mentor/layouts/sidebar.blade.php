@@ -79,16 +79,34 @@
                             <i class="ti ti-slideshow"></i>
                         </span>
                         <span class="hide-menu">Pengajuan Project</span>
-                    </a>
+                    </a>    
                 </li>
-                <li class="sidebar-item {{ Route::is('mentor.presentation') ? 'selected' : '' }}">
-                    <a class="sidebar-link" href="{{ route('mentor.presentation') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-slideshow"></i>
-                        </span>
-                        <span class="hide-menu">Pengajuan Presentasi</span>
+                <li class="sidebar-item {{ Route::is('mentor.presentation', 'mentor.presentation.online') ? 'selected' : '' }}">
+                    <a class="sidebar-link has-arrow {{ Route::is('mentor.presentation', 'mentor.presentation.online') ? 'active' : '' }}" href="#" aria-expanded="false">
+                      <span class="d-flex">
+                        <i class="ti ti-slideshow"></i>
+                      </span>
+                      <span class="hide-menu">Pengajuan Presentasi</span>
                     </a>
-                </li>
+                    <ul aria-expanded="false" class="collapse first-level {{ Route::is('mentor.presentation', 'mentor.presentation.online') ? 'in' : '' }}">
+                      <li class="sidebar-item {{ Route::is('mentor.presentation') ? 'active' : '' }}">
+                        <a href="{{ route('mentor.presentation') }}" class="sidebar-link {{ Route::is('mentor.presentation') ? 'active' : '' }}">
+                          <div class="round-16 d-flex align-items-center justify-content-center">
+                            <i class="ti ti-circle"></i>
+                          </div>
+                          <span class="hide-menu">Presentasi Offline</span>
+                        </a>
+                      </li>
+                      <li class="sidebar-item {{ Route::is('mentor.presentation.online') ? 'active' : '' }}">
+                        <a href="{{ route('mentor.presentation.online') }}" class="sidebar-link {{ Route::is('mentor.presentation.online') ? 'active' : '' }}">
+                          <div class="round-16 d-flex align-items-center justify-content-center">
+                            <i class="ti ti-circle"></i>
+                          </div>
+                          <span class="hide-menu">Presentasi Online</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
                 {{--                <li class="sidebar-item"> --}}
                 {{--                    <a class="sidebar-link" href="/timetable" aria-expanded="false"> --}}
                 {{--                        <span> --}}
