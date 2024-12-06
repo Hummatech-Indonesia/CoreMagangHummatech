@@ -30,15 +30,17 @@ class PresentationController extends Controller
     private PresentationInterface $presentation;
     private LimitPresentationInterface $limits;
     private Project $project;
+    private Presentation $presentationModel;
     private HummataskTeamInterface $hummataskTeam;
     private MentorDivisionInterface $mentorDivision;
     private CategoryProjectInterface $categoryProject;
     private QueuePresentationInterface $queuePresentation;
-    public function __construct(MentorDivisionInterface $mentorDivision, PresentationInterface $presentation, LimitPresentationInterface $limits, PresentationService $service, Project $project, HummataskTeamInterface $hummataskTeam, CategoryProjectInterface $categoryProject, QueuePresentationInterface $queuePresentation)
+    public function __construct(MentorDivisionInterface $mentorDivision, PresentationInterface $presentation, LimitPresentationInterface $limits, PresentationService $service, Project $project, HummataskTeamInterface $hummataskTeam, CategoryProjectInterface $categoryProject, QueuePresentationInterface $queuePresentation, Presentation $presentationModel )
     {
         $this->presentation = $presentation;
         $this->limits = $limits;
         $this->project = $project;
+        $this->presentationModel = $presentationModel;
         $this->hummataskTeam = $hummataskTeam;
         $this->mentorDivision = $mentorDivision;
         $this->categoryProject = $categoryProject;
@@ -285,17 +287,33 @@ class PresentationController extends Controller
 
     public function presentationDone(Request $request, Presentation $presentation)
     {
-        $project = $this->project->find($request->project_id);
-        $queuePresentation = $this->queuePresentation->getQueueByDivision($project->division_id);
-        if($presentation){
+        try{
+            $project = $this->project->find($request->project_id);
+            $currentQueue = $this->queuePresentation->getQueueByDivision($project->division_id);
+            $findNextQueue = $this->presentationModel
+                ->where('urutan', $currentQueue->queue + 1)
+                ->where('status_presentation', StatusPresentationEnum::FINISH->value)
+                ->where('id', '>', $presentation->id)
+                ->first();
+
+            $updatedQueue = $currentQueue->queue;
+
+            if($request->queue >= $currentQueue->queue){
+                $updatedQueue = $currentQueue->queue + 1;
+            }elseif ($findNextQueue){
+                $updatedQueue = $currentQueue->queue + 1 + ($findNextQueue->urutan - $currentQueue);
+            }
+
+            $this->queuePresentation->update($currentQueue->id, [
+                'queue' => $updatedQueue
+            ]);
             $presentation->update([
                 'status_presentation' => StatusPresentationEnum::FINISH->value
             ]);
-            $this->queuePresentation->update($queuePresentation->id, [
-                'queue' => $queuePresentation->queue + 1
-            ]);
             return back()->with('success', value: 'Berhasil merubah status');
+        }catch (\Exception $e){
+            return back()->with('error',  value: 'Gagal merubah status');
         }
-        return back()->with('error',  value: 'Gagal merubah status');
+
     }
 }
