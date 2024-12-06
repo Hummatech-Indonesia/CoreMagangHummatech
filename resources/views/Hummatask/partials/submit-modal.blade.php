@@ -1,4 +1,4 @@
-<div class="modal fade" id="submit-a-presentation-online" tabindex="-1" aria-labelledby="submit-a-presentationLabel" aria-hidden="true">
+<div class="modal fade" id="submit-a-presentation-offline" tabindex="-1" aria-labelledby="submit-a-presentationLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="{{ route('student-offline.project.presentation.save', $project->id) }}" method="POST">
@@ -28,7 +28,8 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="submit-a-presentation-offline" tabindex="-1" aria-labelledby="submit-a-presentationLabel" aria-hidden="true">
+
+<div class="modal fade" id="submit-a-presentation-online" tabindex="-1" aria-labelledby="submit-a-presentationLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="{{ route('student-offline.project.presentation.save', $project->id) }}" method="POST">

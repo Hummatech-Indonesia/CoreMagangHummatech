@@ -147,7 +147,6 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
     public function getProjectRevision(int $projectId): mixed
     {
         $project = Project::with('presentation.revision')->find($projectId);
-
         return $project?->presentation?->revision->count() ?? 0;
     }
 

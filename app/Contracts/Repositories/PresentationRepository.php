@@ -341,10 +341,19 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->first()->urutan ?? 0;
     }
 
-    public function getPresentationByProject(int $idProject)
+    public function getPresentationByProjectAndByOfflinePresentationCategory(int $idProject)
     {
         return $this->model->query()
             ->with(['mentor', 'project', 'division'])
+            ->where('category_presentation','offline')
+            ->where('project_id', $idProject)
+            ->get();
+    }
+    public function getPresentationByProjectAndByOnlinePresentationCategory(int $idProject)
+    {
+        return $this->model->query()
+            ->with(['mentor', 'project', 'division'])
+            ->where('category_presentation','offline')
             ->where('project_id', $idProject)
             ->get();
     }

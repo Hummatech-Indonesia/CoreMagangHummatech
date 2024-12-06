@@ -62,7 +62,8 @@ interface PresentationInterface extends GetInterface, StoreInterface, UpdateInte
 
     public function getQueuePresentationByUser(int $userId);
 
-    public function getPresentationByProject(int $id);
+    public function getPresentationByProjectAndByOfflinePresentationCategory(int $id);
+    public function getPresentationByProjectAndByOnlinePresentationCategory(int $id);
 
     public function getUnpresentedProject();
 }
