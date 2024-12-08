@@ -298,7 +298,8 @@ class ProjectController extends Controller
         $revisionTodo = $this->projectRevision->getRevisionByPresentation($presentation->id, RevisionStatusEnum::Todo->value);
         $revisionInProgress = $this->projectRevision->getRevisionByPresentation($presentation->id, RevisionStatusEnum::InProgress->value);
         $revisionDone = $this->projectRevision->getRevisionByPresentation($presentation->id, RevisionStatusEnum::Completed->value);
-        return view('Hummatask.revision', compact('project', 'presentation', 'revisionTodo', 'revisionInProgress', 'revisionDone'));
+        $projectMember = $this->hummataskMemberPresentation->getStudentByPresentation($presentation->id);
+        return view('Hummatask.revision', compact('project', 'presentation', 'revisionTodo', 'revisionInProgress', 'revisionDone', 'projectMember'));
     }
     public function changeStatusRevision(Project $project, Presentation $presentation, Request $request)
     {
