@@ -385,7 +385,7 @@ Route::prefix('student-offline')->name(RolesEnum::OFFLINE->value . ".")->group(f
     Route::get('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'revisionProject'])->name('project.presentation.revision');
     Route::put('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'changeStatusRevision'])->name('project.presentation.revision.changestatus');
     Route::post('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'addRevision'])->name('project.presentation.revision.saveRevision');
-    Route::post('dashboard/task/revision/{projectRevision}', [\App\Http\Controllers\ProjectController::class, 'revisionMember'])->name('project.presentation.revision.member');
+    Route::post('dashboard/task/detail/{project}/presentation/revision/{presentation}/member/{projectRevision}', [\App\Http\Controllers\ProjectController::class, 'revisionMember'])->name('project.presentation.revision.member');
     Route::get('dashboard/task/management', [\App\Http\Controllers\ProjectController::class, 'managementProject'])->name('project.management');
 
     Route::prefix('task-offline')->name('task-offline.')->group(function () {

@@ -361,11 +361,11 @@ class ProjectController extends Controller
         }
     }
 
-    public function revisionMember(ProjectRevision $projectRevision, Request $request)
+    public function revisionMember(Project $project, Presentation $presentation, ProjectRevision $projectRevision, Request $request)
     {
         $request->validate([
-            'member_ids' => Rule::exists('hummatask_teams_members', 'member_id')->where(function ($query) use ($projectRevision) {
-                $query->where('project_id', $projectRevision->id);
+            'member_ids' => Rule::exists('hummatask_teams_members', 'member_id')->where(function ($query) use ($project) {
+                $query->where('project_id', $project->id);
             })
         ]);
         $projectRevision->assignedStudent()->sync($request->member_ids);
