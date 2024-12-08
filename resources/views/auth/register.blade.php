@@ -156,7 +156,7 @@
                                                 @forelse ($institutions as $institution)
                                                 <option value="{{ $institution->name }}">{{ $institution->name }}</option>
                                             @empty
-                                                
+
                                             @endforelse
                                             </select>
                                             {{-- <input type="text" name="school" class="form-control"
@@ -274,6 +274,7 @@
                                                 </option>
                                                 <option value="ti" {{ old('major') == 'ti' ? 'selected' : '' }}>Teknik
                                                     Informatika</option>
+                                                <option value="Bisnis Digital" {{ old('major') == 'Bisnis Digital' ? 'selected' : '' }}>Bisnis Digital</option>
                                             </select>
                                             @error('major')
                                                 <p class="text-danger m-0">{{ $message }}</p>
