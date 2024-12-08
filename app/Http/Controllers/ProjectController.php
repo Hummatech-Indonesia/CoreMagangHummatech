@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Interfaces\CategoryProjectInterface;
-use App\Contracts\Interfaces\ProjectRevisionInterface;
-use App\Contracts\Repositories\QueuePresentationInterface;
-use App\Enum\RevisionStatusEnum;
-use App\Models\Presentation;
+use http\Env\Response;
 use App\Models\Project;
 use App\StatusProjectEnum;
+use App\Enum\TaskStatusEnum;
+use App\Models\Presentation;
+use Illuminate\Http\Request;
 use App\Models\ProjectRevision;
+use Illuminate\Validation\Rule;
+use App\Enum\RevisionStatusEnum;
 use App\Services\ProjectService;
 use App\Enum\StatusHummaTeamEnum;
 use App\Models\QueuePresentation;
@@ -30,10 +31,10 @@ use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Http\Requests\StoreProjectFromMentorRequest;
 use App\Contracts\Interfaces\MentorDivisionInterface;
 use App\Contracts\Interfaces\StudentProjectInterface;
+use App\Contracts\Interfaces\CategoryProjectInterface;
+use App\Contracts\Interfaces\ProjectRevisionInterface;
+use App\Contracts\Repositories\QueuePresentationInterface;
 use App\Contracts\Interfaces\HummataskTeamMembersInterface;
-use App\Enum\TaskStatusEnum;
-use http\Env\Response;
-use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
@@ -180,7 +181,9 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project) {}
+    public function show(Project $project)
+    {
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -291,7 +294,7 @@ class ProjectController extends Controller
         $offlinePresentations = $this->presentation->getPresentationByProjectAndByOfflinePresentationCategory($project->id);
         $onlinePresentations = $this->presentation->getPresentationByProjectAndByOnlinePresentationCategory($project->id);
         $allPresentations = $this->presentation->getPresentationByProject($project->id);
-        return view('Hummatask.detail-presentation', compact('project', 'offlinePresentations','onlinePresentations','allPresentations'));
+        return view('Hummatask.detail-presentation', compact('project', 'offlinePresentations', 'onlinePresentations', 'allPresentations'));
     }
     public function revisionProject(Project $project, Presentation $presentation)
     {
@@ -337,9 +340,9 @@ class ProjectController extends Controller
         try {
 
             $this->presentation->store($request->validated());
-            return redirect()->route('student-offline.project.presentation',  $request->project_id)->with('success', 'Berhasil mengajukan presentasi');
+            return redirect()->route('student-offline.project.presentation', $request->project_id)->with('success', 'Berhasil mengajukan presentasi');
         } catch (\Exception $e) {
-            return redirect()->route('student-offline.project.presentation',  $request->project_id)->with('error', 'Gagal mengajukan presentasi' . $e->getMessage());
+            return redirect()->route('student-offline.project.presentation', $request->project_id)->with('error', 'Gagal mengajukan presentasi' . $e->getMessage());
         }
     }
 
@@ -356,5 +359,16 @@ class ProjectController extends Controller
         } catch (\Exception $e) {
             return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('error', value: "Gagal menambah revisi");
         }
+    }
+
+    public function revisionMember(ProjectRevision $projectRevision, Request $request)
+    {
+        $request->validate([
+            'member_ids' => Rule::exists('hummatask_teams_members', 'member_id')->where(function ($query) use ($projectRevision) {
+                $query->where('project_id', $projectRevision->id);
+            })
+        ]);
+        $projectRevision->assignedStudent()->sync($request->member_ids);
+        return back();
     }
 }
