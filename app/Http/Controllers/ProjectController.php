@@ -8,6 +8,7 @@ use App\Contracts\Repositories\QueuePresentationInterface;
 use App\Enum\RevisionStatusEnum;
 use App\Models\Presentation;
 use App\Models\Project;
+use App\Models\Student;
 use App\StatusProjectEnum;
 use App\Models\ProjectRevision;
 use App\Services\ProjectService;
@@ -34,6 +35,7 @@ use App\Contracts\Interfaces\HummataskTeamMembersInterface;
 use App\Enum\TaskStatusEnum;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProjectController extends Controller
 {
@@ -180,7 +182,9 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project) {}
+    public function show(Project $project)
+    {
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -290,14 +294,16 @@ class ProjectController extends Controller
     {
         $offlinePresentations = $this->presentation->getPresentationByProjectAndByOfflinePresentationCategory($project->id);
         $onlinePresentations = $this->presentation->getPresentationByProjectAndByOnlinePresentationCategory($project->id);
-        return view('Hummatask.detail-presentation', compact('project', 'offlinePresentations','onlinePresentations'));
+        return view('Hummatask.detail-presentation', compact('project', 'offlinePresentations', 'onlinePresentations'));
     }
     public function revisionProject(Project $project, Presentation $presentation)
     {
         $revisionTodo = $this->projectRevision->getRevisionByPresentation($presentation->id, RevisionStatusEnum::Todo->value);
         $revisionInProgress = $this->projectRevision->getRevisionByPresentation($presentation->id, RevisionStatusEnum::InProgress->value);
         $revisionDone = $this->projectRevision->getRevisionByPresentation($presentation->id, RevisionStatusEnum::Completed->value);
-        return view('Hummatask.revision', compact('project', 'presentation', 'revisionTodo', 'revisionInProgress', 'revisionDone'));
+        $projectMember = $this->hummataskMemberPresentation->getStudentByPresentation($presentation->id);
+
+        return view('Hummatask.revision', compact('project', 'presentation', 'revisionTodo', 'revisionInProgress', 'revisionDone', 'projectMember'));
     }
     public function changeStatusRevision(Project $project, Presentation $presentation, Request $request)
     {
@@ -335,9 +341,9 @@ class ProjectController extends Controller
         try {
 
             $this->presentation->store($request->validated());
-            return redirect()->route('student-offline.project.presentation',  $request->project_id)->with('success', 'Berhasil mengajukan presentasi');
+            return redirect()->route('student-offline.project.presentation', $request->project_id)->with('success', 'Berhasil mengajukan presentasi');
         } catch (\Exception $e) {
-            return redirect()->route('student-offline.project.presentation',  $request->project_id)->with('error', 'Gagal mengajukan presentasi' . $e->getMessage());
+            return redirect()->route('student-offline.project.presentation', $request->project_id)->with('error', 'Gagal mengajukan presentasi' . $e->getMessage());
         }
     }
 
@@ -354,5 +360,18 @@ class ProjectController extends Controller
         } catch (\Exception $e) {
             return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('error', value: "Gagal menambah revisi");
         }
+    }
+
+    public function revisionMember(ProjectRevision $projectRevision, Request $request)
+    {
+        $request->validate([
+            'member_ids' => Rule::exists('hummatask_teams_members', 'member_id')->where(function ($query) use ($projectRevision) {
+                $query->where('project_id', $projectRevision->id);
+            })
+        ]);
+
+        $projectRevision->assignedStudent()->sync($request->member_ids);
+
+        return back();
     }
 }
