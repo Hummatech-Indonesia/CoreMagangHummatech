@@ -117,6 +117,14 @@
                     class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color {{ request()->hasAny(['status', 'date', 'page']) ? '' : 'active' }}"
                     id="note-business">
                     <i class="ti ti-list fill-white me-0 me-md-1 fs-7"></i>
+                    <span class="d-none d-md-block font-weight-medium">Menunggu Presentasi</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a data-bs-toggle="tab" href="#request" role="tab"
+                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color {{ request()->hasAny(['status', 'date', 'page']) ? '' : 'active' }}"
+                    id="note-business">
+                    <i class="ti ti-list fill-white me-0 me-md-1 fs-7"></i>
                     <span class="d-none d-md-block font-weight-medium">Pengajuan Presentasi</span>
                 </a>
             </li>

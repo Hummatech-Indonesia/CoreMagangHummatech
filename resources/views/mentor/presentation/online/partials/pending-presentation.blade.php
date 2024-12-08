@@ -6,12 +6,11 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Project</th>
-                        <th>Nama Ketua</th>
-                        <th>Deskripsi</th>
-                        {{--                                <th>Tanggal Mulai</th> --}}
-                        {{--                                <th>Batas Waktu</th> --}}
+                        <th>Jam</th>
+                        <th>Tanggal</th>
                         <th>Tipe Project</th>
                         <th>Status</th>
+                        <th>Opsi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -20,13 +19,30 @@
                             <td>{{ $loop->iteration }}.</td>
                             <td>{{ $waiting->project->project_name }}</td>
                             <td>
-
-                                {{ \App\Models\Student::find(collect($waiting->project->members)->where('status', \App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
+                                <span class="text-warning">{{ \Carbon\Carbon::parse($presentation->date_time_presentation)->format('h:i A') }}</span>
                             </td>
-                            <td>{{ $waiting->project->description }}</td>
-                            {{--                                    <td>{{ $waiting->start_date }}</td> --}}
-                            {{--                                    <td>{{ $waiting->end_date }}</td> --}}
+                            <td>
+                                <span class="text-warning">{{ \Carbon\Carbon::parse($presentation->date_time_presentation)->format('j F Y') }}</span>
+                            </td>
                             <td>{{ ucwords($waiting->project->type_project->value) }}</td>
+                            <td>
+                                @if ($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::FINISH->value)
+                                <small class="p-2 rounded-2 text-success fw-bolder"
+                                    style="background: rgba(19,222,185,.2)">Selesai</small>
+                            @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
+                                <small class="p-2 rounded-2 text-primary fw-bolder"
+                                    style="background: rgba(93,135,255,.2)">Menunggu</small>
+                            @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::PENNDING->value)
+                                <small class="p-2 rounded-2 text-warning fw-bolder"
+                                    style="background: rgba(255,174,31,.2)">Pending</small>
+                            @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::NOTFINISH->value)
+                                <small class="p-2 rounded-2 text-danger fw-bolder"
+                                    style="background: rgb(250,137,107,.2)">Ditolak</small>
+                            @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::ONGOING->value)
+                                <small class="p-2 rounded-2 text-warning fw-bolder"
+                                    style="background: rgba(255,174,31,.2)">Dalam Antrian</small>
+                            @endif
+                            </td>
                             <td class="d-flex gap-1">
 
                                 <button class="btn btn-success" data-bs-toggle="modal"
@@ -42,8 +58,7 @@
                                 <button class="btn btn-danger" data-bs-toggle="modal"
                                     data-bs-target="#rejectPresentation{{ $waiting->id }}" type="button">
                                     <i class="fa fa-times"></i>
-                                </button>
-                                </form>
+                                </button
                             </td>
                         </tr>
 

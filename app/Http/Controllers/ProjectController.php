@@ -290,7 +290,8 @@ class ProjectController extends Controller
     {
         $offlinePresentations = $this->presentation->getPresentationByProjectAndByOfflinePresentationCategory($project->id);
         $onlinePresentations = $this->presentation->getPresentationByProjectAndByOnlinePresentationCategory($project->id);
-        return view('Hummatask.detail-presentation', compact('project', 'offlinePresentations','onlinePresentations'));
+        $allPresentations = $this->presentation->getPresentationByProject($project->id);
+        return view('Hummatask.detail-presentation', compact('project', 'offlinePresentations','onlinePresentations','allPresentations'));
     }
     public function revisionProject(Project $project, Presentation $presentation)
     {
