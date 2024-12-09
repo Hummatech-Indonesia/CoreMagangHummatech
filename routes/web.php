@@ -530,7 +530,7 @@ Route::get('/aboutUs', function () {
 });
 
 Route::get('/alumniSiswa', [AlumniController::class, 'landing'])->name('alumni.siswa');
-F
+
 Route::get('/galeri', function () {
     return view('landing.galeri');
 });
