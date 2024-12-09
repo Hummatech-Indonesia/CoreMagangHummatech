@@ -100,7 +100,7 @@ Route::get('statement-self', [StatementController::class, 'self'])->name('statem
 Route::get('statement-parent', [StatementController::class, 'parent'])->name('statement-parent');
 
 # ================================================ Administrator Route Group ==================================================
-Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function () {
+Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['roles:administrator', 'auth'])->group(function () {
 
     # Dashboard Home
     Route::get('/', [AdminController::class, 'index'])->name('.dashboard.home');
@@ -321,10 +321,10 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
         Route::get('report', [PicketingReportController::class, 'index'])->name('report');
     });
 
-})->middleware(['roles:administrator', 'auth']);
+});
 
 # ================================================ Offline Student Route Group ================================================
-Route::prefix('student-offline')->name(RolesEnum::OFFLINE->value . ".")->group(function () {
+Route::prefix('student-offline')->name(RolesEnum::OFFLINE->value . ".")->middleware(["roles:student-offline", 'auth'])->group(function () {
     # Home
     Route::get('/', [StudentOflineController::class, 'index'])->name('home');
 
@@ -419,10 +419,10 @@ Route::prefix('student-offline')->name(RolesEnum::OFFLINE->value . ".")->group(f
         Route::put('/{studentChallenge}', [StudentChallengeController::class, 'update']);
     });
 
-})->middleware(["roles:student-offline", 'auth']);
+});
 
 # ================================================ Online Student Route Group =================================================
-Route::prefix('student-online')->name(RolesEnum::ONLINE->value)->group(function () {
+Route::prefix('student-online')->name(RolesEnum::ONLINE->value)->middleware(['roles:siswa-online', 'auth'])->group(function () {
     # Home
     Route::get('/', [StudentOnlineController::class, 'index'])->name('.home');
 
@@ -456,7 +456,7 @@ Route::prefix('student-online')->name(RolesEnum::ONLINE->value)->group(function 
     Route::post('challenge/store', [StudentChallengeController::class, 'store'])->name('.challenge_online.store');
     Route::put('challenge/update/{studentChallenge}', [StudentChallengeController::class, 'update'])->name('.challenge_online.update');
 
-})->middleware(['roles:siswa-online', 'auth']);
+});
 
 # Jurnal
 Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('.journal.download');

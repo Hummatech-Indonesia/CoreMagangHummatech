@@ -21,16 +21,33 @@ class RoleUserMiddleware
      */
     public function handle(Request $request, Closure $next, string ...$roles): Response
     {
-        # Check the role and throw 403 if user not match the roles
-        if (
-            !in_array(true, array_map(function ($role) {
-                return Auth::user()->hasRole($role);
-            }, $roles))
-        ) {
-            return abort(403, 'Anda tidak memiliki akses ke halaman ini!');
-        }
+        // # Check the role and throw 403 if user not match the roles
+        // if (
+        //     !in_array(true, array_map(function ($role) {
+        //         return Auth::user()->hasRole($role);
+        //     }, $roles))
+        // ) {
+        //     return abort(403, 'Anda tidak memiliki akses ke halaman ini!');
+        // }
 
-        # Else, continue and next to another request
-        return $next($request);
+        // # Else, continue and next to another request
+        // return $next($request);
+        
+         // Check if the user is authenticated
+            $user = Auth::user();
+
+            if (!$user) {
+                return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+            }
+    
+            // Check if the user has at least one of the required roles
+            $hasRole = collect($roles)->contains(fn($role) => $user->hasRole($role));
+    
+            if (!$hasRole) {
+                abort(403, 'Anda tidak memiliki akses ke halaman ini!');
+            }
+    
+            // Proceed to the next middleware or request
+            return $next($request);
     }
 }
