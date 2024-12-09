@@ -112,7 +112,7 @@
                                         @foreach ($studentsData as $id => $student)
                                             <option value="{{ $id }}"
                                                 {{ in_array($id, $project->members->pluck('member_id')->toArray()) ? 'selected' : '' }}>
-                                                {{ $student }}
+                                                {{ $student->name }}
                                                 {{ $id }}
                                             </option>
                                         @endforeach
