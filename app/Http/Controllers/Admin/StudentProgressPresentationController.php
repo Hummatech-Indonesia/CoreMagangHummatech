@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Presentation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Contracts\Interfaces\PresentationInterface;
+use App\Enum\StatusCategoryPresentationEnum;
 use App\Contracts\Interfaces\ProjectInterface;
+use App\Contracts\Interfaces\PresentationInterface;
 
 class StudentProgressPresentationController extends Controller
 {
@@ -24,12 +25,26 @@ class StudentProgressPresentationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $presentationsToday = $this->presentations->get();
-        $presentations = $this->presentations->getPresentationWithMembers();
+        $date = $request->get('date');
+        $status = $request->get('status');
+        $search = $request->get('search');
+        $presentationsToday = $this->presentations->getByCategory(StatusCategoryPresentationEnum::OFFLINE->value);
+        $presentations = $this->presentations->getPresentationWithMembers($status,StatusCategoryPresentationEnum::OFFLINE->value, $date, $search);
         $unpresentedProject = $this->presentations->getUnpresentedProject();
-        return view('admin.page.student-progress.presentation.index', compact('presentationsToday','presentations','unpresentedProject'));
+        return view('admin.page.student-progress.presentation.offline.index', compact('presentationsToday','presentations','unpresentedProject'));
+    }
+
+    public function getOnlinePresentations(Request $request)
+    {
+        $date = $request->get('date');
+        $status = $request->get('status');
+        $search = $request->get('search');
+        $presentationsToday = $this->presentations->getByCategory(StatusCategoryPresentationEnum::ONLINE->value);
+        $presentations = $this->presentations->getPresentationWithMembers($status,StatusCategoryPresentationEnum::ONLINE->value, $date, $search);
+        $unpresentedProject = $this->presentations->getUnpresentedProject();
+        return view('admin.page.student-progress.presentation.online.index', compact('presentationsToday','presentations','unpresentedProject'));
     }
 
     /**

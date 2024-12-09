@@ -36,6 +36,7 @@ class PresentationService
         } catch (\Exception $e) {
             // Jika terjadi kesalahan, rollback transaksi dan beri pesan kesalahan
             DB::rollBack();
+
             return ['success' => false];
         }
     }

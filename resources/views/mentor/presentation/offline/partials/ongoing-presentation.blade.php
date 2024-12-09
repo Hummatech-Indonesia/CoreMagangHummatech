@@ -1,4 +1,4 @@
-<div class="tab-pane active" id="antrian" role="tabpanel">
+<div class="tab-pane {{ request()->hasAny(['status', 'date', 'page']) ? '' : 'active' }}" id="antrian" role="tabpanel">
     <div class="card card-body">
         <div class="table-responsive">
             <table id="dataTablePresentasion1" class="table stripe row-border order-column nowrap"

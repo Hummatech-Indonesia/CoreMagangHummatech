@@ -31,6 +31,11 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/5.0.3/css/fixedColumns.dataTables.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/2.1.0/css/select.dataTables.css">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- Flatpickr JS -->
+
     @yield('style')
 </head>
 
@@ -52,8 +57,7 @@
                     <div class="modal-body">
                         <div class="mt-2 text-center">
                             <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
-                                colors="primary:#f7b84b,secondary:#f06548"
-                                style="width:100px;height:100px"></lord-icon>
+                                colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
                             <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
                                 <h4>Are you sure ?</h4>
                                 <p class="text-muted mx-4 mb-0">Are you sure you want to remove this Notification ?</p>
@@ -148,6 +152,16 @@
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
     @yield('script')
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr('.flatpickr-input', {
+                allowInput: true,  // Membolehkan input manual, meskipun kalender ada
+                dateFormat: 'Y-m-d', // Format tanggal
+            });
+        });
+    </script>
+
 </body>
 
 </html>

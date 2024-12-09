@@ -36,4 +36,5 @@ interface ProjectInterface extends GetInterface, StoreInterface, UpdateInterface
 
     public function getProjectWithRevision(int $projectId, $parameter = null, $value = null);
 
+    public function getProjectByStudent(mixed $id);
 }

@@ -258,7 +258,7 @@
                         </ul>
                     </div>
                 </li>
-                
+
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#siswaOffline" data-bs-toggle="collapse" role="button"
@@ -322,10 +322,29 @@
 
                 <li class="menu-title"><span data-key="t-menu">Progres Siswa</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('administrator/student-progress/presentation') ? 'active' : '' }}"
-                        href="{{ url('administrator/student-progress/presentation') }}">
-                        <i class="ri-user-line"></i> <span data-key="t-dashboards">Presentasi</span>
+                    <a class="nav-link menu-link" href="#presentasi" data-bs-toggle="collapse" role="button"
+                        aria-expanded="{{ request()->is('administrator/student-progress/presentation*') || request()->is('administrator/student-progress/presentation/online*') ? 'true' : 'false' }}"
+                        aria-controls="sidebarCharts">
+                        <i class="ri-slideshow-line"></i> <span data-key="t-charts">Presentasi</span>
                     </a>
+                    <div class="collapse menu-dropdown {{ request()->is('administrator/student-progress/presentation*') || request()->is('administrator/student-progress/presentation/online*') ? 'show' : '' }}"
+                        id="presentasi">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ url('administrator/student-progress/presentation') }}"
+                                    class="nav-link {{ Route::is('administrator.student-progress.presentation') ? 'active' : '' }}"
+                                    data-key="t-chartjs">Presentasi Offline</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('administrator/student-progress/presentation/online') }}"
+                                    class="nav-link {{ Route::is('administrator.student-progress.presentation.online') ? 'active' : '' }}"
+                                    data-key="t-echarts">Presentasi Online</a>
+                            </li>
+                            {{-- <li class="nav-item">
+                                <a href="" class="nav-link" data-key="t-echarts">Report</a>
+                            </li> --}}
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('administrator/student-progress/project') ? 'active' : '' }}"

@@ -244,13 +244,16 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
     });
 
     Route::prefix('student-progress')->name('.student-progress.')->group(function () {
-        Route::get('presentation',[StudentProgressPresentationController::class,'index'])->name('presentation');
-        Route::get('presentation/{presentation}/detail',[StudentProgressPresentationController::class,'show'])->name('presentation.detail');
-        Route::get('presentation/{presentation}/detail/revision',[StudentProgressPresentationController::class,'showRevision'])->name('presentation.detail.revision');
-        Route::get('presentation/detaildone',[StudentProgressPresentationController::class,'show'])->name('presentation.detaildone');
-        Route::get('project',[StudentProgressProjectController::class,'index'])->name('project');
-        Route::get('project/detail/{project}',[StudentProgressProjectController::class,'show'])->name('project.detail');
-        Route::get('project/detail/{project}/revision',[StudentProgressProjectController::class,'showRevision'])->name('project.detail.revision');
+        //Online and offline prsentation Admin
+        Route::get('presentation', [StudentProgressPresentationController::class, 'index'])->name('presentation');
+        Route::get('presentation/online', [StudentProgressPresentationController::class, 'getOnlinePresentations'])->name('presentation.online');
+
+        Route::get('presentation/{presentation}/detail', [StudentProgressPresentationController::class, 'show'])->name('presentation.detail');
+        Route::get('presentation/{presentation}/detail/revision', [StudentProgressPresentationController::class, 'showRevision'])->name('presentation.detail.revision');
+        Route::get('presentation/detaildone', [StudentProgressPresentationController::class, 'show'])->name('presentation.detaildone');
+        Route::get('project', [StudentProgressProjectController::class, 'index'])->name('project');
+        Route::get('project/detail/{project}', [StudentProgressProjectController::class, 'show'])->name('project.detail');
+        Route::get('project/detail/{project}/revision', [StudentProgressProjectController::class, 'showRevision'])->name('project.detail.revision');
     });
 
     Route::prefix('course')->name('.course.')->group(function () {
@@ -321,7 +324,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->group(function ()
 })->middleware(['roles:administrator', 'auth']);
 
 # ================================================ Offline Student Route Group ================================================
-Route::prefix('student-offline')->name(RolesEnum::OFFLINE->value.".")->group(function () {
+Route::prefix('student-offline')->name(RolesEnum::OFFLINE->value . ".")->group(function () {
     # Home
     Route::get('/', [StudentOflineController::class, 'index'])->name('home');
 
@@ -382,6 +385,7 @@ Route::prefix('student-offline')->name(RolesEnum::OFFLINE->value.".")->group(fun
     Route::get('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'revisionProject'])->name('project.presentation.revision');
     Route::put('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'changeStatusRevision'])->name('project.presentation.revision.changestatus');
     Route::post('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'addRevision'])->name('project.presentation.revision.saveRevision');
+    Route::post('dashboard/task/detail/{project}/presentation/revision/{presentation}/member/{projectRevision}', [\App\Http\Controllers\ProjectController::class, 'revisionMember'])->name('project.presentation.revision.member');
     Route::get('dashboard/task/management', [\App\Http\Controllers\ProjectController::class, 'managementProject'])->name('project.management');
 
     Route::prefix('task-offline')->name('task-offline.')->group(function () {
@@ -462,10 +466,11 @@ Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name
 # ==================================================== Another Route Group ====================================================
 
 #===================================================== Mentor =================================================================
-Route::prefix('mentor')->name(RolesEnum::MENTOR->value.".")->group(function () {
+Route::prefix('mentor')->name(RolesEnum::MENTOR->value . ".")->group(function () {
     # Home
     Route::get('/', [\App\Http\Controllers\Mentor\DashboardController::class, 'index'])->name('home');
-    Route::get('/presentation', [PresentationController::class, 'mentorshow'])->name('presentation');
+    Route::get('/presentation', [PresentationController::class, 'getMentorOfflinePresentations'])->name('presentation');
+    Route::get('/presentation/online', [PresentationController::class, 'getMentorOnlinePresentations'])->name('presentation.online');
     Route::get('/project-submissions', [ProjectSubmissionController::class, 'index'])->name('project-submissions.index');
     Route::get('/project-submissions/{project}/detail', [ProjectSubmissionController::class, 'show'])->name('project-submissions.show');
     Route::patch('/project-submissions/{project}/accept', [ProjectSubmissionController::class, 'accept'])->name('project-submissions.accept');
@@ -513,7 +518,8 @@ Route::post('wfh/store', [AttendanceController::class, 'storeWorkFromHome'])->na
 # Transaction and Payment Routing
 Route::post('transaction/save/{product}', [TransactionController::class, 'save'])->name('transaction.save');
 Route::post('transaction/save-course/{course}', [TransactionController::class, 'saveCourse'])->name('transaction.save-course');
-Route::get('transaction/checkout/{product}', [TransactionController::class, 'checkout'])->name('transaction-history.checkout');;
+Route::get('transaction/checkout/{product}', [TransactionController::class, 'checkout'])->name('transaction-history.checkout');
+;
 Route::get('transaction/checkout-course/{course}', [TransactionController::class, 'checkoutCourse'])->name('transaction.checkout-course');
 Route::get('transaction', function () {
     return view('student_online_&_offline.transaction.index');
@@ -528,6 +534,7 @@ Route::get('order', [OrderController::class, 'index'])->name('my-order')->middle
 Route::get('/aboutUs', function () {
     return view('landing.aboutUs');
 });
+
 
 Route::get('/alumniSiswa', [AlumniController::class, 'landing'])->name('alumni.siswa');
 
@@ -544,9 +551,9 @@ Route::get('/hubungi', function () {
 });
 
 # Presentations
-Route::post('submit-presentation', [\App\Http\Controllers\HummataskTeamController::class, 'store'])->name('submit-presentation');
-Route::put('mentor/presentation/changestatus', [\App\Http\Controllers\PresentationController::class, 'changeStatus'])->name('presentation.changeStatus');
-Route::put('mentor/presentation/done/{presentation}', [\App\Http\Controllers\PresentationController::class, 'presentationDone'])->name('presentation.presentationDone');
+Route::post('submit-presentation', [HummataskTeamController::class, 'store'])->name('submit-presentation');
+Route::put('mentor/presentation/changestatus', [PresentationController::class, 'changeStatus'])->name('presentation.changeStatus');
+Route::put('mentor/presentation/done/{presentation}', [PresentationController::class, 'presentationDone'])->name('presentation.presentationDone');
 
 
 # Dashboard-Task-Project
@@ -707,9 +714,9 @@ Route::delete('/presentations/{presentation}', [HummataskTeamController::class, 
 Route::get('/presentasi', function () {
     return view('Hummatask.detail-presentation');
 });
-//Route::get('/revision', function () {
-//    return view('Hummatask.revision');
-//});
+// Route::get('/revision', function () {
+//     return view('Hummatask.revision');
+// });
 Route::get('/approval-project', function () {
     return view('mentor.approval-project.index');
 });

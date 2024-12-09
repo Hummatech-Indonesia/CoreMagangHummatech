@@ -100,6 +100,15 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->get();
     }
 
+    public function getByCategory(string $category): mixed
+    {
+        return $this->model->query()
+            ->with(['project', 'project.members', 'project.division'])
+            ->where('planning_date_presentation', Carbon::today())
+            ->where('category_presentation', $category)
+            ->get();
+    }
+
     public function update(mixed $id, array $data): mixed
     {
         return $this->model->query()
@@ -278,19 +287,45 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->get();
     }
 
-    public function getPresentationWithMembers()
+    public function getPresentationWithMembers(?string $status, string $category, mixed $date = null, ?string $search): mixed
     {
-        return $this->model->query()
-            ->with(['project', 'project.members', 'project.division'])
-            ->get();
+        $query = $this->model->query()
+            ->where('category_presentation', $category)
+            ->with(['project', 'project.members', 'project.division']);
+
+        if ($date) {
+            $query->whereDate('planning_date_presentation', $date);
+        }
+
+        if ($status) {
+            $query->where('status_presentation', $status);
+        }
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('project', function ($projectQuery) use ($search) {
+                    $projectQuery->where('project_name', 'like', "%$search%")
+                        ->orWhere('description', 'like', "%$search%");
+                })
+                    ->orWhereHas('project.members', function ($memberQuery) use ($search) {
+                        $memberQuery->where('status', \App\Enum\StatusMemberTeamEnum::Leader->value)
+                            ->whereHas('members', function ($studentQuery) use ($search) {
+                                $studentQuery->where('name', 'like', "%$search%");
+                            });
+                    });
+            });
+        }
+
+        return $query->paginate(10);
     }
 
-    public function getPresentationByStatus(string $status, mixed $date = null): mixed
+    public function getPresentationByStatus(string $status, string $category, mixed $date = null): mixed
     {
         $date = $date ?? Carbon::today();
 
         return $this->model->with(['students', 'students.users'])
             ->where('status_presentation', $status)
+            ->where('category_presentation', $category)
             ->whereHas('project', function ($query) {
                 // Ambil semua division_id yang relevan
                 $mentorDivisionIds = MentorDivision::where('mentor_id', auth()->user()->mentor->id)
@@ -301,7 +336,6 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             })
             ->whereDate('planning_date_presentation', $date)
             ->get();
-
     }
 
     public function getQueuePresentationByUser(int $idUser)
@@ -316,6 +350,22 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->first()->urutan ?? 0;
     }
 
+    public function getPresentationByProjectAndByOfflinePresentationCategory(int $idProject)
+    {
+        return $this->model->query()
+            ->with(['mentor', 'project', 'division'])
+            ->where('category_presentation','offline')
+            ->where('project_id', $idProject)
+            ->get();
+    }
+    public function getPresentationByProjectAndByOnlinePresentationCategory(int $idProject)
+    {
+        return $this->model->query()
+            ->with(['mentor', 'project', 'division'])
+            ->where('category_presentation','online')
+            ->where('project_id', $idProject)
+            ->get();
+    }
     public function getPresentationByProject(int $idProject)
     {
         return $this->model->query()
@@ -327,7 +377,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
     public function getUnpresentedProject()
     {
         $unpresentedProjectByDeadline = Project::query()
-            ->with(['presentation','division'])
+            ->with(['presentation', 'division'])
             ->where('end_date', '<=', Carbon::today())
             ->whereHas('presentation', function ($query) {
                 $query->whereNot('status_presentation', StatusPresentationEnum::FINISH);
@@ -335,7 +385,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
             ->get();
 
         $unpresentedProjectByPresentation = Project::query()
-            ->with(['presentation','division'])
+            ->with(['presentation', 'division'])
             ->where('status', ProjectAcceptStatus::ACCEPT)
             ->doesntHave('presentation')
             ->get();
@@ -344,5 +394,4 @@ class PresentationRepository extends BaseRepository implements PresentationInter
 
         return $unpresentedProjects;
     }
-
 }
