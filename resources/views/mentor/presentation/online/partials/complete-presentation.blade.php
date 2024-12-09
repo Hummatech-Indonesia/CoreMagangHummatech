@@ -44,7 +44,7 @@
                         @endif
                         </td>
                         <td class="d-flex gap-1">
-                            <a href="" class="btn btn-primary btn-sm">Detail</a>
+                            <a href="/mentor/project-submissions/{{ $presentation->project->id }}/revision" class="btn btn-primary">Detail</a>
                         </td>
                     </tr>
                     @empty

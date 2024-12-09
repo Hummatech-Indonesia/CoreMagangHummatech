@@ -37,7 +37,7 @@
                         <div class="d-flex align-items-center gap-3 justify-content-between">
                             <div class="desc">
                                 <b>Jumlah Antrian Presentasi</b>
-                                <h4>{{ count($ongoings) }} </h4>
+                                <h4 class="fw-semibold">{{ count($ongoings) }} Siswa Mengantri</h4>
                             </div>
                             <div class="icon">
                                 <div class="p-3 rounded-circle d-flex justify-content-center align-items-center"
@@ -63,7 +63,7 @@
                         <div class="d-flex align-items-center gap-3 justify-content-between">
                             <div class="desc">
                                 <b>Menunggu Konfirmasi</b>
-                                <h4>{{ count($waitings) }} </h4>
+                                <h4 class="fw-semibold">{{ count($waitings) }} Belum Disetujui</h4>
                             </div>
                             <div class="icon">
                                 <div class="p-3 rounded-circle d-flex justify-content-center"
@@ -90,7 +90,7 @@
                         <div class="d-flex align-items-center gap-3 justify-content-between">
                             <div class="desc">
                                 <b>Presentasi Selesai</b>
-                                <h4>{{ count($finisheds) }} </h4>
+                                <h4 class="fw-semibold">{{ count($finisheds) }} Diselesaikan</h4>
                             </div>
                             <div class="icon">
                                 <div class="p-3 rounded-circle d-flex justify-content-center align-items-center"
@@ -113,16 +113,16 @@
 
         <ul class="nav nav-pills p-3 mb-3 rounded align-items-center card flex-row">
             <li class="nav-item">
-                <a data-bs-toggle="tab" href="#request" role="tab"
+                <a data-bs-toggle="tab" href="#ongoing" role="tab"
                     class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color {{ request()->hasAny(['status', 'date', 'page']) ? '' : 'active' }}"
                     id="note-business">
-                    <i class="ti ti-list fill-white me-0 me-md-1 fs-7"></i>
+                    <i class="ti ti-presentation fill-white me-0 me-md-1 fs-7"></i>
                     <span class="d-none d-md-block font-weight-medium">Menunggu Presentasi</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a data-bs-toggle="tab" href="#request" role="tab"
-                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color {{ request()->hasAny(['status', 'date', 'page']) ? '' : 'active' }}"
+                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color"
                     id="note-business">
                     <i class="ti ti-list fill-white me-0 me-md-1 fs-7"></i>
                     <span class="d-none d-md-block font-weight-medium">Pengajuan Presentasi</span>
@@ -153,14 +153,14 @@
 
                         <!-- Input Date -->
                         <div class="mb-2">
-                            <input type="date" name="date" value="{{ request()->date }}" class="form-control" id="exampleInputdate">
+                            <input type="date" name="date" value="{{ request()->date }}" class="form-control" id="exampleInputdate" >
                         </div>
                     </div>
 
                     <div class="d-flex justify-content-end gap-2">
                         <!-- Search Input -->
                         <div class="mb-2">
-                            <input type="search" style="width: 280px" name="search" value="{{ request()->search }}" class="form-control p-2" placeholder="Cari by nama project atau member...">
+                            <input type="search" style="width: 220px" name="search" value="{{ request()->search }}" class="form-control p-2" placeholder="Cari by nama project atau member...">
                         </div>
 
                         <!-- Search Button -->
@@ -174,6 +174,9 @@
         </ul>
 
         <div class="tab-content">
+
+            {{-- ongoing --}}
+            @include('mentor.presentation.online.partials.ongoing-presentation')
 
             {{-- pending --}}
             @include('mentor.presentation.online.partials.pending-presentation')
