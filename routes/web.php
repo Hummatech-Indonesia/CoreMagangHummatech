@@ -466,7 +466,7 @@ Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name
 # ==================================================== Another Route Group ====================================================
 
 #===================================================== Mentor =================================================================
-Route::prefix('mentor')->name(RolesEnum::MENTOR->value . ".")->group(function () {
+Route::prefix('mentor')->name(RolesEnum::MENTOR->value . ".")->middleware(['roles:mentor', 'auth'])->group(function () {
     # Home
     Route::get('/', [\App\Http\Controllers\Mentor\DashboardController::class, 'index'])->name('home');
     Route::get('/presentation', [PresentationController::class, 'getMentorOfflinePresentations'])->name('presentation');
