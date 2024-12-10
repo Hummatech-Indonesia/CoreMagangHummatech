@@ -26,7 +26,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between w-100 mb-4 gap-2 navbar-shadow">
-            <a class="text-decoration-none" href="/mentor/project-submissions/{{ $project->id }}/detail">
+            <a class="text-decoration-none"  onclick="history.back()">
                 <div class="back bg-light-info rounded p-3">
                     <svg width="32" height="24" viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path

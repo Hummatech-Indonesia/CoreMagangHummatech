@@ -79,12 +79,12 @@
                             <i class="ti ti-slideshow"></i>
                         </span>
                         <span class="hide-menu">Pengajuan Project</span>
-                    </a>    
+                    </a>
                 </li>
                 <li class="sidebar-item {{ Route::is('mentor.presentation', 'mentor.presentation.online') ? 'selected' : '' }}">
                     <a class="sidebar-link has-arrow {{ Route::is('mentor.presentation', 'mentor.presentation.online') ? 'active' : '' }}" href="#" aria-expanded="false">
                       <span class="d-flex">
-                        <i class="ti ti-slideshow"></i>
+                        <i class="ti ti-presentation"></i>
                       </span>
                       <span class="hide-menu">Pengajuan Presentasi</span>
                     </a>
