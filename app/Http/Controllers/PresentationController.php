@@ -302,7 +302,7 @@ class PresentationController extends Controller
             if($request->queue >= $currentQueue->queue){
                 $updatedQueue = $currentQueue->queue + 1;
             }elseif ($findNextQueue){
-                $updatedQueue = $currentQueue->queue + 1 + ($findNextQueue->urutan - $currentQueue);
+                $updatedQueue = $currentQueue->queue + 1 + ($findNextQueue->urutan - $currentQueue->queue);
             }
 
             $this->queuePresentation->update($currentQueue->id, [
