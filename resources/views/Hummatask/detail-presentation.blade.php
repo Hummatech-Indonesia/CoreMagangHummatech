@@ -349,4 +349,6 @@
     </div>
 
     @include('Hummatask.partials.submit-modal')
+
+    
 @endsection

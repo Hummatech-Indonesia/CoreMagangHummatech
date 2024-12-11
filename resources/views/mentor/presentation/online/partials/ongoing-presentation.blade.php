@@ -2,7 +2,7 @@
     role="tabpanel">
     <div class="card card-body">
         <div class="table-responsive">
-            <table id="dataTablePresentasion2" class="table stripe row-border order-column nowrap">
+            <table id="dataTablePresentasion2" class="table stripe row-border order-column nowrap" style="width: 100%">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -29,25 +29,12 @@
                             </td>
                             <td>{{ ucwords($ongoing->project->type_project->value) }}</td>
                             <td>
-                                @if ($ongoing->status_presentation->value == \App\Enum\StatusPresentationEnum::FINISH->value)
-                                    <small class="p-2 rounded-2 text-success fw-bolder"
-                                        style="background: rgba(19,222,185,.2)">Selesai</small>
-                                @elseif($ongoing->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
-                                    <small class="p-2 rounded-2 text-primary fw-bolder"
-                                        style="background: rgba(93,135,255,.2)">Menunggu</small>
-                                @elseif($ongoing->status_presentation->value == \App\Enum\StatusPresentationEnum::PENNDING->value)
-                                    <small class="p-2 rounded-2 text-warning fw-bolder"
-                                        style="background: rgba(255,174,31,.2)">Pending</small>
-                                @elseif($ongoing->status_presentation->value == \App\Enum\StatusPresentationEnum::NOTFINISH->value)
-                                    <small class="p-2 rounded-2 text-danger fw-bolder"
-                                        style="background: rgb(250,137,107,.2)">Ditolak</small>
-                                @elseif($ongoing->status_presentation->value == \App\Enum\StatusPresentationEnum::ONGOING->value)
-                                    <small class="p-2 rounded-2 text-warning fw-bolder"
-                                        style="background: rgba(255,174,31,.2)">Dalam Antrian</small>
+                                @if($ongoing->status_presentation->value == \App\Enum\StatusPresentationEnum::ONGOING->value)
+                                    <small class="p-2 px-3 rounded-pill text-info bg-light-info fw-bolder">Antrian</small>
                                 @endif
                             </td>
                             <td class="d-flex gap-2">
-                                <a href="/mentor/project-submissions/{{ $ongoing->project->id }}/revision" class="btn btn-primary">Detail</a>
+                                <a href="/mentor/project-submissions/{{ $ongoing->project->id }}/revision" class="btn text-primary btn-light-primary">Detail</a>
 
                                 <button href="{{ $ongoing->link_online_presentation }}" class="btn btn-primary"
                                     data-bs-toggle="modal" data-bs-target="#link-modal-{{ $ongoing->id }}">
@@ -66,7 +53,7 @@
                                         @csrf
                                         @method('PUT')
                                         <div class="modal-header text-dark">
-                                            Antrian Presentasi Online
+                                            Luncurkan Zoom / Edit Link
                                         </div>
                                         <div class="modal-body">
                                             @if ($ongoing->link_online_presentation == '-')

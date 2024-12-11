@@ -23,17 +23,25 @@ class StatusPresentationRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
+
             'presentation_id' => 'required|exists:presentations,id',
             'status_presentation' => [
                 'required',
                 'string',
                 new Enum(StatusPresentationEnum::class),
-            ],
+            ],  
             'planning_date_presentation' => 'required|date',
             'reason' => 'nullable',
             'link_online_presentation' => 'string'
         ];
+
+        if ($this->has('date_time_presentation')) {
+            $rules['date_time_presentation'] = 'required';
+        }
+
+        return $rules;
+
     }
 
     /**
@@ -49,6 +57,7 @@ class StatusPresentationRequest extends FormRequest
             'status_presentation.required' => 'Status presentasi wajib diisi.',
             'status_presentation.string' => 'Status presentasi harus berupa teks.',
             'status_presentation.Enum' => 'Status presentasi yang dipilih tidak valid. Pilihan yang valid adalah: pending, ongoing, finish, notfinish, dan waiting.',
+            'date_time_presentation.required' => 'Tanggal dan waktu presentasi harus diisi',
         ];
     }
 }

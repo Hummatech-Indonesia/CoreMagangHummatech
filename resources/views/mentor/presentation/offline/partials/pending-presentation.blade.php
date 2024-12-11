@@ -7,11 +7,10 @@
                         <th>No</th>
                         <th>Nama Project</th>
                         <th>Nama Ketua</th>
-                        <th>Deskripsi</th>
-                        {{--                                <th>Tanggal Mulai</th> --}}
-                        {{--                                <th>Batas Waktu</th> --}}
+                        <th>Tanggal Mulai</th>
                         <th>Tipe Project</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -20,13 +19,23 @@
                             <td>{{ $loop->iteration }}.</td>
                             <td>{{ $waiting->project->project_name }}</td>
                             <td>
-
                                 {{ \App\Models\Student::find(collect($waiting->project->members)->where('status', \App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
                             </td>
-                            <td>{{ $waiting->project->description }}</td>
-                            {{--                                    <td>{{ $waiting->start_date }}</td> --}}
-                            {{--                                    <td>{{ $waiting->end_date }}</td> --}}
+                            <td>
+                                <span
+                                    class="text-warning">{{ \Carbon\Carbon::parse($waiting->planning_date_presentation)->format('j F Y') }}</span>
+                            </td>
                             <td>{{ ucwords($waiting->project->type_project->value) }}</td>
+                            <td>
+                                @if ($waiting->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
+                                    <small class="p-2 rounded-pill text-info bg-light-info fw-bolder">Menunggu</small>
+                                @elseif($waiting->status_presentation->value == \App\Enum\StatusPresentationEnum::PENNDING->value)
+                                    <small
+                                        class="p-2 rounded-pill text-warning bg-light-warning fw-bolder">Ditunda</small>
+                                @endif
+                            </td>
+
+
                             <td class="d-flex gap-1">
 
                                 <button class="btn btn-success" data-bs-toggle="modal"
@@ -119,15 +128,15 @@
                             </div>
                         </div>
                     @empty
-                    <tr>
-                        <td colspan="8" class="text-center">
-                            <div class="col-md-12 text-center">
-                                <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
-                                    alt="No Data" height="120px" />
-                                <h3 class="text-center">Data Masih Kosong</h3>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td colspan="8" class="text-center">
+                                <div class="col-md-12 text-center">
+                                    <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
+                                        alt="No Data" height="120px" />
+                                    <h3 class="text-center">Data Masih Kosong</h3>
+                                </div>
+                            </td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>

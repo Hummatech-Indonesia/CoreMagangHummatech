@@ -2,7 +2,7 @@
 @section('content')
     <div class="modal fade" id="pending-date" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Tunda Presentasi</h5>
@@ -15,8 +15,13 @@
                         <input type="hidden" name="presentation_id" value="" id="inputPresentationId">
                         <input type="hidden" name="status_presentation"
                             value="{{ \App\Enum\StatusPresentationEnum::PENNDING->value }}" />
-                        <input type="date" name="planning_date_presentation" value="" id="inputPresentationDate"
-                            class="form-control">
+
+                        <input class="form-control" id="date_time_presentation" name="date_time_presentation"
+                            type="datetime-local" value="{{ old('date_time_presentation') }}">
+                        <input class="form-control" id="planning_date_presentation" name="planning_date_presentation"
+                            type="hidden" value="{{ old('planning_date_presentation') }}">
+
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light-danger text-danger" data-bs-dismiss="modal">Tutup
@@ -145,22 +150,27 @@
                         <div class="mb-2">
                             <select class="form-select" name="status" onchange="this.form.submit()">
                                 <option value="" {{ request('status') === null ? 'selected' : '' }}>Semua</option>
-                                <option value="finish" {{ request('status') == 'finish' ? 'selected' : '' }}>Selesai</option>
-                                <option value="notfinish" {{ request('status') == 'notfinish' ? 'selected' : '' }}>Ditolak</option>
-                                <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Ditunda</option>
+                                <option value="finish" {{ request('status') == 'finish' ? 'selected' : '' }}>Selesai
+                                </option>
+                                <option value="notfinish" {{ request('status') == 'notfinish' ? 'selected' : '' }}>Ditolak
+                                </option>
+                                <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Ditunda
+                                </option>
                             </select>
                         </div>
 
                         <!-- Input Date -->
                         <div class="mb-2">
-                            <input type="date" name="date" value="{{ request()->date }}" class="form-control" id="exampleInputdate" >
+                            <input type="date" name="date" value="{{ request()->date }}" class="form-control"
+                                id="exampleInputdate">
                         </div>
                     </div>
 
                     <div class="d-flex justify-content-end gap-2">
                         <!-- Search Input -->
                         <div class="mb-2">
-                            <input type="search" style="width: 220px" name="search" value="{{ request()->search }}" class="form-control p-2" placeholder="Cari by nama project atau member...">
+                            <input type="search" style="width: 220px" name="search" value="{{ request()->search }}"
+                                class="form-control p-2" placeholder="Cari by nama project atau member...">
                         </div>
 
                         <!-- Search Button -->
@@ -218,6 +228,27 @@
             // Tampilkan modal
             $('#pending-date').modal('show');
         }
+
+
     </script>
 
+<script>
+    // Ambil elemen input
+    const dateTimeInput = document.getElementById('date_time_presentation');
+    const planningDateInput = document.getElementById('planning_date_presentation');
+
+    // Tambahkan event listener
+    dateTimeInput.addEventListener('input', function () {
+        // Ambil nilai dari date_time_presentation
+        const dateTimeValue = dateTimeInput.value;
+
+        // Jika ada nilai, ekstrak tanggalnya
+        if (dateTimeValue) {
+            const dateOnly = dateTimeValue.split('T')[0]; // Ambil bagian tanggal sebelum 'T'
+            planningDateInput.value = dateOnly; // Masukkan ke input hidden
+        } else {
+            planningDateInput.value = ''; // Kosongkan jika tidak ada nilai
+        }
+    });
+</script>
 @endsection

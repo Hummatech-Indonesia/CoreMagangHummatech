@@ -25,24 +25,20 @@
                             <span class="text-warning">{{ \Carbon\Carbon::parse($presentation->date_time_presentation)->format('j F Y') }}</span>
                         </td>
                         <td>{{ ucwords($presentation->project->type_project->value) }}</td>
-                        <td >
+                        <td>
                             @if ($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::FINISH->value)
-                            <small class="p-2 rounded-2 text-success fw-bolder"
-                                style="background: rgba(19,222,185,.2)">Selesai</small>
-                        @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
-                            <small class="p-2 rounded-2 text-primary fw-bolder"
-                                style="background: rgba(93,135,255,.2)">Menunggu</small>
-                        @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::PENNDING->value)
-                            <small class="p-2 rounded-2 text-warning fw-bolder"
-                                style="background: rgba(255,174,31,.2)">Pending</small>
-                        @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::NOTFINISH->value)
-                            <small class="p-2 rounded-2 text-danger fw-bolder"
-                                style="background: rgb(250,137,107,.2)">Ditolak</small>
-                        @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::ONGOING->value)
-                            <small class="p-2 rounded-2 text-warning fw-bolder"
-                                style="background: rgba(255,174,31,.2)">Dalam Antrian</small>
-                        @endif
+                                <small class="p-2 px-3 rounded-pill text-success bg-light-success fw-bolder">Selesai</small>
+                            @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
+                                <small class="p-2 px-3 rounded-pill text-warning bg-light-warning fw-bolder">Menunggu</small>
+                            @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::PENNDING->value)
+                                <small class="p-2 px-3 rounded-pill text-warning bg-light-warning fw-bolder">Pending</small>
+                            @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::NOTFINISH->value)
+                                <small class="p-2 px-3 rounded-pill text-danger bg-light-danger fw-bolder">Ditolak</small>
+                            @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::ONGOING->value)
+                                <small class="p-2 px-3 rounded-pill text-info bg-light-info fw-bolder">Dalam Antrian</small>
+                            @endif
                         </td>
+                        
                         <td class="d-flex gap-1">
                             <a href="/mentor/project-submissions/{{ $presentation->project->id }}/revision" class="btn btn-primary">Detail</a>
                         </td>

@@ -22,24 +22,19 @@
                                 {{ \App\Models\Student::find(collect($presentation->project->members)->where('status', \App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
                             </td>
                             <td>{{ $presentation->project->description }}</td>
-                            <td>{{ $presentation->planning_date_presentation }}</td>
+                            <td><span class="text-warning">{{ \Carbon\Carbon::parse($presentation->planning_date_presentation)->format('j F Y') }}</span></td>
                             <td>{{ ucwords($presentation->project->type_project->value) }}</td>
                             <td>
                                 @if ($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::FINISH->value)
-                                    <small class="p-2 rounded-pill text-success fw-bolder"
-                                        style="background: rgba(19,222,185,.2)">Selesai</small>
+                                    <small class="p-2 rounded-pill text-success bg-light-success fw-bolder">Selesai</small>
                                 @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
-                                    <small class="p-2 rounded-pill text-primary fw-bolder"
-                                        style="background: rgba(93,135,255,.2)">Menunggu</small>
+                                    <small class="p-2 rounded-pill text-info bg-light-info fw-bolder">Menunggu</small>
                                 @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::PENNDING->value)
-                                    <small class="p-2 rounded-pill text-warning fw-bolder"
-                                        style="background: rgba(255,174,31,.2)">Pending</small>
+                                    <small class="p-2 rounded-pill text-warning bg-light-warning fw-bolder">Ditunda</small>
                                 @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::NOTFINISH->value)
-                                    <small class="p-2 rounded-pill text-danger fw-bolder"
-                                        style="background: rgb(250,137,107,.2)">Ditolak</small>
+                                    <small class="p-2 rounded-pill text-danger bg-light-warning fw-bolder">Ditolak</small>
                                 @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::ONGOING->value)
-                                    <small class="p-2 rounded-pill text-warning fw-bolder"
-                                        style="background: rgba(255,174,31,.2)">Dalam Antrian</small>
+                                    <small class="p-2 rounded-pill text-primary bg-light-primary fw-bolder">Dalam Antrian</small>
                                 @endif
                             </td>
                         </tr>

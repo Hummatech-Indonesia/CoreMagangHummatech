@@ -28,21 +28,12 @@
                             </td>
                             <td>{{ ucwords($waiting->project->type_project->value) }}</td>
                             <td>
-                                @if ($waiting->status_presentation->value == \App\Enum\StatusPresentationEnum::FINISH->value)
-                                    <small class="p-2 rounded-2 text-success fw-bolder"
-                                        style="background: rgba(19,222,185,.2)">Selesai</small>
-                                @elseif($waiting->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
-                                    <small class="p-2 rounded-2 text-primary fw-bolder"
-                                        style="background: rgba(93,135,255,.2)">Menunggu</small>
+                                @if($waiting->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
+                                     <small class="p-2 px-3 rounded-pill text-warning bg-light-warning fw-bolder">Menunggu</small>
                                 @elseif($waiting->status_presentation->value == \App\Enum\StatusPresentationEnum::PENNDING->value)
-                                    <small class="p-2 rounded-2 text-warning fw-bolder"
-                                        style="background: rgba(255,174,31,.2)">Pending</small>
-                                @elseif($waiting->status_presentation->value == \App\Enum\StatusPresentationEnum::NOTFINISH->value)
-                                    <small class="p-2 rounded-2 text-danger fw-bolder"
-                                        style="background: rgb(250,137,107,.2)">Ditolak</small>
-                                @elseif($waiting->status_presentation->value == \App\Enum\StatusPresentationEnum::ONGOING->value)
-                                    <small class="p-2 rounded-2 text-warning fw-bolder"
-                                        style="background: rgba(255,174,31,.2)">Dalam Antrian</small>
+                                    <small class="p-2 px-3 rounded-pill text-warning bg-light-warning fw-bolder">Pending</small>
+                                @else
+                                    <small>-</small>
                                 @endif
                             </td>
                             <td class="d-flex gap-1">

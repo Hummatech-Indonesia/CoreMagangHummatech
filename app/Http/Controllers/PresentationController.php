@@ -259,7 +259,8 @@ class PresentationController extends Controller
                 'reason' => $data['reason'] ?? null,
                 'mentor_id' => auth()->user()->id,
                 'link_online_presentation' => $data['link_online_presentation'] ?? '-',
-                'planning_date_presentation' => $data['planning_date_presentation']
+                'planning_date_presentation' => $data['planning_date_presentation'],
+                'date_time_presentation' => $data['date_time_presentation'] ?? null
             ]);
 
 
