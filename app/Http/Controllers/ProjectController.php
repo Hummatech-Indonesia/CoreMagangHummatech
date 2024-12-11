@@ -124,7 +124,7 @@ class ProjectController extends Controller
     {
         $categoryProject = $this->categoryProject->get();
         $students = $this->student->getStudentAccepted()->where('id', '!=', auth()->user()->student_id)->pluck('name', 'id');
-        $pending = $this->project->where('status_project', TaskStatusEnum::PENDING->value)->count();
+        // $pending = $this->project->where('status_project', TaskStatusEnum::PENDING->value)->count();
         $inprogress = $this->project->where('status_project', TaskStatusEnum::INPROGRESS->value)->count();
         $revision = $this->project->where('status_project', TaskStatusEnum::REVISION->value)->count();
         $completed = $this->project->where('status_project', TaskStatusEnum::COMPLETED->value)->count();
@@ -138,7 +138,7 @@ class ProjectController extends Controller
             ];
         }
 
-        return view('Hummatask.management-project', compact('categoryProject', 'students', 'pending', 'inprogress', 'revision', 'completed', 'projects'));
+        return view('Hummatask.management-project', compact('categoryProject', 'students', 'inprogress', 'revision', 'completed', 'projects'));
     }
 
     /**

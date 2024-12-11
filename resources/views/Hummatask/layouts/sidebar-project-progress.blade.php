@@ -15,7 +15,7 @@
                 <!-- Dashboard -->
                 <!-- =================== -->
                 <li class="btn btn-primary ms-3">
-                    <a class="sidebar-link" href="{{ route('project.task.index') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('student-offline.project.task.index') }}" aria-expanded="false">
                         <span>
 
                             <svg width="24" height="24" viewBox="0 0 24 24" fill=""
