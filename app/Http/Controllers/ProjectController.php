@@ -360,6 +360,22 @@ class ProjectController extends Controller
             return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('error', value: "Gagal menambah revisi");
         }
     }
+    
+    public function updateRevision(ProjectRevision $projectRevision, Request $request)
+    {
+        $validated = $request->validate([
+            'revision' => 'required',
+            'status' => 'required|string'
+        ]);
+
+        try {
+            $this->projectRevision->update($projectRevision->id, $validated);
+           
+            return redirect()->back()->with('success', 'Revisi diperbarui!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('success', 'Revisi gagal diperbarui.');
+        }
+    }
 
     public function deleteRevision(ProjectRevision $projectRevision)
     {

@@ -15,7 +15,9 @@ class ProjectRevisionRepository extends BaseRepository implements ProjectRevisio
 
     public function update(mixed $id, array $data): mixed
     {
-        return $this->model->update($id, $data);
+        $model = $this->model->find($id);
+
+        return $model->update($data);
     }
 
     public function delete(mixed $id): mixed

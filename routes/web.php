@@ -384,9 +384,11 @@ Route::prefix('student-offline')->name(RolesEnum::OFFLINE->value . ".")->middlew
     Route::post('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'storePresentation'])->name('project.presentation.save');
     Route::get('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'revisionProject'])->name('project.presentation.revision');
     Route::put('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'changeStatusRevision'])->name('project.presentation.revision.changestatus');
-    Route::post('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'addRevision'])->name('project.presentation.revision.saveRevision');
-    Route::post('dashboard/task/detail/{project}/presentation/revision/{presentation}/member/{projectRevision}', [\App\Http\Controllers\ProjectController::class, 'revisionMember'])->name('project.presentation.revision.member');
 
+    # revision Project
+    Route::post('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'addRevision'])->name('project.presentation.revision.saveRevision');
+    Route::put('revision/{projectRevision}/update', [\App\Http\Controllers\ProjectController::class, 'updateRevision'])->name('project.revision.updateRevision');
+    Route::post('dashboard/task/detail/{project}/presentation/revision/{presentation}/member/{projectRevision}', [\App\Http\Controllers\ProjectController::class, 'revisionMember'])->name('project.presentation.revision.member');
     Route::delete('revision/{projectRevision}', [\App\Http\Controllers\ProjectController::class, 'deleteRevision'])->name('project.revision.delete');
 
     Route::get('dashboard/task/management', [\App\Http\Controllers\ProjectController::class, 'managementProject'])->name('project.management');

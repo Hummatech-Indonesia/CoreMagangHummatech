@@ -143,7 +143,12 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item fs-2" href="#">
+                                                        <a class="dropdown-item fs-2" data-bs-toggle="modal"
+                                                            data-bs-target="#editRevisionModal"
+                                                            data-id="{{ $revision->id }}"
+                                                            data-status="{{ $revision->status }}"
+                                                            data-revision="{{ $revision->revision }}"
+                                                            data-action="{{ route('student-offline.project.revision.updateRevision', $revision->id) }}">
                                                             Edit
                                                         </a>
                                                     </li>
@@ -174,6 +179,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 @include('Hummatask.partials.delete-modal')
                                 @include('Hummatask.partials.member-modal')
                                 <script>
@@ -251,9 +257,14 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item fs-2" href="#">
-                                                            Edit
-                                                        </a>
+                                                        <a class="dropdown-item fs-2" data-bs-toggle="modal"
+                                                        data-bs-target="#editRevisionModal"
+                                                        data-id="{{ $revision->id }}"
+                                                        data-status="{{ $revision->status }}"
+                                                        data-revision="{{ $revision->revision }}"
+                                                        data-action="{{ route('student-offline.project.revision.updateRevision', $revision->id) }}">
+                                                        Edit
+                                                    </a>
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item fs-2" data-bs-toggle="modal"
@@ -362,7 +373,12 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item fs-2" href="#">
+                                                        <a class="dropdown-item fs-2" data-bs-toggle="modal"
+                                                            data-bs-target="#editRevisionModal"
+                                                            data-id="{{ $revision->id }}"
+                                                            data-status="{{ $revision->status }}"
+                                                            data-revision="{{ $revision->revision }}"
+                                                            data-action="{{ route('student-offline.project.revision.updateRevision', $revision->id) }}">
                                                             Edit
                                                         </a>
                                                     </li>
@@ -395,7 +411,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 @include('Hummatask.partials.delete-modal')
                                 @include('Hummatask.partials.member-modal')
                                 <script>
@@ -438,6 +454,9 @@
             </div>
         </div>
     </div>
+
+
+    @include('Hummatask.partials.edit-revision-modal')
 
     <div class="modal fade" id="addRevisionTodo" aria-labelledby="addRevisionTodoLabel" aria-hidden="true"
         tabindex="-1">
@@ -677,6 +696,28 @@
                     event.target.classList.remove('drop-active');
                     event.target.classList.remove('drop-target');
                 }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const editRevisionModal = document.getElementById('editRevisionModal');
+
+            editRevisionModal.addEventListener('show.bs.modal', function(event) {
+
+                const button = event.relatedTarget;
+
+                const id = button.getAttribute('data-id');
+                const status = button.getAttribute('data-status');
+                const revision = button.getAttribute('data-revision');
+                const action = button.getAttribute('data-action');
+
+                const form = editRevisionModal.querySelector('form');
+                const statusInput = editRevisionModal.querySelector('#editRevisionStatus');
+                const revisionTextarea = editRevisionModal.querySelector('#editRevision');
+
+                form.action = action;
+                statusInput.value = status;
+                revisionTextarea.value = revision;
             });
         });
     </script>
