@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use DB;
 use App\Models\Mentor;
 use App\Models\Project;
 use App\Models\Presentation;
@@ -11,6 +10,7 @@ use App\Models\HummataskTeam;
 use Illuminate\Support\Carbon;
 use App\Models\LimitPresentation;
 use App\Models\QueuePresentation;
+use Illuminate\Support\Facades\DB;
 use App\Enum\StatusPresentationEnum;
 use App\Services\PresentationService;
 use App\Http\Requests\StoreCallbackRequest;

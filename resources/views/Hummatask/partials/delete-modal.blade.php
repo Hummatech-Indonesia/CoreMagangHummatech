@@ -1,9 +1,10 @@
-v<div class="modal fade" id="delete" tabindex="-1" aria-labelledby="deleteLabel"
+<div class="modal fade" id="delete-{{ $revision->id }}" tabindex="-1" aria-labelledby="deleteLabel"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="#">
+            <form action="{{ route('student-offline.project.revision.delete', $revision->id) }}" method="POST">
                 @csrf
+                @method('DELETE')
                 <div class="modal-header d-flex justify justify-content-center">
                 </div>
                 <div class="modal-body">

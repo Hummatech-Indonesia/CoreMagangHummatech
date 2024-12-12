@@ -361,6 +361,19 @@ class ProjectController extends Controller
         }
     }
 
+    public function deleteRevision(ProjectRevision $projectRevision)
+    {
+        try {
+            $projectRevision->assignedStudent()->detach();
+
+            $this->projectRevision->delete($projectRevision->id);
+
+            return redirect()->back()->with('success', 'Revisi dihapus!');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
     public function revisionMember(Project $project, Presentation $presentation, ProjectRevision $projectRevision, Request $request)
     {
         $request->validate([

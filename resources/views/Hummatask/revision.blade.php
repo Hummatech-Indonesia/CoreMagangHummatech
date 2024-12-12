@@ -149,7 +149,7 @@
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item fs-2" data-bs-toggle="modal"
-                                                            data-bs-target="#delete" href="#">
+                                                            data-bs-target="#delete-{{ $revision->id }}" href="#">
                                                             Hapus
                                                         </a>
                                                     </li>
@@ -174,6 +174,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @include('Hummatask.partials.delete-modal')
                                 @include('Hummatask.partials.member-modal')
                                 <script>
                                     $(document).ready(function() {
@@ -256,7 +257,7 @@
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item fs-2" data-bs-toggle="modal"
-                                                            data-bs-target="#delete" href="#">
+                                                            data-bs-target="#delete-{{ $revision->id }}" href="#">
                                                             Hapus
                                                         </a>
                                                     </li>
@@ -282,6 +283,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @include('Hummatask.partials.delete-modal')
                                 @include('Hummatask.partials.member-modal')
                                 <script>
                                     $(document).ready(function() {
@@ -366,11 +368,12 @@
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item fs-2" data-bs-toggle="modal"
-                                                            data-bs-target="#delete" href="#">
+                                                            data-bs-target="#delete-{{ $revision->id }}" href="#">
                                                             Hapus
                                                         </a>
                                                     </li>
                                                 </ul>
+                                                @include('Hummatask.partials.delete-modal')
                                             </div>
                                             <div class="d-flex justify-content-end">
                                                 <ul class="hstack mb-2">
@@ -392,6 +395,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                
+                                @include('Hummatask.partials.delete-modal')
                                 @include('Hummatask.partials.member-modal')
                                 <script>
                                     $(document).ready(function() {
@@ -532,8 +537,6 @@
             </div>
         </div>
     </div>
-
-    @include('Hummatask.partials.delete-modal')
 @endsection
 
 @section('script')
