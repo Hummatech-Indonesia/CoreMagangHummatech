@@ -172,4 +172,12 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
             ->with(['presentation.revision', 'members', 'members.members'])
             ->get();
     }
+
+    public function getAcceptedProject()
+    {
+        return $this->model
+        ->query()
+        ->where('status', ProjectAcceptStatus::ACCEPT)
+        ->get();
+    }
 }

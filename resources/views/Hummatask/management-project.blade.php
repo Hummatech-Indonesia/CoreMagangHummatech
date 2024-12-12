@@ -189,7 +189,7 @@
         <div class="row">
             <div class="col-8">
                 <div class="row row-cols-2">
-                    @foreach ($projects as $project)
+                    @forelse ($projects as $project)
                         <div class="col">
                             <div class="card card-body rounded-2">
                                 <div class="bg-light-primary rounded-2">
@@ -319,7 +319,8 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                        @empty
+                    @endforelse
                 </div>
             </div>
 

@@ -128,7 +128,7 @@ class ProjectController extends Controller
         $inprogress = $this->project->where('status_project', TaskStatusEnum::INPROGRESS->value)->count();
         $revision = $this->project->where('status_project', TaskStatusEnum::REVISION->value)->count();
         $completed = $this->project->where('status_project', TaskStatusEnum::COMPLETED->value)->count();
-        $getProjects = $this->project->get();
+        $getProjects = $this->project->getAcceptedProject();
         $projects = [];
         foreach ($getProjects as $getProject) {
             $projects[] = [
@@ -360,7 +360,7 @@ class ProjectController extends Controller
             return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('error', value: "Gagal menambah revisi");
         }
     }
-    
+
     public function updateRevision(ProjectRevision $projectRevision, Request $request)
     {
         $validated = $request->validate([
@@ -370,7 +370,7 @@ class ProjectController extends Controller
 
         try {
             $this->projectRevision->update($projectRevision->id, $validated);
-           
+
             return redirect()->back()->with('success', 'Revisi diperbarui!');
         } catch (\Exception $e) {
             return redirect()->back()->with('success', 'Revisi gagal diperbarui.');
