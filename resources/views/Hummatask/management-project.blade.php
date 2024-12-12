@@ -2,8 +2,8 @@
 @section('style')
     <style>
         /* * {
-                                                                    border: 1px solid #f00;
-                                                                } */
+                                                                                    border: 1px solid #f00;
+                                                                                } */
         .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
             color: black;
         }
@@ -322,6 +322,7 @@
                     @endforeach
                 </div>
             </div>
+
             <div class="col-4">
                 <div class="card">
                     <div class="card-body">
@@ -330,51 +331,130 @@
                     </div>
                 </div>
             </div>
+
+            @forelse ($projects as $project)
+                <div class="">
+                    @php
+
+                        $total_revisi = 100;
+                        $anggota = [
+                            [
+                                'nama' => 'John Doe',
+                                'revisi' => 30,
+                            ],
+                            [
+                                'nama' => 'Jane Doe',
+                                'revisi' => 40,
+                            ],
+                            [
+                                'nama' => 'Bob Smith',
+                                'revisi' => 20,
+                            ],
+                        ];
+
+                        $total_revisi_anggota = array_sum(array_column($anggota, 'revisi'));
+                        $revisi = ($total_revisi_anggota / $total_revisi) * 100;
+
+                        foreach ($anggota as &$item) {
+                            $item['revisi'] = ($item['revisi'] / $total_revisi) * 100;
+                        }
+                    @endphp
+                    <style>
+                        .progress {
+                            height: 20px;
+                            border-radius: 10px;
+                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                        }
+
+                        .progress-bar {
+                            background-color: #4CAF50;
+                            border-radius: 10px;
+                        }
+
+                        .anggota-progress {
+                            margin-top: 5px;
+                        }
+                    </style>
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="card card-body">
+                                <div class="">
+                                    <h2>{{ $project['project_name'] }}</h2>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="{{ $revisi }}"
+                                            aria-valuemin="0" aria-valuemax="100" style="width: {{ $revisi }}%;">
+                                            {{ $revisi }}%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <h2>Anggota Progress</h2>
+                                    <ul>
+                                        @foreach ($anggota as $item)
+                                            <li>
+                                                {{ $item['nama'] }}: {{ $item['revisi'] }}%
+                                                <div class="progress anggota-progress">
+                                                    <div class="progress-bar" role="progressbar"
+                                                        aria-valuenow="{{ $item['revisi'] }}" aria-valuemin="0"
+                                                        aria-valuemax="100" style="width: {{ $item['revisi'] }}%;">
+                                                        {{ $item['revisi'] }}%
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @empty
+            @endforelse
         </div>
-    </div>
-@endsection
-@section('script')
-    <script>
-        var options = {
-            // width: 300,
-            height: 800,
-            chart: {
-                type: 'donut'
-            },
-            dataLabels: {
-                enabled: true,
-                formatter: function(val) {
-                    return Math.round(val) + '%';
+    @endsection
+    @section('script')
+        <script>
+            var options = {
+                // width: 300,
+                height: 800,
+                chart: {
+                    type: 'donut'
                 },
-                style: {
-                    // fontSize: '20px',
-                    fontFamily: 'Helvetica, sans-serif',
-                }
-            },
-            series: [
-                {{ count($projects) == null ? 99 : $inprogress }},
-                {{ count($projects) == null ? 99 : $inprogress }},
-                {{ count($projects) == null ? 99 : $revision }},
-                {{ count($projects) == null ? 99 : $completed }}
-            ],
-            colors: ['#5d87ff', '#ffcc00', '#ff0000', '#42bd53'],
-            labels: ['Tugas Belum Selesai', 'Dikerjakan', 'Revisi', 'Selesai'],
-            legend: {
+                dataLabels: {
+                    enabled: true,
+                    formatter: function(val) {
+                        return Math.round(val) + '%';
+                    },
+                    style: {
+                        // fontSize: '20px',
+                        fontFamily: 'Helvetica, sans-serif',
+                    }
+                },
+                series: [
+                    {{ count($projects) == null ? 99 : $inprogress }},
+                    {{ count($projects) == null ? 99 : $inprogress }},
+                    {{ count($projects) == null ? 99 : $revision }},
+                    {{ count($projects) == null ? 99 : $completed }}
+                ],
                 colors: ['#5d87ff', '#ffcc00', '#ff0000', '#42bd53'],
-                useSeriesColors: true,
-                position: 'bottom',
-                fontWeight: 700,
-            },
-            plotOptions: {
-                pie: {
-                    customScale: 1,
-                    donut: {
-                        size: '60%',
+                labels: ['Tugas Belum Selesai', 'Project Berjalan', 'Revisi', 'Selesai'],
+                legend: {
+                    colors: ['#5d87ff', '#ffcc00', '#ff0000', '#42bd53'],
+                    useSeriesColors: true,
+                    position: 'bottom',
+                    fontWeight: 700,
+                },
+                plotOptions: {
+                    pie: {
+                        customScale: 1,
+                        donut: {
+                            size: '60%',
+                        }
                     }
                 }
             }
-        }
-        var chart = new ApexCharts(document.querySelector("#donutChart"), options);
-        chart.render();
-    </script>
-@endsection
+            var chart = new ApexCharts(document.querySelector("#donutChart"), options);
+            chart.render();
+        </script>
+    @endsection
