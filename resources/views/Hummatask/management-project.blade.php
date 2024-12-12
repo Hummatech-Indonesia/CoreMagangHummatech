@@ -433,10 +433,10 @@
                     }
                 },
                 series: [
-                    {{ count($projects) == null ? 99 : $inprogress }},
-                    {{ count($projects) == null ? 99 : $inprogress }},
-                    {{ count($projects) == null ? 99 : $revision }},
-                    {{ count($projects) == null ? 99 : $completed }}
+                    {{ $upcomingProject }},
+                    {{ $inprogress ?? 0 }},
+                    {{ $revision ?? 0 }},
+                    {{ $completed ?? 0 }}
                 ],
                 colors: ['#5d87ff', '#ffcc00', '#ff0000', '#42bd53'],
                 labels: ['Tugas Belum Selesai', 'Project Berjalan', 'Revisi', 'Selesai'],
