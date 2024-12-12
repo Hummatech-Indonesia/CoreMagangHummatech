@@ -2,8 +2,8 @@
 @section('style')
     <style>
         /* * {
-                                                                border: 1px solid #f00;
-                                                            } */
+                                                                    border: 1px solid #f00;
+                                                                } */
         .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
             color: black;
         }
@@ -266,8 +266,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" id="delete-modal-{{ $project['id'] }}" aria-labelledby="deleteModalLabel"
-                            aria-hidden="true" tabindex="-1">
+                        <div class="modal fade" id="delete-modal-{{ $project['id'] }}"
+                            aria-labelledby="deleteModalLabel" aria-hidden="true" tabindex="-1">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -292,8 +292,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade" id="delete-modal-{{ $project['id'] }}" aria-labelledby="deleteModalLabel"
-                            aria-hidden="true" tabindex="-1">
+                        <div class="modal fade" id="delete-modal-{{ $project['id'] }}"
+                            aria-labelledby="deleteModalLabel" aria-hidden="true" tabindex="-1">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -306,7 +306,8 @@
                                             class="fw-bold">{{ $project['project_name'] }}</span>?
                                     </div>
                                     <div class="modal-footer">
-                                        <form action="{{ route('presentations.destroy', $project['id']) }}" method="POST">
+                                        <form action="{{ route('presentations.destroy', $project['id']) }}"
+                                            method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
@@ -351,7 +352,7 @@
                 }
             },
             series: [
-                {{--  {{ count($projects) == null ? 99 : $pending }},  --}}
+                {{ count($projects) == null ? 99 : $inprogress }},
                 {{ count($projects) == null ? 99 : $inprogress }},
                 {{ count($projects) == null ? 99 : $revision }},
                 {{ count($projects) == null ? 99 : $completed }}
