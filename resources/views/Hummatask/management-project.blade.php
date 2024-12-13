@@ -189,7 +189,7 @@
         <div class="row">
             <div class="col-8">
                 <div class="row row-cols-2">
-                    @foreach ($projects as $project)
+                    @forelse ($projects as $project)
                         <div class="col">
                             <div class="card card-body rounded-2">
                                 <div class="bg-light-primary rounded-2">
@@ -319,7 +319,8 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                        @empty
+                    @endforelse
                 </div>
             </div>
 
@@ -455,10 +456,10 @@
                     }
                 },
                 series: [
-                    {{ count($projects) == null ? 99 : $inprogress }},
-                    {{ count($projects) == null ? 99 : $inprogress }},
-                    {{ count($projects) == null ? 99 : $revision }},
-                    {{ count($projects) == null ? 99 : $completed }}
+                    {{ $upcomingProject }},
+                    {{ $inprogress ?? 0 }},
+                    {{ $revision ?? 0 }},
+                    {{ $completed ?? 0 }}
                 ],
                 colors: ['#5d87ff', '#ffcc00', '#ff0000', '#42bd53'],
                 labels: ['Tugas Belum Selesai', 'Project Berjalan', 'Revisi', 'Selesai'],
