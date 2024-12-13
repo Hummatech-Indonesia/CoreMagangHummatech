@@ -2,8 +2,8 @@
 @section('style')
     <style>
         /* * {
-                                                                                    border: 1px solid #f00;
-                                                                                } */
+                                                                                        border: 1px solid #f00;
+                                                                                    } */
         .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
             color: black;
         }
@@ -361,14 +361,32 @@
                     @endphp
                     <style>
                         .progress {
-                            height: 20px;
+                            height: 5px;
                             border-radius: 10px;
                             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                         }
 
                         .progress-bar {
-                            background-color: #4CAF50;
+                            background-color: #0e4b91;
                             border-radius: 10px;
+                            position: relative;
+                            /* Untuk memastikan pseudo-element bisa diposisikan relatif terhadap .progress-bar */
+                        }
+
+                        .progress-bar::after {
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            right: -6px;
+                            /* Jarak bundaran dari ujung kanan progress bar */
+                            transform: translateY(-50%);
+                            width: 16px;
+                            /* Ukuran bundaran */
+                            height: 16px;
+                            border-radius: 50%;
+                            /* Membuat bentuk bundaran */
+                            background-color: #0e4b91;
+                            /* Warna bundaran sesuai dengan progress bar */
                         }
 
                         .anggota-progress {
@@ -382,10 +400,12 @@
                                 <div class="">
                                     <h2>{{ $project['project_name'] }}</h2>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="{{ $revisi }}"
-                                            aria-valuemin="0" aria-valuemax="100" style="width: {{ $revisi }}%;">
-                                            {{ $revisi }}%
-                                        </div>
+                                        <a class="progress-bar" role="progressbar" aria-valuenow="{{ $revisi }}"
+                                            aria-valuemin="0" aria-valuemax="100" style="width: {{ $revisi }}%;"
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="{{ $revisi }}%">
+                                            {{--  {{ $revisi }}%  --}}
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="">
@@ -395,12 +415,15 @@
                                             <li>
                                                 {{ $item['nama'] }}: {{ $item['revisi'] }}%
                                                 <div class="progress anggota-progress">
-                                                    <div class="progress-bar" role="progressbar"
+                                                    <a class="progress-bar" role="progressbar"
                                                         aria-valuenow="{{ $item['revisi'] }}" aria-valuemin="0"
-                                                        aria-valuemax="100" style="width: {{ $item['revisi'] }}%;">
-                                                        {{ $item['revisi'] }}%
-                                                    </div>
+                                                        aria-valuemax="100" style="width: {{ $item['revisi'] }}%;"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="{{ $item['revisi'] }}%">
+                                                        {{--  {{ $item['revisi'] }}%  --}}
+                                                    </a>
                                                 </div>
+
                                             </li>
                                         @endforeach
                                     </ul>
