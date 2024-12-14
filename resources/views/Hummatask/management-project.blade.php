@@ -2,8 +2,8 @@
 @section('style')
     <style>
         /* * {
-                                                                                        border: 1px solid #f00;
-                                                                                    } */
+                                                                                                border: 1px solid #f00;
+                                                                                            } */
         .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
             color: black;
         }
@@ -319,7 +319,7 @@
                                 </div>
                             </div>
                         </div>
-                        @empty
+                    @empty
                     @endforelse
                 </div>
             </div>
@@ -365,73 +365,114 @@
                             height: 5px;
                             border-radius: 10px;
                             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                            background-color: #e0e0e0;
+                            /* Warna latar belakang progress bar */
                         }
 
                         .progress-bar {
-                            background-color: #0e4b91;
-                            border-radius: 10px;
+                            background-color: #1ccdad;
                             position: relative;
-                            /* Untuk memastikan pseudo-element bisa diposisikan relatif terhadap .progress-bar */
+                            height: 5px;
+                            border-radius: 10px;
+                            /* Menambahkan properti untuk membuat ujung kanan bulat */
                         }
 
                         .progress-bar::after {
                             content: '';
                             position: absolute;
                             top: 50%;
-                            right: -6px;
-                            /* Jarak bundaran dari ujung kanan progress bar */
+                            right: -15px;
+                            /* Menempatkan bulatan lebih keluar dari ujung */
                             transform: translateY(-50%);
-                            width: 16px;
-                            /* Ukuran bundaran */
-                            height: 16px;
+                            width: 20px;
+                            /* Ukuran bulatan yang lebih besar */
+                            height: 20px;
+                            /* Ukuran bulatan yang lebih besar */
                             border-radius: 50%;
-                            /* Membuat bentuk bundaran */
-                            background-color: #0e4b91;
-                            /* Warna bundaran sesuai dengan progress bar */
+                            /* Membuat bulatan */
+                            background-color: #1ccdad;
+                            /* Warna bulatan sama dengan warna progress bar */
                         }
 
                         .anggota-progress {
-                            margin-top: 5px;
+                            margin-top: 10px;
+                            /* Memberikan jarak antara progress pekerjaan dengan yang bawah */
+                        }
+
+                        .anggota-item {
+                            display: flex;
+                            align-items: center;
+                            /* Menyelaraskan gambar dan nama di tengah */
+                            margin-bottom: 10px;
+                            /* Memberikan jarak antar anggota */
+                        }
+
+                        .anggota-item img {
+                            width: 25px;
+                            /* Ukuran avatar */
+                            height: 25px;
+                            /* Ukuran avatar */
+                            border-radius: 50%;
+                            /* Membuat gambar menjadi bulat */
+                            margin-right: 10px;
+                            /* Jarak antara avatar dan nama */
+                        }
+
+                        .anggota-item span {
+                            font-size: 1rem;
+                            /* Ukuran font untuk nama */
                         }
                     </style>
 
                     <div class="row">
                         <div class="col-4">
-                            <div class="card card-body">
-                                <div class="">
-                                    <h2>{{ $project['project_name'] }}</h2>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2>Hummatask</h2>
+                                    <div class="anggota-item d-flex">
+                                        <span class="d-flex mb-2 fs-2">
+                                            Progress Pengerjaan
+                                        </span>
+                                    </div>
                                     <div class="progress">
                                         <a class="progress-bar" role="progressbar" aria-valuenow="{{ $revisi }}"
                                             aria-valuemin="0" aria-valuemax="100" style="width: {{ $revisi }}%;"
                                             data-bs-toggle="tooltip" data-bs-placement="top"
                                             title="{{ $revisi }}%">
-                                            {{--  {{ $revisi }}%  --}}
                                         </a>
                                     </div>
                                 </div>
-                                <div class="">
-                                    <h2>Anggota Progress</h2>
-                                    <ul>
-                                        @foreach ($anggota as $item)
-                                            <li>
-                                                {{ $item['nama'] }}: {{ $item['revisi'] }}%
-                                                <div class="progress anggota-progress">
-                                                    <a class="progress-bar" role="progressbar"
-                                                        aria-valuenow="{{ $item['revisi'] }}" aria-valuemin="0"
-                                                        aria-valuemax="100" style="width: {{ $item['revisi'] }}%;"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="{{ $item['revisi'] }}%">
-                                                        {{--  {{ $item['revisi'] }}%  --}}
-                                                    </a>
-                                                </div>
+                                <div class="card-body">
 
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                                    @foreach ($anggota as $item)
+                                        <div>
+                                            <div class="anggota-item d-flex">
+                                                <img src="{{ asset('assets/images/users/avatar-1.jpg') }}"
+                                                    alt="{{ $item['nama'] }}">
+                                                <span class="d-flex fs-2">
+                                                    {{ $item['nama'] }}
+                                                </span>
+                                            </div>
+                                            <div class="progress anggota-progress">
+                                                <a class="progress-bar" role="progressbar"
+                                                    aria-valuenow="{{ $item['revisi'] }}" aria-valuemin="0"
+                                                    aria-valuemax="100" style="width: {{ $item['revisi'] }}%;"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="{{ $item['revisi'] }}%">
+                                                    {{-- {{ $item['revisi'] }}% --}}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div>
+                                    <h2>Anggota Progress</h2>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             @empty
             @endforelse

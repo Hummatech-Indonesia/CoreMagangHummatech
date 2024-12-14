@@ -15,6 +15,7 @@ use App\Models\MentorStudent;
 use App\Services\MentorService;
 use App\Services\StudentService;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Mentor\DashboardController;
 
 class DashboardController extends Controller
 {

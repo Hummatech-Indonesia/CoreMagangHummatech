@@ -474,6 +474,15 @@ Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name
 Route::prefix('mentor')->name(RolesEnum::MENTOR->value . ".")->middleware(['roles:mentor', 'auth'])->group(function () {
     # Home
     Route::get('/', [\App\Http\Controllers\Mentor\DashboardController::class, 'index'])->name('home');
+
+    // route progress
+    Route::get('/progress-project-siswa',[\App\Http\Controllers\Mentor\ProgressController::class,'projectSiswa'])->name('progress-project-siswa');
+    Route::get('/progress-project-siswa/project-group',[\App\Http\Controllers\Mentor\ProgressController::class,'projectGroupSiswa'])->name('project-group-siswa');
+    Route::get('/progress-project-siswa/project-group/detail-progress',[\App\Http\Controllers\Mentor\ProgressController::class,'detailProgressSiswa'])->name('project-progress-siswa');
+    Route::get('/project-group-siswa',[\App\Http\Controllers\Mentor\ProgressController::class,'projectGroupSiswa'])->name('project-group-siswa');
+    Route::get('/project-group-siswa/detail-progress',[\App\Http\Controllers\Mentor\ProgressController::class,'detailprogressProject'])->name('project-detail-siswa');
+
+    Route::get('/progress-project',[\App\Http\Controllers\Mentor\ProgressController::class,'progressProject'])->name('progress-project');
     Route::get('/presentation', [PresentationController::class, 'getMentorOfflinePresentations'])->name('presentation');
     Route::get('/presentation/online', [PresentationController::class, 'getMentorOnlinePresentations'])->name('presentation.online');
     Route::get('/project-submissions', [ProjectSubmissionController::class, 'index'])->name('project-submissions.index');

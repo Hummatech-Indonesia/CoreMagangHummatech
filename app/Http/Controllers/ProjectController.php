@@ -401,4 +401,5 @@ class ProjectController extends Controller
         $projectRevision->assignedStudent()->sync($request->member_ids);
         return back();
     }
+
 }
