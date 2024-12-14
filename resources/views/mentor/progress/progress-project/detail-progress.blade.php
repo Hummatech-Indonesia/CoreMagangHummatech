@@ -59,7 +59,7 @@
         </a>
 
         <div class="bg-label-primary w-100 d-flex justify-content-center align-items-center text-center">
-            <h2 class="text-primary fw-bolder fs-4">Progress Project</h2>
+            <h2 class="text-primary fw-bolder fs-4">Hummatask</h2>
         </div>
     </div>
 

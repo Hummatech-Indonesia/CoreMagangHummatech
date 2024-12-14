@@ -59,7 +59,7 @@
         </a>
 
         <div class="bg-label-primary w-100 d-flex justify-content-center align-items-center text-center">
-            <h2 class="text-primary fw-bolder fs-4">Kumpulan project Akbar</h2>
+            <h2 class="text-primary fw-bolder fs-4">Kumpulan project Siswa</h2>
         </div>
     </div>
 
@@ -71,7 +71,7 @@
                     <span class="badge bg-light-primary text-primary mb-1">Solo Project</span>
 
                     <!-- Judul proyek di bawah badge -->
-                    <h5 class="text-dark mb-1">Web Solo Project</h5>
+                    <h5 class="text-dark mb-1">Hummatask</h5>
 
                     <!-- Teks "by Akbar" di bawah judul -->
                     <span class="text-muted d-block mb-2">by Akbar</span>
