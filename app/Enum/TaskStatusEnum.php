@@ -11,7 +11,7 @@ enum TaskStatusEnum: string
     public function label(): string
     {
         return match ($this) {
-            self::INPROGRESS => 'Sedang dikerjakan',
+            self::INPROGRESS => 'Dikerjakan',
             self::REVISION => 'Revisi',
             self::COMPLETED => 'Selesai',
         };

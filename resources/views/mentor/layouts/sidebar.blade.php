@@ -81,32 +81,37 @@
                         <span class="hide-menu">Pengajuan Project</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ Route::is('mentor.presentation', 'mentor.presentation.online') ? 'selected' : '' }}">
-                    <a class="sidebar-link has-arrow {{ Route::is('mentor.presentation', 'mentor.presentation.online') ? 'active' : '' }}" href="#" aria-expanded="false">
-                      <span class="d-flex">
-                        <i class="ti ti-presentation"></i>
-                      </span>
-                      <span class="hide-menu">Pengajuan Presentasi</span>
+                <li
+                    class="sidebar-item {{ Route::is('mentor.presentation', 'mentor.presentation.online') ? 'selected' : '' }}">
+                    <a class="sidebar-link has-arrow {{ Route::is('mentor.presentation', 'mentor.presentation.online') ? 'active' : '' }}"
+                        href="#" aria-expanded="false">
+                        <span class="d-flex">
+                            <i class="ti ti-presentation"></i>
+                        </span>
+                        <span class="hide-menu">Pengajuan Presentasi</span>
                     </a>
-                    <ul aria-expanded="false" class="collapse first-level {{ Route::is('mentor.presentation', 'mentor.presentation.online') ? 'in' : '' }}">
-                      <li class="sidebar-item {{ Route::is('mentor.presentation') ? 'active' : '' }}">
-                        <a href="{{ route('mentor.presentation') }}" class="sidebar-link {{ Route::is('mentor.presentation') ? 'active' : '' }}">
-                          <div class="round-16 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-circle"></i>
-                          </div>
-                          <span class="hide-menu">Presentasi Offline</span>
-                        </a>
-                      </li>
-                      <li class="sidebar-item {{ Route::is('mentor.presentation.online') ? 'active' : '' }}">
-                        <a href="{{ route('mentor.presentation.online') }}" class="sidebar-link {{ Route::is('mentor.presentation.online') ? 'active' : '' }}">
-                          <div class="round-16 d-flex align-items-center justify-content-center">
-                            <i class="ti ti-circle"></i>
-                          </div>
-                          <span class="hide-menu">Presentasi Online</span>
-                        </a>
-                      </li>
+                    <ul aria-expanded="false"
+                        class="collapse first-level {{ Route::is('mentor.presentation', 'mentor.presentation.online') ? 'in' : '' }}">
+                        <li class="sidebar-item {{ Route::is('mentor.presentation') ? 'active' : '' }}">
+                            <a href="{{ route('mentor.presentation') }}"
+                                class="sidebar-link {{ Route::is('mentor.presentation') ? 'active' : '' }}">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Presentasi Offline</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item {{ Route::is('mentor.presentation.online') ? 'active' : '' }}">
+                            <a href="{{ route('mentor.presentation.online') }}"
+                                class="sidebar-link {{ Route::is('mentor.presentation.online') ? 'active' : '' }}">
+                                <div class="round-16 d-flex align-items-center justify-content-center">
+                                    <i class="ti ti-circle"></i>
+                                </div>
+                                <span class="hide-menu">Presentasi Online</span>
+                            </a>
+                        </li>
                     </ul>
-                  </li>
+                </li>
                 {{--                <li class="sidebar-item"> --}}
                 {{--                    <a class="sidebar-link" href="/timetable" aria-expanded="false"> --}}
                 {{--                        <span> --}}
@@ -147,6 +152,25 @@
                 {{--                        <span class="hide-menu">Jurnal Siswa</span> --}}
                 {{--                    </a> --}}
                 {{--                </li> --}}
+                <li
+                    class="sidebar-item {{ Route::is('mentor.progress-project', 'mentor.progress-project.detail') ? 'selected' : '' }}">
+                    <a class="sidebar-link" href="{{ route('mentor.progress-project') }}" aria-expanded="false">
+                        <span class="d-flex">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-progress">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 20.777a8.942 8.942 0 0 1 -2.48 -.969" />
+                                <path d="M14 3.223a9.003 9.003 0 0 1 0 17.554" />
+                                <path d="M4.579 17.093a8.961 8.961 0 0 1 -1.227 -2.592" />
+                                <path d="M3.124 10.5c.16 -.95 .468 -1.85 .9 -2.675l.169 -.305" />
+                                <path d="M6.907 4.579a8.954 8.954 0 0 1 3.093 -1.356" />
+                            </svg>
+                        </span>
+                        <span class="hide-menu">Progress Project</span>
+                    </a>
+                </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/mentor/progress-project-siswa" aria-expanded="false">
                         <span>
@@ -162,23 +186,6 @@
                             </svg>
                         </span>
                         <span class="hide-menu">Project Siswa</span>
-                    </a>
-                </li>
-                <li class="sidebar-item {{ Route::is('mentor.progress-project', 'mentor.progress-project.detail') ? 'selected' : '' }}">
-                    <a class="sidebar-link" href="{{ route('mentor.progress-project') }}" aria-expanded="false">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-user-hexagon">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M12 13a3 3 0 1 0 0 -6a3 3 0 0 0 0 6z" />
-                                <path d="M6.201 18.744a4 4 0 0 1 3.799 -2.744h4a4 4 0 0 1 3.798 2.741" />
-                                <path
-                                    d="M19.875 6.27c.7 .398 1.13 1.143 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z" />
-                            </svg>
-                        </span>
-                        <span class="hide-menu">Progress Project</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -203,8 +210,8 @@
         <div class="fixed-profile p-3 bg-light-secondary rounded sidebar-ad mt-3">
             <div class="hstack gap-3">
                 <div class="john-img">
-                    <img src="../../dist/images/profile/user-1.jpg" class="rounded-circle" width="40" height="40"
-                        alt="">
+                    <img src="../../dist/images/profile/user-1.jpg" class="rounded-circle" width="40"
+                        height="40" alt="">
                 </div>
                 <div class="john-title">
                     <h6 class="mb-0 fs-4 fw-semibold">Mathew</h6>

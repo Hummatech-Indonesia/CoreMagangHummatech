@@ -136,7 +136,11 @@
                                                         'text-primary' =>
                                                             $member->status == \App\Enum\StatusMemberTeamEnum::Member->value,
                                                     ])>
-                                                        {{ $member->status }}
+                                                        @if ($member->status == \App\Enum\StatusMemberTeamEnum::Leader->value)
+                                                            Ketua
+                                                        @else
+                                                            Anggota
+                                                        @endif
                                                     </span>
                                                 </td>
                                             </tr>

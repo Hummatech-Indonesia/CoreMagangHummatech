@@ -21,10 +21,16 @@
             <div class="col">
                 <div class="card shadow-sm border-0">
                     <div class="card-body">
-                        <div class="d-flex justify-content-start align-items-center mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="badge bg-light-primary text-primary px-3 py-2 rounded-2 fw-bolder">
                                 {{ $project->type_project }}
                             </span>
+                            <div class="d-flex gap-1">
+                                <a href="{{ route('mentor.progress-project.detail', $project->id) }}"
+                                    class="btn btn-primary text-white p-1">
+                                    <i class="ti ti-eye fs-7"></i>
+                                </a>
+                            </div>
                         </div>
                         <h5 class="fw-semibold">{{ $project->project_name }}</h5>
                         <p class="text-muted mb-1">By Kelompok {{ $project->members->first()?->members->name }}

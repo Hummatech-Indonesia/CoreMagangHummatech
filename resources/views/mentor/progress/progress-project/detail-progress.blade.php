@@ -20,185 +20,74 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-body d-flex justify-content-start align-items-center m-0 p-3 text-center">
-                        <h5 class="m-0 p-0">
+                        <h5 class="m-0 p-0 fw-semibold">
                             Progres Project</h5>
                     </div>
                 </div>
             </div>
-
-            @php
-
-                $total_revisi = 100;
-                $anggota = [
-                    [
-                        'nama' => 'John Doe',
-                        'revisi' => 30,
-                    ],
-                    [
-                        'nama' => 'Jane Doe',
-                        'revisi' => 40,
-                    ],
-                    [
-                        'nama' => 'Bob Smith',
-                        'revisi' => 20,
-                    ],
-                ];
-
-                $total_revisi_anggota = array_sum(array_column($anggota, 'revisi'));
-                $revisi = ($total_revisi_anggota / $total_revisi) * 100;
-
-                foreach ($anggota as &$item) {
-                    $item['revisi'] = ($item['revisi'] / $total_revisi) * 100;
-                }
-            @endphp
             <style>
                 .progress {
-                    height: 5px;
-                    border-radius: 10px;
                     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                     background-color: #e0e0e0;
                     /* Warna latar belakang progress bar */
-                }
-
-                .progress-bar {
-                    background-color: #1ccdad;
-                    position: relative;
-                    height: 5px;
-                    border-radius: 10px;
-                    /* Menambahkan properti untuk membuat ujung kanan bulat */
-                }
-
-                .progress-bar::after {
-                    content: '';
-                    position: absolute;
-                    top: 50%;
-                    right: -15px;
-                    /* Menempatkan bulatan lebih keluar dari ujung */
-                    transform: translateY(-50%);
-                    width: 20px;
-                    /* Ukuran bulatan yang lebih besar */
-                    height: 20px;
-                    /* Ukuran bulatan yang lebih besar */
-                    border-radius: 50%;
-                    /* Membuat bulatan */
-                    background-color: #1ccdad;
-                    /* Warna bulatan sama dengan warna progress bar */
-                }
-
-                .progress-bar-anggota {
-                    background-color: #5c90f8;
-                    position: relative;
-                    height: 5px;
-                    border-radius: 10px;
-                    /* Menambahkan properti untuk membuat ujung kanan bulat */
-                }
-
-                .progress-bar-anggota::after {
-                    content: '';
-                    position: absolute;
-                    top: 50%;
-                    right: -15px;
-                    /* Menempatkan bulatan lebih keluar dari ujung */
-                    transform: translateY(-50%);
-                    width: 20px;
-                    /* Ukuran bulatan yang lebih besar */
-                    height: 20px;
-                    /* Ukuran bulatan yang lebih besar */
-                    border-radius: 50%;
-                    /* Membuat bulatan */
-                    background-color: #5c90f8;
-                    /* Warna bulatan sama dengan warna progress bar */
-                }
-
-                .anggota-progress {
-                    margin-top: 10px;
-                    /* Memberikan jarak antara progress pekerjaan dengan yang bawah */
-                }
-
-                .anggota-item {
-                    display: flex;
-                    align-items: center;
-                    /* Menyelaraskan gambar dan nama di tengah */
-                    margin-bottom: 10px;
-                    /* Memberikan jarak antar anggota */
-                }
-
-                .anggota-item img {
-                    width: 25px;
-                    /* Ukuran avatar */
-                    height: 25px;
-                    /* Ukuran avatar */
-                    border-radius: 50%;
-                    /* Membuat gambar menjadi bulat */
-                    margin-right: 8px;
-                    /* Jarak antara avatar dan nama */
-                }
-
-                .anggota-item span {
-                    font-size: 1rem;
-                    /* Ukuran font untuk nama */
                 }
             </style>
             <div class="card">
                 <div style="background: white" class="card-header">
                     <div class="">
-                        <h4 class="mb-0 fw-bolder">{{ $project->project_name }}</h4>
+                        <h4 class="mb-4 fw-bolder">{{ $project->project_name }}</h4>
                     </div>
-                    <div class="row mt-3 d-flex justify-content-start">
-                        <div class="col-12 col-md-6 text-center text-md-start mb-2">
+                    <div class="row d-flex justify-content-start">
+                        <div class="col-12 col-md-3 text-center text-md-start mb-2">
                             <h6 class="mb-3 fw-bolder">Status Project</h6>
-                            <span class="{{ $project->getProjectStatus()->color() }} px-3 py-2 rounded-pill">
+                            <span class="{{ $project->getProjectStatus()->color() }} badge badge px-4 py-2 rounded-pill">
                                 {{ $project->getProjectStatus()->label() }}
                             </span>
                         </div>
-                        <div class="col-12 col-md-6  text-center text-md-start mb-2">
+                        <div class="col-12 col-md-6 text-center text-md-start mb-2">
                             <h6 class="mb-3 fw-bolder">Kategori Project</h6>
-                            <span class="bg-light-primary text-primary px-4 py-2 rounded-pill">
+                            <span class="bg-light-primary text-primary badge px-4 py-2 rounded-pill">
                                 {{ $project->type_project }}
                             </span>
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body pt-2">
                     <div class="mb-3">
-                        <div class="anggota-item d-flex">
-                            <span style="margin-top: 12px;" class="d-flex fs-2 text-dark">
+                        <div class="anggota-item d-flex mb-2">
+                            <span class="d-flex text-black fw-semibold">
                                 Progress Pengerjaan
                             </span>
                         </div>
-                        <div class="progress anggota-progress">
-                            <a class="progress-bar" role="progressbar" aria-valuenow="{{ $revisi }}" aria-valuemin="0"
-                                aria-valuemax="100" style="width: {{ $revisi }}%;" data-bs-toggle="tooltip"
-                                data-bs-placement="top" title="{{ $revisi }}%">
-                            </a>
+                        <div class="progress" style="height: 12px">
+                            <div class="progress-bar bg-primary" style="width: {{ number_format($total_progress, 2) }}%;" role="progressbar">
+                                {{ number_format($total_progress, 0) }}%
+                            </div>
                         </div>
                     </div>
+                
                     @foreach ($anggota as $item)
-                        <div>
-                            <div class="anggota-item d-flex">
-                                <img style="margin-top: 10px;" src="{{ asset('assets/images/users/avatar-1.jpg') }}"
-                                    alt="{{ $item['nama'] }}">
-                                <span style="margin-top: 12px;" class="d-flex fs-2">
-                                    {{ $item['nama'] }}
-                                </span>
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-3 fw-semibold text-dark mb-2">
+                                <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" class="rounded-circle" alt="user" width="30" />
+                                <span class="text-black fw-semibold">{{ $item['nama'] }}</span>
                             </div>
-                            <div class="progress anggota-progress">
-                                <a class="progress-bar-anggota" role="progressbar" aria-valuenow="{{ $item['revisi'] }}"
-                                    aria-valuemin="0" aria-valuemax="100" style="width: {{ $item['revisi'] }}%;"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $item['revisi'] }}%">
-                                </a>
+                            <div class="progress" style="height: 12px">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: {{ number_format($item['revisi_percent'], 2) }}%;">
+                                    {{ number_format($item['revisi_percent'], 0) }}%
+                                </div>
                             </div>
                         </div>
-                    @endforeach
+                    @endforeach                    
                 </div>
+                
             </div>
-
         </div>
         <div class="col-md-5">
             <div class="card">
                 <div class="card-content">
                     <div class="card-body d-flex justify-content-start align-items-center m-0 p-3 text-center">
-                        <h5 class="m-0 p-0">Anggota</h5>
+                        <h5 class="m-0 p-0 fw-semibold">Anggota</h5>
                     </div>
                 </div>
             </div>
@@ -222,7 +111,7 @@
                                             <td>
                                                 <div class="d-flex align-items-center gap-3 fw-semibold text-dark">
                                                     <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
-                                                        class="rounded-circle" alt="user" width="40" />
+                                                        class="rounded-circle" alt="user" width="35" />
                                                     <span>{{ $member->members->name }}</span>
                                                 </div>
                                             </td>
@@ -233,7 +122,11 @@
                                                     'text-primary' =>
                                                         $member->status == \App\Enum\StatusMemberTeamEnum::Member->value,
                                                 ])>
-                                                    {{ $member->status }}
+                                                    @if ($member->status == \App\Enum\StatusMemberTeamEnum::Leader->value)
+                                                        Ketua
+                                                    @else
+                                                        Anggota
+                                                    @endif
                                                 </span>
                                             </td>
                                         </tr>
