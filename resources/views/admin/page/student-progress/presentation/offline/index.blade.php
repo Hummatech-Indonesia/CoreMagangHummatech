@@ -83,7 +83,7 @@
             color: #fff;
         }
 
-        .custom-search-icon {  nnnnnnnnnnnnnnnnnnnnnnnnnncv
+        .custom-search-icon {
             color: rgba(105, 94, 239, 1);
         }
     </style>
@@ -139,40 +139,47 @@
                     <!-- Pencarian -->
                     <li class="nav-item ms-auto d-flex align-items-center">
 
-                        <form style="max-width: 180px;" action="{{ route('administrator.student-progress.presentation') }}">
-                            <div class="d-flex justify-content-end gap-3">
+                        <form action="{{ route('administrator.student-progress.presentation') }}">
+                            <!-- Filter and Status Section -->
+                            <div class="d-flex justify-content-end gap-3 mb-3">
                                 <!-- Dropdown Status -->
-                                <div class="mb-2 d-flex gap-2" style="margin-left: -80px">
-                                    <select class="" style="font-size: 10px; padding: 10px; width: 100px;" name="status" onchange="this.form.submit()">
-                                        <option value="" {{ request('status') === null ? 'selected' : '' }}>Semua
-                                        </option>
-                                        <option value="finish" {{ request('status') == 'finish' ? 'selected' : '' }}>Selesai
-                                        </option>
-                                        <option value="notfinish" {{ request('status') == 'notfinish' ? 'selected' : '' }}>
-                                            Ditolak</option>
-                                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>
-                                            Pending</option>
-                                        <option value="waiting" {{ request('status') == 'waiting' ? 'selected' : '' }}>
-                                            Menunggu</option>
+                                <div>
+                                    <select class="form-select" name="status" onchange="this.form.submit()">
+                                        <option value="" {{ request('status') === null ? 'selected' : '' }}>Semua</option>
+                                        <option value="finish" {{ request('status') == 'finish' ? 'selected' : '' }}>Selesai</option>
+                                        <option value="notfinish" {{ request('status') == 'notfinish' ? 'selected' : '' }}>Ditolak</option>
+                                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                                        <option value="waiting" {{ request('status') == 'waiting' ? 'selected' : '' }}>Menunggu</option>
                                     </select>
-                                    <div class="input-group">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text bg-primary text-white"><i class="ri-calendar-line"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control flatpickr-input" name="date" value="{{ request()->date }}" data-provider="flatpickr" placeholder="Pilih tanggal" readonly="readonly">
-
-                                    </div>
                                 </div>
 
-
+                                <!-- Date Picker -->
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-primary text-white">
+                                            <i class="ri-calendar-line"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text"
+                                           class="form-control flatpickr-input"
+                                           name="date"
+                                           value="{{ request()->date }}"
+                                           data-provider="flatpickr"
+                                           placeholder="Pilih tanggal"
+                                           readonly>
+                                </div>
                             </div>
 
+                            <!-- Search Section -->
                             <div class="d-flex justify-content-end gap-2">
                                 <!-- Search Input -->
-                                <div class="mb-2">
-                                    <input type="search" style="width: 280px" name="search"
-                                        value="{{ request()->search }}" class="form-control p-2"
-                                        placeholder="Cari by nama project atau member...">
+                                <div>
+                                    <input type="search"
+                                           style="width: 280px"
+                                           name="search"
+                                           value="{{ request()->search }}"
+                                           class="form-control p-2"
+                                           placeholder="Cari by nama project atau member...">
                                 </div>
 
                                 <!-- Search Button -->
@@ -181,6 +188,7 @@
                                 </div>
                             </div>
                         </form>
+
                     </li>
                 </ul>
             </div>

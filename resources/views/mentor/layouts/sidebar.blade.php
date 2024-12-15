@@ -164,8 +164,8 @@
                         <span class="hide-menu">Project Siswa</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/mentor/progress-project" aria-expanded="false">
+                <li class="sidebar-item {{ Route::is('mentor.progress-project', 'mentor.progress-project.detail') ? 'selected' : '' }}">
+                    <a class="sidebar-link" href="{{ route('mentor.progress-project') }}" aria-expanded="false">
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -182,7 +182,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href=" /mentor/student" aria-expanded="false">
+                    <a class="sidebar-link" href="/mentor/student" aria-expanded="false">
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

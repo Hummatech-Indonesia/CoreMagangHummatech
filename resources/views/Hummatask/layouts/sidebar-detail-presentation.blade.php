@@ -34,7 +34,7 @@
                 {{-- Presentasi --}}
                 @if ($project->status != 'rejected' && $project->status != 'waiting')
                 <li class="sidebar-item px-2">
-                    <a class="sidebar-link" href="{{ route('student-offline.project.presentation', $project->id) }}" aria-expanded="false">
+                    <a class="sidebar-link {{ Route::is('student-offline.project.presentation', 'student-offline.project.presentation.revision', $project->id) ? 'active' : '' }}" href="{{ route('student-offline.project.presentation', $project->id) }}" aria-expanded="false">
                         <span>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">

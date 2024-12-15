@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers\Mentor;
 
+use App\Models\Project;
 use App\Http\Controllers\Controller;
+use App\Contracts\Interfaces\ProjectInterface;
 
 
 
 class ProgressController extends Controller
 {
 
+    private ProjectInterface $project;
+    private Project $projects;
 
 
-    public function __construct() {}
+    public function __construct(ProjectInterface $projectInterface)
+    {
+        $this->project = $projectInterface;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -30,15 +37,16 @@ class ProgressController extends Controller
         return view('mentor.progress.project-siswa.detail-progress');
     }
 
-
-
     public function progressProject()
     {
-        return view('mentor.progress.progress-project.index');
+        $projects = $this->project->getAcceptedProject();
+
+        return view('mentor.progress.progress-project.index', compact('projects'));
     }
-    public function detailprogressProject()
+    public function detailprogressProject(Project $project)
     {
-        return view('mentor.progress.progress-project.detail-progress');
+        $project->load('members.members')->load('presentation.revision');
+        return view('mentor.progress.progress-project.detail-progress', compact('project'));
     }
     /**
      * Show the form for creating a new resource.
