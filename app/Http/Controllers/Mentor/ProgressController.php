@@ -53,25 +53,28 @@ class ProgressController extends Controller
         ]);
 
         $total_revisi = $project->presentation->revision->count();
+        $total_revisi_done = $project->presentation->revision->where('status','completed')->count() ?? 0;
+        if($total_revisi_done > 0)
+        {
+            $total_progress = ($total_revisi_done / $total_revisi) * 100;
+        }else{
+            $total_progress = 0;
+        }
 
         if ($total_revisi == 0) {
-            $total_progress = 0;
-            $anggota = []; 
+            $anggota = [];
             return view('mentor.progress.progress-project.detail-progress', compact('project', 'anggota', 'total_revisi', 'total_progress'));
         }
 
         $anggota = [];
-        $total_revisi_dikerjakan = 0;
         $total_revisi_terassign = 0;
 
         foreach ($project->members as $member) {
-            $revisi_dikerjakan = $project->presentation->revision->filter(function ($revision) use ($member) {
+            $revisi_dikerjakan = $project->presentation->revision->where('status','completed')->filter(function ($revision) use ($member) {
                 return $revision->assignedStudent->contains('id', $member->members->id);
             })->count();
 
-            $total_revisi_terassign += $revisi_dikerjakan;
-
-            $revisi_percent = $total_revisi > 0 ? min(($revisi_dikerjakan / $total_revisi) * 100, 100) : 0;
+            $revisi_percent = ($revisi_dikerjakan / $total_revisi) * 100;
 
             $anggota[] = [
                 'nama' => $member->members->name,
@@ -80,7 +83,7 @@ class ProgressController extends Controller
             ];
         }
 
-        $total_progress = $total_revisi > 0 ? min(($total_revisi_terassign / $total_revisi) * 100, 100) : 0;
+         $total_revisi > 0 ? min(($total_revisi_terassign / $total_revisi) * 100, 100) : 0;
 
         return view('mentor.progress.progress-project.detail-progress', compact('project', 'anggota', 'total_revisi', 'total_progress'));
     }

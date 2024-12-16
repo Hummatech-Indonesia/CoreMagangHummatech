@@ -65,7 +65,7 @@
                             </div>
                         </div>
                     </div>
-                
+
                     @foreach ($anggota as $item)
                         <div class="mb-3">
                             <div class="d-flex align-items-center gap-3 fw-semibold text-dark mb-2">
@@ -78,9 +78,9 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach                    
+                    @endforeach
                 </div>
-                
+
             </div>
         </div>
         <div class="col-md-5">
