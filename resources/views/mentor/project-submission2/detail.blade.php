@@ -22,7 +22,7 @@
                 </div>
             </a>
             <div class="bg-light-info w-100 d-flex justify-content-center align-items-center text-center rounded-2">
-                <h2 class="text-primary fw-bolder fs-4">Detail Project</h2>
+                <h2 class="text-primary fw-bolder fs-4 mb-0">Detail Project</h2>
             </div>
 
             <div class="presentation-action d-flex gap-2">

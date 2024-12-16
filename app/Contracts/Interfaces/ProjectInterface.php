@@ -38,5 +38,5 @@ interface ProjectInterface extends GetInterface, StoreInterface, UpdateInterface
 
     public function getProjectByStudent(mixed $id);
 
-    public function getAcceptedProject();
+    public function getAcceptedProject(Request $request);
 }

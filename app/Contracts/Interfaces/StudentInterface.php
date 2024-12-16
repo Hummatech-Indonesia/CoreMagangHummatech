@@ -162,6 +162,8 @@ interface StudentInterface extends StoreInterface , DeleteInterface , UpdateInte
      */
     public function getByMentor(Request $request): mixed;
 
+    public function getStudentByMentorDevision(Request $request): mixed;
+
     /**
      * countByMentor
      *

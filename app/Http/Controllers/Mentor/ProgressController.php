@@ -3,44 +3,46 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Models\Project;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Contracts\Interfaces\ProjectInterface;
-
-
+use App\Contracts\Interfaces\StudentInterface;
 
 class ProgressController extends Controller
 {
 
     private ProjectInterface $project;
     private Project $projects;
+    private StudentInterface $student;
 
 
-    public function __construct(ProjectInterface $projectInterface)
+    public function __construct(ProjectInterface $projectInterface, StudentInterface $studentInterface)
     {
         $this->project = $projectInterface;
+        $this->student = $studentInterface;
     }
     /**
      * Display a listing of the resource.
      */
     public function index() {}
 
-    public function projectSiswa()
+    public function projectSiswa(request $request)
     {
-        return view('mentor.progress.project-siswa.index');
+        $students = $this->student->getStudentByMentorDevision($request);
+
+        return view('mentor.progress.project-siswa.index', compact('students'));
     }
-    public function projectGroupSiswa()
+    public function projectGroupSiswa(Student $student)
     {
-        return view('mentor.progress.project-siswa.project-group');
-    }
-    public function detailProgressSiswa()
-    {
-        return view('mentor.progress.project-siswa.detail-progress');
+        $projects = $this->project->getProjectByStudent($student->id);
+
+        return view('mentor.progress.project-siswa.project-group', compact('projects', 'student'));
     }
 
-    public function progressProject()
+    public function progressProject(Request $request)
     {
-        $projects = $this->project->getAcceptedProject();
+        $projects = $this->project->getAcceptedProject($request);
 
         return view('mentor.progress.progress-project.index', compact('projects'));
     }

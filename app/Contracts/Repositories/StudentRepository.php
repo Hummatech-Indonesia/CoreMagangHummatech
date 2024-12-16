@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Enum\StudentStatusEnum;
 use App\Enum\InternshipTypeEnum;
 use App\Contracts\Interfaces\StudentInterface;
+use Illuminate\Support\Facades\Auth;
 
 class StudentRepository extends BaseRepository implements StudentInterface
 {
@@ -710,5 +711,25 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
             ->where('status', 'accepted')
             ->get();
+    }
+
+    public function getStudentByMentorDevision(Request $request): mixed
+    {
+        $user = auth()->user();
+
+        if ($user && $user->hasRole('mentor') && $user->mentor) {
+            $mentor = $user->mentor->division_id;
+
+            return $this->model->query()
+            ->where('division_id', $mentor)
+            ->where('status', 'accepted')
+            ->when($request->search, function ($query) use ($request) {
+                $query->where(function ($q) use ($request) {
+                    $q->where('name', 'LIKE', '%' . $request->search . '%');
+                });
+            })
+            ->paginate(9);
+        }
+        return collect();
     }
 }

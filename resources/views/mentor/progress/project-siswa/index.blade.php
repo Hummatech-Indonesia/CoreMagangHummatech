@@ -1,66 +1,74 @@
 @extends('mentor.layouts.app')
-@section('style')
-<style>
-
-@media (max-width: 767px) {
-  #offcanvasRight { width: 100%; }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  #offcanvasRight { width: 50%; }
-}
-
-@media (min-width: 992px) {
-  #offcanvasRight { width: 25%; }
-}
-</style>
-@endsection
 @section('content')
-
-<div class="row mb-3">
-    <div class="col-md-4 col-xl-2">
-        <form class="position-relative" action="/student">
-            <input type="text" class="form-control product-search ps-5" name="name" value="{{ request()->name }}" id="input-search" placeholder="Cari siswa...">
-            <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
-        </form>
-    </div>
-    <div class="col-md-8 col-xl-9 text-end d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
-        <div class="action-btn show-btn" style="display: none">
-            <a href="javascript:void(0)" class="delete-multiple btn-light-danger btn me-2 text-danger d-flex align-items-center font-medium">
-                <i class="ti ti-trash text-danger me-1 fs-5"></i>
-                Delete All Row
-            </a>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-
-    <div class="col-md-4">
-        <div class="card hover-img">
-            <div class="card-body p-4 text-center border-bottom">
-                <img src="{{ asset('assets/images/users/avatar-10.jpg') }}" alt="avatar" class="rounded-circle mb-3" width="80px" height="80px" >
-                <h5 class="fw-semibold mb-0 fs-5">Akbar</h5>
-                <span class="text-dark fs-2">Muhi</span>
-                <div class="row">
-                    <div class="col-12">
-                        <a href="/mentor/progress-project-siswa/project-group" class="btn btn-primary w-100">Lihat Project</a>
+    <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+        <div class="card-body px-4 py-3">
+            <div class="row align-items-center">
+                <div class="col-9">
+                    <h4 class="fw-semibold mb-8">Project Siswa</h4>
+                </div>
+                <div class="col-3">
+                    <div class="text-center mb-n5">
+                        <img src="{{ asset('assets-user/dist/images/breadcrumb/ChatBc.png') }}" alt=""
+                            class="img-fluid mb-n4">
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
-    {{--  @empty
-    <div class="d-flex justify-content-center mb-2 mt-5">
-        <img src="{{ asset('no data.png') }}" alt="" width="300px" srcset="">
+    <div class="card py-3">
+        <div class="d-flex justify-content-end">
+            <div class="col-md-12 ">
+                <form class="row g-3 align-items-center justify-content-end me-3"
+                    action="{{ route('mentor.project-siswa') }}">
+
+                    <div class="col-md-3 position-relative">
+                        <input type="text"
+                            class="form-control product-search ps-5 p-3 text-primary border-0 bg-light-primary"
+                            name="search" value="{{ request('search') }}" id="input-search"
+                            placeholder="Cari nama siswa...">
+                        <i
+                            class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-primary ms-4"></i>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-        <p class="fs-5 text-dark text-center">
-            Belum Ada Siswa
-        </p>
-    @endforelse  --}}
-</div>
 
+    <div class="row">
+        @forelse ($students as $student)
+            <div class="col-md-4">
+                <div class="card hover-img">
+                    <div class="card-body p-4 text-center border-bottom">
+                        @if (file_exists(public_path('storage/' . $student->avatar)))
+                            <img class="avatar-lg rounded" style="object-fit: cover"
+                                src="{{ asset('storage/' . $student->avatar) }}">
+                        @else
+                            <img class="avatar-lg rounded" style="object-fit: cover" src="{{ asset('user.webp') }}"
+                                width="80">
+                        @endif
+                        <h5 class="fw-semibold mb-0 fs-5">{{ $student->name }}</h5>
+                        <span class="text-dark fs-2">{{ $student->school }}</span>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <a href="{{ route('mentor.project-siswa.group', $student->id) }}"
+                                    class="btn btn-primary w-100">Lihat
+                                    Project</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        @empty
+            <div class="d-flex justify-content-center align-items-center" style="min-height: 300px; width: 100%;">
+                <div class="text-center">
+                    <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}" alt="No Data"
+                        height="120px" />
+                    <h3 class="mt-3">Data Masih Kosong</h3>
+                </div>
+            </div>
+        @endforelse
+    </div>
+    {{ $students->links() }}
 @endsection
-
