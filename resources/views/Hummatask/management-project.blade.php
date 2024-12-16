@@ -341,7 +341,7 @@
                         $anggota = [
                             [
                                 'nama' => 'John Doe',
-                                'revisi' => 30,
+                                'revisi' => 40,
                             ],
                             [
                                 'nama' => 'Jane Doe',

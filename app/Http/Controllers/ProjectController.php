@@ -402,4 +402,14 @@ class ProjectController extends Controller
         return back();
     }
 
+    public function detailProgress()
+    {
+        $project = $this->project->show(1);
+        $categoryProject = $this->categoryProject->get();
+        $studentsData = $this->student->getStudentAccepted();
+        $students = $this->hummataskMemberPresentation->getStudentByPresentation($project->id);
+
+        return view('Hummatask.detail-progress', compact('project', 'categoryProject', 'studentsData', 'students'));
+    }
+
 }
