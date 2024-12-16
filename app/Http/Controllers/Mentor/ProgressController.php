@@ -54,10 +54,17 @@ class ProgressController extends Controller
 
         $total_revisi = $project->presentation->revision->count();
         $total_revisi_done = $project->presentation->revision->where('status', 'completed')->count() ?? 0;
+        $total_revisi_todo = $project->presentation->revision->where('status', 'completed','in progress')->count() ?? 0;
+
         if ($total_revisi_done > 0) {
             $total_progress = ($total_revisi_done / $total_revisi) * 100;
         } else {
             $total_progress = 0;
+        }
+        if ($total_revisi_todo > 0) {
+            $total_revisi_dont_completed = ($total_revisi_todo / $total_revisi) * 100;
+        } else {
+            $total_revisi_dont_completed = 0;
         }
 
         if ($total_revisi == 0) {
@@ -82,9 +89,9 @@ class ProgressController extends Controller
             ];
         }
 
-        $total_revisi > 0 ? min(($total_revisi_terassign / $total_revisi) * 100, 100) : 0;
+        // $total_revisi > 0 ? min(($total_revisi_terassign / $total_revisi) * 100, 100) : 0;
 
-        return view('mentor.progress.progress-project.detail-progress', compact('project', 'anggota', 'total_revisi', 'total_progress'));
+        return view('mentor.progress.progress-project.detail-progress', compact('project', 'anggota', 'total_progress','total_revisi_dont_completed'));
     }
 
 

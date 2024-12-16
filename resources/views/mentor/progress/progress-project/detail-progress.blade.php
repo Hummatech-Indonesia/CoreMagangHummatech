@@ -65,6 +65,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="mb-3">
+                        <div class="anggota-item d-flex mb-2">
+                            <span class="d-flex text-black fw-semibold">
+                                Revisi belum selesai
+                            </span>
+                        </div>
+                        <div class="progress" style="height: 12px">
+                            <div class="progress-bar bg-danger" style="width: {{ number_format($total_revisi_dont_completed, 2) }}%;" role="progressbar">
+                                {{ number_format($total_revisi_dont_completed, 0) }}%
+                            </div>
+                        </div>
+                    </div>
 
                     @foreach ($anggota as $item)
                         <div class="mb-3">
