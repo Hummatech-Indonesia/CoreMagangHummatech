@@ -37,7 +37,7 @@
                         <div class="d-flex align-items-center gap-3 justify-content-between">
                             <div class="desc">
                                 <b>Jumlah Antrian Presentasi</b>
-                                <h4>{{ count($ongoings) }} </h4>
+                                <h4 class="fw-semibold">{{ count($ongoings) }} Siswa Mengantri</h4>
                             </div>
                             <div class="icon">
                                 <div class="p-3 rounded-circle d-flex justify-content-center align-items-center"
@@ -63,7 +63,7 @@
                         <div class="d-flex align-items-center gap-3 justify-content-between">
                             <div class="desc">
                                 <b>Menunggu Konfirmasi</b>
-                                <h4>{{ count($waitings) }} </h4>
+                                <h4 class="fw-semibold">{{ count($waitings) }} Belum Disetujui</h4>
                             </div>
                             <div class="icon">
                                 <div class="p-3 rounded-circle d-flex justify-content-center"
@@ -90,7 +90,7 @@
                         <div class="d-flex align-items-center gap-3 justify-content-between">
                             <div class="desc">
                                 <b>Presentasi Selesai</b>
-                                <h4>{{ count($finisheds) }} </h4>
+                                <h4 class="fw-semibold">{{ count($finisheds) }} Diselesaikan</h4>
                             </div>
                             <div class="icon">
                                 <div class="p-3 rounded-circle d-flex justify-content-center align-items-center"
