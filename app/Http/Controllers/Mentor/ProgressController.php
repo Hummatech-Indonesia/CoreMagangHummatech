@@ -70,9 +70,21 @@ class ProgressController extends Controller
         $total_revisi_terassign = 0;
 
         foreach ($project->members as $member) {
-            $revisi_dikerjakan = $project->presentation->revision->where('status','completed')->filter(function ($revision) use ($member) {
+            $revisi_dikerjakan = $project->presentation->revision->where('status', 'completed')->filter(function ($revision) use ($member) {
+                // Menghitung anggota yang mengerjakan revisi tertentu
                 return $revision->assignedStudent->contains('id', $member->members->id);
-            })->count();
+            });
+
+            // Jumlah anggota yang mengerjakan revisi tertentu
+            $jumlah_anggota_revisi = $revisi_dikerjakan->sum(function ($revision) {
+                return $revision->assignedStudent->count();
+            });
+
+            // Jika lebih dari satu anggota yang mengerjakan revisi, bagi jumlah revisi dengan jumlah anggota yang mengerjakannya
+            $revisi_dikerjakan = $revisi_dikerjakan->count();
+            if ($jumlah_anggota_revisi > 0) {
+                $revisi_dikerjakan /= $jumlah_anggota_revisi;
+            }
 
             $revisi_percent = ($revisi_dikerjakan / $total_revisi) * 100;
 
@@ -82,6 +94,7 @@ class ProgressController extends Controller
                 'revisi_percent' => $revisi_percent,
             ];
         }
+
 
          $total_revisi > 0 ? min(($total_revisi_terassign / $total_revisi) * 100, 100) : 0;
 
