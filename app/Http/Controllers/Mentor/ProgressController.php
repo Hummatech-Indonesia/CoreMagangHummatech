@@ -54,15 +54,32 @@ class ProgressController extends Controller
             'presentation.revision.assignedStudent'
         ]);
 
+        if ($project->presentation === null) {
+            // If presentation is null
+            $total_revisi = 0;
+            $total_progress = 0;
+            $total_revisi_dont_completed = 0;
+            $anggota = [];
+            return view('mentor.progress.progress-project.detail-progress', compact('project', 'total_revisi', 'anggota', 'total_progress', 'total_revisi_dont_completed'));
+        } elseif ($project->presentation->revision === null || $project->presentation->revision->count() === 0) {
+            // If revision is null or has no count
+            $total_revisi = 0;
+            $total_progress = 0;
+            $total_revisi_dont_completed = 0;
+            $anggota = [];
+            return view('mentor.progress.progress-project.detail-progress', compact('project', 'total_revisi', 'anggota', 'total_progress', 'total_revisi_dont_completed'));
+        }
+
         $total_revisi = $project->presentation->revision->count();
         $total_revisi_done = $project->presentation->revision->where('status', 'completed')->count() ?? 0;
-        $total_revisi_todo = $project->presentation->revision->where('status', 'completed','in progress')->count() ?? 0;
+        $total_revisi_todo = $project->presentation->revision->where('status', 'completed', 'in progress')->count() ?? 0;
 
         if ($total_revisi_done > 0) {
             $total_progress = ($total_revisi_done / $total_revisi) * 100;
         } else {
             $total_progress = 0;
         }
+
         if ($total_revisi_todo > 0) {
             $total_revisi_dont_completed = ($total_revisi_todo / $total_revisi) * 100;
         } else {
@@ -78,7 +95,7 @@ class ProgressController extends Controller
         $total_revisi_terassign = 0;
 
         foreach ($project->members as $member) {
-            $revisi_dikerjakan = $project->presentation->revision->where('status','completed')->filter(function ($revision) use ($member) {
+            $revisi_dikerjakan = $project->presentation->revision->where('status', 'completed')->filter(function ($revision) use ($member) {
                 return $revision->assignedStudent->contains('id', $member->members->id);
             })->count();
 
@@ -93,7 +110,7 @@ class ProgressController extends Controller
 
         // $total_revisi > 0 ? min(($total_revisi_terassign / $total_revisi) * 100, 100) : 0;
 
-        return view('mentor.progress.progress-project.detail-progress', compact('project', 'anggota', 'total_progress','total_revisi_dont_completed'));
+        return view('mentor.progress.progress-project.detail-progress', compact('project', 'anggota', 'total_progress', 'total_revisi_dont_completed'));
     }
 
 
