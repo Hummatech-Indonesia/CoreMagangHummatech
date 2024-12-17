@@ -1,6 +1,6 @@
 @extends('Hummatask.layouts.app')
 @section('style')
-    <link type="text/css" href="#" rel="stylesheet" />
+    <link type="text/css" href="#" rel="stylesheet"/>
     <style>
         .bg-label-primary {
             background-color: #eff3ff !important;
@@ -54,7 +54,8 @@
                     </div>
                     <div class="col-3">
                         <div class="text-center mb-n5">
-                            <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/backgrounds/welcome-bg.svg"
+                            <img
+                                src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/backgrounds/welcome-bg.svg"
                                 alt="" class="img-fluid" style="width: 300px; height: auto;">
                         </div>
                     </div>
@@ -66,10 +67,10 @@
             <a class="text-decoration-none" href="/student-offline/dashboard/task">
                 <div class="back bg-label-primary rounded p-3">
                     <svg width="32" height="24" viewBox="0 0 36 28" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
+                         xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M1.27307 12.586C0.89813 12.9611 0.687499 13.4697 0.687499 14C0.687499 14.5303 0.89813 15.0389 1.27307 15.414L12.5871 26.728C12.7716 26.919 12.9923 27.0714 13.2363 27.1762C13.4803 27.281 13.7427 27.3362 14.0083 27.3385C14.2738 27.3408 14.5372 27.2902 14.783 27.1896C15.0288 27.0891 15.2521 26.9406 15.4399 26.7528C15.6276 26.565 15.7762 26.3417 15.8767 26.0959C15.9773 25.8501 16.0279 25.5868 16.0256 25.3212C16.0233 25.0556 15.9681 24.7932 15.8633 24.5492C15.7585 24.3052 15.6061 24.0845 15.4151 23.9L7.51507 16L34.0011 16C34.5315 16 35.0402 15.7893 35.4153 15.4142C35.7904 15.0391 36.0011 14.5304 36.0011 14C36.0011 13.4696 35.7904 12.9609 35.4153 12.5858C35.0402 12.2107 34.5315 12 34.0011 12L7.51507 12L15.4151 4.1C15.7794 3.72279 15.981 3.21759 15.9764 2.6932C15.9719 2.16881 15.7615 1.66718 15.3907 1.29637C15.0199 0.925548 14.5183 0.715209 13.9939 0.710653C13.4695 0.706096 12.9643 0.907684 12.5871 1.272L1.27307 12.586Z"
-                            fill="#5D87FF" />
+                            fill="#5D87FF"/>
                     </svg>
                 </div>
             </a>
@@ -97,15 +98,15 @@
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
                                         <a data-bs-toggle="tab" href="#offline" role="tab"
-                                            class="nav-link note-link d-flex align-items-center justify-content-center text-body-color active"
-                                            id="presentasi-offline">
+                                           class="nav-link note-link d-flex align-items-center justify-content-center text-body-color active"
+                                           id="presentasi-offline">
                                             <span class="d-none d-md-block font-weight-medium">Presentasi Offline</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a data-bs-toggle="tab" href="#online" role="tab"
-                                            class="nav-link note-link d-flex align-items-center justify-content-center text-body-color"
-                                            id="presentasi-online">
+                                           class="nav-link note-link d-flex align-items-center justify-content-center text-body-color"
+                                           id="presentasi-online">
                                             <span class="d-none d-md-block font-weight-medium">Presentasi Online</span>
                                         </a>
                                     </li>
@@ -127,16 +128,19 @@
                                         <li class="nav-item ms-auto" style="margin-right: 5px">
                                             <form class="position-relative">
                                                 <input type="text" class="form-control product-search ps-5 fs-2"
-                                                    id="input-search" placeholder="Cari Presentasi...">
+                                                       id="input-search" placeholder="Cari Presentasi...">
                                                 <i
                                                     class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-3 text-dark ms-3"></i>
                                             </form>
                                         </li>
+
                                         <li class="nav-item ms-auto">
-                                            <button class="btn btn-muted fs-2" data-bs-toggle="modal"
-                                                data-bs-target="#submit-a-presentation-offline">
-                                                Ajukan Presentasi offline
-                                            </button>
+                                            @if($project->status == \App\Enum\ProjectAcceptStatus::ACCEPT->value || $project->status_project == \App\Enum\TaskStatusEnum::COMPLETED->value)
+                                                <button class="btn btn-muted fs-2" data-bs-toggle="modal"
+                                                        data-bs-target="#submit-a-presentation-offline">
+                                                    Ajukan Presentasi offline
+                                                </button>
+                                            @endif
                                         </li>
                                     </div>
 
@@ -147,16 +151,18 @@
                                         <li class="nav-item ms-auto" style="margin-right: 5px">
                                             <form class="position-relative">
                                                 <input type="text" class="form-control product-search ps-5 fs-2"
-                                                    id="input-search" placeholder="Cari Presentasi...">
+                                                       id="input-search" placeholder="Cari Presentasi...">
                                                 <i
                                                     class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-3 text-dark ms-3"></i>
                                             </form>
                                         </li>
                                         <li class="nav-item ms-auto">
-                                            <button class="btn btn-muted fs-2" data-bs-toggle="modal"
-                                                data-bs-target="#submit-a-presentation-online">
-                                                Ajukan Presentasi online
-                                            </button>
+                                            @if($project->status == \App\Enum\ProjectAcceptStatus::ACCEPT->value || $project->status_project == \App\Enum\TaskStatusEnum::COMPLETED->value)
+                                                <button class="btn btn-muted fs-2" data-bs-toggle="modal"
+                                                        data-bs-target="#submit-a-presentation-online">
+                                                    Ajukan Presentasi online
+                                                </button>
+                                            @endif
                                         </li>
 
                                     </div>
@@ -191,14 +197,14 @@
                     onlineTabs.style.display = 'none';
 
                     // Fungsi untuk menampilkan offline tab
-                    showOfflineBtn.addEventListener('click', function() {
+                    showOfflineBtn.addEventListener('click', function () {
                         offlineTabs.style.display = 'block'; // Tampilkan offline tab
                         onlineTabs.style.display = 'none'; // Sembunyikan online tab
                         setActiveTab(showOfflineBtn); // Set tombol offline sebagai active
                     });
 
                     // Fungsi untuk menampilkan online tab
-                    showOnlineBtn.addEventListener('click', function() {
+                    showOnlineBtn.addEventListener('click', function () {
                         onlineTabs.style.display = 'block'; // Tampilkan online tab
                         offlineTabs.style.display = 'none'; // Sembunyikan offline tab
                         setActiveTab(showOnlineBtn); // Set tombol online sebagai active
@@ -210,106 +216,43 @@
                 </script>
 
 
-
                 <!-- Tab panes -->
                 <div class="tab-content mt-3">
                     <div class="tab-pane fade show active" id="offline" role="tabpanel">
                         <!-- Konten untuk Presentasi Offline -->
                         <table class="table align-middle mb-0 text-nowrap">
                             <thead>
-                                <tr>
-                                    <th class="ps-0 text">No</th>
-                                    <th class="text-center">Tanggal Presentation</th>
-                                    <th class="text-center">Mentor</th>
-                                    <th class="text-center">Antrian</th>
-                                    <th class="text-center">Status Presentasi</th>
-                                    <th class="text-center">Status Pengajuan</th>
-                                    <th class="text-center">Opsi</th>
-                                </tr>
+                            <tr>
+                                <th class="ps-0 text">No</th>
+                                <th class="text-center">Tanggal Presentation</th>
+                                <th class="text-center">Mentor</th>
+                                <th class="text-center">Antrian</th>
+                                <th class="text-center">Status Presentasi</th>
+                                <th class="text-center">Status Pengajuan</th>
+                                <th class="text-center">Opsi</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @foreach ($offlinePresentations as $presentation)
-                                    <tr>
-                                        <td class="ps-0 text">
-                                            <span>{{ $loop->iteration }}.</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <h6 class="mb-0">{{ $presentation->planning_date_presentation }}</h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <h6 class="mb-0">{{ $presentation->mentor->name ?? '-' }}</h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <h6 class="mb-0">#{{ sprintf('%02d', $presentation->urutan) }}</h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <h6 class="mb-0 badge bg-light-dark rounded-2">Presentasi {{ $presentation->category_presentation }}</h6>
-                                        </td>
-                                        <td class="text-center">
-                                            @if ($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
-                                                <small class="bg-label-warning p-2 rounded-2">
-                                                    {{ ucwords($presentation->status_presentation->value) }}
-                                                </small>
-                                            @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::PENNDING->value)
-                                                <small class="bg-label-danger p-2 rounded-2">
-                                                    {{ ucwords($presentation->status_presentation->value) }}
-                                                </small>
-                                            @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::FINISH->value)
-                                                <small class="bg-label-primary p-2 rounded-2">
-                                                    {{ ucwords($presentation->status_presentation->value) }}
-                                                </small>
-                                            @endif
-                                        </td>
-                                        <td class="text-center">
-                                            <h6 class="mb-0">
-                                                <a
-                                                    href="{{ route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id]) }}">
-                                                    <button class="btn btn-warning btn-sm">Revisi</button>
-                                                </a>
-                                            </h6>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-
-                    <div class="tab-pane fade {{ request('tab') == 'online' ? 'show active' : '' }}" id="online"
-                        role="tabpanel">
-                        <!-- Konten untuk Presentasi Online -->
-                        <table class="table align-middle mb-0 text-nowrap">
-                            <thead>
+                            @foreach ($offlinePresentations as $presentation)
                                 <tr>
-                                    <th class="ps-0 text">No</th>
-                                    <th class="text-center">Jam</th>
-                                    <th class="text-center">Tanggal</th>
-                                    <th class="text-center">Mentor</th>
-                                    <th class="text-center">Status Presentasi</th>
-                                    <th class="text-center">Status Pengajuan</th>
-                                    <th class="text-center">Opsi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($onlinePresentations as $presentation)
-                                    <tr>
-                                        <td class="ps-0 text">
-                                            <span>{{ $loop->iteration }}.</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-warning">{{ \Carbon\Carbon::parse($presentation->date_time_presentation)->format('h:i A') }}</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-warning">{{ \Carbon\Carbon::parse($presentation->date_time_presentation)->format('j F Y') }}</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <h6 class="mb-0">{{ $presentation->mentor->name ?? '-' }}</h6>
-                                        </td>
-                                        <td class="text-center">
-                                            <h6 class="mb-0 badge bg-light-success text-success rounded-2">Presentasi {{ $presentation->category_presentation }}</h6>
-                                        </td>
-                                        <td class="text-center">
-                                            @if ($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
+                                    <td class="ps-0 text">
+                                        <span>{{ $loop->iteration }}.</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <h6 class="mb-0">{{ $presentation->planning_date_presentation }}</h6>
+                                    </td>
+                                    <td class="text-center">
+                                        <h6 class="mb-0">{{ $presentation->mentor->name ?? '-' }}</h6>
+                                    </td>
+                                    <td class="text-center">
+                                        <h6 class="mb-0">#{{ sprintf('%02d', $presentation->urutan) }}</h6>
+                                    </td>
+                                    <td class="text-center">
+                                        <h6 class="mb-0 badge bg-light-dark rounded-2">
+                                            Presentasi {{ $presentation->category_presentation }}</h6>
+                                    </td>
+                                    <td class="text-center">
+                                        @if ($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
                                             <small class="bg-label-warning p-2 rounded-2">
                                                 {{ ucwords($presentation->status_presentation->value) }}
                                             </small>
@@ -322,21 +265,88 @@
                                                 {{ ucwords($presentation->status_presentation->value) }}
                                             </small>
                                         @endif
-                                        </td>
-                                        <td class="text-center">
-                                            <h6 class="mb-0">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#link-modal-{{ $presentation->id }}">
-                                                    <button class="btn btn-info btn-sm">Link</button>
-                                                </a>
-                                                <a
-                                                    href="{{ route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id]) }}">
-                                                    <button class="btn btn-warning btn-sm">Revisi</button>
-                                                </a>
-                                            </h6>
-                                        </td>
-                                    </tr>
-                                    @include('Hummatask.partials.link-modal')
-                                @endforeach
+                                    </td>
+                                    <td class="text-center">
+                                        <h6 class="mb-0">
+                                            <a
+                                                href="{{ route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id]) }}">
+                                                <button class="btn btn-warning btn-sm">Revisi</button>
+                                            </a>
+                                        </h6>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="tab-pane fade {{ request('tab') == 'online' ? 'show active' : '' }}" id="online"
+                         role="tabpanel">
+                        <!-- Konten untuk Presentasi Online -->
+                        <table class="table align-middle mb-0 text-nowrap">
+                            <thead>
+                            <tr>
+                                <th class="ps-0 text">No</th>
+                                <th class="text-center">Jam</th>
+                                <th class="text-center">Tanggal</th>
+                                <th class="text-center">Mentor</th>
+                                <th class="text-center">Status Presentasi</th>
+                                <th class="text-center">Status Pengajuan</th>
+                                <th class="text-center">Opsi</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($onlinePresentations as $presentation)
+                                <tr>
+                                    <td class="ps-0 text">
+                                        <span>{{ $loop->iteration }}.</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span
+                                            class="text-warning">{{ \Carbon\Carbon::parse($presentation->date_time_presentation)->format('h:i A') }}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span
+                                            class="text-warning">{{ \Carbon\Carbon::parse($presentation->date_time_presentation)->format('j F Y') }}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <h6 class="mb-0">{{ $presentation->mentor->name ?? '-' }}</h6>
+                                    </td>
+                                    <td class="text-center">
+                                        <h6 class="mb-0 badge bg-light-success text-success rounded-2">
+                                            Presentasi {{ $presentation->category_presentation }}</h6>
+                                    </td>
+                                    <td class="text-center">
+                                        @if ($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::WAITING->value)
+                                            <small class="bg-label-warning p-2 rounded-2">
+                                                {{ ucwords($presentation->status_presentation->value) }}
+                                            </small>
+                                        @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::PENNDING->value)
+                                            <small class="bg-label-danger p-2 rounded-2">
+                                                {{ ucwords($presentation->status_presentation->value) }}
+                                            </small>
+                                        @elseif($presentation->status_presentation->value == \App\Enum\StatusPresentationEnum::FINISH->value)
+                                            <small class="bg-label-primary p-2 rounded-2">
+                                                {{ ucwords($presentation->status_presentation->value) }}
+                                            </small>
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        <h6 class="mb-0">
+                                            <a href="#" data-bs-toggle="modal"
+                                               data-bs-target="#link-modal-{{ $presentation->id }}">
+                                                <button class="btn btn-info btn-sm">Link</button>
+                                            </a>
+                                            <a
+                                                href="{{ route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id]) }}">
+                                                <button class="btn btn-warning btn-sm">Revisi</button>
+                                            </a>
+                                        </h6>
+                                    </td>
+                                </tr>
+                                @include('Hummatask.partials.link-modal')
+                            @endforeach
                             </tbody>
                         </table>
 
@@ -350,5 +360,4 @@
 
     @include('Hummatask.partials.submit-modal')
 
-    
 @endsection
