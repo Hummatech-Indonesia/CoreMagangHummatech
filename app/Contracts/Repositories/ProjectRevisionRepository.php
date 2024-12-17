@@ -51,6 +51,10 @@ class ProjectRevisionRepository extends BaseRepository implements ProjectRevisio
 
     public function store(array $data): mixed
     {
-        return $this->model->query()->create($data);
+        return $this->model->create([
+            'revision' => $data['revision'],
+            'status' => $data['status'],
+            'presentation_id' => $data['presentation_id']
+        ])->assignedStudent()->attach($data['member_ids']);
     }
 }

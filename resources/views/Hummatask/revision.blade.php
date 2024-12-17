@@ -258,13 +258,13 @@
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item fs-2" data-bs-toggle="modal"
-                                                        data-bs-target="#editRevisionModal"
-                                                        data-id="{{ $revision->id }}"
-                                                        data-status="{{ $revision->status }}"
-                                                        data-revision="{{ $revision->revision }}"
-                                                        data-action="{{ route('student-offline.project.revision.updateRevision', $revision->id) }}">
-                                                        Edit
-                                                    </a>
+                                                            data-bs-target="#editRevisionModal"
+                                                            data-id="{{ $revision->id }}"
+                                                            data-status="{{ $revision->status }}"
+                                                            data-revision="{{ $revision->revision }}"
+                                                            data-action="{{ route('student-offline.project.revision.updateRevision', $revision->id) }}">
+                                                            Edit
+                                                        </a>
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item fs-2" data-bs-toggle="modal"
@@ -455,7 +455,6 @@
         </div>
     </div>
 
-
     @include('Hummatask.partials.edit-revision-modal')
 
     <div class="modal fade" id="addRevisionTodo" aria-labelledby="addRevisionTodoLabel" aria-hidden="true"
@@ -475,10 +474,20 @@
                     <div class="modal-body">
                         <div id="startDate">
                             <label class="fs-2 mb-2 mt-1" for="">Revisi</label>
-                            <textarea class="form-control" name="revision"></textarea>
+                            <textarea class="form-control mb-2" name="revision"></textarea>
                             @error('revision')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
+
+                            @if ($project->type_project != \App\Enum\PresentationTypeEnum::SOLO)
+                            <label class="fs-2 mb-2 mt-1" for="">Member yang Mengerjakan Revisi</label>
+                                <select class="form-control selectMembers" id="selectRevisionTodo"
+                                    name="member_ids[]" style="width: 100%;" multiple>
+                                    @foreach ($projectMember as $member)
+                                        <option value="{{ $member->members->id }}">{{ $member->members->name }}</option>
+                                    @endforeach
+                                </select>
+                            @endif
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -508,10 +517,19 @@
                     <div class="modal-body">
                         <div id="startDate">
                             <label class="fs-2 mb-2 mt-1" for="">Revisi</label>
-                            <textarea class="form-control" name="revision"></textarea>
+                            <textarea class="form-control mb-2" name="revision"></textarea>
                             @error('revision')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
+                            @if ($project->type_project != \App\Enum\PresentationTypeEnum::SOLO)
+                            <label class="fs-2 mb-2 mt-1" for="">member yang menerjakan revisi</label>
+                                <select class="form-control selectMembers mt-2" id="selectRevisionInProgress"
+                                    name="member_ids[]" style="width: 100%;" multiple>
+                                    @foreach ($projectMember as $member)
+                                        <option value="{{ $member->members->id }}">{{ $member->members->name }}</option>
+                                    @endforeach
+                                </select>
+                            @endif
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -541,10 +559,19 @@
                     <div class="modal-body">
                         <div id="startDate">
                             <label class="fs-2 mb-2 mt-1" for="">Revisi</label>
-                            <textarea class="form-control" name="revision"></textarea>
+                            <textarea class="form-control mb-2" name="revision"></textarea>
                             @error('revision')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
+                            @if ($project->type_project != \App\Enum\PresentationTypeEnum::SOLO)
+                            <label class="fs-2 mb-2 mt-1" for="">member yang menerjakan revisi</label>
+                                <select class="form-control selectMembers mt-2" id="selectRevisionDone"
+                                    name="member_ids[]" style="width: 100%;" multiple>
+                                    @foreach ($projectMember as $member)
+                                        <option value="{{ $member->members->id }}">{{ $member->members->name }}</option>
+                                    @endforeach
+                                </select>
+                            @endif
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -567,6 +594,18 @@
         import 'https://cdn.interactjs.io/v1.9.20/modifiers/index.js'
         import 'https://cdn.interactjs.io/v1.9.20/dev-tools/index.js'
         import interact from 'https://cdn.interactjs.io/v1.9.20/interactjs/index.js'
+
+        $(document).ready(function() {
+            $('#selectRevisionTodo').select2({
+                dropdownParent: $("#addRevisionTodo")
+            });
+            $('#selectRevisionInProgress').select2({
+                dropdownParent: $("#addRevisionInProgress")
+            });
+            $('#selectRevisionDone').select2({
+                dropdownParent: $("#addRevisionDone")
+            });
+        });
 
 
         function dragMoveListener(event) {

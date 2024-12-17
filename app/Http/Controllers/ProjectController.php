@@ -2,56 +2,69 @@
 
 namespace App\Http\Controllers;
 
-use http\Env\Response;
-use App\Models\Project;
-use App\StatusProjectEnum;
-use App\Enum\TaskStatusEnum;
-use App\Models\Presentation;
-use Illuminate\Http\Request;
-use App\Models\ProjectRevision;
-use Illuminate\Validation\Rule;
-use App\Enum\RevisionStatusEnum;
-use App\Services\ProjectService;
-use App\Enum\StatusHummaTeamEnum;
-use App\Models\QueuePresentation;
-use App\Enum\StatusMemberTeamEnum;
-use App\Services\HummataskTeamService;
-use App\Services\StudentProjectService;
-use App\Http\Requests\StoreProjectRequest;
-use App\Http\Requests\AddRepositoryRequest;
-use App\Http\Requests\UpdateProjectRequest;
-use App\Contracts\Interfaces\ProjectInterface;
-use App\Contracts\Interfaces\StudentInterface;
-use App\Http\Requests\StorePresentationRequest;
-use App\Http\Requests\StoreHummataskTeamRequest;
-use App\Contracts\Interfaces\StudentTeamInterface;
-use App\Contracts\Interfaces\PresentationInterface;
-use App\Contracts\Interfaces\HummataskTeamInterface;
-use App\Contracts\Interfaces\MentorStudentInterface;
-use App\Http\Requests\StoreProjectFromMentorRequest;
-use App\Contracts\Interfaces\MentorDivisionInterface;
-use App\Contracts\Interfaces\StudentProjectInterface;
 use App\Contracts\Interfaces\CategoryProjectInterface;
-use App\Contracts\Interfaces\ProjectRevisionInterface;
-use App\Contracts\Repositories\QueuePresentationInterface;
+use App\Contracts\Interfaces\HummataskTeamInterface;
 use App\Contracts\Interfaces\HummataskTeamMembersInterface;
+use App\Contracts\Interfaces\MentorDivisionInterface;
+use App\Contracts\Interfaces\MentorStudentInterface;
+use App\Contracts\Interfaces\PresentationInterface;
+use App\Contracts\Interfaces\ProjectInterface;
+use App\Contracts\Interfaces\ProjectRevisionInterface;
+use App\Contracts\Interfaces\StudentInterface;
+use App\Contracts\Interfaces\StudentProjectInterface;
+use App\Contracts\Interfaces\StudentTeamInterface;
+use App\Contracts\Repositories\QueuePresentationInterface;
+use App\Enum\PresentationTypeEnum;
+use App\Enum\RevisionStatusEnum;
+use App\Enum\StatusHummaTeamEnum;
+use App\Enum\StatusMemberTeamEnum;
+use App\Enum\TaskStatusEnum;
+use App\Http\Requests\AddRepositoryRequest;
+use App\Http\Requests\StoreHummataskTeamRequest;
+use App\Http\Requests\StorePresentationRequest;
+use App\Http\Requests\StoreProjectFromMentorRequest;
+use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Presentation;
+use App\Models\Project;
+use App\Models\ProjectRevision;
+use App\Services\HummataskTeamService;
+use App\Services\ProjectService;
+use App\Services\StudentProjectService;
+use App\StatusProjectEnum;
+use http\Env\Response;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProjectController extends Controller
 {
     private HummataskTeamService $service;
+
     private HummataskTeamInterface $hummatask_team;
+
     private ProjectService $projectService;
+
     private ProjectInterface $project;
+
     private StudentProjectService $studentProjectService;
+
     private MentorDivisionInterface $mentordivision;
+
     private StudentProjectInterface $studentProject;
+
     private CategoryProjectInterface $categoryProject;
+
     private StudentInterface $student;
+
     private StudentTeamInterface $studentTeam;
+
     private MentorStudentInterface $mentorStudent;
+
     private PresentationInterface $presentation;
+
     private HummataskTeamMembersInterface $hummataskMemberPresentation;
+
     private QueuePresentationInterface $queuePresentation;
+
     private ProjectRevisionInterface $projectRevision;
 
     public function __construct(
@@ -112,7 +125,7 @@ class ProjectController extends Controller
             $projects[] = [
                 ...$getProject->toArray(), // Mengubah objek ke array
                 'urutan' => $this->project->getQueueProjectPresentation($getProject->id),
-                'revision_count' => $this->project->getProjectRevision($getProject->id)
+                'revision_count' => $this->project->getProjectRevision($getProject->id),
             ];
         }
 
@@ -135,7 +148,7 @@ class ProjectController extends Controller
             $projects[] = [
                 ...$getProject->toArray(), // Mengubah objek ke array
                 'urutan' => $this->project->getQueueProjectPresentation($getProject->id),
-                'revision_count' => $this->project->getProjectRevision($getProject->id)
+                'revision_count' => $this->project->getProjectRevision($getProject->id),
             ];
         }
 
@@ -162,22 +175,22 @@ class ProjectController extends Controller
         $members[] = [
             'project_id' => $project->id,
             'member_id' => auth()->user()->student_id,
-            'status' => StatusMemberTeamEnum::Leader->value
+            'status' => StatusMemberTeamEnum::Leader->value,
         ];
         if (isset($validated['members']) && is_array($validated['members'])) {
             foreach ($validated['members'] as $member) {
                 $members[] = [
                     'project_id' => $project->id,
                     'member_id' => $member,
-                    'status' => StatusMemberTeamEnum::Member->value
+                    'status' => StatusMemberTeamEnum::Member->value,
                 ];
             }
         }
         $this->hummataskMemberPresentation->store($members);
+
         //        }
         return back()->with('success', 'project baru berhasil ditambahkan');
     }
-
 
     /**
      * Display the specified resource.
@@ -214,7 +227,7 @@ class ProjectController extends Controller
         $data['project_id'] = $project->id;
 
         $this->hummatask_team->update($team->id, [
-            'status' => StatusHummaTeamEnum::ACTIVE->value
+            'status' => StatusHummaTeamEnum::ACTIVE->value,
         ]);
 
         $studentTeams = $this->studentTeam->where('hummatask_team_id', $team->id);
@@ -232,14 +245,14 @@ class ProjectController extends Controller
         $data = $request->validated();
         $project = $this->project->store([
             'hummatask_team_id' => $team->id,
-            'title' => $data['custom-project']
+            'title' => $data['custom-project'],
         ]);
 
         $data['project_id'] = $project->id;
         $this->project->accProject($project->id, $data, $team->id);
 
         $this->hummatask_team->update($team->id, [
-            'status' => StatusHummaTeamEnum::ACTIVE->value
+            'status' => StatusHummaTeamEnum::ACTIVE->value,
         ]);
 
         $studentTeams = $this->studentTeam->where('hummatask_team_id', $team->id);
@@ -257,7 +270,8 @@ class ProjectController extends Controller
     {
         try {
             $this->project->delete($project->id);
-            return to_route('student-offline.project.task.index')->with('success', value: "Berhasil menghapus project");
+
+            return to_route('student-offline.project.task.index')->with('success', value: 'Berhasil menghapus project');
         } catch (\Exception $e) {
             return to_route('student-offline.project.task.index')->with('error', value: 'Gagal menghapus project');
         }
@@ -270,6 +284,7 @@ class ProjectController extends Controller
         $teams = $this->hummatask_team->WhereTeam();
         $mentors = $this->mentordivision->whereMentor(auth()->user()->mentor->id);
         $acc = $this->project->where('status', StatusProjectEnum::ACCEPTED->value);
+
         return view('mentor.project-submission.index', compact('categoryProjects', 'mentorStudents', 'teams', 'mentors', 'acc'));
     }
 
@@ -278,6 +293,7 @@ class ProjectController extends Controller
         $team = $this->hummatask_team->slug($slug);
         $projects = $this->project->where('hummatask_team_id', $team->id);
         $done = $this->project->getProjectAccepted($team->id);
+
         return view('mentor.project-submission.detail', compact('team', 'projects', 'done'));
     }
 
@@ -287,6 +303,7 @@ class ProjectController extends Controller
         $categoryProject = $this->categoryProject->get();
         $studentsData = $this->student->getStudentAccepted();
         $students = $this->hummataskMemberPresentation->getStudentByPresentation($project->id);
+
         return view('Hummatask.detail-project', compact('project', 'categoryProject', 'studentsData', 'students'));
     }
 
@@ -295,22 +312,26 @@ class ProjectController extends Controller
         $offlinePresentations = $this->presentation->getPresentationByProjectAndByOfflinePresentationCategory($project->id);
         $onlinePresentations = $this->presentation->getPresentationByProjectAndByOnlinePresentationCategory($project->id);
         $allPresentations = $this->presentation->getPresentationByProject($project->id);
+
         return view('Hummatask.detail-presentation', compact('project', 'offlinePresentations', 'onlinePresentations', 'allPresentations'));
     }
+
     public function revisionProject(Project $project, Presentation $presentation)
     {
         $revisionTodo = $this->projectRevision->getRevisionByPresentation($presentation->id, RevisionStatusEnum::Todo->value);
         $revisionInProgress = $this->projectRevision->getRevisionByPresentation($presentation->id, RevisionStatusEnum::InProgress->value);
         $revisionDone = $this->projectRevision->getRevisionByPresentation($presentation->id, RevisionStatusEnum::Completed->value);
         $projectMember = $this->hummataskMemberPresentation->getStudentByPresentation($presentation->id);
+
         return view('Hummatask.revision', compact('project', 'presentation', 'revisionTodo', 'revisionInProgress', 'revisionDone', 'projectMember'));
     }
+
     public function changeStatusRevision(Project $project, Presentation $presentation, Request $request)
     {
         // Validasi input
         $request->validate([
             'id_revision' => 'required|exists:project_revisions,id',
-            'status' => 'required|string'
+            'status' => 'required|string',
         ]);
 
         try {
@@ -324,23 +345,23 @@ class ProjectController extends Controller
             // Kembalikan response sukses
             return response()->json([
                 'message' => 'Status updated successfully.',
-                'data' => $revision
+                'data' => $revision,
             ], 200);
         } catch (\Exception $e) {
             // Tangani error
             return response()->json([
                 'message' => 'Failed to update status.',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
-
 
     public function storePresentation(StorePresentationRequest $request)
     {
         try {
 
             $this->presentation->store($request->validated());
+
             return redirect()->route('student-offline.project.presentation', $request->project_id)->with('success', 'Berhasil mengajukan presentasi');
         } catch (\Exception $e) {
             return redirect()->route('student-offline.project.presentation', $request->project_id)->with('error', 'Gagal mengajukan presentasi' . $e->getMessage());
@@ -351,14 +372,37 @@ class ProjectController extends Controller
     {
         $validated = $request->validate([
             'revision' => 'required',
-            'status' => 'required|string'
+            'status' => 'required|string',
+            'member_ids' => [
+                'nullable',
+                Rule::exists('hummatask_teams_members', 'member_id')->where(function ($query) use ($project) {
+                    $query->where('project_id', $project->id);
+                })
+            ]
         ]);
+
+
         try {
             $validated['presentation_id'] = $presentation->id;
-            $this->projectRevision->store($validated);
-            return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('success', value: "Berhasil menambah revisi");
+            if ($project->type_project == PresentationTypeEnum::SOLO) {
+
+                $members = $project->members->first();
+
+                if ($members && $members->count() > 0) {
+
+                    $validated['member_ids'] = $members->member_id;
+                    $this->projectRevision->store($validated);
+
+                } else {
+                    return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('error', value: 'Gagal menambah revisi');
+                }
+            } else {
+                $this->projectRevision->store($validated);
+            }
+
+            return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('success', value: 'Berhasil menambah revisi');
         } catch (\Exception $e) {
-            return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('error', value: "Gagal menambah revisi");
+            return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('error', value: 'Gagal menambah revisi');
         }
     }
 
@@ -366,7 +410,7 @@ class ProjectController extends Controller
     {
         $validated = $request->validate([
             'revision' => 'required',
-            'status' => 'required|string'
+            'status' => 'required|string',
         ]);
 
         try {
@@ -396,9 +440,10 @@ class ProjectController extends Controller
         $request->validate([
             'member_ids' => Rule::exists('hummatask_teams_members', 'member_id')->where(function ($query) use ($project) {
                 $query->where('project_id', $project->id);
-            })
+            }),
         ]);
         $projectRevision->assignedStudent()->sync($request->member_ids);
+
         return back();
     }
 
@@ -411,5 +456,4 @@ class ProjectController extends Controller
 
         return view('Hummatask.detail-progress', compact('project', 'categoryProject', 'studentsData', 'students'));
     }
-
 }
