@@ -173,11 +173,20 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
             ->get();
     }
 
-    public function getAcceptedProject()
+    public function getAcceptedProject(Request $request)
     {
         return $this->model
-        ->query()
-        ->where('status', ProjectAcceptStatus::ACCEPT)
-        ->get();
+            ->query()
+            ->where('status', ProjectAcceptStatus::ACCEPT)
+            ->when($request->search, function ($query) use ($request) {
+                $query->where('project_name', 'LIKE', '%' . $request->search . '%');
+            })
+            ->when($request->type_project, function ($query) use ($request) {
+                $query->where('type_project', $request->type_project);
+            })
+            ->when($request->start_date, function ($query) use ($request) {
+                $query->whereDate('start_date', '>=', $request->start_date);
+            })
+            ->paginate(6);
     }
 }

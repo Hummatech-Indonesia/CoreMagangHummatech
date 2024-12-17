@@ -3,44 +3,46 @@
 namespace App\Http\Controllers\Mentor;
 
 use App\Models\Project;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Contracts\Interfaces\ProjectInterface;
-
-
+use App\Contracts\Interfaces\StudentInterface;
 
 class ProgressController extends Controller
 {
 
     private ProjectInterface $project;
     private Project $projects;
+    private StudentInterface $student;
 
 
-    public function __construct(ProjectInterface $projectInterface)
+    public function __construct(ProjectInterface $projectInterface, StudentInterface $studentInterface)
     {
         $this->project = $projectInterface;
+        $this->student = $studentInterface;
     }
     /**
      * Display a listing of the resource.
      */
     public function index() {}
 
-    public function projectSiswa()
+    public function projectSiswa(request $request)
     {
-        return view('mentor.progress.project-siswa.index');
+        $students = $this->student->getStudentByMentorDevision($request);
+
+        return view('mentor.progress.project-siswa.index', compact('students'));
     }
-    public function projectGroupSiswa()
+    public function projectGroupSiswa(Student $student)
     {
-        return view('mentor.progress.project-siswa.project-group');
-    }
-    public function detailProgressSiswa()
-    {
-        return view('mentor.progress.project-siswa.detail-progress');
+        $projects = $this->project->getProjectByStudent($student->id);
+
+        return view('mentor.progress.project-siswa.project-group', compact('projects', 'student'));
     }
 
-    public function progressProject()
+    public function progressProject(Request $request)
     {
-        $projects = $this->project->getAcceptedProject();
+        $projects = $this->project->getAcceptedProject($request);
 
         return view('mentor.progress.progress-project.index', compact('projects'));
     }
@@ -53,25 +55,34 @@ class ProgressController extends Controller
         ]);
 
         $total_revisi = $project->presentation->revision->count();
+        $total_revisi_done = $project->presentation->revision->where('status', 'completed')->count() ?? 0;
+        $total_revisi_todo = $project->presentation->revision->where('status', 'completed','in progress')->count() ?? 0;
+
+        if ($total_revisi_done > 0) {
+            $total_progress = ($total_revisi_done / $total_revisi) * 100;
+        } else {
+            $total_progress = 0;
+        }
+        if ($total_revisi_todo > 0) {
+            $total_revisi_dont_completed = ($total_revisi_todo / $total_revisi) * 100;
+        } else {
+            $total_revisi_dont_completed = 0;
+        }
 
         if ($total_revisi == 0) {
-            $total_progress = 0;
-            $anggota = []; 
+            $anggota = [];
             return view('mentor.progress.progress-project.detail-progress', compact('project', 'anggota', 'total_revisi', 'total_progress'));
         }
 
         $anggota = [];
-        $total_revisi_dikerjakan = 0;
         $total_revisi_terassign = 0;
 
         foreach ($project->members as $member) {
-            $revisi_dikerjakan = $project->presentation->revision->filter(function ($revision) use ($member) {
+            $revisi_dikerjakan = $project->presentation->revision->where('status','completed')->filter(function ($revision) use ($member) {
                 return $revision->assignedStudent->contains('id', $member->members->id);
             })->count();
 
-            $total_revisi_terassign += $revisi_dikerjakan;
-
-            $revisi_percent = $total_revisi > 0 ? min(($revisi_dikerjakan / $total_revisi) * 100, 100) : 0;
+            $revisi_percent = ($revisi_dikerjakan / $total_revisi) * 100;
 
             $anggota[] = [
                 'nama' => $member->members->name,
@@ -80,9 +91,9 @@ class ProgressController extends Controller
             ];
         }
 
-        $total_progress = $total_revisi > 0 ? min(($total_revisi_terassign / $total_revisi) * 100, 100) : 0;
+        // $total_revisi > 0 ? min(($total_revisi_terassign / $total_revisi) * 100, 100) : 0;
 
-        return view('mentor.progress.progress-project.detail-progress', compact('project', 'anggota', 'total_revisi', 'total_progress'));
+        return view('mentor.progress.progress-project.detail-progress', compact('project', 'anggota', 'total_progress','total_revisi_dont_completed'));
     }
 
 

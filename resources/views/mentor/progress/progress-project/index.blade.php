@@ -16,6 +16,66 @@
         </div>
     </div>
 
+    <div class="card py-3">
+        <div class="d-flex justify-content-end">
+            <div class="col-md-12 ">
+                <form class="row g-3 align-items-center justify-content-end me-3"
+                    action="{{ route('mentor.progress-project') }}">
+                    
+                    
+                    <div class="col-md-3 position-relative">
+                        <input type="text"
+                            class="form-control product-search ps-5 p-3 text-primary border-0 bg-light-primary"
+                            name="search" value="{{ request('search') }}" id="input-search"
+                            placeholder="Cari nama proyek...">
+                        <i
+                            class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-primary ms-4"></i>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-text bg-primary text-white border-0">
+                                <i class="ti ti-calendar"></i>
+                            </span>
+                            <input type="date" class="form-control text-primary bg-light-primary p-3 border-0"
+                                name="start_date" value="{{ request('start_date') }}" placeholder="Tanggal mulai"
+                                onchange="this.form.submit()">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <form method="GET" action="{{ url()->current() }}">
+                            <select name="type_project" class="form-select py-3 border-0 bg-light-primary text-primary"
+                                onchange="this.form.submit()">
+                                <option value="">Kategori Project</option>
+                                <option value="{{ \App\Enum\PresentationTypeEnum::SOLO->value }}"
+                                    @if (request('type_project') == \App\Enum\PresentationTypeEnum::SOLO->value) selected @endif>
+                                    Solo Project
+                                </option>
+                                <option value="{{ \App\Enum\PresentationTypeEnum::PREMINI->value }}"
+                                    @if (request('type_project') == \App\Enum\PresentationTypeEnum::PREMINI->value) selected @endif>
+                                    Premini Project
+                                </option>
+                                <option value="{{ \App\Enum\PresentationTypeEnum::MINI->value }}"
+                                    @if (request('type_project') == \App\Enum\PresentationTypeEnum::MINI->value) selected @endif>
+                                    Mini Project
+                                </option>
+                                <option value="{{ \App\Enum\PresentationTypeEnum::BIG->value }}"
+                                    @if (request('type_project') == \App\Enum\PresentationTypeEnum::BIG->value) selected @endif>
+                                    Big Project
+                                </option>
+                            </select>
+                        </form>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-4">
         @forelse ($projects as $project)
             <div class="col">
@@ -83,7 +143,8 @@
                         </div>
 
                         <div class="d-flex justify-content-center mt-4">
-                            <a href="{{ route('mentor.progress-project.detail', $project->id) }}" class="btn btn-primary w-100 ms-2" type="button">Detail Progress</a>
+                            <a href="{{ route('mentor.progress-project.detail', $project->id) }}"
+                                class="btn btn-primary w-100 ms-2" type="button">Detail Progress</a>
                         </div>
                     </div>
                 </div>

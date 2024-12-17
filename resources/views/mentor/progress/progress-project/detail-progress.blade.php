@@ -11,7 +11,7 @@
             </div>
         </a>
         <div class="bg-light-info w-100 d-flex justify-content-center align-items-center text-center rounded-2">
-            <h2 class="text-primary fw-bolder fs-4">Detail Progress</h2>
+            <h2 class="text-primary fw-bolder fs-4 mb-0">Detail Progress</h2>
         </div>
     </div>
 
@@ -65,7 +65,19 @@
                             </div>
                         </div>
                     </div>
-                
+                    <div class="mb-3">
+                        <div class="anggota-item d-flex mb-2">
+                            <span class="d-flex text-black fw-semibold">
+                                Revisi belum selesai
+                            </span>
+                        </div>
+                        <div class="progress" style="height: 12px">
+                            <div class="progress-bar bg-danger" style="width: {{ number_format($total_revisi_dont_completed, 2) }}%;" role="progressbar">
+                                {{ number_format($total_revisi_dont_completed, 0) }}%
+                            </div>
+                        </div>
+                    </div>
+
                     @foreach ($anggota as $item)
                         <div class="mb-3">
                             <div class="d-flex align-items-center gap-3 fw-semibold text-dark mb-2">
@@ -78,9 +90,9 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach                    
+                    @endforeach
                 </div>
-                
+
             </div>
         </div>
         <div class="col-md-5">
