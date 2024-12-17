@@ -6,6 +6,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Project</th>
+                        <th>Divisi</th>
                         <th>Jam</th>
                         <th>Tanggal</th>
                         <th>Tipe Project</th>
@@ -18,6 +19,7 @@
                     <tr data-student-id="{{ $presentation->id }}">
                         <td>{{ $loop->iteration }}.</td>
                         <td>{{ $presentation->project->project_name }}</td>
+                        <td>{{ $ongoing->project->division->name }}</td>
                         <td>
                             <span class="text-warning">{{ \Carbon\Carbon::parse($presentation->date_time_presentation)->format('h:i A') }}</span>
                         </td>
@@ -38,7 +40,7 @@
                                 <small class="p-2 px-3 rounded-pill text-info bg-light-info fw-bolder">Dalam Antrian</small>
                             @endif
                         </td>
-                        
+
                         <td class="d-flex gap-1">
                             <a href="/mentor/project-submissions/{{ $presentation->project->id }}/revision" class="btn btn-primary">Detail</a>
                         </td>

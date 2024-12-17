@@ -7,6 +7,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Project</th>
+                        <th>Divisi</th>
                         <th>Jam</th>
                         <th>Tanggal</th>
                         <th>Tipe Project</th>
@@ -18,6 +19,7 @@
                     @forelse ($ongoings as $ongoing)
                         <tr data-student-id="{{ $ongoing->id }}">
                             <td>{{ $loop->iteration }}.</td>
+                            <td>{{ $ongoing->project->division->name }}</td>
                             <td>{{ $ongoing->project->project_name }}</td>
                             <td>
                                 <span
