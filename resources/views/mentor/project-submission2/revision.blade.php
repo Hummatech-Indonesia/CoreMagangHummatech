@@ -48,13 +48,6 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a data-bs-toggle="tab" href="#todo-revisions" role="tab"
-                    class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color">
-                    <i class="ti ti-clock-hour-3 fill-white me-0 me-md-1  fs-7"></i>
-                    <span class="d-none d-md-block font-weight-medium">Menunggu</span>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a data-bs-toggle="tab" href="#inprogress-revisions" role="tab"
                     class="nav-link note-link d-flex align-items-center justify-content-center px-3 px-md-3 me-0 me-md-2 text-body-color">
                     <i class="ti ti-history-toggle fill-white me-0 me-md-1 fs-7"></i>
