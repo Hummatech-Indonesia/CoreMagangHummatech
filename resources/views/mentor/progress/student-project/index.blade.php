@@ -20,7 +20,7 @@
         <div class="d-flex justify-content-end">
             <div class="col-md-12 ">
                 <form class="row g-3 align-items-center justify-content-end me-3"
-                    action="{{ route('mentor.project-siswa') }}">
+                    action="{{ route('mentor.project-student') }}">
 
                     <div class="col-md-3 position-relative">
                         <input type="text"
@@ -51,7 +51,7 @@
                         <span class="text-dark fs-2">{{ $student->school }}</span>
                         <div class="row mt-3">
                             <div class="col-12">
-                                <a href="{{ route('mentor.project-siswa.group', $student->id) }}"
+                                <a href="{{ route('mentor.project-student.group', $student->id) }}"
                                     class="btn btn-primary w-100">Lihat
                                     Project</a>
                             </div>

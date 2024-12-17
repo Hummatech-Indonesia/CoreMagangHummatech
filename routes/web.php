@@ -481,12 +481,9 @@ Route::prefix('mentor')->name(RolesEnum::MENTOR->value . ".")->middleware(['role
     Route::get('/progress-project/{project}/detail-progress', [\App\Http\Controllers\Mentor\ProgressController::class, 'detailprogressProject'])->name('progress-project.detail');
 
     // route progress siswa
-    Route::get('/progress-project-siswa', [\App\Http\Controllers\Mentor\ProgressController::class, 'projectSiswa'])->name('progress-project-siswa');
-    Route::get('/progress-project-siswa/project-group', [\App\Http\Controllers\Mentor\ProgressController::class, 'projectGroupSiswa'])->name('project-group-progress');
-    Route::get('/progress-project-siswa/project-group/detail-progress', [\App\Http\Controllers\Mentor\ProgressController::class, 'detailProgressSiswa'])->name('project-progress-siswa');
-    Route::get('/project-group-siswa', [\App\Http\Controllers\Mentor\ProgressController::class, 'projectGroupSiswa'])->name('project-group-siswa');
-    Route::get('/project-siswa',[\App\Http\Controllers\Mentor\ProgressController::class,'projectSiswa'])->name('project-siswa');
-    Route::get('/project-siswa/{student}/project-group',[\App\Http\Controllers\Mentor\ProgressController::class,'projectGroupSiswa'])->name('project-siswa.group');
+    Route::get('/project-group-student', [\App\Http\Controllers\Mentor\ProgressController::class, 'projectGroupStudent'])->name('project-group-student');
+    Route::get('/project-student',[\App\Http\Controllers\Mentor\ProgressController::class,'projectStudent'])->name('project-student');
+    Route::get('/project-student/{student}/project-group',[\App\Http\Controllers\Mentor\ProgressController::class,'projectGroupStudent'])->name('project-student.group');
 
     Route::get('/presentation', [PresentationController::class, 'getMentorOfflinePresentations'])->name('presentation');
     Route::get('/presentation/online', [PresentationController::class, 'getMentorOnlinePresentations'])->name('presentation.online');

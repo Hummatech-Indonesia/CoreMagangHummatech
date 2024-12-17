@@ -21,8 +21,6 @@
             <div class="col-md-12 ">
                 <form class="row g-3 align-items-center justify-content-end me-3"
                     action="{{ route('mentor.progress-project') }}">
-
-
                     <div class="col-md-3 position-relative">
                         <input type="text"
                             class="form-control product-search ps-5 p-3 text-primary border-0 bg-light-primary"
@@ -127,7 +125,6 @@
                             </span>
                         </div>
 
-
                         <div class="d-flex justify-content-between align-items-center mt-1">
                             <p class="text-black mb-0">Deadline:</p>
                             <small class="{{ $project->getProjectStatus()->color() }} bg-transparent fw-semibold">
@@ -152,7 +149,6 @@
                 </div>
             </div>
         @endforelse
-
-
     </div>
+    {{ $projects->links() }}
 @endsection
