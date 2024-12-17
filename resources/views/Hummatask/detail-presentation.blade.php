@@ -135,7 +135,7 @@
                                         </li>
 
                                         <li class="nav-item ms-auto">
-                                            @if($project->status == \App\Enum\ProjectAcceptStatus::ACCEPT->value || $project->status_project == \App\Enum\TaskStatusEnum::COMPLETED->value)
+                                            @if($project->status == \App\Enum\ProjectAcceptStatus::ACCEPT->value || !($project->status_project == \App\Enum\TaskStatusEnum::COMPLETED->value))
                                                 <button class="btn btn-muted fs-2" data-bs-toggle="modal"
                                                         data-bs-target="#submit-a-presentation-offline">
                                                     Ajukan Presentasi offline
@@ -157,7 +157,7 @@
                                             </form>
                                         </li>
                                         <li class="nav-item ms-auto">
-                                            @if($project->status == \App\Enum\ProjectAcceptStatus::ACCEPT->value || $project->status_project == \App\Enum\TaskStatusEnum::COMPLETED->value)
+                                            @if($project->status == \App\Enum\ProjectAcceptStatus::ACCEPT->value || !($project->status_project == \App\Enum\TaskStatusEnum::COMPLETED->value))
                                                 <button class="btn btn-muted fs-2" data-bs-toggle="modal"
                                                         data-bs-target="#submit-a-presentation-online">
                                                     Ajukan Presentasi online
