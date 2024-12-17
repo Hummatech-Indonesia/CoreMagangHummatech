@@ -380,7 +380,7 @@ Route::prefix('student-offline')->name(RolesEnum::OFFLINE->value . ".")->middlew
     # Dashboard-Task-Presentation
     Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'index'])->name('project.task.index');
     Route::get('dashboard/task/detail/{project}', [\App\Http\Controllers\ProjectController::class, 'detailProject'])->name('project.detail');
-    Route::get('dashboard/task/detail/{project}/detail-progress', [\App\Http\Controllers\ProjectController::class, 'detailProgress'])->name('project.progress.detail');
+    Route::get('dashboard/task/detail/{project}/detail-progress', [\App\Http\Controllers\ProjectController::class, 'detailProgress'])->name('project.detail-progress');
     Route::get('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'presentationProject'])->name('project.presentation');
     Route::post('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'storePresentation'])->name('project.presentation.save');
     Route::get('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'revisionProject'])->name('project.presentation.revision');

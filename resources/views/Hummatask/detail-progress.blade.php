@@ -49,161 +49,132 @@
     </div>
     <div class="row">
         <div class="col-12 col-lg-7">
-            <div class="card" style="border:1px solid rgba(0,0,0,.03);">
-                <div class="card-content">
-                    <div class="card-body d-flex justify-content-start align-items-center m-0 p-3 text-center">
-                        <h5 class="m-0 p-0">
-                            Progress Project</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="card" style="border:1px solid rgba(0,0,0,.03);">
-                <div class="card-content">
-                    <div class="card-body d-flex flex-column align-items-start justify-content-start">
-                        <div class="d-flex w-100 justify-content-between align-items-center my-3">
-                            <h5 class="fw-bold fs-9">{{ $project->project_name }}</h5>
-                            <a class="rounded-2 text-primary fw-bold p-2" href="1/detail-progress"
-                                style="background: #eff3ff">
-                                Detail Revisi
-                            </a>
-                        </div>
-
-                        <div class="d-flex">
-                            <h5 class="fw-bold mx-4">Status</h5>
-                            <h5 class="fw-bold mx-4">Kategori</h5>
-                        </div>
-                        <div class="d-flex">
-                            @if ($project->status == \App\Enum\ProjectAcceptStatus::ACCEPT)
-                                <small class="rounded-2 text-success fw-bolder mx-3 p-2"
-                                    style="background: rgba(19,222,185,.2)">Disetujui</small>
-                            @elseif($project->status == \App\Enum\ProjectAcceptStatus::WAITING)
-                                <small class="rounded-2 text-waiting fw-bolder mx-3 p-2"
-                                    style="background: rgba(255,174,31,.2)">Menunggu</small>
-                            @elseif($project->status == \App\Enum\ProjectAcceptStatus::REJECTED)
-                                <small class="rounded-2 text-danger fw-bolder mx-3 p-2"
-                                    style="background: rgb(250,137,107,.2)">Ditolak</small>
-                            @endif
-
-                            <small class="rounded-2 text-primary fw-bolder mx-3 p-2" style="background: #eef1ff;">{{ ucwords($project->type_project->value) }}</small>
-                        </div>
-
-                        <div class="w-100">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="fw-bold mb-3 mt-4">Progress Pengerjaan</h5>
-                                <span style=" right: 0; top: -20px; color: #3366ff; font-size: 14px;">Progress Dikerjakan
-                                    90%</span>
-                            </div>
-                            <div class="w-100" style="height: 6px; background: #eee; border-radius: 5px;">
-                                <div class="h-100" style="width: 90%; background: #3366ff; border-radius: 5px;"></div>
-                            </div>
-                        </div>
-
-                        <div class="w-100 mt-4">
-                            <div class="d-flex align-items-center mb-2">
-                                <img src="{{ asset('user.webp') }}" alt="avatar"
-                                    style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
-                                <div style="width: 100%;">
-                                    <div class="d-flex justify-content-between">
-                                        <span>Victoria Sharma</span>
-                                        <span style="color: #3366ff; font-size: 14px;">Partisipasi 30%</span>
-                                    </div>
-                                    <div style="width: 100%; height: 6px; background: #eee; border-radius: 5px;">
-                                        <div style="width: 30%; background: #3366ff; border-radius: 5px;" class="h-100">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center mb-2">
-                                <img src="{{ asset('user.webp') }}" alt="avatar"
-                                    style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
-                                <div style="width: 100%;">
-                                    <div class="d-flex justify-content-between">
-                                        <span>Victoria Sharma</span>
-                                        <span style="color: #3366ff; font-size: 14px;">Partisipasi 50%</span>
-                                    </div>
-                                    <div style="width: 100%; height: 6px; background: #eee; border-radius: 5px;">
-                                        <div style="width: 50%; background: #3366ff; border-radius: 5px;" class="h-100">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center mb-2">
-                                <img src="{{ asset('user.webp') }}" alt="avatar"
-                                    style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
-                                <div style="width: 100%;">
-                                    <div class="d-flex justify-content-between">
-                                        <span>Victoria Sharma</span>
-                                        <span style="color: #3366ff; font-size: 14px;">Partisipasi 80%</span>
-                                    </div>
-                                    <div style="width: 100%; height: 6px; background: #eee; border-radius: 5px;">
-                                        <div style="width: 80%; background: #3366ff; border-radius: 5px;" class="h-100">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center mb-2">
-                                <img src="{{ asset('user.webp') }}" alt="avatar"
-                                    style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
-                                <div style="width: 100%;">
-                                    <div class="d-flex justify-content-between">
-                                        <span>Victoria Sharma</span>
-                                        <span style="color: #3366ff; font-size: 14px;">Partisipasi 10%</span>
-                                    </div>
-                                    <div style="width: 100%; height: 6px; background: #eee; border-radius: 5px;">
-                                        <div style="width: 10%; height: 100%; background: #3366ff; border-radius: 5px;">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-12 col-lg-5">
-            <div class="card" style="border:1px solid rgba(0,0,0,.03);">
-                <div class="card-content">
-                    <div class="card-body d-flex justify-content-between align-items-center m-0 p-3">
-                        <h5 class="m-0 p-0">
-                            Anggota</h5>
-                    </div>
-                </div>
-            </div>
             <div class="card">
                 <div class="card-content">
-                    <div class="card-body">
+                    <div class="card-body d-flex justify-content-start align-items-center m-0 p-3 text-center">
+                        <h5 class="m-0 p-0 fw-semibold">
+                            Progres Project</h5>
+                    </div>
+                </div>
+            </div>
+            <style>
+                .progress {
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    background-color: #e0e0e0;
+                    /* Warna latar belakang progress bar */
+                }
+            </style>
+            <div class="card">
+                <div style="background: white" class="card-header">
+                    <div class="">
+                        <h4 class="mb-4 fw-bolder">{{ $project->project_name }}</h4>
+                    </div>
+                    <div class="row d-flex justify-content-start">
+                        <div class="col-12 col-md-3 text-center text-md-start mb-2">
+                            <h6 class="mb-3 fw-bolder">Status Project</h6>
+                            <span class="{{ $project->getProjectStatus()->color() }} badge badge px-4 py-2 rounded-pill">
+                                {{ $project->getProjectStatus()->label() }}
+                            </span>
+                        </div>
+                        <div class="col-12 col-md-6 text-center text-md-start mb-2">
+                            <h6 class="mb-3 fw-bolder">Kategori Project</h6>
+                            <span class="bg-light-primary text-primary badge px-4 py-2 rounded-pill">
+                                {{ $project->type_project }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body pt-2">
+                    <div class="mb-3">
+                        <div class="anggota-item d-flex mb-2">
+                            <span class="d-flex text-black fw-semibold">
+                                Progress Pengerjaan
+                            </span>
+                        </div>
+                        <div class="progress" style="height: 12px">
+                            <div class="progress-bar bg-primary" style="width: {{ number_format($total_progress, 2) }}%;" role="progressbar">
+                                {{ number_format($total_progress, 0) }}%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="anggota-item d-flex mb-2">
+                            <span class="d-flex text-black fw-semibold">
+                                Revisi belum selesai
+                            </span>
+                        </div>
+                        <div class="progress" style="height: 12px">
+                            <div class="progress-bar bg-danger" style="width: {{ number_format($total_revisi_dont_completed, 2) }}%;" role="progressbar">
+                                {{ number_format($total_revisi_dont_completed, 0) }}%
+                            </div>
+                        </div>
+                    </div>
+
+                    @foreach ($anggota as $item)
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center gap-3 fw-semibold text-dark mb-2">
+                                <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" class="rounded-circle" alt="user" width="30" />
+                                <span class="text-black fw-semibold">{{ $item['nama'] }}</span>
+                            </div>
+                            <div class="progress" style="height: 12px">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: {{ number_format($item['revisi_percent'], 2) }}%;">
+                                    {{ number_format($item['revisi_percent'], 0) }}%
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-body d-flex justify-content-start align-items-center m-0 p-3 text-center">
+                        <h5 class="m-0 p-0 fw-semibold">Anggota</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card w-100">
+                <div class="card-body p-4">
+                    <div class="card mt-4 mb-0 shadow-none">
                         <div class="table-responsive">
-                            <table class="search-table text-nowrap table align-middle">
-                                <thead class="header-item">
+                            <table class="table mb-0 align-middle text-nowrap ">
+                                <thead>
                                     <tr>
-                                        <th>No</th>
+                                        <th class="ps-0">No</th>
                                         <th>Nama</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-
-                                    @forelse ($students as $index => $student)
+                                <tbody class="text-black">
+                                    @forelse ($project->members as $member)
                                         <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td class="d-flex align-items-center gap-2">
-                                                <img class="rounded-circle rounded border"
-                                                    src="{{ isset($student->members->faces->first()->photo) ? asset('storage/' . $student->members->faces->first()->photo) : asset('user.webp') }}"
-                                                    alt="" width="35" height="35">
-                                                {{ $student->members->name }}
+
+                                            <td class="ps-0 text-black">{{ $loop->iteration }}. </td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-3 fw-semibold text-dark">
+                                                    <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
+                                                        class="rounded-circle" alt="user" width="35" />
+                                                    <span>{{ $member->members->name }}</span>
+                                                </div>
                                             </td>
                                             <td>
-                                                <b
-                                                    class="{{ $student->status == \App\Enum\StatusMemberTeamEnum::Leader->value ? 'text-warning' : 'text-primary' }}">
-                                                    {{ $student->status }}
-                                                </b>
+                                                <span @class([
+                                                    'text-warning' =>
+                                                        $member->status == \App\Enum\StatusMemberTeamEnum::Leader->value,
+                                                    'text-primary' =>
+                                                        $member->status == \App\Enum\StatusMemberTeamEnum::Member->value,
+                                                ])>
+                                                    @if ($member->status == \App\Enum\StatusMemberTeamEnum::Leader->value)
+                                                        Ketua
+                                                    @else
+                                                        Anggota
+                                                    @endif
+                                                </span>
                                             </td>
                                         </tr>
                                     @empty
-                                        <tr colspan="999">
-                                            <td>Tidak ada anggota</td>
-                                        </tr>
                                     @endforelse
                                 </tbody>
                             </table>
