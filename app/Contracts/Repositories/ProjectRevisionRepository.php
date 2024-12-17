@@ -34,7 +34,7 @@ class ProjectRevisionRepository extends BaseRepository implements ProjectRevisio
             ->when($status !== null, function ($query) use ($status) {
                 $query->where('status', $status);
             })
-            ->get();
+            ->latest()->get();
     }
 
     public function getRevisionByProject(int $projectId, string $status = null)
