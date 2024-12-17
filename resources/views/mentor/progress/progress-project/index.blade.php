@@ -21,8 +21,8 @@
             <div class="col-md-12 ">
                 <form class="row g-3 align-items-center justify-content-end me-3"
                     action="{{ route('mentor.progress-project') }}">
-                    
-                    
+
+
                     <div class="col-md-3 position-relative">
                         <input type="text"
                             class="form-control product-search ps-5 p-3 text-primary border-0 bg-light-primary"
@@ -85,12 +85,6 @@
                             <span class="badge bg-light-primary text-primary px-3 py-2 rounded-2 fw-bolder">
                                 {{ $project->type_project }}
                             </span>
-                            <div class="d-flex gap-1">
-                                <a href="{{ route('mentor.progress-project.detail', $project->id) }}"
-                                    class="btn btn-primary text-white p-1">
-                                    <i class="ti ti-eye fs-7"></i>
-                                </a>
-                            </div>
                         </div>
                         <h5 class="fw-semibold">{{ $project->project_name }}</h5>
                         <p class="text-muted mb-1">By Kelompok {{ $project->members->first()?->members->name }}
