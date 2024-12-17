@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\TaskStatusEnum;
 use App\Models\Mentor;
 use App\Models\Project;
 use App\Models\Presentation;
+use App\StatusProjectEnum;
 use Illuminate\Http\Request;
 use App\Models\HummataskTeam;
 use Illuminate\Support\Carbon;
@@ -312,6 +314,12 @@ class PresentationController extends Controller
             $presentation->update([
                 'status_presentation' => StatusPresentationEnum::FINISH->value
             ]);
+
+            if($request->project_done == 'true'){
+                $project->update([
+                    'status_project' => TaskStatusEnum::COMPLETED->value
+                ]);
+            }
             return back()->with('success', value: 'Berhasil merubah status');
         }catch (\Exception $e){
             return back()->with('error',  value: 'Gagal merubah status');
