@@ -6,6 +6,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Project</th>
+                        <th>Divisi</th>
                         <th>Nama Ketua</th>
                         <th>Deskripsi</th>
                         <th>Tanggal Presentasi</th>
@@ -18,6 +19,7 @@
                         <tr data-student-id="{{ $presentation->id }}">
                             <td>{{ $loop->iteration }}. </td>
                             <td>{{ $presentation->project->project_name }}</td>
+                            <td>{{ $presentation->project->division->name }}</td>
                             <td>
                                 {{ \App\Models\Student::find(collect($presentation->project->members)->where('status', \App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
                             </td>

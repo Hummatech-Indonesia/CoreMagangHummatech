@@ -254,6 +254,10 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
         Route::get('project', [StudentProgressProjectController::class, 'index'])->name('project');
         Route::get('project/detail/{project}', [StudentProgressProjectController::class, 'show'])->name('project.detail');
         Route::get('project/detail/{project}/revision', [StudentProgressProjectController::class, 'showRevision'])->name('project.detail.revision');
+        Route::get('project/detail/{project}/progress', [StudentProgressProjectController::class, 'progressProject'])->name('project.detail.progress');
+
+        Route::get('student', [StudentProgressProjectController::class, 'getStudent'])->name('student');
+        Route::get('student/project', [StudentProgressProjectController::class, 'getStudentProject'])->name('student.project');
     });
 
     Route::prefix('course')->name('.course.')->group(function () {
@@ -380,7 +384,7 @@ Route::prefix('student-offline')->name(RolesEnum::OFFLINE->value . ".")->middlew
     # Dashboard-Task-Presentation
     Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'index'])->name('project.task.index');
     Route::get('dashboard/task/detail/{project}', [\App\Http\Controllers\ProjectController::class, 'detailProject'])->name('project.detail');
-    Route::get('dashboard/task/detail/{project}/detail-progress', [\App\Http\Controllers\ProjectController::class, 'detailProgress'])->name('project.progress.detail');
+    Route::get('dashboard/task/detail/{project}/detail-progress', [\App\Http\Controllers\ProjectController::class, 'detailProgress'])->name('project.detail-progress');
     Route::get('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'presentationProject'])->name('project.presentation');
     Route::post('dashboard/task/detail/{project}/presentation', [\App\Http\Controllers\ProjectController::class, 'storePresentation'])->name('project.presentation.save');
     Route::get('dashboard/task/detail/{project}/presentation/revision/{presentation}', [\App\Http\Controllers\ProjectController::class, 'revisionProject'])->name('project.presentation.revision');
@@ -481,12 +485,9 @@ Route::prefix('mentor')->name(RolesEnum::MENTOR->value . ".")->middleware(['role
     Route::get('/progress-project/{project}/detail-progress', [\App\Http\Controllers\Mentor\ProgressController::class, 'detailprogressProject'])->name('progress-project.detail');
 
     // route progress siswa
-    Route::get('/progress-project-siswa', [\App\Http\Controllers\Mentor\ProgressController::class, 'projectSiswa'])->name('progress-project-siswa');
-    Route::get('/progress-project-siswa/project-group', [\App\Http\Controllers\Mentor\ProgressController::class, 'projectGroupSiswa'])->name('project-group-progress');
-    Route::get('/progress-project-siswa/project-group/detail-progress', [\App\Http\Controllers\Mentor\ProgressController::class, 'detailProgressSiswa'])->name('project-progress-siswa');
-    Route::get('/project-group-siswa', [\App\Http\Controllers\Mentor\ProgressController::class, 'projectGroupSiswa'])->name('project-group-siswa');
-    Route::get('/project-siswa',[\App\Http\Controllers\Mentor\ProgressController::class,'projectSiswa'])->name('project-siswa');
-    Route::get('/project-siswa/{student}/project-group',[\App\Http\Controllers\Mentor\ProgressController::class,'projectGroupSiswa'])->name('project-siswa.group');
+    Route::get('/project-group-student', [\App\Http\Controllers\Mentor\ProgressController::class, 'projectGroupStudent'])->name('project-group-student');
+    Route::get('/project-student',[\App\Http\Controllers\Mentor\ProgressController::class,'projectStudent'])->name('project-student');
+    Route::get('/project-student/{student}/project-group',[\App\Http\Controllers\Mentor\ProgressController::class,'projectGroupStudent'])->name('project-student.group');
 
     Route::get('/presentation', [PresentationController::class, 'getMentorOfflinePresentations'])->name('presentation');
     Route::get('/presentation/online', [PresentationController::class, 'getMentorOnlinePresentations'])->name('presentation.online');

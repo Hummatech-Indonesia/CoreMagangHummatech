@@ -193,7 +193,8 @@
                     <div class="card-body d-flex flex-column align-items-start justify-content-start">
                         <div class="d-flex w-100 justify-content-between align-items-center my-3">
                             <h5 class="">Status</h5>
-                            <a class="rounded-2 text-primary fw-bold p-2" href="1/detail-progress"
+                            <a class="rounded-2 text-primary fw-bold p-2"
+                                href="{{ $project->id }}/detail-progress"
                                 style="background: #eff3ff">
                                 Detail Progress
                             </a>

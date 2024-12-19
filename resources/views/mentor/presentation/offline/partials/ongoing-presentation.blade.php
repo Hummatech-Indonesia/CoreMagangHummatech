@@ -6,6 +6,7 @@
                 <tr>
                     <th>No Urutan</th>
                     <th>Nama Project</th>
+                    <th>Divisi</th>
                     <th>Tanggal Mulai</th>
                     <th>Tipe Project</th>
                     <th>Status</th>
@@ -17,6 +18,7 @@
                     <tr data-student-id="{{ $ongoing->id }}">
                         <td>{{ $ongoing->urutan }}</td>
                         <td>{{ $ongoing->project->project_name }}</td>
+                        <td>{{ $ongoing->project->division->name }}</td>
                         <td>
                             <span
                                 class="text-warning">{{ \Carbon\Carbon::parse($ongoing->planning_date_presentation)->format('j F Y') }}</span>

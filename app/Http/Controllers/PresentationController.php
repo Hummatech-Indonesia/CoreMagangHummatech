@@ -248,7 +248,7 @@ class PresentationController extends Controller
     public function changeStatus(StatusPresentationRequest $request)
     {
         $data = $request->validated();
-        $presentation = Presentation::find($data['presentation_id']);
+        $presentation = Presentation::with('project.members')->find($data['presentation_id']);
 
         if (!$presentation) {
             return back()->with('error', 'Data presentasi tidak ditemukan');
@@ -268,20 +268,20 @@ class PresentationController extends Controller
 
             if ($data['status_presentation'] == StatusPresentationEnum::ONGOING->value) {
                 // Hitung max urutan, jika tidak ada maka mulai dari 1
-                $maxUrutan = Presentation::query()
-                    ->where('planning_date_presentation', Carbon::today())
-                    ->max('urutan') ?? 0;
-                $presentation->update([
-                    'urutan' => $maxUrutan + 1
-                ]);
+// Ambil data urutan terbesar berdasarkan division_id
+                $maxUrutanByDivision = Presentation::query()
+                    ->select('project.division_id', DB::raw('MAX(presentations.urutan) as max_urutan'))
+                    ->join('projects as project', 'presentations.project_id', '=', 'project.id')
+                    ->where('presentations.planning_date_presentation', Carbon::today())
+                    ->whereHas('project', function ($query) use($presentation) {
+                        $query->where('division_id', $presentation->project->division_id);
+                    })
+                    ->groupBy('project.division_id')
+                    ->first()->max_urutan ?? 0;
 
-                // Update queue dalam QueuePresentation
-                $queuePresentation = QueuePresentation::first();
-                if ($queuePresentation && $queuePresentation->queue == 0) {
-                    $queuePresentation->update([
-                        'queue' => $queuePresentation->queue + 1
-                    ]);
-                }
+                $presentation->update([
+                    'urutan' => $maxUrutanByDivision + 1
+                ]);
             }
         });
 
@@ -293,28 +293,31 @@ class PresentationController extends Controller
     {
         try{
             $project = $this->project->find($request->project_id);
-            $currentQueue = $this->queuePresentation->getQueueByDivision($project->division_id);
-            $findNextQueue = $this->presentationModel
-                ->where('urutan', $currentQueue->queue + 1)
-                ->where('status_presentation', StatusPresentationEnum::FINISH->value)
+            $currentQueueData = $this->queuePresentation->getQueueByDivision($project->division_id);
+            $findNextQueuePresentation = $this->presentationModel
+                ->where('urutan','>', $currentQueueData->queue)
                 ->where('id', '>', $presentation->id)
-                ->first();
+                ->where('status_presentation', StatusPresentationEnum::FINISH->value)
+                ->whereHas('project', function ($query) use ($project){
+                    $query->where('division_id', $project->division_id);
+                })
+                ->orderBy('urutan', 'desc')
+                ->first()->urutan ?? 0;
 
-            $updatedQueue = $currentQueue->queue;
+            $updatedQueue = $currentQueueData->queue;
 
-            if($request->queue >= $currentQueue->queue){
-                $updatedQueue = $currentQueue->queue + 1;
-            }elseif ($findNextQueue){
-                $updatedQueue = $currentQueue->queue + 1 + ($findNextQueue->urutan - $currentQueue->queue);
+            if ($findNextQueuePresentation != 0){
+                $updatedQueue = $currentQueueData->queue + 1 + ($findNextQueuePresentation - $currentQueueData->queue);
+            }elseif($presentation->urutan == $currentQueueData->queue){
+                $updatedQueue = $currentQueueData->queue + 1;
             }
 
-            $this->queuePresentation->update($currentQueue->id, [
+            $this->queuePresentation->update($currentQueueData->id, [
                 'queue' => $updatedQueue
             ]);
             $presentation->update([
                 'status_presentation' => StatusPresentationEnum::FINISH->value
             ]);
-
             if($request->project_done == 'true'){
                 $project->update([
                     'status_project' => TaskStatusEnum::COMPLETED->value

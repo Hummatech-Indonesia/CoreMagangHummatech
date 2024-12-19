@@ -27,17 +27,17 @@ class ProgressController extends Controller
      */
     public function index() {}
 
-    public function projectSiswa(request $request)
+    public function projectStudent(request $request)
     {
         $students = $this->student->getStudentByMentorDevision($request);
 
-        return view('mentor.progress.project-siswa.index', compact('students'));
+        return view('mentor.progress.student-project.index', compact('students'));
     }
-    public function projectGroupSiswa(Student $student)
+    public function projectGroupStudent(Student $student)
     {
         $projects = $this->project->getProjectByStudent($student->id);
 
-        return view('mentor.progress.project-siswa.project-group', compact('projects', 'student'));
+        return view('mentor.progress.student-project.project-group', compact('projects', 'student'));
     }
 
     public function progressProject(Request $request)

@@ -7,6 +7,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Project</th>
+                        <th>Divisi</th>
                         <th>Jam</th>
                         <th>Tanggal</th>
                         <th>Tipe Project</th>
@@ -19,6 +20,7 @@
                         <tr data-student-id="{{ $ongoing->id }}">
                             <td>{{ $loop->iteration }}.</td>
                             <td>{{ $ongoing->project->project_name }}</td>
+                            <td>{{ $ongoing->project->division->name }}</td>
                             <td>
                                 <span
                                     class="text-warning">{{ \Carbon\Carbon::parse($ongoing->date_time_presentation)->format('h:i A') }}</span>

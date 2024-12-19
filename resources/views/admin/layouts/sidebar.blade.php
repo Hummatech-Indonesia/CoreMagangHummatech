@@ -346,13 +346,34 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('administrator/student-progress/project') ? 'active' : '' }}"
-                        href="{{ url('administrator/student-progress/project') }}">
-                        <i class="ri-user-line"></i> <span data-key="t-dashboards">Proyek</span>
-                    </a>
-                </li>
 
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#progress-siswa" data-bs-toggle="collapse" role="button"
+                        aria-expanded="{{ request()->is('administrator/student-progress/project*') || request()->is('administrator/student-progress/student*') ? 'true' : 'false' }}"
+                        aria-controls="sidebarCharts">
+                        <i class="ri-presentation-fill"></i> <span data-key="t-charts">Progress Siswa</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{ request()->is('administrator/student-progress/project*') || request()->is('administrator/student-progress/student*') ? 'show' : '' }}"
+                        id="progress-siswa">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link menu-link {{ request()->is('administrator/student-progress/project*') ? 'active' : '' }}"
+                                    href="{{ url('administrator/student-progress/project') }}">
+                                    Proyek
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('administrator.student-progress.student') }}"
+                                    class="nav-link {{ Route::is('administrator.student-progress.student') || Route::is('administrator.student-progress.student.project')   ? 'active' : '' }}"
+                                    data-key="t-echarts">Siswa</a>
+                            </li>
+                            {{-- <li class="nav-item">
+                                <a href="" class="nav-link" data-key="t-echarts">Report</a>
+                            </li> --}}
+                        </ul>
+                    </div>
+                </li>
 
 
                 <li class="nav-item">
