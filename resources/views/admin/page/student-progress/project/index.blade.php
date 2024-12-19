@@ -1,619 +1,147 @@
 @extends('admin.layouts.app')
-@section('style')
-<style>
-    .bg-label-primary {
-        background-color: #eff3ff !important;
-        color: #557be8 !important;
-    }
-
-    .bg-label-info {
-        background-color: #d9ebff !important;
-        color: #0da8ff !important;
-    }
-
-    .bg-label-warning {
-        background-color: #fef5e5 !important;
-        color: #ffaa05 !important;
-    }
-
-    .bg-label-danger {
-        background-color: #fbf2ef !important;
-        color: #e12d5b !important;
-    }
-
-    .type-project {
-        background-color: rgba(212, 208, 255, 1);
-        color: rgba(105, 94, 239, 1);
-        border-radius: 3px;
-        text-align: center;
-        font-weight: bolder;
-        padding-inline: 6px;
-        padding-block: 12px;
-    }
-
-    .antrian-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .antrian {
-        background-color: rgb(124, 120, 120);
-        color: white;
-        padding: 10px;
-        margin: 0px;
-        border-radius: 3px;
-        text-align: center;
-        min-width: 40px;
-        font-size: 16px;
-        font-weight: bold;
-        height: 40px;
-    }
-
-    .btn-delete {
-        background-color: rgba(247, 49, 100, 1);
-        border: none;
-        border-radius: 3px;
-        padding: 10px;
-        height: 40px;
-        ;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: none;
-    }
-
-    .btn-delete svg {
-        display: block;
-    }
-
-    .status {
-        background-color: rgba(251, 242, 239, 1);
-        padding: 8px;
-        border-radius: 3px;
-        color: rgba(247, 49, 100, 1);
-        height: 27px;
-        min-width: 40px;
-        width: 72px;
-    }
-
-
-</style>
-
-@endsection
 @section('content')
-<div class="row">
-<div class="col-12">
-    <div class="card card-body">
+    <div class="row">
+        <div class="col-12">
+            <div class="card card-body">
+                <div class="col-md-7 col-sm-10">
+                    <div class="step-arrow-nav">
+                        <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="all-tab" data-bs-toggle="pill" data-bs-target="#all"
+                                    type="button" role="tab" aria-controls="all" aria-selected="true">Semua</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="accept-rejected-tab" data-bs-toggle="pill"
+                                    data-bs-target="#acceptAndrejected" type="button" role="tab"
+                                    aria-controls="acceptAndrejected" aria-selected="false">Diterima & Ditolak</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="waiting-tab" data-bs-toggle="pill" data-bs-target="#waiting"
+                                    type="button" role="tab" aria-controls="waiting"
+                                    aria-selected="false">Menunggu</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="completed-tab" data-bs-toggle="pill"
+                                    data-bs-target="#completed" type="button" role="tab" aria-controls="completed"
+                                    aria-selected="false">Selesai</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <div class=" col-md-7 col-sm-10">
-            <div class="step-arrow-nav">
-                <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="all">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                @forelse ($projects as $project)
+                    <div class="col">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="badge bg-primary-subtle text-primary  px-3 py-2 rounded-2 fw-bolder">
+                                        {{ $project->type_project }}
+                                    </span>
 
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="online-tab" data-bs-toggle="pill" data-bs-target="#all"
-                            type="button" role="tab" aria-controls="offline" aria-selected="false" data-position="2"
-                            tabindex="-1">
-                            Semua
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="online-tab" data-bs-toggle="pill" data-bs-target="#acceptAndrejected "
-                            type="button" role="tab" aria-controls="online" aria-selected="false" data-position="2"
-                            tabindex="-1">
-                            Diterima & tolak
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="online-tab" data-bs-toggle="pill" data-bs-target="#waiting "
-                            type="button" role="tab" aria-controls="online" aria-selected="false" data-position="2"
-                            tabindex="-1">
-                            Menunggu
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="online-tab" data-bs-toggle="pill" data-bs-target="#completed "
-                            type="button" role="tab" aria-controls="online" aria-selected="false" data-position="2"
-                            tabindex="-1">
-                            Selesai
-                        </button>
-                    </li>
+                                    <div class="btn btn-primary position-relative p-0 avatar-xs rounded">
+                                        <span class="avatar-title bg-transparent">
+                                            {{ $project->presentation?->urutan == 0 ? '-' : sprintf('%02d', $project->presentation->urutan) }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <h5 class="fw-semibold">{{ $project->project_name }}</h5>
+                                <p class="text-muted mb-1">By Kelompok {{ $project->members->first()?->members->name }}</p>
+                                <div class="mb-4">
+                                    <div class="col-sm-auto">
+                                        <div class="avatar-group">
+                                            @php($members = $project->members)
 
-                </ul>
+                                            @if ($members->count() === 1)
+                                                <div class="avatar-group-item material-shadow">
+                                                    <a href="javascript: void(0);" class="d-inline-block"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                        data-bs-original-title="{{ $members->first()?->members->name }}">
+
+                                                        @if (file_exists(public_path('storage/' . $members->first()?->members->avatar)))
+                                                            <img class="rounded-circle avatar-xxs"
+                                                                src="{{ asset('storage/' . $members->first()?->members->avatar) }}"
+                                                                alt="{{ $members->first()?->members->name }}">
+                                                        @else
+                                                            <img class="rounded-circle avatar-xxs"
+                                                                src="{{ asset('user.webp') }}"
+                                                                alt="{{ $members->first()?->members->name }}">
+                                                        @endif
+                                                    </a>
+                                                </div>
+                                            @elseif($members->count() > 1)
+                                                @foreach ($members as $index => $member)
+                                                    <div class="avatar-group-item material-shadow">
+                                                        <a href="javascript: void(0);" class="d-inline-block"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                            data-bs-original-title="{{ $member->members->name }}">
+
+                                                            @if (file_exists(public_path('storage/' . $member->members->avatar)))
+                                                                <img class="rounded-circle avatar-xxs"
+                                                                    src="{{ asset('storage/' . $member->members->avatar) }}"
+                                                                    alt="{{ $member->members->name }}">
+                                                            @else
+                                                                <img class="rounded-circle avatar-xxs"
+                                                                    src="{{ asset('user.webp') }}"
+                                                                    alt="{{ $member->members->name }}">
+                                                            @endif
+                                                        </a>
+                                                    </div>
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <p class="fw-bold text-black mb-0">Kondisi Project:</p>
+                                    @if ($project->status == \App\Enum\ProjectAcceptStatus::WAITING)
+                                        <span class="badge bg-warning-subtle fw-light text-warning px-3 py-2">
+                                            Menunggu Konfirmasi
+                                        </span>
+                                    @elseif($project->status == \App\Enum\ProjectAcceptStatus::ACCEPT)
+                                        <span class="badge bg-success-subtle fw-light text-success px-3 py-2">
+                                            Diterima
+                                        </span>
+                                    @elseif($project->status == \App\Enum\ProjectAcceptStatus::REJECTED)
+                                        <span class="badge bg-danger-subtle fw-light text-danger px-3 py-2">
+                                            Ditolak
+                                        </span>
+                                    @endif
+
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <p class="text-black mb-0">Deadline:</p>
+                                    <small class="{{ $project->getStatus()->color() }} bg-transparent">
+                                        {{ \Carbon\Carbon::parse($project->start_date)->format('d/m/Y') }} -
+                                        {{ \Carbon\Carbon::parse($project->end_date)->format('d/m/Y') }}
+                                    </small>
+                                </div>
+                                <div class="d-flex justify-content-center mt-3">
+                                    <a href="{{ route('administrator.student-progress.project.detail', $project->id) }}"
+                                        class="btn btn-primary w-100">Detail Progress</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="d-flex justify-content-center align-items-center" style="min-height: 300px;">
+                        <div class="text-center">
+                            <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
+                                alt="No Data" height="120px" />
+                            <h3 class="mt-3">Data Masih Kosong</h3>
+                        </div>
+                    </div>
+                @endforelse
             </div>
         </div>
 
+        @include('admin.page.student-progress.project.partials.accept-and-rejected-project')
+        @include('admin.page.student-progress.project.partials.waiting-project')
+        @include('admin.page.student-progress.project.partials.complete-project')
     </div>
-</div>
-</div>
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-
-     <div class="tab-content">
-
-
-
-    <div class="tab-pane fade show active" id="all">
-        @forelse ($projects as $project)
-            <div class="mb-4">
-                <div class="card card-height-100">
-                    <div class="card-body">
-                        <!-- Tipe Project -->
-                        <div class="d-flex justify-content-between mb-3">
-                            <div class="d-flex">
-                                <h6 class="type-project">{{ ucwords($project->type_project->value) }}</h6>
-                            </div>
-                            <div>
-                                <!-- Nomor Antrian -->
-                                <div class="antrian-wrapper">
-                                    <h6 class="antrian">
-                                        {{ $project->presentation?->urutan == 0 ? '-' : sprintf('%02d', $project->presentation->urutan) }}
-                                    </h6>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Judul Project dan Status -->
-                        <div class="d-flex justify-content-between">
-                            <h4 class="fw-bolder mb-0">{{ $project->project_name }}</h4>
-                            <div class="gap-2">
-                                <span class="badge status"> Telat 1 Hari</span>
-                                {{-- Uncomment this for conditional badges if needed
-                                @if ()
-                                    <span class="badge bg-success"></span>
-                                @else
-                                    <span class="badge bg-danger"></span>
-                                @endif --}}
-                            </div>
-                        </div>
-
-                        <!-- Avatar Anggota -->
-                        @php($members = $project->members)
-                        @if ($members->count() === 1)
-                            <div class="d-flex justify-content-start">
-                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                                   aria-label="{{ $members[0]->members->name }}"
-                                   data-bs-original-title="{{ $members[0]->members->name }}">
-                                    <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}" alt="Avatar"
-                                         class="rounded-circle shadow-sm img-fluid" width="33" height="33">
-                                </a>
-                            </div>
-                        @elseif ($members->count() > 1)
-                            <div class="d-flex justify-content-start">
-                                <ul class="hstack mb-0">
-                                    @foreach ($members as $index => $member)
-                                        <li class="{{ $index > 0 ? 'ms-n8' : '' }} list-unstyled">
-                                            <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                                               aria-label="{{ $member->members->name }}"
-                                               data-bs-original-title="{{ $member->members->name }}">
-                                                <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
-                                                     class="rounded-circle border border-2 border-white" width="33" height="33"
-                                                     alt="{{ $member->members->name }}">
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <!-- Deskripsi Proyek -->
-                        <div class="d-flex justify-content-between mt-4 mb-2">
-                            <h5 class="fs-bolder">{{ $project->description }}</h5>
-                        </div>
-
-                        <!-- Kondisi Proyek -->
-                        <div class="d-flex justify-content-between">
-                            <h6>Kondisi Proyek</h6>
-                            <div class="gap-2">
-                                @if ($project->status == \App\Enum\ProjectAcceptStatus::WAITING)
-                                    <small class="bg-label-warning p-2 rounded-pill">Menunggu Konfirmasi</small>
-                                @elseif($project->status == \App\Enum\ProjectAcceptStatus::ACCEPT)
-                                    <span class="badge text-success p-8 pt-2"
-                                          style="background-color: rgba(230, 255, 250, 1);  border-radius:7px; font-size:small; height:27px; width:68px;">
-                                        Diterima
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- Deadline Proyek -->
-                        <div class="d-flex justify-content-between pl-0 mt-1 mb-3">
-                            <h6> Deadline :</h6>
-                            <div class="gap-2">
-                                @if($project->end_date >= Carbon::today())
-                                    <span class="text-danger">
-                                        {{ Carbon::parse($project->end_date)->translatedFormat('l, d F Y') }}
-                                    </span>
-                                @else
-                                    <span class="text-success">
-                                        {{ Carbon::parse($project->end_date)->translatedFormat('l, d F Y') }}
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- Tombol Lihat Detail -->
-                        <div class="d-flex justify-content-between pl-0">
-                            <a class="btn btn-detail justify-content-center"
-                               style="background-color: rgba(105, 94, 239, 1); border-radius: 4px; color: white; width: 324px; height: 43px;"
-                               href="/administrator/student-progress/project/detail/{{$project->id}}">
-                                Lihat Detail
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @empty
-            <!-- Jika Tidak Ada Data -->
-            <div class="d-flex justify-content-center mt-3">
-                <img src="{{ asset('no data.png') }}" width="200px" alt="">
-            </div>
-            <h4 class="text-center mt-2 mb-4">Data Masih kosong</h4>
-        @endforelse
-    </div>
-    <div class="tab-pane fade show " id="acceptAndrejected">
-        @forelse ($acceptAndrejected_projects as $project)
-            <div class="mb-4">
-                <div class="card card-height-100">
-                    <div class="card-body">
-                        <!-- Tipe Project -->
-                        <div class="d-flex justify-content-between mb-3">
-                            <div class="d-flex">
-                                <h6 class="type-project">{{ ucwords($project->type_project->value) }}</h6>
-                            </div>
-                            <div>
-                                <!-- Nomor Antrian -->
-                                <div class="antrian-wrapper">
-                                    <h6 class="antrian">
-                                        {{ $project->presentation?->urutan == 0 ? '-' : sprintf('%02d', $project->presentation->urutan) }}
-                                    </h6>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Judul Project dan Status -->
-                        <div class="d-flex justify-content-between">
-                            <h4 class="fw-bolder mb-0">{{ $project->project_name }}</h4>
-                            <div class="gap-2">
-                                <span class="badge status"> Telat 1 Hari</span>
-                                {{-- Uncomment this for conditional badges if needed
-                                @if ()
-                                    <span class="badge bg-success"></span>
-                                @else
-                                    <span class="badge bg-danger"></span>
-                                @endif --}}
-                            </div>
-                        </div>
-
-                        <!-- Avatar Anggota -->
-                        @php($members = $project->members)
-                        @if ($members->count() === 1)
-                            <div class="d-flex justify-content-start">
-                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                                   aria-label="{{ $members[0]->members->name }}"
-                                   data-bs-original-title="{{ $members[0]->members->name }}">
-                                    <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}" alt="Avatar"
-                                         class="rounded-circle shadow-sm img-fluid" width="33" height="33">
-                                </a>
-                            </div>
-                        @elseif ($members->count() > 1)
-                            <div class="d-flex justify-content-start">
-                                <ul class="hstack mb-0">
-                                    @foreach ($members as $index => $member)
-                                        <li class="{{ $index > 0 ? 'ms-n8' : '' }} list-unstyled">
-                                            <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                                               aria-label="{{ $member->members->name }}"
-                                               data-bs-original-title="{{ $member->members->name }}">
-                                                <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
-                                                     class="rounded-circle border border-2 border-white" width="33" height="33"
-                                                     alt="{{ $member->members->name }}">
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <!-- Deskripsi Proyek -->
-                        <div class="d-flex justify-content-between mt-4 mb-2">
-                            <h5 class="fs-bolder">{{ $project->description }}</h5>
-                        </div>
-
-                        <!-- Kondisi Proyek -->
-                        <div class="d-flex justify-content-between">
-                            <h6>Kondisi Proyek</h6>
-                            <div class="gap-2">
-                                @if ($project->status == \App\Enum\ProjectAcceptStatus::WAITING)
-                                    <small class="bg-label-warning p-2 rounded-pill">Menunggu Konfirmasi</small>
-                                @elseif($project->status == \App\Enum\ProjectAcceptStatus::ACCEPT)
-                                    <span class="badge text-success p-8 pt-2"
-                                          style="background-color: rgba(230, 255, 250, 1);  border-radius:7px; font-size:small; height:27px; width:68px;">
-                                        Diterima
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- Deadline Proyek -->
-                        <div class="d-flex justify-content-between pl-0 mt-1 mb-3">
-                            <h6> Deadline :</h6>
-                            <div class="gap-2">
-                                @if($project->end_date >= Carbon::today())
-                                    <span class="text-danger">
-                                        {{ Carbon::parse($project->end_date)->translatedFormat('l, d F Y') }}
-                                    </span>
-                                @else
-                                    <span class="text-success">
-                                        {{ Carbon::parse($project->end_date)->translatedFormat('l, d F Y') }}
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- Tombol Lihat Detail -->
-                        <div class="d-flex justify-content-between pl-0">
-                            <a class="btn btn-detail justify-content-center"
-                               style="background-color: rgba(105, 94, 239, 1); border-radius: 4px; color: white; width: 324px; height: 43px;"
-                               href="/administrator/student-progress/project/detail/{{$project->id}}">
-                                Lihat Detail
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @empty
-            <!-- Jika Tidak Ada Data -->
-            <div class="d-flex justify-content-center mt-3">
-                <img src="{{ asset('no data.png') }}" width="200px" alt="">
-            </div>
-            <h4 class="text-center mt-2 mb-4">Data Masih kosong</h4>
-        @endforelse
-    </div>
-
-    <div class="tab-pane fade show " id="waiting">
-        @forelse ($waiting_projects as $project)
-            <div class="mb-4">
-                <div class="card card-height-100">
-                    <div class="card-body">
-                        <!-- Tipe Project -->
-                        <div class="d-flex justify-content-between mb-3">
-                            <div class="d-flex">
-                                <h6 class="type-project">{{ ucwords($project->type_project->value) }}</h6>
-                            </div>
-                            <div>
-                                <!-- Nomor Antrian -->
-                                <div class="antrian-wrapper">
-                                    <h6 class="antrian">
-                                        {{ $project->presentation?->urutan == 0 ? '-' : sprintf('%02d', $project->presentation->urutan) }}
-                                    </h6>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Judul Project dan Status -->
-                        <div class="d-flex justify-content-between">
-                            <h4 class="fw-bolder mb-0">{{ $project->project_name }}</h4>
-                            <div class="gap-2">
-                                <span class="badge status"> Telat 1 Hari</span>
-                                {{-- Uncomment this for conditional badges if needed
-                                @if ()
-                                    <span class="badge bg-success"></span>
-                                @else
-                                    <span class="badge bg-danger"></span>
-                                @endif --}}
-                            </div>
-                        </div>
-
-                        <!-- Avatar Anggota -->
-                        @php($members = $project->members)
-                        @if ($members->count() === 1)
-                            <div class="d-flex justify-content-start">
-                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                                   aria-label="{{ $members[0]->members->name }}"
-                                   data-bs-original-title="{{ $members[0]->members->name }}">
-                                    <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}" alt="Avatar"
-                                         class="rounded-circle shadow-sm img-fluid" width="33" height="33">
-                                </a>
-                            </div>
-                        @elseif ($members->count() > 1)
-                            <div class="d-flex justify-content-start">
-                                <ul class="hstack mb-0">
-                                    @foreach ($members as $index => $member)
-                                        <li class="{{ $index > 0 ? 'ms-n8' : '' }} list-unstyled">
-                                            <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                                               aria-label="{{ $member->members->name }}"
-                                               data-bs-original-title="{{ $member->members->name }}">
-                                                <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
-                                                     class="rounded-circle border border-2 border-white" width="33" height="33"
-                                                     alt="{{ $member->members->name }}">
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <!-- Deskripsi Proyek -->
-                        <div class="d-flex justify-content-between mt-4 mb-2">
-                            <h5 class="fs-bolder">{{ $project->description }}</h5>
-                        </div>
-
-                        <!-- Kondisi Proyek -->
-                        <div class="d-flex justify-content-between">
-                            <h6>Kondisi Proyek</h6>
-                            <div class="gap-2">
-                                @if ($project->status == \App\Enum\ProjectAcceptStatus::WAITING)
-                                    <small class="bg-label-warning p-2 rounded-pill">Menunggu Konfirmasi</small>
-                                @elseif($project->status == \App\Enum\ProjectAcceptStatus::ACCEPT)
-                                    <span class="badge text-success p-8 pt-2"
-                                          style="background-color: rgba(230, 255, 250, 1);  border-radius:7px; font-size:small; height:27px; width:68px;">
-                                        Diterima
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- Deadline Proyek -->
-                        <div class="d-flex justify-content-between pl-0 mt-1 mb-3">
-                            <h6> Deadline :</h6>
-                            <div class="gap-2">
-                                @if($project->end_date >= Carbon::today())
-                                    <span class="text-danger">
-                                        {{ Carbon::parse($project->end_date)->translatedFormat('l, d F Y') }}
-                                    </span>
-                                @else
-                                    <span class="text-success">
-                                        {{ Carbon::parse($project->end_date)->translatedFormat('l, d F Y') }}
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- Tombol Lihat Detail -->
-                        <div class="d-flex justify-content-between pl-0">
-                            <a class="btn btn-detail justify-content-center"
-                               style="background-color: rgba(105, 94, 239, 1); border-radius: 4px; color: white; width: 324px; height: 43px;"
-                               href="/administrator/student-progress/project/detail/{{$project->id}}">
-                                Lihat Detail
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @empty
-            <!-- Jika Tidak Ada Data -->
-            <div class="d-flex justify-content-center mt-3">
-                <img src="{{ asset('no data.png') }}" width="200px" alt="">
-            </div>
-            <h4 class="text-center mt-2 mb-4">Data Masih kosong</h4>
-        @endforelse
-    </div>
-    <div class="tab-pane fade show " id="completed">
-        @forelse ($completed_projects as $project)
-            <div class="mb-4">
-                <div class="card card-height-100">
-                    <div class="card-body">
-                        <!-- Tipe Project -->
-                        <div class="d-flex justify-content-between mb-3">
-                            <div class="d-flex">
-                                <h6 class="type-project">{{ ucwords($project->type_project->value) }}</h6>
-                            </div>
-                            <div>
-                                <!-- Nomor Antrian -->
-                                <div class="antrian-wrapper">
-                                    <h6 class="antrian">
-                                        {{ $project->presentation?->urutan == 0 ? '-' : sprintf('%02d', $project->presentation->urutan) }}
-                                    </h6>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Judul Project dan Status -->
-                        <div class="d-flex justify-content-between">
-                            <h4 class="fw-bolder mb-0">{{ $project->project_name }}</h4>
-                            <div class="gap-2">
-                                <span class="badge status"> Telat 1 Hari</span>
-                                {{-- Uncomment this for conditional badges if needed
-                                @if ()
-                                    <span class="badge bg-success"></span>
-                                @else
-                                    <span class="badge bg-danger"></span>
-                                @endif --}}
-                            </div>
-                        </div>
-
-                        <!-- Avatar Anggota -->
-                        @php($members = $project->members)
-                        @if ($members->count() === 1)
-                            <div class="d-flex justify-content-start">
-                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                                   aria-label="{{ $members[0]->members->name }}"
-                                   data-bs-original-title="{{ $members[0]->members->name }}">
-                                    <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}" alt="Avatar"
-                                         class="rounded-circle shadow-sm img-fluid" width="33" height="33">
-                                </a>
-                            </div>
-                        @elseif ($members->count() > 1)
-                            <div class="d-flex justify-content-start">
-                                <ul class="hstack mb-0">
-                                    @foreach ($members as $index => $member)
-                                        <li class="{{ $index > 0 ? 'ms-n8' : '' }} list-unstyled">
-                                            <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                                               aria-label="{{ $member->members->name }}"
-                                               data-bs-original-title="{{ $member->members->name }}">
-                                                <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
-                                                     class="rounded-circle border border-2 border-white" width="33" height="33"
-                                                     alt="{{ $member->members->name }}">
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <!-- Deskripsi Proyek -->
-                        <div class="d-flex justify-content-between mt-4 mb-2">
-                            <h5 class="fs-bolder">{{ $project->description }}</h5>
-                        </div>
-
-                        <!-- Kondisi Proyek -->
-                        <div class="d-flex justify-content-between">
-                            <h6>Kondisi Proyek</h6>
-                            <div class="gap-2">
-                                @if ($project->status == \App\Enum\ProjectAcceptStatus::WAITING)
-                                    <small class="bg-label-warning p-2 rounded-pill">Menunggu Konfirmasi</small>
-                                @elseif($project->status == \App\Enum\ProjectAcceptStatus::ACCEPT)
-                                    <span class="badge text-success p-8 pt-2"
-                                          style="background-color: rgba(230, 255, 250, 1);  border-radius:7px; font-size:small; height:27px; width:68px;">
-                                        Diterima
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- Deadline Proyek -->
-                        <div class="d-flex justify-content-between pl-0 mt-1 mb-3">
-                            <h6> Deadline :</h6>
-                            <div class="gap-2">
-                                @if($project->end_date >= Carbon::today())
-                                    <span class="text-danger">
-                                        {{ Carbon::parse($project->end_date)->translatedFormat('l, d F Y') }}
-                                    </span>
-                                @else
-                                    <span class="text-success">
-                                        {{ Carbon::parse($project->end_date)->translatedFormat('l, d F Y') }}
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- Tombol Lihat Detail -->
-                        <div class="d-flex justify-content-between pl-0">
-                            <a class="btn btn-detail justify-content-center"
-                               style="background-color: rgba(105, 94, 239, 1); border-radius: 4px; color: white; width: 324px; height: 43px;"
-                               href="/administrator/student-progress/project/detail/{{$project->id}}">
-                                Lihat Detail
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @empty
-            <!-- Jika Tidak Ada Data -->
-            <div class="d-flex justify-content-center mt-3">
-                <img src="{{ asset('no data.png') }}" width="200px" alt="">
-            </div>
-            <h4 class="text-center mt-2 mb-4">Data Masih kosong</h4>
-        @endforelse
-    </div>
-    </div>
-
-
-
-
-
-
-</div>
-
 @endsection

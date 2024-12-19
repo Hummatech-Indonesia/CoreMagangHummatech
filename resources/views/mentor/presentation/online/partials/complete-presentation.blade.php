@@ -19,7 +19,7 @@
                     <tr data-student-id="{{ $presentation->id }}">
                         <td>{{ $loop->iteration }}.</td>
                         <td>{{ $presentation->project->project_name }}</td>
-                        <td>{{ $ongoing->project->division->name }}</td>
+                        <td>{{ $presentation->project->division->name }}</td>
                         <td>
                             <span class="text-warning">{{ \Carbon\Carbon::parse($presentation->date_time_presentation)->format('h:i A') }}</span>
                         </td>

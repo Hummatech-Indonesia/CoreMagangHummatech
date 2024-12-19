@@ -19,8 +19,8 @@
                     @forelse ($ongoings as $ongoing)
                         <tr data-student-id="{{ $ongoing->id }}">
                             <td>{{ $loop->iteration }}.</td>
-                            <td>{{ $ongoing->project->division->name }}</td>
                             <td>{{ $ongoing->project->project_name }}</td>
+                            <td>{{ $ongoing->project->division->name }}</td>
                             <td>
                                 <span
                                     class="text-warning">{{ \Carbon\Carbon::parse($ongoing->date_time_presentation)->format('h:i A') }}</span>

@@ -105,11 +105,25 @@
     </style>
 @endsection
 @section('content')
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-start gap-3 bg-galaxy-transparent">
+            <a href="/administrator/student-progress/project/detail/{{ $project->id }}/revision" class="bg-primary text-white p-2 rounded-3">
+                <i class="ri-list-check-2"></i>
+                Revisi Project
+            </a>
+            <a href="/administrator/student-progress/project/detail/{{ $project->id }}/progress" class="bg-primary p-2 rounded-3 bg-transparent text-black">
+                <i class="ri-menu-2-fill"></i>
+                Progress Project
+            </a>
+        </div>
+    </div>
+</div>
     <div class="container-fluid">
         <div class="d-flex justify-content-between w-100 mb-4 gap-2 navbar-shadow">
             <a class="btn btn-back py-3 px-3 me-3 d-flex align-items-center custom-card shadow-sm"
                 style="background-color: rgba(234, 233, 255, 1); border-radius: 8px;"
-                href="javascript:history.back()">
+                href="{{ route('administrator.student-progress.project.detail', $project->id) }}">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"
                     fill="rgba(105, 94, 239, 1)">
                     <path fill="none" d="M0 0h24v24H0z"></path>

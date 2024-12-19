@@ -63,6 +63,20 @@ class StudentProgressProjectController extends Controller
         $completed_revisions = $this->project->getProjectWithRevision($project->id,'status','completed');
         return view('admin.page.student-progress.project.revision', compact('project','revisions','todo_revisions','inprogress_revisions','completed_revisions'));
     }
+    
+    public function progressProject(Project $project)
+    {
+        return view('admin.page.student-progress.project.progress-project', compact('project'));
+    }
+
+    public function getStudent()
+    {
+        return view('admin.page.student-progress.student.index');
+    }
+    public function getStudentProject()
+    {
+        return view('admin.page.student-progress.student.project');
+    }
 
     /**
      * Show the form for editing the specified resource.
