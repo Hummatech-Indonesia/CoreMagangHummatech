@@ -35,6 +35,11 @@ class StoreHummataskTeamRequest extends FormRequest
                     ];
                     return !in_array(request()->input('type_project'), $optionalCategories);
                 }),
+                function ($attribute, $value, $fail) {
+                    if ($this->input('type_project') === PresentationTypeEnum::PREMINI->value && count($value) > 1) {
+                        $fail('Project premini hanya boleh diisi 1 anggota bersama leader team.');
+                    }
+                }
             ],
             //            'planning_date_presentation' => 'required|date|after_or_equal:today',
         ];

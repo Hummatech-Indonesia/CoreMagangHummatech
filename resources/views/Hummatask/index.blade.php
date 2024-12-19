@@ -1,9 +1,6 @@
 @extends('Hummatask.layouts.app')
 @section('style')
     <style>
-        /* * {
-                                                                                            border: 1px solid #f00;
-                                                                                        } */
         .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
             color: black;
         }
@@ -36,15 +33,11 @@
     @include('Hummatask.layouts.sidebar')
 @endsection
 @section('content')
-    @if (session('errors'))
+    {{-- @if (session('errors'))
         <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+            {{ session('errors') }}
         </div>
-    @endif
+    @endif --}}
 
     <div class="container-fluid">
         <div class="card bg-light-info position-relative overflow-hidden shadow-none">
@@ -106,7 +99,7 @@
                                     <div class="row row-cols-2 mt-2">
                                         <div id="startDate">
                                             <label class="mb-2 mt-1" for="">Tanggal Mulai</label>
-                                            <input class="form-control" id="start_date" name="start_date" type="date"
+                                            <input class="form-control" id="start_date" name="start_date" type="date" min="{{ date('Y-m-d') }}"
                                                 value="{{ old('start_date') }}">
                                             @error('start_date')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -137,15 +130,15 @@
                                         <select class="js-example-basic-multiple d-block w-100" id="selectMembers"
                                             name="members[]" style="width: 100%;" multiple>
                                             @foreach ($students as $id => $student)
-                                                <option value="{{ $id }}">{{ $student }}
-                                                    {{ $id }}
+                                                <option value="{{ $id }}">
+                                                    {{ $student }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('members')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
                                     </div>
+                                    @error('members')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                     <label class="mb-2 mt-4" for="">Leader</label>
                                     <input class="form-control" name="leader_id" type="text"
                                         value="{{ auth()->user()->name }}" placeholder="Leader" disabled>

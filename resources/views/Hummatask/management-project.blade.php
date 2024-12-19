@@ -2,8 +2,8 @@
 @section('style')
     <style>
         /* * {
-                                                                                                border: 1px solid #f00;
-                                                                                            } */
+                                                                                                    border: 1px solid #f00;
+                                                                                                } */
         .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
             color: black;
         }
@@ -39,7 +39,7 @@
     @if (session('errors'))
         <div class="alert alert-danger">
             <ul>
-                @foreach ($errors->all() as $error)
+                @foreach ($errors as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
@@ -137,8 +137,8 @@
                                         <select class="js-example-basic-multiple d-block w-100" id="selectMembers"
                                             name="members[]" style="width: 100%;" multiple>
                                             @foreach ($students as $id => $student)
-                                                <option value="{{ $id }}">{{ $student }}
-                                                    {{ $id }}
+                                                <option value="{{ $id }}">
+                                                    {{ $student }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -430,15 +430,15 @@
                                 <div class="card-header">
                                     <h2>Hummatask</h2>
                                     <div class="anggota-item d-flex">
-                                        <span class="d-flex mb-2 fs-2">
+                                        <span class="d-flex fs-2 mb-2">
                                             Progress Pengerjaan
                                         </span>
                                     </div>
                                     <div class="progress">
-                                        <a class="progress-bar" role="progressbar" aria-valuenow="{{ $revisi }}"
-                                            aria-valuemin="0" aria-valuemax="100" style="width: {{ $revisi }}%;"
-                                            data-bs-toggle="tooltip" data-bs-placement="top"
-                                            title="{{ $revisi }}%">
+                                        <a class="progress-bar" data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="{{ $revisi }}%" role="progressbar"
+                                            aria-valuenow="{{ $revisi }}" aria-valuemin="0" aria-valuemax="100"
+                                            style="width: {{ $revisi }}%;">
                                         </a>
                                     </div>
                                 </div>
@@ -454,11 +454,10 @@
                                                 </span>
                                             </div>
                                             <div class="progress anggota-progress">
-                                                <a class="progress-bar" role="progressbar"
+                                                <a class="progress-bar" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="{{ $item['revisi'] }}%" role="progressbar"
                                                     aria-valuenow="{{ $item['revisi'] }}" aria-valuemin="0"
-                                                    aria-valuemax="100" style="width: {{ $item['revisi'] }}%;"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="{{ $item['revisi'] }}%">
+                                                    aria-valuemax="100" style="width: {{ $item['revisi'] }}%;">
                                                     {{-- {{ $item['revisi'] }}% --}}
                                                 </a>
                                             </div>
@@ -471,7 +470,6 @@
                             </div>
                         </div>
                     </div>
-
 
                 </div>
             @empty
