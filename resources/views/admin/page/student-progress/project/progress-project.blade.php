@@ -84,9 +84,9 @@
                         </div>
                         <div class="flex-grow-1">
                             <div class="progress animated-progress custom-progress progress-label">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 15%"
-                                    aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="label">15%</div>
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: {{ number_format($total_progress) }}%"
+                                    aria-valuenow="{{ number_format($total_progress) }}" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="label">{{ number_format($total_progress) }}%</div>
                                 </div>
                             </div>
                         </div>
@@ -99,30 +99,35 @@
                         </div>
                         <div class="flex-grow-1">
                             <div class="progress animated-progress custom-progress progress-label">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 15%" aria-valuenow="15"
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: {{  number_format($total_revisi_dont_completed) }}%" aria-valuenow="{{  number_format($total_revisi_dont_completed) }}"
                                     aria-valuemin="0" aria-valuemax="100">
-                                    <div class="label">15%</div>
+                                    <div class="label">{{  number_format($total_revisi_dont_completed) }}%</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    @forelse ($anggota as $item)
                     <div class="mb-3">
                         <div class="d-flex align-items-center gap-2 fw-semibold text-dark mb-3">
                             <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" class="rounded-circle"
                                 alt="user" width="30" />
-                            <span class="text-black fw-semibold">Haikal Santoso</span>
+                            <span class="text-black fw-semibold">{{ $item['nama'] }}</span>
                         </div>
                         <div class="flex-grow-1">
                             <div class="progress animated-progress custom-progress progress-label">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 15%"
-                                    aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="label">15%</div>
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: {{ number_format($item['revisi_percent']) }}%"
+                                    aria-valuenow="{{ number_format($item['revisi_percent']) }}" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="label">{{ number_format($item['revisi_percent']) }}%</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+                    @empty
+
+                    @endforelse
+
+
                 </div>
 
             </div>

@@ -36,7 +36,6 @@ class ProgressController extends Controller
     public function projectGroupStudent(Student $student)
     {
         $projects = $this->project->getProjectByStudent($student->id);
-
         return view('mentor.progress.student-project.project-group', compact('projects', 'student'));
     }
 

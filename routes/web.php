@@ -257,7 +257,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
         Route::get('project/detail/{project}/progress', [StudentProgressProjectController::class, 'progressProject'])->name('project.detail.progress');
 
         Route::get('student', [StudentProgressProjectController::class, 'getStudent'])->name('student');
-        Route::get('student/project', [StudentProgressProjectController::class, 'getStudentProject'])->name('student.project');
+        Route::get('student/{student}/project', [StudentProgressProjectController::class, 'getStudentProject'])->name('student.project');
     });
 
     Route::prefix('course')->name('.course.')->group(function () {
