@@ -133,7 +133,7 @@ class ProjectController extends Controller
         return view('Hummatask.index', compact('categoryProject', 'students', 'presentations', 'queuePresentation', 'myQueuePresentation', 'upcomingProject', 'totalPresentation', 'projects'));
     }
 
-    public function managementProject()
+    public function managementProject(Request $request)
     {
         $categoryProject = $this->categoryProject->get();
         $students = $this->student->getStudentAccepted()->where('id', '!=', auth()->user()->student_id)->pluck('name', 'id');
@@ -142,7 +142,7 @@ class ProjectController extends Controller
         $inprogress = $this->project->where('status_project', TaskStatusEnum::INPROGRESS->value)->count();
         $revision = $this->project->where('status_project', TaskStatusEnum::REVISION->value)->count();
         $completed = $this->project->where('status_project', TaskStatusEnum::COMPLETED->value)->count();
-        $getProjects = $this->project->getAcceptedProject();
+        $getProjects = $this->project->getAcceptedProject($request);
         $projects = [];
         foreach ($getProjects as $getProject) {
             $projects[] = [
