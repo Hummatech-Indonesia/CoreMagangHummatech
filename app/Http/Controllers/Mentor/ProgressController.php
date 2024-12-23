@@ -102,6 +102,8 @@ class ProgressController extends Controller
 
             $anggota[] = [
                 'nama' => $member->members->name,
+                'avatar' => $member->members->avatar,
+                'gender' => $member->members->gender,
                 'revisi' => $revisi_dikerjakan,
                 'revisi_percent' => $revisi_percent,
             ];

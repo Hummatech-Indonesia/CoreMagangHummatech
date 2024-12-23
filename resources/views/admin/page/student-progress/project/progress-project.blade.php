@@ -159,8 +159,14 @@
                                             <td class="ps-0 text-black">{{ $loop->iteration }}. </td>
                                             <td>
                                                 <div class="d-flex align-items-center gap-3 fw-semibold text-dark">
-                                                    <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
-                                                        class="rounded-circle" alt="user" width="35" />
+                                                @if (file_exists(public_path('storage/' . $member->members->avatar)))
+                                                    <img class="rounded-circle"
+                                                        src="{{ asset('storage/' . $member->members->avatar) }}"
+                                                        alt="{{ $member->members->name }}" width="40">
+                                                @else
+                                                    <img class="rounded-circle" src="{{ asset('user.webp') }}"
+                                                        alt="{{ $member->members->name }}" width="40">
+                                                @endif
                                                     <span>{{ $member->members->name }}</span>
                                                 </div>
                                             </td>

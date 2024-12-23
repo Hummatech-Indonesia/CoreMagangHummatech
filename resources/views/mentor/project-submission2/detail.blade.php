@@ -124,8 +124,18 @@
                                                 <td class="ps-0 text-black">{{ $loop->iteration }}. </td>
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3 fw-semibold text-dark">
-                                                        <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
-                                                            class="rounded-circle" alt="user" width="40" />
+                                                        @if (file_exists(public_path('storage/' . $member->members->avatar)))
+                                                            <img src="{{ asset('storage/' . $member->members->avatar) }}"
+                                                                class="rounded-circle" alt="user" width="40" />
+                                                        @else
+                                                            @if ($member->members->gender == \App\Enum\GenderEnum::MALE->value)
+                                                                <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
+                                                                    class="rounded-circle" alt="user" width="40" />
+                                                            @elseif ($member->members->gender == \App\Enum\GenderEnum::FEMALE->value)
+                                                                <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}"
+                                                                    class="rounded-circle" alt="user" width="40" />
+                                                            @endif
+                                                        @endif
                                                         <span>{{ $member->members->name }}</span>
                                                     </div>
                                                 </td>

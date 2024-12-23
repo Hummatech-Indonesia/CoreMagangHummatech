@@ -15,10 +15,10 @@
         </div>
         <div class="presentation-action d-flex gap-2">
             <a class="btn px-3 d-flex justify-content-center align-items-center" style="background: #FFF5E3"
-               href="/mentor/project-submissions/{{ $project->id }}/revision">
+                href="/mentor/project-submissions/{{ $project->id }}/revision">
 
-                <svg width="25px" height="25px" viewBox="0 0 1.5 1.5" version="1.1"
-                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <svg width="25px" height="25px" viewBox="0 0 1.5 1.5" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
                     <title>list_check_3_line</title>
                     <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                         <g id="Editor" transform="translate(-48 -192)">
@@ -82,7 +82,8 @@
                             </span>
                         </div>
                         <div class="progress" style="height: 12px">
-                            <div class="progress-bar bg-primary" style="width: {{ number_format($total_progress, 2) }}%;" role="progressbar">
+                            <div class="progress-bar bg-primary" style="width: {{ number_format($total_progress, 2) }}%;"
+                                role="progressbar">
                                 {{ number_format($total_progress, 0) }}%
                             </div>
                         </div>
@@ -94,7 +95,8 @@
                             </span>
                         </div>
                         <div class="progress" style="height: 12px">
-                            <div class="progress-bar bg-danger" style="width: {{ number_format($total_revisi_dont_completed, 2) }}%;" role="progressbar">
+                            <div class="progress-bar bg-danger"
+                                style="width: {{ number_format($total_revisi_dont_completed, 2) }}%;" role="progressbar">
                                 {{ number_format($total_revisi_dont_completed, 0) }}%
                             </div>
                         </div>
@@ -103,11 +105,23 @@
                     @foreach ($anggota as $item)
                         <div class="mb-3">
                             <div class="d-flex align-items-center gap-3 fw-semibold text-dark mb-2">
-                                <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}" class="rounded-circle" alt="user" width="30" />
+                                @if (file_exists(public_path('storage/' . $item['avatar'])))
+                                    <img src="{{ asset('storage/' . $item['avatar']) }}" class="rounded-circle"
+                                        alt="user" width="30" />
+                                @else
+                                    @if ($item['gender'] == \App\Enum\GenderEnum::MALE->value)
+                                        <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
+                                            class="rounded-circle" alt="user" width="30" />
+                                    @elseif ($item['gender'] == \App\Enum\GenderEnum::FEMALE->value)
+                                        <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}"
+                                            class="rounded-circle" alt="user" width="30" />
+                                    @endif
+                                @endif
                                 <span class="text-black fw-semibold">{{ $item['nama'] }}</span>
                             </div>
                             <div class="progress" style="height: 12px">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: {{ number_format($item['revisi_percent'], 2) }}%;">
+                                <div class="progress-bar bg-primary" role="progressbar"
+                                    style="width: {{ number_format($item['revisi_percent'], 2) }}%;">
                                     {{ number_format($item['revisi_percent'], 0) }}%
                                 </div>
                             </div>
@@ -144,8 +158,18 @@
                                             <td class="ps-0 text-black">{{ $loop->iteration }}. </td>
                                             <td>
                                                 <div class="d-flex align-items-center gap-3 fw-semibold text-dark">
-                                                    <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
-                                                        class="rounded-circle" alt="user" width="35" />
+                                                    @if (file_exists(public_path('storage/' . $member->members->avatar)))
+                                                        <img src="{{ asset('storage/' . $member->members->avatar) }}"
+                                                            class="rounded-circle" alt="user" width="40" />
+                                                    @else
+                                                        @if ($member->members->gender == \App\Enum\GenderEnum::MALE->value)
+                                                            <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
+                                                                class="rounded-circle" alt="user" width="40" />
+                                                        @elseif ($member->members->gender == \App\Enum\GenderEnum::FEMALE->value)
+                                                            <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}"
+                                                                class="rounded-circle" alt="user" width="40" />
+                                                        @endif
+                                                    @endif
                                                     <span>{{ $member->members->name }}</span>
                                                 </div>
                                             </td>

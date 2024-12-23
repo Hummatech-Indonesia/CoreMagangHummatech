@@ -8,7 +8,6 @@
                         <th>Nama Project</th>
                         <th>Divisi</th>
                         <th>Nama Ketua</th>
-                        <th>Deskripsi</th>
                         <th>Tanggal Presentasi</th>
                         <th>Tipe Project</th>
                         <th>Status</th>
@@ -23,7 +22,6 @@
                             <td>
                                 {{ \App\Models\Student::find(collect($presentation->project->members)->where('status', \App\Enum\StatusMemberTeamEnum::Leader->value)->first()->member_id)->name }}
                             </td>
-                            <td>{{ $presentation->project->description }}</td>
                             <td><span class="text-warning">{{ \Carbon\Carbon::parse($presentation->planning_date_presentation)->format('j F Y') }}</span></td>
                             <td>{{ ucwords($presentation->project->type_project->value) }}</td>
                             <td>

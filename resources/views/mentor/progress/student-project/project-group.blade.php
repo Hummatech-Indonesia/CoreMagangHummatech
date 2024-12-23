@@ -34,26 +34,63 @@
 
                             @if ($members->count() === 1)
                                 <div class="d-flex justify-content-start">
-                                    <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
-                                        data-bs-placement="top"
-                                        aria-label="{{ $project->members->first()?->members->name }}"
-                                        data-bs-original-title="{{ $project->members->first()?->members->name }}">
-                                        <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}" alt="Avatar"
-                                            class="rounded-circle shadow-sm img-fluid" width="33" height="33">
-                                    </a>
+                                    @if (file_exists(public_path('storage/' . $members->first()?->members->avatar)))
+                                        <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
+                                            data-bs-placement="top" aria-label="{{ $members->name }}"
+                                            data-bs-original-title="{{ $members->name }}">
+                                            <img src="{{ asset('storage/' . $members->first()?->members->avatar) }}"
+                                                alt="Avatar" class="rounded-circle border border-2 border-white"
+                                                width="33" height="33">
+                                        </a>
+                                    @else
+                                        <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
+                                            data-bs-placement="top" aria-label="{{ $members->first()?->members->name }}"
+                                            data-bs-original-title="{{ $members->first()?->members->name }}">
+
+                                            @if ($members->first()?->members->gender == \App\Enum\GenderEnum::MALE->value)
+                                                <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
+                                                    alt="Avatar" class="rounded-circle border border-2 border-white"
+                                                    width="33" height="33">
+                                            @elseif ($members->first()?->members->gender == \App\Enum\GenderEnum::FEMALE->value)
+                                                <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}"
+                                                    alt="Avatar" class="rounded-circle border border-2 border-white"
+                                                    width="33" height="33">
+                                            @endif
+                                        </a>
+                                    @endif
                                 </div>
                             @elseif ($members->count() > 1)
                                 <div class="d-flex justify-content-start">
                                     <ul class="hstack mb-0">
                                         @foreach ($members as $index => $member)
                                             <li class="{{ $index > 0 ? 'ms-n8' : '' }}">
-                                                <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" aria-label="{{ $member->members->name }}"
-                                                    data-bs-original-title="{{ $member->members->name }}">
-                                                    <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
-                                                        class="rounded-circle border border-2 border-white" width="33"
-                                                        height="33" alt="{{ $member->members->name }}">
-                                                </a>
+                                                @if (file_exists(public_path('storage/' . $member->members->avatar)))
+                                                    <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" aria-label="{{ $member->$members->name }}"
+                                                        data-bs-original-title="{{ $member->$members->name }}">
+                                                        <img src="{{ asset('storage/' . $member->members->avatar) }}"
+                                                            alt="Avatar"
+                                                            class="rounded-circle border border-2 border-white"
+                                                            width="33" height="33">
+                                                    </a>
+                                                @else
+                                                    <a href="javascript:void(0)" class="me-1" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" aria-label="{{ $member->members->name }}"
+                                                        data-bs-original-title="{{ $member->members->name }}">
+
+                                                        @if ($member->members->gender == \App\Enum\GenderEnum::MALE->value)
+                                                            <img src="{{ asset('assets-user/dist/images/profile/user-1.jpg') }}"
+                                                                alt="Avatar"
+                                                                class="rounded-circle border border-2 border-white"
+                                                                width="33" height="33">
+                                                        @elseif ($member->members->gender == \App\Enum\GenderEnum::FEMALE->value)
+                                                            <img src="{{ asset('assets-user/dist/images/profile/user-2.jpg') }}"
+                                                                alt="Avatar"
+                                                                class="rounded-circle border border-2 border-white"
+                                                                width="33" height="33">
+                                                        @endif
+                                                    </a>
+                                                @endif
                                             </li>
                                         @endforeach
                                     </ul>
