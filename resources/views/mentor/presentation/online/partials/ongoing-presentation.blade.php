@@ -1,3 +1,16 @@
+<style>
+    .table-responsive {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Untuk mendukung scroll di perangkat mobile */
+}
+
+.table {
+    min-width: 1000px; /* Sesuaikan dengan lebar tabel Anda */
+
+    
+}
+</style>
 <div class="tab-pane {{ request()->hasAny(['status', 'date', 'page', 'search']) ? '' : 'active' }}" id="ongoing"
     role="tabpanel">
     <div class="card card-body">
@@ -35,17 +48,97 @@
                                     <small class="p-2 px-3 rounded-pill text-info bg-light-info fw-bolder">Antrian</small>
                                 @endif
                             </td>
-                            <td class="d-flex gap-2">
-                                <a href="/mentor/project-submissions/{{ $ongoing->project->id }}/revision" class="btn text-primary btn-light-primary">Detail</a>
-
-                                <button href="{{ $ongoing->link_online_presentation }}" class="btn btn-primary"
+                            <td class="d-flex fs-2 gap-1">
+                                {{--  <a href="/mentor/project-submissions/{{ $ongoing->project->id }}/revision" class="btn text-primary btn-light-primary">Detail</a>  --}}
+                                <div class="btn btn-success btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-check"></i> Selesai
+                                </div>
+                                <!-- Dropdown menu -->
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li>
+                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                           data-bs-target="#accProjectOngoing{{ $ongoing->id }}">
+                                            Selesai Project
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                           data-bs-target="#accPresentationOngoing{{ $ongoing->id }}">
+                                            Selesai Presentasi
+                                        </a>
+                                    </li>
+                                </ul>
+                                <button href="{{ $ongoing->link_online_presentation }}" class="btn btn-sm btn-primary"
                                     data-bs-toggle="modal" data-bs-target="#link-modal-{{ $ongoing->id }}">
-                                    Luncurkan Zoom
+                                Zoom
                                     <i class="ti ti-brand-telegram fill-white fs-5"></i>
                                 </button>
                             </td>
                         </tr>
 
+                        <!-- Modal untuk menyelesaikan Project -->
+                        <div class="modal fade" id="accProjectOngoing{{ $ongoing->id }}" tabindex="-1"
+                             aria-labelledby="completeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header d-flex align-items-center">
+                                        <h5 class="modal-title" id="completeModalLabel">Konfirmasi</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Apakah anda yakin ingin menyelesaikan project ini?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button"
+                                                class="btn btn-light-danger text-danger font-medium waves-effect text-start"
+                                                data-bs-dismiss="modal">Batal
+                                        </button>
+                                        <form action="{{ route('presentation.presentationDone', $ongoing->id) }}" method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="project_id" value="{{ $ongoing->project_id }}">
+                                            <input type="hidden" name="project_done" value="true">
+                                            <button class="btn btn-light-success text-success" type="submit">Ya, project
+                                                selesai!
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal untuk menyelesaikan Presentasi -->
+                        <div class="modal fade" id="accPresentationOngoing{{ $ongoing->id }}" tabindex="-1"
+                             aria-labelledby="completeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header d-flex align-items-center">
+                                        <h5 class="modal-title" id="completeModalLabel">Konfirmasi</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Apakah anda yakin ingin menyelesaikan presentasi ini?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button"
+                                                class="btn btn-light-danger text-danger font-medium waves-effect text-start"
+                                                data-bs-dismiss="modal">Batal
+                                        </button>
+                                        <form action="{{ route('presentation.presentationDone', $ongoing->id) }}"
+                                              method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="project_id" value="{{ $ongoing->project_id }}">
+                                            <button class="btn btn-light-success text-success" type="submit">Ya, presentasi
+                                                selesai!
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         {{-- launc zoom modal --}}
                         <div class="modal fade" id="link-modal-{{ $ongoing->id }}" tabindex="-1"
                             aria-labelledby="deleteLabel" aria-hidden="true">
