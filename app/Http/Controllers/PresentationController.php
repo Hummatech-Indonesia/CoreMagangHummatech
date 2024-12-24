@@ -295,16 +295,17 @@ class PresentationController extends Controller
             $project = $this->project->find($request->project_id);
             $currentQueueData = $this->queuePresentation->getQueueByDivision($project->division_id);
             $findNextQueuePresentation = $this->presentationModel
-                ->where('urutan','>', $currentQueueData->queue)
+                ->where('urutan','>=', $currentQueueData->queue)
                 ->where('id', '>', $presentation->id)
                 ->where('status_presentation', StatusPresentationEnum::FINISH->value)
                 ->whereHas('project', function ($query) use ($project){
                     $query->where('division_id', $project->division_id);
                 })
-                ->orderBy('urutan', 'desc')
+                ->orderBy('urutan', 'asc')
                 ->first()->urutan ?? 0;
 
             $updatedQueue = $currentQueueData->queue;
+
 
             if ($findNextQueuePresentation != 0){
                 $updatedQueue = $currentQueueData->queue + 1 + ($findNextQueuePresentation - $currentQueueData->queue);
