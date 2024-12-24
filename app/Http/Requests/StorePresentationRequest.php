@@ -1,11 +1,11 @@
-    <?php
+<?php
 
-    namespace App\Http\Requests;
+namespace App\Http\Requests;
 
-    use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-    class StorePresentationRequest extends FormRequest
-    {
+class StorePresentationRequest extends FormRequest
+{
         /**
          * Tentukan apakah pengguna diizinkan untuk membuat request ini.
          */
