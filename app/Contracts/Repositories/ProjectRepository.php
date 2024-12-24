@@ -75,7 +75,6 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
     }
 
 
-
     public function accProject(mixed $id, array $data): mixed
     {
         $data['start_date'] = Carbon::now()->toDateString();
@@ -188,5 +187,15 @@ class ProjectRepository extends BaseRepository implements ProjectInterface
                 $query->whereDate('start_date', '>=', $request->start_date);
             })
             ->paginate(6);
+    }
+
+    public function getProjectByStatus(mixed $id, string $status): mixed
+    {
+        return $this->model->query()
+            ->where('status_project', $status)
+            ->whereHas('members', function ($query) use ($id) {
+                $query->where('member_id', $id);
+            })
+            ->with(['presentation.revision', 'members', 'members.members']);
     }
 }
