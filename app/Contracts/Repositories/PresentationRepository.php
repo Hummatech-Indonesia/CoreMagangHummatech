@@ -335,6 +335,7 @@ class PresentationRepository extends BaseRepository implements PresentationInter
                 $query->whereIn('division_id', $mentorDivisionIds);
             })
             ->whereDate('planning_date_presentation', $date)
+            ->orderBy('urutan','asc')
             ->get();
     }
 
