@@ -139,13 +139,13 @@
                 </tbody>
             </table>
         </div>
-        <div style="margin-top: 5%; padding-left: 75%; width: 200px;">
+        <div style="margin-top: 5%; padding-left: 69%; width: 230px;">
             <div style="text-align: center;">
                 <div style="margin-bottom: 8px">
                     Ttd Pembimbing
                 </div>
-                <div style="margin-top:50px">
-                    Andika Wahyu S,Kom
+                <div style="margin-top:70px">
+                    Andika Wahyu Perdana, S.Kom
                 </div>
                 <div style="margin-top: 10px;">
                 </div>
