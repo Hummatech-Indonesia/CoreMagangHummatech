@@ -91,7 +91,7 @@
         </div>
 
         <div class="d-flex justify-content-between w-100 navbar-shadow mb-4 gap-2">
-            <a class="text-decoration-none" href="/student-offline/dashboard/task">
+            <a class="text-decoration-none" href="/siswa-offline/dashboard/task">
                 <div class="back bg-label-primary rounded p-3">
                     <svg width="32" height="24" viewBox="0 0 36 28" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -148,7 +148,7 @@
                                                             data-id="{{ $revision->id }}"
                                                             data-status="{{ $revision->status }}"
                                                             data-revision="{{ $revision->revision }}"
-                                                            data-action="{{ route('student-offline.project.revision.updateRevision', $revision->id) }}">
+                                                            data-action="{{ route('siswa-offline.project.revision.updateRevision', $revision->id) }}">
                                                             Edit
                                                         </a>
                                                     </li>
@@ -262,7 +262,7 @@
                                                             data-id="{{ $revision->id }}"
                                                             data-status="{{ $revision->status }}"
                                                             data-revision="{{ $revision->revision }}"
-                                                            data-action="{{ route('student-offline.project.revision.updateRevision', $revision->id) }}">
+                                                            data-action="{{ route('siswa-offline.project.revision.updateRevision', $revision->id) }}">
                                                             Edit
                                                         </a>
                                                     </li>
@@ -378,7 +378,7 @@
                                                             data-id="{{ $revision->id }}"
                                                             data-status="{{ $revision->status }}"
                                                             data-revision="{{ $revision->revision }}"
-                                                            data-action="{{ route('student-offline.project.revision.updateRevision', $revision->id) }}">
+                                                            data-action="{{ route('siswa-offline.project.revision.updateRevision', $revision->id) }}">
                                                             Edit
                                                         </a>
                                                     </li>
@@ -462,7 +462,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form
-                    action="{{ route('student-offline.project.presentation.revision.saveRevision', ['project' => $project->id, 'presentation' => $presentation->id]) }}"
+                    action="{{ route('siswa-offline.project.presentation.revision.saveRevision', ['project' => $project->id, 'presentation' => $presentation->id]) }}"
                     method="POST">
                     @csrf
                     <input name="status" type="hidden" value="{{ \App\Enum\RevisionStatusEnum::Todo->value }}">
@@ -505,7 +505,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form
-                    action="{{ route('student-offline.project.presentation.revision.saveRevision', ['project' => $project->id, 'presentation' => $presentation->id]) }}"
+                    action="{{ route('siswa-offline.project.presentation.revision.saveRevision', ['project' => $project->id, 'presentation' => $presentation->id]) }}"
                     method="POST">
                     @csrf
                     <input name="status" type="hidden" value="{{ \App\Enum\RevisionStatusEnum::InProgress->value }}">
@@ -547,7 +547,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form
-                    action="{{ route('student-offline.project.presentation.revision.saveRevision', ['project' => $project->id, 'presentation' => $presentation->id]) }}"
+                    action="{{ route('siswa-offline.project.presentation.revision.saveRevision', ['project' => $project->id, 'presentation' => $presentation->id]) }}"
                     method="POST">
                     @csrf
                     <input name="status" type="hidden" value="{{ \App\Enum\RevisionStatusEnum::Completed->value }}">
@@ -699,7 +699,7 @@
 
                     // URL endpoint
                     const url =
-                        "{{ route('student-offline.project.presentation.revision.changestatus', ['project' => $project->id, 'presentation' => $presentation->id]) }}"
+                        "{{ route('siswa-offline.project.presentation.revision.changestatus', ['project' => $project->id, 'presentation' => $presentation->id]) }}"
 
                     // Request AJAX menggunakan Fetch API
                     fetch(url, {

@@ -361,7 +361,7 @@
                 <h5 class="modal-title" id="laporModalLabel">Laporkan Piket</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('student-offline.picket-report.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('siswa-offline.picket-report.store') }}" method="post" enctype="multipart/form-data">
             <div class="modal-body">
                     @csrf
                     <div class="mb-3">

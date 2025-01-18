@@ -328,7 +328,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
 });
 
 # ================================================ Offline Student Route Group ================================================
-Route::prefix('student-offline')->name(RolesEnum::OFFLINE->value . ".")->middleware(["roles:student-offline", 'auth'])->group(function () {
+Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value . ".")->middleware(["roles:siswa-offline", 'auth'])->group(function () {
     # Home
     Route::get('/', [StudentOflineController::class, 'index'])->name('home');
 
@@ -693,7 +693,7 @@ Route::get('timetable', function () {
 Route::get('challenge', [CourseController::class, 'index']);
 
 # Subscribe
-Route::get('student-offline/langganan', function () {
+Route::get('siswa-offline/langganan', function () {
     return view('student_offline.langganan.index');
 });
 

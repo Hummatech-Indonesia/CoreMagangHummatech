@@ -3,7 +3,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <form
-                action="{{ route('student-offline.project.presentation.revision.member', ['project' => $project->id, 'presentation' => $presentation->id, 'projectRevision' => $revision->id]) }}"
+                action="{{ route('siswa-offline.project.presentation.revision.member', ['project' => $project->id, 'presentation' => $presentation->id, 'projectRevision' => $revision->id]) }}"
                 method="POST">
                 @csrf
                 <div class="modal-header d-flex justify-content-center">
