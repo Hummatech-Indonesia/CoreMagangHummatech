@@ -2,13 +2,14 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Enum\TypeEnum;
 use App\Models\DataAdmin;
 use App\Models\Letterhead;
 use App\Services\Traits\UploadTrait;
+use App\Http\Requests\UpdateAccountAdmin;
 use App\Http\Requests\StoreDataAdminRequest;
 use App\Http\Requests\UpdateDataAdminRequest;
-use App\Models\User;
 
 class DataAdminService
 {
@@ -55,17 +56,22 @@ class DataAdminService
      *
      * @return array|bool
      */
-    public function update(User $datauser, UpdateDataAdminRequest $request): array|bool
+    public function update(DataAdmin $DataAdmin, UpdateDataAdminRequest $request): array|bool
     {
         $data = $request->validated();
 
-        // if ($request->hasFile('image') && $request->file('image')->isValid()) {
-        //     $this->remove($DataAdmin->image);
-        //     $data['image'] = $request->file('image')->store(TypeEnum::DATAADMIN->value, 'public');
-        // } else {
-        //     $data['image'] = $DataAdmin->image;
-        // }
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $this->remove($DataAdmin->image);
+            $data['image'] = $request->file('image')->store(TypeEnum::DATAADMIN->value, 'public');
+        } else {
+            $data['image'] = $DataAdmin->image;
+        }
 
+        return $data;
+    }
+    public function updateAccount(user $AccountAdmin, UpdateAccountAdmin $request): array|bool
+    {
+        $data = $request->validated();
         return $data;
     }
 

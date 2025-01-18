@@ -106,7 +106,9 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
     Route::get('/', [AdminController::class, 'index'])->name('.dashboard.home');
 
     # Data Admin
-    Route::put('data-admin/update/{datauser}', [DataAdminController::class, 'update'])->name('.data-admin.update');
+    Route::put('data-admin/store', [DataAdminController::class, 'store'])->name('.data-admin.store');
+    Route::put('data-admin/update/{dataAdmin}', [DataAdminController::class, 'update'])->name('.data-admin.update');
+    Route::put('account-admin/update/{dataadmin}', [DataAdminController::class, 'updateAccount'])->name('.data-admin.update.account');
 
     # Data CEO
     Route::post('dataceo/store', [DataCOController::class, 'store'])->name('.data-ceo.store');
