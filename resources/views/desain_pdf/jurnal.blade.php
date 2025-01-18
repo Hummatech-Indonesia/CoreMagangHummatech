@@ -139,12 +139,14 @@
                 </tbody>
             </table>
         </div>
-        <div style="margin-top: 5%; padding-left: 80%;">
+        <div style="margin-top: 5%; padding-left: 75%; width: 200px;">
             <div style="text-align: center;">
                 <div style="margin-bottom: 8px">
                     Ttd Pembimbing
                 </div>
-                <img src="{{ $qrCodeImage }}" alt="QR Code">
+                <div style="margin-top:50px">
+                    Andika Wahyu S,Kom
+                </div>
                 <div style="margin-top: 10px;">
                 </div>
             </div>
