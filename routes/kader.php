@@ -30,7 +30,7 @@ Route::get('show/materi/{course}', [CourseController::class ,'show']);
 // End mentor
 
 // student offline
-Route::get('student-offline/langganan', function () {return view('student_offline.langganan.index');});
+Route::get('siswa-offline/langganan', function () {return view('student_offline.langganan.index');});
 // end
 // student online
 // Route::get('student-online/langganan', function () {return view('student_online.langganan.index');});

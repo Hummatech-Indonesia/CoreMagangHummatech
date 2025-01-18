@@ -150,7 +150,7 @@
         <h4>
             Data Jurnal
         </h4>
-       
+
         <div class="d-flex">
             <button type="button" class="btn mb-1 btn-light-warning text-warning btn-lg px-4 fs-4 font-medium ms-3"
                 data-bs-toggle="modal" data-bs-target="#printJournalModal">
@@ -182,7 +182,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="printJournalForm" action="{{ url('/download-pdf') }}" method="GET">
+                    <form id="printJournalForm" action="{{ url('/jurnal/export/pdf') }}" method="GET">
                         <div class="mb-3">
                             <label for="yearSelect" class="form-label">Tahun</label>
                             <select class="form-select" id="yearSelect" name="year">

@@ -64,7 +64,7 @@
         </div>
 
         <div class="d-flex justify-content-between w-100 mb-4 gap-2 navbar-shadow">
-            <a class="text-decoration-none" href="/student-offline/dashboard/task">
+            <a class="text-decoration-none" href="/siswa-offline/dashboard/task">
                 <div class="back bg-label-primary rounded p-3">
                     <svg width="32" height="24" viewBox="0 0 36 28" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
@@ -269,7 +269,7 @@
                                     <td class="text-center">
                                         <h6 class="mb-0">
                                             <a
-                                                href="{{ route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id]) }}">
+                                                href="{{ route('siswa-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id]) }}">
                                                 <button class="btn btn-warning btn-sm">Revisi</button>
                                             </a>
                                         </h6>
@@ -339,7 +339,7 @@
                                                 <button class="btn btn-info btn-sm">Link</button>
                                             </a>
                                             <a
-                                                href="{{ route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id]) }}">
+                                                href="{{ route('siswa-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id]) }}">
                                                 <button class="btn btn-warning btn-sm">Revisi</button>
                                             </a>
                                         </h6>

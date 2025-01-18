@@ -245,7 +245,7 @@
                                     </div>
                                     <div class="action">
                                         <a class="btn btn-primary p-2 px-4"
-                                            href="{{ route('student-offline.project.detail', $project['id']) }}">Detail</a>
+                                            href="{{ route('siswa-offline.project.detail', $project['id']) }}">Detail</a>
                                     </div>
                                 </div>
                             </div>

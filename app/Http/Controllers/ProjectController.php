@@ -270,9 +270,9 @@ class ProjectController extends Controller
         try {
             $this->project->delete($project->id);
 
-            return to_route('student-offline.project.task.index')->with('success', value: 'Berhasil menghapus project');
+            return to_route('siswa-offline.project.task.index')->with('success', value: 'Berhasil menghapus project');
         } catch (\Exception $e) {
-            return to_route('student-offline.project.task.index')->with('error', value: 'Gagal menghapus project');
+            return to_route('siswa-offline.project.task.index')->with('error', value: 'Gagal menghapus project');
         }
     }
 
@@ -361,9 +361,9 @@ class ProjectController extends Controller
 
             $this->presentation->store($request->validated());
 
-            return redirect()->route('student-offline.project.presentation', $request->project_id)->with('success', 'Berhasil mengajukan presentasi');
+            return redirect()->route('siswa-offline.project.presentation', $request->project_id)->with('success', 'Berhasil mengajukan presentasi');
         } catch (\Exception $e) {
-            return redirect()->route('student-offline.project.presentation', $request->project_id)->with('error', 'Gagal mengajukan presentasi' . $e->getMessage());
+            return redirect()->route('siswa-offline.project.presentation', $request->project_id)->with('error', 'Gagal mengajukan presentasi' . $e->getMessage());
         }
     }
 
@@ -393,15 +393,15 @@ class ProjectController extends Controller
                     $this->projectRevision->store($validated);
 
                 } else {
-                    return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('error', value: 'Gagal menambah revisi');
+                    return to_route('siswa-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('error', value: 'Gagal menambah revisi');
                 }
             } else {
                 $this->projectRevision->store($validated);
             }
 
-            return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('success', value: 'Berhasil menambah revisi');
+            return to_route('siswa-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('success', value: 'Berhasil menambah revisi');
         } catch (\Exception $e) {
-            return to_route('student-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('error', value: 'Gagal menambah revisi');
+            return to_route('siswa-offline.project.presentation.revision', ['project' => $presentation->project->id, 'presentation' => $presentation->id])->with('error', value: 'Gagal menambah revisi');
         }
     }
 

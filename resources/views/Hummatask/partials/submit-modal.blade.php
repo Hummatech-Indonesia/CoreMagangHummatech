@@ -1,7 +1,7 @@
 <div class="modal fade" id="submit-a-presentation-offline" tabindex="-1" aria-labelledby="submit-a-presentationLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('student-offline.project.presentation.save', $project->id) }}" method="POST">
+            <form action="{{ route('siswa-offline.project.presentation.save', $project->id) }}" method="POST">
                 @csrf
                 <div class="modal-header">
                     <h1 class="modal-title fs-4" id="submit-a-presentationLabel">Ajukan Presentasi Offline</h1>
@@ -32,7 +32,7 @@
 <div class="modal fade" id="submit-a-presentation-online" tabindex="-1" aria-labelledby="submit-a-presentationLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('student-offline.project.presentation.save', $project->id) }}" method="POST">
+            <form action="{{ route('siswa-offline.project.presentation.save', $project->id) }}" method="POST">
                 @csrf
                 <div class="modal-header">
                     <h1 class="modal-title fs-4" id="submit-a-presentationLabel">Ajukan Presentasi Online</h1>
@@ -41,7 +41,7 @@
                 <div class="modal-body">
                     <div id="startDate">
                         <label class="mb-2 mt-1 fs-2" for="">Tanggal dan Jam</label>
-                        
+
                         <input class="form-control" id="date_time_presentation" name="date_time_presentation"
                                type="datetime-local" value="{{ old('date_time_presentation') }}">
                         <input class="form-control" id="planning_date_presentation" name="planning_date_presentation"
