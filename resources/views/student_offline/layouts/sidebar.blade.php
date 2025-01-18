@@ -52,7 +52,7 @@
                                         </svg>
                                     </div>
                                     <div class="mt-2">
-                                        <span class="hide-menu">{{ App\models\Project::count('id') > 1 ? 'Projects' : 'Project' }}</span>
+                                        <span class="hide-menu">Projects</span>
                                     </div>
                                 </div>
                                 <div class="mt-2">
