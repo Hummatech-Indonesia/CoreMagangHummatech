@@ -472,6 +472,7 @@ Route::prefix('student-online')->name(RolesEnum::ONLINE->value)->middleware(['ro
 
 # Jurnal
 Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('.journal.download');
+Route::get('absen/export/pdf', [AttendanceController::class, 'DownloadPdf'])->name('.absen.download');
 
 # ================================================ School/Instance Route Group ================================================
 
