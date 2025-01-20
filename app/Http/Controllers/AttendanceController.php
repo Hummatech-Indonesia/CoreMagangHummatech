@@ -12,10 +12,19 @@ use App\Contracts\Interfaces\WorkFromHomeInterface;
 use App\Enum\DayEnum;
 use App\Http\Requests\AttendanceStatusRequest;
 use App\Http\Requests\MaxLateRequest;
+use App\Models\Attendance;
+use App\Models\DataAdmin;
+use App\Models\Journal;
+use App\Models\Letterhead;
+use App\Models\Signature;
+use App\Models\Student;
 use Carbon\Carbon;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class AttendanceController extends Controller
 {
@@ -279,7 +288,115 @@ class AttendanceController extends Controller
         $attendances = $this->attendance->getAttendanceByStudent($request);
         $ruleToday = $this->attendanceRule->getByDay(Carbon::now()->format('l'));
 
-        return view('student_offline.absensi.index', compact('attendances', 'offlineAttendances', 'attends', 'permissions', 'absent', 'total', 'workFromHomes', 'ruleToday'));
+
+        $years = $attendances->pluck('created_at')->map(function ($date) {
+            return $date->format('Y');
+        })->unique()->sort()->values();
+
+        $months = $attendances->pluck('created_at')->map(function ($date) {
+            return $date->format('m');
+        })->unique()->sort()->values();
+
+        $year = request()->get('year', $years->first());
+        $month = request()->get('month', $months->first());
+
+        return view('student_offline.absensi.index', compact('attendances', 'offlineAttendances', 'attends', 'permissions', 'absent', 'total', 'workFromHomes', 'ruleToday','years', 'months', 'year', 'month'));
+    }
+    public function downloadPDF(Request $request)
+    {
+        // Set waktu eksekusi dan memori
+        ini_set('max_execution_time', 300); // 5 menit
+        ini_set('memory_limit', '512M'); // 512MB
+
+        // Validasi input
+        $request->validate([
+            'year' => 'required|digits:4',
+            'month' => 'required|integer|min:1|max:12',
+        ]);
+
+        // Ambil data dalam potongan kecil untuk efisiensi
+        $months = [];
+        Attendance::with('attendanceDetails')
+            ->where('student_id', auth()->user()->student->id)
+            ->whereYear('created_at', $request->input('year'))
+            ->whereMonth('created_at', $request->input('month'))
+            ->chunk(100, function ($attendances) use (&$months) {
+                foreach ($attendances as $attendance) {
+                    $monthKey = \Carbon\Carbon::parse($attendance->created_at)->format('Y-m');
+                    $months[$monthKey][] = $attendance;
+                }
+            });
+
+//        dd($months);
+
+        $header = Letterhead::where('user_id', auth()->user()->id)->first();
+        $datadiri = Student::where('id', auth()->user()->student->id)->first();
+
+        // Cek kop surat
+        if (!$header) {
+            return redirect()->back()->with('error', 'Harap mengisi kop surat terlebih dahulu');
+        }
+
+        // Siapkan Dompdf
+        $dompdf = new Dompdf();
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $dompdf->setOptions($options);
+
+        $combinedHtml = ''; // Untuk menggabungkan semua halaman PDF
+        $dataadmin = DataAdmin::query()->first();
+
+        // Proses setiap bulan
+        foreach ($months as $monthKey => $attendance) {
+            // Generate QR code
+            $signature = Signature::create([
+                'qr' => '',
+                'data_admin_id' => $dataadmin->id
+            ]);
+
+            $qrCode = QrCode::size(100)->generate(url('/data-qr/' . $signature->id));
+            $qrCodeImage = 'data:image/png;base64,' . base64_encode($qrCode);
+
+            $signature->qr = $qrCodeImage;
+            $signature->save();
+
+            // Render HTML untuk bulan ini
+            $html = view('desain_pdf.absen', [
+                'data' => $attendance,
+                'month' => $monthKey,
+                'letterheads' => $header,
+                'datadiri' => $datadiri,
+                'qrCodeImage' => $qrCodeImage,
+                'year' => $request->input('year'),
+                'month' => $request->input('month')
+            ])->render();
+
+            // Tambahkan HTML ke dokumen gabungan
+            $combinedHtml .= $html;
+
+            // Bersihkan memori
+            unset($html, $signature, $qrCode, $qrCodeImage, $attendance);
+        }
+
+        // Render HTML gabungan menjadi PDF
+        $dompdf->loadHtml($combinedHtml);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Nama file PDF
+        $year = $request->input('year');
+        $month = $request->input('month');
+        $monthName = \Carbon\Carbon::createFromFormat('m', $month)->format('F');
+        $userName = auth()->user()->name;
+        $fileName = "Absen_{$userName}_{$year}_{$monthName}.pdf";
+
+        // Kembalikan file PDF untuk diunduh
+        return response($dompdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+//            'Content-Disposition' => "attachment; filename=\"{$fileName}\""
+        ]);
     }
 
     public function attendanceOnline(Request $request): View
