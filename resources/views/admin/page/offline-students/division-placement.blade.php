@@ -293,7 +293,7 @@
     <script>
         $('.btn-add').click(function() {
             var id = $(this).data('id');
-            $('#form-update').attr('action', '/offline-students/division-placement/' + id);
+            $('#form-update').attr('action', '/administrator/offline-students/division-placement/' + id);
             $('#add').modal('show');
         });
 
@@ -303,7 +303,7 @@
 
             $('#division-edit').val(division_id).trigger('change');
 
-            $('#form-update-edit').attr('action', '/offline-students/division-placement/update/' + id);
+            $('#form-update-edit').attr('action', '/administrator/offline-students/division-placement/update/' + id);
             $('#edit').modal('show');
         });
 

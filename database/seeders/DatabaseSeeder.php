@@ -16,16 +16,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            RemoveImage::class,
-            RoleSeeder::class,
-            UserSeeder::class,
-            CategoryProjectSeeder::class,
-                # =========================== Hapus seeder dibawah kalau udah mode production =========================== #
-                // VoucherSeeder::class,
-                // CourseSeeder::class,
-            InstitutionSeeder::class,
-        ]);
+        // $this->call([
+        //     RemoveImage::class,
+        //     RoleSeeder::class,
+        //     UserSeeder::class,
+        //     CategoryProjectSeeder::class,
+        //         # =========================== Hapus seeder dibawah kalau udah mode production =========================== #
+        //         // VoucherSeeder::class,
+        //         // CourseSeeder::class,
+        //     InstitutionSeeder::class,
+        // ]);
         foreach(Division::get() as $division) {
             QueuePresentation::query()
                 ->create([
