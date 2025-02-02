@@ -23,9 +23,9 @@ class GlobalViewLoaderProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // $divisions = Division::all();
-        // $institutions = Institution::all();
-        // view()->share('divisions', $divisions);
-        // view()->share('institutions', $institutions);
+         $divisions = Division::all();
+         $institutions = Institution::all();
+         view()->share('divisions', $divisions);
+         view()->share('institutions', $institutions);
     }
 }
