@@ -1,4 +1,8 @@
 @extends('Hummatask.team.layouts.app')
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 @section('content')
 
     <div class="card p-4 bg-light-info overflow-hidden shadow-none">

@@ -1,4 +1,8 @@
 @extends('mentor.layouts.app')
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 @section('content')
     <div class="d-flex justify-content-between w-100 mb-4 gap-2 navbar-shadow">
         <a class="text-decoration-none" onclick="window.history.back()">

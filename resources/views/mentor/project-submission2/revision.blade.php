@@ -1,5 +1,8 @@
 @extends('mentor.layouts.app')
-
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 @section('style')
     <style>
         .bg-label-primary {

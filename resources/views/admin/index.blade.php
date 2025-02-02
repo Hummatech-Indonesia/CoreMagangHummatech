@@ -1,4 +1,8 @@
 @extends('admin.layouts.app')
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 @section('content')
 @if ($errors->all())
 <div class="alert alert-danger">

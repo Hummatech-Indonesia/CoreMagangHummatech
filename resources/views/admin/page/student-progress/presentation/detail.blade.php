@@ -1,4 +1,8 @@
 @extends('admin.layouts.app')
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 @section('style')
     <style>
         .btn-back {
@@ -95,7 +99,7 @@
                                 <label class="form-label text-9xl">Status</label>
                                 <div style="margin-left: 420px" class=" d-flex justify-content-end">
                                     <a href="/administrator/student-progress/presentation/{{ $presentation_projects->project->id }}/detail/revision">
-                                        
+
                                       <span class="badge bg-light-primary category-badge rounded-2 px-3 py-2" style="background-color: rgba(230, 255, 250, 1)">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16"
                                              height="16" fill="rgba(93,135,255,1)">
@@ -117,7 +121,7 @@
                                     <span class="badge text-danger px-3 py-2" style="background-color: rgba(251, 242, 239, 1);">Belum Presentasi</span>
                                 @endif --}}
                             </div>
-                           
+
                         </div>
 
                         <!-- Kategori Project -->

@@ -1,4 +1,8 @@
 @extends('Hummatask.layouts.app')
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 @section('style')
     <link type="text/css" href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet" />
     <style>

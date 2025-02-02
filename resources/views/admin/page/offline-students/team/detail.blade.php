@@ -1,5 +1,10 @@
 @extends('admin.layouts.app')
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 @section('content')
+
 <div class="card">
     <div class="card-body d-flex justify-content-between">
         <ul class="nav nav-pills nav-custom nav-custom-light" style="width: fit-content" role="tablist">

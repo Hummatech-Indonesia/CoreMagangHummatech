@@ -1,4 +1,8 @@
 @extends('admin.layouts.app')
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 @section('style')
     <style>
         @media (max-width: 767.98px) {

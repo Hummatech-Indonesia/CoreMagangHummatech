@@ -66,7 +66,7 @@ class DataCOController extends Controller
      */
     public function update(UpdateDataCORequest $request, DataCO $dataCO)
     {
-        $data = $this->dataAdminService->update($dataCO, $request);
+        $data = $this->service->update($dataCO, $request);
         $this->dataCO->update($dataCO->id, $data);
 
         return back()->with('success', 'Data CO Berhasil diperbarui');

@@ -1,4 +1,8 @@
 @extends('Hummatask.layouts.app')
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 @section('style')
     <link type="text/css" href="#" rel="stylesheet" />
     <style>

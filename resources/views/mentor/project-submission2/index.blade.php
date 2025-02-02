@@ -1,4 +1,8 @@
 @extends('mentor.layouts.app')
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 @section('content')
     <div class="container-fluid note-has-grid">
         <ul class="nav nav-pills p-3 mb-3 rounded align-items-center card flex-row">
