@@ -606,31 +606,31 @@
                 $('.btn-reject').attr('data-id', id);
                 $('.btn-reject-reason').attr('data-id', id);
 
-                $('#form-declined').attr('action', '/approval/decline/' + id);
+                $('#form-declined').attr('action', '/administrator/approval/decline/' + id);
                 $('#offcanvasRight').offcanvas('show');
             });
 
             $('.btn-delete').click(function() {
                 let id = $(this).data('id');
-                $('#form-delete').attr('action', '/approval/delete/' + id);
+                $('#form-delete').attr('action', '/administrator/approval/delete/' + id);
                 $('#modal-delete').modal('show');
             });
 
             $('.btn-accept').click(function() {
                 let id = $(this).data('id');
-                $('#form-accepted-one').attr('action', '/approval/accept/' + id);
+                $('#form-accepted-one').attr('action', '/administrator/approval/accept/' + id);
                 $('#accepted-one').modal('show');
             });
 
             $('.btn-reject').click(function() {
                 let id = $(this).data('id');
-                $('#form-reject').attr('action', '/approval/decline/' + id);
+                $('#form-reject').attr('action', '/administrator/approval/decline/' + id);
                 $('#modalReject').modal('show');
             });
 
             $('.btn-reject-reason').click(function() {
                 let id = $(this).data('id');
-                $('#form-reject-reason').attr('action', 'approval/decline/' + id);
+                $('#form-reject-reason').attr('action', '/administrator/approval/decline/' + id);
                 $('#modalReject-reason').modal('show');
             });
         });
