@@ -96,7 +96,7 @@
                         aria-controls="sidebarApps">
                         <i class="ri-bookmark-2-fill"></i> <span data-key="t-apps">Approval</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ request()->is('administrator/approval*') ? 'show' : '' }}"
+                    <div class="collapse menu-dropdown {{ request()->is('administrator/approval*', 'administrator/permission*') ? 'show' : '' }}"
                         id="sidebarApps1">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
@@ -104,8 +104,9 @@
                                     class="nav-link {{ request()->is('administrator/approval*') ? 'active' : '' }}"
                                     data-key="t-chat">Pendaftaran</a>
                             </li>
-                            <li class="nav-item {{ request()->is('administrator/permission*') ? 'active' : '' }}">
-                                <a href="{{ url('/administrator/permission') }}" class="nav-link"
+                            <li class="nav-item">
+                                <a href="{{ url('/administrator/permission') }}"
+                                    class="nav-link {{ request()->is('administrator/permission*') ? 'active' : '' }}"
                                     data-key="t-api-key">Izin &amp; Sakit</a>
                             </li>
                             {{-- <li class="nav-item">
@@ -171,8 +172,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('administrator/institution') ? 'active' : '' }}"
-                        {{-- href="{{ route('institution.index') }}"> --}}
-                        href="{{ url('administrator/institution') }}">
+                        {{-- href="{{ route('institution.index') }}"> --}} href="{{ url('administrator/institution') }}">
                         <i class="ri-community-line"></i> <span data-key="t-dashboards">Sekolah/Universitas</span>
                     </a>
                 </li>
@@ -194,13 +194,13 @@
                         <i class="ri-rocket-line"></i> <span data-key="t-dashboards">Tim</span>
                     </a>
                 </li> --}}
-
+{{--
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('administrator/presentation*') ? 'active' : '' }}"
                         href="{{ url('administrator/presentation') }}">
                         <i class="ri-slideshow-line"></i> <span data-key="t-dashboards">Presentasi</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('administrator/category-project*') ? 'active' : '' }}"
                         href="{{ url('administrator/category-project') }}">
@@ -214,7 +214,7 @@
                         aria-controls="sidebarForms">
                         <i class="ri-account-circle-line"></i> <span data-key="t-forms">User</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ request()->routeIs('administrator.menu-siswa.student.index') || request()->routeIs('administrator.menu-mentor.mentor.index') || request()->routeIs('administrator.students-rejected.index') || request()->routeIs('administrator.students-banned.index') ? 'show' : '' }}"
+                    <div class="collapse menu-dropdown {{ request()->routeIs('administrator.menu-siswa.student.index') || request()->routeIs('administrator.menu-mentor.mentor.index') || request()->routeIs('administrator.students-rejected.index') || request()->routeIs('administrator.students-banned.index') || request()->routeIs('administrator.faces.index') ? 'show' : '' }}"
                         id="sidebarForms">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
@@ -275,7 +275,7 @@
                                     data-key="t-chat">
                                     Penempatan Divisi </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="{{ url('administrator/offline-students/team') }}"
                                     class="nav-link {{ request()->is('administrator/offline-students/team*') ? 'active' : '' }}"
                                     data-key="t-api-key">Tim</a>
@@ -284,7 +284,7 @@
                                 <a href="{{ url('administrator/offline-students/presentation') }}"
                                     class="nav-link {{ request()->is('administrator/offline-students/presentation*') ? 'active' : '' }}"
                                     data-key="t-api-key">Presentasi</a>
-                            </li>
+                            </li> --}}
 
                         </ul>
                     </div>
@@ -365,7 +365,7 @@
 
                             <li class="nav-item">
                                 <a href="{{ route('administrator.student-progress.student') }}"
-                                    class="nav-link {{ Route::is('administrator.student-progress.student') || Route::is('administrator.student-progress.student.project')   ? 'active' : '' }}"
+                                    class="nav-link {{ Route::is('administrator.student-progress.student') || Route::is('administrator.student-progress.student.project') ? 'active' : '' }}"
                                     data-key="t-echarts">Siswa</a>
                             </li>
                             {{-- <li class="nav-item">
@@ -385,11 +385,13 @@
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
-                                <a href="{{ route('administrator.picket.') }}" class="nav-link" data-key="t-chartjs">
+                                <a href="{{ route('administrator.picket.') }}" class="nav-link"
+                                    data-key="t-chartjs">
                                     Jadwal Piket </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('administrator.picket.report') }}" class="nav-link" data-key="t-echarts"> Laporan Piket
+                                <a href="{{ route('administrator.picket.report') }}" class="nav-link"
+                                    data-key="t-echarts"> Laporan Piket
                                 </a>
                             </li>
                         </ul>

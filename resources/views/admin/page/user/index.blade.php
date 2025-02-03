@@ -66,7 +66,7 @@
                     <div class="row g-2 align-items-center justify-content-end">
                         <div class="col-sm-5">
                             <div class="list-grid-nav">
-                                <form action="/menu-siswa">
+                                <form action="/administrator/menu-siswa">
                                     <select name="school" id="schoolFilter" style="width: 100%;">
                                         <option {{ request()->school ? '' : 'selected' }}>Sekolah</option>
                                         @forelse ($schoolOption as $school)
@@ -87,7 +87,7 @@
 
                         <div class="col-sm-auto">
                             <div class="list-grid-nav">
-                                <form action="/menu-siswa">
+                                <form action="/administrator/menu-siswa">
                                     <select name="acepted"  id="acceptedFilter">
                                         <option value="" disabled selected>Status</option>
                                         <option value="1" {{ $request->acepted == 1 ? 'selected' : '' }}>Aktif</option>
@@ -100,7 +100,7 @@
 
                         <div class="col-sm-auto">
                             <div class="list-grid-nav">
-                                <form action="/menu-siswa">
+                                <form action="/aministrator/menu-siswa">
                                     <select name="gender" id="genderFilter">
                                         <option disabled selected>Jenis Kelamin</option>
                                         @foreach ($gendersOption as $gender)
@@ -117,7 +117,7 @@
 
                         <div class="col-sm-auto">
                             <div class="search-box">
-                                <form action="/menu-siswa" class="d-flex">
+                                <form action="/administrator/menu-siswa" class="d-flex">
                                     <input type="text" class="form-control me-2" id="searchMemberList" name="name"
                                         value="{{ request()->name }}" placeholder="Cari Siswa...">
                                     <button class="btn btn-primary" type="submit">
@@ -761,7 +761,7 @@
             let image = $(this).data('image');
             let name = $(this).data('name');
 
-            $('#form-change').attr('action', '/menu-siswa/update/' + id);
+            $('#form-change').attr('action', '/administrator/menu-siswa/update/' + id);
             $('#name-edit').val(name);
             $('.show-image').attr('src', image);
             $('#myModal').modal('show');
@@ -769,13 +769,13 @@
 
         $('.btn-delete').click(function() {
             let id = $(this).data('id');
-            $('#form-delete').attr('action', '/menu-siswa/delete/' + id);
+            $('#form-delete').attr('action', '/administrator/menu-siswa/delete/' + id);
             $('#modal-delete').modal('show');
         });
 
         $('.btn-join').click(function() {
             let id = $(this).data('id');
-            $('#form-join').attr('action', '/menu-siswa/update/' + id);
+            $('#form-join').attr('action', '/administrator/menu-siswa/update/' + id);
             $('#modal-join').modal('show');
         });
 
@@ -787,7 +787,7 @@
 
         $('.btn-ban').click(function() {
             let id = $(this).data('id');
-            $('#form-ban').attr('action', '/menu-siswa/banned/' + id);
+            $('#form-ban').attr('action', '/administrator/menu-siswa/banned/' + id);
             $('#modal-ban').modal('show');
         })
     </script>

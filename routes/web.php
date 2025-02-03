@@ -208,7 +208,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
     Route::prefix('menu-siswa')->name('.menu-siswa.')->group(function () {
         Route::get('/', [AdminStudentController::class, 'index'])->name('student.index');
         Route::get('create', [AdminStudentController::class, 'create'])->name('student.create');
-        Route::put('administrator/menu-siswa/reset-password/{user}', [AdminStudentController::class, 'reset'])->name('student.update');
+        Route::put('reset-password/{user}', [AdminStudentController::class, 'reset'])->name('student.update');
         Route::put('update/{student}', [AdminStudentController::class, 'update']);
         Route::get('face/{student}', [AdminStudentController::class, 'face'])->name('student.show');
         Route::delete('delete/{student}', [AdminStudentController::class, 'destroy'])->name('student.delete');

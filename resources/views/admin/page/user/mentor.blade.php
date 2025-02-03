@@ -10,14 +10,14 @@
                 <div class="col-sm-4">
                     <h3 class="mx-3">Mentor</h3>
                 </div>
-                <div class="col-sm-auto ms-auto d-flex justify-content-between pt-4">
-                    <div class="search-box mx-3">
-                        <form action="/menu-mentor">
+                <div class="col-sm-auto ms-auto d-flex justify-content-between">
+                    <div class="search-box mx-3 d-flex justify-content-between">
+                        <form action="/administrator/menu-mentor">
                             <input type="text" class="form-control" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Mentor...">
-                            <i class="ri-search-line search-icon"></i>
+                            
                         </form>
                     </div>
-                    <div class="list-grid-nav hstack gap-1">
+                    <div>
                         <button class="btn btn-success addMembers-modal" data-bs-toggle="modal" data-bs-target="#addModal">
                             Tambah
                         </button>

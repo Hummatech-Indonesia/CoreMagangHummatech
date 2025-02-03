@@ -5,7 +5,7 @@
 </div>
 @section('style')
     <style>
-        .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+            .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
             color: black;
         }
 

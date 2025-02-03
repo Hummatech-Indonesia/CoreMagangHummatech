@@ -58,7 +58,7 @@
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </form> --}}
-                    <form id="search-form" action="/product"
+                    <form id="search-form" action="/administrator/product"
                         method="GET">
                         <div class="search-box d-flex mx-3">
                             <input class="form-control" id="searchMemberList" name="name" type="text"

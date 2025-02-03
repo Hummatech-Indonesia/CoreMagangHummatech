@@ -33,10 +33,10 @@
             <div class="col-sm-auto ms-auto d-flex">
                 <div class="list-grid-nav hstack gap-1">
                     <div class="search-box">
-                        <form action="/online-student/menotor-placement">
+                        <form action="/administrator/online-student/mentor-placement">
                             <input type="text" class="form-control" id="searchMemberList" name="name"
                                 value="{{request()->name}}" placeholder="Cari Siswa...">
-                            <i class="ri-search-line search-icon"></i>
+
                         </form>
                     </div>
                 </div>
@@ -49,17 +49,6 @@
     <div id="steparrow-gen-info" class="tab-pane fade show active">
         <div class="card">
             <div class="card-body">
-                <div class="row g-4 mb-3">
-                    <div class="col-sm-auto">
-                        <div class="d-flex">
-                            <h5 class="mx-2 pt-2">Show</h5>
-                            <select name="" class="form-select" id="expiry-month-input">
-                                <option value="1">10</option>
-                            </select>
-                            <h5 class="mx-2 pt-2">entries</h5>
-                        </div>
-                    </div>
-                </div>
                 <table class="align-middle table table-nowrap table-bordered table-striped" style="width:100%">
                     <table class="table align-middle table-nowrap" id="customerTable">
                         <thead class="table-light">

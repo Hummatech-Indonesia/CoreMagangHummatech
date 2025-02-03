@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-sm-auto ms-auto d-flex align-items-center">
                     <div class="search-box mx-3 flex-grow-1">
-                        <form action="\approval">
+                        <form action="/administrator/approval">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="name" value="{{ request()->name }}"
                                     id="searchMemberList" placeholder="Cari Siswa...">
@@ -178,17 +178,18 @@
         <div id="steparrow-description-info" class="tab-pane fade">
             <div class="row">
                 <div class="col-lg-12">
+                    
                     <div class="card">
                         <div
                             class="card-header align-items-center d-flex justify-content-between mx-md-3 flex-column flex-md-row">
                             <div class="d-flex gap-2 mb-2 mb-md-0">
-                                <p class="m-0 me-2">Show</p>
+                                {{-- <p class="m-0 me-2">Show</p>
                                 <select class="form-select" id="showEntries">
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
                                 </select>
-                                <p class="m-0 ms-2">entries</p>
+                                <p class="m-0 ms-2">entries</p> --}}
                             </div>
                             <div class="d-flex align-items-center justify-content-between mt-3">
                                 <!-- Tambahkan tombol submit -->

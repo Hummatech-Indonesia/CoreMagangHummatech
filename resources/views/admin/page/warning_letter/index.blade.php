@@ -14,16 +14,15 @@
                     <h5 class="mx-5 align-items-center">Data Sp</h5>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
-                    <div class="search-box mx-3">
-                        <form action="/warning-letter">
+                    <div class="search-box mx-3 d-flex justify-content-between gap-2">
+                        <form action="/administrator/warning-letter">
                             <input type="text" class="form-control" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Siswa...">
-                            <i class="ri-search-line search-icon"></i>
                         </form>
-                    </div>
-                    <div class="list-grid-nav hstack gap-1">
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
-                            Tambah
-                        </button>
+                        <div >
+                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
+                                Tambah
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -44,18 +43,6 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header align-items-center d-flex justify-content-between">
-                    <div class="d-flex gap-2">
-                        <p class="m-0">Show</p>
-                        <select name="" id="">
-                            <option value="10">10</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                        <p class="m-0">entries</p>
-                    </div>
-                </div><!-- end card header -->
-
                 <div class="card-body ">
                     <div class="live-preview ">
                         <div class="table-responsive table-card">

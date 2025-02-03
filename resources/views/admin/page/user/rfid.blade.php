@@ -31,20 +31,18 @@
 
                 <div class="col-sm-auto ms-auto pt-4">
                     <div class="search-box">
-                        <form action="/rfid">
+                        <form action="/administrator/rfid">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="name" value="{{ request()->name }}"
                                     id="searchMemberList" placeholder="Cari Siswa...">
-                                <span class="input-group-text">
-                                    <i class="ri-search-line search-icon"></i>
-                                </span>
+                                
                             </div>
                         </form>
                     </div>
                 </div>
 
                 <div class="col-sm-auto pt-4">
-                    <form action="/rfid" method="GET">
+                    <form action="/administrator/rfid" method="GET">
                         <div class="list-grid-nav hstack gap-1">
                             <input type="date" class="form-control" id="exampleInputdate" name="created_at"
                                 value="{{ request()->created_at }}">
