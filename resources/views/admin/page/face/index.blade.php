@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <a href="/faces/detail/{{ $student->id }}" class="btn btn-primary w-100">Lihat Wajah</a>
+                            <a href="{{ route('administrator.faces.detail', $student->id) }}" class="btn btn-primary w-100">Lihat Wajah</a>
                         </div>
                     </div>
                 </div>

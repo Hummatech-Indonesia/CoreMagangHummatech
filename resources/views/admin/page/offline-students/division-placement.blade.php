@@ -116,17 +116,6 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row mb-3 d-flex justify-content-between">
-                                <div class="col-sm-auto">
-                                    <div class="d-flex">
-                                        <h5 class="mx-2 pt-2">Show</h5>
-                                        <select name=""class="form-select" id="expiry-month-input">
-                                            <option value="1">10</option>
-                                        </select>
-                                        <h5 class="mx-2 pt-2">entries</h5>
-                                    </div>
-                                </div>
-                            </div>
                             <div id="responsive-table-2">
                                 <table class="align-middle table table-nowrap table-bordered table-striped"
                                     style="width:100%">

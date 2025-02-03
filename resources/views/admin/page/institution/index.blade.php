@@ -10,16 +10,18 @@
                 <div class="col-sm-4 align-items-center d-flex">
                     <h5 class="mx-5 align-items-center">Daftar Lembaga</h5>
                 </div>
-                <div class="col-sm-auto ms-auto d-flex">
-                    <div class="search-box mx-3 d-flex justify-content-between gap-2">
-                        <form  action="/administrator/institution">
-                            <input type="text" class="form-control" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Lembaga...">
-                        </form>
-                        <div >
-                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">
-                                Tambah
-                            </button>
+                <div class="col-sm-auto ms-auto d-flex justify-content-between gap-2">
+                    <form action="/administrator/institution">
+                        <div class="search-box">
+                            <input type="text" class="form-control" name="name" value="{{ request()->name }}"
+                                id="searchMemberList" placeholder="Cari Lembaga...">
+                            <i class="ri-search-line search-icon"></i>
                         </div>
+                    </form>
+                    <div>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">
+                            Tambah
+                        </button>
                     </div>
                 </div>
             </div>

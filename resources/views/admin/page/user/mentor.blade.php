@@ -10,11 +10,11 @@
                 <div class="col-sm-4">
                     <h3 class="mx-3">Mentor</h3>
                 </div>
-                <div class="col-sm-auto ms-auto d-flex justify-content-between">
-                    <div class="search-box mx-3 d-flex justify-content-between">
-                        <form action="/administrator/menu-mentor">
+                <div class="col-sm-auto ms-auto d-flex justify-content-between gap-3">
+                    <form action="/administrator/menu-mentor">
+                        <div class="search-box">
                             <input type="text" class="form-control" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Mentor...">
-                            
+                            <i class="ri-search-line search-icon"></i>
                         </form>
                     </div>
                     <div>
@@ -34,17 +34,6 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="listjs-table"id="customerList">
-                                <div class="row g-4 mb-3">
-                                    <div class="col-sm-auto">
-                                        <div class="d-flex">
-                                            <h5 class="mx-2 pt-2">Show</h5>
-                                            <select name=""class="form-select" id="expiry-month-input">
-                                                <option value="1">10</option>
-                                            </select>
-                                            <h5 class="mx-2 pt-2">entries</h5>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="table-responsive table-card mt-3 mb-1 mx-3">
                                     <table class="table align-middle table-nowrap" id="customerTable">
                                         <thead class="table-light">
@@ -99,7 +88,7 @@
                                                             </button>
                                                             <ul class="dropdown-menu dropdown-menu-end">
                                                                 <li>
-                                                                    <a href="/menu-mentor/detail/{{ $mentor->id }}"
+                                                                    <a href="/administrator/menu-mentor/detail/{{ $mentor->id }}"
                                                                         class="dropdown-item btn-show">
                                                                         <i
                                                                             class="ri-eye-fill align-bottom me-2 text-muted"></i>

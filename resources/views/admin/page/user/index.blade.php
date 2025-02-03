@@ -120,6 +120,7 @@
                                 <form action="/administrator/menu-siswa" class="d-flex">
                                     <input type="text" class="form-control me-2" id="searchMemberList" name="name"
                                         value="{{ request()->name }}" placeholder="Cari Siswa...">
+                                        <i class="ri-search-line search-icon"></i>
                                     <button class="btn btn-primary" type="submit">
                                         Cari
                                     </button>

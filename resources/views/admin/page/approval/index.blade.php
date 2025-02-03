@@ -34,7 +34,7 @@
                 <div class="col-sm-auto ms-auto d-flex align-items-center">
                     <div class="search-box mx-3 d-flex justify-content-between gap-2">
                         <form action="/administrator/approval">
-                            <div class="search-box mx-3">
+                            <div class="search-box">
                                 <input type="text" class="form-control" name="name" value="{{ request()->name }}"
                                     id="searchMemberList" placeholder="Cari Siswa...">
                                 <i class="ri-search-line search-icon"></i>
