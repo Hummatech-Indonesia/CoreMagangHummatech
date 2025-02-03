@@ -34,15 +34,15 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-auto col-xl-4 ms-auto d-flex gap-2 justify-content-end">
-                    <form class="app-search w-75" action="/administrator/course">
-                        <div class="position-relative">
-                            <input type="text" class="form-control" placeholder="Cari..." autocomplete="off" id="search-options" value="{{ request()->title }}" name="title">
-                            <span class="mdi mdi-magnify search-widget-icon"></span>
-                            <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none" id="search-close-options"></span>
+                <div class="col-sm-auto  ms-auto d-flex justify-content-between gap-2">
+                    <form class="" action="/administrator/course">
+                        <div class="search-box mx-3 ">
+                            <input type="text" class="form-control" placeholder="Cari..." autocomplete="off"
+                                id="search-options" value="{{ request()->title }}" name="title">
+                            <i class="ri-search-line search-icon"></i>
                         </div>
                     </form>
-                    <div class="list-grid-nav hstack gap-1">
+                    <div>
                         <button class="btn btn-secondary  shadow-none" data-bs-toggle="modal" data-bs-target="#add">
                             Tambah
                         </button>
@@ -61,7 +61,7 @@
                         <div class="card ribbon-box border shadow-none mb-lg-0">
                             <div class="card-body">
                                 <span
-                                    class="ribbon-three {{ $course->price == null ? 'ribbon-three-success' : 'ribbon-three-secondary' }}  material-shadow"><span>{{ $course->status == 'subcribe' ? 'Berlangganan' : Transaction::currencyFormatter($course->price  ) }}</span></span>
+                                    class="ribbon-three {{ $course->price == null ? 'ribbon-three-success' : 'ribbon-three-secondary' }}  material-shadow"><span>{{ $course->status == 'subcribe' ? 'Berlangganan' : Transaction::currencyFormatter($course->price) }}</span></span>
                                 <img class="card-img-top img-responsive w-100"
                                     src="{{ asset('storage/' . $course->image) }}" style="object-fit: cover;" width="20em"
                                     height="170em" alt="Card image cap" />
@@ -81,10 +81,12 @@
                                     <button class="py-1 btn btn-soft-warning btn-edit" type="button"
                                         data-id="{{ $course->id }}" data-title="{{ $course->title }}"
                                         data-description="{{ $course->description }}"
-                                        data-division="{{ $course->division_id }}" data-status="{{ $course->status }}" data-price="{{ $course->price }}" data-image="{{ $course->image }}">
+                                        data-division="{{ $course->division_id }}" data-status="{{ $course->status }}"
+                                        data-price="{{ $course->price }}" data-image="{{ $course->image }}">
                                         <i class="ri-pencil-line fs-3"></i>
                                     </button>
-                                    <button class="py-1 btn btn-soft-danger btn-delete" type="button" data-id="{{ $course->id }}">
+                                    <button class="py-1 btn btn-soft-danger btn-delete" type="button"
+                                        data-id="{{ $course->id }}">
                                         <i class=" ri-delete-bin-5-line fs-3"></i>
                                     </button>
                                 </div>
@@ -131,11 +133,11 @@
                                             data-title="{{ $course->title }}"
                                             data-description="{{ $course->description }}"
                                             data-division="{{ $course->division_id }}"
-                                            data-status="{{ $course->status }}"
-                                            data-image="{{ $course->image }}">
+                                            data-status="{{ $course->status }}" data-image="{{ $course->image }}">
                                             <i class="ri-pencil-line fs-3"></i>
                                         </button>
-                                        <button class="py-1 btn btn-soft-danger btn-delete" type="button" data-id="{{ $course->id }}">
+                                        <button class="py-1 btn btn-soft-danger btn-delete" type="button"
+                                            data-id="{{ $course->id }}">
                                             <i class=" ri-delete-bin-5-line fs-3"></i>
                                         </button>
                                     </div>
@@ -192,11 +194,11 @@
                                             data-id="{{ $course->id }}" data-title="{{ $course->title }}"
                                             data-description="{{ $course->description }}"
                                             data-division="{{ $course->division_id }}"
-                                            data-status="{{ $course->status }}"
-                                            data-image="{{ $course->image }}">
+                                            data-status="{{ $course->status }}" data-image="{{ $course->image }}">
                                             <i class="ri-pencil-line fs-3"></i>
                                         </button>
-                                        <button class="py-1 btn btn-soft-danger btn-delete" type="button" data-id="{{ $course->id }}">
+                                        <button class="py-1 btn btn-soft-danger btn-delete" type="button"
+                                            data-id="{{ $course->id }}">
                                             <i class=" ri-delete-bin-5-line fs-3"></i>
                                         </button>
                                     </div>
@@ -228,7 +230,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('administrator.course.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('administrator.course.store') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="title">Judul</label>
@@ -285,7 +288,8 @@
 
                         <div class="mb-3">
                             <label for="image">Foto materi</label>
-                            <input type="file" name="image" id="imageInput" class="form-control" accept="image/*" />
+                            <input type="file" name="image" id="imageInput" class="form-control"
+                                accept="image/*" />
                             <div id="imagePreview" class="mt-2"></div>
                             @error('image')
                                 <small class="text-danger">{{ $message }}</small>
@@ -471,7 +475,7 @@
             });
             $('#image-edit').attr('src', '/storage/' + image);
 
-            if(status === 'paid' || price > 0) {
+            if (status === 'paid' || price > 0) {
                 $('#price-edit').show();
                 $('#price-edit-input').val(price);
             } else {
@@ -487,6 +491,5 @@
             $('#form-delete').attr('action', '/administrator/course/delete/' + id);
             $('#modal-delete').modal('show');
         });
-
     </script>
 @endsection

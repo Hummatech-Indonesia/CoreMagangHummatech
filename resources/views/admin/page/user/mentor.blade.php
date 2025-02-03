@@ -10,14 +10,14 @@
                 <div class="col-sm-4">
                     <h3 class="mx-3">Mentor</h3>
                 </div>
-                <div class="col-sm-auto ms-auto d-flex justify-content-between pt-4">
-                    <div class="search-box mx-3">
-                        <form action="/menu-mentor">
+                <div class="col-sm-auto ms-auto d-flex justify-content-between gap-3">
+                    <form action="/administrator/menu-mentor">
+                        <div class="search-box">
                             <input type="text" class="form-control" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Mentor...">
                             <i class="ri-search-line search-icon"></i>
                         </form>
                     </div>
-                    <div class="list-grid-nav hstack gap-1">
+                    <div>
                         <button class="btn btn-success addMembers-modal" data-bs-toggle="modal" data-bs-target="#addModal">
                             Tambah
                         </button>
@@ -34,17 +34,6 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="listjs-table"id="customerList">
-                                <div class="row g-4 mb-3">
-                                    <div class="col-sm-auto">
-                                        <div class="d-flex">
-                                            <h5 class="mx-2 pt-2">Show</h5>
-                                            <select name=""class="form-select" id="expiry-month-input">
-                                                <option value="1">10</option>
-                                            </select>
-                                            <h5 class="mx-2 pt-2">entries</h5>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="table-responsive table-card mt-3 mb-1 mx-3">
                                     <table class="table align-middle table-nowrap" id="customerTable">
                                         <thead class="table-light">
@@ -99,7 +88,7 @@
                                                             </button>
                                                             <ul class="dropdown-menu dropdown-menu-end">
                                                                 <li>
-                                                                    <a href="/menu-mentor/detail/{{ $mentor->id }}"
+                                                                    <a href="/administrator/menu-mentor/detail/{{ $mentor->id }}"
                                                                         class="dropdown-item btn-show">
                                                                         <i
                                                                             class="ri-eye-fill align-bottom me-2 text-muted"></i>
@@ -124,8 +113,7 @@
                                                                 <li>
                                                                     <button type="button" class="dropdown-item btn-delete"
                                                                         data-id="{{ $mentor->id }}">
-                                                                        <i
-                                                                            class="ri-delete-bin-fill align-bottom me-2 text-danger"></i>
+                                                                        <i class="ri-delete-bin-fill align-bottom me-2 text-danger"></i>
                                                                         Hapus
                                                                     </button>
                                                                 </li>
@@ -213,7 +201,7 @@
                     <h5 class="modal-title" id="showModalLabel">Tambah Mentor</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/menu-mentor/store" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('administrator.mentor.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
@@ -285,13 +273,13 @@
             $('#mentor-image').attr('src', image);
             $('#modal-edit').modal('show');
 
-            $('#form-update').attr('action', '/menu-mentor/update/' + id);
+            $('#form-update').attr('action', '/administrator/menu-mentor/update/' + id);
         });
 
         $('.btn-delete').click(function() {
             var id = $(this).data('id');
 
-            $('#form-delete').attr('action', '/menu-mentor/delete/' + id);
+            $('#form-delete').attr('action', '/administrator/menu-mentor/delete/' + id);
             $('#modal-delete').modal('show');
         });
 

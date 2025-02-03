@@ -5,6 +5,7 @@
 </div>
 
 @section('content')
+
     <div class="card">
         <div class="card-body">
             <div class="row g-2 align-items-center">
@@ -32,18 +33,18 @@
                     </div>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex align-items-center">
-                    <div class="search-box mx-3 flex-grow-1">
-                        <form action="\approval">
-                            <div class="input-group">
+                    <div class="search-box mx-3 d-flex justify-content-between gap-2">
+                        <form action="/administrator/approval">
+                            <div class="search-box">
                                 <input type="text" class="form-control" name="name" value="{{ request()->name }}"
                                     id="searchMemberList" placeholder="Cari Siswa...">
-                                <span class="input-group-text"><i class="ri-search-line search-icon"></i></span>
+                                <i class="ri-search-line search-icon"></i>
                             </div>
                         </form>
-                    </div>
-                    <div class="list-grid-nav hstack gap-1">
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">Edit
-                            Limit</button>
+                        <div>
+                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">Edit
+                                Limit</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -178,17 +179,18 @@
         <div id="steparrow-description-info" class="tab-pane fade">
             <div class="row">
                 <div class="col-lg-12">
+
                     <div class="card">
                         <div
                             class="card-header align-items-center d-flex justify-content-between mx-md-3 flex-column flex-md-row">
                             <div class="d-flex gap-2 mb-2 mb-md-0">
-                                <p class="m-0 me-2">Show</p>
+                                {{-- <p class="m-0 me-2">Show</p>
                                 <select class="form-select" id="showEntries">
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
                                 </select>
-                                <p class="m-0 ms-2">entries</p>
+                                <p class="m-0 ms-2">entries</p> --}}
                             </div>
                             <div class="d-flex align-items-center justify-content-between mt-3">
                                 <!-- Tambahkan tombol submit -->
@@ -416,7 +418,7 @@
                         </div>
                     </form>
                 @else
-                    <form action="/limit" method="POST">
+                    <form action="/administrator/limit" method="POST">
                         @csrf
                         <div class="modal-body">
                             <label for="">Limit</label>
@@ -463,7 +465,8 @@
                 <div class="modal-body p-2 text-center">
                     <div class="mt-3 mx-3">
                         <h4>Nomor surat</h4>
-                        <form action="{{ route('administrator.approval.acceptMultiple') }}" id="form-accepted" method="POST">
+                        <form action="{{ route('administrator.approval.acceptMultiple') }}" id="form-accepted"
+                            method="POST">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="selected_ids" id="selected_ids">
@@ -604,31 +607,31 @@
                 $('.btn-reject').attr('data-id', id);
                 $('.btn-reject-reason').attr('data-id', id);
 
-                $('#form-declined').attr('action', '/approval/decline/' + id);
+                $('#form-declined').attr('action', '/administrator/approval/decline/' + id);
                 $('#offcanvasRight').offcanvas('show');
             });
 
             $('.btn-delete').click(function() {
                 let id = $(this).data('id');
-                $('#form-delete').attr('action', '/approval/delete/' + id);
+                $('#form-delete').attr('action', '/administrator/approval/delete/' + id);
                 $('#modal-delete').modal('show');
             });
 
             $('.btn-accept').click(function() {
                 let id = $(this).data('id');
-                $('#form-accepted-one').attr('action', '/approval/accept/' + id);
+                $('#form-accepted-one').attr('action', '/administrator/approval/accept/' + id);
                 $('#accepted-one').modal('show');
             });
 
             $('.btn-reject').click(function() {
                 let id = $(this).data('id');
-                $('#form-reject').attr('action', '/approval/decline/' + id);
+                $('#form-reject').attr('action', '/administrator/approval/decline/' + id);
                 $('#modalReject').modal('show');
             });
 
             $('.btn-reject-reason').click(function() {
                 let id = $(this).data('id');
-                $('#form-reject-reason').attr('action', 'approval/decline/' + id);
+                $('#form-reject-reason').attr('action', '/administrator/approval/decline/' + id);
                 $('#modalReject-reason').modal('show');
             });
         });

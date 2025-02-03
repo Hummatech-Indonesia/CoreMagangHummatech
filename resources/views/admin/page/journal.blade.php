@@ -84,9 +84,13 @@
                     </div>
                 </div>
                 <div class="col-sm-auto ms-auto pt-4">
-                    <form action="/journal" class="d-flex flex-column flex-sm-row mb-2">
+                    <form action="/administrator/journal" class="d-flex flex-column flex-sm-row mb-2">
                         <div class="mb-2 me-sm-2">
-                            <input type="text" class="form-control" name="name" value="{{ request()->name }}" id="searchMemberList" placeholder="Cari Siswa...">
+                            <div class="search-box">
+                                <input type="text" class="form-control" name="name" value="{{ request()->name }}"
+                                    id="searchMemberList" placeholder="Cari Siswa...">
+                                <i class="ri-search-line search-icon"></i>
+                            </div>
                         </div>
                         <div class="mb-2 d-sm-none">
                             <button class="btn btn-primary w-100" type="submit">
@@ -94,7 +98,8 @@
                             </button>
                         </div>
                         <div class="mx-sm-2 mb-2">
-                            <input type="date" name="created_at" value="{{ request()->created_at }}" class="form-control" id="exampleInputdate">
+                            <input type="date" name="created_at" value="{{ request()->created_at }}" class="form-control"
+                                id="exampleInputdate">
                         </div>
                         <div>
                             <button class="btn btn-primary w-100" type="submit">Cari</button>
@@ -113,18 +118,6 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-header align-items-center d-flex justify-content-between mx-3">
-                            <div class="d-flex gap-2">
-                                <p class="m-0">Show</p>
-                                <select name="" id="">
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                                <p class="m-0">entries</p>
-                            </div>
-                        </div><!-- end card header -->
-
                         <div class="card-body mx-3">
                             <div class="live-preview ">
                                 <div class="table-responsive table-card">
@@ -271,7 +264,6 @@
                                                         </h4>
                                                     </td>
                                                 </tr>
-
                                             @endforelse
                                         </tbody>
                                     </table>
@@ -320,36 +312,40 @@
                                         <tbody>
                                             @forelse ($adminJournalNotFilling as $index => $journal)
                                                 @if ($journal !== 'fillin')
-                                                <tr>
-                                                    <td class="number">{{ ++$index }}</td>
-                                                    <td class="name">{{ $journal->student->name }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($journal->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}</td>
-                                                    <td class="status">
-                                                        <?php
-                                                        if ($journal->status === 'fillin') {
-                                                            echo '<span class="badge bg-success-subtle text-success text-uppercase">MENGISI</span>';
-                                                        } else {
-                                                            echo '<span class="badge bg-danger-subtle text-danger text-uppercase">TIDAK MENGISI</span>';
-                                                        }
-                                                        ?>
-                                                    </td>
-                                                    <td class="description">
-                                                        {!! Str::limit($journal->description, 50) !!}
-                                                    </td>
-                                                    <td>
-                                                        <div class="view">
-                                                            <button class="btn btn-soft-primary edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal_{{ $journal->id }}">
-                                                                <i class="ri-eye-line"></i>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                    <tr>
+                                                        <td class="number">{{ ++$index }}</td>
+                                                        <td class="name">{{ $journal->student->name }}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($journal->created_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
+                                                        </td>
+                                                        <td class="status">
+                                                            <?php
+                                                            if ($journal->status === 'fillin') {
+                                                                echo '<span class="badge bg-success-subtle text-success text-uppercase">MENGISI</span>';
+                                                            } else {
+                                                                echo '<span class="badge bg-danger-subtle text-danger text-uppercase">TIDAK MENGISI</span>';
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                        <td class="description">
+                                                            {!! Str::limit($journal->description, 50) !!}
+                                                        </td>
+                                                        <td>
+                                                            <div class="view">
+                                                                <button class="btn btn-soft-primary edit-item-btn"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#showModal_{{ $journal->id }}">
+                                                                    <i class="ri-eye-line"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 @endif
                                             @empty
                                                 <tr>
                                                     <td colspan="8">
                                                         <div class="d-flex justify-content-center mt-3">
-                                                            <img src="{{ asset('no data.png') }}" width="200px" alt="">
+                                                            <img src="{{ asset('no data.png') }}" width="200px"
+                                                                alt="">
                                                         </div>
                                                         <h4 class="text-center mt-2 mb-4">
                                                             Data Masih kosong
@@ -386,7 +382,7 @@
                             <p id="modalName">{{ $journal->student->name }}</p>
                         </div>
                         <div>
-                            <h5  class="text-border">Tanggal :</h5>
+                            <h5 class="text-border">Tanggal :</h5>
                             <td>{{ \Carbon\Carbon::parse($journal->updated_at)->locale('id')->isoFormat('dddd, D MMMM Y') }}
                             </td>
                         </div>
@@ -395,13 +391,13 @@
                             <p>{{ \Carbon\Carbon::parse($journal->created_at)->format('H:i') }}</p>
                         </div>
                         <div>
-                            <h5  class="text-border">Kegiatan :</h5>
+                            <h5 class="text-border">Kegiatan :</h5>
                             <p class="break-word">
                                 {{ $journal->description }}
                             </p>
                         </div>
                         <div>
-                            <h5  class="text-border">Bukti :</h5>
+                            <h5 class="text-border">Bukti :</h5>
                             <p id="modalName">
                             <div class="image-container">
                                 <img src="{{ asset('storage/' . $journal->image) }}" alt="My Image"

@@ -11,7 +11,7 @@
                     <h5 class="mx-3 mb-0">Data Wajah</h5>
                 </div>
                 <div class="col-sm-4 mb-3 text-end">
-                    <form action="/faces" method="GET" class="d-flex align-items-center justify-content-end">
+                    <form action="/administrator/faces" method="GET" class="d-flex align-items-center justify-content-end">
                         <div class="input-group me-2">
                             <input type="text" name="name" class="form-control" placeholder="Cari..."
                                 aria-label="Cari data wajah" value="{{ request()->name }}">
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="mt-4">
-                            <a href="/faces/detail/{{ $student->id }}" class="btn btn-primary w-100">Lihat Wajah</a>
+                            <a href="{{ route('administrator.faces.detail', $student->id) }}" class="btn btn-primary w-100">Lihat Wajah</a>
                         </div>
                     </div>
                 </div>

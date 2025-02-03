@@ -259,14 +259,15 @@ class ApprovalService
     public function decline(DeclinedAprovalRequest $request, Student $student)
     {
         $data = $request->validated();
-        $mailData = [
-            'content' => $student->name,
-            'email' => $student->email
-        ];
+
         if ($request->has('reason')) {
+            $mailData = [
+                'content' => $student->name,
+                'email' => $student->email
+            ];
             $mailData['reason'] = $request->reason;
+            Mail::to($mailData['email'])->send(new DeclineApproval($mailData));
         }
-        Mail::to($mailData['email'])->send(new DeclineApproval($mailData));
         $data = ['status' => StudentStatusEnum::DECLINED->value];
         return $data;
     }

@@ -50,7 +50,7 @@
         <h5>
             {{ $responsesletters->student->name }}
         </h5>
-        <a href="/response-letter" class="btn btn-secondary">Kembali</a>
+        <a onclick="javascript:history.back()" class="btn btn-secondary">Kembali</a>
     </div>
 </div>
 <div class=" d-flex justify-content-center mt-5 mb-5">

@@ -10,14 +10,14 @@
                 <div class="col-sm-4">
                     <h4 class="mx-5 pt-2">Daftar Mentor Materi</h4>
                 </div>
-                <div class="col-sm-auto ms-auto d-flex">
+                <div class="col-sm-auto ms-auto d-flex justify-content-between gap-2">
                     <form action="/administrator/appointmentofmentor">
                         <div class="search-box mx-3">
                             <input type="text" class="form-control" id="searchMemberList" name="name" value="{{request()->name}}" placeholder="Cari Siswa...">
                             <i class="ri-search-line search-icon"></i>
                         </div>
                     </form>
-                    <div class="list-grid-nav hstack gap-1">
+                    <div>
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
                             Tambah Data
                         </button>

@@ -5,7 +5,7 @@
 </div>
 @section('content')
     <div class="d-flex justify-content-end">
-        <a href="/faces" class="btn btn-primary mb-3 ">Kembali</a>
+        <a href="{{ route('administrator.faces.index') }}" class="btn btn-primary mb-3 ">Kembali</a>
     </div>
     <div class="card">
         <div class="card-body">
@@ -14,14 +14,14 @@
                     <h5 class="mx-3">Data Wajah</h5>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex justify-content-between gap-2">
-                    <div class="list-grid-nav hstack gap-1 ">
-                        <form action="/faces/delete/{{ $id }}" method="post">
+                    <div>
+                        <form action="{{ route('administrator.faces.delete', $id) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm w-100">Hapus Data</button>
                         </form>
                     </div>
-                    <div class="list-grid-nav hstack gap-1 ">
+                    <div >
                         <button class="btn btn-success btn-sm w-100" data-bs-toggle="modal"
                             data-bs-target="#myModal">Tambah</button>
 
@@ -66,7 +66,7 @@
                     <h5 class="modal-title" id="myModalLabel">Tambah Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                 </div>
-                <form action="/faces/create" method="post" enctype="multipart/form-data">
+                <form action="{{ route('administrator.faces.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="col-12">

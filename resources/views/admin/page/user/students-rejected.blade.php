@@ -14,16 +14,9 @@
             <div class="card-body">
                 <div class="row mb-3 d-flex justify-content-between">
                     <div class="col-sm-auto">
-                        <div class="d-flex">
-                            <h5 class="mx-2 pt-2">Show</h5>
-                            <select name=""class="form-select" id="expiry-month-input">
-                                <option value="1">10</option>
-                            </select>
-                            <h5 class="mx-2 pt-2">entries</h5>
-                        </div>
                     </div>
                     <div class="col-sm-auto">
-                        <form action="/students-rejected" class="d-flex gap-2 align-items-center">
+                        <form action="/administrator/students-rejected" class="d-flex gap-2 align-items-center">
                             <label for="search">Cari:</label>
                             <input type="text" name="name" value="{{request()->name}}" id="search" class="form-control">
                         </form>
@@ -204,7 +197,7 @@
         <script>
             $('.btn-accept').click(function() {
                 let id = $(this).data('id');
-                $('#form-accepted').attr('action', '/students-rejected/' + id);
+                $('#form-accepted').attr('action', '/administrator/students-rejected/' + id);
                 $('.bs-example-modal-center').modal('show');
             });
 

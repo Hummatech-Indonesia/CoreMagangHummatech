@@ -31,20 +31,18 @@
 
                 <div class="col-sm-auto ms-auto pt-4">
                     <div class="search-box">
-                        <form action="/rfid">
-                            <div class="input-group">
+                        <form action="/administrator/rfid">
+                            <div class="search-box">
                                 <input type="text" class="form-control" name="name" value="{{ request()->name }}"
                                     id="searchMemberList" placeholder="Cari Siswa...">
-                                <span class="input-group-text">
                                     <i class="ri-search-line search-icon"></i>
-                                </span>
                             </div>
                         </form>
                     </div>
                 </div>
 
                 <div class="col-sm-auto pt-4">
-                    <form action="/rfid" method="GET">
+                    <form action="/administrator/rfid" method="GET">
                         <div class="list-grid-nav hstack gap-1">
                             <input type="date" class="form-control" id="exampleInputdate" name="created_at"
                                 value="{{ request()->created_at }}">
@@ -65,22 +63,11 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="listjs-table"id="customerList">
-                                <div class="row g-4 mb-3">
-                                    <div class="col-sm-auto">
-                                        <div class="d-flex">
-                                            <h5 class="mx-2 pt-2">Show</h5>
-                                            <select name=""class="form-select" id="expiry-month-input">
-                                                <option value="1">10</option>
-                                            </select>
-                                            <h5 class="mx-2 pt-2">entries</h5>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="table-responsive table-card mt-3 mb-1 mx-3">
                                     <table class="table align-middle table-nowrap" id="customerTable">
                                         <thead class="table-light">
                                             <tr>
-                                                <th class="sort" data-sort="number">
+                                                <th>
                                                     NO
                                                 </th>
                                                 <th class="sort" data-sort="name">
@@ -171,7 +158,7 @@
                                     <table class="table align-middle table-nowrap" id="customerTable">
                                         <thead class="table-light">
                                             <tr>
-                                                <th class="sort" data-sort="number">
+                                                <th >
                                                     NO
                                                 </th>
                                                 <th class="sort" data-sort="name">
@@ -409,7 +396,7 @@
             let id = $(this).data('id');
             let name = $(this).data('name');
             $('#name').text(name);
-            $('#form-add').attr('action', '/rfid/add/' + id);
+            $('#form-add').attr('action', '/administrator/rfid/add/' + id);
             $('#showModal').modal('show');
         });
 
@@ -419,7 +406,7 @@
             let rfid = $(this).data('rfid');
             $('#name-edit').text(name);
             $('#edit-rfid').val(rfid);
-            $('#form-edit').attr('action', '/rfid/update/' + id);
+            $('#form-edit').attr('action', '/administrator/rfid/update/' + id);
             $('#editModal').modal('show');
         });
     </script>

@@ -23,7 +23,7 @@ class DivisionController extends Controller
     {
 
         $divisions = $this->division->search($request)->paginate(12);
-        return view('admin.page.division.index' , compact('divisions'));
+        return view('admin.page.division.index', compact('divisions'));
     }
 
     /**
@@ -40,7 +40,7 @@ class DivisionController extends Controller
     public function store(StoreDivisionRequest $request)
     {
         $this->division->store($request->validated());
-        return back()->with('succcess' , 'Data berhasil ditambahkan');
+        return back()->with('succcess', 'Divisi berhasil ditambahkan');
     }
 
     /**
@@ -64,8 +64,8 @@ class DivisionController extends Controller
      */
     public function update(UpdateDivisionRequest $request, Division $division)
     {
-        $this->division->update($division->id , $request->validated());
-        return back()->with('success' , 'Data Berhasil Diperbarui');
+        $this->division->update($division->id, $request->validated());
+        return back()->with('success', 'Divisi Berhasil Diperbarui');
     }
 
     /**
@@ -73,7 +73,11 @@ class DivisionController extends Controller
      */
     public function destroy(Division $division)
     {
-        $this->division->delete($division->id);
-        return back()->with('success' , 'Data Berhasil Dihapus');
+        try {
+            $this->division->delete($division->id);
+            return back()->with('success', 'Divisi Berhasil Dihapus');
+        } catch (\Throwable $e) {
+            return back()->with('success', 'Divisi Sedang Digunakan');
+        }
     }
 }

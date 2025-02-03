@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="col-xl-2">
-                    <form class="app-search d-none d-md-block w-100" action="/offline-students/division-placement">
+                    <form class="app-search d-none d-md-block w-100" action="/administrator/offline-students/division-placement">
                         <div class="position-relative">
                             <input type="text" class="form-control" placeholder="Cari..." autocomplete="off"
                                 id="search-options" name="name" value="{{ request()->name }}">
@@ -46,17 +46,6 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row mb-3 d-flex justify-content-between">
-                                <div class="col-sm-auto">
-                                    <div class="d-flex">
-                                        <h5 class="mx-2 pt-2">Show</h5>
-                                        <select name=""class="form-select" id="expiry-month-input">
-                                            <option value="1">10</option>
-                                        </select>
-                                        <h5 class="mx-2 pt-2">entries</h5>
-                                    </div>
-                                </div>
-                            </div>
                             <div id="responsive-table">
                                 <table class="align-middle table table-nowrap table-bordered table-striped"
                                     style="width:100%">
@@ -127,17 +116,6 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row mb-3 d-flex justify-content-between">
-                                <div class="col-sm-auto">
-                                    <div class="d-flex">
-                                        <h5 class="mx-2 pt-2">Show</h5>
-                                        <select name=""class="form-select" id="expiry-month-input">
-                                            <option value="1">10</option>
-                                        </select>
-                                        <h5 class="mx-2 pt-2">entries</h5>
-                                    </div>
-                                </div>
-                            </div>
                             <div id="responsive-table-2">
                                 <table class="align-middle table table-nowrap table-bordered table-striped"
                                     style="width:100%">

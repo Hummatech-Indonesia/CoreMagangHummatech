@@ -11,12 +11,13 @@
                     <h5 class="mx-5 align-items-center">Data Surat</h5>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
-                    <div class="search-box mx-3">
-                        <form action="/response-letter">
-                            <input type="text" class="form-control" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Siswa...">
+                    <form action="/administrator/response-letter">
+                        <div class="search-box mx-3">
+                            <input type="text" class="form-control align-content-center" name="name"
+                                value="{{ request()->name }}" id="searchMemberList" placeholder="Cari Siswa...">
                             <i class="ri-search-line search-icon"></i>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -24,18 +25,6 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header align-items-center d-flex justify-content-between">
-                    <div class="d-flex gap-2">
-                        <p class="m-0">Show</p>
-                        <select name="" id="">
-                            <option value="10">10</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                        <p class="m-0">entries</p>
-                    </div>
-                </div><!-- end card header -->
-
                 <div class="card-body ">
                     <div class="live-preview ">
                         <div class="table-responsive table-card">
@@ -59,7 +48,7 @@
                                             </td>
                                             <td>{{ $responsesletter->letter_number }}</td>
                                             <td>
-                                                <a href="show/student/{{ $responsesletter->id }}"
+                                                <a href="{{ route('administrator.response-letter.show', $responsesletter->id) }}"
                                                     class="btn btn-soft-primary edit-item-btn"><i
                                                         class="ri-eye-fill align-bottom me-1"></i></a>
                                                 <a href="{{ asset('storage/response_letter/' . $responsesletter->letter_file) }}"

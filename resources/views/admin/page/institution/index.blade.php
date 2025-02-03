@@ -6,20 +6,20 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <div class="row g-2 align-items-center">
-                <div class="col-sm-4">
-                    <h3 class="mx-3">Daftar Lembaga</h3>
+            <div class="row g-2">
+                <div class="col-sm-4 align-items-center d-flex">
+                    <h5 class="mx-5 align-items-center">Daftar Lembaga</h5>
                 </div>
-                <div class="col-sm-auto d-flex justify-content-between ms-auto pt-4">
-                    <div class="search-box mx-3">
-                        <form style="width: 300px; margin-top: 5px; margin-right: 15px" action="">
-                            <input class="form-control" id="searchMemberList" name="name" type="text"
-                                value="{{ request()->name }}" placeholder="Cari Lembaga...">
+                <div class="col-sm-auto ms-auto d-flex justify-content-between gap-2">
+                    <form action="/administrator/institution">
+                        <div class="search-box">
+                            <input type="text" class="form-control" name="name" value="{{ request()->name }}"
+                                id="searchMemberList" placeholder="Cari Lembaga...">
                             <i class="ri-search-line search-icon"></i>
-                        </form>
-                    </div>
-                    <div class="list-grid-nav hstack gap-1">
-                        <button class="btn btn-success addMembers-modal" data-bs-toggle="modal" data-bs-target="#addModal">
+                        </div>
+                    </form>
+                    <div>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">
                             Tambah
                         </button>
                     </div>

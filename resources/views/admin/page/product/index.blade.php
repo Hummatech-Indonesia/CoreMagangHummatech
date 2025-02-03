@@ -58,35 +58,35 @@
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </form> --}}
-                    <form id="search-form" action="/product"
-                        method="GET">
-                        <div class="search-box d-flex mx-3">
-                            <input class="form-control" id="searchMemberList" name="name" type="text"
-                                value="{{ request()->name }}" placeholder="Cari Paket...">
-                            <div class="ml-2"> <i class="ri-search-line search-icon"></i>
+                    <div class="d-flex justify-content-between gap-2">
+                        <form id="search-form" action="/administrator/product" method="GET">
+                            <div class="search-box">
+                                <input class="form-control" id="searchMemberList" name="name" type="text"
+                                    value="{{ request()->name }}" placeholder="Cari Paket...">
+                                <i class="ri-search-line search-icon"></i>
                             </div>
-                        </div>
-                    </form>
+                        </form>
 
-                    @php
-                        $unusedDivisionsExist = false;
+                        @php
+                            $unusedDivisionsExist = false;
 
-                        foreach ($divisions as $division) {
-                            $isUsed = \App\Models\Product::where('division_id', $division->id)->exists();
-                            if (!$isUsed) {
-                                $unusedDivisionsExist = true;
-                                break;
+                            foreach ($divisions as $division) {
+                                $isUsed = \App\Models\Product::where('division_id', $division->id)->exists();
+                                if (!$isUsed) {
+                                    $unusedDivisionsExist = true;
+                                    break;
+                                }
                             }
-                        }
-                    @endphp
+                        @endphp
 
-                    @if ($unusedDivisionsExist)
-                        <div class="list-grid-nav hstack gap-1">
-                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
-                                Tambah Data
-                            </button>
-                        </div>
-                    @endif
+                        @if ($unusedDivisionsExist)
+                            <div>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
+                                    Tambah Data
+                                </button>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

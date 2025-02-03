@@ -63,10 +63,10 @@
                 </div>
 
                 <div class="col-md-8">
-                    <div class="row g-2 align-items-center justify-content-end">
-                        <div class="col-sm-5">
-                            <div class="list-grid-nav">
-                                <form action="/menu-siswa">
+                    <form action="/administrator/menu-siswa">
+                        <div class="row g-2 align-items-center justify-content-end">
+                            <div class="col-sm-5">
+                                <div class="list-grid-nav">
                                     <select name="school" id="schoolFilter" style="width: 100%;">
                                         <option {{ request()->school ? '' : 'selected' }}>Sekolah</option>
                                         @forelse ($schoolOption as $school)
@@ -81,26 +81,24 @@
                                             <option value="">Belum ada data</option>
                                         @endforelse
                                     </select>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-sm-auto">
-                            <div class="list-grid-nav">
-                                <form action="/menu-siswa">
-                                    <select name="acepted"  id="acceptedFilter">
+                            <div class="col-sm-auto">
+                                <div class="list-grid-nav">
+                                    <select name="acepted" id="acceptedFilter">
                                         <option value="" disabled selected>Status</option>
                                         <option value="1" {{ $request->acepted == 1 ? 'selected' : '' }}>Aktif</option>
                                         <option value="0" {{ $request->acepted == 0 ? 'selected' : '' }}>Tidak Aktif
                                         </option>
                                     </select>
-                                </form>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-sm-auto">
-                            <div class="list-grid-nav">
-                                <form action="/menu-siswa">
+                            <div class="col-sm-auto">
+                                <div class="list-grid-nav">
+
                                     <select name="gender" id="genderFilter">
                                         <option disabled selected>Jenis Kelamin</option>
                                         @foreach ($gendersOption as $gender)
@@ -110,27 +108,26 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                </form>
 
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-auto">
+                                <div class="search-box">
+                                    <form action="/administrator/menu-siswa" class="d-flex">
+                                        <input type="text" class="form-control me-2" id="searchMemberList" name="name"
+                                            value="{{ request()->name }}" placeholder="Cari Siswa...">
+                                        <i class="ri-search-line search-icon"></i>
+                                        <button class="btn btn-primary" type="submit">
+                                            Cari
+                                        </button>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="col-sm-auto">
-                            <div class="search-box">
-                                <form action="/menu-siswa" class="d-flex">
-                                    <input type="text" class="form-control me-2" id="searchMemberList" name="name"
-                                        value="{{ request()->name }}" placeholder="Cari Siswa...">
-                                    <button class="btn btn-primary" type="submit">
-                                        Cari
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-
-                    </div>
+                    </form>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -175,8 +172,8 @@
                                         </span>
                                         <span
                                             class="badge px-2 py-1 text-uppercase {{ $student->internship_type == 'online' ? 'bg-primary' : 'bg-danger' }} mt-1">{{ $student->internship_type == 'online' ? 'online' : 'offline' }}</span>
-                                        <span
-                                            class="badge px-2 py-1 text-uppercase bg-warning mt-1">SESI {{ $student->session }}</span>
+                                        <span class="badge px-2 py-1 text-uppercase bg-warning mt-1">SESI
+                                            {{ $student->session }}</span>
                                     </div>
                                     <p class=" mt-1"><strong class="fs-6">RFID: </strong><span
                                             class="text-muted">{{ $student->rfid == null ? '-' : $student->rfid }}</span>
@@ -761,7 +758,7 @@
             let image = $(this).data('image');
             let name = $(this).data('name');
 
-            $('#form-change').attr('action', '/menu-siswa/update/' + id);
+            $('#form-change').attr('action', '/administrator/menu-siswa/update/' + id);
             $('#name-edit').val(name);
             $('.show-image').attr('src', image);
             $('#myModal').modal('show');
@@ -769,13 +766,13 @@
 
         $('.btn-delete').click(function() {
             let id = $(this).data('id');
-            $('#form-delete').attr('action', '/menu-siswa/delete/' + id);
+            $('#form-delete').attr('action', '/administrator/menu-siswa/delete/' + id);
             $('#modal-delete').modal('show');
         });
 
         $('.btn-join').click(function() {
             let id = $(this).data('id');
-            $('#form-join').attr('action', '/menu-siswa/update/' + id);
+            $('#form-join').attr('action', '/administrator/menu-siswa/update/' + id);
             $('#modal-join').modal('show');
         });
 
@@ -787,7 +784,7 @@
 
         $('.btn-ban').click(function() {
             let id = $(this).data('id');
-            $('#form-ban').attr('action', '/menu-siswa/banned/' + id);
+            $('#form-ban').attr('action', '/administrator/menu-siswa/banned/' + id);
             $('#modal-ban').modal('show');
         })
     </script>
