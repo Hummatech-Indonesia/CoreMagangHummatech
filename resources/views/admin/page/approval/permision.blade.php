@@ -41,8 +41,11 @@
                 <div class="col-sm-auto ms-auto pt-4">
                     <form action="/administrator/permission" class="d-flex flex-column flex-sm-row mb-2">
                         <div class="mb-2 me-sm-2">
-                            <input type="text" class="form-control" name="name" value="{{ request()->name }}"
+                            <div class="search-box">
+                                <input type="text" class="form-control" name="name" value="{{ request()->name }}"
                                 id="searchMemberList" placeholder="Cari Siswa...">
+                                <i class="ri-search-line search-icon"></i>
+                            </div>
                         </div>
                         <div class="mx-sm-2 mb-2">
                             <input type="date" name="created_at" value="{{ request()->created_at }}" class="form-control"

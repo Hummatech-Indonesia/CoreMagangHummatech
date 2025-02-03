@@ -11,12 +11,12 @@
                     <h5 class="mx-5 align-items-center">Data Surat</h5>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
-                    <div class="search-box mx-3">
-                        <form action="/administrator/response-letter">
+                    <form action="/administrator/response-letter">
+                        <div class="search-box mx-3">
                             <input type="text" class="form-control align-content-center" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Siswa...">
-
+                            <i class="ri-search-line search-icon"></i>
+                        </div>
                         </form>
-                    </div>
                 </div>
             </div>
         </div>

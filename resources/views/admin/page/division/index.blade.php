@@ -10,14 +10,15 @@
                 <div class="col-sm-4">
                     <h3 class="mx-5 mb-0 mt-1">Divisi</h3>
                 </div>
-                <div class="col-sm-auto ms-auto d-flex">
+                <div class="col-sm-auto ms-auto d-flex justify-content-between gap-2">
                     <form action="/administrator/division">
-                        <div class="search-box mx-3 d-flex justify-content-between gap-2">
+                        <div class="search-box ">
                             <input type="text" class="form-control" id="searchMemberList" name="name"
                                 value="{{ request()->name }}" placeholder="Cari Divisi...">
+                                <i class="ri-search-line search-icon"></i>
                         </div>
                     </form>
-                    <div class="">
+                    <div>
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
                             Tambah Data
                         </button>

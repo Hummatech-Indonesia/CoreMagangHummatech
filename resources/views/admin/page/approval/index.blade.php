@@ -32,18 +32,18 @@
                     </div>
                 </div>
                 <div class="col-sm-auto ms-auto d-flex align-items-center">
-                    <div class="search-box mx-3 flex-grow-1">
+                    <div class="search-box mx-3 d-flex justify-content-between gap-2">
                         <form action="/administrator/approval">
-                            <div class="input-group">
+                            <div class="search-box mx-3">
                                 <input type="text" class="form-control" name="name" value="{{ request()->name }}"
                                     id="searchMemberList" placeholder="Cari Siswa...">
-                                <span class="input-group-text"><i class="ri-search-line search-icon"></i></span>
+                                <i class="ri-search-line search-icon"></i>
                             </div>
                         </form>
-                    </div>
-                    <div class="list-grid-nav hstack gap-1">
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">Edit
-                            Limit</button>
+                        <div>
+                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#myModal">Edit
+                                Limit</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -178,7 +178,7 @@
         <div id="steparrow-description-info" class="tab-pane fade">
             <div class="row">
                 <div class="col-lg-12">
-                    
+
                     <div class="card">
                         <div
                             class="card-header align-items-center d-flex justify-content-between mx-md-3 flex-column flex-md-row">
@@ -417,7 +417,7 @@
                         </div>
                     </form>
                 @else
-                    <form action="/limit" method="POST">
+                    <form action="/administrator/limit" method="POST">
                         @csrf
                         <div class="modal-body">
                             <label for="">Limit</label>
@@ -464,7 +464,8 @@
                 <div class="modal-body p-2 text-center">
                     <div class="mt-3 mx-3">
                         <h4>Nomor surat</h4>
-                        <form action="{{ route('administrator.approval.acceptMultiple') }}" id="form-accepted" method="POST">
+                        <form action="{{ route('administrator.approval.acceptMultiple') }}" id="form-accepted"
+                            method="POST">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="selected_ids" id="selected_ids">

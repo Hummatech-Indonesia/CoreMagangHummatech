@@ -13,24 +13,26 @@
                 <div class="col-sm-4 align-items-center d-flex">
                     <h5 class="mx-5 align-items-center">Data Sp</h5>
                 </div>
-                <div class="col-sm-auto ms-auto d-flex">
-                    <div class="search-box mx-3 d-flex justify-content-between gap-2">
-                        <form action="/administrator/warning-letter">
-                            <input type="text" class="form-control" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Siswa...">
-                        </form>
-                        <div >
-                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
-                                Tambah
-                            </button>
+                <div class="col-sm-auto ms-auto d-flex justify-content-between gap-2">
+                    <form action="/administrator/warning-letter">
+                        <div class="search-box mx-3">
+                            <input type="text" class="form-control" name="name" value="{{ request()->name }}"
+                                id="searchMemberList" placeholder="Cari Siswa...">
+                            <i class="ri-search-line search-icon"></i>
                         </div>
+                    </form>
+                    <div>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal">
+                            Tambah
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-        {{-- Menambahkan Alert --}}
-        @if(session('success'))
+    {{-- Menambahkan Alert --}}
+    @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
@@ -73,7 +75,8 @@
                                                 <a class="btn btn-light edit-item-btn"
                                                     href="/warning-letter/show/{{ $warningLetter->id }}"><i
                                                         class="  ri-eye-line"></i></a>
-                                                <a target="_blank" class="btn btn-soft-warning edit-item-btn " href="{{ asset('storage/warning_letter/' .$warningLetter->file) }}" ><i
+                                                <a target="_blank" class="btn btn-soft-warning edit-item-btn "
+                                                    href="{{ asset('storage/warning_letter/' . $warningLetter->file) }}"><i
                                                         class=" ri-printer-line"></i></a>
                                                 <button data-id="{{ $warningLetter->id }}"
                                                     class="btn btn-delete btn-soft-danger edit-item-btn"><i
@@ -192,7 +195,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-
         function printPDF(pdfUrl) {
             var printWindow = window.open(pdfUrl, '_blank');
             printWindow.addEventListener('load', function() {});

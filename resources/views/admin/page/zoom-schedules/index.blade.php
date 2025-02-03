@@ -4,20 +4,21 @@
     @dump(session('error'))
 </div>
 @section('content')
-<div class="card">
-    <div class="card-body">
-        <div class="row g-2">
-            <div class="col-sm-4">
-                <h4 class="mx-5 pt-2">Jadwal Zoom</h4>
-            </div>
-            <div class="col-sm-auto ms-auto d-flex">
-                <form action="/administrator/zoom-schedules">
-                    <div class="search-box mx-3">
-                        <input type="text" class="form-control" name="title" value="{{request()->title}}" id="searchMemberList" placeholder="Cari Jadwal...">
-                        <i class="ri-search-line search-icon"></i>
-                    </div>
-                </form>
-                    <div class="list-grid-nav hstack gap-1">
+    <div class="card">
+        <div class="card-body">
+            <div class="row g-2">
+                <div class="col-sm-4">
+                    <h4 class="mx-5 pt-2">Jadwal Zoom</h4>
+                </div>
+                <div class="col-sm-auto ms-auto d-flex justify-content-between gap-2">
+                    <form action="/administrator/zoom-schedules">
+                        <div class="search-box mx-3">
+                            <input type="text" class="form-control" name="title" value="{{ request()->title }}"
+                                id="searchMemberList" placeholder="Cari Jadwal...">
+                            <i class="ri-search-line search-icon"></i>
+                        </div>
+                    </form>
+                    <div>
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
                             Tambah Data
                         </button>
@@ -35,7 +36,8 @@
                     <h5 class="modal-title" id="varyingcontentModalLabel">Tambah Jadwal Zoom</h5>
                     <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('administrator.zoom-schedules.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('administrator.zoom-schedules.store') }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="m-2 mb-1">
@@ -105,8 +107,7 @@
                         </h3>
                         <div>
                             <button class="btn-edit border-0 bg-transparent" data-id="{{ $zoomSchedule->id }}"
-                                data-title="{{ $zoomSchedule->title }}"
-                                data-start_date="{{ $zoomSchedule->start_date }}"
+                                data-title="{{ $zoomSchedule->title }}" data-start_date="{{ $zoomSchedule->start_date }}"
                                 data-end_date="{{ $zoomSchedule->end_date }}" data-link="{{ $zoomSchedule->link }}">
                                 <i class="ri-edit-2-line fs-4" style="color: #FFAE1F"></i>
 
