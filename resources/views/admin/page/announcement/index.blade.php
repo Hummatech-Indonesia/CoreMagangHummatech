@@ -1,4 +1,8 @@
 @extends('admin.layouts.app')
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 @section('content')
 
 <div class="card">
@@ -28,13 +32,13 @@
                 <div class="row">
                     <div class="col-sm-auto col-md-auto col-lg-auto">
                         <div class="dataTables_length" id="example_length">
-                            <label class="d-flex align-items-center">Show 
+                            <label class="d-flex align-items-center">Show
                             <select name="example_length" aria-controls="example" class="form-select form-select-sm mx-2">
                                 <option value="10">10</option>
                                 <option value="25">25</option>
                                 <option value="50">50</option>
                                 <option value="100">100</option>
-                            </select> 
+                            </select>
                             entries</label>
                         </div>
                     </div>
@@ -274,11 +278,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $('.btn-edit').click(function () {
-            var id = $(this).data('id'); 
-            var start = $(this).data('start'); 
-            var end = $(this).data('end'); 
-            var description = $(this).data('description'); 
-            var status = $(this).data('status'); 
+            var id = $(this).data('id');
+            var start = $(this).data('start');
+            var end = $(this).data('end');
+            var description = $(this).data('description');
+            var status = $(this).data('status');
             $('#form-update').attr('action', '/announcement/' + id);
             $('#start-edit').val(start);
             $('#end-edit').val(end);
@@ -288,7 +292,7 @@
         });
 
         $('.btn-delete').click(function () {
-            var id = $(this).data('id'); 
+            var id = $(this).data('id');
             $('#form-delete').attr('action', '/announcement/' + id);
             $('#modal-delete').modal('show');
         });
@@ -297,10 +301,10 @@
             var detail = $('#detail-content');
             detail.empty();
             var id = $(this).data('id');
-            var create = $(this).data('create'); 
-            var start = $(this).data('start'); 
-            var end = $(this).data('end'); 
-            var description = $(this).data('description'); 
+            var create = $(this).data('create');
+            var start = $(this).data('start');
+            var end = $(this).data('end');
+            var description = $(this).data('description');
             var status = $(this).data('status');
             detail.append('<div class="mb-2">');
             detail.append('<h6 class="f-w-600">Tanggal Pembuatan</h6>');

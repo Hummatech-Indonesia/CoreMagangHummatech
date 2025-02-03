@@ -34,6 +34,8 @@
     <!-- Flatpickr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
+    <!-- Izi Toast -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
     <!-- Flatpickr JS -->
 
     @yield('style')
@@ -87,6 +89,7 @@
 
             <div class="page-content">
                 <div class="container-fluid">
+                    
                     @yield('content')
                 </div>
                 <!-- container-fluid -->
@@ -161,6 +164,25 @@
             });
         });
     </script>
+
+    <!-- Izi Toast -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+    <script>
+        @if (session('success'))
+            iziToast.success({
+                title: 'Sukses!',
+                message: "{{ session('success') }}",
+                position: 'topRight'
+            });
+        @endif
+        @if (session('error'))
+        iziToast.error({
+            title: 'Error!',
+            message: "{{ session('error') }}",
+            position: 'topRight'
+        });
+    @endif
+    </script>
 
 </body>
 

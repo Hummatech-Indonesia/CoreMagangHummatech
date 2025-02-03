@@ -1,4 +1,8 @@
 @extends('Hummatask.team.layouts.app')
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 
 @section('style')
 <style>
@@ -383,14 +387,14 @@
               var preview = document.getElementById('preview-image3');
               var fileInput = document.getElementById('image-input3');
               var file = fileInput.files[0];
-        
+
               if (file) {
                 var reader = new FileReader();
-        
+
                 reader.onload = function(e) {
                   preview.src = e.target.result;
                 };
-        
+
                 reader.readAsDataURL(file);
               } else {
                 Swal.fire({

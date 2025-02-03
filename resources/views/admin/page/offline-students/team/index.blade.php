@@ -1,4 +1,8 @@
 @extends('admin.layouts.app')
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 @section('content')
 <div class="card">
     <div class="px-3 py-1">
@@ -106,7 +110,7 @@
                         @endphp --}}
                         @if ($team->category_project_id != 1)
                             @foreach (App\Models\StudentTeam::where('hummatask_team_id', $team->id)->get() as $index => $studentTeam)
-                                
+
                                     @if(Storage::disk('public')->exists($studentTeam->student->avatar))
                                         <a href="javascript: void(0);" class="avatar-group-item shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $studentTeam->student->name }}">
                                             <img src="{{ asset('storage/'.$studentTeam->student->avatar) }}" alt="" class="rounded-circle avatar-xs">

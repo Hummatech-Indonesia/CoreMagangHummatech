@@ -1,4 +1,8 @@
 @extends('admin.layouts.app')
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 
 @section('style')
     <style>
@@ -129,7 +133,7 @@
                 <div class="col-lg-8 col-md-6 col-sm-12">
                     <div class="d-flex flex-column flex-lg-row justify-content-end gap-2">
                         <div class="search-box col-lg-3 col-12">
-                            <form action="/absent">
+                            <form action="/administrator/absent">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="name" value="{{ request()->name }}"
                                            id="searchMemberList" placeholder="Cari Siswa">
@@ -141,7 +145,7 @@
                             </form>
                         </div>
                         <div class="search-box col-lg-3 col-12">
-                            <form action="/absent">
+                            <form action="/administrator/absent">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="date" value="{{ request()->date }}"
                                            data-provider="flatpickr" placeholder="Pilih tanggal">

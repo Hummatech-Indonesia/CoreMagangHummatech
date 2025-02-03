@@ -1,4 +1,8 @@
 @extends('admin.layouts.app')
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 @section('content')
     <div class="d-flex justify-content-end">
         <a href="/faces" class="btn btn-primary mb-3 ">Kembali</a>

@@ -1,4 +1,8 @@
 @extends('admin.layouts.app')
+<div hidden>
+    @dump(session('success'))
+    @dump(session('error'))
+</div>
 @section('content')
 <div class="tab-content text-muted">
 <div class="tab-pane active" id="done" role="tabpanel">

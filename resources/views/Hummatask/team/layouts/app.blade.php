@@ -19,6 +19,7 @@
         href="{{ asset('mobilelogo.png') }}" />
     <!-- Owl Carousel -->
     <link rel="stylesheet" href="{{ asset('assets-user/dist/libs/owl.carousel/dist/assets/owl.carousel.min.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" rel="stylesheet">
 
     <!-- Core Css -->
     <link id="themeColors" rel="stylesheet" href="{{ asset('assets-user/dist/css/style.min.css') }}" />
@@ -487,7 +488,30 @@
     <script src="{{ asset('assets-user/dist/libs/owl.carousel/dist/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets-user/dist/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets-user/dist/js/dashboard.js') }}"></script>
-  
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        @if (session('success'))
+            iziToast.success({
+                title: 'Success',
+                message: "{{ session('success') }}",
+                position: 'topRight'
+            });
+        @endif
+        @if (session('error'))
+            iziToast.error({
+                title: 'Error',
+                message: "{{ session('error') }}",
+                position: 'topRight'
+            });
+        @endif
+        @if (session('warning'))
+            iziToast.warning({
+                title: 'Information',
+                message: "{{ session('warning') }}",
+                position: 'topRight'
+            });
+        @endif
+    </script>
 </body>
 
 <!-- Mirrored from demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/html/horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 21 Mar 2024 02:26:54 GMT -->
