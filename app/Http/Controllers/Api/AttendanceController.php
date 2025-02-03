@@ -91,6 +91,7 @@ class AttendanceController extends Controller
     {
         $time = now()->format('H:i:s');
         $attendanceData = [
+            'attendance_type' => 'offline',
             'student_id' => auth()->user()->student->id,
             'created_at' => now(),
             'updated_at' => now(),
