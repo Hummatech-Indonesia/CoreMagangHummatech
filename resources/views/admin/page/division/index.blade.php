@@ -163,14 +163,14 @@
         $('.btn-edit').click(function() {
             var id = $(this).data('id');
             var name = $(this).data('name');
-            $('#form-update').attr('action', '/division/' + id);
+            $('#form-update').attr('action', '/administrator/division/' + id);
             $('#name-edit').val(name);
             $('#modal-edit').modal('show');
         });
 
         $('.btn-delete').click(function() {
             var id = $(this).data('id');
-            $('#form-delete').attr('action', '/division/' + id);
+            $('#form-delete').attr('action', '/administrator/division/' + id);
             $('#modal-delete').modal('show');
         });
     </script>

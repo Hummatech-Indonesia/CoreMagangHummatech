@@ -210,11 +210,11 @@
                 <li class="menu-title"><span data-key="t-menu">Siswa</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarForms" data-bs-toggle="collapse" role="button"
-                        aria-expanded="{{ request()->routeIs('administrator.menu-siswa.student.index') || request()->routeIs('administrator.menu-mentor.mentor.index') || request()->routeIs('administrator.students-rejected.index') || request()->routeIs('administrator.students-banned.index') ? 'true' : 'false' }}"
+                        aria-expanded="{{ request()->routeIs('administrator.menu-siswa.student.index') || request()->routeIs('administrator.mentor.index') || request()->routeIs('administrator.students-rejected.index') || request()->routeIs('administrator.students-banned.index') ? 'true' : 'false' }}"
                         aria-controls="sidebarForms">
                         <i class="ri-account-circle-line"></i> <span data-key="t-forms">User</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ request()->routeIs('administrator.menu-siswa.student.index') || request()->routeIs('administrator.menu-mentor.mentor.index') || request()->routeIs('administrator.students-rejected.index') || request()->routeIs('administrator.students-banned.index') || request()->routeIs('administrator.faces.index') ? 'show' : '' }}"
+                    <div class="collapse menu-dropdown {{ request()->routeIs('administrator.menu-siswa.student.index') || request()->routeIs('administrator.mentor.index') || request()->routeIs('administrator.students-rejected.index') || request()->routeIs('administrator.students-banned.index') || request()->routeIs('administrator.faces.index') ? 'show' : '' }}"
                         id="sidebarForms">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
@@ -228,8 +228,8 @@
                                     data-key="t-basic-elements">Data Wajah</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('administrator.menu-mentor.mentor.index') }}"
-                                    class="nav-link {{ request()->routeIs('administrator.menu-mentor.mentor.index') ? 'active' : '' }}"
+                                <a href="{{ route('administrator.mentor.index') }}"
+                                    class="nav-link {{ request()->routeIs('administrator.mentor.index') ? 'active' : '' }}"
                                     data-key="t-form-select">Mentor</a>
                             </li>
                             {{-- <li class="nav-item">

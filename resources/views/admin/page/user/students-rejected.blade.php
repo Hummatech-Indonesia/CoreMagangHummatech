@@ -197,7 +197,7 @@
         <script>
             $('.btn-accept').click(function() {
                 let id = $(this).data('id');
-                $('#form-accepted').attr('action', '/students-rejected/' + id);
+                $('#form-accepted').attr('action', '/administrator/students-rejected/' + id);
                 $('.bs-example-modal-center').modal('show');
             });
 

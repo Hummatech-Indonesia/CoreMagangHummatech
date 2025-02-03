@@ -5,6 +5,7 @@
 </div>
 
 @section('content')
+
     <div class="card">
         <div class="card-body">
             <div class="row g-2 align-items-center">

@@ -119,17 +119,6 @@
         <div id="steparrow-description-info" class="tab-pane fade">
             <div class="card">
                 <div class="card-body">
-                    <div class="row g-4 mb-3">
-                        <div class="col-sm-auto">
-                            <div class="d-flex">
-                                <h5 class="mx-2 pt-2">Show</h5>
-                                <select name="" class="form-select" id="expiry-month-input">
-                                    <option value="1">10</option>
-                                </select>
-                                <h5 class="mx-2 pt-2">entries</h5>
-                            </div>
-                        </div>
-                    </div>
                     <table class="align-middle table table-nowrap table-bordered table-striped" style="width:100%">
                         <table class="table align-middle table-nowrap" id="customerTable">
                             <thead class="table-light">
@@ -272,7 +261,7 @@
         });
         $('.add-placement').on('click', function() {
             var id = $(this).data('id');
-            $('#form-placement').attr('action', '/online-student/menotor-placement/post/' + id);
+            $('#form-placement').attr('action', '/administrator/online-student/menotor-placement/post/' + id);
             $('#myModal').modal('show');
         });
 
@@ -284,7 +273,7 @@
             $('#edit-mentor').val(mentor_id).trigger('change');
 
 
-            $('#form-placement-edit').attr('action', '/online-student/menotor-placement/edit/' + id);
+            $('#form-placement-edit').attr('action', '/administrator/online-student/menotor-placement/edit/' + id);
             $('#modal-edit').modal('show');
         });
     </script>

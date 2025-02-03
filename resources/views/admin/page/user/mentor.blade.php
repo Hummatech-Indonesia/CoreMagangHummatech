@@ -113,8 +113,7 @@
                                                                 <li>
                                                                     <button type="button" class="dropdown-item btn-delete"
                                                                         data-id="{{ $mentor->id }}">
-                                                                        <i
-                                                                            class="ri-delete-bin-fill align-bottom me-2 text-danger"></i>
+                                                                        <i class="ri-delete-bin-fill align-bottom me-2 text-danger"></i>
                                                                         Hapus
                                                                     </button>
                                                                 </li>
@@ -202,7 +201,7 @@
                     <h5 class="modal-title" id="showModalLabel">Tambah Mentor</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/menu-mentor/store" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('administrator.mentor.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
@@ -274,13 +273,13 @@
             $('#mentor-image').attr('src', image);
             $('#modal-edit').modal('show');
 
-            $('#form-update').attr('action', '/menu-mentor/update/' + id);
+            $('#form-update').attr('action', '/administrator/menu-mentor/update/' + id);
         });
 
         $('.btn-delete').click(function() {
             var id = $(this).data('id');
 
-            $('#form-delete').attr('action', '/menu-mentor/delete/' + id);
+            $('#form-delete').attr('action', '/administrator/menu-mentor/delete/' + id);
             $('#modal-delete').modal('show');
         });
 

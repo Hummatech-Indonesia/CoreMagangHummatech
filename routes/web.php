@@ -175,10 +175,10 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
     });
 
     Route::prefix('warning-letter')->name('.warning-letter.')->group(function () {
-        Route::get('/', [WarningLetterController::class, 'index'])->name('warning-letter.index');
-        Route::post('store', [WarningLetterController::class, 'store'])->name('warning-letter.store');
-        Route::get('show/{WarningLetter}', [WarningLetterController::class, 'show'])->name('warning-letter.show');
-        Route::delete('delete/{WarningLetter}', [WarningLetterController::class, 'destroy'])->name('warning-letter.delete');
+        Route::get('/', [WarningLetterController::class, 'index'])->name('index');
+        Route::post('store', [WarningLetterController::class, 'store'])->name('store');
+        Route::get('show/{WarningLetter}', [WarningLetterController::class, 'show'])->name('show');
+        Route::delete('delete/{WarningLetter}', [WarningLetterController::class, 'destroy'])->name('delete');
     });
 
     Route::prefix('voucher')->name('.voucher.')->group(function () {
@@ -188,8 +188,8 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
     });
 
     Route::prefix('response-letter')->name('.response-letter.')->group(function () {
-        Route::get('/', [ResponseLetterController::class, 'index'])->name('response-letter.index');
-        Route::get('show/student/{responseLetter}', [ResponseLetterController::class, 'show'])->name('response-letter.show');
+        Route::get('/', [ResponseLetterController::class, 'index'])->name('index');
+        Route::get('show/student/{responseLetter}', [ResponseLetterController::class, 'show'])->name('show');
     });
 
     Route::prefix('online-student')->name('.online-student.')->group(function () {
@@ -228,7 +228,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
     Route::prefix('faces')->name('.faces.')->group(function () {
         Route::get('/', [FaceController::class, 'index'])->name('index');
         Route::get('detail/{id}', [FaceController::class, 'show'])->name('detail');
-        Route::post('create', [FaceController::class, 'store'])->name('create');
+        Route::post('create', [FaceController::class, 'store'])->name('store');
         Route::delete('delete/{student}', [FaceController::class, 'destroy'])->name('delete');
     });
 
@@ -237,12 +237,12 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
         Route::put('/{student}', [StudentRejectedController::class, 'accept'])->name('accept');
     });
 
-    Route::prefix('menu-mentor')->name('.menu-mentor.')->group(function () {
-        Route::get('/', [AdminMentorController::class, 'index'])->name('mentor.index');
-        Route::post('store', [AdminMentorController::class, 'store'])->name('mentor.store');
-        Route::put('update/{mentor}', [AdminMentorController::class, 'update'])->name('mentor.update');
-        Route::delete('delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('mentor.delete');
-        Route::get('detail/{mentor}', [AdminMentorController::class, 'show'])->name('mentor.show');
+    Route::prefix('menu-mentor')->name('.mentor.')->group(function () {
+        Route::get('/', [AdminMentorController::class, 'index'])->name('index');
+        Route::post('store', [AdminMentorController::class, 'store'])->name('store');
+        Route::put('update/{mentor}', [AdminMentorController::class, 'update'])->name('update');
+        Route::delete('delete/{mentor}', [AdminMentorController::class, 'destroy'])->name('delete');
+        Route::get('detail/{mentor}', [AdminMentorController::class, 'show'])->name('show');
     });
 
     Route::prefix('student-progress')->name('.student-progress.')->group(function () {

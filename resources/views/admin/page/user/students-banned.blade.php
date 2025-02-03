@@ -53,7 +53,7 @@
                                 <td>OFFLINE</td>
                                 @endif
                                 <td class="text-center">
-                                    <form action="students-banned/Open/{{ $student->id }}" method="POST" class="d-inline">
+                                    <form action="{{ route('administrator.menu-siswa.students.banned.open', $student->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('PUT')
                                         <button class="btn btn-info shadow-none">Buka Banned</button>

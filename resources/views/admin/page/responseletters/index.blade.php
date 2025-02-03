@@ -13,10 +13,11 @@
                 <div class="col-sm-auto ms-auto d-flex">
                     <form action="/administrator/response-letter">
                         <div class="search-box mx-3">
-                            <input type="text" class="form-control align-content-center" name="name" value="{{request()->name}}" id="searchMemberList" placeholder="Cari Siswa...">
+                            <input type="text" class="form-control align-content-center" name="name"
+                                value="{{ request()->name }}" id="searchMemberList" placeholder="Cari Siswa...">
                             <i class="ri-search-line search-icon"></i>
                         </div>
-                        </form>
+                    </form>
                 </div>
             </div>
         </div>
@@ -47,7 +48,7 @@
                                             </td>
                                             <td>{{ $responsesletter->letter_number }}</td>
                                             <td>
-                                                <a href="show/student/{{ $responsesletter->id }}"
+                                                <a href="{{ route('administrator.response-letter.show', $responsesletter->id) }}"
                                                     class="btn btn-soft-primary edit-item-btn"><i
                                                         class="ri-eye-fill align-bottom me-1"></i></a>
                                                 <a href="{{ asset('storage/response_letter/' . $responsesletter->letter_file) }}"

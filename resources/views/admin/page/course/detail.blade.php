@@ -44,25 +44,21 @@
                     <span class="h4 mb-0">Sub Materi</span>
                 </div>
             </div>
-            <div class="col-sm-auto col-xl-4 ms-auto d-flex gap-4 justify-content-end">
-                <form class="app-search d-none d-md-block w-50">
-                    <div class="position-relative">
+            <div class="col-sm-auto ms-auto d-flex gap-3 justify-content-between ">
+                <form >
+                    <div class="search-box">
                         <input type="text" class="form-control" placeholder="Cari..." autocomplete="off"
                             id="search-options" value="">
-                        <span class="mdi mdi-magnify search-widget-icon"></span>
-                        <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none"
-                            id="search-close-options"></span>
+                            <i class="ri-search-line search-icon"></i>
                     </div>
                 </form>
-                <div class="list-grid-nav hstack">
-                    <button class="btn btn-secondary shadow-none me-2" data-bs-toggle="modal" data-bs-target="#add">
+                <div>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#add">
                         Tambah Sub Materi
                     </button>
-                    {{-- <button class="btn btn-secondary shadow-none" data-bs-toggle="modal" data-bs-target="#addtask">
-                        Tambah Tugas
-                    </button> --}}
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -196,7 +192,7 @@
                 </h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('course-assignment.store', $course->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('administrator.course-assignment.store', $course->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
@@ -343,7 +339,7 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
-                                        <a href="{{ route('assignment.submit-task', $assignment->id) }}" type="button"
+                                        <a href="{{ route('administrator.assignment.submit-task', $assignment->id) }}" type="button"
                                             class="dropdown-item btn-show">
                                             Detail
                                         </a>
@@ -359,7 +355,7 @@
                                         </button>
                                     </li> --}}
                                     <li>
-                                        <form action="{{ route('course-assignment.destroy', $assignment->id) }}" method="POST">
+                                        <form action="{{ route('administrator.course-assignment.destroy', $assignment->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-danger" style="background: none; border: none; padding: 0; margin-left: 19px;">Hapus</button>

@@ -73,14 +73,15 @@
                                             <td>SP {{ $warningLetter->status }}</td>
                                             <td>
                                                 <a class="btn btn-light edit-item-btn"
-                                                    href="/warning-letter/show/{{ $warningLetter->id }}"><i
+                                                    href="{{ route('administrator.warning-letter.show', $warningLetter->id) }}"><i
                                                         class="  ri-eye-line"></i></a>
                                                 <a target="_blank" class="btn btn-soft-warning edit-item-btn "
                                                     href="{{ asset('storage/warning_letter/' . $warningLetter->file) }}"><i
                                                         class=" ri-printer-line"></i></a>
                                                 <button data-id="{{ $warningLetter->id }}"
-                                                    class="btn btn-delete btn-soft-danger edit-item-btn"><i
-                                                        class="bx bx-trash"></i></button>
+                                                    class="btn btn-delete btn-soft-danger edit-item-btn">
+                                                    <i class="bx bx-trash"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     @empty
@@ -205,7 +206,7 @@
 
         $('.btn-delete').on('click', function() {
             var id = $(this).data('id');
-            $('#form-delete').attr('action', '/warning-letter/delete/' + id);
+            $('#form-delete').attr('action', '/administrator/warning-letter/delete/' + id);
             $('#modal-delete').modal('show');
         });
     </script>
