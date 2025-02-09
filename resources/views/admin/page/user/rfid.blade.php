@@ -12,16 +12,16 @@
                     <div class="step-arrow-nav mb-4 pt-3 mx-3">
                         <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="steparrow-gen-info-tab" data-bs-toggle="pill"
-                                    data-bs-target="#steparrow-gen-info" type="button" role="tab"
-                                    aria-controls="steparrow-gen-info" aria-selected="true">
+                                <button class="nav-link active" id="students-tab" data-bs-toggle="pill"
+                                data-bs-target="#students" type="button" role="tab" aria-controls="students"
+                                aria-selected="false" data-position="1" tabindex="-1">
                                     Data Siswa
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="steparrow-description-info-tab" data-bs-toggle="pill"
-                                    data-bs-target="#steparrow-description-info" type="button" role="tab"
-                                    aria-controls="steparrow-description-info" aria-selected="false">
+                                <button class="nav-link" id="placement-rfid-tab" data-bs-toggle="pill"
+                                    data-bs-target="#placement-rfid" type="button" role="tab"
+                                    aria-controls="placement-rfid" aria-selected="false">
                                     Daftarkan RFID
                                 </button>
                             </li>
@@ -57,7 +57,7 @@
     </div>
 
     <div class="tab-content">
-        <div id="steparrow-gen-info" class="tab-pane fade show active">
+        <div id="students" class="tab-pane fade show active">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -137,7 +137,7 @@
         </div>
 
 
-        <div id="steparrow-description-info" class="tab-pane fade">
+        <div id="placement-rfid" class="tab-pane fade">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -333,7 +333,7 @@
         });
     </script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             function resetActiveTab() {
                 $('.nav-link').removeClass('active');
@@ -388,7 +388,7 @@
 
             changeTab();
         });
-    </script>
+    </script> --}}
 
 
     <script>

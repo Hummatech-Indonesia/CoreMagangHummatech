@@ -28,15 +28,14 @@
                             Rekap Excel
                         </button>
                         <!-- Export Excel Modal -->
-                        <div class="modal fade" id="exportExcelModal" tabindex="-1"
-                             aria-labelledby="exportExcelModalLabel"
-                             aria-hidden="true">
+                        <div class="modal fade" id="exportExcelModal" tabindex="-1" aria-labelledby="exportExcelModalLabel"
+                            aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exportExcelModalLabel">Rekap Excel</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                                            aria-label="Close"></button>
                                     </div>
                                     <form action="{{ route('administrator.absent.export.excel') }}" method="get">
                                         <div class="modal-body">
@@ -69,7 +68,7 @@
                                                     @foreach ($attendanceMonth as $month)
                                                         <option value="{{ $month->month }}"
                                                             {{ request()->input('month', now()->month) == $month->month ? ' selected' : '' }}>
-                                                            {{ \Illuminate\Support\Carbon::parse("2024-" . $month->month . "-01")->translatedFormat('F') }}
+                                                            {{ \Illuminate\Support\Carbon::parse('2024-' . $month->month . '-01')->translatedFormat('F') }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -112,18 +111,15 @@
                         <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="offline-tab" data-bs-toggle="pill"
-                                        data-bs-target="#offline"
-                                        type="button" role="tab" aria-controls="offline" aria-selected="false"
-                                        data-position="1"
-                                        tabindex="-1">
+                                    data-bs-target="#offline" type="button" role="tab" aria-controls="offline"
+                                    aria-selected="false" data-position="1" tabindex="-1">
                                     Siswa Offline
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="online-tab" data-bs-toggle="pill" data-bs-target="#online"
-                                        type="button" role="tab" aria-controls="online" aria-selected="false"
-                                        data-position="2"
-                                        tabindex="-1">
+                                    type="button" role="tab" aria-controls="online" aria-selected="false"
+                                    data-position="2" tabindex="-1">
                                     Siswa Online
                                 </button>
                             </li>
@@ -136,39 +132,38 @@
                             <form action="/administrator/absent">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="name" value="{{ request()->name }}"
-                                           id="searchMemberList" placeholder="Cari Siswa">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><i class="ri-search-line"></i></span>
-                                    </div>
+                                        id="searchMemberList" placeholder="Cari Siswa">
+                                    <button type="submit"
+                                        class="btn btn-outline-secondary d-flex align-items-center px-3 border-start-0">
+                                        <i class="ri-search-line fs-5"></i>
+                                    </button>
                                 </div>
-                                <button type="submit" class="btn btn-primary d-lg-none mt-2 w-100">Cari</button>
                             </form>
                         </div>
                         <div class="search-box col-lg-3 col-12">
                             <form action="/administrator/absent">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="date" value="{{ request()->date }}"
-                                           data-provider="flatpickr" placeholder="Pilih tanggal">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><i class="ri-calendar-line"></i></span>
-                                    </div>
+                                    <input type="text" class="form-control flatpickr-input" name="date"
+                                        value="{{ request()->date }}" data-provider="flatpickr"
+                                        placeholder="Pilih tanggal" readonly>
+                                    <button type="submit"
+                                        class="btn btn-outline-secondary d-flex align-items-center px-3 border-start-0">
+                                        <i class="ri-calendar-line fs-5"></i>
+                                    </button>
+
                                 </div>
-                                <button type="submit" class="btn btn-primary d-lg-none mt-2 w-100">Cari</button>
                             </form>
                         </div>
-                        <div
-                            class="form-check form-switch col-lg-3 col-12 d-flex justify-content-between align-items-center mt-2 mt-lg-0"
+                        <div class="form-check form-switch col-lg-3 col-12 d-flex justify-content-between align-items-center mt-2 mt-lg-0"
                             style="width: auto;">
                             <form action="{{ route('wfh.today') }}" class="d-flex align-items-center w-100"
-                                  id="toggleForm"
-                                  method="POST">
+                                id="toggleForm" method="POST">
                                 @csrf
                                 <label class="form-check-label ms-n4" for="switchSizeLargeChecked">WFO</label>
                                 <div class="flex-grow-1 ml-mobile-100">
                                     <input class="form-check-input" type="checkbox" name="is_on"
-                                           style="width: 40px; height: 20px"
-                                           role="switch" id="switchSizeLargeChecked" value="true"
-                                        {{ $wfh && $wfh->is_on == 1 ? 'checked' : '' }} />
+                                        style="width: 40px; height: 20px" role="switch" id="switchSizeLargeChecked"
+                                        value="true" {{ $wfh && $wfh->is_on == 1 ? 'checked' : '' }} />
                                 </div>
                                 <label class="form-check-label ms-1" for="switchSizeLargeChecked">WFH</label>
                             </form>
@@ -181,8 +176,9 @@
         <div class="card-body border-top">
             @if (!function_exists('dateFormatted'))
                 @php
-                    function dateFormatted(string $dateTime): string {
-                    return \Carbon\Carbon::parse($dateTime)->format('H:i');
+                    function dateFormatted(string $dateTime): string
+                    {
+                        return \Carbon\Carbon::parse($dateTime)->format('H:i');
                     }
                 @endphp
             @endif
@@ -191,28 +187,127 @@
                     <div class="tab-pane fade" id="online">
                         <table class="table align-middle table-nowrap table-striped-columns mb-0">
                             <thead class="table-light">
-                            <tr>
-                                <th scope="col" style="width: 1rem">No.</th>
-                                <th scope="col">Siswa</th>
-                                <th scope="col">Sekolah</th>
-                                <th scope="col">Tanggal</th>
-                                <th scope="col" class="text-center">Keterangan</th>
-                                <th scope="col" class="text-center">Masuk</th>
-                                <th scope="col" class="text-center">Pulang</th>
-                            </tr>
+                                <tr>
+                                    <th scope="col" style="width: 1rem">No.</th>
+                                    <th scope="col">Siswa</th>
+                                    <th scope="col">Sekolah</th>
+                                    <th scope="col">Tanggal</th>
+                                    <th scope="col" class="text-center">Keterangan</th>
+                                    <th scope="col" class="text-center">Masuk</th>
+                                    <th scope="col" class="text-center">Pulang</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @foreach ($onlineAttendances as $attendance)
-                                @php
-                                    $internshipEndDate = $attendance->internship_end_date;
-                                    $today = \Carbon\Carbon::now();
-                                @endphp
-                                @if ($today <= $internshipEndDate)
+                                @foreach ($onlineAttendances as $attendance)
+                                    @php
+                                        $internshipEndDate = $attendance->internship_end_date;
+                                        $today = \Carbon\Carbon::now();
+                                    @endphp
+                                    @if ($today <= $internshipEndDate)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $attendance->name }}</td>
+                                            <td>{{ $attendance->school }}</td>
+                                            <td>{{ request('date') ?? \Carbon\Carbon::now()->format('Y-m-d') }}</td>
+                                            <td class="text-center">
+                                                @if (isset($attendance->attendances[0]))
+                                                    @if ($attendance->attendances[0]->status == 'masuk')
+                                                        <span class="badge bg-success-subtle text-success py-2 px-3">
+                                                            {{ $attendance->attendances[0]->status }}
+                                                        </span>
+                                                    @endif
+                                                    @if ($attendance->attendances[0]->status == 'izin')
+                                                        <span class="badge bg-warning-subtle text-warning py-2 px-3">
+                                                            {{ $attendance->attendances[0]->status }}
+                                                        </span>
+                                                    @endif
+                                                    @if ($attendance->attendances[0]->status == 'sakit')
+                                                        <span class="badge bg-warning-subtle text-warning py-2 px-3">
+                                                            {{ $attendance->attendances[0]->status }}
+                                                        </span>
+                                                    @endif
+                                                    @if ($attendance->attendances[0]->status == 'alpha')
+                                                        <span class="badge bg-danger-subtle text-danger py-2 px-3">
+                                                            {{ $attendance->attendances[0]->status }}
+                                                        </span>
+                                                    @endif
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if (isset($attendance->attendances[0]))
+                                                    @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
+                                                        @if ($detailAttendance->status == 'present')
+                                                            @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                                    \Carbon\Carbon::createFromFormat('H:i:s', $rule?->checkin_ends ?? '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                                <span
+                                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                                            @else
+                                                                <span
+                                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                                            @endif
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                            <td class="text-center">
+                                                @if (isset($attendance->attendances[0]))
+                                                    @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
+                                                        @if ($detailAttendance->status == 'return')
+                                                            @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                                    \Carbon\Carbon::createFromFormat('H:i:s', $rule?->checkout_ends ?? '20:00:00')->addMinutes(1)->format('H:i:s'))
+                                                                <span
+                                                                    class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                                            @else
+                                                                <span
+                                                                    class="badge bg-danger-subtle text-danger py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                                            @endif
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade show active" id="offline">
+                        <table class="table align-middle table-nowrap table-striped-columns mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col" style="width: 1rem">No.</th>
+                                    <th scope="col">Siswa</th>
+                                    <th scope="col">Sekolah</th>
+                                    <th scope="col">Tanggal</th>
+                                    <th scope="col" class="text-center">Tipe Absen</th>
+                                    <th scope="col" class="text-center">Keterangan</th>
+                                    <th scope="col" class="text-center">Masuk</th>
+                                    <th scope="col" class="text-center">Istirahat</th>
+                                    <th scope="col" class="text-center">Kembali</th>
+                                    <th scope="col" class="text-center">Pulang</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($oflineAttendances as $attendance)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $attendance->name }}</td>
                                         <td>{{ $attendance->school }}</td>
                                         <td>{{ request('date') ?? \Carbon\Carbon::now()->format('Y-m-d') }}</td>
+                                        <td class="text-center">
+                                            @if (isset($attendance->attendances[0]))
+                                                @if ($attendance->attendances[0]->attendance_type == 'offline')
+                                                    <span class="badge bg-success-subtle text-success py-2 px-3">
+                                                        {{ $attendance->attendances[0]->attendance_type }}
+                                                    </span>
+                                                @endif
+                                                @if ($attendance->attendances[0]->attendance_type == 'online')
+                                                    <span class="badge bg-warning-subtle text-warning py-2 px-3">
+                                                        {{ $attendance->attendances[0]->attendance_type }}
+                                                    </span>
+                                                @endif
+                                            @endif
+                                        </td>
                                         <td class="text-center">
                                             @if (isset($attendance->attendances[0]))
                                                 @if ($attendance->attendances[0]->status == 'masuk')
@@ -235,6 +330,20 @@
                                                         {{ $attendance->attendances[0]->status }}
                                                     </span>
                                                 @endif
+                                            @else
+                                                <div class="badge bg-danger-subtle text-danger py-2 px-3">
+                                                    @php
+                                                        $waktuSaatIni = \Carbon\Carbon::now();
+                                                        $waktuJamDelapan = \Carbon\Carbon::today()->setHour(8);
+                                                    @endphp
+
+                                                    @if ($waktuSaatIni->greaterThan($waktuJamDelapan))
+                                                        Alpha
+                                                    @else
+                                                        Belum Hadir
+                                                    @endif
+
+                                                </div>
                                             @endif
                                         </td>
                                         <td class="text-center">
@@ -242,8 +351,39 @@
                                                 @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
                                                     @if ($detailAttendance->status == 'present')
                                                         @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                            \Carbon\Carbon::createFromFormat('H:i:s', $rule?->checkin_ends ??
-                                                            '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                                \Carbon\Carbon::createFromFormat('H:i:s', $rule?->checkin_ends ?? '08:00:00')->addMinutes(1)->format('H:i:s'))
+                                                            <span
+                                                                class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                                        @else
+                                                            <span
+                                                                class="badge bg-danger-subtle text-danger py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            @if (isset($attendance->attendances[0]))
+                                                @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
+                                                    @if ($detailAttendance->status == 'break')
+                                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                                \Carbon\Carbon::createFromFormat('H:i:s', $rule?->break_ends ?? '12:35:00')->addMinutes(1)->format('H:i:s'))
+                                                            <span
+                                                                class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                                        @else
+                                                            <span
+                                                                class="badge bg-danger-subtle text-danger py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            @if (isset($attendance->attendances[0]))
+                                                @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
+                                                    @if ($detailAttendance->status == 'return_break')
+                                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
+                                                                \Carbon\Carbon::createFromFormat('H:i:s', $rule?->return_ends ?? '13:00:00')->addMinutes(1)->format('H:i:s'))
                                                             <span
                                                                 class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                                         @else
@@ -259,8 +399,7 @@
                                                 @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
                                                     @if ($detailAttendance->status == 'return')
                                                         @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                            \Carbon\Carbon::createFromFormat('H:i:s', $rule?->checkout_ends ??
-                                                            '20:00:00')->addMinutes(1)->format('H:i:s'))
+                                                                \Carbon\Carbon::createFromFormat('H:i:s', '18:00:00')->addMinutes(1)->format('H:i:s'))
                                                             <span
                                                                 class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
                                                         @else
@@ -272,156 +411,7 @@
                                             @endif
                                         </td>
                                     </tr>
-                                @endif
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="tab-pane fade show active" id="offline">
-                        <table class="table align-middle table-nowrap table-striped-columns mb-0">
-                            <thead class="table-light">
-                            <tr>
-                                <th scope="col" style="width: 1rem">No.</th>
-                                <th scope="col">Siswa</th>
-                                <th scope="col">Sekolah</th>
-                                <th scope="col">Tanggal</th>
-                                <th scope="col" class="text-center">Tipe Absen</th>
-                                <th scope="col" class="text-center">Keterangan</th>
-                                <th scope="col" class="text-center">Masuk</th>
-                                <th scope="col" class="text-center">Istirahat</th>
-                                <th scope="col" class="text-center">Kembali</th>
-                                <th scope="col" class="text-center">Pulang</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($oflineAttendances as $attendance)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $attendance->name }}</td>
-                                    <td>{{ $attendance->school }}</td>
-                                    <td>{{ request('date') ?? \Carbon\Carbon::now()->format('Y-m-d') }}</td>
-                                    <td class="text-center">
-                                        @if (isset($attendance->attendances[0]))
-                                            @if ($attendance->attendances[0]->attendance_type == 'offline')
-                                                <span class="badge bg-success-subtle text-success py-2 px-3">
-                                                        {{ $attendance->attendances[0]->attendance_type }}
-                                                    </span>
-                                            @endif
-                                            @if ($attendance->attendances[0]->attendance_type == 'online')
-                                                <span class="badge bg-warning-subtle text-warning py-2 px-3">
-                                                        {{ $attendance->attendances[0]->attendance_type }}
-                                                    </span>
-                                            @endif
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @if (isset($attendance->attendances[0]))
-                                            @if ($attendance->attendances[0]->status == 'masuk')
-                                                <span class="badge bg-success-subtle text-success py-2 px-3">
-                                    {{ $attendance->attendances[0]->status }}
-                                </span>
-                                            @endif
-                                            @if ($attendance->attendances[0]->status == 'izin')
-                                                <span class="badge bg-warning-subtle text-warning py-2 px-3">
-                                    {{ $attendance->attendances[0]->status }}
-                                </span>
-                                            @endif
-                                            @if ($attendance->attendances[0]->status == 'sakit')
-                                                <span class="badge bg-warning-subtle text-warning py-2 px-3">
-                                    {{ $attendance->attendances[0]->status }}
-                                </span>
-                                            @endif
-                                            @if ($attendance->attendances[0]->status == 'alpha')
-                                                <span class="badge bg-danger-subtle text-danger py-2 px-3">
-                                    {{ $attendance->attendances[0]->status }}
-                                </span>
-                                            @endif
-                                        @else
-                                            <div class="badge bg-danger-subtle text-danger py-2 px-3">
-                                                @php
-                                                    $waktuSaatIni = \Carbon\Carbon::now();
-                                                    $waktuJamDelapan = \Carbon\Carbon::today()->setHour(8);
-                                                @endphp
-
-                                                @if ($waktuSaatIni->greaterThan($waktuJamDelapan))
-                                                    Alpha
-                                                @else
-                                                    Belum Hadir
-                                                @endif
-
-                                            </div>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @if (isset($attendance->attendances[0]))
-                                            @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
-                                                @if ($detailAttendance->status == 'present')
-                                                    @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                        \Carbon\Carbon::createFromFormat('H:i:s', $rule?->checkin_ends ??
-                                                        '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                                        <span
-                                                            class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
-                                                    @else
-                                                        <span
-                                                            class="badge bg-danger-subtle text-danger py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @if (isset($attendance->attendances[0]))
-                                            @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
-                                                @if ($detailAttendance->status == 'break')
-                                                    @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                        \Carbon\Carbon::createFromFormat('H:i:s', $rule?->break_ends ??
-                                                        '12:35:00')->addMinutes(1)->format('H:i:s'))
-                                                        <span
-                                                            class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
-                                                    @else
-                                                        <span
-                                                            class="badge bg-danger-subtle text-danger py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @if (isset($attendance->attendances[0]))
-                                            @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
-                                                @if ($detailAttendance->status == 'return_break')
-                                                    @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                        \Carbon\Carbon::createFromFormat('H:i:s', $rule?->return_ends ??
-                                                        '13:00:00')->addMinutes(1)->format('H:i:s'))
-                                                        <span
-                                                            class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
-                                                    @else
-                                                        <span
-                                                            class="badge bg-danger-subtle text-danger py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @if (isset($attendance->attendances[0]))
-                                            @foreach ($attendance->attendances[0]->attendanceDetails as $detailAttendance)
-                                                @if ($detailAttendance->status == 'return')
-                                                    @if (date('H:i:s', strtotime($detailAttendance->created_at)) <=
-                                                        \Carbon\Carbon::createFromFormat('H:i:s', '18:00:00' )->
-                                                        addMinutes(1)->format('H:i:s'))
-                                                        <span
-                                                            class="badge bg-success-subtle text-success py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
-                                                    @else
-                                                        <span
-                                                            class="badge bg-danger-subtle text-danger py-2 px-3">{{ dateFormatted($detailAttendance->created_at) }}</span>
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -430,7 +420,8 @@
         </div>
 
         {{-- modal add absent start --}}
-        <div class="modal fade" id="add" tabindex="-1" aria-labelledby="varyingcontentModalLabel" aria-hidden="true">
+        <div class="modal fade" id="add" tabindex="-1" aria-labelledby="varyingcontentModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -452,9 +443,9 @@
                                     @endforelse
                                 </select>
                                 @error('student_id')
-                                <p class="text-danger">
-                                    {{ $message }}
-                                </p>
+                                    <p class="text-danger">
+                                        {{ $message }}
+                                    </p>
                                 @enderror
                             </div>
                             <div class="mb-1">
@@ -467,9 +458,9 @@
                                     <option value="sakit">Sakit</option>
                                 </select>
                                 @error('status')
-                                <p class="text-danger">
-                                    {{ $message }}
-                                </p>
+                                    <p class="text-danger">
+                                        {{ $message }}
+                                    </p>
                                 @enderror
                             </div>
                         </div>
@@ -483,24 +474,23 @@
         </div>
         {{-- modal add absent end --}}
 
-        @endsection
-        @section('script')
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-                    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-                    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-            {{-- <script>
+    @endsection
+    @section('script')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {{-- <script>
             $(document).ready(function() {
                 $('#switchSizeLargeChecked').change(function() {
                     $('#toggleForm').submit();
                 });
             });
             </script> --}}
-            <script>
-                $(document).ready(function () {
-                    $('#switchSizeLargeChecked').change(function () {
-                        $('#toggleForm').submit();
-                    });
+        <script>
+            $(document).ready(function() {
+                $('#switchSizeLargeChecked').change(function() {
+                    $('#toggleForm').submit();
                 });
-            </script>
-
-@endsection
+            });
+        </script>
+    @endsection

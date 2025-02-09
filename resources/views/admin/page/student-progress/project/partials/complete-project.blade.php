@@ -94,11 +94,12 @@
                 </div>
             </div>
         @empty
-            <!-- Jika Tidak Ada Data -->
-            <div class="d-flex justify-content-center mt-3">
-                <img src="{{ asset('no data.png') }}" width="200px" alt="">
+        <div class="col-12"  style="flex: 0 0 100%;">
+            <div class="d-flex flex-column justify-content-center align-items-center mt-3">
+                <img class="d-block mx-auto" src="{{ asset('no data.png') }}" width="200px" alt="">
+                <h4 class="text-center mt-2 mb-4">Data Masih kosong</h4>
             </div>
-            <h4 class="text-center mt-2 mb-4">Data Masih kosong</h4>
+        </div>
         @endforelse
     </div>
 </div>

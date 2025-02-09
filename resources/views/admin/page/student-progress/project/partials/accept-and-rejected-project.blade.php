@@ -1,11 +1,11 @@
-<div class="tab-pane fade show " id="acceptAndrejected">
+<div class="tab-pane fade show" id="acceptAndrejected">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
         @forelse ($acceptAndrejected_projects as $project)
             <div class="col">
                 <div class="card shadow-sm border-0">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge bg-primary-subtle text-primary  px-3 py-2 rounded-2 fw-bolder">
+                            <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-2 fw-bolder">
                                 {{ $project->type_project }}
                             </span>
 
@@ -25,17 +25,16 @@
                                     @if ($members->count() === 1)
                                         <div class="avatar-group-item material-shadow">
                                             <a href="javascript: void(0);" class="d-inline-block"
-                                                data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                                data-bs-original-title="{{ $members->first()?->members->name }}">
-
+                                               data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                               data-bs-original-title="{{ $members->first()?->members->name }}">
                                                 @if (file_exists(public_path('storage/' . $members->first()?->members->avatar)))
                                                     <img class="rounded-circle avatar-xxs"
-                                                        src="{{ asset('storage/' . $members->first()?->members->avatar) }}"
-                                                        alt="{{ $members->first()?->members->name }}">
+                                                         src="{{ asset('storage/' . $members->first()?->members->avatar) }}"
+                                                         alt="{{ $members->first()?->members->name }}">
                                                 @else
                                                     <img class="rounded-circle avatar-xxs"
-                                                        src="{{ asset('user.webp') }}"
-                                                        alt="{{ $members->first()?->members->name }}">
+                                                         src="{{ asset('user.webp') }}"
+                                                         alt="{{ $members->first()?->members->name }}">
                                                 @endif
                                             </a>
                                         </div>
@@ -43,17 +42,16 @@
                                         @foreach ($members as $index => $member)
                                             <div class="avatar-group-item material-shadow">
                                                 <a href="javascript: void(0);" class="d-inline-block"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                                    data-bs-original-title="{{ $member->members->name }}">
-
+                                                   data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                                   data-bs-original-title="{{ $member->members->name }}">
                                                     @if (file_exists(public_path('storage/' . $member->members->avatar)))
                                                         <img class="rounded-circle avatar-xxs"
-                                                            src="{{ asset('storage/' . $member->members->avatar) }}"
-                                                            alt="{{ $member->members->name }}">
+                                                             src="{{ asset('storage/' . $member->members->avatar) }}"
+                                                             alt="{{ $member->members->name }}">
                                                     @else
                                                         <img class="rounded-circle avatar-xxs"
-                                                            src="{{ asset('user.webp') }}"
-                                                            alt="{{ $member->members->name }}">
+                                                             src="{{ asset('user.webp') }}"
+                                                             alt="{{ $member->members->name }}">
                                                     @endif
                                                 </a>
                                             </div>
@@ -77,7 +75,6 @@
                                     Ditolak
                                 </span>
                             @endif
-
                         </div>
                         <div class="d-flex justify-content-between align-items-center mt-2">
                             <p class="text-black mb-0">Deadline:</p>
@@ -88,17 +85,18 @@
                         </div>
                         <div class="d-flex justify-content-center mt-3">
                             <a href="{{ route('administrator.student-progress.project.detail', $project->id) }}"
-                                class="btn btn-primary w-100">Detail Progress</a>
+                               class="btn btn-primary w-100">Detail Progress</a>
                         </div>
                     </div>
                 </div>
             </div>
         @empty
-            <!-- Jika Tidak Ada Data -->
-            <div class="d-flex justify-content-center mt-3">
-                <img src="{{ asset('no data.png') }}" width="200px" alt="">
+            <div class="col-12"  style="flex: 0 0 100%;">
+                <div class="d-flex flex-column justify-content-center align-items-center mt-3">
+                    <img class="d-block mx-auto" src="{{ asset('no data.png') }}" width="200px" alt="">
+                    <h4 class="text-center mt-2 mb-4">Data Masih kosong</h4>
+                </div>
             </div>
-            <h4 class="text-center mt-2 mb-4">Data Masih kosong</h4>
         @endforelse
     </div>
 </div>

@@ -149,11 +149,16 @@
                                 <!-- Dropdown Status -->
                                 <div>
                                     <select class="form-select" name="status" onchange="this.form.submit()">
-                                        <option value="" {{ request('status') === null ? 'selected' : '' }}>Semua</option>
-                                        <option value="finish" {{ request('status') == 'finish' ? 'selected' : '' }}>Selesai</option>
-                                        <option value="notfinish" {{ request('status') == 'notfinish' ? 'selected' : '' }}>Ditolak</option>
-                                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                                        <option value="waiting" {{ request('status') == 'waiting' ? 'selected' : '' }}>Menunggu</option>
+                                        <option value="" {{ request('status') === null ? 'selected' : '' }}>Semua
+                                        </option>
+                                        <option value="finish" {{ request('status') == 'finish' ? 'selected' : '' }}>Selesai
+                                        </option>
+                                        <option value="notfinish" {{ request('status') == 'notfinish' ? 'selected' : '' }}>
+                                            Ditolak</option>
+                                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>
+                                            Pending</option>
+                                        <option value="waiting" {{ request('status') == 'waiting' ? 'selected' : '' }}>
+                                            Menunggu</option>
                                     </select>
                                 </div>
 
@@ -164,13 +169,9 @@
                                             <i class="ri-calendar-line"></i>
                                         </span>
                                     </div>
-                                    <input type="text"
-                                           class="form-control flatpickr-input"
-                                           name="date"
-                                           value="{{ request()->date }}"
-                                           data-provider="flatpickr"
-                                           placeholder="Pilih tanggal"
-                                           readonly>
+                                    <input type="text" class="form-control flatpickr-input" name="date"
+                                        value="{{ request()->date }}" data-provider="flatpickr" placeholder="Pilih tanggal"
+                                        readonly>
                                 </div>
                             </div>
 
@@ -178,12 +179,9 @@
                             <div class="d-flex justify-content-end gap-2">
                                 <!-- Search Input -->
                                 <div>
-                                    <input type="search"
-                                           style="width: 280px"
-                                           name="search"
-                                           value="{{ request()->search }}"
-                                           class="form-control p-2"
-                                           placeholder="Cari by nama project atau member...">
+                                    <input type="search" style="width: 280px" name="search"
+                                        value="{{ request()->search }}" class="form-control p-2"
+                                        placeholder="Cari by nama project atau member...">
                                 </div>
 
                                 <!-- Search Button -->
@@ -213,7 +211,8 @@
 
         <!-- Tab Content -->
         <div class="tab-content">
-            <div class="tab-pane {{ request()->hasAny(['status', 'date', 'page', 'search']) ? '' : 'active' }}" id="todaypresentation" role="tabpanel">
+            <div class="tab-pane {{ request()->hasAny(['status', 'date', 'page', 'search']) ? '' : 'active' }}"
+                id="todaypresentation" role="tabpanel">
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="dataTableStudentProgress1" class="table stripe row-border order-column nowrap"
@@ -230,7 +229,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($presentationsToday as $presentation)
+                                @forelse ($presentationsToday as $presentation)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $presentation->project->project_name }}</td>
@@ -253,21 +252,35 @@
                                             <button class="btn btn-detail"
                                                 style="text-decoration: none; color: white; border: none; background-color:rgba(105, 94, 239, 1)">
                                                 <span>
-                                                    <a href="{{ route('administrator.student-progress.presentation.detail', $presentation->id) }}" class="text-white">
+                                                    <a href="{{ route('administrator.student-progress.presentation.detail', $presentation->id) }}"
+                                                        class="text-white">
                                                         Lihat Detail
                                                     </a>
                                                 </span>
                                             </button>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="8">
+                                            <div class="d-flex justify-content-center mb-3 mt-3">
+                                                <img src="{{ asset('no data.png') }}" width="200px" alt=""
+                                                    srcset="">
+                                            </div>
+                                            <p class="text-center mb-0 fs-5">
+                                                Data Masih Kosong
+                                            </p>
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <div class="tab-pane {{ request()->hasAny(['status', 'date', 'page', 'search']) ? 'active' : '' }}" id="presentationhistory" role="tabpanel">
+            <div class="tab-pane {{ request()->hasAny(['status', 'date', 'page', 'search']) ? 'active' : '' }}"
+                id="presentationhistory" role="tabpanel">
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="dataTableStudentProgress2" class="table stripe row-border order-column nowrap"
@@ -284,7 +297,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($presentations as $presentation)
+                                @forelse ($presentations as $presentation)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $presentation->project->project_name }}</td>
@@ -308,14 +321,27 @@
                                             <button class="btn btn-detail"
                                                 style="text-decoration: none; border: none; background-color:rgba(105, 94, 239, 1)">
                                                 <span>
-                                                    <a href="{{ route('administrator.student-progress.presentation.detail', $presentation->id) }}" class="text-white">
+                                                    <a href="{{ route('administrator.student-progress.presentation.detail', $presentation->id) }}"
+                                                        class="text-white">
                                                         Lihat Detail
                                                     </a>
                                                 </span>
                                             </button>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="8">
+                                            <div class="d-flex justify-content-center mb-3 mt-3">
+                                                <img src="{{ asset('no data.png') }}" width="200px" alt=""
+                                                    srcset="">
+                                            </div>
+                                            <p class="text-center mb-0 fs-5">
+                                                Data Masih Kosong
+                                            </p>
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -339,7 +365,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($unpresentedProject as $project)
+                                @forelse ($unpresentedProject as $project)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $project->project_name }}</td>
@@ -355,14 +381,28 @@
                                             <button class="btn btn-detail"
                                                 style="text-decoration: none; border: none; background-color:rgba(105, 94, 239, 1)">
                                                 <span>
-                                                    <a href="presentation/{{ $presentation->id }}/detail" class="text-white">
+                                                    <a href="presentation/{{ $presentation->id }}/detail"
+                                                        class="text-white">
                                                         Lihat Detail
                                                     </a>
                                                 </span>
                                             </button>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="8">
+                                            <div class="d-flex justify-content-center mb-3 mt-3">
+                                                <img src="{{ asset('no data.png') }}" width="200px" alt=""
+                                                    srcset="">
+                                            </div>
+                                            <p class="text-center mb-0 fs-5">
+                                                Data Masih Kosong
+                                            </p>
+                                        </td>
+                                    </tr>
+                                @endforelse
+
                             </tbody>
                         </table>
                     </div>

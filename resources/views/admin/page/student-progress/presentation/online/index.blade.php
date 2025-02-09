@@ -147,11 +147,16 @@
                             <div class="d-flex justify-content-end gap-3 mb-3">
                                 <div>
                                     <select class="form-select" name="status" onchange="this.form.submit()">
-                                        <option value="" {{ request('status') === null ? 'selected' : '' }}>Semua</option>
-                                        <option value="finish" {{ request('status') == 'finish' ? 'selected' : '' }}>Selesai</option>
-                                        <option value="notfinish" {{ request('status') == 'notfinish' ? 'selected' : '' }}>Ditolak</option>
-                                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                                        <option value="waiting" {{ request('status') == 'waiting' ? 'selected' : '' }}>Menunggu</option>
+                                        <option value="" {{ request('status') === null ? 'selected' : '' }}>Semua
+                                        </option>
+                                        <option value="finish" {{ request('status') == 'finish' ? 'selected' : '' }}>Selesai
+                                        </option>
+                                        <option value="notfinish" {{ request('status') == 'notfinish' ? 'selected' : '' }}>
+                                            Ditolak</option>
+                                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>
+                                            Pending</option>
+                                        <option value="waiting" {{ request('status') == 'waiting' ? 'selected' : '' }}>
+                                            Menunggu</option>
                                     </select>
                                 </div>
                                 <!-- Date Picker -->
@@ -218,7 +223,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($presentationsToday as $presentation)
+                                @forelse ($presentationsToday as $presentation)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $presentation->project->project_name }}</td>
@@ -247,7 +252,19 @@
                                             </button>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="8">
+                                            <div class="d-flex justify-content-center mb-3 mt-3">
+                                                <img src="{{ asset('no data.png') }}" width="200px" alt=""
+                                                    srcset="">
+                                            </div>
+                                            <p class="text-center mb-0 fs-5">
+                                                Data Masih Kosong
+                                            </p>
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -271,7 +288,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($presentations as $presentation)
+                                @forelse ($presentations as $presentation)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $presentation->project->project_name }}</td>
@@ -301,7 +318,19 @@
                                             </button>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="8">
+                                            <div class="d-flex justify-content-center mb-3 mt-3">
+                                                <img src="{{ asset('no data.png') }}" width="200px" alt=""
+                                                    srcset="">
+                                            </div>
+                                            <p class="text-center mb-0 fs-5">
+                                                Data Masih Kosong
+                                            </p>
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -324,7 +353,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($unpresentedProject as $project)
+                                @forelse ($unpresentedProject as $project)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $project->project_name }}</td>
@@ -348,7 +377,19 @@
                                             </button>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="8">
+                                            <div class="d-flex justify-content-center mb-3 mt-3">
+                                                <img src="{{ asset('no data.png') }}" width="200px" alt=""
+                                                    srcset="">
+                                            </div>
+                                            <p class="text-center mb-0 fs-5">
+                                                Data Masih Kosong
+                                            </p>
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

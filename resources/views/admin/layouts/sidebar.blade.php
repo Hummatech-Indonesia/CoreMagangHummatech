@@ -385,7 +385,7 @@
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
-                                <a href="{{ route('administrator.picket.') }}" class="nav-link"
+                                <a href="{{ route('administrator.picket.index') }}" class="nav-link"
                                     data-key="t-chartjs">
                                     Jadwal Piket </a>
                             </li>

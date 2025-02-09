@@ -5,7 +5,7 @@
 </div>
 @section('content')
     <div class="d-flex justify-content-end">
-        <a href="/menu-siswa" class="btn btn-primary mb-3 ">Kembali</a>
+        <a href="/administrator/menu-siswa" class="btn btn-primary mb-3 ">Kembali</a>
     </div>
     <div class="card">
         <div class="card-body">

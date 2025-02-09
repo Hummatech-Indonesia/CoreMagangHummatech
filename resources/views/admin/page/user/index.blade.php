@@ -187,7 +187,7 @@
                                                     class="mdi mdi-dots-vertical align-center"></i></span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="/faces/detail/{{ $student->id }}">Wajah</a>
+                                            <a class="dropdown-item" href="/administrator/menu-siswa/face/{{ $student->id }}">Wajah</a>
                                             <button class="dropdown-item btn-reset" type="button"
                                                 data-id="{{ $student->user ? $student->user->id : null }}">Reset
                                                 Password</button>

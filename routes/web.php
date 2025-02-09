@@ -318,7 +318,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
 
 
     Route::prefix('picket')->name('.picket.')->group(function () {
-        Route::get('/', [PicketController::class, 'index']);
+        Route::get('/', [PicketController::class, 'index'])->name('index');
         Route::delete('/{picket}', [PicketController::class, 'destroy'])->name('delete');
         Route::post('store', [PicketController::class, 'store'])->name('store');
         Route::put('/{picket}', [PicketController::class, 'update'])->name('update');

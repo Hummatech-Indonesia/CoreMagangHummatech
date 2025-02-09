@@ -129,11 +129,11 @@
                         </div>
                     </div>
                 @empty
-                    <div class="d-flex justify-content-center align-items-center" style="min-height: 300px;">
-                        <div class="text-center">
-                            <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
-                                alt="No Data" height="120px" />
-                            <h3 class="mt-3">Data Masih Kosong</h3>
+                    <div class="col-12"  style="flex: 0 0 100%;">
+                        <div class="d-flex flex-column justify-content-center align-items-center mt-3">
+                            <img class="d-block mx-auto" src="{{ asset('no data.png') }}" width="200px"
+                                alt="">
+                            <h4 class="text-center mt-2 mb-4">Data Masih kosong</h4>
                         </div>
                     </div>
                 @endforelse

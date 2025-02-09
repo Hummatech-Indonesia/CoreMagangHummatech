@@ -142,7 +142,7 @@
                                                 <tr>
                                                     <td>{{ $siswa->name }}</td>
                                                     <td class="d-flex">
-                                                        <form action="{{ route('picket.delete', $key) }}" method="POST">
+                                                        <form action="{{ route('administrator.picket.delete', $key) }}" method="POST">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button class="btn btn-transparent shadow-none p-0 m-0"
