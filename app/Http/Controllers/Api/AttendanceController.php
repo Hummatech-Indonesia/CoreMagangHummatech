@@ -162,7 +162,7 @@ class AttendanceController extends Controller
     private function getStudentByRfid($rfid): mixed
     {
         $studentByCard = $this->student->getByRfid($rfid);
-        if ($studentByCard) return ResponseHelper::error(null, "Siswa tidak ditemukan");
+        if (!$studentByCard) return ResponseHelper::error(null, "Siswa tidak ditemukan");
         return $studentByCard;
     }
 
