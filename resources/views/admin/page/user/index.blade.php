@@ -81,7 +81,6 @@
                                             <option value="">Belum ada data</option>
                                         @endforelse
                                     </select>
-                                    </form>
                                 </div>
                             </div>
 
@@ -114,14 +113,16 @@
                             </div>
 
                             <div class="col-sm-auto">
-                                <div class="search-box">
-                                    <form action="/administrator/menu-siswa" class="d-flex">
-                                        <input type="text" class="form-control me-2" id="searchMemberList" name="name"
-                                            value="{{ request()->name }}" placeholder="Cari Siswa...">
-                                        <i class="ri-search-line search-icon"></i>
-                                        <button class="btn btn-primary" type="submit">
-                                            Cari
-                                        </button>
+                                <div class="search-box d-flex gap-1">
+                                    <input type="text" class="form-control me-2" id="searchMemberList" name="name"
+                                        value="{{ request()->name }}" placeholder="Cari Siswa...">
+                                    <i class="ri-search-line search-icon"></i>
+                                    <button class="btn btn-primary" type="submit">
+                                        Cari
+                                    </button>
+                                    <a href="/administrator/menu-siswa" class="btn btn-warning">
+                                        <i class="ri-restart-line"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -187,7 +188,8 @@
                                                     class="mdi mdi-dots-vertical align-center"></i></span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item" href="/administrator/menu-siswa/face/{{ $student->id }}">Wajah</a>
+                                            <a class="dropdown-item"
+                                                href="/administrator/menu-siswa/face/{{ $student->id }}">Wajah</a>
                                             <button class="dropdown-item btn-reset" type="button"
                                                 data-id="{{ $student->user ? $student->user->id : null }}">Reset
                                                 Password</button>
