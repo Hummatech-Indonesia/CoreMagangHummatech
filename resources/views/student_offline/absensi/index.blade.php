@@ -64,6 +64,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card mb-4 bg-light-success">
                     <a href="/siswa-offline/absensi?status=attend" class="stretched-link"></a>
@@ -99,6 +100,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card mb-4 bg-light-warning">
                     <a href="/siswa-offline/absensi?status=absent" class="stretched-link"></a>
@@ -134,6 +136,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <div class="card mb-4 bg-light-danger">
                     <a href="/siswa-offline/absensi?status=alpha" class="stretched-link"></a>
@@ -178,11 +181,6 @@
         </div>
     </div>
 
-
-
-
-
-
     <div class="row mb-3">
         <div class="col text-end">
             <div class="d-flex gap-2 justify-content-end">
@@ -193,6 +191,11 @@
                         <button class="btn btn-success me-2" type="submit">Absen</button>
                     </form>
                 @else
+                <form action="{{ route('attendance.online.store') }}" method="post">
+                    @csrf
+                    @method('POST')
+                    <button class="btn btn-success me-2" type="submit">Absen</button>
+                </form>
                 @endif
                 <button type="button" class="btn mb-1 btn-light-warning text-warning btn-lg px-4 fs-4 font-medium ms-3"
                         data-bs-toggle="modal" data-bs-target="#printAbsensiModal">
