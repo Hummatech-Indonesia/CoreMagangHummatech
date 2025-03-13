@@ -148,6 +148,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
 
     Route::prefix('absent')->name('.absent.')->group(function () {
         Route::get('/', [AttendanceController::class, 'index'])->name('index');
+        Route::get('/tes', [AttendanceController::class, 'tes'])->name('tes');
         Route::patch('max-late', [AttendanceController::class, 'storeMaxLate'])->name('maxlate.store');
         Route::get('export/excel', [AdminAbsentController::class, 'export_excel'])->name('export.excel');
     });

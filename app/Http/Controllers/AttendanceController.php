@@ -275,6 +275,19 @@ class AttendanceController extends Controller
         // dd($attendanceYears, $attendanceMonth);
         return view('admin.page.absent.index', compact('attendanceYears', 'attendanceMonth', 'onlineAttendances', 'oflineAttendances', 'students', 'wfh', 'rule'));
     }
+    public function tes(Request $request): View
+    {
+        $onlineAttendances = $this->student->listAttendance($request);
+        $oflineAttendances = $this->student->listOfflineAttendance($request);
+        $students = $this->student->get($request);
+        $wfh = $this->workFromHome->getToday();
+        $rule = $this->attendanceRule->getByDay(now()->format('l'));
+        $attendanceYears = $this->attendance->yearAttendances();
+        $attendanceMonth = $this->attendance->monthAttendances();
+
+        // dd($attendanceYears, $attendanceMonth);
+        return view('admin.page.absent.index', compact('attendanceYears', 'attendanceMonth', 'onlineAttendances', 'oflineAttendances', 'students', 'wfh', 'rule'));
+    }
 
     public function attendanceOffline(Request $request): View
     {
