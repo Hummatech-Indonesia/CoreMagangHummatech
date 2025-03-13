@@ -181,7 +181,6 @@ class AttendanceController extends Controller
         if (!$existingAttendance) {
             $existingAttendance = $this->attendance->store([
                 'student_id' => $request->student_id,
-                'attendance_type' => 'offline',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

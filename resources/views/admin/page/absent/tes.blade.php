@@ -129,7 +129,7 @@
                 <div class="col-lg-8 col-md-6 col-sm-12">
                     <div class="d-flex flex-column flex-lg-row justify-content-end gap-2">
                         <div class="search-box col-lg-3 col-12">
-                            <form action="/absent">
+                            <form action="">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="name" value="{{ request()->name }}"
                                            id="searchMemberList" placeholder="Cari Siswa">
@@ -141,7 +141,7 @@
                             </form>
                         </div>
                         <div class="search-box col-lg-3 col-12">
-                            <form action="/absent">
+                            <form action="">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="date" value="{{ request()->date }}"
                                            data-provider="flatpickr" placeholder="Pilih tanggal">
@@ -426,7 +426,7 @@
         </div>
 
         {{-- modal add absent start --}}
-        <div class="modal fade" id="add" tabindex="-1" aria-labelledby="varyingcontentModalLabel" aria-hidden="true">
+        {{-- <div class="modal fade" id="add" tabindex="-1" aria-labelledby="varyingcontentModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -476,7 +476,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> --}}
         {{-- modal add absent end --}}
 
         @endsection
