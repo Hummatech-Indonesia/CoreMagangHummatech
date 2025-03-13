@@ -286,7 +286,7 @@ class AttendanceController extends Controller
         $attendanceMonth = $this->attendance->monthAttendances();
 
         // dd($attendanceYears, $attendanceMonth);
-        return view('admin.page.absent.index', compact('attendanceYears', 'attendanceMonth', 'onlineAttendances', 'oflineAttendances', 'students', 'wfh', 'rule'));
+        return view('admin.page.absent.tes', compact('attendanceYears', 'attendanceMonth', 'onlineAttendances', 'oflineAttendances', 'students', 'wfh', 'rule'));
     }
 
     public function attendanceOffline(Request $request): View
