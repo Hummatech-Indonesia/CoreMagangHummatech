@@ -73,8 +73,6 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-
-
                                             {{-- <div class="mb-3">
                                                     <label for="monthInput" class="form-label">Bulan</label>
                                                     <select class="form-select" id="monthInput" name="month">
