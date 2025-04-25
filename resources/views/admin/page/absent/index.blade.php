@@ -68,7 +68,8 @@
                                                     @foreach ($attendanceMonth as $month)
                                                         <option value="{{ $month->month }}"
                                                             {{ request()->input('month', now()->month) == $month->month ? ' selected' : '' }}>
-                                                            {{ \Illuminate\Support\Carbon::parse('2024-' . $month->month . '-01')->translatedFormat('F') }}
+                                                            {{ \Illuminate\Support\Carbon::parse('2024-' . str_pad(optional($month)->month ?? '01', 2, '0', STR_PAD_LEFT) . '-01')->translatedFormat('F') }}
+
                                                         </option>
                                                     @endforeach
                                                 </select>
