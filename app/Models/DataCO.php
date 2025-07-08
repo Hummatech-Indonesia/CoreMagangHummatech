@@ -9,5 +9,6 @@ class DataCO extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $table = 'data_c_o_s';
 
 }

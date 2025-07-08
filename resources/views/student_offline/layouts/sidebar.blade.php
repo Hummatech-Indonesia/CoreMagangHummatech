@@ -113,7 +113,7 @@
                     </a>
                 </li>  --}}
                 {{-- <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ url('/siswa-offline/task') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ url('/student/task') }}" aria-expanded="false">
                 <span>
                     <i class="ti ti-clipboard-copy"></i>
                 </span>

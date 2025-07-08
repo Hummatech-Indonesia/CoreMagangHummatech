@@ -145,7 +145,7 @@ class JournalController extends Controller
     public function studentOnline()
     {
         $journals = $this->journal->get();
-        return view('student_online.journal.index', compact('journals'));
+        return view('student_online_&_offline.journal.index', compact('journals'));
     }
 
     public function downloadPDF(Request $request)

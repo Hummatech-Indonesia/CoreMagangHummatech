@@ -66,6 +66,7 @@ class ApprovalService
         $combinedHtml = '';
 
         $dataadmin = $this->dataCO->get();
+        // dd($dataadmin);
         foreach ($months as $month => $attendances) {
             $data_CO = [
                 'barcode' => '',
@@ -79,6 +80,7 @@ class ApprovalService
             $signature->barcode = $qrCodeImage;
             $signature->save();
         }
+
 
         $dompdf->loadHtml($combinedHtml);
         $dompdf->setPaper('A4', 'portrait');

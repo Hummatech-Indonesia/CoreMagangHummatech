@@ -384,7 +384,7 @@
             $("#question-edit").text(question);
             $("#description-question-edit").text(description);
             $('#answer-file').attr('href', file).attr('download', filename); // Mengatur nama file yang akan diunduh
-            $('#form-update').attr('action', '/siswa-offline/task/update/' + id);
+            $('#form-update').attr('action', '/student/task/update/' + id);
             $('#modal-edit').modal('show');
         });
 

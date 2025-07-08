@@ -39,8 +39,13 @@ class CategoryProjectController extends Controller
      */
     public function store(StoreCategoryProjectRequest $request)
     {
-        $this->categoryProject->store($request->validated());
-        return back()->with('success' , 'Data Berhasil Ditambahkan');
+        try {
+            $this->categoryProject->store($request->validated());
+            return back()->with('success' , 'Data Berhasil Ditambahkan');
+        } catch (\Throwable $th) {
+            flash()->error('Gagal menambahkan data, ' . $th->getMessage());
+            return back();
+        }
     }
 
     /**

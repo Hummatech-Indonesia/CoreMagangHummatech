@@ -434,12 +434,13 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value . ".")->middlewar
 });
 
 # ================================================ Online Student Route Group =================================================
-Route::prefix('student-online')->name(RolesEnum::ONLINE->value)->middleware(['roles:siswa-online', 'auth'])->group(function () {
+Route::prefix('student-online')->name(RolesEnum::ONLINE->value)->middleware(['roles:student-online', 'auth'])->group(function () {
     # Home
     Route::get('/', [StudentOnlineController::class, 'index'])->name('.home');
 
     # Attendences
-    Route::get('absensi', [AttendanceController::class, 'attendanceOnline'])->name('.attendances');
+    Route::get('attendances', [AttendanceController::class, 'attendanceOnline'])->name('.attendances');
+    Route::get('journals', [JournalController::class, 'studentOnline'])->name('.journals');
 
     # Courses
     Route::controller(CourseController::class)->middleware('subsrcribed')->group(function () {
@@ -601,9 +602,9 @@ Route::get('administrator/course/detail/sub-course', function () {
 });
 
 # Offline-Task
-Route::get('siswa-offline/task', [StudentTaskController::class, 'index']);
-Route::post('siswa-offline/task/store', [StudentTaskController::class, 'store'])->name('task-offline.store');
-Route::patch('siswa-offline/task/update/{studentTask}', [StudentTaskController::class, 'update'])->name('task-offline.update');
+Route::get('student/task', [StudentTaskController::class, 'index']);
+Route::post('student/task/store', [StudentTaskController::class, 'store'])->name('task-offline.store');
+Route::patch('student/task/update/{studentTask}', [StudentTaskController::class, 'update'])->name('task-offline.update');
 
 # Offline-LetterHead
 Route::get('siswa-offline/letter-head', [LetterheadController::class, 'indexOffline']);
@@ -623,9 +624,6 @@ Route::delete('picket-report/{picketingReport}', [PicketingReportController::cla
 # Offline-Challenges
 Route::post('siswa-offline/challenge', [StudentChallengeController::class, 'store']);
 Route::put('siswa-offline/challenge/{studentChallenge}', [StudentChallengeController::class, 'update']);
-
-# Online-Journals
-Route::get('siswa-online/jurnal', [JournalController::class, 'studentOnline']);
 
 # Online-Materi-Details
 Route::get('siswa-online/materi/detail', function () {

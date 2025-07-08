@@ -42,10 +42,9 @@
                     <h5 class="modal-title" id="myModalLabel">Ubah Profile Admin</h5>
                     <button class="btn-close" data-bs-dismiss="modal" type="button" aria-label="Close"></button>
                 </div>
-                @if ($dataadmin == null)
-                <form action="administrator/data-admin/store" method="POST" enctype="multipart/form-data">
+                @if ($dataceo == null)
+                <form action="{{ route('administrator.data-ceo.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
                     <div class="modal-body">
                         <div class="d-flex justify-content-center">
                             <label class="form-label text-white" for="image-input1">
@@ -84,14 +83,14 @@
                     </div>
                 </form>
                 @else
-                <form action="administrator/data-admin/update/{{ $dataadmin->id }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('administrator.data-ceo.update', $dataceo->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="modal-body">
                         <div class="d-flex justify-content-center">
                             <label class="form-label text-white" for="image-input1">
                                 <img class="rounded-circle" id="preview-image1"
-                                    src="{{ asset('storage/' . $dataadmin->image) }}" alt="example placeholder"
+                                    src="{{ asset('storage/' . $dataceo->image) }}" alt="example placeholder"
                                     style="width: 150px; height: 150px; border-radius: 10px; cursor: pointer;object-fit: cover">
                                 <input class="form-control d-none" id="image-input1" name="image" type="file"
                                     accept="image/*">
@@ -105,17 +104,17 @@
                         <div class="mb-2">
                             <label for="">Nama</label>
                             <input class="form-control" id="" name="name" type="text"
-                                value="{{ $dataadmin->name }}" placeholder="Masukkan Nama">
+                                value="{{ $dataceo->name }}" placeholder="Masukkan Nama">
                         </div>
                         <div class="mb-2">
                             <label for="">PT</label>
                             <input class="form-control" id="" name="company" type="text"
-                                value="{{ $dataadmin->company }}" placeholder="Masukkan PT">
+                                value="{{ $dataceo->company }}" placeholder="Masukkan PT">
                         </div>
                         <div class="mb-2">
                             <label for="">Jabatan</label>
                             <input class="form-control" id="" name="field" type="text"
-                                value="{{ $dataadmin->field }}" placeholder="Masukkan Jabatan">
+                                value="{{ $dataceo->field }}" placeholder="Masukkan Jabatan">
                         </div>
                     </div>
                     <div class="modal-footer">

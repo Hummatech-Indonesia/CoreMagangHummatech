@@ -477,7 +477,7 @@
             $('#taskId-edit').val(id);
             $("#question-edit").text(question);
             $("#description-question-edit").text(description);
-            $('#form-update').attr('action', '/siswa-offline/task/update/' + id);
+            $('#form-update').attr('action', '/student/task/update/' + id);
             $('#modal-edit').modal('show');
         });
 
