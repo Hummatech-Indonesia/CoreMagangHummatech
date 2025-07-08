@@ -60,20 +60,19 @@
                             </div>
                         </div>
                         <div class="bs-stepper-content">
-                            @if ($errors->any())
-                                <div class="badge bg-light-danger text-danger p-3 w-100">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                            <div class="badge bg-light-danger text-danger"></div>
                             <form id="multiStepsForm" method="POST" action="/register/post" enctype="multipart/form-data">
                                 @method('POST')
                                 @csrf
                                 <div id="accountDetailsValidation" class="content">
+                                    @if ($errors->any())
+                                        <div class="bg-light-danger text-danger p-3 w-100 text-left">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <div class="content-header mb-4">
                                     </div>
                                     <div class="row g-3">
