@@ -108,9 +108,9 @@
                                             <label class="form-label" for="multiStepsLastName">Jenis Kelamin</label>
                                             <br>
                                             <input type="radio" id="multiStepsLastName" value="male" name="gender"
-                                                class="" placeholder="Doe" /> Laki-laki &nbsp;
+                                                class="" {{ old('gender') == 'male' ? 'checked' : '' }} /> Laki-laki
                                             <input type="radio" id="multiStepsLastName" value="female" name="gender"
-                                                class="" placeholder="Doe" /> Perempuan
+                                                class="" {{ old('gender') == 'female' ? 'checked' : '' }} /> Perempuan
                                             @error('gender')
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
