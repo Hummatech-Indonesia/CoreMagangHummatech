@@ -22,7 +22,7 @@ class UpdateDataCORequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => 'required',
+            'image' => 'nullable',
             'name' => 'required',
             'company' => 'required',
             'field' => 'required',
@@ -32,7 +32,6 @@ class UpdateDataCORequest extends FormRequest
     public function messages()
     {
         return [
-            'image.required' => 'Image harus diisi',
             'name.required' => 'Nama harus diisi',
             'company.required' => 'Perusahaan harus diisi',
             'field.required' => 'Bidang harus diisi',

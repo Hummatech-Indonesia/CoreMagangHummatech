@@ -112,7 +112,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
 
     # Data CEO
     Route::post('dataceo/store', [DataCOController::class, 'store'])->name('.data-ceo.store');
-    Route::put('dataceo/update/{dataAdmin}', [DataCOController::class, 'update'])->name('.data-ceo.update');
+    Route::put('dataceo/update/{dataCO}', [DataCOController::class, 'update'])->name('.data-ceo.update');
 
     # Journals
     Route::get('journal', [AdminJournalController::class, 'index']);

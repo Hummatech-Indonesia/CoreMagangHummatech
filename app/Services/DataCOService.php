@@ -61,7 +61,9 @@ class DataCOService
         $data = $request->validated();
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $this->remove($dataCO->image);
+            if ($dataCO->image) {
+                $this->remove($dataCO->image);
+            }
             $data['image'] = $request->file('image')->store(TypeEnum::DATACO->value, 'public');
         } else {
             $data['image'] = $dataCO->image;
