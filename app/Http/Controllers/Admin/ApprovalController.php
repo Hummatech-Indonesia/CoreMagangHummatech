@@ -49,6 +49,7 @@ class ApprovalController extends Controller
 
     public function accept(AcceptedAprovalRequest $request, Student $student)
     {
+        DB::beginTransaction();
         try {
             if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
                 $studentCount = $this->student->countStudentOffline();
@@ -63,9 +64,10 @@ class ApprovalController extends Controller
             $data = $this->service->accept($request, $student);
 
             $this->approval->update($student->id, $data);
-
+            DB::commit();
             return back()->with('success', 'Berhasil Menerima Siswa Baru');
         } catch (\Throwable $th) {
+            DB::rollBack();
             return back()->with('error', 'Gagal Menerima Siswa Baru. Error: ' . $th->getMessage());
         }
     }

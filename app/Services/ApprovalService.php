@@ -142,7 +142,11 @@ class ApprovalService
             'password' => $student->password,
             'student_id' => $student->id,
         ];
-        $user = $this->user->store($dataUser);
+
+        $existingUser = $this->user->where('email', $student->email)->first();
+        if (!$existingUser) {
+            $user = $this->user->store($dataUser);
+        }
 
         if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
             $user->assignRole(RolesEnum::OFFLINE->value);
