@@ -7,6 +7,7 @@ use App\Services\Traits\UploadTrait;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Student;
+use Hash;
 
 class StudentService
 {
@@ -47,6 +48,8 @@ class StudentService
             $data['parents_statement'] = $request->file('parents_statement')->store(TypeEnum::PARENTSSTATEMENT->value, 'public');
             return $data;
         }
+        $data['password'] = Hash::make($data['password']);
+        
         return false;
     }
 

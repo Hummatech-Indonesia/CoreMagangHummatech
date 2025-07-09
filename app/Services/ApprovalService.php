@@ -149,9 +149,13 @@ class ApprovalService
         }
 
         if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
-            $user->assignRole(RolesEnum::OFFLINE->value);
+            if (!$user->hasRole(RolesEnum::OFFLINE->value)) {
+                $user->assignRole(RolesEnum::OFFLINE->value);
+            }
         } elseif ($student->internship_type == InternshipTypeEnum::ONLINE->value) {
-            $user->assignRole(RolesEnum::ONLINE->value);
+            if (!$user->hasRole(RolesEnum::ONLINE->value)) {
+                $user->assignRole(RolesEnum::ONLINE->value);
+            }
         }
 
         // Data For Update Status Students
