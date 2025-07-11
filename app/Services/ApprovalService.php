@@ -145,16 +145,16 @@ class ApprovalService
 
         $existingUser = $this->user->where('email', $student->email)->first();
         if (!$existingUser) {
-            $user = $this->user->store($dataUser);
+            $existingUser = $this->user->store($dataUser);
         }
 
         if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
-            if (!$user->hasRole(RolesEnum::OFFLINE->value)) {
-                $user->assignRole(RolesEnum::OFFLINE->value);
+            if (!$existingUser->hasRole(RolesEnum::OFFLINE->value)) {
+                $existingUser->assignRole(RolesEnum::OFFLINE->value);
             }
         } elseif ($student->internship_type == InternshipTypeEnum::ONLINE->value) {
-            if (!$user->hasRole(RolesEnum::ONLINE->value)) {
-                $user->assignRole(RolesEnum::ONLINE->value);
+            if (!$existingUser->hasRole(RolesEnum::ONLINE->value)) {
+                $existingUser->assignRole(RolesEnum::ONLINE->value);
             }
         }
 
