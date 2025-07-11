@@ -6,7 +6,7 @@ enum RolesEnum: string
 {
     case ADMIN = 'administrator';
     case MENTOR = 'mentor';
-    case ONLINE = 'student-online';
+    case ONLINE = 'siswa-online';
     case OFFLINE = 'siswa-offline';
     case SCHOOL = 'sekolah';
 

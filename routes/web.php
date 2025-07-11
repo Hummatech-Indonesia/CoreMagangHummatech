@@ -434,7 +434,7 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value . ".")->middlewar
 });
 
 # ================================================ Online Student Route Group =================================================
-Route::prefix('student-online')->name(RolesEnum::ONLINE->value)->middleware(['roles:student-online', 'auth'])->group(function () {
+Route::prefix('student-online')->name(RolesEnum::ONLINE->value)->middleware(['roles:siswa-online', 'auth'])->group(function () {
     # Home
     Route::get('/', [StudentOnlineController::class, 'index'])->name('.home');
 
