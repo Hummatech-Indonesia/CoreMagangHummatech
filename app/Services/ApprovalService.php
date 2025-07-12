@@ -144,13 +144,10 @@ class ApprovalService
             'student_id' => $student->id,
         ];
 
-        $existingUser = $this->user->where('email', $student->email)->first();
+        $existingUser = $this->user->where('email', $student->email);
         if (!$existingUser) {
             $existingUser = $this->user->store($dataUser);
         }
-
-        Log::info("Data student", [$student]);
-        Log::info("Data user", [$existingUser]);
 
         if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
             $existingUser->syncRoles(RolesEnum::OFFLINE->value);
