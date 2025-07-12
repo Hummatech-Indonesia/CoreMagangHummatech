@@ -25,6 +25,7 @@ use App\Models\ResponseLetter;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ApprovalService
@@ -147,6 +148,9 @@ class ApprovalService
         if (!$existingUser) {
             $existingUser = $this->user->store($dataUser);
         }
+
+        Log::info("Data student", [$student]);
+        Log::info("Data user", [$existingUser]);
 
         if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
             $existingUser->syncRole(RolesEnum::OFFLINE->value);
