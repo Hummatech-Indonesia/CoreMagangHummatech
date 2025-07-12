@@ -46,8 +46,8 @@
         <nav class="sidebar-nav scroll-sidebar" data-simplebar>
             <ul id="sidebarnav">
                 <li class="nav-item mb-0 mt-2">
-                    {{-- <a href="/student-online/dashboard/task"> --}}
-                    <a href="" 
+                    {{-- <a href="/siswa-online/dashboard/task"> --}}
+                    <a href=""
                         aria-expanded="false">
                         <div class="myElement py-2 px-3 rounded">
                             <div class="d-flex justify-content-between">
@@ -86,7 +86,7 @@
                 <!-- Dashboard -->
                 <!-- =================== -->
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/student-online" aria-expanded="false">
+                    <a class="sidebar-link" href="/siswa-online" aria-expanded="false">
                         <span>
                             <i class="ti ti-dashboard"></i>
                         </span>
@@ -94,7 +94,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Route::is('student-online.journals') ? 'active' : '' }}" href="{{ route('student-online.journals') }}" aria-expanded="false">
+                    <a class="sidebar-link {{ Route::is('siswa-online.journals') ? 'active' : '' }}" href="{{ route('siswa-online.journals') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-pencil"></i>
                         </span>
@@ -103,7 +103,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Route::is('student-online.attendances') }}" href="{{ route('student-online.attendances') }}" aria-expanded="false">
+                    <a class="sidebar-link {{ Route::is('siswa-online.attendances') }}" href="{{ route('siswa-online.attendances') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-presentation-analytics"></i>
                         </span>
@@ -111,7 +111,7 @@
                     </a>
                 </li>
                 {{-- <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ url('/student-online/meeting') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ url('/siswa-online/meeting') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-calendar"></i>
                         </span>

@@ -33,7 +33,7 @@ Route::get('show/materi/{course}', [CourseController::class ,'show']);
 Route::get('siswa-offline/langganan', function () {return view('student_offline.langganan.index');});
 // end
 // student online
-// Route::get('student-online/langganan', function () {return view('student_online.langganan.index');});
+// Route::get('siswa-online/langganan', function () {return view('student_online.langganan.index');});
 // end
 // Hummatask
 // Route::get('dashboard/task', function () {return view('Hummatask.index');});

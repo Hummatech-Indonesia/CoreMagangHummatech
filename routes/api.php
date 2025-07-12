@@ -76,9 +76,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('mentor')->group(function () {
         Route::get('presentation', [MentorController::class, 'listPresentation']);
         Route::get('siswa-offline', [MentorController::class, 'listStudentOffline']);
-        Route::get('student-online', [MentorController::class, 'listStudentOnline']);
+        Route::get('siswa-online', [MentorController::class, 'listStudentOnline']);
         Route::get('siswa-offline-attendances', [MentorController::class, 'studentOfflineAttendances']);
-        Route::get('student-online-attendances', [MentorController::class, 'studentOnlineAttendances']);
+        Route::get('siswa-online-attendances', [MentorController::class, 'studentOnlineAttendances']);
         Route::get('journal-offline', [MentorController::class, 'studentJournalOffline']);
         Route::get('journal-online', [MentorController::class, 'studentJournalOnline']);
         Route::get('journals', [MentorController::class, 'studentJournal']);
