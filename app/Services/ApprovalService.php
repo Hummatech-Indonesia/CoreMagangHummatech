@@ -153,9 +153,9 @@ class ApprovalService
         Log::info("Data user", [$existingUser]);
 
         if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
-            $existingUser->syncRole(RolesEnum::OFFLINE->value);
+            $existingUser->syncRoles(RolesEnum::OFFLINE->value);
         } elseif ($student->internship_type == InternshipTypeEnum::ONLINE->value) {
-            $existingUser->syncRole(RolesEnum::ONLINE->value);
+            $existingUser->syncRoles(RolesEnum::ONLINE->value);
         }
 
         // Data For Update Status Students
