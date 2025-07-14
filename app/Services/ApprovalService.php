@@ -245,13 +245,17 @@ class ApprovalService
                     'password' => $student->password,
                     'student_id' => $student->id,
                 ];
+
+                $existingUser = $this->user->where('email', $student->email);
+                if (!$existingUser) {
+                    $existingUser = $this->user->store($dataUser);
+                }
                 $user = $this->user->store($dataUser);
 
-                // Assign role berdasarkan jenis PKL
                 if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
-                    $user->assignRole(RolesEnum::OFFLINE->value);
+                    $existingUser->syncRoles(RolesEnum::OFFLINE->value);
                 } elseif ($student->internship_type == InternshipTypeEnum::ONLINE->value) {
-                    $user->assignRole(RolesEnum::ONLINE->value);
+                    $existingUser->syncRoles(RolesEnum::ONLINE->value);
                 }
 
                 // Update status siswa
