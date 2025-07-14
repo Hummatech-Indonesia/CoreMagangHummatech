@@ -203,7 +203,7 @@
                             <td class="d-flex">
                                 <div class="user-meta-info">
                                     <h6 class="user-name mb-0">{{ $attendance->student->name }}</h6>
-                                    <span class="user-work fs-3">{{ $attendance->division_id == null ? 'anda belum memiliki divisi' : $attendance->division->name }}</span>
+                                    <span class="user-work fs-3">{{ $attendance->student->division_id == null ? 'anda belum memiliki divisi' : $attendance->student->division->name }}</span>
                                 </div>
                             </td>
                             <td>
