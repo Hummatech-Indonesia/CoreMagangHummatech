@@ -207,7 +207,7 @@
 
 <script>
 var options = {
-    series: [44, 55, 41, 17],
+    series: [{{ $attends }}, {{ $absent }}, {{ $permissions }}, {{ $sick }}],
     chart: {
         type: 'donut',
         height: 400,
@@ -251,65 +251,53 @@ chart.render();
 </script>
 
 <script>
-var options = {
-    series: [{
+    var fillin = @json($fillinJournal);
+    var notfillin = @json($notFillinJournal);
+
+    var options = {
+        series: [{
             name: 'Mengisi',
-            data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-        },
-        {
+            data: fillin.map(item => item.journal)
+        }, {
             name: 'Tidak Mengisi',
-            data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-        }
-    ],
-    yaxis: {
-        labels: {
-            show: false,
+            data: notfillin.map(item => item.journal)
+        }],
+        chart: {
+            type: 'bar',
+            height: '530px',
         },
-    },
-    chart: {
-        type: 'bar',
-        height: '530px',
-        fontFamily: "'Plus Jakarta Sans', sans-serif",
-    },
-    colors: ['#5D87FF', '#82D2FF'],
-    plotOptions: {
-        bar: {
-            horizontal: false,
-            columnWidth: '30%',
-            endingShape: 'rounded'
-        },
-    },
-    dataLabels: {
-        enabled: false
-    },
-    grid: {
-        borderColor: "rgba(0,0,0,0.1)",
-        strokeDashArray: 3,
-        xaxis: {
-            lines: {
-                show: false,
+        colors: ['#5D87FF', '#82D2FF'],
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '30%',
+                endingShape: 'rounded'
             },
         },
-    },
-    xaxis: {
-        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-        axisBorder: {
-            show: false,
+        dataLabels: {
+            enabled: false
         },
-    },
-    fill: {
-        opacity: 1
-    },
-    tooltip: {
-        y: {
-            formatter: function(val) {
-                return `${val} kali`
+        stroke: {
+            show: true,
+            width: 2,
+            colors: ['transparent']
+        },
+        xaxis: {
+            categories: fillin.map(item => item.month),
+        },
+        fill: {
+            opacity: 1
+        },
+        tooltip: {
+            y: {
+                formatter: function(val) {
+                    return val + " kali"
+                }
             }
         }
-    }
-};
+    };
 
-var chart = new ApexCharts(document.querySelector("#chart-journal"), options);
-chart.render();
+    var chart = new ApexCharts(document.querySelector("#chart-journal"), options);
+    chart.render();
 </script>
 @endsection
