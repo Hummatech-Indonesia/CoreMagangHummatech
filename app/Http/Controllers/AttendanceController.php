@@ -325,10 +325,14 @@ class AttendanceController extends Controller
         $attendances = $this->attendance->getAttendanceByStudent($request);
         $ruleToday = $this->attendanceRule->getByDay(Carbon::now()->format('l'));
 
+        // dd($attendances);
 
-        $years = $attendances->pluck('created_at')->map(function ($date) {
+        $years = $attendances->pluck('created_at')
+        ->filter()
+        ->map(function ($date) {
             return $date->format('Y');
-        })->unique()->sort()->values();
+        })
+        ->unique()->sort()->values();
 
         $months = $attendances->pluck('created_at')->map(function ($date) {
             return $date->format('m');
@@ -363,8 +367,6 @@ class AttendanceController extends Controller
                     $months[$monthKey][] = $attendance;
                 }
             });
-
-//        dd($months);
 
         $header = Letterhead::where('user_id', auth()->user()->id)->first();
         $datadiri = Student::where('id', auth()->user()->student->id)->first();
@@ -438,7 +440,14 @@ class AttendanceController extends Controller
 
     public function attendanceOnline(Request $request): View
     {
-        $onlineAttendances = $this->student->listAttendance($request);
-        return view('student_online.absensi.index', compact('onlineAttendances'));
+        $attends = $this->attendance->count('masuk');
+        $permissionCount = $this->attendance->count('izin');
+        $sick = $this->attendance->count('sakit');
+        $absent = $this->attendance->count('alpha');
+        $permissions = $sick + $permissionCount;
+        $total = $attends + $permissionCount + $sick + $absent;
+        $attendances = $this->attendance->getAttendanceByStudent($request);
+        $ruleToday = $this->attendanceRule->getByDay(Carbon::now()->format('l'));
+        return view('student_online.absensi.index', compact('attends', 'permissions', 'absent', 'total', 'attendances', 'ruleToday'));
     }
 }

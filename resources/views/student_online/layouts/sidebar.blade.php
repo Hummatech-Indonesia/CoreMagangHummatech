@@ -103,7 +103,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Route::is('siswa-online.attendances') }}" href="{{ route('siswa-online.attendances') }}" aria-expanded="false">
+                    <a class="sidebar-link {{ Route::is('siswa-online.attendances') ? 'active' : '' }}" href="{{ route('siswa-online.attendances') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-presentation-analytics"></i>
                         </span>

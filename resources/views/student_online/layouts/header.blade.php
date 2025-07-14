@@ -158,7 +158,7 @@
                                     </div>
                                 </div>
                                 <div class="d-grid py-4 px-7 pt-8">
-                                    @if(!auth()->user()->feature)
+                                    {{-- @if(!auth()->user()->feature)
                                         @if (auth()->user()->student->activeFeature == null || auth()->user()->student->activeFeature->is_active == '0')
                                         <div
                                             class="upgrade-plan bg-light-primary position-relative overflow-hidden rounded-4 p-4 mb-9">
@@ -176,7 +176,7 @@
                                             </div>
                                         </div>
                                         @endif
-                                    @endif
+                                    @endif --}}
                                     <a class="btn btn-outline-primary" href="{{ route('logout') }}"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
