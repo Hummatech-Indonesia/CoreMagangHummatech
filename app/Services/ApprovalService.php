@@ -250,7 +250,6 @@ class ApprovalService
                 if (!$existingUser) {
                     $existingUser = $this->user->store($dataUser);
                 }
-                $user = $this->user->store($dataUser);
 
                 if ($student->internship_type == InternshipTypeEnum::OFFLINE->value) {
                     $existingUser->syncRoles(RolesEnum::OFFLINE->value);
