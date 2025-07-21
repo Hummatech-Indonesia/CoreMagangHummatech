@@ -80,8 +80,14 @@ class AttendanceRepository extends BaseRepository implements AttendanceInterface
 
     public function count($status): mixed
     {
+        $studentId = auth()->user()?->student?->id;
+
+        if (!$studentId) {
+            return 0;
+        }
+
         return $this->model->query()
-            ->where('student_id', auth()->user()->student->id)
+            ->where('student_id', $studentId)
             ->where('status', $status)
             ->count();
     }

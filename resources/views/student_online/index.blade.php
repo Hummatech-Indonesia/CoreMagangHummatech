@@ -79,11 +79,16 @@
                             <p class="card-subtitle mb-5">Tahun ini</p>
                         </div>
                         <div>
-                            <form action="{{ route('attendance.online.store') }}" method="post">
-                                @csrf
-                                @method('POST')
-                                <button class="btn btn-success" type="submit">Absen</button>
-                            </form>
+                            @php
+                                $now = Carbon\Carbon::now()->format('H:i:s');
+                            @endphp
+                            @if (($now >= $ruleToday->checkin_starts && $now <= $ruleToday->checkin_ends) || ($now >= $ruleToday->checkout_starts && $now <= $ruleToday->checkout_ends))
+                                <form action="{{ route('attendance.online.store') }}" method="post">
+                                    @csrf
+                                    @method('POST')
+                                    <button class="btn btn-success me-2" type="submit">Absen</button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                     <div id="chart-absen" class="pt-4"></div>

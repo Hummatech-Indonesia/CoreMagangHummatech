@@ -102,14 +102,14 @@
                     </a>
                 </li>
 
-                {{-- <li class="sidebar-item">
+                <li class="sidebar-item">
                     <a class="sidebar-link {{ Route::is('siswa-online.attendances') ? 'active' : '' }}" href="{{ route('siswa-online.attendances') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-presentation-analytics"></i>
                         </span>
                         <span class="hide-menu">Absensi</span>
                     </a>
-                </li> --}}
+                </li>
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('/siswa-online/meeting') }}" aria-expanded="false">
                         <span>

@@ -160,11 +160,21 @@
 </div>
 
 <div class="d-flex mb-3 justify-content-end">
-    <form action="{{ route('attendance.online.store') }}" method="post">
-        @csrf
-        @method('POST')
-        <button class="btn btn-success me-2" type="submit">Absen</button>
-    </form>
+    @php
+        $now = Carbon\Carbon::now()->format('H:i:s');
+        $checkin_ends = \Carbon\Carbon::parse($ruleToday->checkin_ends)->addMinutes(15)->format('H:i:s');
+        $checkout_ends = \Carbon\Carbon::parse($ruleToday->checkout_ends)->addMinutes(15)->format('H:i:s');
+    @endphp
+    @if (
+        ($now >= $ruleToday->checkin_starts && $now <= $checkin_ends) ||
+        ($now >= $ruleToday->checkout_starts && $now <= $checkout_ends)
+    )
+        <form action="{{ route('attendance.online.store') }}" method="post">
+            @csrf
+            @method('POST')
+            <button class="btn btn-success me-2" type="submit">Absen</button>
+        </form>
+    @endif
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#izinModal">
         Buat Izin
     </button>
@@ -207,7 +217,7 @@
                                 </div>
                             </td>
                             <td>
-                                <span class="usr-email-addr">12 Maret 2024</span>
+                                <span class="usr-email-addr">{{ Carbon\Carbon::parse($attendance->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}</span>
                             </td>
                             <td>
                                 <span class="badge fw-semibold bg-light-success text-success">{{ $attendance->status }}</span>
@@ -215,22 +225,14 @@
                             <td>
                                 @foreach ($attendance->attendanceDetails as $detailAttendance)
                                     @if ($detailAttendance->status == 'present')
-                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <= \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s'))
-                                            <span class="badge fw-semibold bg-light-success text-success">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
-                                        @else
-                                            <span class="badge fw-semibold bg-light-warning text-warning">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
-                                        @endif
+                                        <span class="badge fw-semibold bg-light-{{ $detailAttendance->created_at->format('H:i:s') > $ruleToday->checkin_ends ? 'danger' : 'success' }} text-{{ $detailAttendance->created_at->format('H:i:s') > $ruleToday->checkin_ends ? 'danger' : 'success' }}">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
                                     @endif
                                 @endforeach
                             </td>
                             <td>
                                 @foreach ($attendance->attendanceDetails as $detailAttendance)
                                     @if ($detailAttendance->status == 'return')
-                                        @if (date('H:i:s', strtotime($detailAttendance->created_at)) <= \Carbon\Carbon::createFromFormat('H:i:s', '16:00:00')->addMinutes(1)->format('H:i:s'))
-                                            <span class="badge fw-semibold bg-light-success text-success">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
-                                        @else
-                                            <span class="badge fw-semibold bg-light-success text-success">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
-                                        @endif
+                                        <span class="badge fw-semibold bg-light-{{ $detailAttendance->created_at->format('H:i:s') > $ruleToday->checkout_ends ? 'danger' : 'success' }} text-{{ $detailAttendance->created_at->format('H:i:s') > $ruleToday->checkout_ends ? 'danger' : 'success' }}">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
                                     @endif
                                 @endforeach
                             </td>
