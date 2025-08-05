@@ -110,7 +110,7 @@
                                         <button type="button" class="bg-transparent border-0 btn-detail"
                                             data-id="{{ $journal->id }}" data-name="{{ $journal->student->name }}"
                                             data-date="{{ $journal->created_at }}"
-                                            data-school="{{ $journal->student->school }}" {{-- data-school="{{ $journal->student->school }}" --}}
+                                            data-school="{{ $journal->student->school }}"
                                             data-description="{{ $journal->description }}"
                                             data-image="{{ asset('storage/' . $journal->image) }}">
                                             <svg width="29" height="32" viewBox="0 0 29 32" fill="none"
@@ -210,40 +210,42 @@
     @include('student_online_&_offline.journal.scripts.count-character')
     @include('student_online_&_offline.journal.scripts.detail')
     <script>
-        $('.btn-edit').click(function() {
-            var id = $(this).data('id');
-            var title = $(this).data('title');
-            var description = $(this).data('description');
-            var image = $(this).data('image');
-            $('#form-update').attr('action', '/journal/' + id);
-            $('#title-edit').val(title);
-            $('#description-edit').val(description);
-            $('#image-edit').attr('src', image);
-            $('#edit-journal-modal').modal('show');
-        });
+        $(document).ready(function() {
+            $('.btn-edit').click(function() {
+                var id = $(this).data('id');
+                var title = $(this).data('title');
+                var description = $(this).data('description');
+                var image = $(this).data('image');
+                $('#form-update').attr('action', '/journal/' + id);
+                $('#title-edit').val(title);
+                $('#description-edit').val(description);
+                $('#image-edit').attr('src', image);
+                $('#edit-journal-modal').modal('show');
+            });
 
-        function preview(event) {
-            var input = event.target;
-            var previewImages = document.getElementsByClassName('image-preview');
+            function preview(event) {
+                var input = event.target;
+                var previewImages = document.getElementsByClassName('image-preview');
 
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
 
-                reader.onload = function(e) {
-                    Array.from(previewImages).forEach(function(previewImage) {
-                        previewImage.src = e.target.result;
-                        previewImage.style.display = 'block';
-                    });
-                };
+                    reader.onload = function(e) {
+                        Array.from(previewImages).forEach(function(previewImage) {
+                            previewImage.src = e.target.result;
+                            previewImage.style.display = 'block';
+                        });
+                    };
 
-                reader.readAsDataURL(input.files[0]);
+                    reader.readAsDataURL(input.files[0]);
+                }
             }
-        }
 
-        $('.btn-delete').click(function() {
-            var id = $(this).data('id');
-            $('#form-delete').attr('action', '/division/' + id);
-            $('#modal-delete').modal('show');
-        });
+            $('.btn-delete').click(function() {
+                var id = $(this).data('id');
+                $('#form-delete').attr('action', '/division/' + id);
+                $('#modal-delete').modal('show');
+            });
+        })
     </script>
 @endsection
