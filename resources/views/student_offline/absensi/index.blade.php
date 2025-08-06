@@ -424,7 +424,7 @@
                     <h5 class="modal-title" id="izinModalLabel">Tambah Izin</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="others/permission" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('permission.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
 

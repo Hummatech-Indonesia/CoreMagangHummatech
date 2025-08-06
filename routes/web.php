@@ -416,7 +416,6 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value . ".")->middlewar
         Route::get('student', [ReportStudentController::class, 'index']);
         Route::post('student/report', [ReportStudentController::class, 'store'])->name('report.store');
         Route::get('picket', [PicketOfflineController::class, 'index'])->name('.picket');
-        Route::post('permission', [PermissionController::class, 'store'])->name('.permission.store');
     });
 
     Route::prefix('picket-report')->name('picket-report.')->group(function () {
@@ -508,6 +507,7 @@ Route::prefix('mentor')->name(RolesEnum::MENTOR->value . ".")->middleware(['role
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
+    Route::post('permission', [PermissionController::class, 'store'])->name('permission.store');
     Route::put('journal/{journal}', [JournalController::class, 'update'])->name('journal.update');
     # Subscription Route
     Route::controller(SubscriptionController::class)->prefix('subscription')->name('subscription.')->group(function () {
