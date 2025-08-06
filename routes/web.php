@@ -381,7 +381,6 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value . ".")->middlewar
 
     #Journal
     Route::get('data/journal', [JournalController::class, 'index'])->name('journal.index');
-    Route::put('journal/{journal}', [JournalController::class, 'update'])->name('journal.update');
 
     # Dashboard-Task-Presentation
     Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'index'])->name('project.task.index');
@@ -509,6 +508,7 @@ Route::prefix('mentor')->name(RolesEnum::MENTOR->value . ".")->middleware(['role
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
+    Route::put('journal/{journal}', [JournalController::class, 'update'])->name('journal.update');
     # Subscription Route
     Route::controller(SubscriptionController::class)->prefix('subscription')->name('subscription.')->group(function () {
         Route::get('/', 'index')->name('index');

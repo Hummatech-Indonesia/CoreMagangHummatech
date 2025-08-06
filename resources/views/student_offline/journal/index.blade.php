@@ -477,7 +477,7 @@
             var description = $(this).data('description').replace(/<br\s*\/?>/gi, "\n");
             var image = $(this).data('image');
 
-            $('#form-update').attr('action', '/siswa-offline/journal/' + id);
+            $('#form-update').attr('action', '/journal/' + id);
             $('#title-edit').val(title);
             $('#description-edit').val(description);
             $('#image-edit').attr('src', image);
