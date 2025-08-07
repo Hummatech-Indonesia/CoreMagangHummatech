@@ -14,7 +14,7 @@ class StoreJournalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required',
+            'title' => 'required|max:255',
             'description' => 'required|min:150',
             'image' => 'image|required'
         ];

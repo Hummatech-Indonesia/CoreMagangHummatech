@@ -92,7 +92,7 @@
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center">
                     <h4 class="modal-title" id="myLargeModalLabel">Tambah Jurnal</h4>
@@ -116,7 +116,7 @@
                         <p id="characterCount">0 characters</p>
 
                     </div>
-                    <div class="modal-footer border border-top-gray">
+                    <div class="modal-footer border-top-gray">
                         <button type="button" class="btn btn-light-danger text-danger font-medium waves-effect text-start"
                             data-bs-dismiss="modal">Tutup</button>
                         <button type="submit"
@@ -359,7 +359,7 @@
 @endif  --}}
     <div class="modal fade" id="modal-edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header d-flex align-items-center">
                     <h4 class="modal-title" id="myLargeModalLabel">
