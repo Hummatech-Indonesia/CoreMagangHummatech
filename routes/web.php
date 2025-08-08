@@ -380,7 +380,7 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value . ".")->middlewar
     })->name('certificate');
 
     #Journal
-    Route::get('data/journal', [JournalController::class, 'index'])->name('journal.index');
+    Route::get('/journal', [JournalController::class, 'index'])->name('journal.index');
 
     # Dashboard-Task-Presentation
     Route::get('dashboard/task', [\App\Http\Controllers\ProjectController::class, 'index'])->name('project.task.index');
@@ -403,13 +403,6 @@ Route::prefix('siswa-offline')->name(RolesEnum::OFFLINE->value . ".")->middlewar
         Route::get('/', [StudentTaskController::class, 'index'])->name('index');
         Route::post('store', [StudentTaskController::class, 'store'])->name('store');
         Route::patch('task/update/{studentTask}', [StudentTaskController::class, 'update'])->name('update');
-    });
-
-    Route::prefix('letterhead')->name('letterhead.')->group(function () {
-        Route::get('/', [LetterheadController::class, 'indexOffline']);
-        Route::post('letter-head', [LetterheadController::class, 'store'])->name('store');
-        Route::put('letter-head/{letterhead}', [LetterheadController::class, 'update'])->name('update');
-        Route::delete('letter-head/{letterhead}', [LetterheadController::class, 'destroy'])->name('delete');
     });
 
     Route::prefix('others')->name('others.')->group(function () {
@@ -438,7 +431,7 @@ Route::prefix('siswa-online')->name(RolesEnum::ONLINE->value)->middleware(['role
 
     # Attendences
     Route::get('attendances', [AttendanceController::class, 'attendanceOnline'])->name('.attendances');
-    Route::get('journals', [JournalController::class, 'studentOnline'])->name('.journals');
+    Route::get('journals', [JournalController::class, 'index'])->name('.journals');
 
     # Courses
     Route::controller(CourseController::class)->middleware('subsrcribed')->group(function () {
@@ -455,9 +448,6 @@ Route::prefix('siswa-online')->name(RolesEnum::ONLINE->value)->middleware(['role
         Route::get('/{task}/download/{taskSubmission}', 'download')->name('.download');
         Route::post('/submit', 'store')->name('.submit');
     });
-    # LetterHead
-    Route::get('letterhead', [LetterheadController::class, 'index'])->name('.letterhead');
-    Route::post('letterhead/store', [LetterheadController::class, 'store'])->name('.letterhead.store');
 
     #Zoom
     Route::get('/meeting', [ZoomScheduleController::class, 'indexStudent'])->name('.zoom-meeting.indexStudent');
@@ -470,8 +460,8 @@ Route::prefix('siswa-online')->name(RolesEnum::ONLINE->value)->middleware(['role
 });
 
 # Jurnal
-Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('.journal.download');
-Route::get('absen/export/pdf', [AttendanceController::class, 'DownloadPdf'])->name('.absen.download');
+Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('journal.download');
+Route::get('absen/export/pdf', [AttendanceController::class, 'DownloadPdf'])->name('absen.download');
 
 # ================================================ School/Instance Route Group ================================================
 
@@ -509,6 +499,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware('auth')->group(function () {
     Route::post('permission', [PermissionController::class, 'store'])->name('permission.store');
     Route::put('journal/{journal}', [JournalController::class, 'update'])->name('journal.update');
+    Route::post('create/journal', [JournalController::class, 'store'])->name('journal.create');
+    Route::prefix('letterhead')->name('letterhead.')->group(function () {
+        Route::get('/', [LetterheadController::class, 'index'])->name('index');
+        Route::post('letter-head', [LetterheadController::class, 'store'])->name('store');
+        Route::put('letter-head/{letterhead}', [LetterheadController::class, 'update'])->name('update');
+        Route::delete('letter-head/{letterhead}', [LetterheadController::class, 'destroy'])->name('delete');
+    });
     # Subscription Route
     Route::controller(SubscriptionController::class)->prefix('subscription')->name('subscription.')->group(function () {
         Route::get('/', 'index')->name('index');
@@ -606,12 +603,6 @@ Route::get('student/task', [StudentTaskController::class, 'index']);
 Route::post('student/task/store', [StudentTaskController::class, 'store'])->name('task-offline.store');
 Route::patch('student/task/update/{studentTask}', [StudentTaskController::class, 'update'])->name('task-offline.update');
 
-# Offline-LetterHead
-Route::get('siswa-offline/letter-head', [LetterheadController::class, 'indexOffline']);
-Route::post('letter-head', [LetterheadController::class, 'store'])->name('letterhead.store');
-Route::put('letter-head/{letterhead}', [LetterheadController::class, 'update'])->name('letterhead.update');
-Route::delete('letter-head/{letterhead}', [LetterheadController::class, 'destroy'])->name('letterhead.delete');
-
 # Offline-Report
 Route::get('siswa-offline/others/student', [ReportStudentController::class, 'index']);
 Route::post('siswa-offline/others/student/report', [ReportStudentController::class, 'store'])->name('report.store');
@@ -677,9 +668,6 @@ Route::prefix('submit-task-answer')->name('submit.task.answer.')->group(function
     Route::post('download/{submitTask}', [SubmitTaskController::class, 'download'])->name('download');
 });
 
-# Create-Journals
-Route::post('create/jurnal', [JournalController::class, 'store']);
-
 # Permissions
 Route::get('permission', function () {
     return view('admin.page.approval.permision');
@@ -741,10 +729,3 @@ Route::get('/presentasi', function () {
 Route::get('/approval-project', function () {
     return view('mentor.approval-project.index');
 });
-
-//require_once _DIR_ . '/femas.php';
-//require_once _DIR_ . '/kader.php';
-//require_once _DIR_ . '/farah.php';
-//require_once _DIR_ . '/nesa.php';
-//require_once _DIR_ . '/alul.php';
-//require_once _DIR_ . '/sano.php';

@@ -179,7 +179,7 @@
                     </ul>
                 </li> -->
                 <li class="sidebar-item">
-                    <a href="{{ url('siswa-offline/letterhead') }}" class="sidebar-link">
+                    <a href="{{ route('letterhead.index') }}" class="sidebar-link">
                         <div class="round-16 d-flex align-items-center justify-content-center">
                             <i class="ti ti-notes"></i>
                         </div>

@@ -22,7 +22,7 @@ class StoreLetterheadRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'logo' => 'nullable|image|max:500',
+            'logo' => 'required|image|max:500',
             'letterhead_top' => 'required',
             'letterhead_middle' => 'required',
             'letterhead_bottom' => 'required',

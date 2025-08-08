@@ -110,6 +110,15 @@
                         <span class="hide-menu">Absensi</span>
                     </a>
                 </li>
+
+                <li class="sidebar-item">
+                    <a href="{{ route('letterhead.index') }}" class="sidebar-link">
+                        <div class="round-16 d-flex align-items-center justify-content-center">
+                            <i class="ti ti-notes"></i>
+                        </div>
+                        <span class="hide-menu ms-1">Kop Surat</span>
+                    </a>
+                </li>
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('/siswa-online/meeting') }}" aria-expanded="false">
                         <span>

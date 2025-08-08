@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreLetterheadRequest;
 use App\Http\Requests\UpdateLetterheadRequest;
 use App\Contracts\Interfaces\LetterheadsInterface;
+use Illuminate\Support\Facades\DB;
 
 class LetterheadController extends Controller
 {
@@ -26,21 +27,7 @@ class LetterheadController extends Controller
     public function index()
     {
         $letterheads = $this->letterhead->whereauth(Auth::user()->id);
-        return view('student_online.letterhead.index' , compact('letterheads'));
-    }
-
-    public function indexOffline()
-    {
-        $letterheads = $this->letterhead->whereauth(Auth::user()->id);
-        return view('student_offline.others.letter-head' , compact('letterheads'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('student_online_&_offline.letterhead.index' , compact('letterheads'));
     }
 
     /**
@@ -48,29 +35,17 @@ class LetterheadController extends Controller
      */
     public function store(StoreLetterheadRequest $request)
     {
-        // dd($request->all());
-        // $data =  $request->validated();
-        $data = $this->service->store($request);
-        $data['user_id'] = auth()->user()->id;
-        // dd($data);
-        $this->letterhead->store($data);
-        return back()->with('success' , 'Berhasil Menambahkan data');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Letterhead $letterhead)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Letterhead $letterhead)
-    {
-        //
+        DB::beginTransaction();
+        try {
+            $data = $this->service->store($request);
+            $data['user_id'] = auth()->user()->id;
+            $this->letterhead->store($data);
+            DB::commit();
+            return back()->with('success' , 'Berhasil Menambahkan data');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with('error', 'Gagal Menambahkan data, ' . $th->getMessage());
+        }
     }
 
     /**
@@ -78,9 +53,16 @@ class LetterheadController extends Controller
      */
     public function update(UpdateLetterheadRequest $request, Letterhead $letterhead)
     {
-        $data = $this->service->update($letterhead, $request);
-        $this->letterhead->update($letterhead->id, $data);
-        return back()->with('success' , 'Berhasi Memperbarui Data');
+        DB::beginTransaction();
+        try {
+            $data = $this->service->update($letterhead, $request);
+            $this->letterhead->update($letterhead->id, $data);
+            DB::commit();
+            return back()->with('success' , 'Berhasi Memperbarui Data');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with('error', 'Gagal Mengubah data, ' . $th->getMessage());
+        }
     }
 
     /**
@@ -88,8 +70,15 @@ class LetterheadController extends Controller
      */
     public function destroy(Letterhead $letterhead)
     {
-        $this->service->delete($letterhead);
-        $this->letterhead->delete($letterhead->id);
-        return back()->with('success' , 'Berhasi Menghapus Data');
+        DB::beginTransaction();
+        try {
+            $this->service->delete($letterhead);
+            $this->letterhead->delete($letterhead->id);
+            DB::commit();
+            return back()->with('success' , 'Berhasi Menghapus Data');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with('error', 'Gagal Menghapus data, ' . $th->getMessage());
+        }
    }
 }
