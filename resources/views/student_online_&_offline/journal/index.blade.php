@@ -22,66 +22,28 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header d-flex align-items-center">
-                    <h4 class="modal-title" id="myLargeModalLabel">Tambah Jurnal</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="/create/jurnal" method="post" enctype="multipart/form-data">
-                    @csrf
-                    @method('POST')
-                    <div class="modal-body">
-                        <label for="" class="mt-2 mb-2">Judul</label>
-                        <input type="text" name="title" class="form-control" value="{{ old('title') }}">
-                        @error('title', 'create')
-                            <p class="text-danger error-create">
-                                {{ $message }}
-                            </p>
-                        @enderror
-
-                        <label for="" class="mt-2 mb-2">Bukti</label>
-                        <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
-                            <img class="img-thumbnail image-preview" itemprop="thumbnail">
-                        </figure>
-                        <input type="file" name="image" class="form-control" onchange="preview(event)">
-                        @error('image', 'create')
-                            <p class="text-danger error-create">
-                                {{ $message }}
-                            </p>
-                        @enderror
-
-                        <label for="" class="mt-2 mb-2">Deskripsi</label>
-                        <textarea name="description" id="description" class="form-control" rows="3" onkeyup="countCharacters(this)">{{ old('description') }}</textarea>
-                        <p id="characterCount">0 characters</p>
-                        @error('description', 'create')
-                            <p class="text-danger error-create">
-                                {{ $message }}
-                            </p>
-                        @enderror
-
-                    </div>
-                    <div class="modal-footer border-top-gray">
-                        <button type="button" class="btn btn-light-danger text-danger font-medium waves-effect text-start"
-                            data-bs-dismiss="modal">Tutup</button>
-                        <button type="submit"
-                            class="btn btn-light-primary text-primary font-medium waves-effect text-start">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <div class="d-flex justify-content-between mb-4">
         <h4>
             Data Jurnal
         </h4>
-        <button type="button" class="btn mb-1 btn-light-primary text-primary btn-lg px-4 fs-4 font-medium"
-            data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Tambah
-        </button>
+        <div class="d-flex gap-2">
+            <button type="button" class="btn mb-1 btn-light-warning text-warning btn-lg px-4 fs-4 font-medium ms-3"
+                data-bs-toggle="modal" data-bs-target="#printJournalModal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 ltr:mr-2 rtl:ml-2">
+                    <path
+                        d="M15.3929 4.05365L14.8912 4.61112L15.3929 4.05365ZM19.3517 7.61654L18.85 8.17402L19.3517 7.61654ZM21.654 10.1541L20.9689 10.4592V10.4592L21.654 10.1541ZM3.17157 20.8284L3.7019 20.2981H3.7019L3.17157 20.8284ZM20.8284 20.8284L20.2981 20.2981L20.2981 20.2981L20.8284 20.8284ZM14 21.25H10V22.75H14V21.25ZM2.75 14V10H1.25V14H2.75ZM21.25 13.5629V14H22.75V13.5629H21.25ZM14.8912 4.61112L18.85 8.17402L19.8534 7.05907L15.8947 3.49618L14.8912 4.61112ZM22.75 13.5629C22.75 11.8745 22.7651 10.8055 22.3391 9.84897L20.9689 10.4592C21.2349 11.0565 21.25 11.742 21.25 13.5629H22.75ZM18.85 8.17402C20.2034 9.3921 20.7029 9.86199 20.9689 10.4592L22.3391 9.84897C21.9131 8.89241 21.1084 8.18853 19.8534 7.05907L18.85 8.17402ZM10.0298 2.75C11.6116 2.75 12.2085 2.76158 12.7405 2.96573L13.2779 1.5653C12.4261 1.23842 11.498 1.25 10.0298 1.25V2.75ZM15.8947 3.49618C14.8087 2.51878 14.1297 1.89214 13.2779 1.5653L12.7405 2.96573C13.2727 3.16993 13.7215 3.55836 14.8912 4.61112L15.8947 3.49618ZM10 21.25C8.09318 21.25 6.73851 21.2484 5.71085 21.1102C4.70476 20.975 4.12511 20.7213 3.7019 20.2981L2.64124 21.3588C3.38961 22.1071 4.33855 22.4392 5.51098 22.5969C6.66182 22.7516 8.13558 22.75 10 22.75V21.25ZM1.25 14C1.25 15.8644 1.24841 17.3382 1.40313 18.489C1.56076 19.6614 1.89288 20.6104 2.64124 21.3588L3.7019 20.2981C3.27869 19.8749 3.02502 19.2952 2.88976 18.2892C2.75159 17.2615 2.75 15.9068 2.75 14H1.25ZM14 22.75C15.8644 22.75 17.3382 22.7516 18.489 22.5969C19.6614 22.4392 20.6104 22.1071 21.3588 21.3588L20.2981 20.2981C19.8749 20.7213 19.2952 20.975 18.2892 21.1102C17.2615 21.2484 15.9068 21.25 14 21.25V22.75ZM21.25 14C21.25 15.9068 21.2484 17.2615 21.1102 18.2892C20.975 19.2952 20.7213 19.8749 20.2981 20.2981L21.3588 21.3588C22.1071 20.6104 22.4392 19.6614 22.5969 18.489C22.7516 17.3382 22.75 15.8644 22.75 14H21.25ZM2.75 10C2.75 8.09318 2.75159 6.73851 2.88976 5.71085C3.02502 4.70476 3.27869 4.12511 3.7019 3.7019L2.64124 2.64124C1.89288 3.38961 1.56076 4.33855 1.40313 5.51098C1.24841 6.66182 1.25 8.13558 1.25 10H2.75ZM10.0298 1.25C8.15538 1.25 6.67442 1.24842 5.51887 1.40307C4.34232 1.56054 3.39019 1.8923 2.64124 2.64124L3.7019 3.7019C4.12453 3.27928 4.70596 3.02525 5.71785 2.88982C6.75075 2.75158 8.11311 2.75 10.0298 2.75V1.25Z"
+                        fill="currentColor" />
+                    <path opacity="0.5" d="M13 2.5V5C13 7.35702 13 8.53553 13.7322 9.26777C14.4645 10 15.643 10 18 10H22"
+                        stroke="currentColor" stroke-width="1.5" />
+                </svg>
+                PDF
+            </button>
+            <button type="button" class="btn mb-1 btn-light-primary text-primary btn-lg px-4 fs-4 font-medium"
+                data-bs-toggle="modal" data-bs-target="#create-journal-modal">
+                Tambah
+            </button>
+        </div>
     </div>
     <div class="card">
         <div class="card-body">
@@ -132,28 +94,25 @@
                                 <td>
                                     <div class="d-flex gap-2">
                                         @if ($journal->created_at->isToday())
-                                        <button type="button" class="bg-transparent border-0 btn-edit"
-                                            data-id="{{ $journal->id }}"
-                                            data-title="{{ $journal->title }}"
-                                            data-image="{{ asset('storage/'.$journal->image) }}"
-                                            data-description="{{ $journal->description }}">
-                                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M18.6667 5.83335L22.1667 9.33335M10.5011 8.24829C8.45447 8.53989 6.59463 9.59678 5.29668 11.2058C3.99874 12.8148 3.35928 14.8561 3.5073 16.9181C3.65533 18.98 4.57981 20.9091 6.09427 22.3162C7.60873 23.7233 9.60047 24.5037 11.6677 24.5C13.6317 24.5002 15.5299 23.7926 17.0146 22.507C18.4993 21.2214 19.471 19.4438 19.7516 17.5M14 17.5L23.7825 7.6825C24.242 7.22302 24.5001 6.59982 24.5001 5.95C24.5001 5.30019 24.242 4.67699 23.7825 4.2175C23.323 3.75802 22.6998 3.49988 22.05 3.49988C21.4002 3.49988 20.777 3.75802 20.3175 4.2175L10.5 14V17.5H14Z"
-                                                    stroke="#FFAA05" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round" />
-                                            </svg>
-                                        </button>
+                                            <button type="button" class="bg-transparent border-0 btn-edit"
+                                                data-id="{{ $journal->id }}" data-title="{{ $journal->title }}"
+                                                data-image="{{ asset('storage/' . $journal->image) }}"
+                                                data-description="{{ $journal->description }}">
+                                                <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M18.6667 5.83335L22.1667 9.33335M10.5011 8.24829C8.45447 8.53989 6.59463 9.59678 5.29668 11.2058C3.99874 12.8148 3.35928 14.8561 3.5073 16.9181C3.65533 18.98 4.57981 20.9091 6.09427 22.3162C7.60873 23.7233 9.60047 24.5037 11.6677 24.5C13.6317 24.5002 15.5299 23.7926 17.0146 22.507C18.4993 21.2214 19.471 19.4438 19.7516 17.5M14 17.5L23.7825 7.6825C24.242 7.22302 24.5001 6.59982 24.5001 5.95C24.5001 5.30019 24.242 4.67699 23.7825 4.2175C23.323 3.75802 22.6998 3.49988 22.05 3.49988C21.4002 3.49988 20.777 3.75802 20.3175 4.2175L10.5 14V17.5H14Z"
+                                                        stroke="#FFAA05" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" />
+                                                </svg>
+                                            </button>
                                         @endif
                                         <button type="button" class="bg-transparent border-0 btn-detail"
-                                            data-id="{{ $journal->id }}"
-                                            data-name="{{ $journal->student->name }}"
+                                            data-id="{{ $journal->id }}" data-name="{{ $journal->student->name }}"
                                             data-date="{{ $journal->created_at }}"
-                                            data-school="{{ $journal->student->school }}"
-                                            {{-- data-school="{{ $journal->student->school }}" --}}
+                                            data-school="{{ $journal->student->school }}" {{-- data-school="{{ $journal->student->school }}" --}}
                                             data-description="{{ $journal->description }}"
-                                            data-image="{{ asset('storage/'. $journal->image) }}">
+                                            data-image="{{ asset('storage/' . $journal->image) }}">
                                             <svg width="29" height="32" viewBox="0 0 29 32" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <g clip-path="url(#clip0_429_487)">
@@ -185,124 +144,73 @@
             </div>
         </div>
     </div>
-    @if (session('error'))
-        <script>
-            alert('{{ session('error') }}')
-        </script>
-    @endif
-    <div class="modal fade" id="modal-edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+
+    <div class="modal fade" id="printJournalModal" tabindex="-1" aria-labelledby="printJournalModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header d-flex align-items-center">
-                    <h4 class="modal-title" id="myLargeModalLabel">
-                        Edit Jurnal
-                    </h4>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="printJournalModalLabel">Cetak Jurnal</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" enctype="multipart/form-data" id="form-update">
-                    @csrf
-                    @method('PUT')
-                    <div class="modal-body">
-                        <label for="" class="mt-2 mb-2">Judul</label>
-                        <input type="text" name="title" id="title-edit" value="{{ old('title') }}"
-                            class="form-control">
-                        @error('title', 'edit')
-                            <p class="text-danger error-edit">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                        <label for="" class="mt-2 mb-2">Bukti</label>
-                        <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
-                            <img class="img-thumbnail image-preview" id="image-edit" itemprop="thumbnail">
-                        </figure>
-                        <input class="form-control @error('image') is-invalid @enderror" id="image" name="image"
-                            type="file" onchange="preview(event)">
-                        @error('image', 'edit')
-                            <p class="text-danger error-edit">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                        <label for="description-edit" class="mt-2 mb-2">Deskripsi</label>
-                        <textarea name="description" id="description-edit" class="form-control" rows="3"
-                            oninput="countCharactersEdit(this)">{{ old('description') }}</textarea>
-                        <div id="characterCountEdit"></div>
-                        @error('description', 'edit')
-                            <p class="text-danger error-edit">
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </div>
-                    <hr>
-                    <div class="modal-footer">
-                        <button type="button"
-                            class="btn btn-light-danger text-danger font-medium waves-effect text-start"
-                            data-bs-dismiss="modal">
-                            Tutup
-                        </button>
-                        <button type="submit"
-                            class="btn btn-light-primary text-primary font-medium waves-effect text-start"
-                            data-bs-dismiss="modal">
-                            Simpan
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade modal-bookmark" id="detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content px-2">
-                <div class="modal-header border-bottom">
-                    <h5 class="modal-title me-2" id="exampleModalLabel">Detail Jurnal</h5>
-                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
                 <div class="modal-body">
-                    <div class="text-start" id="detail-content">
+                    <form id="printJournalForm" action="{{ url('/jurnal/export/pdf') }}" method="GET">
+                        <div class="mb-3">
+                            <label for="yearSelect" class="form-label">Tahun</label>
+                            <select class="form-select" id="yearSelect" name="year">
+                                @foreach ($years as $yearOption)
+                                    <option value="{{ $yearOption }}" {{ $yearOption == $year ? 'selected' : '' }}>
+                                        {{ $yearOption }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        @php
+                            use Carbon\Carbon;
+
+                            $months = [];
+                            for ($i = 1; $i <= 12; $i++) {
+                                $months[] = [
+                                    'value' => $i,
+                                    'name' => Carbon::create()->month($i)->locale('id')->format('F'),
+                                ];
+                            }
+                        @endphp
+
+                        <div class="mb-3">
+                            <label for="monthSelect" class="form-label">Bulan</label>
+                            <select class="form-select" id="monthSelect" name="month">
+                                @foreach ($months as $month)
+                                    <option value="{{ $month['value'] }}"
+                                        {{ $month['value'] == old('month', request('month')) ? 'selected' : '' }}>
+                                        {{ $month['name'] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <div class="d-flex justify-content-end">
-                        <button class="purchase-btn btn btn-hover-effect btn-light-danger text-danger f-w-500" type="button" data-bs-dismiss="modal">Tutup</button>
-                    </div>
+                    <button type="button" class="btn btn-light-danger text-danger font-medium waves-effect"
+                        data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-light-primary text-primary font-medium waves-effect"
+                        form="printJournalForm">Cetak</button>
                 </div>
             </div>
         </div>
     </div>
+
+    @include('student_online_&_offline.journal.widgets.create-modal')
+    @include('student_online_&_offline.journal.widgets.edit-modal')
+    @include('student_online_&_offline.journal.widgets.detail-modal')
 @endsection
 @section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @include('student_online_&_offline.journal.scripts.validation')
+    @include('student_online_&_offline.journal.scripts.count-character')
+    @include('student_online_&_offline.journal.scripts.detail')
     <script>
-        function countCharacters(textarea) {
-            var textWithoutSpaces = textarea.value.replace(/\s/g, '');
-            var count = textWithoutSpaces.length;
-            var countElement = document.getElementById('characterCount');
-            countElement.innerText = count + ' karakter';
-
-            if (count >= 150) {
-                countElement.style.color = 'green';
-            } else {
-                countElement.style.color = 'red';
-            }
-        }
-    </script>
-
-    <script>
-        function countCharactersEdit(element) {
-            var textWithoutSpaces = element.value.replace(/\s/g, '');
-            var count = textWithoutSpaces.length;
-            var countElement = document.getElementById('characterCountEdit');
-            countElement.innerText = count + ' karakter';
-
-            if (count < 150) {
-                countElement.style.color = 'red';
-            } else {
-                countElement.style.color = 'green';
-            }
-        }
-    </script>
-    <script>
-        $('.btn-edit').click(function () {
+        $('.btn-edit').click(function() {
             var id = $(this).data('id');
             var title = $(this).data('title');
             var description = $(this).data('description');
@@ -311,7 +219,7 @@
             $('#title-edit').val(title);
             $('#description-edit').val(description);
             $('#image-edit').attr('src', image);
-            $('#modal-edit').modal('show');
+            $('#edit-journal-modal').modal('show');
         });
 
         function preview(event) {
@@ -321,7 +229,7 @@
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     Array.from(previewImages).forEach(function(previewImage) {
                         previewImage.src = e.target.result;
                         previewImage.style.display = 'block';
@@ -332,39 +240,7 @@
             }
         }
 
-        $('.btn-detail').click(function() {
-            var detail = $('#detail-content');
-            detail.empty();
-            var id = $(this).data('id');
-            var name = $(this).data('name');
-            var date = $(this).data('date');
-            var school = $(this).data('school');
-            var description = $(this).data('description');
-            var image = $(this).data('image');
-            detail.append('<div class="mb-2">');
-            detail.append('<h6 class="f-w-600">Nama</h6>');
-            detail.append('<p class="text-muted">' + name + '</p>')
-            detail.append('</div>');
-            detail.append('<div class="mb-2">');
-            detail.append('<h6 class="f-w-600">Tanggal</h6>');
-            detail.append('<p class="text-muted">' + date + '</p>')
-            detail.append('</div>');
-            detail.append('<div class="mb-2">');
-            detail.append('<h6 class="f-w-600">Sekolah</h6>');
-            detail.append('<p class="text-muted">' + school + '</p>')
-            detail.append('</div>');
-            detail.append('<div class="mb-2">');
-            detail.append('<h6 class="f-w-600">Kegiatan</h6>');
-            detail.append('<p>' + description + '</p>')
-            detail.append('</div>');
-            detail.append('<div class="mb-2">');
-            detail.append('<h6 class="f-w-600">Bukti</h6>');
-            detail.append('<img src="' + image + '" width="100%"></img>')
-            detail.append('</div>');
-            $('#detail').modal('show');
-        });
-
-        $('.btn-delete').click(function () {
+        $('.btn-delete').click(function() {
             var id = $(this).data('id');
             $('#form-delete').attr('action', '/division/' + id);
             $('#modal-delete').modal('show');

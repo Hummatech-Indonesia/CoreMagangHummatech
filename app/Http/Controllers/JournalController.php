@@ -59,7 +59,7 @@ class JournalController extends Controller
         $year = request()->get('year', $years->first());
         $month = request()->get('month', $months->first());
 
-        return view('student_offline.journal.index', compact('journals', 'years', 'months', 'year', 'month'));
+        return view('student_online_&_offline.journal.index', compact('journals', 'years', 'months', 'year', 'month'));
     }
 
 
@@ -140,12 +140,6 @@ class JournalController extends Controller
         $this->service->delete($journal);
         $this->journal->delete($journal->id);
         return back()->with('success', 'Berhasi Menghapus Data');
-    }
-
-    public function studentOnline()
-    {
-        $journals = $this->journal->get();
-        return view('student_online_&_offline.journal.index', compact('journals'));
     }
 
     public function downloadPDF(Request $request)

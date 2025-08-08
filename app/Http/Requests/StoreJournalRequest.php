@@ -35,6 +35,6 @@ class StoreJournalRequest extends FormRequest
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
     {
         session()->flash('showCreateModal', true);
-        throw new \Illuminate\Validation\ValidationException($validator, redirect()->back()->withErrors($validator));
+        throw new \Illuminate\Validation\ValidationException($validator, redirect()->back()->withInput()->withErrors($validator, 'create'));
     }
 }
