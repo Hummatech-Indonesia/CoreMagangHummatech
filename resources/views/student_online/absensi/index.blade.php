@@ -160,20 +160,17 @@
 </div>
 
 <div class="d-flex mb-3 justify-content-end">
-    @php
-        $now = Carbon\Carbon::now()->format('H:i:s');
-        $checkin_ends = \Carbon\Carbon::parse($ruleToday->checkin_ends)->addMinutes(15)->format('H:i:s');
-        $checkout_ends = \Carbon\Carbon::parse($ruleToday->checkout_ends)->addMinutes(15)->format('H:i:s');
-    @endphp
-    @if (
-        ($now >= $ruleToday->checkin_starts && $now <= $checkin_ends) ||
-        ($now >= $ruleToday->checkout_starts && $now <= $checkout_ends)
-    )
-        <form action="{{ route('attendance.online.store') }}" method="post">
-            @csrf
-            @method('POST')
-            <button class="btn btn-success me-2" type="submit">Absen</button>
-        </form>
+    @if (!$isWeekend)
+        @if (
+            ($now >= $ruleToday->checkin_starts && $now <= $checkin_ends) ||
+            ($now >= $ruleToday->checkout_starts && $now <= $checkout_ends)
+        )
+            <form action="{{ route('attendance.online.store') }}" method="post">
+                @csrf
+                @method('POST')
+                <button class="btn btn-success me-2" type="submit">Absen</button>
+            </form>
+        @endif
     @endif
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#izinModal">
         Buat Izin
@@ -220,21 +217,25 @@
                                 <span class="usr-email-addr">{{ Carbon\Carbon::parse($attendance->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}</span>
                             </td>
                             <td>
-                                <span class="badge fw-semibold bg-light-success text-success">{{ $attendance->status }}</span>
+                                <span class="badge fw-semibold bg-light-{{ $attendance->status->color() }} text-{{ $attendance->status->color() }}">{{ $attendance->status->label() }}</span>
                             </td>
                             <td>
-                                @foreach ($attendance->attendanceDetails as $detailAttendance)
+                                @forelse ($attendance->attendanceDetails as $detailAttendance)
                                     @if ($detailAttendance->status == 'present')
-                                        <span class="badge fw-semibold bg-light-{{ $detailAttendance->created_at->format('H:i:s') > $ruleToday->checkin_ends ? 'danger' : 'success' }} text-{{ $detailAttendance->created_at->format('H:i:s') > $ruleToday->checkin_ends ? 'danger' : 'success' }}">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                        <span class="badge fw-semibold bg-light-{{ $detailAttendance->created_at->format('H:i:s') > \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s') ? 'danger' : 'success' }} text-{{ $detailAttendance->created_at->format('H:i:s') > \Carbon\Carbon::createFromFormat('H:i:s', '08:00:00')->addMinutes(1)->format('H:i:s') ? 'danger' : 'success' }}">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
                                     @endif
-                                @endforeach
+                                @empty
+                                    <span>-</span>
+                                @endforelse
                             </td>
                             <td>
-                                @foreach ($attendance->attendanceDetails as $detailAttendance)
+                                @forelse ($attendance->attendanceDetails as $detailAttendance)
                                     @if ($detailAttendance->status == 'return')
-                                        <span class="badge fw-semibold bg-light-{{ $detailAttendance->created_at->format('H:i:s') > $ruleToday->checkout_ends ? 'danger' : 'success' }} text-{{ $detailAttendance->created_at->format('H:i:s') > $ruleToday->checkout_ends ? 'danger' : 'success' }}">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
+                                        <span class="badge fw-semibold bg-light-{{ $detailAttendance->created_at->format('H:i:s') > \Carbon\Carbon::createFromFormat('H:i:s', '17:00:00')->addMinutes(1)->format('H:i:s') ? 'danger' : 'success' }} text-{{ $detailAttendance->created_at->format('H:i:s') > \Carbon\Carbon::createFromFormat('H:i:s', '17:00:00')->addMinutes(1)->format('H:i:s') ? 'danger' : 'success' }}">{{ date('H:i', strtotime($detailAttendance->created_at)) }}</span>
                                     @endif
-                                @endforeach
+                                @empty
+                                    <span>-</span>
+                                @endforelse
                             </td>
                         </tr>
                     @empty

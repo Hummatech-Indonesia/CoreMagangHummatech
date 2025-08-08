@@ -35,6 +35,9 @@ class StudentOnlineController extends Controller
         $fillinJournal = $this->journalService->chart(StatusJournalEnum::FILLIN->value);
         $notFillinJournal = $this->journalService->chart(StatusJournalEnum::NOTFILLING->value);
         $ruleToday = $this->attendanceRule->getByDay(Carbon::now()->format('l'));
-        return view('student_online.index', compact('transactions', 'attends', 'permissions', 'sick', 'absent', 'fillinJournal', 'notFillinJournal', 'ruleToday'));
+
+        $now = Carbon::now()->format('H:i:s');
+        $isWeekend = Carbon::now()->isWeekend();
+        return view('student_online.index', compact('transactions', 'attends', 'permissions', 'sick', 'absent', 'fillinJournal', 'notFillinJournal', 'ruleToday', 'now', 'isWeekend'));
     }
 }

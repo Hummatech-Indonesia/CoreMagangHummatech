@@ -389,7 +389,16 @@ class AttendanceController extends Controller
         $permissions = $sick + $permissionCount;
         $total = $attends + $permissionCount + $sick + $absent;
         $attendances = $this->attendance->getAttendanceByStudent($request);
+
         $ruleToday = $this->attendanceRule->getByDay(Carbon::now()->format('l'));
-        return view('student_online.absensi.index', compact('attends', 'permissions', 'absent', 'total', 'attendances', 'ruleToday'));
+        $now = Carbon::now()->format('H:i:s');
+        $isWeekend = Carbon::now()->isWeekend();
+        $checkin_ends = null;
+        $checkout_ends = null;
+        if (!$isWeekend) {
+            $checkin_ends = Carbon::parse($ruleToday->checkin_ends)->addMinutes(15)->format('H:i:s');
+            $checkout_ends = Carbon::parse($ruleToday->checkout_ends)->addMinutes(15)->format('H:i:s');
+        }
+        return view('student_online.absensi.index', compact('attends', 'permissions', 'absent', 'total', 'attendances', 'ruleToday', 'now', 'checkin_ends', 'checkout_ends', 'isWeekend'));
     }
 }

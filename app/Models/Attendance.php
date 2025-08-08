@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Base\Interfaces\HasAttendanceDetails;
 use App\Base\Interfaces\HasStudent;
+use App\Enum\StatusPresenceEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +18,7 @@ class Attendance extends Model implements HasStudent, HasAttendanceDetails
     protected $primaryKey = 'id';
     protected $fillable = ['student_id', 'status', 'is_admin', 'created_at', 'updated_at','attendance_type'];
     protected $guarded = [];
+    protected $casts = ['status' => StatusPresenceEnum::class];
 
     /**
      * student
