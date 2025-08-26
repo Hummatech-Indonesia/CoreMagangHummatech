@@ -39,8 +39,7 @@
                 </svg>
                 PDF
             </button>
-            <button type="button" class="btn mb-1 btn-light-primary text-primary btn-lg px-4 fs-4 font-medium"
-                data-bs-toggle="modal" data-bs-target="#create-journal-modal">
+            <button type="button" class="btn mb-1 btn-light-primary text-primary btn-lg px-4 fs-4 font-medium btn-add">
                 Tambah
             </button>
         </div>
@@ -52,10 +51,10 @@
                     <thead class="text-dark fs-4">
                         <tr>
                             <th>
-                                <h6 class="fs-4 fw-semibold mb-0">Nama</h6>
+                                <h6 class="fs-4 fw-semibold mb-0">Tanggal</h6>
                             </th>
                             <th>
-                                <h6 class="fs-4 fw-semibold mb-0">Tanggal</h6>
+                                <h6 class="fs-4 fw-semibold mb-0">Judul</h6>
                             </th>
                             <th>
                                 <h6 class="fs-4 fw-semibold mb-0">Bukti</h6>
@@ -72,15 +71,12 @@
                         @forelse($journals as $key => $journal)
                             <tr>
                                 <td>
-                                    <div class="ms-3">
-                                        <h6 class="fs-4 fw-semibold mb-0">{{ $journal->student->name }}</h6>
-                                        <span class="fw-normal">{{ $journal->student->email }}</span>
-                                    </div>
-                                </td>
-                                <td>
                                     <p class="mb-0 fw-normal fs-4">
                                         {{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}
                                     </p>
+                                </td>
+                                <td>
+                                    <p>{{ Str::limit($journal->title, 30) }}</p>
                                 </td>
                                 <td>
                                     <img src="{{ $journal->status == 'notfilling' ? asset('no-data/4.png') : asset('storage/' . $journal->image) }}" width="100px"
@@ -112,6 +108,7 @@
                                                 data-id="{{ $journal->id }}" data-name="{{ $journal->student->name }}"
                                                 data-date="{{ $journal->created_at }}"
                                                 data-school="{{ $journal->student->school }}"
+                                                data-title="{{ $journal->title }}"
                                                 data-description="{{ $journal->description }}"
                                                 data-image="{{ asset('storage/' . $journal->image) }}">
                                                 <svg width="29" height="32" viewBox="0 0 29 32" fill="none"
@@ -213,20 +210,7 @@
     @include('student_online_&_offline.journal.scripts.detail')
     <script>
         $(document).ready(function() {
-            $('.btn-edit').click(function() {
-                var id = $(this).data('id');
-                var title = $(this).data('title');
-                var description = $(this).data('description');
-                var image = $(this).data('image');
-                $('#form-update').attr('action', '/journal/' + id);
-                $('#title-edit').val(title);
-                $('#description-edit').val(description);
-                $('#image-edit').attr('src', image);
-                $('#edit-journal-modal').modal('show');
-            });
-
-            function preview(event) {
-                var input = event.target;
+            function preview(input) {
                 var previewImages = document.getElementsByClassName('image-preview');
 
                 if (input.files && input.files[0]) {
@@ -242,6 +226,22 @@
                     reader.readAsDataURL(input.files[0]);
                 }
             }
+
+            $('.btn-add').click(function() {
+                $('#create-journal-modal').modal('show');
+            });
+
+            $('.btn-edit').click(function() {
+                var id = $(this).data('id');
+                var title = $(this).data('title');
+                var description = $(this).data('description');
+                var image = $(this).data('image');
+                $('#form-update').attr('action', '/journal/' + id);
+                $('#title-edit').val(title);
+                $('#description-edit').val(description);
+                $('#image-edit').attr('src', image);
+                $('#edit-journal-modal').modal('show');
+            });
 
             $('.btn-delete').click(function() {
                 var id = $(this).data('id');
