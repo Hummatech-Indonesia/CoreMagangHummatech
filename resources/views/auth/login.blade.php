@@ -193,7 +193,8 @@
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M5 12l5 5l10 -10" />
                         </svg>
-                        <h4 class="text-dark fs-7 mb-0 mt-3">{{ session('pending') }} Silahkan bergabung ke grup WhatsApp kami untuk melakukan interview dan mohon untuk merubah nama akun WhatsApp menjadi nama lengkap Anda.</h4>
+                        <h4 class="text-dark fs-7 mb-0 mt-3">{{ session('pending') }}
+                            <br>dan bergabung dengan grup WhatsApp kami, mohon untuk merubah nama akun WhatsApp menjadi nama lengkap Anda.</h4>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
                         <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
