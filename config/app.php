@@ -27,6 +27,8 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
+    'force_https' => env('FORCE_HTTPS', false),
+    'wa_group_link' => env('WHATSAPP_GROUP_LINK', "https://chat.whatsapp.com/J8r8NJAqC8rAatydEGokDE?mode=hqrt1"),
 
     /*
     |--------------------------------------------------------------------------

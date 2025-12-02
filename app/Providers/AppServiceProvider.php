@@ -257,7 +257,7 @@ class AppServiceProvider extends ServiceProvider
         SubCourse::observe(SubCourseObserver::class);
         SubmitTask::observe(SubmitTaskObserver::class);
 
-        if (env('FORCE_HTTPS', false)) {
+        if (config('app.force_https')) {
             URL::forceScheme('https');
         }
 
