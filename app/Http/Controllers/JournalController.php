@@ -47,13 +47,15 @@ class JournalController extends Controller
     public function index()
     {
         $journals = $this->journal->get();
+        $dates = $this->journal->getCreatedAtStudentJournals();
 
-        $years = $journals->pluck('created_at')->map(function ($date) {
-            return $date->format('Y');
+        // dd($dates);
+        $years = $dates->pluck('date')->map(function ($date) {
+            return Carbon::parse($date)->format('Y');
         })->unique()->sort()->values();
 
-        $months = $journals->pluck('created_at')->map(function ($date) {
-            return $date->format('m');
+        $months = $dates->pluck('date')->map(function ($date) {
+            return Carbon::parse($date)->format('m');
         })->unique()->sort()->values();
 
         $year = request()->get('year', $years->first());

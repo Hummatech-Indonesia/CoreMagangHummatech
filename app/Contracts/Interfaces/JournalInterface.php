@@ -36,4 +36,5 @@ interface JournalInterface extends GetInterface , StoreInterface , UpdateInterfa
 
     public function search(Request $request): mixed;
     public function chart(mixed $year, mixed $month, mixed $status): mixed;
+    public function getCreatedAtStudentJournals(): mixed;
 }

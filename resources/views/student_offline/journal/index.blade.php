@@ -267,6 +267,7 @@
                     <tbody>
                         @forelse($journals as $key => $journal)
                             <tr>
+                                <td>{{ $journals->firstPage() + $key }}</td>
                                 <td>
                                     <p class="mb-0 fw-normal fs-4">{{ $journal->title }}</p>
                                 </td>
@@ -335,7 +336,7 @@
 
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center">
+                                <td colspan="9" class="text-center">
                                     <div class="col-md-12 text-center">
                                         <img src="{{ asset('assets-user/dist/images/products/empty-shopping-bag.gif') }}"
                                             alt="No Data" height="120px" />

@@ -63,6 +63,16 @@ class JournalRepository extends BaseRepository implements JournalInterface
         return $this->model->query()->where('student_id', auth()->user()->student->id)->latest()->paginate(10);
     }
 
+    public function getCreatedAtStudentJournals(): mixed
+    {
+        return $this->model->query()
+            ->where('student_id', auth()->user()->student->id)
+            ->selectRaw('DATE(created_at) as date')
+            ->distinct()
+            ->orderBy('date', 'desc')
+            ->get();
+    }
+
     public function store(array $data): mixed
     {
         $data['student_id'] = auth()->user()->student->id;

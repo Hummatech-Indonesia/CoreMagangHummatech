@@ -50,6 +50,7 @@
                 <table class="table border text-nowrap customize-table mb-0 align-middle">
                     <thead class="text-dark fs-4">
                         <tr>
+                            <th>No</th>
                             <th>
                                 <h6 class="fs-4 fw-semibold mb-0">Tanggal</h6>
                             </th>
@@ -70,6 +71,7 @@
                     <tbody>
                         @forelse($journals as $key => $journal)
                             <tr>
+                                <td>{{ $journals->firstItem() + $loop->index }}</td>
                                 <td>
                                     <p class="mb-0 fw-normal fs-4">
                                         {{ \Carbon\Carbon::parse($journal->created_at)->locale('id_ID')->isoFormat('dddd, D MMMM YYYY') }}
@@ -140,6 +142,9 @@
                         @endforelse
                     </tbody>
                 </table>
+                <div class="pt-3">
+                    {{ $journals->links() }}
+                </div>
             </div>
         </div>
     </div>
