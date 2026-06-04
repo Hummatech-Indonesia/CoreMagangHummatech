@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('students', function (Blueprint $table) {
-            $table->enum('major', [MajorStudentEnum::MULTIMEDIA->value, MajorStudentEnum::RPL->value, MajorStudentEnum::TI->value, MajorStudentEnum::BISNIS_DIGITAL->value, MajorStudentEnum::TKJ->value])->change();
+            $table->enum('major', [MajorStudentEnum::MULTIMEDIA->value, MajorStudentEnum::RPL->value, MajorStudentEnum::TI->value, MajorStudentEnum::BISNIS_DIGITAL->value, MajorStudentEnum::TKJ->value])->nullable()->change();
         });
     }
 
