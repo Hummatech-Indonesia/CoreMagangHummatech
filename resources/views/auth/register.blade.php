@@ -283,7 +283,8 @@
                                                 </option>
                                                 <option value="ti" {{ old('major') == 'ti' ? 'selected' : '' }}>Teknik
                                                     Informatika</option>
-                                                <option value="Bisnis Digital" {{ old('major') == 'Bisnis Digital' ? 'selected' : '' }}>Bisnis Digital</option>
+                                                <option value="bisnis_digital" {{ old('major') == 'bisnis_digital' ? 'selected' : '' }}>Bisnis Digital</option>
+                                                <option value="tkj" {{ old('major') == 'tkj' ? 'selected' : '' }}>Teknik Komputer & Jaringan</option>
                                             </select>
                                             @error('major')
                                                 <p class="text-danger m-0">{{ $message }}</p>
