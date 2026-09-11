@@ -732,4 +732,44 @@ class StudentRepository extends BaseRepository implements StudentInterface
         }
         return collect();
     }
+
+    public function sync(mixed $id): mixed
+    {
+        $student = $this->model->query()
+            ->where('id', $id)
+            ->first();
+
+        if (!$student) {
+            return 'not_found';
+        }
+
+        if ($student->status !== StudentStatusEnum::ACCEPTED->value) {
+            return 'not_accepted';
+        }
+
+        if ($student->is_synced) {
+            return 'already_synced';
+        }
+
+        $student->update([
+            'is_synced' => true,
+        ]);
+
+        return $student;
+    }
+
+    public function getSynced(Request $request): mixed
+    {
+        return $this->model->query()
+            ->where('status', StudentStatusEnum::ACCEPTED->value)
+            ->where('is_synced', true)
+            ->when($request->name, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
+            })
+            ->when($request->school, function ($query) use ($request) {
+                $query->where('school', 'LIKE', '%' . $request->school . '%');
+            })
+            ->paginate($request->limit ?? 10);
+    }
+
 }

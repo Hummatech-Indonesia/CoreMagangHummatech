@@ -29,5 +29,6 @@ interface UserInterface extends StoreInterface, GetWhereInterface, UpdateInterfa
     public function addSubCourseToSubcribedUser(int $courseId, mixed $subCourseId): void;
     public function where(string $string, mixed $id): mixed;
     public function get(Request $request): mixed;
+    public function getUser(Request $request): mixed;
 
 }

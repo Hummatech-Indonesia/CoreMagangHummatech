@@ -19,6 +19,14 @@ class UserController extends Controller
         $this->user = $user;
         $this->student = $student;
     }
+    //get user with paginate
+    public function getUser(Request $request)
+    {
+        $users = $this->user->getUser($request);
+
+        return ResponseHelper::success(UserResource::collection($users)
+        );
+    }
 
     public function index()
     {
