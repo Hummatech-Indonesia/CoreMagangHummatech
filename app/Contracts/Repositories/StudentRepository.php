@@ -310,17 +310,6 @@ class StudentRepository extends BaseRepository implements StudentInterface
     }
 
     /**
-     * multipleDelete multiple data to database
-     *
-     * @param  mixed $ids
-     * @return mixed
-     */
-    public function multipleDelete(array $ids): mixed
-    {
-        return $this->model->query()->whereIn('id', $ids)->delete();
-    }
-
-    /**
      * Where Status Accepted
      *
      * @return mixed

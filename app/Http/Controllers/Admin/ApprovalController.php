@@ -116,15 +116,4 @@ class ApprovalController extends Controller
             return back()->with('error', 'Gagal Menghapus Siswa Baru');
         }
     }
-
-    public function destroyMultiple(Request $request)
-    {
-        try {
-            $selectedIds = explode(',', $request->input('selected_ids'));
-            $this->student->multipleDelete($selectedIds);
-            return back()->with('success', 'Berhasil Menghapus Siswa Baru');
-        } catch (\Throwable $th) {
-            return back()->with('error', 'Gagal Menghapus Siswa Baru');
-        }
-    }
 }

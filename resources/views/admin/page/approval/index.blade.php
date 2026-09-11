@@ -80,9 +80,6 @@
                             </div>
                             <div class="d-flex align-items-center justify-content-between mt-3">
                                 <!-- Tambahkan tombol submit -->
-                                <button id="removeSelected" type="button" class="btn btn-danger me-3"
-                                    data-bs-toggle="modal" data-bs-target="#modal-delete-multiple"
-                                    style="display: none;">Hapus</button>
                                 <button id="submitSelected" type="button" class="btn btn-success me-3"
                                     data-bs-toggle="modal" data-bs-target="#modal-acc-multiple"
                                     style="display: none;">Terima</button>
@@ -554,7 +551,6 @@
 
 
     @include('admin.components.delete-modal-component')
-    @include('admin.page.approval.widgets.delete-multiple')
 @endsection
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -619,15 +615,6 @@
                 let id = $(this).data('id');
                 $('#form-delete').attr('action', '/administrator/approval/delete/' + id);
                 $('#modal-delete').modal('show');
-            });
-
-            $('#removeSelected').click(function() {
-                var selectedIds = $('.cardtableCheck:checked').map(function() {
-                    return $(this).val();
-                }).get().join(',');
-
-                $('#remove_selected_ids').val(selectedIds);
-                $('#modal-delete-multiple').modal('show');
             });
 
             $('.btn-accept').click(function() {
@@ -782,9 +769,7 @@
             function toggleSubmitButton() {
                 if ($('.cardtableCheck:checked').length > 0) {
                     $('#submitSelected').show();
-                    $('#removeSelected').show();
                 } else {
-                    $('#removeSelected').hide();
                     $('#submitSelected').hide();
                 }
             }
