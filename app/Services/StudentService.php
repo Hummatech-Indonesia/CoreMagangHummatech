@@ -39,6 +39,7 @@ class StudentService
     {
         $data = $request->validated();
         unset($data['confirm_password']);
+        unset($data['g-recaptcha-response']);
         // dd($data);
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid() || $request->hasFile('cv') && $request->file('cv')->isValid() || $request->hasFile('self_statement') && $request->file('self_statement')->isValid() || $request->hasFile('parent_statement') && $request->file('parent_statement')->isValid()) {

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Http;
 
 class StoreStudentRequest extends FormRequest
 {
@@ -46,6 +47,7 @@ class StoreStudentRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
             'confirm_password' => 'required|same:password',
+            'g-recaptcha-response' => 'required',
         ];
     }
 
@@ -83,7 +85,35 @@ class StoreStudentRequest extends FormRequest
             'division_id.required_if' => 'Divisi wajib diisi.',
             'confirm_password.same' => 'Konfirmasi password tidak sama.',
             'confirm_password.required' => 'Konfirmasi password wajib diisi.',
-
+            'g-recaptcha-response.required' => 'Silahkan verifikasi captcha.',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $recaptchaResponse = $this->input('g-recaptcha-response');
+
+            if (!$recaptchaResponse) {
+                return; // Already caught by 'required' rule above
+            }
+
+            $response = Http::asForm()->post(
+                'https://www.google.com/recaptcha/api/siteverify',
+                [
+                    'secret' => config('services.recaptcha.secret_key'),
+                    'response' => $recaptchaResponse,
+                ]
+            );
+
+            $result = $response->json();
+
+            if (!($result['success'] ?? false)) {
+                $validator->errors()->add(
+                    'g-recaptcha-response',
+                    'Validasi captcha gagal.'
+                );
+            }
+        });
     }
 }
