@@ -57,6 +57,46 @@ class StudentController extends Controller
         return response()->json($response, 200);
     }
 
+    //sinkron data siswa aktif
+    public function getSyncedStudents(Request $request)
+    {
+        $students = $this->student->getSynced($request);
+
+        return response()->json([
+            'total' => $students->total(),
+            'result' => StudentResource::collection($students),
+        ], 200);
+    }
+
+    //post sinkron
+    public function sync(Request $request)
+    {
+        $student = $this->student->sync($request->student_id);
+
+        if ($student === 'not_found') {
+            return response()->json([
+                'message' => 'Student tidak ditemukan'
+            ], 404);
+        }
+
+        if ($student === 'not_accepted') {
+            return response()->json([
+                'message' => 'Student belum accepted'
+            ], 400);
+        }
+
+        if ($student === 'already_synced') {
+            return response()->json([
+                'message' => 'Student sudah disinkronkan'
+            ], 400);
+        }
+
+        return response()->json([
+            'message' => 'Student berhasil disinkronkan',
+            'result' => new StudentResource($student)
+        ], 200);
+    }
+
     public function changeSessionStudent(Request $request,int $session)
     {
         $studentIds = $request->input('students', '[]');

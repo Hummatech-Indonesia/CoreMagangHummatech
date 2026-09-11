@@ -31,6 +31,11 @@ Route::post('submit-presentation', [PresentationController::class, 'submitPresen
 Route::middleware('auth:sanctum')->group(function () {
     Route::put('journal/update/{journal}', [JournalController::class, 'update']);
     Route::get('users', [UserController::class, 'index']);
+    //get all user with paginate
+    Route::get('user', [UserController::class, 'getUser']);
+    //data siswa sinkron
+    Route::get('student/sync', [StudentController::class, 'getSyncedStudents']);
+    Route::post('student/sync', [StudentController::class, 'sync']);
     Route::post('permision', [PermissionController::class, 'store']);
     Route::get('profile', [ProfileController::class, 'index']);
     Route::get('journals', [JournalController::class, 'index']);
