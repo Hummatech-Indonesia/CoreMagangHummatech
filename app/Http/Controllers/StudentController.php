@@ -7,10 +7,11 @@ use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\StudentSessionInterface;
 use App\Contracts\Interfaces\UserInterface;
-use App\Models\Student;
+use App\Helpers\ResponseHelper;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Resources\StudentResource;
+use App\Models\Student;
 use App\Models\User;
 use App\Services\StudentService;
 use Illuminate\Http\JsonResponse;
@@ -55,6 +56,52 @@ class StudentController extends Controller
             'result' => StudentResource::collection($students)
         ];
         return response()->json($response, 200);
+    }
+
+    //sinkron data siswa aktif
+    public function getSyncedStudents(Request $request)
+    {
+        try {
+        $students = $this->student->getSynced($request);
+
+        return ResponseHelper::success([
+            'total' => $students->total(),
+            'result' => StudentResource::collection($students),
+        ]);
+
+        } catch (\Exception $e ) {
+            return ResponseHelper::error(
+                null, $e->getMessage()
+            );
+        }
+    }
+
+    //post sinkron
+        public function sync(Request $request)
+    {
+        try {
+            $student = $this->student->sync($request->student_id);
+
+            if ($student === 'not_found') {
+                return ResponseHelper::error(null, 'Student tidak ditemukan');
+            }
+
+            if ($student === 'not_accepted') {
+                return ResponseHelper::error(null, 'Student belum accepted');
+            }
+
+            if ($student === 'already_synced') {
+                return ResponseHelper::error(null, 'Student sudah disinkronkan');
+            }
+
+            return ResponseHelper::success(
+                ['result' => new StudentResource($student)],
+                'Student berhasil disinkronkan'
+            );
+
+        } catch (\Exception $e) {
+            return ResponseHelper::error(null, $e->getMessage());
+        }
     }
 
     public function changeSessionStudent(Request $request,int $session)

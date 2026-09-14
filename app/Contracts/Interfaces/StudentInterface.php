@@ -177,5 +177,8 @@ interface StudentInterface extends StoreInterface , DeleteInterface , UpdateInte
     public function countAlumni(): mixed;
 
     public function getStudentBySession(int $session): mixed;
+
+    public function getSynced(Request $request): mixed;
+    public function sync(mixed $id): mixed;
     public function multipleDelete(array $ids): mixed;
 }

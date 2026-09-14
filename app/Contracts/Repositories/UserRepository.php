@@ -30,6 +30,18 @@ class UserRepository extends BaseRepository implements UserInterface
             ->get();
     }
 
+    public function getUser(Request $request): mixed
+    {
+        return $this->model->query()
+            ->when($request->email, function ($query) use ($request) {
+                $query->where(function ($subQuery) use ($request) {
+                    $subQuery->where('name', 'LIKE', '%' . $request->email . '%')
+                        ->orWhere('email', 'LIKE', '%' . $request->email . '%');
+                });
+            })
+            ->paginate(10);
+    }
+
     public function store(array $data): mixed
     {
         return $this->model->query()->create($data);
