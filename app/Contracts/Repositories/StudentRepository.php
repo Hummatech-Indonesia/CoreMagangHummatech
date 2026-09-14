@@ -2,12 +2,13 @@
 
 namespace App\Contracts\Repositories;
 
-use Carbon\Carbon;
-use App\Models\Student;
-use Illuminate\Http\Request;
-use App\Enum\StudentStatusEnum;
-use App\Enum\InternshipTypeEnum;
 use App\Contracts\Interfaces\StudentInterface;
+use App\Enum\InternshipTypeEnum;
+use App\Enum\StudentStatusEnum;
+use App\Helpers\SearchHelper;
+use App\Models\Student;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class StudentRepository extends BaseRepository implements StudentInterface
@@ -771,16 +772,17 @@ class StudentRepository extends BaseRepository implements StudentInterface
 
     public function getSynced(Request $request): mixed
     {
-        return $this->model->query()
+        $query = $this->model->query()
             ->where('status', StudentStatusEnum::ACCEPTED->value)
-            ->where('is_synced', true)
-            ->when($request->name, function ($query) use ($request) {
-                $query->where('name', 'LIKE', '%' . $request->name . '%');
-            })
-            ->when($request->school, function ($query) use ($request) {
-                $query->where('school', 'LIKE', '%' . $request->school . '%');
-            })
-            ->paginate($request->limit ?? 10);
+            ->where('is_synced', false);
+
+        SearchHelper::apply($query, $request->search, [
+            'name',
+            'email',
+            'school'
+        ]);
+
+        return $query->paginate($request->limit ?? 10);
     }
 
 }

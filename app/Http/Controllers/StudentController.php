@@ -7,10 +7,11 @@ use App\Contracts\Interfaces\MentorStudentInterface;
 use App\Contracts\Interfaces\StudentInterface;
 use App\Contracts\Interfaces\StudentSessionInterface;
 use App\Contracts\Interfaces\UserInterface;
-use App\Models\Student;
+use App\Helpers\ResponseHelper;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Resources\StudentResource;
+use App\Models\Student;
 use App\Models\User;
 use App\Services\StudentService;
 use Illuminate\Http\JsonResponse;
@@ -60,41 +61,47 @@ class StudentController extends Controller
     //sinkron data siswa aktif
     public function getSyncedStudents(Request $request)
     {
+        try {
         $students = $this->student->getSynced($request);
 
-        return response()->json([
+        return ResponseHelper::success([
             'total' => $students->total(),
             'result' => StudentResource::collection($students),
-        ], 200);
+        ]);
+
+        } catch (\Exception $e ) {
+            return ResponseHelper::error(
+                null, $e->getMessage()
+            );
+        }
     }
 
     //post sinkron
-    public function sync(Request $request)
+        public function sync(Request $request)
     {
-        $student = $this->student->sync($request->student_id);
+        try {
+            $student = $this->student->sync($request->student_id);
 
-        if ($student === 'not_found') {
-            return response()->json([
-                'message' => 'Student tidak ditemukan'
-            ], 404);
+            if ($student === 'not_found') {
+                return ResponseHelper::error(null, 'Student tidak ditemukan');
+            }
+
+            if ($student === 'not_accepted') {
+                return ResponseHelper::error(null, 'Student belum accepted');
+            }
+
+            if ($student === 'already_synced') {
+                return ResponseHelper::error(null, 'Student sudah disinkronkan');
+            }
+
+            return ResponseHelper::success(
+                ['result' => new StudentResource($student)],
+                'Student berhasil disinkronkan'
+            );
+
+        } catch (\Exception $e) {
+            return ResponseHelper::error(null, $e->getMessage());
         }
-
-        if ($student === 'not_accepted') {
-            return response()->json([
-                'message' => 'Student belum accepted'
-            ], 400);
-        }
-
-        if ($student === 'already_synced') {
-            return response()->json([
-                'message' => 'Student sudah disinkronkan'
-            ], 400);
-        }
-
-        return response()->json([
-            'message' => 'Student berhasil disinkronkan',
-            'result' => new StudentResource($student)
-        ], 200);
     }
 
     public function changeSessionStudent(Request $request,int $session)
