@@ -128,9 +128,10 @@
                                                                     for="cardtableCheck{{ $student->id }}"></label>
                                                             </div>
                                                         </td>
+                                                        {{-- @dd($student->major_id != null ? $student->jurusan : $student->major) --}}
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $student->name }}</td>
-                                                        <td>{{ $student->major }}</td>
+                                                        <td>{{ $student->major_id != null ? $student->jurusan->name : $student->major }}</td>
                                                         <td>{{ $student->class }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}
                                                         </td>
@@ -138,7 +139,7 @@
                                                         <td>
                                                             <button type="button" data-id="{{ $student->id }}"
                                                                 data-name="{{ $student->name }}"
-                                                                data-majors="{{ $student->major }}"
+                                                                data-majors="{{ $student->major_id != null ?? $student->jurusan->name }}"
                                                                 data-class="{{ $student->class }}"
                                                                 data-phone="{{ $student->phone }}"
                                                                 data-address="{{ $student->address }}"
@@ -246,7 +247,7 @@
                                                         </td>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $student->name }}</td>
-                                                        <td>{{ $student->major }}</td>
+                                                        <td>{{ $student->major_id != null ?? $student->jurusan->name }}</td>
                                                         <td>{{ $student->class }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}
                                                         </td>
@@ -254,7 +255,7 @@
                                                         <td>
                                                             <button type="button" data-id="{{ $student->id }}"
                                                                 data-name="{{ $student->name }}"
-                                                                data-majors="{{ $student->major }}"
+                                                                data-majors="{{ $student->major_id != null ?? $student->jurusan->name }}"
                                                                 data-class="{{ $student->class }}"
                                                                 data-phone="{{ $student->phone }}"
                                                                 data-address="{{ $student->address }}"

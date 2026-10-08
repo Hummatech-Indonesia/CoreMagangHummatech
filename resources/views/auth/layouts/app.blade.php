@@ -120,6 +120,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
     <link rel="stylesheet" href="{{ asset('assetsLogin/vendor/libs/animate-css/animate.css') }}" />
     <link rel="stylesheet" href="{{ asset('assetsLogin/vendor/libs/sweetalert2/sweetalert2.css') }}" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet"/>
 
    
 </head>
