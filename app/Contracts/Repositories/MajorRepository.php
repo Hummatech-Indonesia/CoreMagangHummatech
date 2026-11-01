@@ -23,6 +23,11 @@ class MajorRepository extends BaseRepository implements MajorInterface
         return $this->model->query()->create($data);
     }
 
+    public function show(mixed $id): mixed
+    {
+        return $this->model->query()->findOrFail($id);
+    }
+
     public function update(mixed $id, array $data): mixed
     {
         return $this->model->query()->findOrFail($id)->update($data);
