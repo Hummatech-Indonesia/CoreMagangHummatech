@@ -5,6 +5,65 @@
 </div>
 
 @section('content')
+    <style>
+        /* Modal Edit Pendaftaran */
+        .modal-edit-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .edit-section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .edit-intern-badge {
+            font-size: .875rem;
+            font-weight: 500;
+            min-width: 140px;
+        }
+
+        .edit-berkas-preview {
+            height: 200px;
+            border: 1px solid #e9ebec;
+            border-radius: .375rem;
+            overflow: hidden;
+            background: #f8f9fa;
+        }
+
+        .edit-berkas-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        .btn-brand {
+            background-color: #009ef7;
+            border: 1px solid #009ef7;
+            color: #fff;
+        }
+
+        .btn-brand:hover,
+        .btn-brand:focus,
+        .btn-brand:active {
+            background-color: #0086d1;
+            border-color: #0086d1;
+            color: #fff;
+        }
+
+        .btn-tutup {
+            background-color: #fff;
+            border: 1px solid #dfe3e8;
+            color: #5e6278;
+        }
+
+        .btn-tutup:hover,
+        .btn-tutup:focus {
+            background-color: #f5f6f8;
+            color: #5e6278;
+        }
+    </style>
 
     <div class="card">
         <div class="card-body">
@@ -131,7 +190,8 @@
                                                         {{-- @dd($student->major_id != null ? $student->jurusan : $student->major) --}}
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $student->name }}</td>
-                                                        <td>{{ $student->major_id != null ? $student->jurusan->name : $student->major }}</td>
+                                                        <td>{{ $student->major_id != null ? $student->jurusan->name : $student->major }}
+                                                        </td>
                                                         <td>{{ $student->class }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}
                                                         </td>
@@ -155,6 +215,10 @@
                                                                 data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
                                                                 data-identify_number="{{ $student->identify_number }}"
                                                                 data-internship_type="{{ $student->internship_type }}"
+                                                                data-birthdate-raw="{{ $student->birth_date ? \Carbon\Carbon::parse($student->birth_date)->format('Y-m-d') : '' }}"
+                                                                data-startdate-raw="{{ $student->start_date ? \Carbon\Carbon::parse($student->start_date)->format('Y-m-d') : '' }}"
+                                                                data-finishdate-raw="{{ $student->finish_date ? \Carbon\Carbon::parse($student->finish_date)->format('Y-m-d') : '' }}"
+                                                                data-major-name="{{ $student->major_id != null ? $student->jurusan->name : $student->major }}"
                                                                 class="btn bg-secondary-subtle text-secondary btn-detail">
                                                                 <i class="ri-eye-fill"></i>
                                                             </button>
@@ -247,7 +311,8 @@
                                                         </td>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $student->name }}</td>
-                                                        <td>{{ $student->major_id != null ?? $student->jurusan->name }}</td>
+                                                        <td>{{ $student->major_id != null ?? $student->jurusan->name }}
+                                                        </td>
                                                         <td>{{ $student->class }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($student->start_date)->isoFormat('dddd, D MMMM YYYY') }}
                                                         </td>
@@ -271,6 +336,10 @@
                                                                 data-parentsstatement="{{ file_exists(public_path('storage/' . $student->parents_statement)) ? asset('storage/' . $student->parents_statement) : asset('no data.png') }}"
                                                                 data-identify_number="{{ $student->identify_number }}"
                                                                 data-internship_type="{{ $student->internship_type }}"
+                                                                data-birthdate-raw="{{ $student->birth_date ? \Carbon\Carbon::parse($student->birth_date)->format('Y-m-d') : '' }}"
+                                                                data-startdate-raw="{{ $student->start_date ? \Carbon\Carbon::parse($student->start_date)->format('Y-m-d') : '' }}"
+                                                                data-finishdate-raw="{{ $student->finish_date ? \Carbon\Carbon::parse($student->finish_date)->format('Y-m-d') : '' }}"
+                                                                data-major-name="{{ $student->major_id != null ? $student->jurusan->name : $student->major }}"
                                                                 class="btn bg-secondary-subtle text-secondary btn-detail">
                                                                 <i class="ri-eye-fill"></i>
                                                             </button>
@@ -323,41 +392,66 @@
                             <span class="badge bg-primary-subtle text-primary show-internship_type p-2"></span>
 
                         </div>
-                        <div class="row mx-2">
-                            <div class="col-6 d-flex align-items-center gap-1">
+                        <div class="row mx-2 gy-3">
+                            <div class="col-6 d-flex align-items-center gap-2">
                                 <i class="bx bx-id-card fs-3 text-primary"></i>
-                                <p class="m-0 show-identify_number"></p>
+                                <div>
+                                    <small class="text-muted d-block">NISN/NIM</small>
+                                    <p class="m-0 fw-semibold show-identify_number"></p>
+                                </div>
                             </div>
-                            <div class="col-6 d-flex  align-items-center gap-1">
+                            <div class="col-6 d-flex align-items-center gap-2">
                                 <i class="ri-mail-line fs-3 text-primary"></i>
-                                <p class="m-0 show-email" style="word-break: break-all"></p>
+                                <div>
+                                    <small class="text-muted d-block">Email</small>
+                                    <p class="m-0 fw-semibold show-email" style="word-break: break-all"></p>
+                                </div>
                             </div>
-                            <div class="col-6 d-flex align-items-center gap-1">
-                                <i class=" ri-smartphone-line fs-3 text-primary"></i>
-                                <p class="m-0 show-phone"></p>
+                            <div class="col-6 d-flex align-items-center gap-2">
+                                <i class="ri-phone-line fs-3 text-primary"></i>
+                                <div>
+                                    <small class="text-muted d-block">Nomor Telefon</small>
+                                    <p class="m-0 fw-semibold show-phone"></p>
+                                </div>
                             </div>
-                            <div class="col-6 d-flex align-items-center gap-1">
-                                <i class="ri-map-pin-user-line fs-3 text-primary"></i>
-                                <p class="m-0 show-address"></p>
+                            <div class="col-6 d-flex align-items-center gap-2">
+                                <i class="ri-map-pin-line fs-3 text-primary"></i>
+                                <div>
+                                    <small class="text-muted d-block">Alamat</small>
+                                    <p class="m-0 fw-semibold show-address" style="word-break: break-word"></p>
+                                </div>
                             </div>
-                            <div class="col-6 d-flex align-items-center gap-1">
-                                <i class="ri-gift-2-line fs-3 text-primary"></i>
-                                <p class="m-0 show-birthday"></p>
-                            </div>
-                            <div class="col-6 d-flex align-items-center gap-1">
-                                <i class="ri-building-line fs-3 text-primary"></i>
-                                <p class="m-0 show-school"></p>
-                            </div>
-                            <div class="col-6 d-flex align-items-center gap-1">
+                            <div class="col-6 d-flex align-items-center gap-2">
                                 <i class="ri-calendar-line fs-3 text-primary"></i>
-                                <p class="m-0 show-start"></p>
+                                <div>
+                                    <small class="text-muted d-block">Tanggal Lahir</small>
+                                    <p class="m-0 fw-semibold show-birthday"></p>
+                                </div>
                             </div>
-                            <div class="col-6 d-flex align-items-center gap-1">
+                            <div class="col-6 d-flex align-items-center gap-2">
+                                <i class="ri-school-line fs-3 text-primary"></i>
+                                <div>
+                                    <small class="text-muted d-block">Asal Sekolah/Universitas</small>
+                                    <p class="m-0 fw-semibold show-school"></p>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex align-items-center gap-2">
                                 <i class="ri-calendar-line fs-3 text-primary"></i>
-                                <p class="m-0 show-finish"></p>
+                                <div>
+                                    <small class="text-muted d-block">Masa Magang</small>
+                                    <p class="m-0 fw-semibold show-start"></p>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex align-items-center gap-2">
+                                <i class="ri-calendar-line fs-3 text-primary"></i>
+                                <div>
+                                    <small class="text-muted d-block">Masa Magang</small>
+                                    <p class="m-0 fw-semibold show-finish"></p>
+                                </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-center gap-2 mt-3">
+                        <div class="d-flex justify-content-center gap-2 mt-4">
+                            <button class="btn btn-warning btn-sm btn-edit" type="button">Edit</button>
                             <button class="btn btn-success btn-sm btn-accept" type="button">Terima</button>
                             <button class="btn btn-warning btn-sm btn-reject" type="button">Tolak</button>
                             <button class="btn btn-warning btn-sm btn-reject-reason" type="button">Tolak dengan
@@ -393,6 +487,121 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Modal Edit Pendaftar --}}
+    <div class="modal fade" id="modalEditPendaftar" tabindex="-1" aria-labelledby="modalEditPendaftarLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <form id="formEditPendaftar" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-body p-4 p-lg-5">
+                        <h4 class="modal-edit-title mb-4" id="modalEditPendaftarLabel">Edit Pendaftaran</h4>
+
+                        {{-- Data diri --}}
+                        <div class="row g-4">
+                            <div class="col-lg-3 text-center">
+                                <img id="editAvatar" src="" alt="Foto pendaftar" class="rounded-circle"
+                                    width="150" height="150" style="object-fit: cover">
+                                <div id="editAvatarEmail" class="fw-semibold text-break mt-2"></div>
+                                <span id="editInternType"
+                                    class="badge bg-primary-subtle text-primary text-capitalize edit-intern-badge px-4 py-2 mt-2"></span>
+                            </div>
+
+                            <div class="col-lg-9">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="editNama" class="form-label">Nama</label>
+                                        <input type="text" class="form-control" id="editNama" name="name"
+                                            required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="editAlamat" class="form-label">Alamat</label>
+                                        <input type="text" class="form-control" id="editAlamat" name="address">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="editEmail" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="editEmail" name="email"
+                                            required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="editNoHp" class="form-label">No. Hp</label>
+                                        <input type="tel" class="form-control" id="editNoHp" name="phone">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="editTempatLahir" class="form-label">Tempat Lahir</label>
+                                        <input type="text" class="form-control" id="editTempatLahir"
+                                            name="birth_place">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="editTanggalLahir" class="form-label">Tanggal Lahir</label>
+                                        <input type="text" class="form-control" id="editTanggalLahir"
+                                            name="birth_date" placeholder="Pilih tanggal">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="editSekolah" class="form-label">Sekolah / Universitas</label>
+                                        <input type="text" class="form-control" id="editSekolah" name="school"
+                                            required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="editJurusan" class="form-label">Jurusan</label>
+                                        <input type="text" class="form-control" id="editJurusan" name="major">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="editNisn" class="form-label">NISN/NIM</label>
+                                        <input type="text" class="form-control" id="editNisn"
+                                            name="identify_number">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="editMasaMagang" class="form-label">Masa Magang</label>
+                                        <input type="text" class="form-control" id="editMasaMagang"
+                                            placeholder="Pilih rentang tanggal">
+                                        <input type="hidden" id="editTanggalMulai" name="start_date">
+                                        <input type="hidden" id="editTanggalSelesai" name="finish_date">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Berkas: hanya ditampilkan, tidak bisa diganti --}}
+                        <h5 class="edit-section-title mt-5 mb-3">Berkas Pendaftaran</h5>
+                        @php
+                            $berkasEdit = [
+                                'cv' => 'CV',
+                                'parents_statement' => 'Surat Pernyataan Orang Tua',
+                                'self_statement' => 'Surat Pernyataan Diri',
+                            ];
+                        @endphp
+                        <div class="row g-4">
+                            @foreach ($berkasEdit as $key => $label)
+                                <div class="col-md-4">
+                                    <label class="form-label">{{ $label }}</label>
+                                    <div class="edit-berkas-preview mb-2">
+                                        <img id="editPreview_{{ $key }}" src=""
+                                            alt="Preview {{ $label }}">
+                                    </div>
+                                    <button type="button" class="btn btn-brand w-100"
+                                        onclick="zoomImage(document.getElementById('editPreview_{{ $key }}'))">
+                                        Lihat Detail
+                                    </button>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <button type="button" class="btn btn-tutup px-4" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-brand px-4">Simpan</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -551,8 +760,8 @@
             </form>
         </div>
     </div>
-    {{-- modal reject reason end --}}
 
+    {{-- modal reject reason end --}}
 
     @include('admin.components.delete-modal-component')
     @include('admin.page.approval.widgets.delete-multiple')
@@ -564,6 +773,14 @@
 
     <script>
         $(document).ready(function() {
+            let currentEdit = null;
+
+            document.addEventListener('focusin', function(e) {
+                if (e.target.closest('#modalEditPendaftar')) {
+                    e.stopImmediatePropagation();
+                }
+            }, true);
+
             $('.btn-detail').click(function() {
                 let id = $(this).data('id');
                 let name = $(this).data('name');
@@ -612,13 +829,35 @@
                 $('.btn-reject').attr('data-id', id);
                 $('.btn-reject-reason').attr('data-id', id);
 
-                $('#form-declined').attr('action', '/administrator/approval/decline/' + id);
+                currentEdit = {
+                    id: id,
+                    name: name,
+                    email: email,
+                    address: address,
+                    phone: phone,
+                    birth_place: birth_place,
+                    birth_date: $(this).data('birthdateRaw'),
+                    school: school,
+                    major: $(this).data('majorName'),
+                    identify_number: identify_number,
+                    start_date: $(this).data('startdateRaw'),
+                    finish_date: $(this).data('finishdateRaw'),
+                    avatar: avatar,
+                    intern: intern,
+                    cv: cv,
+                    parents_statement: parents_statement,
+                    self_statement: self_statement
+                };
+
+                $('#form-declined').attr('action',
+                    '/administrator/approval/decline/' + id);
                 $('#offcanvasRight').offcanvas('show');
             });
 
             $('.btn-delete').click(function() {
                 let id = $(this).data('id');
-                $('#form-delete').attr('action', '/administrator/approval/delete/' + id);
+                $('#form-delete').attr('action', '/administrator/approval/delete/' +
+                    id);
                 $('#modal-delete').modal('show');
             });
 
@@ -633,20 +872,94 @@
 
             $('.btn-accept').click(function() {
                 let id = $(this).data('id');
-                $('#form-accepted-one').attr('action', '/administrator/approval/accept/' + id);
+                $('#form-accepted-one').attr('action',
+                    '/administrator/approval/accept/' + id);
                 $('#accepted-one').modal('show');
             });
 
             $('.btn-reject').click(function() {
                 let id = $(this).data('id');
-                $('#form-reject').attr('action', '/administrator/approval/decline/' + id);
+                $('#form-reject').attr('action',
+                    '/administrator/approval/decline/' + id);
                 $('#modalReject').modal('show');
             });
-
             $('.btn-reject-reason').click(function() {
                 let id = $(this).data('id');
-                $('#form-reject-reason').attr('action', '/administrator/approval/decline/' + id);
+                $('#form-reject-reason').attr('action',
+                    '/administrator/approval/decline/' + id);
                 $('#modalReject-reason').modal('show');
+            });
+
+            let fpBirth = null;
+            let fpRange = null;
+
+            if (typeof flatpickr !== 'undefined') {
+                const base = flatpickr.l10ns.id || flatpickr.l10ns.default;
+                const locale = Object.assign({}, base, {
+                    rangeSeparator: ' - '
+                });
+
+                fpBirth = flatpickr('#editTanggalLahir', {
+                    locale: locale,
+                    altInput: true,
+                    altFormat: 'j F Y',
+                    dateFormat: 'Y-m-d'
+                });
+
+                fpRange = flatpickr('#editMasaMagang', {
+                    locale: locale,
+                    mode: 'range',
+                    dateFormat: 'd/m/Y',
+                    onChange: function(dates) {
+                        $('#editTanggalMulai').val(dates[0] ? flatpickr.formatDate(dates[0], 'Y-m-d') :
+                            '');
+                        $('#editTanggalSelesai').val(dates[1] ? flatpickr.formatDate(dates[1],
+                            'Y-m-d') : '');
+                    }
+                });
+            }
+
+            $('.btn-edit').click(function() {
+                if (!currentEdit) return;
+                const d = currentEdit;
+
+                $('#editNama').val(d.name);
+                $('#editAlamat').val(d.address);
+                $('#editEmail').val(d.email);
+                $('#editNoHp').val(d.phone);
+                $('#editTempatLahir').val(d.birth_place);
+                $('#editSekolah').val(d.school);
+                $('#editJurusan').val(d.major);
+                $('#editNisn').val(d.identify_number);
+                $('#editTanggalMulai').val(d.start_date);
+                $('#editTanggalSelesai').val(d.finish_date);
+
+                if (fpBirth) {
+                    fpBirth.setDate(d.birth_date || '', false, 'Y-m-d');
+                } else {
+                    $('#editTanggalLahir').val(d.birth_date);
+                }
+                if (fpRange) {
+                    fpRange.setDate([d.start_date, d.finish_date].filter(Boolean), false, 'Y-m-d');
+                }
+
+                $('#editAvatar').attr('src', d.avatar);
+                $('#editAvatarEmail').text(d.email);
+                $('#editInternType').text(d.intern);
+
+                $('#editPreview_cv').attr('src', d.cv);
+                $('#editPreview_parents_statement').attr('src', d.parents_statement);
+                $('#editPreview_self_statement').attr('src', d.self_statement);
+
+                $('#formEditPendaftar').attr('action',
+                    '/administrator/approval/update/' + d.id);
+
+                $('#offcanvasRight').offcanvas('hide');
+                $('#modalEditPendaftar').modal('show');
+            });
+
+            $('#modalEditPendaftar').on('hidden.bs.modal', function() {
+                $('#offcanvasRight').offcanvas('show');
             });
         });
     </script>
@@ -671,6 +984,24 @@
             zoomedImg.style.maxHeight = '90%';
 
             overlay.appendChild(zoomedImg);
+
+            var closeBtn = document.createElement('button');
+            closeBtn.innerHTML = '&times;';
+            closeBtn.setAttribute('aria-label', 'Close');
+            closeBtn.style.position = 'absolute';
+            closeBtn.style.top = '20px';
+            closeBtn.style.right = '30px';
+            closeBtn.style.fontSize = '2.5rem';
+            closeBtn.style.lineHeight = '1';
+            closeBtn.style.color = '#fff';
+            closeBtn.style.background = 'transparent';
+            closeBtn.style.border = 'none';
+            closeBtn.style.cursor = 'pointer';
+            closeBtn.onclick = function(e) {
+                e.stopPropagation();
+                document.body.removeChild(overlay);
+            };
+            overlay.appendChild(closeBtn);
 
             document.body.appendChild(overlay);
 

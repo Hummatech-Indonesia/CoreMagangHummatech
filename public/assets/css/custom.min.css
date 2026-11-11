@@ -1,2 +1,27 @@
 
 /*# sourceMappingURL=custom.min.css.map */
+/* Tombol Tolak - sidebar detail pendaftaran (halaman approval) */
+.btn-warning.btn-reject {
+    background-color: #4B38B3;
+    border-color: #4B38B3;
+    color: #fff;
+}
+.btn-warning.btn-reject:hover,
+.btn-warning.btn-reject:focus {
+    background-color: #3d2d94;
+    border-color: #3d2d94;
+    color: #fff;
+}
+
+/* Tombol Tolak dengan alasan */
+.btn-warning.btn-reject-reason {
+    background-color: #009EF7;
+    border-color: #009EF7;
+    color: #fff;
+}
+.btn-warning.btn-reject-reason:hover,
+.btn-warning.btn-reject-reason:focus {
+    background-color: #0086d1;
+    border-color: #0086d1;
+    color: #fff;
+}
