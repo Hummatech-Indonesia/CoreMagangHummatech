@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Contracts\Repositories\MajorRepository;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Services\Traits\UploadTrait;
@@ -13,6 +14,11 @@ use App\Http\Requests\StoreParentStatement;
 class StatementService
 {
     use UploadTrait;
+    private MajorRepository $major;
+
+    public function __construct(MajorRepository $major) {
+        $this->major = $major;
+    }
 
     /**
      * Handle custom upload validation.
@@ -78,6 +84,7 @@ class StatementService
     public function parent(StoreParentStatement $request): array|bool
     {
         $data = $request->validated();
+        $data['major'] = $this->major->show($request->major_id)->name;
 
         $dompdf = new Dompdf();
         $options = new Options();

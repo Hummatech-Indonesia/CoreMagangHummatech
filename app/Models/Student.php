@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Division;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Student extends Model implements HasAttendances, HasOneActiveFeature, HasActiveCourses, HasOneUser, HasOneStudentCoursePosition
@@ -142,5 +143,15 @@ class Student extends Model implements HasAttendances, HasOneActiveFeature, HasA
     public function user(): HasOne
     {
         return $this->hasOne(User::class);
+    }
+    
+    /**
+     * Get the major that owns the Student
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function jurusan(): BelongsTo
+    {
+        return $this->belongsTo(Major::class, 'major_id', 'id');
     }
 }

@@ -31,7 +31,7 @@ class StoreParentStatement extends FormRequest
             'student_name' => 'required',
             'place_birth' => 'required',
             'date_birth' => 'required',
-            'major' => 'required',
+            'major_id' => 'required|exists:majors,id',
             'phone' => 'required',
         ];
     }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Contracts\Interfaces\DivisionInterface;
+use App\Contracts\Interfaces\InstitutionInterface;
+use App\Contracts\Interfaces\MajorInterface;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -25,6 +27,8 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     private DivisionInterface $division;
+    private InstitutionInterface $institution;
+    private MajorInterface $major;
 
     /**
      * Where to redirect users after registration.
@@ -38,10 +42,23 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct(DivisionInterface $division)
+    public function __construct(DivisionInterface $division, InstitutionInterface $institution, MajorInterface $major)
     {
         $this->division = $division;
+        $this->institution = $institution;
+        $this->major = $major;
         $this->middleware('guest');
+    }
+
+    /**
+     * Menampilkan halaman register.
+     */
+    public function showRegistrationForm()
+    {
+        $divisions = $this->division->get();
+        $institutions = $this->institution->get();
+        $majors = $this->major->get();
+        return view('auth.register', compact('divisions', 'institutions', 'majors'));
     }
 
     /**
