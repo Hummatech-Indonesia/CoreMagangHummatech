@@ -44,7 +44,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            min-height: 52px;
+            min-height: 45px;
         }
 
         .btn-light-export svg,
