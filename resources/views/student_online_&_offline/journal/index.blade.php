@@ -1,6 +1,57 @@
 @extends(auth()->user()->hasRole('siswa-online') ? 'student_online.layouts.app' : 'student_offline.layouts.app')
-
 @section('content')
+    <style>
+        .btn-light-export {
+            background-color: rgba(80, 205, 137, 0.25);
+            color: #50CD89;
+            border-color: transparent;
+        }
+
+        .btn-light-export:hover {
+            background-color: #50CD89;
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .btn-light-add {
+            background-color: rgba(0, 158, 247, 0.25);
+            color: #009EF7;
+            border-color: transparent;
+        }
+
+        .btn-light-add:hover {
+            background-color: #009EF7;
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .btn-light-pdf {
+            background-color: rgba(255, 193, 7, 0.25);
+            color: #FFC107;
+            border-color: transparent;
+        }
+
+        .btn-light-pdf:hover {
+            background-color: #FFC107;
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .btn-light-export,
+        .btn-light-pdf,
+        .btn-light-add {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-light-export svg,
+        .btn-light-pdf svg,
+        .btn-light-add svg {
+            flex-shrink: 0;
+        }
+    </style>
     <div class="card bg-light-info shadow-none position-relative overflow-hidden">
         <div class="card-body px-4 py-3">
             <div class="row align-items-center">
@@ -27,8 +78,17 @@
             Data Jurnal
         </h4>
         <div class="d-flex gap-2">
-            <button type="button" class="btn mb-1 btn-light-warning text-warning btn-lg px-4 fs-4 font-medium ms-3"
-                data-bs-toggle="modal" data-bs-target="#printJournalModal">
+            <a href="{{ url('/jurnal/export/excel') }}" class="btn mb-1 btn-light-export btn-lg px-4 fs-4 font-medium">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 ltr:mr-2 rtl:ml-2">
+                    <path d="M15 3h3a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-3M10 17l5-5-5-5M15 12H3" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Export Jurnal
+            </a>
+
+            <button type="button" class="btn mb-1 btn-light-pdf btn-lg px-4 fs-4 font-medium" data-bs-toggle="modal"
+                data-bs-target="#printJournalModal">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                     class="h-5 w-5 ltr:mr-2 rtl:ml-2">
                     <path
@@ -39,7 +99,12 @@
                 </svg>
                 PDF
             </button>
-            <button type="button" class="btn mb-1 btn-light-primary text-primary btn-lg px-4 fs-4 font-medium btn-add">
+            <button type="button" class="btn mb-1 btn-light-add btn-lg px-4 fs-4 font-medium btn-add">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 ltr:mr-2 rtl:ml-2">
+                    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
                 Tambah
             </button>
         </div>
@@ -81,8 +146,8 @@
                                     <p>{{ Str::limit($journal->title, 30) }}</p>
                                 </td>
                                 <td>
-                                    <img src="{{ $journal->status == 'notfilling' ? asset('no-data/4.png') : asset('storage/' . $journal->image) }}" width="100px"
-                                        style="object-fit: cover" alt="" srcset="">
+                                    <img src="{{ $journal->status == 'notfilling' ? asset('no-data/4.png') : asset('storage/' . $journal->image) }}"
+                                        width="100px" style="object-fit: cover" alt="" srcset="">
                                 </td>
                                 <td>
                                     <p class="">
