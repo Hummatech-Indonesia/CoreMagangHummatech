@@ -44,12 +44,44 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            min-height: 52px;
         }
 
         .btn-light-export svg,
         .btn-light-pdf svg,
         .btn-light-add svg {
             flex-shrink: 0;
+        }
+
+        .btn-light-export,
+        .btn-light-pdf,
+        .btn-light-add {
+            transition: background-color .2s ease, color .2s ease, transform .1s ease;
+        }
+
+        .btn-light-export:focus,
+        .btn-light-pdf:focus,
+        .btn-light-add:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .btn-light-export:active,
+        .btn-light-pdf:active,
+        .btn-light-add:active {
+            transform: scale(0.97);
+        }
+
+        .btn-light-export:focus-visible {
+            box-shadow: 0 0 0 3px rgba(80, 205, 137, 0.35);
+        }
+
+        .btn-light-pdf:focus-visible {
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.35);
+        }
+
+        .btn-light-add:focus-visible {
+            box-shadow: 0 0 0 3px rgba(0, 158, 247, 0.35);
         }
     </style>
     <div class="card bg-light-info shadow-none position-relative overflow-hidden">
