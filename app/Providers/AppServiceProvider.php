@@ -149,12 +149,14 @@ use App\Contracts\Repositories\AttendanceDetailRepository;
 use App\Contracts\Repositories\CourseAssignmentRepository;
 use App\Contracts\Repositories\StudentChallengeRepository;
 use App\Contracts\Interfaces\HummataskTeamMembersInterface;
+use App\Contracts\Interfaces\MajorInterface;
 use App\Contracts\Repositories\LimitPresentationRepository;
 use App\Contracts\Repositories\ProjectSubmissionRepository;
 use App\Contracts\Interfaces\StudentCoursePositionInterface;
 use App\Contracts\Repositories\TransactionHistoryRepository;
 use App\Contracts\Repositories\AppointmentOfMentorRepository;
 use App\Contracts\Repositories\HummataskTeamMembersRepository;
+use App\Contracts\Repositories\MajorRepository;
 use App\Contracts\Repositories\StudentCoursePositionRepository;
 
 class AppServiceProvider extends ServiceProvider
@@ -231,7 +233,8 @@ class AppServiceProvider extends ServiceProvider
         HummataskTeamMembersInterface::class => HummataskTeamMembersRepository::class,
         ProjectSubmissionInterface::class => ProjectSubmissionRepository::class,
         QueuePresentationInterface::class => QueuePresentationRepository::class,
-        ProjectRevisionInterface::class => ProjectRevisionRepository::class
+        ProjectRevisionInterface::class => ProjectRevisionRepository::class,
+        MajorInterface::class => MajorRepository::class
     ];
 
     /**

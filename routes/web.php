@@ -31,6 +31,7 @@ use App\Http\Controllers\{
     DataCOController,
     FaceController,
     InstitutionController,
+    MajorController,
     NotePicketController,
     PermissionController,
     ProductController,
@@ -127,6 +128,9 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
 
     # Institutions
     Route::resource('institution', InstitutionController::class)->except(['show', 'create', 'edit']);
+
+    # Major
+    Route::resource('majors', MajorController::class)->except(['show', 'create', 'edit']);
 
     # Rule Attendance
     Route::post('attendance-rule/store', [AttendanceRuleController::class, 'store'])->name('.attendance-rule.store');

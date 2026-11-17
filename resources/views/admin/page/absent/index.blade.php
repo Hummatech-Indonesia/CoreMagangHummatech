@@ -24,18 +24,29 @@
                 </div>
                 <div class="col-sm-auto ms-auto d-flex">
                     <div class="list-grid-nav hstack gap-2">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exportExcelModal">
+                        <button class="btn d-inline-flex align-items-center gap-2 text-white"
+                            style="background-color: #4B3BC4; border-radius: 9px; padding: 12px 20px;" data-bs-toggle="modal"
+                            data-bs-target="#exportExcelModal">
+                            <svg width="17" height="18" viewBox="0 0 17 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M10.5 0.75H4C2.67392 1.26891 1.51891 2.42392 1 3.75V15.75C1.51891 17.0761 2.67392 18.2311 4 18.75H13.5C14.8261 18.2311 15.9811 17.0761 16.5 15.75V6L10.5 0.75Z"
+                                    stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                                <path
+                                    d="M10.5 0.75V4.75C10.5 5.28043 10.7107 5.78914 11.0858 6.16421C11.4609 6.53929 11.9696 6.75 12.5 6.75H16.5"
+                                    stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M5.5 9.75L8.5 12.75M8.5 12.75L11.5 9.75M8.5 12.75V6.75" stroke="white"
+                                    stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
                             Rekap Excel
                         </button>
                         <!-- Export Excel Modal -->
                         <div class="modal fade" id="exportExcelModal" tabindex="-1" aria-labelledby="exportExcelModalLabel"
                             aria-hidden="true">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exportExcelModalLabel">Rekap Excel</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
                                     </div>
                                     <form action="{{ route('administrator.absent.export.excel') }}" method="get">
                                         <div class="modal-body">
@@ -50,17 +61,6 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            {{-- <div class="mb-3">
-                                                <label for="monthInput" class="form-label">Bulan</label>
-                                                <select class="form-select" id="monthInput" name="month">
-                                                    @foreach ($attendanceMonth as $month)
-                                                        <option
-                                                            value="{{ $month->month }}"{{ request()->input('month', now()->month) == $month->month ? ' selected' : '' }}>
-                                            {{ $month->month }}
-                                            </option>
-                                            @endforeach
-                                            </select>
-                                        </div> --}}
 
                                             <div class="mb-3">
                                                 <label for="monthInput" class="form-label">Bulan</label>
@@ -68,39 +68,50 @@
                                                     @foreach ($attendanceMonth as $month)
                                                         <option value="{{ $month->month }}"
                                                             {{ request()->input('month', now()->month) == $month->month ? ' selected' : '' }}>
-                                                            {{-- {{ \Illuminate\Support\Carbon::parse('2024-' . $month->month . '-01')->translatedFormat('F') }} --}}
                                                             {{ $month->month
-                                                                ? \Illuminate\Support\Carbon::parse('2024-' . str_pad($month->month, 2, '0', STR_PAD_LEFT) . '-01')->translatedFormat('F')
-                                                                : '-'
-                                                            }}                                                                                                                    </option>
+                                                                ? \Illuminate\Support\Carbon::parse(
+                                                                    '2024-' . str_pad($month->month, 2, '0', STR_PAD_LEFT) . '-01',
+                                                                )->translatedFormat('F')
+                                                                : '-' }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            {{-- <div class="mb-3">
-                                                    <label for="monthInput" class="form-label">Bulan</label>
-                                                    <select class="form-select" id="monthInput" name="month">
-                                                        @foreach ($attendanceMonth as $month)
-                                                            @php
-                                                                $monthName = Carbon::create()->month($month->month)->locale('id')->translatedFormat('F');
-                                                            @endphp
-                                                            <option value="{{ $month->month }}"{{ request()->input('month', now()->month) == $month->month ? ' selected' : '' }}>
-                                            {{ ucfirst($monthName) }}
-                                            </option>
-                                            @endforeach
-                                            </select>
-                                    </div> --}}
+
+                                            <div class="mb-3">
+                                                <label for="schoolInput" class="form-label">Sekolah</label>
+                                                <select class="form-select" id="schoolInput" name="school">
+                                                    <option value="">Semua Sekolah</option>
+                                                    @foreach ($students->pluck('school')->unique()->sort()->values() as $schoolOption)
+                                                        <option value="{{ $schoolOption }}"
+                                                            {{ request()->input('school') == $schoolOption ? ' selected' : '' }}>
+                                                            {{ $schoolOption }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary">Rekap</button>
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Close
+                                            <button type="button" class="btn btn-light"
+                                                style="border: 1px solid #D5DBE7; color: #667797;" data-bs-dismiss="modal">
+                                                Batal
+                                            </button>
+                                            <button type="submit" class="btn text-white"
+                                                style="background-color: #306BFF;">
+                                                Simpan
                                             </button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
+                        <button class="btn d-inline-flex align-items-center gap-2 text-white"
+                            style="background-color: #3CC68A; border-radius: 9px; padding: 12px 20px;"
+                            data-bs-toggle="modal" data-bs-target="#add">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 2V14M2 8H14" stroke="white" stroke-width="1.6" stroke-linecap="round" />
+                            </svg>
                             Tambah Absensi
                         </button>
                     </div>
@@ -132,8 +143,8 @@
                         <div class="search-box col-lg-3 col-12">
                             <form action="/administrator/absent">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="name" value="{{ request()->name }}"
-                                        id="searchMemberList" placeholder="Cari Siswa">
+                                    <input type="text" class="form-control" name="name"
+                                        value="{{ request()->name }}" id="searchMemberList" placeholder="Cari Siswa">
                                     <button type="submit"
                                         class="btn btn-outline-secondary d-flex align-items-center px-3 border-start-0">
                                         <i class="ri-search-line fs-5"></i>
@@ -423,7 +434,7 @@
         {{-- modal add absent start --}}
         <div class="modal fade" id="add" tabindex="-1" aria-labelledby="varyingcontentModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+          <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="varyingcontentModalLabel">Tambah Absensi</h5>

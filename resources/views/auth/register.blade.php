@@ -162,7 +162,7 @@
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsURL">Sekolah / Universitas</label>
                                             <select name="school" id="school-input" class="form-control">
-                                                @forelse ($institutions as $institution)
+                                            @forelse ($institutions as $institution)
                                                 <option value="{{ $institution->name }}">{{ $institution->name }}</option>
                                             @empty
 
@@ -274,19 +274,15 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label" for="multiStepsAddress">Pilih Jurusan</label>
-                                            <select name="major" class="form-select" id="multiStepsAddress">
+                                            <select name="major_id" class="form-select select2" id="multiStepsAddress">
                                                 <option disabled selected>Pilih Jurusan</option>
-                                                <option value="rpl" {{ old('major') == 'rpl' ? 'selected' : '' }}>
-                                                    Rekayasa Perangkat Lunak</option>
-                                                <option value="multimedia"
-                                                    {{ old('major') == 'multimedia' ? 'selected' : '' }}>Multimedia
-                                                </option>
-                                                <option value="ti" {{ old('major') == 'ti' ? 'selected' : '' }}>Teknik
-                                                    Informatika</option>
-                                                <option value="Bisnis Digital" {{ old('major') == 'Bisnis Digital' ? 'selected' : '' }}>Bisnis Digital</option>
-                                                <option value="tkj" {{ old('major') == 'tkj' ? 'selected' : '' }}>Teknik Komputer & Jaringan</option>
+                                                @forelse ($majors as $major)
+                                                    <option value="{{ $major->id }}" {{ old('major_id') == $major->id ? 'selected' : '' }}>{{ $major->name }}</option>
+                                                @empty
+                                                    <option disabled>belum ada jurusan</option>
+                                                @endforelse
                                             </select>
-                                            @error('major')
+                                            @error('major_id')
                                                 <p class="text-danger m-0">{{ $message }}</p>
                                             @enderror
                                         </div>
@@ -598,21 +594,16 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="major">Jurusan</label>
-                                    <select name="major" class="form-control" id="">
-                                        <option value selected disabled>Pilih Jurusan</option>
-                                        <option value="Teknik Informatika"
-                                            {{ old('major') == 'Teknik Informatika' ? 'selected' : '' }}>Teknik Informatika
-                                        </option>
-                                        <option value="Rekayasa Perangkat Lunak"
-                                            {{ old('major') == 'Rekayasa Perangkat Lunak' ? 'selected' : '' }}>Rekayasa
-                                            Perangkat Lunak</option>
-                                        <option value="Multi Media" {{ old('major') == 'Multi Media' ? 'selected' : '' }}>
-                                            Multi Media</option>
+                                    <select name="major_id" class="form-select" id="multiStepsAddress">
+                                        <option disabled selected>Pilih Jurusan</option>
+                                        @forelse ($majors as $major)
+                                            <option value="{{ $major->id }}" {{ old('major_id') == $major->id ? 'selected' : '' }}>{{ $major->name }}</option>
+                                        @empty
+                                            <option disabled>belum ada jurusan</option>
+                                        @endforelse
                                     </select>
-                                    @error('major')
-                                        <p class="text-danger">
-                                            {{ $message }}
-                                        </p>
+                                    @error('major_id')
+                                        <p class="text-danger m-0">{{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
@@ -669,6 +660,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
 
     <script>
         $('.btn-submit').on('click', function() {
@@ -677,6 +669,8 @@
         $('.btn-save').on('click', function() {
             $('#multiStepsForm').submit();
         });
+
+        $('.select2').select2();
     </script>
     <script>
         function toggleDivision() {
