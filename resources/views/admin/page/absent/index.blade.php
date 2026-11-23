@@ -211,11 +211,6 @@
                             </thead>
                             <tbody>
                                 @foreach ($onlineAttendances as $attendance)
-                                    @php
-                                        $internshipEndDate = $attendance->internship_end_date;
-                                        $today = \Carbon\Carbon::now();
-                                    @endphp
-                                    @if ($today <= $internshipEndDate)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $attendance->name }}</td>
@@ -278,7 +273,6 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
