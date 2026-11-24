@@ -176,6 +176,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
         Route::put('accept/{student}', [ApprovalController::class, 'accept'])->name('accept');
         Route::put('accept-multiple', [ApprovalController::class, 'acceptMultiple'])->name('acceptMultiple');
         Route::put('decline/{student}', [ApprovalController::class, 'decline'])->name('approval.decline');
+        Route::put('update/{student}', [ApprovalController::class, 'update'])->name('update');
         Route::delete('delete/{student}', [ApprovalController::class, 'destroy'])->name('approval.delete');
         Route::delete('delete-multiple', [ApprovalController::class, 'destroyMultiple'])->name('deleteMultiple');
     });

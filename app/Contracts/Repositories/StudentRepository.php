@@ -139,6 +139,9 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->when($request->name, function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->name . '%');
             })
+            ->when($request->school, function ($query) use ($request) {
+                $query->where('school', $request->school);
+            })
             ->with([
                 'attendances' => function ($query) use ($date) {
                     $query->whereDate('created_at', $date);
@@ -168,6 +171,9 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ->whereNotNull('rfid')
             ->when($request->name, function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->name . '%');
+            })
+            ->when($request->school, function ($query) use ($request) {
+                $query->where('school', $request->school);
             })
             ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
             ->withCount([

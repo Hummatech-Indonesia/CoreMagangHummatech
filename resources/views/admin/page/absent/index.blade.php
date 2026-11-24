@@ -140,8 +140,8 @@
                 </div>
                 <div class="col-lg-8 col-md-6 col-sm-12">
                     <div class="d-flex flex-column flex-lg-row justify-content-end gap-2">
-                        <div class="search-box col-lg-3 col-12">
-                            <form action="/administrator/absent">
+                        <form action="/administrator/absent" class="d-flex flex-column flex-lg-row gap-2 col-12 col-lg-auto">
+                            <div class="search-box col-12 col-lg-auto">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="name"
                                         value="{{ request()->name }}" id="searchMemberList" placeholder="Cari Siswa">
@@ -150,10 +150,8 @@
                                         <i class="ri-search-line fs-5"></i>
                                     </button>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="search-box col-lg-3 col-12">
-                            <form action="/administrator/absent">
+                            </div>
+                            <div class="col-12 col-lg-auto">
                                 <div class="input-group">
                                     <input type="text" class="form-control flatpickr-input" name="date"
                                         value="{{ request()->date }}" data-provider="flatpickr"
@@ -162,10 +160,20 @@
                                         class="btn btn-outline-secondary d-flex align-items-center px-3 border-start-0">
                                         <i class="ri-calendar-line fs-5"></i>
                                     </button>
-
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="col-12 col-lg-auto">
+                                <select class="form-select" name="school" onchange="this.form.submit()">
+                                    <option value="">Semua Sekolah</option>
+                                    @foreach ($students->pluck('school')->filter()->unique()->sort()->values() as $schoolOpt)
+                                        <option value="{{ $schoolOpt }}"
+                                            {{ request()->school == $schoolOpt ? 'selected' : '' }}>
+                                            {{ $schoolOpt }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </form>
                         <div class="form-check form-switch col-lg-3 col-12 d-flex justify-content-between align-items-center mt-2 mt-lg-0"
                             style="width: auto;">
                             <form action="{{ route('wfh.today') }}" class="d-flex align-items-center w-100"
