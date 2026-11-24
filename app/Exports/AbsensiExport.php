@@ -20,11 +20,13 @@ class AbsensiExport implements FromCollection, WithHeadings, WithTitle, ShouldAu
 {
     private $year;
     private $month;
+    private $school;
 
-    public function __construct(int $year, int $month)
+    public function __construct(int $year, int $month, ?string $school = null)
     {
         $this->year = $year;
         $this->month = $month;
+        $this->school = $school;
     }
 
 
@@ -58,6 +60,9 @@ class AbsensiExport implements FromCollection, WithHeadings, WithTitle, ShouldAu
         $attendances = Attendance::with('student', 'attendanceDetails')
             ->whereYear('created_at', $this->year)
             ->whereMonth('created_at', $this->month)
+            ->when($this->school, function ($query) {
+                $query->whereHas('student', fn($q) => $q->where('school', $this->school));
+            })
             ->get()
             ->groupBy('student_id');
 
@@ -110,17 +115,15 @@ class AbsensiExport implements FromCollection, WithHeadings, WithTitle, ShouldAu
             return '';
         }
 
-        return $attendanceForDay ? $attendanceForDay->status : 'alpha';
+        return $attendanceForDay ? $attendanceForDay->status->value : 'alpha';
     }
 
     private function appendTotalColumns(&$row, $attendanceRecords)
     {
-        $row[] = $attendanceRecords->where('status', 'masuk')->count();
-        $row[] = collect($row)->filter(function ($status) {
-            return $status === 'alpha';
-        })->count();
-        $row[] = $attendanceRecords->where('status', 'izin')->count();
-        $row[] = $attendanceRecords->where('status', 'sakit')->count();
+        $row[] = $attendanceRecords->filter(fn($a) => $a->status->value === 'masuk')->count();
+        $row[] = collect($row)->filter(fn($status) => $status === 'alpha')->count();
+        $row[] = $attendanceRecords->filter(fn($a) => $a->status->value === 'izin')->count();
+        $row[] = $attendanceRecords->filter(fn($a) => $a->status->value === 'sakit')->count();
     }
 
     public function styles(Worksheet $sheet)

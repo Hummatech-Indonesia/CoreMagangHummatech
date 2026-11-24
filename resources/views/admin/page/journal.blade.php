@@ -107,6 +107,56 @@
                     </form>
                 </div>
 
+                <div class="col-sm-auto pt-4">
+                    <button class="btn d-inline-flex align-items-center gap-2 text-white"
+                        style="background-color: #4B3BC4; border-radius: 9px; padding: 12px 20px;"
+                        data-bs-toggle="modal" data-bs-target="#exportJurnalExcelModal">
+                        <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.5 0.75H4C2.67392 1.26891 1.51891 2.42392 1 3.75V15.75C1.51891 17.0761 2.67392 18.2311 4 18.75H13.5C14.8261 18.2311 15.9811 17.0761 16.5 15.75V6L10.5 0.75Z" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M10.5 0.75V4.75C10.5 5.28043 10.7107 5.78914 11.0858 6.16421C11.4609 6.53929 11.9696 6.75 12.5 6.75H16.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M5.5 9.75L8.5 12.75M8.5 12.75L11.5 9.75M8.5 12.75V6.75" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Export Excel
+                    </button>
+
+                    <!-- Export Jurnal Excel Modal -->
+                    <div class="modal fade" id="exportJurnalExcelModal" tabindex="-1"
+                        aria-labelledby="exportJurnalExcelModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exportJurnalExcelModalLabel">Export Excel Jurnal</h5>
+                                </div>
+                                <form action="{{ route('administrator.journal.export.excel') }}" method="get">
+                                    <div class="modal-body">
+                                        <p class="text-muted mb-3">Export seluruh data jurnal anak magang ke file Excel. Filter nama dan tanggal bersifat opsional.</p>
+                                        <div class="mb-3">
+                                            <label for="exportNameInput" class="form-label">Nama Siswa <span class="text-muted">(opsional)</span></label>
+                                            <input type="text" class="form-control" id="exportNameInput" name="name"
+                                                value="{{ request()->name }}" placeholder="Semua siswa">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exportDateInput" class="form-label">Tanggal <span class="text-muted">(opsional)</span></label>
+                                            <input type="date" class="form-control" id="exportDateInput" name="created_at"
+                                                value="{{ request()->created_at }}">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light"
+                                            style="border: 1px solid #D5DBE7; color: #667797;" data-bs-dismiss="modal">
+                                            Batal
+                                        </button>
+                                        <button type="submit" class="btn text-white"
+                                            style="background-color: #306BFF;">
+                                            Download Excel
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
         </div>

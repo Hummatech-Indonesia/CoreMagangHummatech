@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use App\Models\Journal;
+use App\Exports\JournalExport;
 use Illuminate\Http\Request;
 use App\Services\JournalService;
 use App\Http\Controllers\Controller;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\AdminJournalInterface;
 use App\Contracts\Interfaces\Eloquent\PaginationInterface;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminJournalController extends Controller
 {
@@ -41,6 +43,18 @@ class AdminJournalController extends Controller
 
         return view('admin.page.journal', compact('adminJournalAll','adminJournalFillIn','adminJournalNotFilling'));
     }
+    public function export_excel(Request $request)
+    {
+        $name = $request->input('name') ?: null;
+        $date = $request->input('created_at') ?: null;
+
+        $filename = 'jurnal-siswa';
+        if ($date) $filename .= '-' . $date;
+        $filename .= '.xlsx';
+
+        return Excel::download(new JournalExport($name, $date), $filename);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

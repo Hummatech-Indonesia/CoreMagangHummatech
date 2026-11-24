@@ -117,6 +117,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
 
     # Journals
     Route::get('journal', [AdminJournalController::class, 'index']);
+    Route::get('journal/export/excel', [AdminJournalController::class, 'export_excel'])->name('.journal.export.excel');
 
     # Announcement
     Route::get('announcement', function () {

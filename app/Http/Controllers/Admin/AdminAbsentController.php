@@ -12,12 +12,16 @@ class AdminAbsentController extends Controller
     public function export_excel(Request $request)
     {
         $request->validate([
-            'month' => 'min:1,max:12',
+            'year'  => 'required|integer|digits:4',
+            'month' => 'required|integer|min:1|max:12',
         ], [
             'month.max' => 'Batas bulan hanya 12',
         ]);
-        $year = $request->input('year');
-        $month = $request->input('month');
-        return Excel::download(new AbsensiExport($year, $month), "absensi-{$year}-{$month}.xlsx");
+
+        $year   = (int) $request->input('year');
+        $month  = (int) $request->input('month');
+        $school = $request->input('school') ?: null;
+
+        return Excel::download(new AbsensiExport($year, $month, $school), "absensi-{$year}-{$month}.xlsx");
     }
 }
