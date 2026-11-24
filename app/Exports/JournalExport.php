@@ -20,11 +20,13 @@ class JournalExport implements FromCollection, WithHeadings, WithTitle, ShouldAu
 
     private ?string $name;
     private ?string $date;
+    private ?int $studentId;
 
-    public function __construct(?string $name = null, ?string $date = null)
+    public function __construct(?string $name = null, ?string $date = null, ?int $studentId = null)
     {
         $this->name = $name;
         $this->date = $date;
+        $this->studentId = $studentId;
     }
 
     public function headings(): array
@@ -35,6 +37,7 @@ class JournalExport implements FromCollection, WithHeadings, WithTitle, ShouldAu
     public function collection()
     {
         $journals = Journal::with('student')
+            ->when($this->studentId, fn($query) => $query->where('student_id', $this->studentId))
             ->when($this->name, function ($query) {
                 $query->whereHas('student', fn($q) => $q->where('name', 'LIKE', '%' . $this->name . '%'));
             })

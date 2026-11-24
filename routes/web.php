@@ -467,6 +467,7 @@ Route::prefix('siswa-online')->name(RolesEnum::ONLINE->value)->middleware(['role
 });
 
 # Jurnal
+Route::get('jurnal/export/excel', [JournalController::class, 'downloadExcel'])->name('journal.export.excel');
 Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('journal.download');
 Route::get('absen/export/pdf', [AttendanceController::class, 'DownloadPdf'])->name('absen.download');
 

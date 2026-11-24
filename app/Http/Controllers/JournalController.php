@@ -19,8 +19,10 @@ use App\Models\DataAdmin;
 use App\Models\Letterhead;
 use App\Models\Signature;
 use App\Models\Student;
+use App\Exports\JournalExport;
 use Exception;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class JournalController extends Controller
 {
@@ -142,6 +144,14 @@ class JournalController extends Controller
         $this->service->delete($journal);
         $this->journal->delete($journal->id);
         return back()->with('success', 'Berhasi Menghapus Data');
+    }
+
+    public function downloadExcel()
+    {
+        $student = auth()->user()->student;
+        $fileName = 'jurnal-' . str($student->name)->slug() . '.xlsx';
+
+        return Excel::download(new JournalExport(studentId: $student->id), $fileName);
     }
 
     public function downloadPDF(Request $request)
