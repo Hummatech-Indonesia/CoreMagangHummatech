@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\Journal;
 use App\Exports\JournalExport;
 use Illuminate\Http\Request;
@@ -27,25 +28,32 @@ class AdminJournalController extends Controller
     {
         $adminJournalQuery = $this->adminJournal->search($request);
 
-        $adminJournalAll = $adminJournalQuery->paginate(10, ['*'], 'all_page');
-        $adminJournalFillIn = $adminJournalQuery->where('status', 'fillin')->paginate(10, ['*'], 'fillin_page');
-        // $adminJournalNotFilling = $adminJournalQuery->where('status', 'notfilling')->paginate(10, ['*'], 'notfilling_page');
+        $totalAll     = (clone $adminJournalQuery)->count();
+        $totalFillIn  = (clone $adminJournalQuery)->where('status', 'fillin')->count();
+
+        $adminJournalAll        = (clone $adminJournalQuery)->paginate(10, ['*'], 'all_page');
+        $adminJournalFillIn     = (clone $adminJournalQuery)->where('status', 'fillin')->paginate(10, ['*'], 'fillin_page');
         $adminJournalNotFilling = $this->adminJournal->NotFillin($request);
-        // dd($notfill);
 
+        $isDefaultToday = !$request->filled('date_from') && !$request->filled('date_to');
 
-        return view('admin.page.journal', compact('adminJournalAll','adminJournalFillIn','adminJournalNotFilling'));
+        return view('admin.page.journal', compact(
+            'adminJournalAll', 'adminJournalFillIn', 'adminJournalNotFilling',
+            'totalAll', 'totalFillIn', 'isDefaultToday'
+        ));
     }
     public function export_excel(Request $request)
     {
-        $name = $request->input('name') ?: null;
-        $date = $request->input('created_at') ?: null;
+        $name     = $request->input('name') ?: null;
+        $dateFrom = $request->input('date_from') ?: null;
+        $dateTo   = $request->input('date_to') ?: null;
 
         $filename = 'jurnal-siswa';
-        if ($date) $filename .= '-' . $date;
+        if ($dateFrom) $filename .= '-' . $dateFrom;
+        if ($dateTo && $dateTo !== $dateFrom) $filename .= '_sd_' . $dateTo;
         $filename .= '.xlsx';
 
-        return Excel::download(new JournalExport($name, $date), $filename);
+        return Excel::download(new JournalExport($name, $dateFrom, $dateTo), $filename);
     }
 
     /**

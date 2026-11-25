@@ -63,6 +63,7 @@
                                     aria-controls="steparrow-gen-info" aria-controls="steparrow-gen-info"
                                     aria-selected="true" data-position="0">
                                     Semua
+                                    <span class="badge bg-secondary ms-1">{{ $totalAll }}</span>
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
@@ -71,39 +72,37 @@
                                     aria-controls="steparrow-description-info" aria-selected="false" data-position="1"
                                     tabindex="-1">
                                     Mengisi
+                                    <span class="badge bg-success ms-1">{{ $totalFillIn }}</span>
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-experience-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-experience" type="button" role="tab"
                                     aria-controls="pills-experience" aria-selected="false" data-position="2" tabindex="-1">
-                                    Tidak Mengisi
+                                    Belum Mengisi
+                                    <span class="badge bg-danger ms-1">{{ $adminJournalNotFilling->total() }}</span>
                                 </button>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-auto ms-auto pt-4">
-                    <form action="/administrator/journal" class="d-flex flex-column flex-sm-row mb-2">
-                        <div class="mb-2 me-sm-2">
-                            <div class="search-box">
-                                <input type="text" class="form-control" name="name" value="{{ request()->name }}"
-                                    id="searchMemberList" placeholder="Cari Siswa...">
-                                <i class="ri-search-line search-icon"></i>
-                            </div>
+                    <form action="/administrator/journal" class="d-flex flex-column flex-sm-row flex-wrap gap-2 mb-2">
+                        <div class="search-box">
+                            <input type="text" class="form-control" name="name" value="{{ request()->name }}"
+                                id="searchMemberList" placeholder="Cari Siswa...">
+                            <i class="ri-search-line search-icon"></i>
                         </div>
-                        <div class="mb-2 d-sm-none">
-                            <button class="btn btn-primary w-100" type="submit">
-                                <i class="ri-search-line search-icon"></i> Cari
-                            </button>
+                        <div class="d-flex align-items-center gap-1">
+                            <input type="date" name="date_from"
+                                value="{{ request('date_from', now()->toDateString()) }}"
+                                class="form-control" style="min-width: 140px;">
+                            <span class="text-muted">s/d</span>
+                            <input type="date" name="date_to"
+                                value="{{ request('date_to', now()->toDateString()) }}"
+                                class="form-control" style="min-width: 140px;">
                         </div>
-                        <div class="mx-sm-2 mb-2">
-                            <input type="date" name="created_at" value="{{ request()->created_at }}" class="form-control"
-                                id="exampleInputdate">
-                        </div>
-                        <div>
-                            <button class="btn btn-primary w-100" type="submit">Cari</button>
-                        </div>
+                        <button class="btn btn-primary" type="submit">Cari</button>
                     </form>
                 </div>
 
@@ -136,9 +135,14 @@
                                                 value="{{ request()->name }}" placeholder="Semua siswa">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="exportDateInput" class="form-label">Tanggal <span class="text-muted">(opsional)</span></label>
-                                            <input type="date" class="form-control" id="exportDateInput" name="created_at"
-                                                value="{{ request()->created_at }}">
+                                            <label class="form-label">Rentang Tanggal <span class="text-muted">(opsional)</span></label>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <input type="date" class="form-control" name="date_from"
+                                                    value="{{ request('date_from') }}">
+                                                <span class="text-muted">s/d</span>
+                                                <input type="date" class="form-control" name="date_to"
+                                                    value="{{ request('date_to') }}">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -217,12 +221,26 @@
                                                 <tr>
                                                     <td colspan="8">
                                                         <div class="d-flex justify-content-center mt-3">
-                                                            <img src="{{ asset('no data.png') }}" width="200px"
-                                                                alt="">
+                                                            <img src="{{ asset('no data.png') }}" width="200px" alt="">
                                                         </div>
-                                                        <h4 class="text-center mt-2 mb-4">
-                                                            Data Masih kosong
+                                                        <h4 class="text-center mt-2 mb-1">
+                                                            @if ($isDefaultToday)
+                                                                Belum ada yang mengisi jurnal hari ini
+                                                            @else
+                                                                Tidak ada data jurnal pada rentang tanggal ini
+                                                            @endif
                                                         </h4>
+                                                        @if ($isDefaultToday)
+                                                            <p class="text-center text-muted mb-4">
+                                                                {{ now()->translatedFormat('l, d F Y') }}
+                                                            </p>
+                                                        @else
+                                                            <p class="text-center text-muted mb-4">
+                                                                {{ \Carbon\Carbon::parse(request('date_from'))->translatedFormat('d F Y') }}
+                                                                s/d
+                                                                {{ \Carbon\Carbon::parse(request('date_to'))->translatedFormat('d F Y') }}
+                                                            </p>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforelse

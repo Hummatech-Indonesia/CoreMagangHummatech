@@ -19,13 +19,15 @@ class JournalExport implements FromCollection, WithHeadings, WithTitle, ShouldAu
     use Exportable;
 
     private ?string $name;
-    private ?string $date;
+    private ?string $dateFrom;
+    private ?string $dateTo;
     private ?int $studentId;
 
-    public function __construct(?string $name = null, ?string $date = null, ?int $studentId = null)
+    public function __construct(?string $name = null, ?string $dateFrom = null, ?string $dateTo = null, ?int $studentId = null)
     {
-        $this->name = $name;
-        $this->date = $date;
+        $this->name     = $name;
+        $this->dateFrom = $dateFrom;
+        $this->dateTo   = $dateTo;
         $this->studentId = $studentId;
     }
 
@@ -41,7 +43,8 @@ class JournalExport implements FromCollection, WithHeadings, WithTitle, ShouldAu
             ->when($this->name, function ($query) {
                 $query->whereHas('student', fn($q) => $q->where('name', 'LIKE', '%' . $this->name . '%'));
             })
-            ->when($this->date, fn($query) => $query->whereDate('created_at', $this->date))
+            ->when($this->dateFrom, fn($query) => $query->whereDate('created_at', '>=', $this->dateFrom))
+            ->when($this->dateTo,   fn($query) => $query->whereDate('created_at', '<=', $this->dateTo))
             ->orderBy('created_at', 'asc')
             ->get();
 
