@@ -125,7 +125,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     {
         $date = now();
         // $finishDate = Carbon::now()->format('Y-m-d');
-        if ($request->has('date')) {
+        if ($request->filled('date')) {
             $date = $request->date;
         }
         return $this->model->query()
@@ -164,7 +164,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     {
         $date = now();
         // $finishDate = Carbon::now()->format('Y-m-d');
-        if ($request->has('date')) {
+        if ($request->filled('date')) {
             $date = $request->date;
         }
         return $this->model->query()
