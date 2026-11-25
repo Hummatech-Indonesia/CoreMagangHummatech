@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Carbon\Carbon;
 use App\Models\Journal;
 use App\Exports\JournalExport;
 use Illuminate\Http\Request;
@@ -27,12 +26,6 @@ class AdminJournalController extends Controller
     public function index(Request $request)
     {
         $adminJournalQuery = $this->adminJournal->search($request);
-        $searchDate = $request->filled('created_at') ? $request->created_at : Carbon::today()->toDateString();
-
-        if (!$request->filled('created_at') || Carbon::parse($searchDate)->isToday()) {
-            $adminJournalQuery->whereDate('created_at', $searchDate);
-        }
-
 
         $adminJournalAll = $adminJournalQuery->paginate(10, ['*'], 'all_page');
         $adminJournalFillIn = $adminJournalQuery->where('status', 'fillin')->paginate(10, ['*'], 'fillin_page');
