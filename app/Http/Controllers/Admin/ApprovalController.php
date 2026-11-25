@@ -95,6 +95,36 @@ class ApprovalController extends Controller
         }
     }
 
+    public function update(Request $request, Student $student)
+    {
+        $request->validate([
+            'name'            => 'required|string|max:255',
+            'email'           => 'required|email|max:255',
+            'phone'           => 'nullable|string|max:20',
+            'address'         => 'nullable|string|max:500',
+            'birth_place'     => 'nullable|string|max:100',
+            'birth_date'      => 'nullable|date',
+            'school'          => 'required|string|max:255',
+            'major'           => 'nullable|string|max:255',
+            'identify_number' => 'nullable|string|max:50',
+            'start_date'      => 'nullable|date',
+            'finish_date'     => 'nullable|date|after_or_equal:start_date',
+        ]);
+
+        try {
+            $data = $request->only([
+                'name', 'email', 'phone', 'address',
+                'birth_place', 'birth_date', 'school', 'major',
+                'identify_number', 'start_date', 'finish_date',
+            ]);
+
+            $this->student->update($student->id, $data);
+            return back()->with('success', 'Berhasil memperbarui data siswa');
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Gagal memperbarui data siswa: ' . $th->getMessage());
+        }
+    }
+
     public function decline(DeclinedAprovalRequest $request, Student $student)
     {
         try {

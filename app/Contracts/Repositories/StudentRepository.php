@@ -125,7 +125,7 @@ class StudentRepository extends BaseRepository implements StudentInterface
     {
         $date = now();
         // $finishDate = Carbon::now()->format('Y-m-d');
-        if ($request->has('date')) {
+        if ($request->filled('date')) {
             $date = $request->date;
         }
         return $this->model->query()
@@ -138,6 +138,9 @@ class StudentRepository extends BaseRepository implements StudentInterface
             ])
             ->when($request->name, function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->name . '%');
+            })
+            ->when($request->school, function ($query) use ($request) {
+                $query->where('school', $request->school);
             })
             ->with([
                 'attendances' => function ($query) use ($date) {
@@ -161,13 +164,16 @@ class StudentRepository extends BaseRepository implements StudentInterface
     {
         $date = now();
         // $finishDate = Carbon::now()->format('Y-m-d');
-        if ($request->has('date')) {
+        if ($request->filled('date')) {
             $date = $request->date;
         }
         return $this->model->query()
             ->whereNotNull('rfid')
             ->when($request->name, function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->name . '%');
+            })
+            ->when($request->school, function ($query) use ($request) {
+                $query->where('school', $request->school);
             })
             ->where('internship_type', InternshipTypeEnum::OFFLINE->value)
             ->withCount([

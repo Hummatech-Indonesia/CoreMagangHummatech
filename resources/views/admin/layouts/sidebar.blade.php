@@ -177,9 +177,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link gap-3 menu-link {{ request()->is('administrator/majors') ? 'active' : '' }}"
+                        href="{{ url('administrator/majors') }}">
+                        <span class="mdi mdi-view-dashboard"></span> <span data-key="t-dashboards">Jurusan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('administrator/division*') ? 'active' : '' }}"
                         href="{{ url('administrator/division') }}">
-                        <i class=" ri-apps-line"></i> <span data-key="t-dashboards">Divisi</span>
+                        <i class="ri-apps-line"></i> <span data-key="t-dashboards">Divisi</span>
                     </a>
                 </li>
                 <li class="nav-item">

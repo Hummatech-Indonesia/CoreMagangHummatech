@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use App\Models\Journal;
+use App\Exports\JournalExport;
 use Illuminate\Http\Request;
 use App\Services\JournalService;
 use App\Http\Controllers\Controller;
 use App\Contracts\Interfaces\JournalInterface;
 use App\Contracts\Interfaces\AdminJournalInterface;
 use App\Contracts\Interfaces\Eloquent\PaginationInterface;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminJournalController extends Controller
 {
@@ -25,22 +27,35 @@ class AdminJournalController extends Controller
     public function index(Request $request)
     {
         $adminJournalQuery = $this->adminJournal->search($request);
-        $searchDate = $request->filled('created_at') ? $request->created_at : Carbon::today()->toDateString();
 
-        if (!$request->filled('created_at') || Carbon::parse($searchDate)->isToday()) {
-            $adminJournalQuery->whereDate('created_at', $searchDate);
-        }
+        $totalAll     = (clone $adminJournalQuery)->count();
+        $totalFillIn  = (clone $adminJournalQuery)->where('status', 'fillin')->count();
 
-
-        $adminJournalAll = $adminJournalQuery->paginate(10, ['*'], 'all_page');
-        $adminJournalFillIn = $adminJournalQuery->where('status', 'fillin')->paginate(10, ['*'], 'fillin_page');
-        // $adminJournalNotFilling = $adminJournalQuery->where('status', 'notfilling')->paginate(10, ['*'], 'notfilling_page');
+        $adminJournalAll        = (clone $adminJournalQuery)->paginate(10, ['*'], 'all_page');
+        $adminJournalFillIn     = (clone $adminJournalQuery)->where('status', 'fillin')->paginate(10, ['*'], 'fillin_page');
         $adminJournalNotFilling = $this->adminJournal->NotFillin($request);
-        // dd($notfill);
 
+        $isDefaultToday = !$request->filled('date_from') && !$request->filled('date_to');
 
-        return view('admin.page.journal', compact('adminJournalAll','adminJournalFillIn','adminJournalNotFilling'));
+        return view('admin.page.journal', compact(
+            'adminJournalAll', 'adminJournalFillIn', 'adminJournalNotFilling',
+            'totalAll', 'totalFillIn', 'isDefaultToday'
+        ));
     }
+    public function export_excel(Request $request)
+    {
+        $name     = $request->input('name') ?: null;
+        $dateFrom = $request->input('date_from') ?: null;
+        $dateTo   = $request->input('date_to') ?: null;
+
+        $filename = 'jurnal-siswa';
+        if ($dateFrom) $filename .= '-' . $dateFrom;
+        if ($dateTo && $dateTo !== $dateFrom) $filename .= '_sd_' . $dateTo;
+        $filename .= '.xlsx';
+
+        return Excel::download(new JournalExport($name, $dateFrom, $dateTo), $filename);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

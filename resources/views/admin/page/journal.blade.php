@@ -63,6 +63,7 @@
                                     aria-controls="steparrow-gen-info" aria-controls="steparrow-gen-info"
                                     aria-selected="true" data-position="0">
                                     Semua
+                                    <span class="badge bg-secondary ms-1">{{ $totalAll }}</span>
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
@@ -71,40 +72,93 @@
                                     aria-controls="steparrow-description-info" aria-selected="false" data-position="1"
                                     tabindex="-1">
                                     Mengisi
+                                    <span class="badge bg-success ms-1">{{ $totalFillIn }}</span>
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-experience-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-experience" type="button" role="tab"
                                     aria-controls="pills-experience" aria-selected="false" data-position="2" tabindex="-1">
-                                    Tidak Mengisi
+                                    Belum Mengisi
+                                    <span class="badge bg-danger ms-1">{{ $adminJournalNotFilling->total() }}</span>
                                 </button>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-auto ms-auto pt-4">
-                    <form action="/administrator/journal" class="d-flex flex-column flex-sm-row mb-2">
-                        <div class="mb-2 me-sm-2">
-                            <div class="search-box">
-                                <input type="text" class="form-control" name="name" value="{{ request()->name }}"
-                                    id="searchMemberList" placeholder="Cari Siswa...">
-                                <i class="ri-search-line search-icon"></i>
+                    <form action="/administrator/journal" class="d-flex flex-column flex-sm-row flex-wrap gap-2 mb-2">
+                        <div class="search-box">
+                            <input type="text" class="form-control" name="name" value="{{ request()->name }}"
+                                id="searchMemberList" placeholder="Cari Siswa...">
+                            <i class="ri-search-line search-icon"></i>
+                        </div>
+                        <div class="d-flex align-items-center gap-1">
+                            <input type="date" name="date_from"
+                                value="{{ request('date_from', now()->toDateString()) }}"
+                                class="form-control" style="min-width: 140px;">
+                            <span class="text-muted">s/d</span>
+                            <input type="date" name="date_to"
+                                value="{{ request('date_to', now()->toDateString()) }}"
+                                class="form-control" style="min-width: 140px;">
+                        </div>
+                        <button class="btn btn-primary" type="submit">Cari</button>
+                    </form>
+                </div>
+
+                <div class="col-sm-auto pt-4">
+                    <button class="btn d-inline-flex align-items-center gap-2 text-white"
+                        style="background-color: #4B3BC4; border-radius: 9px; padding: 12px 20px;"
+                        data-bs-toggle="modal" data-bs-target="#exportJurnalExcelModal">
+                        <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.5 0.75H4C2.67392 1.26891 1.51891 2.42392 1 3.75V15.75C1.51891 17.0761 2.67392 18.2311 4 18.75H13.5C14.8261 18.2311 15.9811 17.0761 16.5 15.75V6L10.5 0.75Z" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M10.5 0.75V4.75C10.5 5.28043 10.7107 5.78914 11.0858 6.16421C11.4609 6.53929 11.9696 6.75 12.5 6.75H16.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M5.5 9.75L8.5 12.75M8.5 12.75L11.5 9.75M8.5 12.75V6.75" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Export Excel
+                    </button>
+
+                    <!-- Export Jurnal Excel Modal -->
+                    <div class="modal fade" id="exportJurnalExcelModal" tabindex="-1"
+                        aria-labelledby="exportJurnalExcelModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exportJurnalExcelModalLabel">Export Excel Jurnal</h5>
+                                </div>
+                                <form action="{{ route('administrator.journal.export.excel') }}" method="get">
+                                    <div class="modal-body">
+                                        <p class="text-muted mb-3">Export seluruh data jurnal anak magang ke file Excel. Filter nama dan tanggal bersifat opsional.</p>
+                                        <div class="mb-3">
+                                            <label for="exportNameInput" class="form-label">Nama Siswa <span class="text-muted">(opsional)</span></label>
+                                            <input type="text" class="form-control" id="exportNameInput" name="name"
+                                                value="{{ request()->name }}" placeholder="Semua siswa">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Rentang Tanggal <span class="text-muted">(opsional)</span></label>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <input type="date" class="form-control" name="date_from"
+                                                    value="{{ request('date_from') }}">
+                                                <span class="text-muted">s/d</span>
+                                                <input type="date" class="form-control" name="date_to"
+                                                    value="{{ request('date_to') }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light"
+                                            style="border: 1px solid #D5DBE7; color: #667797;" data-bs-dismiss="modal">
+                                            Batal
+                                        </button>
+                                        <button type="submit" class="btn text-white"
+                                            style="background-color: #306BFF;">
+                                            Download Excel
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <div class="mb-2 d-sm-none">
-                            <button class="btn btn-primary w-100" type="submit">
-                                <i class="ri-search-line search-icon"></i> Cari
-                            </button>
-                        </div>
-                        <div class="mx-sm-2 mb-2">
-                            <input type="date" name="created_at" value="{{ request()->created_at }}" class="form-control"
-                                id="exampleInputdate">
-                        </div>
-                        <div>
-                            <button class="btn btn-primary w-100" type="submit">Cari</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
 
 
@@ -167,12 +221,26 @@
                                                 <tr>
                                                     <td colspan="8">
                                                         <div class="d-flex justify-content-center mt-3">
-                                                            <img src="{{ asset('no data.png') }}" width="200px"
-                                                                alt="">
+                                                            <img src="{{ asset('no data.png') }}" width="200px" alt="">
                                                         </div>
-                                                        <h4 class="text-center mt-2 mb-4">
-                                                            Data Masih kosong
+                                                        <h4 class="text-center mt-2 mb-1">
+                                                            @if ($isDefaultToday)
+                                                                Belum ada yang mengisi jurnal hari ini
+                                                            @else
+                                                                Tidak ada data jurnal pada rentang tanggal ini
+                                                            @endif
                                                         </h4>
+                                                        @if ($isDefaultToday)
+                                                            <p class="text-center text-muted mb-4">
+                                                                {{ now()->translatedFormat('l, d F Y') }}
+                                                            </p>
+                                                        @else
+                                                            <p class="text-center text-muted mb-4">
+                                                                {{ \Carbon\Carbon::parse(request('date_from'))->translatedFormat('d F Y') }}
+                                                                s/d
+                                                                {{ \Carbon\Carbon::parse(request('date_to'))->translatedFormat('d F Y') }}
+                                                            </p>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforelse

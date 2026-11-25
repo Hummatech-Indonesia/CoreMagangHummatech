@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Http;
 
 class PaymentRepository extends BaseRepository implements PaymentInterface
 {
-    private string $apiKey;
-    private string $privateKey;
-    private string $merchantCode;
-    private string $mode;
+    private ?string $apiKey;
+    private ?string $privateKey;
+    private ?string $merchantCode;
+    private ?string $mode;
     private TransactionHistoryInterface $transaction;
     private UserInterface $userInterface;
     private CourseInterface $courseInterface;

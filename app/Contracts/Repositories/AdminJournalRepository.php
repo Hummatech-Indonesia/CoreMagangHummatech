@@ -50,9 +50,9 @@ class AdminJournalRepository extends BaseRepository implements AdminJournalInter
             });
         });
 
-        if ($request->filled('created_at')) {
-            $query->whereDate('created_at', $request->created_at);
-        }
+        $dateFrom = $request->filled('date_from') ? $request->date_from : Carbon::today()->toDateString();
+        $dateTo   = $request->filled('date_to')   ? $request->date_to   : Carbon::today()->toDateString();
+        $query->whereDate('created_at', '>=', $dateFrom)->whereDate('created_at', '<=', $dateTo);
 
         return $query;
     }
@@ -66,14 +66,14 @@ class AdminJournalRepository extends BaseRepository implements AdminJournalInter
 
     public function NotFillin(Request $request): mixed
     {
-        $query = $this->model->query();
-        $status = StatusJournalEnum::NOTFILLING->value;
+        $dateFrom = $request->filled('date_from') ? $request->date_from : Carbon::today()->toDateString();
+        $dateTo   = $request->filled('date_to')   ? $request->date_to   : Carbon::today()->toDateString();
 
-        $date = $request->input('created_at', Carbon::today()->toDateString());
-
-        return $query->where('status', $status)
-                    ->whereDate('created_at', $date)
-                    ->paginate(10, ['*'], 'notfilling_page');
+        return $this->model->query()
+            ->where('status', StatusJournalEnum::NOTFILLING->value)
+            ->whereDate('created_at', '>=', $dateFrom)
+            ->whereDate('created_at', '<=', $dateTo)
+            ->paginate(10, ['*'], 'notfilling_page');
     }
 
 }

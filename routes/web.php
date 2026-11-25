@@ -31,6 +31,7 @@ use App\Http\Controllers\{
     DataCOController,
     FaceController,
     InstitutionController,
+    MajorController,
     NotePicketController,
     PermissionController,
     ProductController,
@@ -116,6 +117,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
 
     # Journals
     Route::get('journal', [AdminJournalController::class, 'index']);
+    Route::get('journal/export/excel', [AdminJournalController::class, 'export_excel'])->name('.journal.export.excel');
 
     # Announcement
     Route::get('announcement', function () {
@@ -127,6 +129,9 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
 
     # Institutions
     Route::resource('institution', InstitutionController::class)->except(['show', 'create', 'edit']);
+
+    # Major
+    Route::resource('majors', MajorController::class)->except(['show', 'create', 'edit']);
 
     # Rule Attendance
     Route::post('attendance-rule/store', [AttendanceRuleController::class, 'store'])->name('.attendance-rule.store');
@@ -171,6 +176,7 @@ Route::prefix('administrator')->name(RolesEnum::ADMIN->value)->middleware(['role
         Route::put('accept/{student}', [ApprovalController::class, 'accept'])->name('accept');
         Route::put('accept-multiple', [ApprovalController::class, 'acceptMultiple'])->name('acceptMultiple');
         Route::put('decline/{student}', [ApprovalController::class, 'decline'])->name('approval.decline');
+        Route::put('update/{student}', [ApprovalController::class, 'update'])->name('update');
         Route::delete('delete/{student}', [ApprovalController::class, 'destroy'])->name('approval.delete');
         Route::delete('delete-multiple', [ApprovalController::class, 'destroyMultiple'])->name('deleteMultiple');
     });
@@ -461,6 +467,7 @@ Route::prefix('siswa-online')->name(RolesEnum::ONLINE->value)->middleware(['role
 });
 
 # Jurnal
+Route::get('jurnal/export/excel', [JournalController::class, 'downloadExcel'])->name('journal.export.excel');
 Route::get('jurnal/export/pdf', [JournalController::class, 'DownloadPdf'])->name('journal.download');
 Route::get('absen/export/pdf', [AttendanceController::class, 'DownloadPdf'])->name('absen.download');
 

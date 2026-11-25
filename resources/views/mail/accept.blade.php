@@ -353,7 +353,7 @@
                                 TEKNOLOGI INDONESIA. Untuk informasi terkait
                                 kegiatan magang silahkan bergabung pada link di
                                 bawah ini untuk mengikuti pengumuman
-                                selanjutnya.<a href="https://chat.whatsapp.com/JUfC7aMLZAeEkrzFrd2YBe" style="color: #2f85da;" target="_blank">https://chat.whatsapp.com/JUfC7aMLZAeEkrzFrd2YBe</a>
+                                selanjutnya.<a href="https://chat.whatsapp.com/Cz6tEPbLXTwFt7ARv00Zak?s=sh&p=a&mlu=4&ilr=4" style="color: #2f85da;" target="_blank">https://chat.whatsapp.com/Cz6tEPbLXTwFt7ARv00Zak?s=sh&p=a&mlu=4&ilr=4</a>
                                 <br />
                                 Akun anda sudah bisa digunakan silahkan login
                               </p>
